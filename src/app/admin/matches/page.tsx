@@ -1,7 +1,54 @@
-import { listMatches } from "@/lib/db/matches";
+"use client";
 
-export default async function MatchesAdminPage() {
-  const { matches, total } = await listMatches({ limit: 50 });
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+
+interface MatchRow {
+  id: string;
+  sport: string;
+  status: string;
+  started_at: string | null;
+  ended_at: string | null;
+  created_at: string;
+  courts: { name: string } | null;
+  match_players: {
+    player_id: string;
+    team: number | null;
+    players: { display_name: string; avatar_url: string | null } | null;
+  }[];
+}
+
+export default function MatchesAdminPage() {
+  const [sportFilter, setSportFilter] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<string>("");
+  const [matches, setMatches] = useState<MatchRow[]>([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const fetchMatches = async () => {
+    setLoading(true);
+    const supabase = createClient();
+    let query = supabase
+      .from("matches")
+      .select(
+        "*, courts(name), match_players(player_id, team, players(display_name, avatar_url))",
+        { count: "exact" }
+      )
+      .order("created_at", { ascending: false })
+      .limit(50);
+
+    if (sportFilter) query = query.eq("sport", sportFilter);
+    if (statusFilter) query = query.eq("status", statusFilter);
+
+    const { data, count } = await query;
+    setMatches((data as MatchRow[] | null) ?? []);
+    setTotal(count ?? 0);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchMatches();
+  }, [sportFilter, statusFilter]);
 
   return (
     <div>
@@ -9,73 +56,101 @@ export default async function MatchesAdminPage() {
         Match History ({total})
       </h1>
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-zinc-800 text-left text-zinc-500">
-              <th className="pb-2 font-medium">Sport</th>
-              <th className="pb-2 font-medium">Players</th>
-              <th className="pb-2 font-medium">Court</th>
-              <th className="pb-2 font-medium">Status</th>
-              <th className="pb-2 font-medium">Duration</th>
-              <th className="pb-2 font-medium">Date</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-zinc-800">
-            {matches.map((match) => {
-              const duration =
-                match.started_at && match.ended_at
-                  ? Math.round(
-                      (new Date(match.ended_at).getTime() -
-                        new Date(match.started_at).getTime()) /
-                        60000
-                    )
-                  : null;
-
-              return (
-                <tr key={match.id}>
-                  <td className="py-3 text-zinc-100 capitalize">
-                    {match.sport.replace("_", " ")}
-                  </td>
-                  <td className="py-3 text-zinc-400">
-                    {(match as { match_players?: { players?: { display_name: string } }[] }).match_players
-                      ?.map((mp) => mp.players?.display_name)
-                      .filter(Boolean)
-                      .join(", ") || "-"}
-                  </td>
-                  <td className="py-3 text-zinc-400">
-                    {(match as { courts?: { name: string } | null }).courts?.name ?? "-"}
-                  </td>
-                  <td className="py-3">
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                        match.status === "completed"
-                          ? "bg-zinc-700/50 text-zinc-400"
-                          : match.status === "playing"
-                            ? "bg-red-500/20 text-red-400"
-                            : "bg-yellow-500/20 text-yellow-400"
-                      }`}
-                    >
-                      {match.status}
-                    </span>
-                  </td>
-                  <td className="py-3 text-zinc-500">
-                    {duration !== null ? `${duration} min` : "-"}
-                  </td>
-                  <td className="py-3 text-zinc-500">
-                    {new Date(match.created_at).toLocaleDateString()}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        {matches.length === 0 && (
-          <p className="py-8 text-center text-sm text-zinc-500 italic">
-            No matches yet.
-          </p>
-        )}
+      {/* Filters */}
+      <div className="flex gap-2 mb-6">
+        <select
+          value={sportFilter}
+          onChange={(e) => setSportFilter(e.target.value)}
+          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100"
+        >
+          <option value="">All Sports</option>
+          <option value="pickleball">Pickleball</option>
+          <option value="lawn_bowling">Lawn Bowling</option>
+          <option value="tennis">Tennis</option>
+        </select>
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100"
+        >
+          <option value="">All Statuses</option>
+          <option value="queued">Queued</option>
+          <option value="playing">Playing</option>
+          <option value="completed">Completed</option>
+        </select>
       </div>
+
+      {loading ? (
+        <div className="text-zinc-400">Loading matches...</div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-zinc-800 text-left text-zinc-500">
+                <th className="pb-2 font-medium">Sport</th>
+                <th className="pb-2 font-medium">Players</th>
+                <th className="pb-2 font-medium">Court</th>
+                <th className="pb-2 font-medium">Status</th>
+                <th className="pb-2 font-medium">Duration</th>
+                <th className="pb-2 font-medium">Date</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-800">
+              {matches.map((match) => {
+                const duration =
+                  match.started_at && match.ended_at
+                    ? Math.round(
+                        (new Date(match.ended_at).getTime() -
+                          new Date(match.started_at).getTime()) /
+                          60000
+                      )
+                    : null;
+
+                return (
+                  <tr key={match.id}>
+                    <td className="py-3 text-zinc-100 capitalize">
+                      {match.sport.replace("_", " ")}
+                    </td>
+                    <td className="py-3 text-zinc-400">
+                      {match.match_players
+                        ?.map((mp) => mp.players?.display_name)
+                        .filter(Boolean)
+                        .join(", ") || "-"}
+                    </td>
+                    <td className="py-3 text-zinc-400">
+                      {match.courts?.name ?? "-"}
+                    </td>
+                    <td className="py-3">
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                          match.status === "completed"
+                            ? "bg-zinc-700/50 text-zinc-400"
+                            : match.status === "playing"
+                              ? "bg-red-500/20 text-red-400"
+                              : "bg-yellow-500/20 text-yellow-400"
+                        }`}
+                      >
+                        {match.status}
+                      </span>
+                    </td>
+                    <td className="py-3 text-zinc-500">
+                      {duration !== null ? `${duration} min` : "-"}
+                    </td>
+                    <td className="py-3 text-zinc-500">
+                      {new Date(match.created_at).toLocaleDateString()}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          {matches.length === 0 && (
+            <p className="py-8 text-center text-sm text-zinc-500 italic">
+              No matches found.
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
