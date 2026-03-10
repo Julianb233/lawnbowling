@@ -15,23 +15,141 @@ export async function getPlayerStats(playerId: string) {
   return data as (PlayerStats & { player: { id: string; display_name: string; avatar_url: string | null; skill_level: string; sports: string[] } }) | null;
 }
 
-export async function getLeaderboard(options?: { sport?: string; limit?: number }) {
+export type LeaderboardSortBy = "win_rate" | "games_played" | "wins" | "elo_rating";
+
+export interface LeaderboardOptions {
+  sport?: string;
+  skillLevel?: string;
+  sortBy?: LeaderboardSortBy;
+  limit?: number;
+}
+
+export interface LeaderboardEntry {
+  player_id: string;
+  games_played: number;
+  wins: number;
+  losses: number;
+  win_rate: number;
+  elo_rating: number | null;
+  favorite_sport: string | null;
+  last_played_at: string | null;
+  player: {
+    id: string;
+    display_name: string;
+    avatar_url: string | null;
+    skill_level: string;
+    sports: string[];
+  };
+}
+
+export async function getLeaderboard(
+  options?: LeaderboardOptions
+): Promise<LeaderboardEntry[]> {
   const supabase = await createClient();
+  const sortBy = options?.sortBy ?? "win_rate";
+  const limit = options?.limit ?? 50;
+
+  // When filtering by sport, use player_sport_skills for sport-specific stats
+  if (options?.sport) {
+    let query = supabase
+      .from("player_sport_skills")
+      .select(
+        "player_id, games_in_sport, wins, losses, elo_rating, skill_level, player:players(id, display_name, avatar_url, skill_level, sports)"
+      )
+      .eq("sport", options.sport)
+      .gte("games_in_sport", 3);
+
+    if (options?.skillLevel) {
+      query = query.eq("skill_level", options.skillLevel);
+    }
+
+    if (sortBy === "elo_rating") {
+      query = query.order("elo_rating", { ascending: false });
+    } else if (sortBy === "games_played") {
+      query = query.order("games_in_sport", { ascending: false });
+    } else if (sortBy === "wins") {
+      query = query.order("wins", { ascending: false });
+    } else {
+      query = query.order("wins", { ascending: false });
+    }
+
+    query = query.limit(limit);
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const entries: LeaderboardEntry[] = (data ?? []).map((row: any) => {
+      const gamesPlayed = row.games_in_sport || 0;
+      const wins = row.wins || 0;
+      const losses = row.losses || 0;
+      const winRate = gamesPlayed > 0 ? (wins / gamesPlayed) * 100 : 0;
+      return {
+        player_id: row.player_id,
+        games_played: gamesPlayed,
+        wins,
+        losses,
+        win_rate: Math.round(winRate * 100) / 100,
+        elo_rating: row.elo_rating ?? null,
+        favorite_sport: options.sport ?? null,
+        last_played_at: null,
+        player: row.player,
+      };
+    });
+
+    if (sortBy === "win_rate") {
+      entries.sort((a, b) => b.win_rate - a.win_rate || b.wins - a.wins);
+    }
+
+    return entries;
+  }
+
+  // No sport filter: use player_stats (aggregate)
   let query = supabase
     .from("player_stats")
-    .select("*, player:players(id, display_name, avatar_url, skill_level, sports)")
-    .gte("games_played", 5)
-    .order("win_rate", { ascending: false })
-    .order("wins", { ascending: false })
-    .limit(options?.limit ?? 20);
+    .select(
+      "*, player:players(id, display_name, avatar_url, skill_level, sports)"
+    )
+    .gte("games_played", 5);
 
-  if (options?.sport) {
-    query = query.eq("favorite_sport", options.sport);
+  if (sortBy === "games_played") {
+    query = query.order("games_played", { ascending: false });
+  } else if (sortBy === "wins") {
+    query = query.order("wins", { ascending: false });
+  } else {
+    query = query
+      .order("win_rate", { ascending: false })
+      .order("wins", { ascending: false });
   }
+
+  query = query.limit(limit);
 
   const { data, error } = await query;
   if (error) throw error;
-  return data as (PlayerStats & { player: { id: string; display_name: string; avatar_url: string | null; skill_level: string; sports: string[] } })[];
+
+  // Filter by skill level client-side (joined field)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let filtered = (data ?? []).filter((row: any) => row.player !== null);
+  if (options?.skillLevel) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    filtered = filtered.filter(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (row: any) => row.player?.skill_level === options.skillLevel
+    );
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return filtered.map((row: any) => ({
+    player_id: row.player_id,
+    games_played: row.games_played || 0,
+    wins: row.wins || 0,
+    losses: row.losses || 0,
+    win_rate: row.win_rate || 0,
+    elo_rating: null,
+    favorite_sport: row.favorite_sport ?? null,
+    last_played_at: row.last_played_at ?? null,
+    player: row.player,
+  })) as LeaderboardEntry[];
 }
 
 export async function reportMatchResult(result: {

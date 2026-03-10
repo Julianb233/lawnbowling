@@ -12,7 +12,9 @@ export default function LeaderboardPage() {
   useEffect(() => {
     async function loadUser() {
       const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (user) setCurrentUserId(user.id);
     }
     loadUser();
@@ -26,7 +28,9 @@ export default function LeaderboardPage() {
             <Trophy className="h-5 w-5 text-amber-400" />
             <h1 className="text-xl font-bold text-zinc-900">Leaderboard</h1>
           </div>
-          <p className="text-sm text-zinc-500">Top players by win rate (min 5 games)</p>
+          <p className="mt-0.5 text-sm text-zinc-500">
+            Top players ranked by performance. Filter by sport and skill level.
+          </p>
         </div>
       </header>
 
