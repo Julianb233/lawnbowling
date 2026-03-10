@@ -10,7 +10,7 @@ interface WaiverRecord {
   accepted: boolean;
   ip_address: string;
   user_agent: string;
-  signed_at: string;
+  accepted_at: string;
   players: {
     display_name: string;
     avatar_url: string | null;
@@ -125,7 +125,7 @@ export function AdminWaiversClient() {
                         </Link>
                       </td>
                       <td className="px-4 py-3 text-sm text-zinc-900/70">
-                        {new Date(waiver.signed_at).toLocaleString("en-US", {
+                        {new Date(waiver.accepted_at).toLocaleString("en-US", {
                           dateStyle: "medium",
                           timeStyle: "short",
                         })}

@@ -37,7 +37,7 @@ export async function GET(
       signed: !!waiver,
       waiver: waiver
         ? {
-            signed_at: waiver.signed_at,
+            accepted_at: waiver.accepted_at,
             ip_address: waiver.ip_address,
           }
         : null,

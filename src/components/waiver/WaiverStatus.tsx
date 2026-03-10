@@ -20,7 +20,7 @@ export function WaiverStatus({ waiver }: WaiverStatusProps) {
     );
   }
 
-  const signedDate = new Date(waiver.signed_at).toLocaleDateString("en-US", {
+  const signedDate = new Date(waiver.accepted_at).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",

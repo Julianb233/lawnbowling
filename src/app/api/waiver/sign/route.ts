@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
       accepted: true,
       ip_address: ip,
       user_agent: userAgent,
-      signed_at: new Date().toISOString(),
+      accepted_at: new Date().toISOString(),
     });
 
     const response = NextResponse.json(waiver, { status: 201 });

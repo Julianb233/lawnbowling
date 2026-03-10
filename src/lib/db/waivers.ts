@@ -7,7 +7,7 @@ export interface Waiver {
   accepted: boolean;
   ip_address: string;
   user_agent: string;
-  signed_at: string;
+  accepted_at: string;
   created_at: string;
 }
 
@@ -32,7 +32,7 @@ export async function getWaiverByPlayerId(playerId: string) {
     .select("*")
     .eq("player_id", playerId)
     .eq("accepted", true)
-    .order("signed_at", { ascending: false })
+    .order("accepted_at", { ascending: false })
     .limit(1)
     .single();
 
@@ -50,7 +50,7 @@ export async function listWaivers(options?: {
     .from("waivers")
     .select("*, players(display_name, avatar_url)", { count: "exact" })
     .eq("accepted", true)
-    .order("signed_at", { ascending: false });
+    .order("accepted_at", { ascending: false });
 
   if (options?.limit) query = query.limit(options.limit);
   if (options?.offset) query = query.range(options.offset, options.offset + (options.limit ?? 20) - 1);
