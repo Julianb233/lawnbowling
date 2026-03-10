@@ -92,6 +92,28 @@ textarea,
   }
 }
 
+/* === LANDING PAGE (light mode) === */
+.landing-gradient {
+  background: linear-gradient(135deg, #ecfdf5 0%, #eff6ff 50%, #fffbeb 100%);
+  /* emerald-50 → blue-50 → amber-50 */
+}
+
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.text-gradient-brand {
+  background: linear-gradient(135deg, #10b981, #3b82f6, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* === GLASSMORPHISM === */
 .glass {
   background: rgba(15, 23, 42, 0.7);
