@@ -54,7 +54,7 @@ export function ProfilePageClient({ player, waiver }: ProfilePageClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 px-4 py-8">
+    <div className="min-h-screen bg-animated-gradient px-4 py-8">
       <div className="mx-auto max-w-md">
         <button
           onClick={() => router.back()}
