@@ -56,7 +56,7 @@ export function ReportPlayerModal({
         <div className="w-full max-w-sm rounded-2xl glass p-6 text-center">
           <p className="text-3xl mb-2">{"\u2705"}</p>
           <p className="text-zinc-900 font-medium">Report submitted</p>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-zinc-500 mt-1">
             An admin will review this shortly.
           </p>
         </div>
@@ -70,7 +70,7 @@ export function ReportPlayerModal({
         <h2 className="text-lg font-bold text-zinc-900 mb-1">
           Report {reportedName}
         </h2>
-        <p className="text-sm text-zinc-400 mb-4">
+        <p className="text-sm text-zinc-500 mb-4">
           This report will be reviewed by venue administrators.
         </p>
 
@@ -82,7 +82,7 @@ export function ReportPlayerModal({
               className={cn(
                 "w-full text-left rounded-xl px-4 py-2.5 text-sm transition-all border",
                 reason === r.value
-                  ? "border-red-500/50 bg-red-500/10 text-red-400"
+                  ? "border-red-300 bg-red-50 text-red-700"
                   : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
               )}
             >
@@ -101,7 +101,7 @@ export function ReportPlayerModal({
         <div className="mt-4 flex gap-2">
           <button
             onClick={onClose}
-            className="flex-1 rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-400 hover:bg-zinc-100 transition-colors"
+            className="flex-1 rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-600 hover:bg-zinc-100 transition-colors"
           >
             Cancel
           </button>
@@ -112,7 +112,7 @@ export function ReportPlayerModal({
               "flex-1 rounded-xl px-4 py-2.5 text-sm font-bold text-white transition-all",
               reason
                 ? "bg-red-600 hover:bg-red-500"
-                : "bg-zinc-700 text-zinc-500 cursor-not-allowed"
+                : "bg-zinc-200 text-zinc-400 cursor-not-allowed"
             )}
           >
             Submit Report
