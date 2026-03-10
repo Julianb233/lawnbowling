@@ -49,7 +49,7 @@ Progress: [██████████] 100%
 - ADMIN-01: Venue settings extended with contact info, tagline
 - ADMIN-02: Courts admin now uses dynamic venue sports
 - ADMIN-03: NEW -- Sport management UI on venue settings page
-- ADMIN-04: Players, waivers, match history views verified
+- ADMIN-04: Players, waivers, match history views verified; match history now has sport/status filters (05-02)
 
 ### Bussit Autopilot Results (2026-03-10)
 
@@ -73,5 +73,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: All phases complete, build passing, ready for Vercel deploy
+Stopped at: 05-02 complete — match history filters added, all admin panel requirements satisfied
 Resume file: None
