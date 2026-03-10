@@ -13,6 +13,7 @@ import { LiveIndicator } from "@/components/board/LiveIndicator";
 import { BottomNav } from "@/components/board/BottomNav";
 import { RequestModal } from "@/components/partner/RequestModal";
 import { IncomingRequest, IncomingRequestProvider } from "@/components/partner/IncomingRequest";
+import { SentRequestToast } from "@/components/partner/SentRequestToast";
 import { MatchQueue } from "@/components/partner/MatchQueue";
 import { CourtStatusBoard } from "@/components/courts/CourtStatusBoard";
 import type { Sport, SkillLevel, Player } from "@/lib/types";
@@ -23,7 +24,9 @@ export default function BoardPage() {
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   const [loadingPlayer, setLoadingPlayer] = useState(true);
   const [requestTarget, setRequestTarget] = useState<Player | null>(null);
-  const [toastMessage, setToastMessage] = useState<{ text: string; type: "success" | "info" | "error" } | null>(null);
+  const [statusNotifications, setStatusNotifications] = useState<
+    Array<{ id: string; targetName: string; sport: string; status: "accepted" | "declined" | "expired" }>
+  >([]);
 
   const { players, loading } = useRealtimePlayers({
     sportFilter,
@@ -38,14 +41,15 @@ export default function BoardPage() {
 
   // Watch for responses to our sent requests (decline/accept/expire notifications)
   const handleSentRequestUpdate = useCallback((update: SentRequestUpdate) => {
-    const name = update.targetName || "Player";
-    if (update.status === "declined") {
-      setToastMessage({ text: `${name} declined your request`, type: "info" });
-    } else if (update.status === "accepted") {
-      setToastMessage({ text: `${name} accepted! You're matched!`, type: "success" });
-    } else if (update.status === "expired") {
-      setToastMessage({ text: `Your request to ${name} expired`, type: "info" });
-    }
+    setStatusNotifications((prev) => [
+      ...prev,
+      {
+        id: update.id,
+        targetName: update.targetName || "Player",
+        sport: update.sport || "pickleball",
+        status: update.status,
+      },
+    ]);
   }, []);
 
   const { pendingSent, refetch: refetchSent } = useSentRequests(currentPlayer?.id ?? null, handleSentRequestUpdate);
@@ -55,13 +59,6 @@ export default function BoardPage() {
     () => new Set(pendingSent.map((r) => r.target_id)),
     [pendingSent]
   );
-
-  // Auto-dismiss toast
-  useEffect(() => {
-    if (!toastMessage) return;
-    const timer = setTimeout(() => setToastMessage(null), 4000);
-    return () => clearTimeout(timer);
-  }, [toastMessage]);
 
   useEffect(() => {
     async function loadCurrentPlayer() {
@@ -270,24 +267,17 @@ export default function BoardPage() {
         ))}
 
         {/* Toast notifications for sent request responses */}
-        <AnimatePresence>
-          {toastMessage && (
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
-              className={`fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-xl px-5 py-3 text-sm font-medium shadow-2xl backdrop-blur-md lg:bottom-8 ${
-                toastMessage.type === "success"
-                  ? "bg-emerald-500/20 text-emerald-300 ring-1 ring-emerald-500/30"
-                  : toastMessage.type === "error"
-                    ? "bg-red-500/20 text-red-300 ring-1 ring-red-500/30"
-                    : "bg-zinc-700/80 text-zinc-200 ring-1 ring-zinc-600/30"
-              }`}
-            >
-              {toastMessage.text}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {statusNotifications.map((notif) => (
+          <SentRequestToast
+            key={notif.id}
+            targetName={notif.targetName}
+            sport={notif.sport}
+            status={notif.status}
+            onDismiss={() =>
+              setStatusNotifications((prev) => prev.filter((n) => n.id !== notif.id))
+            }
+          />
+        ))}
       </div>
     </IncomingRequestProvider>
   );

@@ -9,6 +9,7 @@ export type SentRequestUpdate = {
   id: string;
   status: "accepted" | "declined" | "expired";
   targetName?: string;
+  sport?: string;
 };
 
 /**
@@ -83,6 +84,7 @@ export function useSentRequests(
               id: updated.id,
               status: updated.status as "accepted" | "declined" | "expired",
               targetName,
+              sport: updated.sport,
             });
           }
         }
