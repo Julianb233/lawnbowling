@@ -18,7 +18,7 @@ export default async function FavoritesPage() {
     .order("created_at", { ascending: false });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-animated-gradient">
       <header className="sticky top-0 z-40 glass border-b border-zinc-200">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
           <h1 className="text-xl font-bold text-zinc-900">
@@ -80,7 +80,7 @@ export default async function FavoritesPage() {
                       {player.is_available ? "Online" : "Offline"}
                     </p>
                   </div>
-                  <span className="text-amber-400">{"\u2B50"}</span>
+                  <span className="text-amber-500">{"\u2B50"}</span>
                 </Link>
               );
             })}
