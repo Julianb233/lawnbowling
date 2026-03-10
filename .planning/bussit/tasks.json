@@ -1,0 +1,10 @@
+{
+  "tasks": [
+    {"id": "phase-1", "phase": 1, "title": "Foundation & Auth", "status": "completed"},
+    {"id": "phase-2", "phase": 2, "title": "Player Profiles & Waivers", "status": "completed", "depends": ["phase-1"]},
+    {"id": "phase-3", "phase": 3, "title": "Live Availability Board", "status": "completed", "depends": ["phase-2"]},
+    {"id": "phase-4", "phase": 4, "title": "Partner Selection", "status": "completed", "depends": ["phase-3"]},
+    {"id": "phase-5", "phase": 5, "title": "Court Management & Admin", "status": "completed", "depends": ["phase-4"]},
+    {"id": "phase-6", "phase": 6, "title": "PWA, Polish & Deploy", "status": "completed", "depends": ["phase-5"]}
+  ]
+}
