@@ -8,10 +8,12 @@
 
 ### Code Implemented
 
-1. **`src/components/partner/SentRequestToast.tsx`** (NEW) -- Radix Toast notification for sent request status changes
-   - Three status modes: accepted (green/sport-themed), declined (neutral gray), expired (amber)
-   - Auto-dismisses after 4 seconds, 44px touch targets
-   - Sport-themed glow on accepted status
+1. **`src/components/partner/SentRequestToast.tsx`** (REFACTORED) -- Radix Toast notification for sent request status changes
+   - Three status modes: accepted (green/sport-themed glow), declined (neutral gray), expired (amber)
+   - Auto-dismisses after 4 seconds, 44px minimum touch targets on dismiss button
+   - Sport-themed glow on accepted status using getSportColor
+   - Consolidated STATUS_CONFIG with `cn()` for cleaner class composition
+   - Exported SentRequestToastProps interface for external use
 
 2. **`src/components/board/PlayerCard.tsx`** (UPDATED) -- Added `isPending` prop
    - Amber pulsing "Pending" badge in top-right corner
@@ -22,12 +24,15 @@
    - Passes `isPending={pendingTargetIds?.has(player.id)}` to each PlayerCard
 
 4. **`src/app/board/page.tsx`** (UPDATED) -- Full integration
+   - Replaced inline toastMessage state with statusNotifications array (supports multiple concurrent toasts)
+   - Renders SentRequestToast components inside IncomingRequestProvider (shared Toast viewport)
    - Computes `pendingTargetIds` from `useSentRequests` hook (memoized)
    - Passes to AvailabilityBoard for card indicators
    - Refetches sent requests after sending a new one
-   - Toast notifications for accepted/declined/expired via handleSentRequestUpdate callback
 
-5. **`src/lib/hooks/useSentRequests.ts`** (from 04-01) -- Realtime hook for outgoing requests
+5. **`src/lib/hooks/useSentRequests.ts`** (UPDATED) -- Realtime hook for outgoing requests
+   - Added `sport` field to SentRequestUpdate type for sport-themed toast styling
+   - Passes sport from updated request to onStatusChange callback
    - Watches partner_requests table for status changes on requester_id filter
    - Returns pendingSent list and fires onStatusChange callback
 
