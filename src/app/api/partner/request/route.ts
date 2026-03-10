@@ -79,8 +79,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create request with 5-minute expiration
-    const expiresAt = new Date(Date.now() + 5 * 60 * 1000).toISOString();
+    // Create request with configurable expiration (default 5 minutes)
+    const timeoutMinutes = parseInt(process.env.PARTNER_REQUEST_TIMEOUT_MINUTES || "5", 10);
+    const expiresAt = new Date(Date.now() + timeoutMinutes * 60 * 1000).toISOString();
 
     const partnerRequest = await createPartnerRequest({
       requester_id: currentPlayer.id,

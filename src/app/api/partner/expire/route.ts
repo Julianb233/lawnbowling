@@ -37,3 +37,28 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+// GET endpoint allows any authenticated user to trigger expiry cleanup
+// Used by board page on load to clean stale requests without admin auth
+export async function GET() {
+  try {
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const expired = await expireStaleRequests();
+
+    return NextResponse.json({
+      expired: expired.length,
+    });
+  } catch (error) {
+    console.error("Expire requests error:", error);
+    return NextResponse.json(
+      { error: "Failed to expire stale requests" },
+      { status: 500 }
+    );
+  }
+}

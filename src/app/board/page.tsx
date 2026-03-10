@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { useRealtimePlayers } from "@/lib/hooks/useRealtimePlayers";
 import { usePartnerRequests } from "@/lib/hooks/usePartnerRequests";
+import { useSentRequests, type SentRequestUpdate } from "@/lib/hooks/useSentRequests";
 import { AvailabilityBoard } from "@/components/board/AvailabilityBoard";
 import { BoardFilters } from "@/components/board/BoardFilters";
 import { CheckInButton } from "@/components/board/CheckInButton";
@@ -22,6 +23,7 @@ export default function BoardPage() {
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   const [loadingPlayer, setLoadingPlayer] = useState(true);
   const [requestTarget, setRequestTarget] = useState<Player | null>(null);
+  const [toastMessage, setToastMessage] = useState<{ text: string; type: "success" | "info" | "error" } | null>(null);
 
   const { players, loading } = useRealtimePlayers({
     sportFilter,
@@ -33,6 +35,33 @@ export default function BoardPage() {
   const { requests: incomingRequests, refetch: refetchRequests } = usePartnerRequests(
     currentPlayer?.id ?? null
   );
+
+  // Watch for responses to our sent requests (decline/accept/expire notifications)
+  const handleSentRequestUpdate = useCallback((update: SentRequestUpdate) => {
+    const name = update.targetName || "Player";
+    if (update.status === "declined") {
+      setToastMessage({ text: `${name} declined your request`, type: "info" });
+    } else if (update.status === "accepted") {
+      setToastMessage({ text: `${name} accepted! You're matched!`, type: "success" });
+    } else if (update.status === "expired") {
+      setToastMessage({ text: `Your request to ${name} expired`, type: "info" });
+    }
+  }, []);
+
+  const { pendingSent, refetch: refetchSent } = useSentRequests(currentPlayer?.id ?? null, handleSentRequestUpdate);
+
+  // Compute set of player IDs with pending outgoing requests for card indicators
+  const pendingTargetIds = useMemo(
+    () => new Set(pendingSent.map((r) => r.target_id)),
+    [pendingSent]
+  );
+
+  // Auto-dismiss toast
+  useEffect(() => {
+    if (!toastMessage) return;
+    const timer = setTimeout(() => setToastMessage(null), 4000);
+    return () => clearTimeout(timer);
+  }, [toastMessage]);
 
   useEffect(() => {
     async function loadCurrentPlayer() {
@@ -59,7 +88,7 @@ export default function BoardPage() {
 
   // Expire stale requests on load
   useEffect(() => {
-    fetch("/api/partner/expire", { method: "POST" }).catch(() => {});
+    fetch("/api/partner/expire").catch(() => {});
   }, []);
 
   function handlePickMe(player: Player) {
@@ -79,7 +108,10 @@ export default function BoardPage() {
       const data = await response.json();
       throw new Error(data.error || "Failed to send request");
     }
-  }, []);
+
+    // Refresh sent requests to update pending indicators on player cards
+    refetchSent();
+  }, [refetchSent]);
 
   const handleRespondToRequest = useCallback(async (requestId: string, accept: boolean) => {
     const response = await fetch("/api/partner/respond", {
@@ -174,6 +206,7 @@ export default function BoardPage() {
                 players={players}
                 loading={loading}
                 onPickMe={handlePickMe}
+                pendingTargetIds={pendingTargetIds}
               />
             </div>
 
@@ -235,6 +268,26 @@ export default function BoardPage() {
             onRespond={handleRespondToRequest}
           />
         ))}
+
+        {/* Toast notifications for sent request responses */}
+        <AnimatePresence>
+          {toastMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              className={`fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-xl px-5 py-3 text-sm font-medium shadow-2xl backdrop-blur-md lg:bottom-8 ${
+                toastMessage.type === "success"
+                  ? "bg-emerald-500/20 text-emerald-300 ring-1 ring-emerald-500/30"
+                  : toastMessage.type === "error"
+                    ? "bg-red-500/20 text-red-300 ring-1 ring-red-500/30"
+                    : "bg-zinc-700/80 text-zinc-200 ring-1 ring-zinc-600/30"
+              }`}
+            >
+              {toastMessage.text}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </IncomingRequestProvider>
   );

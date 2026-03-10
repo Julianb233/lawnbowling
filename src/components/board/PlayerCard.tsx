@@ -10,6 +10,7 @@ interface PlayerCardProps {
   player: Player;
   onPickMe?: (player: Player) => void;
   index?: number;
+  isPending?: boolean;
 }
 
 function timeAgo(dateStr: string | null): string {
@@ -80,7 +81,7 @@ function Avatar({ name, url, primarySport }: { name: string; url: string | null;
   );
 }
 
-export function PlayerCard({ player, onPickMe, index = 0 }: PlayerCardProps) {
+export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: PlayerCardProps) {
   const primarySport = player.sports[0];
   const sportColor = primarySport ? getSportColor(primarySport) : getSportColor("pickleball");
 
@@ -121,6 +122,16 @@ export function PlayerCard({ player, onPickMe, index = 0 }: PlayerCardProps) {
         style={{ backgroundColor: sportColor.primary }}
       />
 
+      {/* Pending request indicator */}
+      {isPending && (
+        <div className="absolute right-3 top-3 z-10">
+          <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-medium text-amber-400 ring-1 ring-amber-500/30">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+            Pending
+          </span>
+        </div>
+      )}
+
       {/* Player info */}
       <div className="flex items-start gap-3">
         <Avatar name={player.name} url={player.avatar_url} primarySport={primarySport} />
@@ -160,18 +171,20 @@ export function PlayerCard({ player, onPickMe, index = 0 }: PlayerCardProps) {
 
       {/* Pick Me button */}
       <motion.button
-        onClick={() => onPickMe?.(player)}
-        aria-label={`Pick ${player.name} as partner`}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.95 }}
+        onClick={() => !isPending && onPickMe?.(player)}
+        disabled={isPending}
+        aria-label={isPending ? `Request sent to ${player.name}` : `Pick ${player.name} as partner`}
+        whileHover={isPending ? {} : { scale: 1.02 }}
+        whileTap={isPending ? {} : { scale: 0.95 }}
         className={cn(
           "mt-3 w-full rounded-xl px-4 py-2.5 text-sm font-bold text-white shadow-lg transition-all btn-press",
           `bg-gradient-to-r ${sportColor.gradient}`,
           "hover:shadow-xl",
-          "touch-manipulation"
+          "touch-manipulation",
+          isPending && "opacity-60 cursor-not-allowed"
         )}
       >
-        PICK ME
+        {isPending ? "REQUEST SENT" : "PICK ME"}
       </motion.button>
     </motion.div>
   );

@@ -9,9 +9,10 @@ interface AvailabilityBoardProps {
   players: Player[];
   loading: boolean;
   onPickMe?: (player: Player) => void;
+  pendingTargetIds?: Set<string>;
 }
 
-export function AvailabilityBoard({ players, loading, onPickMe }: AvailabilityBoardProps) {
+export function AvailabilityBoard({ players, loading, onPickMe, pendingTargetIds }: AvailabilityBoardProps) {
   if (loading) {
     return (
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -63,7 +64,7 @@ export function AvailabilityBoard({ players, loading, onPickMe }: AvailabilityBo
     >
       <AnimatePresence mode="popLayout">
         {players.map((player, i) => (
-          <PlayerCard key={player.id} player={player} onPickMe={onPickMe} index={i} />
+          <PlayerCard key={player.id} player={player} onPickMe={onPickMe} index={i} isPending={pendingTargetIds?.has(player.id)} />
         ))}
       </AnimatePresence>
     </motion.div>

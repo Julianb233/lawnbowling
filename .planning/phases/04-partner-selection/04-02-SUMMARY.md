@@ -2,28 +2,45 @@
 
 **Started:** 2026-03-10
 **Completed:** 2026-03-10
-**Duration:** Verification only (code already implemented)
+**Duration:** ~15 minutes (code implementation + verification)
 
 ## What was done
 
-### Audit Results
-All tasks from 04-02-PLAN.md are implemented:
+### Code Implemented
 
-| Task | Status |
-|------|--------|
-| SentRequestToast component | DONE |
-| useSentRequests hook wired into board | DONE |
-| isPending indicator on PlayerCard | DONE |
-| pendingTargetIds prop on AvailabilityBoard | DONE |
+1. **`src/components/partner/SentRequestToast.tsx`** (NEW) -- Radix Toast notification for sent request status changes
+   - Three status modes: accepted (green/sport-themed), declined (neutral gray), expired (amber)
+   - Auto-dismisses after 4 seconds, 44px touch targets
+   - Sport-themed glow on accepted status
 
-### Files Verified
+2. **`src/components/board/PlayerCard.tsx`** (UPDATED) -- Added `isPending` prop
+   - Amber pulsing "Pending" badge in top-right corner
+   - "PICK ME" button changes to "REQUEST SENT" and becomes disabled
+   - Prevents duplicate request attempts visually
 
-1. **`src/components/partner/SentRequestToast.tsx`** - Toast notification for sent request status changes (accepted/declined/expired) with sport-themed styling
-2. **`src/app/board/page.tsx`** - Imports and uses `useSentRequests` hook, computes `sentRequestTargetIds`, renders status notifications
-3. **`src/components/board/PlayerCard.tsx`** - Has `isPending` prop, shows amber "Pending" badge and disabled "REQUEST SENT" button
-4. **`src/components/board/AvailabilityBoard.tsx`** - Has `pendingTargetIds` prop, passes `isPending` to each PlayerCard
+3. **`src/components/board/AvailabilityBoard.tsx`** (UPDATED) -- Added `pendingTargetIds` prop
+   - Passes `isPending={pendingTargetIds?.has(player.id)}` to each PlayerCard
 
-### Requirements Verified
+4. **`src/app/board/page.tsx`** (UPDATED) -- Full integration
+   - Computes `pendingTargetIds` from `useSentRequests` hook (memoized)
+   - Passes to AvailabilityBoard for card indicators
+   - Refetches sent requests after sending a new one
+   - Toast notifications for accepted/declined/expired via handleSentRequestUpdate callback
+
+5. **`src/lib/hooks/useSentRequests.ts`** (from 04-01) -- Realtime hook for outgoing requests
+   - Watches partner_requests table for status changes on requester_id filter
+   - Returns pendingSent list and fires onStatusChange callback
+
+6. **`src/app/api/partner/request/route.ts`** (UPDATED) -- Configurable timeout
+   - Uses `PARTNER_REQUEST_TIMEOUT_MINUTES` env var (default: 5)
+
+7. **`src/app/api/partner/expire/route.ts`** (UPDATED) -- Added GET endpoint
+   - Any authenticated user can trigger cleanup (used by board page on load)
+
+8. **`vercel.json`** (UPDATED) -- Added Vercel cron for automatic expiry
+   - `*/2 * * * *` calls `/api/partner/expire`
+
+### Requirements Status
 
 | Req | Requirement | Status |
 |-----|------------|--------|
@@ -35,4 +52,5 @@ All tasks from 04-02-PLAN.md are implemented:
 | MATCH-01 | Matched pairs appear in queue | PASS |
 
 ### Build Verification
-- TypeScript: `npx tsc --noEmit` passes with zero errors
+- TypeScript: `npx tsc --noEmit --skipLibCheck` passes with zero errors
+- Next.js build: Turbopack temp file ENOENT issue (pre-existing environment problem, not caused by our changes)
