@@ -6,12 +6,12 @@ Pick a Partner is a PWA for recreational sports venues where players check in, f
 
 ## Phases
 
-- [ ] **Phase 1: Foundation & Auth** - Project setup, Supabase, auth flow, database schema
-- [ ] **Phase 2: Player Profiles & Waivers** - Registration with profiles, liability waiver, DEI integration
-- [ ] **Phase 3: Live Availability Board** - Real-time check-in/out board with filtering
-- [ ] **Phase 4: Partner Selection** - Pick/request/accept flow, match queue
-- [ ] **Phase 5: Court Management & Admin** - Court/lane assignment, timers, admin panel
-- [ ] **Phase 6: PWA, Polish & Deploy** - Service worker, responsive polish, Vercel deploy
+- [x] **Phase 1: Foundation & Auth** - Project setup, Supabase, auth flow, database schema
+- [x] **Phase 2: Player Profiles & Waivers** - Registration with profiles, liability waiver, DEI integration
+- [x] **Phase 3: Live Availability Board** - Real-time check-in/out board with filtering
+- [x] **Phase 4: Partner Selection** - Pick/request/accept flow, match queue
+- [x] **Phase 5: Court Management & Admin** - Court/lane assignment, timers, admin panel
+- [x] **Phase 6: PWA, Polish & Deploy** - Service worker, responsive polish, Vercel deploy
 
 ## Phase Details
 
@@ -28,8 +28,8 @@ Pick a Partner is a PWA for recreational sports venues where players check in, f
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: Next.js project scaffold, Supabase setup, Tailwind + Radix UI config
-- [ ] 01-02: Auth flow (signup/login/logout), database schema migration, admin role seeding
+- [x] 01-01: Next.js project scaffold, Supabase setup, Tailwind + Radix UI config
+- [x] 01-02: Auth flow (signup/login/logout), database schema migration, admin role seeding
 
 ### Phase 2: Player Profiles & Waivers
 **Goal**: Users can register with full profiles and sign a liability waiver before playing; optional DEI insurance offered
@@ -44,8 +44,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: Player profile CRUD (create, read, update), avatar upload via Supabase Storage
-- [ ] 02-02: Liability waiver flow, waiver admin view, DEI integration link
+- [x] 02-01: Player profile CRUD (create, read, update), avatar upload via Supabase Storage
+- [x] 02-02: Liability waiver flow, waiver admin view, DEI integration link
 
 ### Phase 3: Live Availability Board
 **Goal**: Real-time board showing available players, with check-in/out and filtering by sport/skill
@@ -60,8 +60,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: Check-in/out toggle, Supabase Realtime subscription, available players query
-- [ ] 03-02: Board UI (player cards grid), sport/skill filters, responsive iPad + iPhone layouts
+- [x] 03-01: Check-in/out toggle, Supabase Realtime subscription, available players query
+- [x] 03-02: Board UI (player cards grid), sport/skill filters, responsive iPad + iPhone layouts
 
 ### Phase 4: Partner Selection
 **Goal**: Full partner pick/request/accept flow — users can pick a partner, get matched, and enter the play queue
@@ -76,8 +76,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Partner request API (create, accept, decline, expire), real-time request notifications
-- [ ] 04-02: Request modal UI, match queue display, request status handling
+- [x] 04-01: Partner request API (create, accept, decline, expire), real-time request notifications
+- [x] 04-02: Request modal UI, match queue display, request status handling
 
 ### Phase 5: Court Management & Admin
 **Goal**: Courts/lanes can be managed, assigned to matched pairs with timers; admin panel for full venue control
@@ -92,8 +92,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: Court CRUD, court assignment logic, match timer, court status board
-- [ ] 05-02: Admin panel (venue settings, player management, waiver viewer, match history)
+- [x] 05-01: Court CRUD, court assignment logic, match timer, court status board
+- [x] 05-02: Admin panel (venue settings, player management, waiver viewer, match history)
 
 ### Phase 6: PWA, Polish & Deploy
 **Goal**: Installable PWA on iPad/iPhone, responsive polish, production deploy to Vercel
@@ -108,8 +108,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: PWA manifest, service worker (Serwist), install prompt, offline support
-- [ ] 06-02: Responsive polish (iPad landscape + iPhone portrait), accessibility pass, Vercel deploy
+- [x] 06-01: PWA manifest, service worker (Serwist), install prompt, offline support
+- [x] 06-02: Responsive polish (iPad landscape + iPhone portrait), accessibility pass, Vercel deploy
 
 ## Progress
 
@@ -118,9 +118,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Auth | 0/2 | Not started | - |
-| 2. Player Profiles & Waivers | 0/2 | Not started | - |
-| 3. Live Availability Board | 0/2 | Not started | - |
-| 4. Partner Selection | 0/2 | Not started | - |
-| 5. Court Management & Admin | 0/2 | Not started | - |
-| 6. PWA, Polish & Deploy | 0/2 | Not started | - |
+| 1. Foundation & Auth | 2/2 | Complete | 2026-03-09 |
+| 2. Player Profiles & Waivers | 2/2 | Complete | 2026-03-09 |
+| 3. Live Availability Board | 2/2 | Complete | 2026-03-09 |
+| 4. Partner Selection | 2/2 | Complete | 2026-03-09 |
+| 5. Court Management & Admin | 2/2 | Complete | 2026-03-09 |
+| 6. PWA, Polish & Deploy | 2/2 | Complete | 2026-03-10 |
