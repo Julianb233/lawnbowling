@@ -50,6 +50,8 @@ export default function SignupPage() {
         user_id: data.user.id,
         display_name: name,
       });
+      // Check if this user should be auto-promoted to admin
+      await fetch("/api/auth/auto-role", { method: "POST" });
       router.push("/");
       router.refresh();
     }
