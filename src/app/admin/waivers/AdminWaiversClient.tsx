@@ -17,27 +17,36 @@ interface WaiverRecord {
   };
 }
 
+const PAGE_SIZE = 50;
+
 export function AdminWaiversClient() {
   const [waivers, setWaivers] = useState<WaiverRecord[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    fetchWaivers();
+    fetchWaivers(0);
   }, []);
 
-  async function fetchWaivers() {
-    setLoading(true);
+  async function fetchWaivers(offset: number) {
+    if (offset === 0) setLoading(true);
+    else setLoadingMore(true);
     try {
-      const res = await fetch("/api/admin/waivers");
+      const res = await fetch(`/api/admin/waivers?limit=${PAGE_SIZE}&offset=${offset}`);
       if (res.ok) {
         const data = await res.json();
-        setWaivers(data.waivers);
+        if (offset === 0) {
+          setWaivers(data.waivers);
+        } else {
+          setWaivers((prev) => [...prev, ...data.waivers]);
+        }
         setTotal(data.total);
       }
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   }
 
@@ -85,52 +94,69 @@ export function AdminWaiversClient() {
             <p className="text-white/40">No waivers found.</p>
           </div>
         ) : (
-          <div className="overflow-hidden rounded-xl border border-white/10">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-white/10 bg-white/5">
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-white/60">
-                    Player
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-white/60">
-                    Signed Date
-                  </th>
-                  <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-white/60 md:table-cell">
-                    IP Address
-                  </th>
-                  <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-white/60 lg:table-cell">
-                    User Agent
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/5">
-                {filtered.map((waiver) => (
-                  <tr key={waiver.id} className="hover:bg-white/5">
-                    <td className="px-4 py-3">
-                      <Link
-                        href={`/profile/${waiver.player_id}`}
-                        className="font-medium text-blue-400 hover:underline"
-                      >
-                        {waiver.players?.display_name ?? "Unknown"}
-                      </Link>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-white/70">
-                      {new Date(waiver.signed_at).toLocaleString("en-US", {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      })}
-                    </td>
-                    <td className="hidden px-4 py-3 text-sm text-white/50 md:table-cell">
-                      {waiver.ip_address}
-                    </td>
-                    <td className="hidden max-w-xs truncate px-4 py-3 text-sm text-white/50 lg:table-cell">
-                      {waiver.user_agent}
-                    </td>
+          <>
+            <div className="overflow-hidden rounded-xl border border-white/10">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-white/10 bg-white/5">
+                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-white/60">
+                      Player
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-white/60">
+                      Signed Date
+                    </th>
+                    <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-white/60 md:table-cell">
+                      IP Address
+                    </th>
+                    <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-white/60 lg:table-cell">
+                      User Agent
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {filtered.map((waiver) => (
+                    <tr key={waiver.id} className="hover:bg-white/5">
+                      <td className="px-4 py-3">
+                        <Link
+                          href={`/profile/${waiver.player_id}`}
+                          className="font-medium text-blue-400 hover:underline"
+                        >
+                          {waiver.players?.display_name ?? "Unknown"}
+                        </Link>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-white/70">
+                        {new Date(waiver.signed_at).toLocaleString("en-US", {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        })}
+                      </td>
+                      <td className="hidden px-4 py-3 text-sm text-white/50 md:table-cell">
+                        {waiver.ip_address}
+                      </td>
+                      <td className="hidden max-w-xs truncate px-4 py-3 text-sm text-white/50 lg:table-cell">
+                        {waiver.user_agent}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-4 flex items-center justify-between">
+              <p className="text-sm text-white/50">
+                Showing {filtered.length} of {total} waivers
+              </p>
+              {waivers.length < total && (
+                <button
+                  onClick={() => fetchWaivers(waivers.length)}
+                  disabled={loadingMore}
+                  className="rounded-lg border border-white/20 px-4 py-2 text-sm text-white/70 transition-colors hover:bg-white/10 disabled:opacity-50 min-h-[44px]"
+                >
+                  {loadingMore ? "Loading..." : "Load More"}
+                </button>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>
