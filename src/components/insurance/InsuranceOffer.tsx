@@ -33,10 +33,10 @@ export function InsuranceOffer({ onDismiss, onStatusUpdate }: InsuranceOfferProp
           <Shield className="h-6 w-6 text-blue-400" />
         </div>
         <div className="space-y-2">
-          <h3 className="font-semibold text-white">Protect Yourself with Event Insurance</h3>
+          <h3 className="font-semibold text-white">FREE Insurance for Your Venue</h3>
           <p className="text-sm text-zinc-500">
-            Get liability coverage for your recreational sports activities. Daily Event Insurance offers
-            affordable per-event coverage so you can play with peace of mind.
+            Daily Event Insurance provides free per-participant liability coverage for recreational
+            sports. Your venue earns $2-$10 for every covered player — at zero cost to you.
           </p>
           <div className="flex flex-wrap gap-3 pt-2">
             <a

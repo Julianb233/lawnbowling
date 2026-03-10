@@ -9,7 +9,6 @@ import {
   DollarSign,
   ChevronDown,
   Users,
-  FileText,
   Zap,
   Lock,
   Building2,
@@ -18,6 +17,8 @@ import {
   ClipboardCheck,
   UserCircle,
   MousePointerClick,
+  Ambulance,
+  ShieldCheck,
 } from "lucide-react";
 
 export function InsurancePage() {
@@ -83,10 +84,16 @@ export function InsurancePage() {
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
-            Affordable per-event liability coverage for recreational sports.
-            Activate instantly through Pick a Partner — no paperwork, no annual
-            commitment.
+            Free per-participant liability coverage for recreational sports
+            venues. Activate instantly through Pick a Partner — no setup fees, no
+            monthly costs, no hidden charges.
           </p>
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2">
+            <DollarSign className="h-5 w-5 text-emerald-600" />
+            <span className="text-sm font-semibold text-emerald-700">
+              FREE for venues — Earn $2 to $10 per participant
+            </span>
+          </div>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
               href="https://dailyeventinsurance.com"
@@ -171,51 +178,37 @@ export function InsurancePage() {
             What&apos;s Covered
           </h2>
           <p className="mt-4 text-lg text-zinc-600">
-            Comprehensive protection for recreational athletes
+            Per-participant coverage that fills gaps in general liability
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
           {[
             {
               icon: Shield,
-              title: "General Liability",
-              desc: "Protection against claims of bodily injury or property damage that occur during your sporting activity.",
+              title: "Per-Participant Liability",
+              desc: "Coverage for each participant during sporting activities, filling gaps that general liability policies don't cover.",
               gradient: "from-teal-500 to-teal-600",
               glow: "shadow-teal-500/15",
             },
             {
               icon: Heart,
-              title: "Personal Injury Protection",
-              desc: "Coverage for injuries you sustain during play, including sprains, strains, and impact injuries.",
+              title: "Activity Injury Medical",
+              desc: "Medical expenses from activity-related injuries sustained during insured events.",
               gradient: "from-rose-500 to-pink-500",
               glow: "shadow-rose-500/15",
             },
             {
-              icon: Zap,
-              title: "Equipment Damage",
-              desc: "Protection for your sports equipment — paddles, rackets, and gear — in case of accidental damage during play.",
-              gradient: "from-amber-500 to-orange-500",
-              glow: "shadow-amber-500/15",
-            },
-            {
-              icon: DollarSign,
-              title: "Medical Payments",
-              desc: "Covers medical expenses resulting from injuries during insured activities, regardless of fault.",
+              icon: Ambulance,
+              title: "Emergency Transport",
+              desc: "Coverage for emergency transport if a participant is injured during an insured activity.",
               gradient: "from-blue-500 to-indigo-500",
               glow: "shadow-blue-500/15",
             },
             {
-              icon: Users,
-              title: "Third-Party Claims",
-              desc: "Protection if another player or bystander is injured and files a claim against you.",
-              gradient: "from-purple-500 to-violet-500",
-              glow: "shadow-purple-500/15",
-            },
-            {
-              icon: FileText,
-              title: "Legal Defense",
-              desc: "Coverage for legal defense costs if a covered incident leads to litigation.",
+              icon: ShieldCheck,
+              title: "ActiveGuard\u2122 AD&D",
+              desc: "Accidental Death & Dismemberment protection through Daily Event Insurance's ActiveGuard\u2122 program.",
               gradient: "from-emerald-500 to-teal-500",
               glow: "shadow-emerald-500/15",
             },
@@ -249,33 +242,37 @@ export function InsurancePage() {
                 Why Daily Event Insurance?
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-zinc-600">
-                Traditional sports insurance means annual premiums, paperwork,
-                and coverage you don&apos;t always need. Daily Event Insurance
-                flips the model.
+                General liability policies protect your employees — not your
+                participants. Daily Event Insurance fills that gap with
+                per-participant coverage that activates at point of activity and
+                deactivates when the event ends.
               </p>
             </div>
             <div className="space-y-4">
               {[
                 {
                   icon: DollarSign,
-                  text: "Affordable per-event pricing — not annual",
+                  text: "FREE for venues — zero setup fees, no monthly costs",
                 },
-                { icon: Zap, text: "Instant activation, no paperwork" },
+                {
+                  icon: Zap,
+                  text: "Venues earn $2-$10 for every covered participant",
+                },
                 {
                   icon: CheckCircle,
-                  text: "Coverage for all supported sports",
+                  text: "10-minute onboarding, no credit card required",
                 },
                 {
                   icon: Shield,
-                  text: "Built right into Pick a Partner",
+                  text: "Coverage integrates within 48 hours",
                 },
                 {
                   icon: Lock,
-                  text: "Backed by licensed, regulated carriers",
+                  text: "A-rated carriers: AIG, Lloyd's of London, Great American",
                 },
                 {
-                  icon: Heart,
-                  text: "Cancel anytime — pay only when you play",
+                  icon: BadgeCheck,
+                  text: "Licensed in all 50 states",
                 },
               ].map((item) => (
                 <div
@@ -304,24 +301,24 @@ export function InsurancePage() {
         <Accordion.Root type="multiple" className="space-y-3">
           {[
             {
-              q: "How much does coverage cost?",
-              a: "Coverage is priced per event, typically ranging from $5-$15 depending on the sport and coverage level. You only pay when you play — no monthly or annual fees.",
+              q: "How much does it cost for venues?",
+              a: "Daily Event Insurance is completely FREE for venue partners. There are zero setup fees, no monthly costs, and no hidden charges. Partners actually earn $2 to $10 for every covered participant.",
             },
             {
               q: "What sports are covered?",
               a: "All sports supported by Pick a Partner are covered, including pickleball, tennis, lawn bowling, badminton, racquetball, and flag football. Coverage extends to organized and casual play at participating venues.",
             },
             {
-              q: "How do I activate my coverage?",
-              a: 'After signing your digital waiver at the venue, you\'ll see an insurance offer in your Pick a Partner profile. Simply tap "Get Coverage" and your protection is active instantly — before you even step on the court.',
+              q: "How does coverage work?",
+              a: "Coverage activates instantly at the point of activity and deactivates when the event ends. It provides per-participant liability that fills gaps in general liability policies, which typically only protect employees — not participants.",
             },
             {
               q: "What happens if I need to file a claim?",
-              a: "Filing a claim is straightforward. Visit the Daily Event Insurance portal, submit your claim details and any supporting documentation, and a claims specialist will guide you through the process. Most claims are reviewed within 5-7 business days.",
+              a: "Filing a claim is straightforward. Visit the Daily Event Insurance portal, submit your claim details and any supporting documentation, and a claims specialist will guide you through the process.",
             },
             {
               q: "Is this real insurance?",
-              a: "Yes. Daily Event Insurance policies are underwritten by licensed, regulated insurance carriers. All coverage meets state insurance requirements and is backed by carriers with strong financial ratings.",
+              a: "Yes. Daily Event Insurance policies are underwritten by A-rated carriers including AIG, Lloyd's of London Syndicates, and Great American Insurance Group. Coverage is licensed in all 50 states.",
             },
           ].map((item, i) => (
             <Accordion.Item
@@ -353,8 +350,9 @@ export function InsurancePage() {
             Ready to Play Protected?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-teal-100/80">
-            Get affordable per-event liability insurance for pickleball, tennis,
-            lawn bowling, and more. Powered by Daily Event Insurance.
+            FREE per-participant liability coverage for your venue. Earn $2-$10
+            per participant. Underwritten by AIG, Lloyd&apos;s of London, and Great
+            American Insurance Group.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
@@ -363,7 +361,7 @@ export function InsurancePage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-teal-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
             >
-              Get Coverage Now
+              Partner for Free
               <ExternalLink className="h-5 w-5" />
             </a>
             <a
@@ -372,7 +370,7 @@ export function InsurancePage() {
               rel="noopener noreferrer"
               className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/50 hover:bg-white/10 active:scale-[0.98]"
             >
-              Learn More About HiQOR&apos;s InsurTech
+              Learn More at Daily Event Insurance
             </a>
           </div>
         </div>

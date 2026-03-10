@@ -172,6 +172,9 @@ export function CourtDiagram({ sport }: { sport: Sport }) {
     pickleball: "The Court",
     lawn_bowling: "The Rink",
     tennis: "The Court",
+    badminton: "The Court",
+    racquetball: "The Court",
+    flag_football: "The Field",
   };
 
   return (

@@ -151,7 +151,7 @@ export default function ForVenuesPage() {
             {
               icon: DollarSign,
               title: "Insurance Revenue",
-              desc: "Earn a commission when players purchase Daily Event Insurance through your venue.",
+              desc: "Earn $2-$10 per participant with Daily Event Insurance — completely free for your venue to offer.",
               gradient: "from-purple-500 to-pink-500",
               glow: "shadow-purple-500/15",
             },
@@ -273,7 +273,7 @@ export default function ForVenuesPage() {
                 {
                   icon: DollarSign,
                   title: "Revenue Share",
-                  desc: "Earn commissions on insurance policies purchased through your venue.",
+                  desc: "Earn $2-$10 per participant through Daily Event Insurance — free to join, no setup fees.",
                 },
               ].map((feature) => (
                 <div

@@ -22,6 +22,27 @@ export const SPORT_COLORS: Record<Sport, { primary: string; glow: string; gradie
     bg: "bg-amber-500/10",
     ring: "ring-amber-500/50",
   },
+  badminton: {
+    primary: "#a855f7",
+    glow: "rgba(168, 85, 247, 0.3)",
+    gradient: "from-purple-500 to-violet-600",
+    bg: "bg-purple-500/10",
+    ring: "ring-purple-500/50",
+  },
+  racquetball: {
+    primary: "#f43f5e",
+    glow: "rgba(244, 63, 94, 0.3)",
+    gradient: "from-rose-500 to-pink-600",
+    bg: "bg-rose-500/10",
+    ring: "ring-rose-500/50",
+  },
+  flag_football: {
+    primary: "#f97316",
+    glow: "rgba(249, 115, 22, 0.3)",
+    gradient: "from-orange-500 to-amber-600",
+    bg: "bg-orange-500/10",
+    ring: "ring-orange-500/50",
+  },
 };
 
 export const ANIMATIONS = {

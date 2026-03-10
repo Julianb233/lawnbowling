@@ -77,19 +77,19 @@ const categories: FaqCategory[] = [
     questions: [
       {
         q: "What is Daily Event Insurance?",
-        a: "Daily Event Insurance is per-event liability coverage for recreational sports. Instead of an annual policy, you pay a small fee per session — typically $5-$15 — and are covered for that specific event.",
+        a: "Daily Event Insurance provides per-participant liability coverage for recreational sports. It fills gaps in general liability policies that protect only employees, not participants. Coverage activates instantly at the point of activity and deactivates when the event ends.",
       },
       {
-        q: "How do I get insurance through Pick a Partner?",
-        a: "After signing your digital waiver at the venue, an insurance offer appears in your profile. Tap 'Get Coverage' to activate instantly. No forms or phone calls required.",
+        q: "How much does it cost for venues?",
+        a: "Daily Event Insurance is completely FREE for venue partners. There are zero setup fees, no monthly costs, and no hidden charges. Partners actually earn $2 to $10 for every covered participant.",
       },
       {
         q: "What does the insurance cover?",
-        a: "Coverage includes general liability, personal injury protection, equipment damage, medical payments, and third-party claims. Visit the Insurance page for full details.",
+        a: "Coverage includes per-participant liability, activity injury medical expenses, emergency transport, and Accidental Death & Dismemberment (AD&D) through the ActiveGuard\u2122 program. Visit the Insurance page for full details.",
       },
       {
         q: "Is the insurance real?",
-        a: "Yes. Policies are underwritten by licensed, regulated insurance carriers and meet all state requirements. Daily Event Insurance is powered by HiQOR's InsurTech platform.",
+        a: "Yes. Policies are underwritten by A-rated carriers including AIG, Lloyd's of London Syndicates, and Great American Insurance Group. Daily Event Insurance is licensed in all 50 states.",
       },
     ],
   },
@@ -111,7 +111,7 @@ const categories: FaqCategory[] = [
       },
       {
         q: "Can I earn revenue from insurance?",
-        a: "Yes. Pro and Enterprise venues earn a commission on every Daily Event Insurance policy purchased by players at their facility.",
+        a: "Yes. Daily Event Insurance is completely free for venues to offer, and partners earn $2 to $10 for every covered participant. Onboarding takes about 10 minutes with no credit card required, and coverage integrates within 48 hours.",
       },
       {
         q: "Do players need to sign waivers?",

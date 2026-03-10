@@ -493,6 +493,159 @@ export const SPORT_GUIDES: Record<Sport, SportGuide> = {
     typicalDuration: "30-90 minutes per match",
     playersNeeded: "2 (singles) or 4 (doubles)",
   },
+  badminton: {
+    sport: "badminton",
+    emoji: "\u{1F3F8}",
+    name: "Badminton",
+    tagline: "Fast reflexes, light rackets, and a shuttlecock that can fly over 200 mph",
+    overview:
+      "Badminton is a racquet sport played with a lightweight shuttlecock over a net. It can be played as singles or doubles. The game demands quick reflexes, agility, and strategic shot placement. Badminton is one of the most popular sports worldwide and has been an Olympic sport since 1992.",
+    equipment: [
+      { name: "Racket", description: "A lightweight racket (80-100g) with a strung head.", icon: "racket" },
+      { name: "Shuttlecock", description: "A feathered or synthetic projectile hit back and forth over the net.", icon: "shuttlecock" },
+      { name: "Court Shoes", description: "Non-marking shoes with good grip for quick lateral movement.", icon: "shoes" },
+    ],
+    courtDiagram: "badminton-court",
+    howToPlay: [
+      { step: 1, title: "Serve", description: "Serve diagonally underhand from below the waist." },
+      { step: 2, title: "Rally", description: "Hit the shuttlecock back and forth over the net." },
+      { step: 3, title: "Score", description: "Score a point when the opponent fails to return the shuttlecock." },
+    ],
+    scoring: {
+      system: "Rally Scoring to 21",
+      explanation: "A point is scored on every rally. Games are played to 21 points with a 2-point lead required. Best of 3 games wins the match.",
+      examples: [
+        { scenario: "Opponent fails to return shuttlecock", score: "You score 1 point" },
+        { scenario: "Shuttlecock lands out of bounds on your hit", score: "Opponent scores 1 point" },
+      ],
+      tips: ["At 20-20, play continues until one side leads by 2 points.", "At 29-29, the next point wins."],
+    },
+    rules: [
+      { rule: "Underhand Serve", explanation: "The serve must be hit below the server's waist with the racket pointing downward." },
+      { rule: "Rally Scoring", explanation: "A point is scored on every serve, regardless of who served." },
+      { rule: "In/Out", explanation: "The shuttlecock must land within the court boundaries. Lines are in." },
+      { rule: "Net Play", explanation: "Players must not touch the net with their body or racket during play." },
+    ],
+    beginnerTips: [
+      "Focus on footwork — good positioning beats power.",
+      "Use a variety of shots: clears, drops, smashes, and net shots.",
+      "Return to center court after each shot.",
+    ],
+    etiquette: [
+      "Shake hands or tap rackets before and after each match.",
+      "Call shuttlecocks in or out honestly.",
+      "Wait for opponents to be ready before serving.",
+    ],
+    funFacts: [
+      "A badminton smash can exceed 200 mph, making it the fastest racquet sport.",
+      "The modern game originated in British India in the 19th century.",
+    ],
+    difficulty: "Moderate",
+    typicalDuration: "20-45 minutes per match",
+    playersNeeded: "2 (singles) or 4 (doubles)",
+  },
+  racquetball: {
+    sport: "racquetball",
+    emoji: "\u{1F3BE}",
+    name: "Racquetball",
+    tagline: "Fast-paced indoor action with walls in play",
+    overview:
+      "Racquetball is played in an enclosed court where the ball can bounce off any wall. It combines elements of handball and squash, providing an intense cardiovascular workout. The enclosed court makes for fast, dynamic rallies that keep players moving.",
+    equipment: [
+      { name: "Racquet", description: "A short-handled racquet with a wrist strap (required for safety).", icon: "racket" },
+      { name: "Ball", description: "A hollow rubber ball designed for indoor court play.", icon: "ball" },
+      { name: "Goggles", description: "Protective eyewear is required in competitive play.", icon: "goggles" },
+    ],
+    courtDiagram: "racquetball-court",
+    howToPlay: [
+      { step: 1, title: "Serve", description: "Bounce the ball and hit it to the front wall so it lands behind the short line." },
+      { step: 2, title: "Rally", description: "Hit the ball to the front wall before it bounces twice on the floor." },
+      { step: 3, title: "Score", description: "Only the server can score points. Games are played to 15." },
+    ],
+    scoring: {
+      system: "Side-Out Scoring to 15",
+      explanation: "Only the server can score points. If the server loses a rally, the serve passes to the opponent. Matches are best of 3 games (15, 15, 11 for tiebreaker).",
+      examples: [
+        { scenario: "Server wins the rally", score: "Server scores 1 point" },
+        { scenario: "Receiver wins the rally", score: "Side out — receiver now serves" },
+      ],
+      tips: ["The tiebreaker third game is played to 11 points.", "There is no win-by-2 rule in racquetball."],
+    },
+    rules: [
+      { rule: "Front Wall Serve", explanation: "The ball must hit the front wall first on a serve and land behind the short line." },
+      { rule: "Wall Play", explanation: "The ball can bounce off any wall during a rally, but must hit the front wall before the floor." },
+      { rule: "Side-Out Scoring", explanation: "Only the server scores points. Losing a rally as server means a side-out." },
+      { rule: "Hinders", explanation: "If a player obstructs an opponent's shot, a hinder is called and the rally is replayed." },
+    ],
+    beginnerTips: [
+      "Control center court for the best positioning.",
+      "Use ceiling shots to reset rallies.",
+      "Always wear protective eyewear.",
+    ],
+    etiquette: [
+      "Give your opponent room to hit — avoid blocking shots.",
+      "Call hinders (obstructions) fairly.",
+      "Wear proper court shoes with non-marking soles.",
+    ],
+    funFacts: [
+      "Racquetball was invented in 1950 by Joe Sobek, a professional handball and tennis player.",
+      "The ball can travel over 150 mph off the front wall.",
+    ],
+    difficulty: "Moderate",
+    typicalDuration: "20-45 minutes per match",
+    playersNeeded: "2 (singles) or 4 (doubles)",
+  },
+  flag_football: {
+    sport: "flag_football",
+    emoji: "\u{1F3C8}",
+    name: "Flag Football",
+    tagline: "All the strategy of football without the tackles",
+    overview:
+      "Flag football is a non-contact version of American football where instead of tackling, defensive players pull flags from the ball carrier's belt. It emphasizes speed, agility, and passing, making it accessible to a wide range of ages and skill levels. Flag football will debut as an Olympic sport at the 2028 Los Angeles Games.",
+    equipment: [
+      { name: "Flag Belt", description: "A belt with detachable flags worn by each player.", icon: "belt" },
+      { name: "Football", description: "A standard or youth-size football.", icon: "football" },
+      { name: "Cleats", description: "Athletic shoes with cleats for traction on grass or turf.", icon: "shoes" },
+    ],
+    courtDiagram: "flag-football-field",
+    howToPlay: [
+      { step: 1, title: "Snap", description: "The center snaps the ball to the quarterback." },
+      { step: 2, title: "Pass or Run", description: "The quarterback throws to a receiver or hands off the ball." },
+      { step: 3, title: "Score", description: "Reach the end zone for a touchdown (6 points)." },
+    ],
+    scoring: {
+      system: "Touchdowns and Extra Points",
+      explanation: "A touchdown is worth 6 points. After a touchdown, teams attempt an extra point (1 point from the 5-yard line, or 2 points from the 10-yard line). Some leagues also allow safeties (2 points).",
+      examples: [
+        { scenario: "Ball carrier reaches end zone", score: "Touchdown — 6 points" },
+        { scenario: "Extra point conversion from 5 yards", score: "1 additional point" },
+      ],
+      tips: ["Some leagues play with a running clock to keep games moving.", "Interceptions returned for touchdowns are common game-changers."],
+    },
+    rules: [
+      { rule: "No Contact", explanation: "No tackling, blocking, or physical contact is allowed." },
+      { rule: "Flag Pull", explanation: "A play ends when a defender pulls the ball carrier's flag from their belt." },
+      { rule: "Team Size", explanation: "Teams typically have 5 or 7 players per side on the field." },
+      { rule: "First Downs", explanation: "First downs are earned by crossing midfield or specific yard markers." },
+    ],
+    beginnerTips: [
+      "Communication is key — call out assignments before the snap.",
+      "Quick cuts and changes of direction beat speed alone.",
+      "Practice flag pulling technique to make clean defensive stops.",
+    ],
+    etiquette: [
+      "Play with good sportsmanship — no contact means no excuses.",
+      "Respect the referee's calls.",
+      "Shake hands with the opposing team after the game.",
+    ],
+    funFacts: [
+      "Flag football will be an Olympic sport starting at the 2028 LA Games.",
+      "Over 20 million people play flag football in the United States.",
+    ],
+    difficulty: "Easy to Learn",
+    typicalDuration: "40-60 minutes per game",
+    playersNeeded: "10-14 (5v5 or 7v7)",
+  },
 };
 
 export function getGuide(sport: string): SportGuide | undefined {
