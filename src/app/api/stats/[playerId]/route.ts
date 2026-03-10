@@ -16,7 +16,9 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     let history = null;
     if (includeHistory) {
-      history = await getMatchHistory(playerId, { sport, limit: 20 });
+      const limit = parseInt(url.searchParams.get("limit") ?? "20", 10);
+      const offset = parseInt(url.searchParams.get("offset") ?? "0", 10);
+      history = await getMatchHistory(playerId, { sport, limit, offset });
     }
 
     return NextResponse.json({ stats, favoritePartners, history });

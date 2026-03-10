@@ -8,6 +8,8 @@ import { MatchHistory } from "@/components/stats/MatchHistory";
 import { WeeklyActivity } from "@/components/stats/WeeklyActivity";
 import { FavoritePartnersList } from "@/components/stats/FavoritePartnersList";
 import { usePlayerStats } from "@/lib/hooks/usePlayerStats";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 export default function StatsPage() {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
@@ -58,9 +60,17 @@ export default function StatsPage() {
 
             {currentUserId && (
               <div>
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
-                  Match History
-                </h2>
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+                    Match History
+                  </h2>
+                  <Link
+                    href="/match-history"
+                    className="flex items-center gap-1 text-xs font-medium text-emerald-600 hover:text-emerald-700"
+                  >
+                    View All <ChevronRight className="h-3 w-3" />
+                  </Link>
+                </div>
                 <MatchHistory playerId={currentUserId} />
               </div>
             )}
