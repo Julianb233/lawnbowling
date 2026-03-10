@@ -1,69 +1,78 @@
-# Phase 2 Task 02 Summary: Waivers, Insurance & Venue Templates
+# Phase 2 Plan 02: Liability Waiver Flow, Admin View, DEI Integration Summary
 
-## Status: COMPLETE (gaps fixed)
+## One-liner
+Waiver signing with IP/UA audit trail, cookie-based middleware gating, admin waiver viewer with pagination, configurable waiver templates, and DEI insurance offer integration.
+
+## Status: COMPLETE
 
 ## Requirements Verified
 
 | Req ID | Requirement | Status | Evidence |
 |--------|------------|--------|----------|
-| WAIV-01 | Digital waiver before play | PASS | `WaiverForm.tsx` in setup flow step 2, checkbox required |
-| WAIV-02 | Checkbox + timestamp + IP logging | PASS | `WaiverForm.tsx` checkbox, `POST /api/waiver/sign` captures `ip_address`, `user_agent`, `signed_at` |
-| WAIV-03 | Waiver stored with audit trail | PASS | `waivers` table: `player_id`, `waiver_text`, `accepted`, `ip_address`, `user_agent`, `signed_at` |
-| WAIV-04 | Admin can view all waivers | PASS | `/admin/waivers` page with searchable table showing player, date, IP, user agent |
-| WAIV-05 | Waiver text configurable per venue | PASS (FIXED) | See "Gaps Fixed" below |
-| INSR-01 | Insurance offer after waiver | PASS | `InsuranceOffer.tsx` in setup flow step 3 |
-| INSR-02 | DEI microsite linked | PASS | Links to `https://dailyeventinsurance.com` with `target="_blank"` |
-| INSR-03 | Insurance status on profile | PASS | `ShieldCheck`/`Shield` icons in `ProfileCard.tsx` and `/profile/[id]/page.tsx` |
+| WAIV-01 | Digital liability waiver required before playing | PASS | Middleware checks `pap_has_waiver` cookie (02-01); sign route sets cookie after signing |
+| WAIV-02 | Checkbox acceptance + timestamp + IP logging | PASS | `WaiverForm.tsx` Radix checkbox; `POST /api/waiver/sign` captures IP (x-forwarded-for), user-agent, timestamp |
+| WAIV-03 | Waiver stored in DB with audit trail | PASS | `createWaiver()` in `waivers.ts` stores player_id, waiver_text, accepted, ip_address, user_agent, signed_at |
+| WAIV-04 | Admin can view all signed waivers | PASS | `/admin/waivers` with AdminWaiversClient table showing player name, date, IP, user agent, search, pagination |
+| WAIV-05 | Waiver text configurable per venue | PASS | Admin venue page has Waiver Text section; `waiver_templates` table with CRUD via `/api/admin/waiver-template` |
+| INSR-01 | After waiver, user offered optional event insurance | PASS | `InsuranceOffer` component appears as step 3 in SetupFlowClient |
+| INSR-02 | DEI microsite linked for insurance purchase | PASS | Links to `https://dailyeventinsurance.com` with target="_blank" |
+| INSR-03 | Insurance status visible on player profile | PASS | `ShieldCheck` (green) / `Shield` (gray) icons in `ProfileCard.tsx` and `/profile/[id]/page.tsx` |
 
-## Gaps Found and Fixed
+## Tasks Completed
 
-### GAP: WAIV-05 - Venue-configurable waiver text was not wired up
+### Task 1: Waiver API, configurable text, and cookie gating
+**Commit:** `8f77377`
 
-**Problem**: The `waiver_templates` table existed in the schema, and the `WaiverTemplate` type existed in `types.ts`, but:
-1. No database query functions existed for waiver templates
-2. No admin UI existed to manage templates
-3. The waiver sign route used hardcoded `DEFAULT_WAIVER_TEXT` instead of pulling from venue template
-4. The setup flow did not fetch the venue's custom waiver text
+**Changes:**
+- `src/app/api/waiver/sign/route.ts` -- Added `pap_has_waiver` cookie (httpOnly, 1yr, secure in prod) after successful waiver creation
+- `src/app/admin/venue/page.tsx` -- Added Waiver Text section with title/body inputs, separate save handler, loading state
+- `src/app/api/admin/waiver-template/route.ts` -- NEW GET/PUT endpoints for admin waiver template management with isAdmin() auth
 
-**Fix applied** (4 new files, 3 modified files):
+**Already complete (no changes needed):**
+- `src/lib/db/waivers.ts` -- createWaiver, getWaiverByPlayerId, listWaivers all functional
+- `src/lib/db/venues.ts` -- getVenue, updateVenue functional
+- `src/lib/db/waiver-templates.ts` -- Full CRUD with active template management
+- `src/app/api/waiver/status/[playerId]/route.ts` -- GET handler with owner/admin access control
+- `src/app/api/waiver/template/route.ts` -- Public template endpoint for setup flow
 
-#### New Files
-1. **`src/lib/db/waiver-templates.ts`** - CRUD functions for waiver templates:
-   - `getActiveWaiverTemplate(venueId?)` - fetch active template for a venue
-   - `listWaiverTemplates(venueId)` - list all templates for a venue
-   - `createWaiverTemplate(template)` - create new (deactivates others if active)
-   - `updateWaiverTemplate(id, updates)` - update template (handles active toggle)
+### Task 2: Admin waiver view and DEI insurance integration
+**Commit:** `93d278f`
 
-2. **`src/app/api/admin/waiver-templates/route.ts`** - Admin API for templates:
-   - `GET` - list all templates for the venue
-   - `POST` - create new template
-   - `PUT` - update existing template
-   - All endpoints require admin auth via `isAdmin()`
+**Changes:**
+- `src/app/admin/waivers/page.tsx` -- Replaced inline admin check with `requireAdmin()` from `@/lib/auth/admin` for consistency
+- `src/app/admin/waivers/AdminWaiversClient.tsx` -- Added Load More pagination with offset tracking, "Showing X of Y waivers" counter
 
-3. **`src/app/api/waiver/template/route.ts`** - Public API for active template:
-   - `GET` - returns active template body + venue name (auth required)
-   - Used by setup flow to fetch custom waiver text
+**Already complete (no changes needed):**
+- `src/app/api/admin/waivers/route.ts` -- GET with isAdmin(), listWaivers() with limit/offset
+- `src/app/api/insurance/status/route.ts` -- POST to update player insurance_status
+- `src/components/insurance/InsuranceOffer.tsx` -- DEI link, "Get Coverage" button, "Maybe Later" dismiss
+- `src/components/waiver/WaiverForm.tsx` -- Radix checkbox, scrollable waiver text, submit handling
+- `src/components/waiver/WaiverStatus.tsx` -- Green signed / yellow unsigned states
+- `src/components/profile/ProfileCard.tsx` -- Shield icons for insurance status
 
-4. **`src/app/admin/waiver-templates/page.tsx`** - Admin UI page:
-   - List all templates with active indicator
-   - Create new template form (title, body, active toggle)
-   - Edit existing templates inline
-   - Active template highlighted with green border
+## Deviations from Plan
 
-#### Modified Files
-5. **`src/app/api/waiver/sign/route.ts`** - Now fetches active venue template:
-   - Calls `getActiveWaiverTemplate(venue.id)` before creating waiver
-   - Falls back to `DEFAULT_WAIVER_TEXT` if no template configured
-   - Stores the actual text shown to user in the waiver record
+### Auto-fixed Issues
 
-6. **`src/app/profile/setup/SetupFlowClient.tsx`** - Now fetches venue template:
-   - `useEffect` on mount fetches `/api/waiver/template`
-   - Passes custom `waiverText` and `venueName` to `WaiverForm`
-   - Falls back to WaiverForm's default text if fetch fails
+**1. [Rule 2 - Missing Critical] Admin waiver template API endpoint**
+- **Found during:** Task 1
+- **Issue:** Plan specified adding waiver text to venue settings, but the codebase already uses a separate `waiver_templates` table with full CRUD. No admin API existed for managing templates from the venue settings page.
+- **Fix:** Created `/api/admin/waiver-template/route.ts` with GET/PUT endpoints instead of modifying the venue API
+- **Files created:** `src/app/api/admin/waiver-template/route.ts`
+- **Commit:** `8f77377`
 
-7. **`src/app/admin/layout.tsx`** - Added "Waiver Templates" nav item
+## Key Architecture Notes
 
-## Verification
-- TypeScript: `npx tsc --noEmit` passes with zero errors
-- Build: Next.js 16 Turbopack production build has a pre-existing ENOENT race condition unrelated to these changes (also fails on master)
-- All new files follow existing patterns (Supabase client, admin auth, Radix UI)
+- **Waiver system uses `waiver_templates` table** (not a `waiver_text` column on venues). Templates have title, body, is_active flag, and venue_id. Only one active template per venue.
+- **Cookie `pap_has_waiver`** is set httpOnly with 1-year expiry. Middleware from 02-01 checks this cookie to skip DB lookups for waiver status.
+- **Admin auth pattern:** Server components use `requireAdmin()` (redirects). API routes use `isAdmin(userId)` (returns boolean). Both check `players.role = 'admin'`.
+
+## Files Modified
+
+| File | Change |
+|------|--------|
+| `src/app/api/waiver/sign/route.ts` | Added pap_has_waiver cookie on successful sign |
+| `src/app/admin/venue/page.tsx` | Added waiver text configuration section |
+| `src/app/api/admin/waiver-template/route.ts` | NEW - Admin waiver template CRUD |
+| `src/app/admin/waivers/page.tsx` | Simplified to use requireAdmin() |
+| `src/app/admin/waivers/AdminWaiversClient.tsx` | Added pagination with Load More |
