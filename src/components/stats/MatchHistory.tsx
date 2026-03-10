@@ -16,7 +16,7 @@ interface MatchHistoryEntry {
   match_players: {
     player_id: string;
     team: number | null;
-    players: { id: string; name: string; avatar_url: string | null };
+    players: { id: string; display_name: string; avatar_url: string | null };
   }[];
   match_results: {
     winner_team: number | null;
@@ -142,7 +142,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                     <img src={mp.players.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-zinc-800 text-[10px] text-zinc-500">
-                      {mp.players?.name?.charAt(0)}
+                      {mp.players?.display_name?.charAt(0)}
                     </div>
                   )}
                 </div>

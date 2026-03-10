@@ -117,14 +117,14 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                     <img src={entry.player.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
-                      {entry.player?.name?.charAt(0)?.toUpperCase()}
+                      {entry.player?.display_name?.charAt(0)?.toUpperCase()}
                     </div>
                   )}
                 </div>
 
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-medium text-zinc-200">
-                    {entry.player?.name}
+                    {entry.player?.display_name}
                     {isMe && <span className="ml-1 text-xs text-emerald-400">(You)</span>}
                   </p>
                   <p className="text-xs text-zinc-500">

@@ -35,11 +35,11 @@ export function FriendRequests({ requests, onRespond }: FriendRequestsProps) {
           className="flex items-center gap-3 rounded-xl glass p-3"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-sm font-bold text-white">
-            {req.player?.name?.charAt(0)?.toUpperCase() || "?"}
+            {req.player?.display_name?.charAt(0)?.toUpperCase() || "?"}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-zinc-100 truncate">
-              {req.player?.name || "Unknown"}
+              {req.player?.display_name || "Unknown"}
             </p>
             <p className="text-xs text-zinc-500">Wants to be friends</p>
           </div>

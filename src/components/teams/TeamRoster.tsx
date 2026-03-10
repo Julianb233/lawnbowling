@@ -83,14 +83,14 @@ export function TeamRoster({ teamId, currentUserId, captainId }: TeamRosterProps
               <img src={m.player.avatar_url} alt="" className="h-full w-full object-cover" />
             ) : (
               <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
-                {m.player.name?.charAt(0)?.toUpperCase()}
+                {m.player.display_name?.charAt(0)?.toUpperCase()}
               </div>
             )}
           </div>
 
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <span className="font-medium text-zinc-200 truncate">{m.player.name}</span>
+              <span className="font-medium text-zinc-200 truncate">{m.player.display_name}</span>
               {m.role === "captain" && (
                 <Crown className="h-3.5 w-3.5 shrink-0 text-amber-400" />
               )}

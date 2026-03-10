@@ -5,19 +5,19 @@ export async function getPlayerStats(playerId: string) {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("player_stats")
-    .select("*, player:players(id, name, avatar_url, skill_level, sports)")
+    .select("*, player:players(id, display_name, avatar_url, skill_level, sports)")
     .eq("player_id", playerId)
     .single();
 
   if (error && error.code !== "PGRST116") throw error;
-  return data as (PlayerStats & { player: { id: string; name: string; avatar_url: string | null; skill_level: string; sports: string[] } }) | null;
+  return data as (PlayerStats & { player: { id: string; display_name: string; avatar_url: string | null; skill_level: string; sports: string[] } }) | null;
 }
 
 export async function getLeaderboard(options?: { sport?: string; limit?: number }) {
   const supabase = await createClient();
   let query = supabase
     .from("player_stats")
-    .select("*, player:players(id, name, avatar_url, skill_level, sports)")
+    .select("*, player:players(id, display_name, avatar_url, skill_level, sports)")
     .gte("games_played", 5)
     .order("win_rate", { ascending: false })
     .order("wins", { ascending: false })
@@ -29,7 +29,7 @@ export async function getLeaderboard(options?: { sport?: string; limit?: number 
 
   const { data, error } = await query;
   if (error) throw error;
-  return data as (PlayerStats & { player: { id: string; name: string; avatar_url: string | null; skill_level: string; sports: string[] } })[];
+  return data as (PlayerStats & { player: { id: string; display_name: string; avatar_url: string | null; skill_level: string; sports: string[] } })[];
 }
 
 export async function reportMatchResult(result: {
@@ -130,7 +130,7 @@ export async function getMatchHistory(playerId: string, options?: { sport?: stri
 
   let query = supabase
     .from("matches")
-    .select("*, courts(name), match_players(player_id, team, players:players(id, name, avatar_url)), match_results(*)")
+    .select("*, courts(name), match_players(player_id, team, players:players(id, display_name, avatar_url)), match_results(*)")
     .in("id", matchIds)
     .eq("status", "completed")
     .order("ended_at", { ascending: false })

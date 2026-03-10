@@ -126,6 +126,43 @@ export async function completeMatch(matchId: string) {
 
   if (matchError) throw matchError;
 
+  // Auto-increment games_played for all match players
+  const { data: matchPlayers } = await supabase
+    .from("match_players")
+    .select("player_id")
+    .eq("match_id", matchId);
+
+  if (matchPlayers) {
+    for (const mp of matchPlayers) {
+      const { data: existing } = await supabase
+        .from("player_stats")
+        .select("*")
+        .eq("player_id", mp.player_id)
+        .single();
+
+      if (existing) {
+        await supabase
+          .from("player_stats")
+          .update({
+            games_played: existing.games_played + 1,
+            last_played_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          })
+          .eq("player_id", mp.player_id);
+      } else {
+        await supabase.from("player_stats").insert({
+          player_id: mp.player_id,
+          games_played: 1,
+          wins: 0,
+          losses: 0,
+          win_rate: 0,
+          favorite_sport: match.sport,
+          last_played_at: new Date().toISOString(),
+        });
+      }
+    }
+  }
+
   // Free up the court
   if (match.court_id) {
     const { error: courtError } = await supabase

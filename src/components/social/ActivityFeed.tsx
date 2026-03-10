@@ -53,7 +53,7 @@ export function ActivityFeed({ items }: ActivityFeedProps) {
             <div className="flex-1 min-w-0">
               <p className="text-sm text-zinc-200">
                 <span className="font-medium text-zinc-100">
-                  {item.player?.name || "Someone"}
+                  {item.player?.display_name || "Someone"}
                 </span>{" "}
                 {config.verb}
                 {meta?.sport && (

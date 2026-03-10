@@ -23,7 +23,7 @@ export interface Venue {
 
 export interface Player {
   id: string;
-  name: string;
+  display_name: string;
   avatar_url: string | null;
   skill_level: SkillLevel;
   sports: string[];
@@ -266,3 +266,58 @@ export interface NotificationPreferences {
 }
 
 export type ReportReason = "unsportsmanlike" | "harassment" | "no_show" | "cheating" | "other";
+
+// ===== Tournaments =====
+
+export type TournamentFormat = "round_robin" | "single_elimination" | "double_elimination";
+export type TournamentStatus = "registration" | "in_progress" | "completed" | "cancelled";
+export type TournamentMatchStatus = "pending" | "in_progress" | "completed";
+
+export const TOURNAMENT_FORMAT_LABELS: Record<TournamentFormat, string> = {
+  round_robin: "Round Robin",
+  single_elimination: "Single Elimination",
+  double_elimination: "Double Elimination",
+};
+
+export interface Tournament {
+  id: string;
+  venue_id: string | null;
+  name: string;
+  sport: string;
+  format: TournamentFormat;
+  status: TournamentStatus;
+  max_players: number;
+  created_by: string;
+  starts_at: string | null;
+  created_at: string;
+  creator?: Player; // joined
+  participants_count?: number;
+}
+
+export interface TournamentParticipant {
+  tournament_id: string;
+  player_id: string;
+  seed: number | null;
+  eliminated: boolean;
+  wins: number;
+  losses: number;
+  player?: Player; // joined
+}
+
+export interface TournamentMatch {
+  id: string;
+  tournament_id: string;
+  round: number;
+  match_number: number;
+  player1_id: string | null;
+  player2_id: string | null;
+  winner_id: string | null;
+  score: string | null;
+  court_id: string | null;
+  status: TournamentMatchStatus;
+  scheduled_at: string | null;
+  completed_at: string | null;
+  player1?: Player; // joined
+  player2?: Player; // joined
+  winner?: Player; // joined
+}

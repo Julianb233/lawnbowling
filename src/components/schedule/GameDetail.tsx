@@ -111,10 +111,10 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
                 className="flex items-center gap-3 rounded-xl glass p-3 hover:bg-white/5 transition-colors"
               >
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/20 text-xs font-bold text-emerald-400">
-                  {rsvp.player?.name?.charAt(0)?.toUpperCase() || "?"}
+                  {rsvp.player?.display_name?.charAt(0)?.toUpperCase() || "?"}
                 </div>
                 <span className="text-sm text-zinc-200">
-                  {rsvp.player?.name || "Unknown"}
+                  {rsvp.player?.display_name || "Unknown"}
                 </span>
               </Link>
             ))}
@@ -135,10 +135,10 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
                 className="flex items-center gap-3 rounded-xl glass p-3"
               >
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500/20 text-xs font-bold text-amber-400">
-                  {rsvp.player?.name?.charAt(0)?.toUpperCase() || "?"}
+                  {rsvp.player?.display_name?.charAt(0)?.toUpperCase() || "?"}
                 </div>
                 <span className="text-sm text-zinc-300">
-                  {rsvp.player?.name || "Unknown"}
+                  {rsvp.player?.display_name || "Unknown"}
                 </span>
               </div>
             ))}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { ReportResultModal } from "@/components/stats/ReportResultModal";
 
 interface MatchRow {
   id: string;
@@ -24,6 +25,7 @@ export default function MatchesAdminPage() {
   const [matches, setMatches] = useState<MatchRow[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [reportMatchId, setReportMatchId] = useState<string | null>(null);
 
   const fetchMatches = async () => {
     setLoading(true);
@@ -93,6 +95,7 @@ export default function MatchesAdminPage() {
                 <th className="pb-2 font-medium">Status</th>
                 <th className="pb-2 font-medium">Duration</th>
                 <th className="pb-2 font-medium">Date</th>
+                <th className="pb-2 font-medium">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-800">
@@ -139,6 +142,16 @@ export default function MatchesAdminPage() {
                     <td className="py-3 text-zinc-500">
                       {new Date(match.created_at).toLocaleDateString()}
                     </td>
+                    <td className="py-3">
+                      {match.status === "completed" && (
+                        <button
+                          onClick={() => setReportMatchId(match.id)}
+                          className="rounded-lg bg-emerald-600/20 px-3 py-1 text-xs font-medium text-emerald-400 hover:bg-emerald-600/30 transition-colors"
+                        >
+                          Report Score
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 );
               })}
@@ -150,6 +163,18 @@ export default function MatchesAdminPage() {
             </p>
           )}
         </div>
+      )}
+
+      {reportMatchId && (
+        <ReportResultModal
+          open={!!reportMatchId}
+          onOpenChange={(open) => { if (!open) setReportMatchId(null); }}
+          matchId={reportMatchId}
+          onReported={() => {
+            setReportMatchId(null);
+            fetchMatches();
+          }}
+        />
       )}
     </div>
   );
