@@ -17,6 +17,8 @@ import { SentRequestToast } from "@/components/partner/SentRequestToast";
 import { MatchQueue } from "@/components/partner/MatchQueue";
 import { CourtStatusBoard } from "@/components/courts/CourtStatusBoard";
 import { SuggestedPartners } from "@/components/board/SuggestedPartners";
+import { GlobalSearch } from "@/components/search/GlobalSearch";
+import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
 import type { Sport, SkillLevel, Player, Venue } from "@/lib/types";
 
 export default function BoardPage() {
