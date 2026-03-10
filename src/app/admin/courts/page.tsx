@@ -11,7 +11,7 @@ interface Court {
   is_available: boolean;
 }
 
-const SPORTS = [
+const DEFAULT_SPORTS = [
   "pickleball",
   "lawn_bowling",
   "tennis",
@@ -21,23 +21,43 @@ const SPORTS = [
 
 export default function CourtsAdminPage() {
   const [courts, setCourts] = useState<Court[]>([]);
+  const [sports, setSports] = useState<string[]>(DEFAULT_SPORTS);
   const [loading, setLoading] = useState(true);
   const [newName, setNewName] = useState("");
-  const [newSport, setNewSport] = useState(SPORTS[0]);
+  const [newSport, setNewSport] = useState("");
   const [editing, setEditing] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
   const [editSport, setEditSport] = useState("");
 
-  const fetchCourts = async () => {
-    const res = await fetch("/api/admin/courts");
-    const data = await res.json();
-    setCourts(data.courts ?? []);
+  const fetchData = async () => {
+    const [courtsRes, venueRes] = await Promise.all([
+      fetch("/api/admin/courts"),
+      fetch("/api/admin/venue"),
+    ]);
+    const courtsData = await courtsRes.json();
+    const venueData = await venueRes.json();
+
+    setCourts(courtsData.courts ?? []);
+
+    // Use venue sports if configured, otherwise fall back to defaults
+    const venueSports = venueData.venue?.sports;
+    if (venueSports && venueSports.length > 0) {
+      setSports(venueSports);
+    }
+
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchCourts();
+    fetchData();
   }, []);
+
+  // Set default new sport when sports list loads
+  useEffect(() => {
+    if (sports.length > 0 && !newSport) {
+      setNewSport(sports[0]);
+    }
+  }, [sports, newSport]);
 
   const handleAdd = async () => {
     if (!newName.trim()) return;
@@ -51,7 +71,7 @@ export default function CourtsAdminPage() {
       }),
     });
     setNewName("");
-    fetchCourts();
+    fetchData();
   };
 
   const handleUpdate = async (id: string) => {
@@ -61,7 +81,7 @@ export default function CourtsAdminPage() {
       body: JSON.stringify({ id, name: editName, sport: editSport }),
     });
     setEditing(null);
-    fetchCourts();
+    fetchData();
   };
 
   const handleDelete = async (id: string) => {
@@ -71,7 +91,7 @@ export default function CourtsAdminPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
     });
-    fetchCourts();
+    fetchData();
   };
 
   if (loading) {
@@ -97,7 +117,7 @@ export default function CourtsAdminPage() {
           onChange={(e) => setNewSport(e.target.value)}
           className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100"
         >
-          {SPORTS.map((s) => (
+          {sports.map((s) => (
             <option key={s} value={s}>
               {s.replace("_", " ")}
             </option>
@@ -105,6 +125,16 @@ export default function CourtsAdminPage() {
         </select>
         <Button onClick={handleAdd}>Add Court</Button>
       </div>
+
+      {sports === DEFAULT_SPORTS && (
+        <p className="text-xs text-zinc-500 mb-4">
+          Using default sports list. Configure venue sports in{" "}
+          <a href="/admin/venue" className="text-emerald-400 hover:underline">
+            Venue Settings
+          </a>{" "}
+          to customize.
+        </p>
+      )}
 
       {/* Court list */}
       <div className="space-y-2">
@@ -126,7 +156,7 @@ export default function CourtsAdminPage() {
                   onChange={(e) => setEditSport(e.target.value)}
                   className="rounded-lg border border-zinc-700 bg-zinc-800 px-2 py-1 text-sm text-zinc-100"
                 >
-                  {SPORTS.map((s) => (
+                  {sports.map((s) => (
                     <option key={s} value={s}>
                       {s.replace("_", " ")}
                     </option>

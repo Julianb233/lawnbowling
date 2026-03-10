@@ -9,6 +9,15 @@ export interface Venue {
   name: string;
   address: string | null;
   timezone: string;
+  logo_url: string | null;
+  primary_color: string;
+  secondary_color: string;
+  tagline: string | null;
+  contact_email: string | null;
+  contact_phone: string | null;
+  website_url: string | null;
+  sports: string[];
+  operating_hours: Record<string, unknown>;
   created_at: string;
 }
 

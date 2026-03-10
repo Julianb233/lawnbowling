@@ -12,9 +12,11 @@ export async function getVenue(id?: string) {
   return data as Venue | null;
 }
 
+type VenueUpdatable = Pick<Venue, "name" | "address" | "timezone" | "sports" | "contact_email" | "contact_phone" | "website_url" | "tagline" | "logo_url" | "primary_color" | "secondary_color">;
+
 export async function updateVenue(
   id: string,
-  updates: Partial<Pick<Venue, "name" | "address" | "timezone">>
+  updates: Partial<VenueUpdatable>
 ) {
   const supabase = await createClient();
   const { data, error } = await supabase
