@@ -70,8 +70,18 @@ export async function POST(request: NextRequest) {
       // Accept: update request, create match, mark both unavailable
       await updateRequestStatus(request_id, "accepted");
 
+      // Look up requester's venue_id for the match
+      const { data: requester } = await supabase
+        .from("players")
+        .select("venue_id")
+        .eq("id", partnerRequest.requester_id)
+        .single();
+
       const match = await createMatch(
-        { sport: partnerRequest.sport },
+        {
+          sport: partnerRequest.sport,
+          venue_id: requester?.venue_id ?? undefined,
+        },
         [partnerRequest.requester_id, partnerRequest.target_id]
       );
 

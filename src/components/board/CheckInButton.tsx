@@ -8,10 +8,11 @@ import { cn } from "@/lib/utils";
 interface CheckInButtonProps {
   playerId: string;
   isAvailable: boolean;
+  venueId: string | null;
   onToggle?: (newState: boolean) => void;
 }
 
-export function CheckInButton({ playerId, isAvailable, onToggle }: CheckInButtonProps) {
+export function CheckInButton({ playerId, isAvailable, venueId, onToggle }: CheckInButtonProps) {
   const [loading, setLoading] = useState(false);
   const [available, setAvailable] = useState(isAvailable);
   const supabase = createClient();
@@ -25,6 +26,7 @@ export function CheckInButton({ playerId, isAvailable, onToggle }: CheckInButton
       .update({
         is_available: newState,
         checked_in_at: newState ? new Date().toISOString() : null,
+        venue_id: newState ? venueId : null,
       })
       .eq("id", playerId);
 

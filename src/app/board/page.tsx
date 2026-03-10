@@ -16,7 +16,7 @@ import { IncomingRequest, IncomingRequestProvider } from "@/components/partner/I
 import { SentRequestToast } from "@/components/partner/SentRequestToast";
 import { MatchQueue } from "@/components/partner/MatchQueue";
 import { CourtStatusBoard } from "@/components/courts/CourtStatusBoard";
-import type { Sport, SkillLevel, Player } from "@/lib/types";
+import type { Sport, SkillLevel, Player, Venue } from "@/lib/types";
 
 export default function BoardPage() {
   const [sportFilter, setSportFilter] = useState<Sport | null>(null);
@@ -24,13 +24,23 @@ export default function BoardPage() {
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   const [loadingPlayer, setLoadingPlayer] = useState(true);
   const [requestTarget, setRequestTarget] = useState<Player | null>(null);
+  const [venue, setVenue] = useState<Venue | null>(null);
   const [statusNotifications, setStatusNotifications] = useState<
     Array<{ id: string; targetName: string; sport: string; status: "accepted" | "declined" | "expired" }>
   >([]);
 
+  // Fetch default venue
+  useEffect(() => {
+    fetch("/api/venue/default")
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => { if (data && !data.error) setVenue(data); })
+      .catch(() => {});
+  }, []);
+
   const { players, loading } = useRealtimePlayers({
     sportFilter,
     skillFilter,
+    venueId: venue?.id ?? null,
   });
 
   const supabase = createClient();
@@ -148,7 +158,7 @@ export default function BoardPage() {
               <h1 className="text-xl font-black text-zinc-100 lg:text-2xl">
                 {"\u{1F3D3}"} <span className="text-gradient">Pick a Partner</span>
               </h1>
-              <p className="text-sm text-zinc-500">Sunset Rec Center</p>
+              <p className="text-sm text-zinc-500">{venue?.name ?? "Loading venue..."}</p>
             </motion.div>
             <LiveIndicator count={players.length} />
           </div>
@@ -165,6 +175,7 @@ export default function BoardPage() {
               <CheckInButton
                 playerId={currentPlayer.id}
                 isAvailable={currentPlayer.is_available}
+                venueId={venue?.id ?? null}
                 onToggle={handleCheckInToggle}
               />
             </motion.div>

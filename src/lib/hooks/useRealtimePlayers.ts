@@ -8,10 +8,11 @@ import type { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
 interface UseRealtimePlayersOptions {
   sportFilter?: Sport | null;
   skillFilter?: SkillLevel | null;
+  venueId?: string | null;
 }
 
 export function useRealtimePlayers(options: UseRealtimePlayersOptions = {}) {
-  const { sportFilter, skillFilter } = options;
+  const { sportFilter, skillFilter, venueId } = options;
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const supabaseRef = useRef(createClient());
@@ -23,6 +24,10 @@ export function useRealtimePlayers(options: UseRealtimePlayersOptions = {}) {
       .select("*")
       .eq("is_available", true)
       .order("checked_in_at", { ascending: false });
+
+    if (venueId) {
+      query = query.eq("venue_id", venueId);
+    }
 
     if (sportFilter) {
       query = query.contains("sports", [sportFilter]);
@@ -38,7 +43,7 @@ export function useRealtimePlayers(options: UseRealtimePlayersOptions = {}) {
       setPlayers(data as Player[]);
     }
     setLoading(false);
-  }, [sportFilter, skillFilter]);
+  }, [sportFilter, skillFilter, venueId]);
 
   useEffect(() => {
     fetchPlayers();
@@ -58,6 +63,7 @@ export function useRealtimePlayers(options: UseRealtimePlayersOptions = {}) {
           const oldRecord = payload.old as { id?: string } | undefined;
 
           if (payload.eventType === "INSERT" && newRecord?.is_available) {
+            if (venueId && newRecord.venue_id !== venueId) return;
             if (sportFilter && !newRecord.sports?.includes(sportFilter)) return;
             if (skillFilter && newRecord.skill_level !== skillFilter) return;
             setPlayers((prev) => [newRecord, ...prev]);
@@ -65,6 +71,10 @@ export function useRealtimePlayers(options: UseRealtimePlayersOptions = {}) {
             if (newRecord && !newRecord.is_available) {
               setPlayers((prev) => prev.filter((p) => p.id !== newRecord.id));
             } else if (newRecord?.is_available) {
+              if (venueId && newRecord.venue_id !== venueId) {
+                setPlayers((prev) => prev.filter((p) => p.id !== newRecord.id));
+                return;
+              }
               if (sportFilter && !newRecord.sports?.includes(sportFilter)) {
                 setPlayers((prev) => prev.filter((p) => p.id !== newRecord.id));
                 return;
@@ -91,7 +101,7 @@ export function useRealtimePlayers(options: UseRealtimePlayersOptions = {}) {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [fetchPlayers, sportFilter, skillFilter]);
+  }, [fetchPlayers, sportFilter, skillFilter, venueId]);
 
   return { players, loading, refetch: fetchPlayers };
 }
