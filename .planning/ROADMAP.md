@@ -12,6 +12,7 @@ Pick a Partner is a PWA for recreational sports venues where players check in, f
 - [x] **Phase 4: Partner Selection** - Pick/request/accept flow, match queue
 - [x] **Phase 5: Court Management & Admin** - Court/lane assignment, timers, admin panel
 - [x] **Phase 6: PWA, Polish & Deploy** - Service worker, responsive polish, Vercel deploy
+- [ ] **Phase 7: Bowls Tournament Production Launch** - Dynamic tournaments, real data, competitor features
 
 ## Phase Details
 
@@ -111,10 +112,29 @@ Plans:
 - [x] 06-01: PWA manifest, service worker (Serwist), install prompt, offline support
 - [x] 06-02: Responsive polish (iPad landscape + iPhone portrait), accessibility pass, Vercel deploy
 
+### Phase 7: Bowls Tournament Production Launch
+**Goal**: Connect bowls to real tournament data, add competitor-inspired features, make production-ready
+**Depends on**: Phase 6
+**Requirements**: BOWLS-01 (migration), BOWLS-02 (dynamic routing), BOWLS-03 (tournament CRUD), BOWLS-04 (nav integration), BOWLS-05 (seed data), BOWLS-06 (kiosk update)
+**Success Criteria** (what must be TRUE):
+  1. bowls_checkins table exists in Supabase
+  2. /bowls shows tournament list with active/past tournaments
+  3. /bowls/[id] shows check-in/board/draw for specific tournament
+  4. New tournament can be created via modal
+  5. Demo seed data includes a bowls tournament with check-ins
+  6. BottomNav includes Bowls link
+  7. Kiosk mode works with dynamic routing
+  8. npm run build passes
+**Plans**: 2 plans
+
+Plans:
+- [ ] 07-01: Migration, dynamic routing, tournament CRUD API
+- [ ] 07-02: Tournament modal, seed data, kiosk update, nav, build verification
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -124,3 +144,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 4. Partner Selection | 2/2 | Complete | 2026-03-09 |
 | 5. Court Management & Admin | 2/2 | Complete | 2026-03-09 |
 | 6. PWA, Polish & Deploy | 2/2 | Complete | 2026-03-10 |
+| 7. Bowls Tournament Production Launch | 0/2 | In Progress | - |

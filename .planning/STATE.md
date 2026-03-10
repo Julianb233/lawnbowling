@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-03-09)
 
 **Core value:** Players at recreational sports venues can quickly find and team up with partners
-**Current focus:** Complete — all phases built, deployed to Vercel
+**Current focus:** Phase 7 — Bowls Tournament Production Launch
 
 ## Current Position
 
-Phase: 6 of 6 (Complete + Deployed)
-Plan: All 12 plans complete
-Status: v1 deployed to https://pick-a-partner.vercel.app
-Last activity: 2026-03-10 — Phase 6 final audit, polish, and Vercel production deploy
+Phase: 7 of 7
+Plan: 07-01 next
+Status: Phase 7 in progress — dynamic tournaments, competitor features
+Last activity: 2026-03-10 — Competitor research complete, Phase 7 roadmap added
 
-Progress: [██████████] 100%
+Progress: [████████░░] 86%
 
 ## Performance Metrics
 

@@ -127,7 +127,7 @@ async function main() {
 
   // 0. Clean mode: wipe previous demo data if --clean flag is passed
   if (process.argv.includes("--clean")) {
-    console.log("0/7  Cleaning previous demo data...");
+    console.log("0/9  Cleaning previous demo data...");
     const { data: oldVenues } = await supabase
       .from("venues")
       .select("id")
@@ -137,6 +137,17 @@ async function main() {
         // Delete cascading data tied to venue
         await supabase.from("activity_feed").delete().eq("venue_id", v.id);
         await supabase.from("court_waitlist").delete().eq("venue_id", v.id);
+
+        // Delete tournaments and bowls check-ins
+        try {
+          const { data: vTournaments } = await supabase.from("tournaments").select("id").eq("venue_id", v.id);
+          if (vTournaments) {
+            for (const t of vTournaments) {
+              await supabase.from("bowls_checkins").delete().eq("tournament_id", t.id);
+            }
+            await supabase.from("tournaments").delete().eq("venue_id", v.id);
+          }
+        } catch { /* tables may not exist */ }
 
         // Delete matches and their children
         const { data: vMatches } = await supabase.from("matches").select("id").eq("venue_id", v.id);
@@ -170,7 +181,7 @@ async function main() {
   }
 
   // 1. Venue
-  console.log("1/7  Creating venue...");
+  console.log("1/9  Creating venue...");
 
   // Check if venue already exists (idempotent)
   const { data: existingVenue } = await supabase
@@ -195,7 +206,7 @@ async function main() {
   }
 
   // 2. Courts
-  console.log("2/7  Creating courts...");
+  console.log("2/9  Creating courts...");
   const { data: existingCourts } = await supabase
     .from("courts")
     .select("id, name, sport")
@@ -217,7 +228,7 @@ async function main() {
   }
 
   // 3. Auth users + players
-  console.log("3/7  Creating demo players...");
+  console.log("3/9  Creating demo players...");
   const playerIds: string[] = [];
   const playerMap: Record<string, string> = {}; // email -> player id
 
@@ -285,7 +296,7 @@ async function main() {
   }
 
   // 4. Matches + results
-  console.log("4/7  Creating sample matches...");
+  console.log("4/9  Creating sample matches...");
 
   interface MatchDef {
     sport: string;
@@ -348,7 +359,7 @@ async function main() {
   }
 
   // 5. Player stats
-  console.log("5/7  Computing player stats...");
+  console.log("5/9  Computing player stats...");
 
   // Tally wins/losses from match defs
   const statsMap: Record<string, { games: number; wins: number; losses: number; favSport: string }> = {};
@@ -389,7 +400,7 @@ async function main() {
   console.log(`     Stats for ${statsRows.length} players`);
 
   // 6. Sport skills (optional -- table may not be deployed yet)
-  console.log("6/7  Seeding sport skill ratings...");
+  console.log("6/9  Seeding sport skill ratings...");
   try {
     const skillRows: {
       player_id: string;
@@ -434,7 +445,7 @@ async function main() {
   }
 
   // 7. Activity feed (optional -- table may not be deployed yet)
-  console.log("7/7  Populating activity feed...");
+  console.log("7/9  Populating activity feed...");
   try {
     const feedRows = [
       { venue_id: venueId, player_id: playerIds[0], type: "check_in", metadata: { sport: "pickleball" }, created_at: hoursAgo(2) },
@@ -452,6 +463,59 @@ async function main() {
     }
   } catch (e) {
     console.warn(`     Skipped activity feed: ${e}`);
+  }
+
+  // 8. Bowls tournament
+  console.log("8/9  Creating bowls tournament...");
+  let tournamentId: string | null = null;
+  try {
+    const { data: tournament, error: tournamentErr } = await supabase
+      .from("tournaments")
+      .insert({
+        name: "Saturday Social Bowls",
+        sport: "lawn_bowling",
+        format: "fours",
+        max_players: 32,
+        status: "registration",
+        venue_id: venueId,
+        created_by: playerIds[0],
+      })
+      .select("id")
+      .single();
+    if (tournamentErr) {
+      console.warn(`     Skipped: ${tournamentErr.message}`);
+    } else {
+      tournamentId = tournament.id;
+      console.log(`     Tournament: ${tournamentId}`);
+    }
+  } catch (e) {
+    console.warn(`     Skipped bowls tournament: ${e}`);
+  }
+
+  // 9. Bowls check-ins
+  console.log("9/9  Creating bowls check-ins...");
+  try {
+    if (tournamentId) {
+      const checkinRows = [
+        { tournament_id: tournamentId, player_id: playerIds[1], position: "skip" },    // Alex Chen
+        { tournament_id: tournamentId, player_id: playerIds[5], position: "vice" },    // Casey Nguyen
+        { tournament_id: tournamentId, player_id: playerIds[6], position: "lead" },    // Pat Hernandez
+        { tournament_id: tournamentId, player_id: playerIds[8], position: "skip" },    // Riley Jackson
+        { tournament_id: tournamentId, player_id: playerIds[9], position: "second" },  // Quinn Wright
+        { tournament_id: tournamentId, player_id: playerIds[11], position: "vice" },   // Avery Brooks
+      ];
+
+      const { error: checkinErr } = await supabase.from("bowls_checkins").insert(checkinRows);
+      if (checkinErr) {
+        console.warn(`     Skipped: ${checkinErr.message}`);
+      } else {
+        console.log(`     ${checkinRows.length} bowls check-ins created`);
+      }
+    } else {
+      console.warn("     Skipped: no tournament was created");
+    }
+  } catch (e) {
+    console.warn(`     Skipped bowls check-ins: ${e}`);
   }
 
   console.log("\nSeed complete.");

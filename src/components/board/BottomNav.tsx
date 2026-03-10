@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { href: "/board", label: "Home", icon: "\u{1F3E0}" },
+  { href: "/bowls", label: "Bowls", icon: "\u{1F3B3}" },
   { href: "/schedule", label: "Schedule", icon: "\u{1F4C5}" },
-  { href: "/teams", label: "Teams", icon: "\u{1F465}" },
   { href: "/stats", label: "Stats", icon: "\u{1F4CA}" },
   { href: "/profile", label: "Me", icon: "\u{1F464}" },
 ];
