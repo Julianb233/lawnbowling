@@ -44,6 +44,12 @@ export default async function HomePage() {
           </div>
           <div className="flex items-center gap-3">
             <Link
+              href="/insurance"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 transition hover:text-white"
+            >
+              Insurance
+            </Link>
+            <Link
               href="/login"
               className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 transition hover:text-white"
             >
@@ -355,6 +361,9 @@ export default async function HomePage() {
             <span className="font-semibold text-white">Pick a Partner</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
+            <Link href="/insurance" className="hover:text-zinc-300 transition">
+              Insurance
+            </Link>
             <Link href="/(public)/terms" className="hover:text-zinc-300 transition">
               Terms
             </Link>
