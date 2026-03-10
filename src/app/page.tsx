@@ -1,66 +1,48 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import {
   Users,
   Zap,
   Shield,
   Timer,
-  ChevronRight,
   Smartphone,
   Trophy,
   MapPin,
   Star,
   CheckCircle,
 } from "lucide-react";
+import { HeroSlideshow } from "@/components/home/HeroSlideshow";
 import { SportsSlideshow } from "@/components/home/SportsSlideshow";
 
-export default async function HomePage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (user) {
-    redirect("/board");
-  }
-
+export default function HomePage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
-      {/* Animated background orbs */}
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute top-[-20%] left-[-10%] h-[600px] w-[600px] rounded-full bg-emerald-500/10 blur-[120px] animate-[gradientShift_15s_ease_infinite]" />
-        <div className="absolute bottom-[-20%] right-[-10%] h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px] animate-[gradientShift_20s_ease_infinite_reverse]" />
-        <div className="absolute top-[40%] right-[20%] h-[400px] w-[400px] rounded-full bg-amber-500/5 blur-[100px] animate-[gradientShift_25s_ease_infinite]" />
-      </div>
-
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
+      {/* Navigation — overlays hero */}
+      <nav className="absolute top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/20 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20">
               <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-zinc-900">
+            <span className="text-lg font-bold text-white">
               Pick a Partner
             </span>
           </div>
           <div className="flex items-center gap-3">
             <Link
               href="/for-venues"
-              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
             >
               For Venues
             </Link>
             <Link
               href="/insurance"
-              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
             >
               Insurance
             </Link>
             <Link
               href="/login"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
             >
               Sign In
             </Link>
@@ -74,74 +56,19 @@ export default async function HomePage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-24 md:pt-28 md:pb-32">
-        <div className="flex flex-col items-center text-center">
-          {/* Badge */}
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5">
-            <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-sm font-medium text-emerald-700">
-              Live at venues now
-            </span>
-          </div>
+      {/* Hero with background image slideshow */}
+      <HeroSlideshow />
 
-          {/* Headline */}
-          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
-            Find Your{" "}
-            <span className="text-gradient">Perfect Partner</span>
-            <br />
-            Hit the Court
-          </h1>
-
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
-            The real-time player board for recreational sports. Check in, pick a
-            partner, and get matched to a court — all from your phone or the
-            venue kiosk.
+      {/* Sports Slideshow — detailed sport cards */}
+      <section className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+            Sports We Support
+          </h2>
+          <p className="mt-4 text-lg text-zinc-500">
+            Swipe through our supported sports — more added all the time
           </p>
-
-          {/* CTA Buttons */}
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Link
-              href="/signup"
-              className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-500 px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-emerald-500/25 transition-all hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Start Playing
-              <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <Link
-              href="#how-it-works"
-              className="inline-flex items-center gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-8 py-4 text-lg font-semibold text-zinc-700 transition-all hover:border-zinc-300 hover:bg-zinc-100 hover:text-zinc-900 active:scale-[0.98]"
-            >
-              See How It Works
-            </Link>
-          </div>
-
-          {/* Sport Tags */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
-            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-sm font-medium text-emerald-700">
-              Pickleball
-            </span>
-            <span className="rounded-full border border-amber-200 bg-amber-50 px-4 py-1.5 text-sm font-medium text-amber-700">
-              Tennis
-            </span>
-            <span className="rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-700">
-              Lawn Bowling
-            </span>
-            <span className="rounded-full border border-purple-200 bg-purple-50 px-4 py-1.5 text-sm font-medium text-purple-700">
-              Badminton
-            </span>
-            <span className="rounded-full border border-rose-200 bg-rose-50 px-4 py-1.5 text-sm font-medium text-rose-700">
-              Racquetball
-            </span>
-            <span className="rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 text-sm font-medium text-orange-700">
-              Flag Football
-            </span>
-          </div>
         </div>
-      </section>
-
-      {/* Sports Slideshow */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
         <SportsSlideshow />
       </section>
 

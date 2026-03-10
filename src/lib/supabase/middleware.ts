@@ -35,8 +35,13 @@ export async function updateSession(request: NextRequest) {
 
   const publicPaths = ["/login", "/signup", "/auth/callback", "/offline", "/insurance", "/terms", "/privacy", "/contact", "/about", "/faq", "/for-venues", "/learn"];
 
-  // Root path is public (landing page)
+  // Root path: redirect logged-in users to /board, show landing for guests
   if (request.nextUrl.pathname === "/") {
+    if (user) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/board";
+      return NextResponse.redirect(url);
+    }
     return supabaseResponse;
   }
   const isPublicPath = publicPaths.some((path) =>
