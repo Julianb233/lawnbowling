@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { CourtCard } from "./CourtCard";
+import { WaitlistBoard } from "@/components/waitlist/WaitlistBoard";
 
 interface MatchPlayer {
   player_id: string;
@@ -15,6 +16,7 @@ interface CourtWithMatch {
   name: string;
   sport: string;
   is_available: boolean;
+  venue_id: string;
 }
 
 interface ActiveMatch {
@@ -26,7 +28,7 @@ interface ActiveMatch {
   match_players: MatchPlayer[];
 }
 
-export function CourtStatusBoard() {
+export function CourtStatusBoard({ venueId }: { venueId?: string }) {
   const [courts, setCourts] = useState<CourtWithMatch[]>([]);
   const [matches, setMatches] = useState<ActiveMatch[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +41,7 @@ export function CourtStatusBoard() {
       supabase
         .from("matches")
         .select(
-          "*, match_players(player_id, team, players(display_name, avatar_url))"
+          "*, match_players(player_id, team, players(display_name, avatar_url))",
         )
         .in("status", ["queued", "playing"])
         .order("created_at", { ascending: true }),
@@ -55,18 +57,22 @@ export function CourtStatusBoard() {
 
     const supabase = createClient();
 
-    // Subscribe to real-time changes
     const courtsChannel = supabase
       .channel("courts-realtime")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "courts" },
-        () => fetchData()
+        () => fetchData(),
       )
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "matches" },
-        () => fetchData()
+        () => fetchData(),
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "court_waitlist" },
+        () => fetchData(),
       )
       .subscribe();
 
@@ -85,12 +91,11 @@ export function CourtStatusBoard() {
   };
 
   const handleAssign = async (courtId: string) => {
-    // Find first queued match for this court's sport
     const court = courts.find((c) => c.id === courtId);
     if (!court) return;
 
     const queuedMatch = matches.find(
-      (m) => m.status === "queued" && m.sport === court.sport && !m.court_id
+      (m) => m.status === "queued" && m.sport === court.sport && !m.court_id,
     );
     if (!queuedMatch) return;
 
@@ -115,29 +120,58 @@ export function CourtStatusBoard() {
     );
   }
 
-  return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-      {courts.map((court) => {
-        const activeMatch = matches.find(
-          (m) => m.court_id === court.id && m.status === "playing"
-        );
-        const queuedMatch = matches.find(
-          (m) =>
-            m.status === "queued" && m.sport === court.sport && !m.court_id
-        );
+  const sportGroups = courts.reduce<
+    Record<string, { total: number; occupied: number }>
+  >((acc, court) => {
+    if (!acc[court.sport]) acc[court.sport] = { total: 0, occupied: 0 };
+    acc[court.sport].total++;
+    if (!court.is_available) acc[court.sport].occupied++;
+    return acc;
+  }, {});
 
-        return (
-          <CourtCard
-            key={court.id}
-            court={court}
-            activeMatch={activeMatch}
-            queuedMatch={queuedMatch}
-            onAssign={handleAssign}
-            onComplete={handleComplete}
-            durationMinutes={court.sport === "pickleball" ? 20 : undefined}
-          />
-        );
-      })}
+  const allFullSports = Object.entries(sportGroups)
+    .filter(([, { total, occupied }]) => total > 0 && occupied >= total)
+    .map(([sport]) => sport);
+
+  const effectiveVenueId = venueId ?? courts[0]?.venue_id;
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {courts.map((court) => {
+          const activeMatch = matches.find(
+            (m) => m.court_id === court.id && m.status === "playing",
+          );
+          const queuedMatch = matches.find(
+            (m) =>
+              m.status === "queued" && m.sport === court.sport && !m.court_id,
+          );
+
+          return (
+            <CourtCard
+              key={court.id}
+              court={court}
+              activeMatch={activeMatch}
+              queuedMatch={queuedMatch}
+              onAssign={handleAssign}
+              onComplete={handleComplete}
+              durationMinutes={court.sport === "pickleball" ? 20 : undefined}
+            />
+          );
+        })}
+      </div>
+
+      {effectiveVenueId && allFullSports.length > 0 && (
+        <div className="space-y-3">
+          {allFullSports.map((sport) => (
+            <WaitlistBoard
+              key={sport}
+              venueId={effectiveVenueId}
+              sport={sport}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

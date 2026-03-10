@@ -111,13 +111,22 @@ export interface PlayerSportSkill {
 }
 
 // Waitlist
+export type WaitlistStatus = "waiting" | "notified" | "assigned" | "expired";
+
 export interface WaitlistEntry {
   id: string;
+  venue_id: string;
   player_id: string;
+  partner_id: string | null;
   sport: string;
   position: number;
+  status: WaitlistStatus;
+  notified_at: string | null;
+  assigned_match_id: string | null;
+  estimated_wait_minutes: number | null;
   created_at: string;
   player?: { display_name: string; avatar_url?: string | null };
+  partner?: { display_name: string; avatar_url?: string | null };
 }
 
 // Board constants
@@ -196,6 +205,21 @@ export interface PlayerStats {
   last_played_at: string | null;
   updated_at: string;
   player?: Player; // joined
+}
+
+// Favorite Partners (computed from match history)
+export interface FavoritePartner {
+  partner_id: string;
+  games_together: number;
+  wins_together: number;
+  win_rate_together: number;
+  last_played_at: string | null;
+  partner?: {
+    id: string;
+    display_name: string;
+    avatar_url: string | null;
+    skill_level: string;
+  };
 }
 
 // ===== Social & Scheduling =====

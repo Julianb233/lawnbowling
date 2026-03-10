@@ -1,18 +1,35 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Clock, X } from "lucide-react";
+import { Clock, X, Timer } from "lucide-react";
 
 interface WaitlistPositionProps {
   position: number;
   sport: string;
   waitlistId: string;
+  estimatedWaitMinutes?: number | null;
   onLeave?: () => void;
 }
 
-export function WaitlistPosition({ position, sport, waitlistId, onLeave }: WaitlistPositionProps) {
+function formatWaitTime(minutes: number): string {
+  if (minutes <= 0) return "Any moment now";
+  if (minutes < 2) return "~1 min";
+  if (minutes < 60) return "~" + minutes + " min";
+  const hours = Math.floor(minutes / 60);
+  const remaining = minutes % 60;
+  if (remaining === 0) return "~" + hours + "h";
+  return "~" + hours + "h " + remaining + "m";
+}
+
+export function WaitlistPosition({
+  position,
+  sport,
+  waitlistId,
+  estimatedWaitMinutes,
+  onLeave,
+}: WaitlistPositionProps) {
   async function handleLeave() {
-    await fetch(`/api/waitlist?id=${waitlistId}`, { method: "DELETE" });
+    await fetch("/api/waitlist?id=" + waitlistId, { method: "DELETE" });
     onLeave?.();
   }
 
@@ -29,6 +46,14 @@ export function WaitlistPosition({ position, sport, waitlistId, onLeave }: Waitl
             You are #{position} in line
           </p>
           <p className="text-xs text-zinc-500">for {sport}</p>
+          {estimatedWaitMinutes != null && (
+            <div className="mt-1 flex items-center gap-1">
+              <Timer className="h-3 w-3 text-zinc-400" />
+              <p className="text-xs text-zinc-400">
+                Est. wait: {formatWaitTime(estimatedWaitMinutes)}
+              </p>
+            </div>
+          )}
         </div>
       </div>
       <button
