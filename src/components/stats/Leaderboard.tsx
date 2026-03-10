@@ -2,15 +2,38 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Trophy, Medal } from "lucide-react";
-import { ALL_SPORTS, SPORT_LABELS } from "@/lib/types";
-import type { PlayerStats } from "@/lib/types";
+import { Trophy, Medal, ArrowUpDown, Flame, Target, Gamepad2, Zap } from "lucide-react";
+import { ALL_SPORTS, SPORT_LABELS, ALL_SKILLS, SKILL_LABELS } from "@/lib/types";
+import type { SkillLevel } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { ANIMATIONS } from "@/lib/design";
+import Link from "next/link";
 
-type LeaderboardEntry = PlayerStats & {
-  player: { id: string; name: string; avatar_url: string | null; skill_level: string; sports: string[] };
-};
+type LeaderboardSortBy = "win_rate" | "games_played" | "wins" | "elo_rating";
+
+interface LeaderboardEntry {
+  player_id: string;
+  games_played: number;
+  wins: number;
+  losses: number;
+  win_rate: number;
+  elo_rating: number | null;
+  favorite_sport: string | null;
+  player: {
+    id: string;
+    display_name: string;
+    avatar_url: string | null;
+    skill_level: string;
+    sports: string[];
+  };
+}
+
+const SORT_OPTIONS: { value: LeaderboardSortBy; label: string; icon: React.ReactNode }[] = [
+  { value: "win_rate", label: "Win Rate", icon: <Target className="h-3.5 w-3.5" /> },
+  { value: "games_played", label: "Games Played", icon: <Gamepad2 className="h-3.5 w-3.5" /> },
+  { value: "wins", label: "Total Wins", icon: <Flame className="h-3.5 w-3.5" /> },
+  { value: "elo_rating", label: "ELO Rating", icon: <Zap className="h-3.5 w-3.5" /> },
+];
 
 interface LeaderboardProps {
   currentUserId?: string | null;
@@ -20,12 +43,16 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [sportFilter, setSportFilter] = useState<string | "all">("all");
+  const [skillFilter, setSkillFilter] = useState<string | "all">("all");
+  const [sortBy, setSortBy] = useState<LeaderboardSortBy>("win_rate");
 
   const fetchLeaderboard = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
       if (sportFilter !== "all") params.set("sport", sportFilter);
+      if (skillFilter !== "all") params.set("skill_level", skillFilter);
+      params.set("sort_by", sortBy);
       const res = await fetch(`/api/stats/leaderboard?${params}`);
       if (res.ok) {
         const data = await res.json();
@@ -35,106 +62,297 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
       // ignore
     }
     setLoading(false);
-  }, [sportFilter]);
+  }, [sportFilter, skillFilter, sortBy]);
 
   useEffect(() => {
     fetchLeaderboard();
   }, [fetchLeaderboard]);
 
   const getRankDisplay = (rank: number) => {
-    if (rank === 1) return <Trophy className="h-5 w-5 text-amber-400" />;
-    if (rank === 2) return <Medal className="h-5 w-5 text-zinc-400" />;
-    if (rank === 3) return <Medal className="h-5 w-5 text-amber-700" />;
-    return <span className="text-sm font-bold text-zinc-600">{rank}</span>;
+    if (rank === 1)
+      return (
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100">
+          <Trophy className="h-4 w-4 text-amber-500" />
+        </div>
+      );
+    if (rank === 2)
+      return (
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-100">
+          <Medal className="h-4 w-4 text-zinc-400" />
+        </div>
+      );
+    if (rank === 3)
+      return (
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-50">
+          <Medal className="h-4 w-4 text-amber-700" />
+        </div>
+      );
+    return (
+      <div className="flex h-8 w-8 items-center justify-center">
+        <span className="text-sm font-bold text-zinc-400">{rank}</span>
+      </div>
+    );
+  };
+
+  const getStatDisplay = (entry: LeaderboardEntry) => {
+    switch (sortBy) {
+      case "elo_rating":
+        return (
+          <div className="text-right">
+            <p className="text-lg font-bold text-emerald-500">{entry.elo_rating ?? "—"}</p>
+            <p className="text-[10px] uppercase tracking-wide text-zinc-400">ELO</p>
+          </div>
+        );
+      case "games_played":
+        return (
+          <div className="text-right">
+            <p className="text-lg font-bold text-emerald-500">{entry.games_played}</p>
+            <p className="text-[10px] uppercase tracking-wide text-zinc-400">Games</p>
+          </div>
+        );
+      case "wins":
+        return (
+          <div className="text-right">
+            <p className="text-lg font-bold text-emerald-500">{entry.wins}</p>
+            <p className="text-[10px] uppercase tracking-wide text-zinc-400">Wins</p>
+          </div>
+        );
+      default:
+        return (
+          <div className="text-right">
+            <p className="text-lg font-bold text-emerald-500">{Math.round(entry.win_rate)}%</p>
+            <p className="text-[10px] uppercase tracking-wide text-zinc-400">Win Rate</p>
+          </div>
+        );
+    }
+  };
+
+  const skillStars = (level: string) => {
+    const info = SKILL_LABELS[level as SkillLevel];
+    if (!info) return null;
+    return "⭐".repeat(info.stars);
   };
 
   return (
-    <div>
-      {/* Sport filter */}
-      <div className="mb-4 flex gap-2 overflow-x-auto pb-1">
-        <button
-          onClick={() => setSportFilter("all")}
-          className={cn(
-            "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
-            sportFilter === "all"
-              ? "bg-emerald-600 text-white"
-              : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
-          )}
-        >
-          All Sports
-        </button>
-        {ALL_SPORTS.map((s) => {
-          const label = SPORT_LABELS[s];
-          return (
-            <button
-              key={s}
-              onClick={() => setSportFilter(s)}
-              className={cn(
-                "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
-                sportFilter === s
-                  ? "bg-emerald-600 text-white"
-                  : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
-              )}
-            >
-              {label.emoji} {label.short}
-            </button>
-          );
-        })}
+    <div className="space-y-4">
+      {/* Sport filter pills */}
+      <div>
+        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-400">Sport</p>
+        <div className="flex gap-2 overflow-x-auto pb-1">
+          <button
+            onClick={() => setSportFilter("all")}
+            className={cn(
+              "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+              sportFilter === "all"
+                ? "bg-emerald-600 text-white"
+                : "bg-zinc-100 text-zinc-500 hover:text-zinc-700"
+            )}
+          >
+            All Sports
+          </button>
+          {ALL_SPORTS.map((s) => {
+            const label = SPORT_LABELS[s];
+            return (
+              <button
+                key={s}
+                onClick={() => setSportFilter(s)}
+                className={cn(
+                  "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+                  sportFilter === s
+                    ? "bg-emerald-600 text-white"
+                    : "bg-zinc-100 text-zinc-500 hover:text-zinc-700"
+                )}
+              >
+                {label.emoji} {label.short}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
+      {/* Skill level filter */}
+      <div>
+        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-400">Skill Level</p>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setSkillFilter("all")}
+            className={cn(
+              "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+              skillFilter === "all"
+                ? "bg-violet-600 text-white"
+                : "bg-zinc-100 text-zinc-500 hover:text-zinc-700"
+            )}
+          >
+            All Levels
+          </button>
+          {ALL_SKILLS.map((level) => (
+            <button
+              key={level}
+              onClick={() => setSkillFilter(level)}
+              className={cn(
+                "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+                skillFilter === level
+                  ? "bg-violet-600 text-white"
+                  : "bg-zinc-100 text-zinc-500 hover:text-zinc-700"
+              )}
+            >
+              {SKILL_LABELS[level].label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Sort options */}
+      <div>
+        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-400">
+          <ArrowUpDown className="mr-1 inline h-3 w-3" />
+          Rank By
+        </p>
+        <div className="flex gap-2 overflow-x-auto pb-1">
+          {SORT_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setSortBy(opt.value)}
+              className={cn(
+                "flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+                sortBy === opt.value
+                  ? "bg-zinc-800 text-white"
+                  : "bg-zinc-100 text-zinc-500 hover:text-zinc-700"
+              )}
+            >
+              {opt.icon}
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Results */}
       {loading ? (
         <div className="space-y-3">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="h-14 animate-pulse rounded-xl bg-zinc-100" />
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+            <div key={i} className="h-16 animate-pulse rounded-xl bg-zinc-100" />
           ))}
         </div>
       ) : entries.length === 0 ? (
-        <div className="py-12 text-center text-sm text-zinc-600">
-          No players with 5+ games yet
+        <div className="rounded-xl border border-dashed border-zinc-200 py-16 text-center">
+          <Trophy className="mx-auto mb-3 h-10 w-10 text-zinc-300" />
+          <p className="text-sm font-medium text-zinc-500">No players ranked yet</p>
+          <p className="mt-1 text-xs text-zinc-400">
+            {sportFilter !== "all"
+              ? `Play at least 3 ${SPORT_LABELS[sportFilter as keyof typeof SPORT_LABELS]?.label ?? sportFilter} games to appear`
+              : "Play at least 5 games to appear on the leaderboard"}
+          </p>
         </div>
       ) : (
         <motion.div className="space-y-2" {...ANIMATIONS.staggerChildren} initial="initial" animate="animate">
+          {/* Top 3 podium for larger lists */}
+          {entries.length >= 3 && (
+            <div className="mb-4 grid grid-cols-3 gap-2">
+              {[1, 0, 2].map((idx) => {
+                const entry = entries[idx];
+                if (!entry) return null;
+                const rank = idx + 1;
+                const isMe = entry.player_id === currentUserId;
+                return (
+                  <Link
+                    key={entry.player_id}
+                    href={`/profile/${entry.player_id}`}
+                    className={cn(
+                      "flex flex-col items-center rounded-xl border p-3 transition-colors hover:bg-zinc-50",
+                      rank === 1 ? "order-2 border-amber-200 bg-amber-50/50" : "",
+                      rank === 2 ? "order-1 border-zinc-200 bg-zinc-50" : "",
+                      rank === 3 ? "order-3 border-amber-100 bg-orange-50/30" : "",
+                      isMe ? "ring-2 ring-emerald-500/30" : ""
+                    )}
+                  >
+                    <div className="relative">
+                      <div
+                        className={cn(
+                          "h-12 w-12 overflow-hidden rounded-full border-2",
+                          rank === 1 ? "border-amber-400" : rank === 2 ? "border-zinc-300" : "border-amber-600"
+                        )}
+                      >
+                        {entry.player?.avatar_url ? (
+                          <img src={entry.player.avatar_url} alt="" className="h-full w-full object-cover" />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-base font-bold text-zinc-400">
+                            {entry.player?.display_name?.charAt(0)?.toUpperCase()}
+                          </div>
+                        )}
+                      </div>
+                      <div
+                        className={cn(
+                          "absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold text-white",
+                          rank === 1 ? "bg-amber-500" : rank === 2 ? "bg-zinc-400" : "bg-amber-700"
+                        )}
+                      >
+                        {rank}
+                      </div>
+                    </div>
+                    <p className="mt-2 max-w-full truncate text-xs font-semibold text-zinc-700">
+                      {entry.player?.display_name}
+                    </p>
+                    <p className="text-[10px] text-zinc-400">
+                      {entry.games_played}G &middot; {entry.wins}W
+                    </p>
+                    <p className="mt-0.5 text-sm font-bold text-emerald-500">
+                      {sortBy === "elo_rating"
+                        ? entry.elo_rating ?? "—"
+                        : sortBy === "games_played"
+                        ? entry.games_played
+                        : sortBy === "wins"
+                        ? entry.wins
+                        : `${Math.round(entry.win_rate)}%`}
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Full list */}
           {entries.map((entry, i) => {
             const rank = i + 1;
             const isMe = entry.player_id === currentUserId;
+            // Skip top 3 if podium is shown
+            if (entries.length >= 3 && rank <= 3) return null;
             return (
-              <motion.div
-                key={entry.player_id}
-                {...ANIMATIONS.fadeInUp}
-                className={cn(
-                  "flex items-center gap-3 rounded-xl border p-3",
-                  isMe
-                    ? "border-emerald-500/30 bg-emerald-500/5"
-                    : "border-zinc-200 bg-zinc-50"
-                )}
-              >
-                <div className="flex h-8 w-8 items-center justify-center">
-                  {getRankDisplay(rank)}
-                </div>
-
-                <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-zinc-100">
-                  {entry.player?.avatar_url ? (
-                    <img src={entry.player.avatar_url} alt="" className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
-                      {entry.player?.display_name?.charAt(0)?.toUpperCase()}
-                    </div>
+              <motion.div key={entry.player_id} {...ANIMATIONS.fadeInUp}>
+                <Link
+                  href={`/profile/${entry.player_id}`}
+                  className={cn(
+                    "flex items-center gap-3 rounded-xl border p-3 transition-colors hover:bg-zinc-50",
+                    isMe
+                      ? "border-emerald-500/30 bg-emerald-500/5"
+                      : "border-zinc-200 bg-white"
                   )}
-                </div>
+                >
+                  {getRankDisplay(rank)}
 
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-medium text-zinc-700">
-                    {entry.player?.display_name}
-                    {isMe && <span className="ml-1 text-xs text-emerald-400">(You)</span>}
-                  </p>
-                  <p className="text-xs text-zinc-500">
-                    {entry.games_played} games &middot; {entry.wins}W/{entry.losses}L
-                  </p>
-                </div>
+                  <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-zinc-100">
+                    {entry.player?.avatar_url ? (
+                      <img src={entry.player.avatar_url} alt="" className="h-full w-full object-cover" />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
+                        {entry.player?.display_name?.charAt(0)?.toUpperCase()}
+                      </div>
+                    )}
+                  </div>
 
-                <div className="text-right">
-                  <p className="text-lg font-bold text-emerald-400">{Math.round(entry.win_rate)}%</p>
-                </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium text-zinc-700">
+                      {entry.player?.display_name}
+                      {isMe && <span className="ml-1 text-xs text-emerald-500">(You)</span>}
+                    </p>
+                    <p className="text-xs text-zinc-400">
+                      {skillStars(entry.player?.skill_level)} {entry.games_played} games &middot;{" "}
+                      {entry.wins}W/{entry.losses}L
+                    </p>
+                  </div>
+
+                  {getStatDisplay(entry)}
+                </Link>
               </motion.div>
             );
           })}
