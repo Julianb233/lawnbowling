@@ -16,6 +16,9 @@ export default function SignupPage() {
   const [confirmationSent, setConfirmationSent] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+  const returnTo = typeof window !== "undefined"
+    ? new URLSearchParams(window.location.search).get("returnTo") || "/"
+    : "/";
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
@@ -50,7 +53,7 @@ export default function SignupPage() {
         user_id: data.user.id,
         display_name: name,
       });
-      router.push("/");
+      router.push(returnTo);
       router.refresh();
     }
   }
@@ -180,7 +183,7 @@ export default function SignupPage() {
 
             <p className="mt-6 text-center text-sm text-gray-500">
               Already have an account?{" "}
-              <Link href="/login" className="font-medium text-emerald-600 hover:text-emerald-700">
+              <Link href={returnTo !== "/" ? `/login?returnTo=${encodeURIComponent(returnTo)}` : "/login"} className="font-medium text-emerald-600 hover:text-emerald-700">
                 Sign in
               </Link>
             </p>

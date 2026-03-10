@@ -15,6 +15,9 @@ export default function LoginPage() {
   const [magicLinkSent, setMagicLinkSent] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+  const returnTo = typeof window !== "undefined"
+    ? new URLSearchParams(window.location.search).get("returnTo") || "/"
+    : "/";
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -32,7 +35,7 @@ export default function LoginPage() {
       return;
     }
 
-    router.push("/");
+    router.push(returnTo);
     router.refresh();
   }
 
@@ -251,7 +254,7 @@ export default function LoginPage() {
 
             <p className="mt-6 text-center text-sm text-gray-500">
               No account?{" "}
-              <Link href="/signup" className="font-medium text-emerald-600 hover:text-emerald-700">
+              <Link href={returnTo !== "/" ? `/signup?returnTo=${encodeURIComponent(returnTo)}` : "/signup"} className="font-medium text-emerald-600 hover:text-emerald-700">
                 Sign up free
               </Link>
             </p>
