@@ -96,6 +96,18 @@ export interface MatchPlayer {
   team: 1 | 2 | null;
 }
 
+// Per-sport ELO skill ratings
+export interface PlayerSportSkill {
+  id: string;
+  player_id: string;
+  sport: string;
+  elo_rating: number;
+  games_played: number;
+  wins: number;
+  losses: number;
+  updated_at: string;
+}
+
 // Board constants
 export type Sport = "pickleball" | "lawn_bowling" | "tennis";
 
