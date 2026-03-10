@@ -108,6 +108,59 @@ export interface PlayerSportSkill {
   updated_at: string;
 }
 
+// Subscription / pricing
+export type SubscriptionPlan = "free" | "premium" | "venue_owner";
+
+export interface PricingTier {
+  plan: SubscriptionPlan;
+  name: string;
+  price: number; // cents
+  features: string[];
+  cta: string;
+  popular?: boolean;
+}
+
+export const PRICING_TIERS: PricingTier[] = [
+  {
+    plan: "free",
+    name: "Free",
+    price: 0,
+    features: [
+      "Find partners at your venue",
+      "Check in & match",
+      "Basic stats tracking",
+    ],
+    cta: "Get Started",
+  },
+  {
+    plan: "premium",
+    name: "Premium",
+    price: 999,
+    features: [
+      "Everything in Free",
+      "Advanced matchmaking",
+      "Detailed skill analytics",
+      "Priority court access",
+      "Tournament entry",
+    ],
+    cta: "Upgrade",
+    popular: true,
+  },
+  {
+    plan: "venue_owner",
+    name: "Venue Owner",
+    price: 4999,
+    features: [
+      "Everything in Premium",
+      "Venue branding & themes",
+      "Player management dashboard",
+      "Court scheduling",
+      "Revenue analytics",
+    ],
+    cta: "Contact Us",
+  },
+];
+
 // Board constants
 export type Sport = "pickleball" | "lawn_bowling" | "tennis";
 
@@ -332,4 +385,15 @@ export interface TournamentMatch {
   player1?: Player; // joined
   player2?: Player; // joined
   winner?: Player; // joined
+}
+
+// Waitlist
+export interface WaitlistEntry {
+  id: string;
+  venue_id: string;
+  player_id: string;
+  sport: string;
+  position: number;
+  created_at: string;
+  player?: Player; // joined
 }
