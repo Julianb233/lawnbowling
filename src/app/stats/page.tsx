@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { PlayerStatsCard } from "@/components/stats/PlayerStatsCard";
@@ -48,9 +49,17 @@ export default function StatsPage() {
 
             {currentUserId && (
               <div>
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
-                  Match History
-                </h2>
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+                    Match History
+                  </h2>
+                  <Link
+                    href="/match-history"
+                    className="text-xs font-medium text-emerald-500 hover:text-emerald-600"
+                  >
+                    View All &rarr;
+                  </Link>
+                </div>
                 <MatchHistory playerId={currentUserId} />
               </div>
             )}
