@@ -1,18 +1,28 @@
 "use client";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 export function LiveIndicator({ count }: { count: number }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
-        <span className="relative flex h-2 w-2">
+      <span className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1.5 text-sm font-semibold text-emerald-400 backdrop-blur">
+        <span className="relative flex h-2.5 w-2.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
         </span>
-        LIVE
+        <span className="text-gradient font-bold tracking-wider">LIVE</span>
       </span>
-      <span className="text-sm text-zinc-500">
-        {count} player{count !== 1 ? "s" : ""}
-      </span>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={count}
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          className="text-sm text-zinc-400 tabular-nums"
+        >
+          {count} player{count !== 1 ? "s" : ""}
+        </motion.span>
+      </AnimatePresence>
     </div>
   );
 }

@@ -104,3 +104,60 @@ export const SKILL_LABELS: Record<SkillLevel, { stars: number; label: string }> 
 
 export const ALL_SPORTS: Sport[] = ["pickleball", "lawn_bowling", "tennis"];
 export const ALL_SKILLS: SkillLevel[] = ["beginner", "intermediate", "advanced"];
+
+// Teams
+export type TeamRole = "captain" | "member";
+
+export interface Team {
+  id: string;
+  name: string;
+  description: string | null;
+  sport: string;
+  avatar_url: string | null;
+  captain_id: string;
+  venue_id: string | null;
+  invite_code: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TeamMember {
+  id: string;
+  team_id: string;
+  player_id: string;
+  role: TeamRole;
+  joined_at: string;
+  player?: Player; // joined
+}
+
+export interface TeamMessage {
+  id: string;
+  team_id: string;
+  sender_id: string;
+  content: string;
+  created_at: string;
+  sender?: Player; // joined
+}
+
+export interface MatchResult {
+  id: string;
+  match_id: string;
+  winner_team: 1 | 2 | null;
+  team1_score: number | null;
+  team2_score: number | null;
+  reported_by: string | null;
+  created_at: string;
+}
+
+export interface PlayerStats {
+  player_id: string;
+  games_played: number;
+  wins: number;
+  losses: number;
+  win_rate: number;
+  favorite_sport: string | null;
+  favorite_partner_id: string | null;
+  last_played_at: string | null;
+  updated_at: string;
+  player?: Player; // joined
+}

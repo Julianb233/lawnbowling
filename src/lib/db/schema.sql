@@ -158,3 +158,113 @@ create index idx_players_available on players(is_available) where is_available =
 create index idx_partner_requests_status on partner_requests(status) where status = 'pending';
 create index idx_matches_status on matches(status) where status != 'completed';
 create index idx_courts_venue on courts(venue_id);
+
+-- ===== TEAMS, CHAT, STATS =====
+
+-- Teams
+create table teams (
+  id uuid primary key default uuid_generate_v4(),
+  name text not null,
+  description text,
+  sport text not null,
+  avatar_url text,
+  captain_id uuid not null references players(id),
+  venue_id uuid references venues(id),
+  invite_code text unique default encode(gen_random_bytes(6), 'hex'),
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+-- Team Members
+create table team_members (
+  id uuid primary key default uuid_generate_v4(),
+  team_id uuid not null references teams(id) on delete cascade,
+  player_id uuid not null references players(id) on delete cascade,
+  role text check (role in ('captain', 'member')) default 'member',
+  joined_at timestamptz default now(),
+  unique(team_id, player_id)
+);
+
+-- Team Messages (chat)
+create table team_messages (
+  id uuid primary key default uuid_generate_v4(),
+  team_id uuid not null references teams(id) on delete cascade,
+  sender_id uuid not null references players(id) on delete cascade,
+  content text not null,
+  created_at timestamptz default now()
+);
+
+-- Match Results (extends matches)
+create table match_results (
+  id uuid primary key default uuid_generate_v4(),
+  match_id uuid not null references matches(id) on delete cascade unique,
+  winner_team smallint check (winner_team in (1, 2)),
+  team1_score integer,
+  team2_score integer,
+  reported_by uuid references players(id),
+  created_at timestamptz default now()
+);
+
+-- Player Stats (materialized/cached)
+create table player_stats (
+  player_id uuid primary key references players(id) on delete cascade,
+  games_played integer default 0,
+  wins integer default 0,
+  losses integer default 0,
+  win_rate numeric(5,2) default 0,
+  favorite_sport text,
+  favorite_partner_id uuid references players(id),
+  last_played_at timestamptz,
+  updated_at timestamptz default now()
+);
+
+-- RLS
+alter table teams enable row level security;
+alter table team_members enable row level security;
+alter table team_messages enable row level security;
+alter table match_results enable row level security;
+alter table player_stats enable row level security;
+
+-- Teams: readable by all, manageable by captain
+create policy "Teams viewable by all" on teams for select using (true);
+create policy "Captains can update team" on teams for update using (auth.uid() = captain_id);
+create policy "Players can create teams" on teams for insert with check (auth.uid() = captain_id);
+
+-- Team members: viewable by all, join/leave own
+create policy "Team members viewable by all" on team_members for select using (true);
+create policy "Players can join teams" on team_members for insert with check (auth.uid() = player_id);
+create policy "Players can leave teams" on team_members for delete using (auth.uid() = player_id);
+create policy "Captains can remove members" on team_members for delete using (
+  exists (select 1 from teams where id = team_id and captain_id = auth.uid())
+);
+
+-- Team messages: viewable by team members
+create policy "Team members can view messages" on team_messages for select using (
+  exists (select 1 from team_members where team_id = team_messages.team_id and player_id = auth.uid())
+);
+create policy "Team members can send messages" on team_messages for insert with check (
+  exists (select 1 from team_members where team_id = team_messages.team_id and player_id = auth.uid())
+);
+
+-- Match results: viewable by all, reportable by match players
+create policy "Match results viewable by all" on match_results for select using (true);
+create policy "Players can report results" on match_results for insert with check (
+  exists (select 1 from match_players where match_id = match_results.match_id and player_id = auth.uid())
+);
+
+-- Player stats: viewable by all
+create policy "Stats viewable by all" on player_stats for select using (true);
+
+-- Realtime for chat and stats
+alter publication supabase_realtime add table team_messages;
+alter publication supabase_realtime add table teams;
+alter publication supabase_realtime add table player_stats;
+
+-- Indexes
+create index idx_team_members_team on team_members(team_id);
+create index idx_team_members_player on team_members(player_id);
+create index idx_team_messages_team on team_messages(team_id);
+create index idx_team_messages_created on team_messages(created_at);
+create index idx_match_results_match on match_results(match_id);
+create index idx_player_stats_wins on player_stats(wins desc);
+create index idx_teams_invite on teams(invite_code);

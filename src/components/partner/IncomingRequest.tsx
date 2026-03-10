@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import * as Toast from "@radix-ui/react-toast";
-import { Button } from "@/components/ui/button";
 import { SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
+import { getSportColor } from "@/lib/design";
+import { cn } from "@/lib/utils";
 import type { SkillLevel, Sport } from "@/lib/types";
 
 interface IncomingRequestProps {
@@ -36,6 +37,8 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
     .join("")
     .toUpperCase()
     .slice(0, 2);
+
+  const sportColor = getSportColor(request.sport);
 
   useEffect(() => {
     function updateTimer() {
@@ -75,7 +78,8 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
 
   return (
     <Toast.Root
-      className="rounded-xl border border-emerald-200 bg-white p-4 shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-right-full"
+      className="rounded-2xl glass p-4 shadow-2xl ring-pulse data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-right-full"
+      style={{ boxShadow: `0 0 30px ${sportColor.glow}, 0 10px 40px rgba(0,0,0,0.4)` }}
       duration={Infinity}
       open={!dismissed}
       onOpenChange={(open) => !open && setDismissed(true)}
@@ -85,55 +89,60 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
           <img
             src={requester.avatar_url}
             alt={requesterName}
-            className="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-white shadow"
+            className={cn("h-12 w-12 shrink-0 rounded-full object-cover ring-2 shadow-lg", sportColor.ring)}
           />
         ) : (
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-sm font-bold text-white ring-2 ring-white shadow">
+          <div className={cn(
+            "flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ring-2 shadow-lg",
+            `bg-gradient-to-br ${sportColor.gradient}`,
+            sportColor.ring
+          )}>
             {initials}
           </div>
         )}
 
         <div className="flex-1 min-w-0">
-          <Toast.Title className="text-sm font-semibold text-zinc-900">
+          <Toast.Title className="text-sm font-semibold text-zinc-100">
             Partner Request!
           </Toast.Title>
-          <Toast.Description className="mt-1 text-sm text-zinc-500">
-            <span className="font-medium text-zinc-900">{requesterName}</span>{" "}
+          <Toast.Description className="mt-1 text-sm text-zinc-400">
+            <span className="font-medium text-zinc-200">{requesterName}</span>{" "}
             wants to play{" "}
-            <span className="font-medium text-zinc-900">
+            <span className="font-medium text-zinc-200">
               {sportInfo?.emoji || ""} {sportInfo?.label || request.sport}
             </span>
           </Toast.Description>
 
           {skillInfo && (
-            <div className="mt-1 text-xs text-amber-500">
-              {"★".repeat(skillInfo.stars)}{"☆".repeat(3 - skillInfo.stars)}{" "}
-              <span className="text-zinc-400">{skillInfo.label}</span>
+            <div className="mt-1 text-xs text-amber-400">
+              {"\u2605".repeat(skillInfo.stars)}{"\u2606".repeat(3 - skillInfo.stars)}{" "}
+              <span className="text-zinc-500">{skillInfo.label}</span>
             </div>
           )}
 
           <div className="mt-3 flex items-center gap-2">
-            <Button
-              size="sm"
+            <button
               onClick={() => handleRespond(true)}
               disabled={responding}
-              className="flex-1"
+              className={cn(
+                "flex-1 rounded-xl px-3 py-2 text-sm font-bold text-white btn-press",
+                `bg-gradient-to-r ${sportColor.gradient}`,
+                "disabled:opacity-50"
+              )}
             >
               {responding ? "..." : "Accept"}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
+            </button>
+            <button
               onClick={() => handleRespond(false)}
               disabled={responding}
-              className="flex-1"
+              className="flex-1 rounded-xl border border-zinc-700/50 bg-zinc-800/60 px-3 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 btn-press disabled:opacity-50"
             >
               Decline
-            </Button>
+            </button>
           </div>
         </div>
 
-        <span className="shrink-0 rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-mono text-zinc-400">
+        <span className="shrink-0 rounded-full bg-zinc-800/60 px-2 py-0.5 text-xs font-mono text-zinc-500 tabular-nums">
           {timeLeft}
         </span>
       </div>

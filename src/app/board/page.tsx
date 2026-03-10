@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { useRealtimePlayers } from "@/lib/hooks/useRealtimePlayers";
 import { usePartnerRequests } from "@/lib/hooks/usePartnerRequests";
@@ -106,16 +107,19 @@ export default function BoardPage() {
 
   return (
     <IncomingRequestProvider>
-      <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
+      <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
         {/* Header */}
-        <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+        <header className="sticky top-0 z-40 glass border-b border-zinc-700/30">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
-            <div>
-              <h1 className="text-xl font-bold text-zinc-900 lg:text-2xl">
-                {"\u{1F3D3}"} Pick a Partner
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
+              <h1 className="text-xl font-black text-zinc-100 lg:text-2xl">
+                {"\u{1F3D3}"} <span className="text-gradient">Pick a Partner</span>
               </h1>
               <p className="text-sm text-zinc-500">Sunset Rec Center</p>
-            </div>
+            </motion.div>
             <LiveIndicator count={players.length} />
           </div>
         </header>
@@ -123,34 +127,48 @@ export default function BoardPage() {
         <div className="mx-auto max-w-7xl px-4 py-4 lg:px-8">
           {/* Check-in button for authenticated player */}
           {!loadingPlayer && currentPlayer && (
-            <div className="mb-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-4"
+            >
               <CheckInButton
                 playerId={currentPlayer.id}
                 isAvailable={currentPlayer.is_available}
                 onToggle={handleCheckInToggle}
               />
-            </div>
+            </motion.div>
           )}
 
           {/* Filters */}
-          <div className="mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mb-4"
+          >
             <BoardFilters
               selectedSport={sportFilter}
               selectedSkill={skillFilter}
               onSportChange={setSportFilter}
               onSkillChange={setSkillFilter}
             />
-          </div>
+          </motion.div>
 
           {/* Main content: Board + Queue sidebar */}
           <div className="flex gap-6">
             {/* Board (main) */}
             <div className="min-w-0 flex-1">
-              <div className="mb-3 flex items-center justify-between">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.15 }}
+                className="mb-3 flex items-center justify-between"
+              >
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
                   Available Players ({players.length})
                 </h2>
-              </div>
+              </motion.div>
               <AvailabilityBoard
                 players={players}
                 loading={loading}
@@ -160,29 +178,43 @@ export default function BoardPage() {
 
             {/* Queue sidebar (iPad only) */}
             <aside className="hidden w-72 shrink-0 lg:block xl:w-80">
-              <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                className="rounded-2xl glass p-4"
+              >
                 <MatchQueue />
-              </div>
+              </motion.div>
 
-              <div className="mt-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-4 rounded-2xl glass p-4"
+              >
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-400">
                   Courts Status
                 </h2>
                 <div className="flex flex-col items-center justify-center py-8 text-center">
                   <p className="text-3xl">{"\u{1F3DF}\uFE0F"}</p>
-                  <p className="mt-2 text-sm text-zinc-400">
+                  <p className="mt-2 text-sm text-zinc-500">
                     Court status will appear here
                   </p>
-                  <p className="mt-1 text-xs text-zinc-300">Coming in Phase 5</p>
                 </div>
-              </div>
+              </motion.div>
             </aside>
           </div>
 
           {/* Tip banner */}
-          <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-700">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mt-6 rounded-2xl glass border-amber-500/20 px-4 py-3 text-center text-sm text-amber-400/80"
+          >
             {"\u{1F4A1}"} Tap a player card to send a partner request. They&apos;ll get a ping!
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom navigation (mobile only) */}

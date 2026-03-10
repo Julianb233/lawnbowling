@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -15,7 +16,11 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-zinc-200 bg-white/95 backdrop-blur lg:hidden pb-[env(safe-area-inset-bottom)]" aria-label="Main navigation">
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 glass border-t border-zinc-700/30 lg:hidden"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      aria-label="Main navigation"
+    >
       <div className="flex items-center justify-around py-2">
         {NAV_ITEMS.map((item) => {
           const active = pathname === item.href;
@@ -24,12 +29,19 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center gap-0.5 px-4 py-1 text-xs transition-colors",
-                active ? "text-emerald-600 font-semibold" : "text-zinc-500"
+                "relative flex flex-col items-center gap-0.5 px-4 py-1 text-xs transition-colors",
+                active ? "text-emerald-400 font-semibold" : "text-zinc-500"
               )}
             >
               <span className="text-xl">{item.icon}</span>
               <span>{item.label}</span>
+              {active && (
+                <motion.div
+                  layoutId="nav-indicator"
+                  className="absolute -top-0.5 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-emerald-400"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
             </Link>
           );
         })}
