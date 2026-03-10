@@ -49,9 +49,8 @@ a,
   touch-action: manipulation;
 }
 
-/* Minimum 44px touch targets on all interactive elements */
+/* Minimum 44px touch targets on form elements and buttons */
 button,
-a,
 input,
 select,
 textarea,

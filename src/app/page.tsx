@@ -18,16 +18,16 @@ export default function HomePage() {
     <div className="min-h-screen bg-white overflow-hidden">
       {/* Navigation — overlays hero */}
       <nav className="absolute top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/20 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <div className="flex items-center gap-3">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+          <div className="flex items-center gap-2 sm:gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20">
               <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-white">
+            <span className="text-base font-bold text-white sm:text-lg">
               Pick a Partner
             </span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/for-venues"
               className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
@@ -42,13 +42,13 @@ export default function HomePage() {
             </Link>
             <Link
               href="/login"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
             >
               Sign In
             </Link>
             <Link
               href="/signup"
-              className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-500 hover:shadow-emerald-500/30"
+              className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-500 hover:shadow-emerald-500/30 sm:px-5 sm:py-2.5"
             >
               Get Started
             </Link>
@@ -60,12 +60,12 @@ export default function HomePage() {
       <HeroSlideshow />
 
       {/* Sports Slideshow — detailed sport cards */}
-      <section className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+      <section className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 md:py-32">
+        <div className="mb-8 text-center md:mb-12">
+          <h2 className="text-2xl font-bold text-zinc-900 sm:text-3xl md:text-4xl">
             Sports We Support
           </h2>
-          <p className="mt-4 text-lg text-zinc-500">
+          <p className="mt-3 text-base text-zinc-500 sm:mt-4 sm:text-lg">
             Swipe through our supported sports — more added all the time
           </p>
         </div>
@@ -73,19 +73,19 @@ export default function HomePage() {
       </section>
 
       {/* Sports Video Gallery */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+      <section className="relative mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20 md:pb-32">
+        <div className="mb-8 text-center md:mb-12">
+          <h2 className="text-2xl font-bold text-zinc-900 sm:text-3xl md:text-4xl">
             See the Action
           </h2>
-          <p className="mt-4 text-lg text-zinc-500">
+          <p className="mt-3 text-base text-zinc-500 sm:mt-4 sm:text-lg">
             Real players, real courts, real fun
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
           {/* Pickleball - Video */}
-          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+          <div className="group relative overflow-hidden rounded-xl shadow-lg sm:rounded-2xl">
             <div className="aspect-[4/3] relative">
               <video
                 autoPlay
@@ -99,15 +99,15 @@ export default function HomePage() {
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <span className="text-lg font-bold text-white drop-shadow-lg">
+            <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
+              <span className="text-base font-bold text-white drop-shadow-lg sm:text-lg">
                 Pickleball
               </span>
             </div>
           </div>
 
           {/* Tennis - Video */}
-          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+          <div className="group relative overflow-hidden rounded-xl shadow-lg sm:rounded-2xl">
             <div className="aspect-[4/3] relative">
               <video
                 autoPlay
@@ -121,15 +121,15 @@ export default function HomePage() {
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <span className="text-lg font-bold text-white drop-shadow-lg">
+            <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
+              <span className="text-base font-bold text-white drop-shadow-lg sm:text-lg">
                 Tennis
               </span>
             </div>
           </div>
 
           {/* Lawn Bowling - Photo with Ken Burns */}
-          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+          <div className="group relative overflow-hidden rounded-xl shadow-lg sm:rounded-2xl">
             <div className="aspect-[4/3] relative">
               <img
                 src="/images/lawn-bowling.jpg"
@@ -138,15 +138,15 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <span className="text-lg font-bold text-white drop-shadow-lg">
+            <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
+              <span className="text-base font-bold text-white drop-shadow-lg sm:text-lg">
                 Lawn Bowling
               </span>
             </div>
           </div>
 
           {/* Flag Football - Video */}
-          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+          <div className="group relative overflow-hidden rounded-xl shadow-lg sm:rounded-2xl">
             <div className="aspect-[4/3] relative">
               <video
                 autoPlay
@@ -160,8 +160,8 @@ export default function HomePage() {
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <span className="text-lg font-bold text-white drop-shadow-lg">
+            <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
+              <span className="text-base font-bold text-white drop-shadow-lg sm:text-lg">
                 Flag Football
               </span>
             </div>
@@ -170,18 +170,18 @@ export default function HomePage() {
       </section>
 
       {/* Social Proof */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+      <section className="relative mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20 md:pb-32">
+        <div className="mb-8 text-center md:mb-12">
+          <h2 className="text-2xl font-bold text-zinc-900 sm:text-3xl md:text-4xl">
             Trusted by Players & Venues
           </h2>
-          <p className="mt-4 text-lg text-zinc-500">
+          <p className="mt-3 text-base text-zinc-500 sm:mt-4 sm:text-lg">
             Join the community making recreational sports simple
           </p>
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 mb-12">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 mb-8 md:mb-12">
           {[
             { value: "500+", label: "Active Players" },
             { value: "12", label: "Partner Venues" },
@@ -190,17 +190,17 @@ export default function HomePage() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="glass-card-light rounded-2xl p-6 text-center"
+              className="glass-card-light rounded-xl p-4 text-center sm:rounded-2xl sm:p-6"
             >
               <div className="flex items-center justify-center gap-1">
-                <span className="text-3xl font-extrabold text-zinc-900 md:text-4xl">
+                <span className="text-2xl font-extrabold text-zinc-900 sm:text-3xl md:text-4xl">
                   {stat.value}
                 </span>
                 {stat.icon && (
-                  <stat.icon className="h-6 w-6 text-amber-500 fill-amber-500" />
+                  <stat.icon className="h-5 w-5 text-amber-500 fill-amber-500 sm:h-6 sm:w-6" />
                 )}
               </div>
-              <span className="mt-1 block text-sm font-medium text-zinc-500">
+              <span className="mt-1 block text-xs font-medium text-zinc-500 sm:text-sm">
                 {stat.label}
               </span>
             </div>
@@ -208,7 +208,7 @@ export default function HomePage() {
         </div>
 
         {/* Testimonials */}
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
           {[
             {
               quote:
@@ -234,9 +234,9 @@ export default function HomePage() {
           ].map((testimonial) => (
             <div
               key={testimonial.name}
-              className="glass-card-light rounded-2xl p-6"
+              className="glass-card-light rounded-xl p-5 sm:rounded-2xl sm:p-6"
             >
-              <div className="mb-4 flex gap-1">
+              <div className="mb-3 flex gap-1 sm:mb-4">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <Star
                     key={i}
@@ -268,17 +268,17 @@ export default function HomePage() {
       </section>
 
       {/* Features Grid */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+      <section className="relative mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20 md:pb-32">
+        <div className="mb-8 text-center md:mb-12">
+          <h2 className="text-2xl font-bold text-zinc-900 sm:text-3xl md:text-4xl">
             Everything You Need to Play
           </h2>
-          <p className="mt-4 text-lg text-zinc-500">
+          <p className="mt-3 text-base text-zinc-500 sm:mt-4 sm:text-lg">
             Built for rec centers, designed for players
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-4">
           {[
             {
               icon: Zap,
@@ -311,17 +311,17 @@ export default function HomePage() {
           ].map((feature) => (
             <div
               key={feature.title}
-              className="group glass-card-light rounded-2xl p-6 transition-all hover:shadow-lg"
+              className="group glass-card-light rounded-xl p-4 transition-all hover:shadow-lg sm:rounded-2xl sm:p-6"
             >
               <div
-                className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg ${feature.glow}`}
+                className={`mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br sm:mb-4 sm:h-12 sm:w-12 ${feature.gradient} shadow-lg ${feature.glow}`}
               >
-                <feature.icon className="h-6 w-6 text-white" />
+                <feature.icon className="h-5 w-5 text-white sm:h-6 sm:w-6" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-zinc-900">
+              <h3 className="mb-1.5 text-base font-semibold text-zinc-900 sm:mb-2 sm:text-lg">
                 {feature.title}
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-500">
+              <p className="text-xs leading-relaxed text-zinc-500 sm:text-sm">
                 {feature.desc}
               </p>
             </div>
@@ -332,18 +332,18 @@ export default function HomePage() {
       {/* How It Works */}
       <section
         id="how-it-works"
-        className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32"
+        className="relative mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20 md:pb-32"
       >
-        <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+        <div className="mb-10 text-center md:mb-16">
+          <h2 className="text-2xl font-bold text-zinc-900 sm:text-3xl md:text-4xl">
             How It Works
           </h2>
-          <p className="mt-4 text-lg text-zinc-500">
+          <p className="mt-3 text-base text-zinc-500 sm:mt-4 sm:text-lg">
             From check-in to court in under 60 seconds
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 md:gap-8 md:grid-cols-3">
           {[
             {
               step: "01",
@@ -365,17 +365,17 @@ export default function HomePage() {
             },
           ].map((item) => (
             <div key={item.step} className="relative">
-              <div className="glass-card-light rounded-2xl p-8">
-                <span className="text-5xl font-black text-emerald-500/15">
+              <div className="glass-card-light rounded-xl p-5 sm:rounded-2xl sm:p-8">
+                <span className="text-4xl font-black text-emerald-500/15 sm:text-5xl">
                   {item.step}
                 </span>
-                <div className="mt-4 flex items-center gap-3">
+                <div className="mt-3 flex items-center gap-3 sm:mt-4">
                   <item.icon className="h-5 w-5 text-emerald-600" />
-                  <h3 className="text-xl font-bold text-zinc-900">
+                  <h3 className="text-lg font-bold text-zinc-900 sm:text-xl">
                     {item.title}
                   </h3>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-500">
+                <p className="mt-2 text-sm leading-relaxed text-zinc-500 sm:mt-3">
                   {item.desc}
                 </p>
               </div>
@@ -385,26 +385,26 @@ export default function HomePage() {
       </section>
 
       {/* Device Showcase */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
-        <div className="glass-card-light rounded-3xl p-8 md:p-12">
-          <div className="grid items-center gap-8 md:grid-cols-2">
+      <section className="relative mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20 md:pb-32">
+        <div className="glass-card-light rounded-2xl p-5 sm:rounded-3xl sm:p-8 md:p-12">
+          <div className="grid items-center gap-6 sm:gap-8 md:grid-cols-2">
             <div>
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 sm:mb-4 sm:px-4">
                 <Smartphone className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-medium text-blue-700">
+                <span className="text-xs font-medium text-blue-700 sm:text-sm">
                   Works Everywhere
                 </span>
               </div>
-              <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+              <h2 className="text-2xl font-bold text-zinc-900 sm:text-3xl md:text-4xl">
                 iPad Kiosk.{" "}
                 <span className="text-zinc-400">iPhone Personal.</span>
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+              <p className="mt-3 text-base leading-relaxed text-zinc-600 sm:mt-4 sm:text-lg">
                 Set up an iPad at the front desk as a shared check-in kiosk.
                 Players can also use their own phones — install the PWA for an
                 app-like experience with no download required.
               </p>
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-4 space-y-2.5 sm:mt-6 sm:space-y-3">
                 {[
                   "Install via 'Add to Home Screen'",
                   "Works offline with cached data",
@@ -413,9 +413,9 @@ export default function HomePage() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="flex items-center gap-3 text-zinc-600"
+                    className="flex items-center gap-2.5 text-sm text-zinc-600 sm:gap-3 sm:text-base"
                   >
-                    <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-emerald-500 shrink-0 sm:h-5 sm:w-5" />
                     {item}
                   </li>
                 ))}
@@ -425,9 +425,9 @@ export default function HomePage() {
               {/* Device mockup */}
               <div className="relative">
                 {/* iPad */}
-                <div className="h-64 w-80 rounded-2xl border border-zinc-200 bg-zinc-100 p-3 shadow-2xl md:h-72 md:w-96">
+                <div className="h-52 w-64 rounded-2xl border border-zinc-200 bg-zinc-100 p-2.5 shadow-2xl sm:h-64 sm:w-80 sm:p-3 md:h-72 md:w-96">
                   <div className="flex h-full flex-col rounded-xl bg-white">
-                    <div className="flex items-center gap-2 border-b border-zinc-100 px-4 py-2">
+                    <div className="flex items-center gap-2 border-b border-zinc-100 px-3 py-1.5 sm:px-4 sm:py-2">
                       <span className="text-xs font-bold text-emerald-600">
                         Pick a Partner
                       </span>
@@ -436,16 +436,16 @@ export default function HomePage() {
                         <span className="text-[10px] text-zinc-500">Live</span>
                       </span>
                     </div>
-                    <div className="flex-1 p-3">
-                      <div className="grid grid-cols-3 gap-2">
+                    <div className="flex-1 p-2 sm:p-3">
+                      <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                         {[1, 2, 3, 4, 5, 6].map((i) => (
                           <div
                             key={i}
-                            className="rounded-lg border border-zinc-100 bg-zinc-50 p-2"
+                            className="rounded-lg border border-zinc-100 bg-zinc-50 p-1.5 sm:p-2"
                           >
-                            <div className="mx-auto mb-1 h-6 w-6 rounded-full bg-zinc-300" />
-                            <div className="mx-auto h-1.5 w-10 rounded-full bg-zinc-300" />
-                            <div className="mx-auto mt-1 h-1 w-6 rounded-full bg-emerald-300" />
+                            <div className="mx-auto mb-1 h-5 w-5 rounded-full bg-zinc-300 sm:h-6 sm:w-6" />
+                            <div className="mx-auto h-1 w-8 rounded-full bg-zinc-300 sm:h-1.5 sm:w-10" />
+                            <div className="mx-auto mt-0.5 h-0.5 w-5 rounded-full bg-emerald-300 sm:mt-1 sm:h-1 sm:w-6" />
                           </div>
                         ))}
                       </div>
@@ -453,20 +453,20 @@ export default function HomePage() {
                   </div>
                 </div>
                 {/* Phone overlay */}
-                <div className="absolute -bottom-6 -right-6 h-40 w-20 rounded-2xl border border-zinc-300 bg-zinc-100 p-1.5 shadow-2xl md:-right-8 md:h-48 md:w-24">
-                  <div className="flex h-full flex-col rounded-xl bg-white">
-                    <div className="border-b border-zinc-100 px-2 py-1">
-                      <span className="text-[6px] font-bold text-emerald-600">
+                <div className="absolute -bottom-4 -right-4 h-32 w-16 rounded-xl border border-zinc-300 bg-zinc-100 p-1 shadow-2xl sm:-bottom-6 sm:-right-6 sm:h-40 sm:w-20 sm:rounded-2xl sm:p-1.5 md:-right-8 md:h-48 md:w-24">
+                  <div className="flex h-full flex-col rounded-lg bg-white sm:rounded-xl">
+                    <div className="border-b border-zinc-100 px-1.5 py-0.5 sm:px-2 sm:py-1">
+                      <span className="text-[5px] font-bold text-emerald-600 sm:text-[6px]">
                         PaP
                       </span>
                     </div>
-                    <div className="flex-1 space-y-1 p-1.5">
+                    <div className="flex-1 space-y-0.5 p-1 sm:space-y-1 sm:p-1.5">
                       {[1, 2, 3].map((i) => (
                         <div
                           key={i}
-                          className="rounded border border-zinc-100 bg-zinc-50 p-1"
+                          className="rounded border border-zinc-100 bg-zinc-50 p-0.5 sm:p-1"
                         >
-                          <div className="h-1 w-full rounded-full bg-zinc-200" />
+                          <div className="h-0.5 w-full rounded-full bg-zinc-200 sm:h-1" />
                         </div>
                       ))}
                     </div>
@@ -479,25 +479,25 @@ export default function HomePage() {
       </section>
 
       {/* Venue CTA */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
-        <div className="rounded-3xl bg-gradient-to-r from-emerald-600 to-emerald-500 p-8 text-center shadow-2xl shadow-emerald-500/20 md:p-16">
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
+      <section className="relative mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20 md:pb-32">
+        <div className="rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-500 p-6 text-center shadow-2xl shadow-emerald-500/20 sm:rounded-3xl sm:p-8 md:p-16">
+          <h2 className="text-2xl font-bold text-white sm:text-3xl md:text-4xl">
             Ready to modernize your venue?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-emerald-100/80">
+          <p className="mx-auto mt-3 max-w-xl text-base text-emerald-100/80 sm:mt-4 sm:text-lg">
             Pick a Partner replaces the clipboard sign-up sheet. No more
             confusion about who&apos;s next or who&apos;s available.
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
             <Link
               href="/for-venues"
-              className="rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-emerald-700 shadow-lg transition hover:bg-zinc-50 active:scale-[0.98]"
+              className="w-full rounded-xl bg-white px-6 py-3.5 text-base font-semibold text-emerald-700 shadow-lg transition hover:bg-zinc-50 active:scale-[0.98] sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4 sm:text-lg"
             >
               Learn More
             </Link>
             <Link
               href="/contact"
-              className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/60 hover:bg-white/10 active:scale-[0.98]"
+              className="w-full rounded-xl border-2 border-white/30 px-6 py-3.5 text-base font-semibold text-white transition hover:border-white/60 hover:bg-white/10 active:scale-[0.98] sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4 sm:text-lg"
             >
               Contact Us
             </Link>
@@ -507,14 +507,14 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="border-t border-zinc-200 bg-white">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-6 sm:px-6 sm:py-8 md:flex-row">
           <div className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
             <span className="font-semibold text-zinc-900">Pick a Partner</span>
           </div>
-          <div className="flex items-center gap-6 text-sm text-zinc-500">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-zinc-500 sm:gap-x-6">
             <Link href="/about" className="hover:text-zinc-700 transition">
               About
             </Link>
