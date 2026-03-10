@@ -78,20 +78,22 @@ export function InsurancePage() {
             <Shield className="h-10 w-10 text-white" />
           </div>
           <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
-            Play{" "}
+            Injuries{" "}
             <span className="bg-gradient-to-r from-teal-500 to-blue-500 bg-clip-text text-transparent">
-              Protected
+              Happen.
             </span>
+            {" "}Lawsuits Don&apos;t Have To.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
-            Free per-participant liability coverage for recreational sports
-            venues. Activate instantly through Pick a Partner — no setup fees, no
-            monthly costs, no hidden charges.
+            Your pickleball player rolls an ankle. Without coverage, that&apos;s
+            a $15K problem. With Pick a Partner, every participant is covered
+            the moment they check in. No paperwork. No monthly fees. No cost to
+            your venue at all.
           </p>
           <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2">
             <DollarSign className="h-5 w-5 text-emerald-600" />
             <span className="text-sm font-semibold text-emerald-700">
-              FREE for venues — Earn $2 to $10 per participant
+              FREE for venues — you actually earn $2 to $10 per participant
             </span>
           </div>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -108,7 +110,7 @@ export function InsurancePage() {
               href="#how-it-works"
               className="inline-flex items-center gap-2 rounded-2xl border border-zinc-300 bg-white px-8 py-4 text-lg font-semibold text-zinc-700 backdrop-blur transition-all hover:border-zinc-400 hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98]"
             >
-              How It Works
+              See How It Works
             </a>
           </div>
         </div>
@@ -121,10 +123,10 @@ export function InsurancePage() {
       >
         <div className="mb-16 text-center">
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
-            How Insurance Works
+            Coverage in Three Taps
           </h2>
           <p className="mt-4 text-lg text-zinc-600">
-            Three simple steps to coverage
+            No phone calls. No forms. No waiting on hold with an insurance rep.
           </p>
         </div>
 
@@ -133,20 +135,20 @@ export function InsurancePage() {
             {
               step: "01",
               icon: ClipboardCheck,
-              title: "Sign Your Digital Waiver",
-              desc: "When you check in at the venue, complete your digital waiver. It takes less than a minute and is fully stored in your profile.",
+              title: "Check In and Sign the Waiver",
+              desc: "Walk up, scan in, sign. The digital waiver takes about 30 seconds and lives in your profile forever. No clipboards, no lost paperwork.",
             },
             {
               step: "02",
               icon: UserCircle,
-              title: "See the Insurance Offer",
-              desc: "After signing your waiver, you'll see a personalized insurance offer right in your Pick a Partner profile. Review coverage details at your own pace.",
+              title: "Insurance Offer Pops Up",
+              desc: "Right after your waiver, you see the coverage offer. No separate app, no hunting around. It shows up automatically in your Pick a Partner profile.",
             },
             {
               step: "03",
               icon: MousePointerClick,
-              title: 'Tap "Get Coverage"',
-              desc: "One tap activates your coverage instantly. No forms, no phone calls, no waiting. You're protected before you step on the court.",
+              title: "One Tap. You're Covered.",
+              desc: "Hit the button and you're protected before your shoes hit the court. Coverage activates instantly and lasts through your session. That's it.",
             },
           ].map((item) => (
             <div key={item.step} className="relative">
@@ -175,10 +177,10 @@ export function InsurancePage() {
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
         <div className="mb-16 text-center">
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
-            What&apos;s Covered
+            What&apos;s Actually Covered
           </h2>
           <p className="mt-4 text-lg text-zinc-600">
-            Per-participant coverage that fills gaps in general liability
+            The stuff your general liability policy quietly excludes
           </p>
         </div>
 
@@ -187,28 +189,28 @@ export function InsurancePage() {
             {
               icon: Shield,
               title: "Per-Participant Liability",
-              desc: "Coverage for each participant during sporting activities, filling gaps that general liability policies don't cover.",
+              desc: "Your GL policy covers your employees. It does not cover the guy who tears his ACL on court 3. This does. Every player, every session.",
               gradient: "from-teal-500 to-teal-600",
               glow: "shadow-teal-500/15",
             },
             {
               icon: Heart,
               title: "Activity Injury Medical",
-              desc: "Medical expenses from activity-related injuries sustained during insured events.",
+              desc: "Sprained wrist, rolled ankle, pulled hamstring. Medical bills from on-court injuries are covered so players aren't stuck with the tab.",
               gradient: "from-rose-500 to-pink-500",
               glow: "shadow-rose-500/15",
             },
             {
               icon: Ambulance,
               title: "Emergency Transport",
-              desc: "Coverage for emergency transport if a participant is injured during an insured activity.",
+              desc: "If someone needs an ambulance from the court, that ride alone can cost $2,500+. This covers emergency transport so nobody panics about the bill.",
               gradient: "from-blue-500 to-indigo-500",
               glow: "shadow-blue-500/15",
             },
             {
               icon: ShieldCheck,
               title: "ActiveGuard\u2122 AD&D",
-              desc: "Accidental Death & Dismemberment protection through Daily Event Insurance's ActiveGuard\u2122 program.",
+              desc: "Accidental Death and Dismemberment coverage through the ActiveGuard\u2122 program. The serious stuff nobody wants to think about, handled.",
               gradient: "from-emerald-500 to-teal-500",
               glow: "shadow-emerald-500/15",
             },
@@ -239,40 +241,41 @@ export function InsurancePage() {
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div>
               <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
-                Why Daily Event Insurance?
+                Your GL Policy Has a Blind Spot
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-zinc-600">
-                General liability policies protect your employees — not your
-                participants. Daily Event Insurance fills that gap with
-                per-participant coverage that activates at point of activity and
-                deactivates when the event ends.
+                Most venue operators assume their general liability covers
+                everything. It doesn&apos;t. GL protects your staff. The 40
+                pickleball players on your courts right now? They&apos;re in a
+                coverage gap. Daily Event Insurance closes it, automatically,
+                for every participant, every session.
               </p>
             </div>
             <div className="space-y-4">
               {[
                 {
                   icon: DollarSign,
-                  text: "FREE for venues — zero setup fees, no monthly costs",
+                  text: "Costs you nothing. Literally zero. No setup, no monthly, no hidden fees.",
                 },
                 {
                   icon: Zap,
-                  text: "Venues earn $2-$10 for every covered participant",
+                  text: "You earn $2-$10 per covered participant. Insurance that pays you.",
                 },
                 {
                   icon: CheckCircle,
-                  text: "10-minute onboarding, no credit card required",
+                  text: "10-minute onboarding. No credit card. No sales call.",
                 },
                 {
                   icon: Shield,
-                  text: "Coverage integrates within 48 hours",
+                  text: "Live within 48 hours. Coverage flows through the waiver automatically.",
                 },
                 {
                   icon: Lock,
-                  text: "A-rated carriers: AIG, Lloyd's of London, Great American",
+                  text: "Backed by AIG, Lloyd's of London, and Great American. A-rated carriers.",
                 },
                 {
                   icon: BadgeCheck,
-                  text: "Licensed in all 50 states",
+                  text: "Licensed in all 50 states. Compliant everywhere you operate.",
                 },
               ].map((item) => (
                 <div
@@ -294,31 +297,35 @@ export function InsurancePage() {
       <section className="relative mx-auto max-w-3xl px-6 pb-24">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
-            Frequently Asked Questions
+            Questions? We Get These a Lot.
           </h2>
         </div>
 
         <Accordion.Root type="multiple" className="space-y-3">
           {[
             {
-              q: "How much does it cost for venues?",
-              a: "Daily Event Insurance is completely FREE for venue partners. There are zero setup fees, no monthly costs, and no hidden charges. Partners actually earn $2 to $10 for every covered participant.",
+              q: "Wait, it's really free for venues?",
+              a: "Yes, completely. No setup fees, no monthly charges, nothing hidden in the fine print. You actually make money on it. Venues earn $2 to $10 for every participant who opts into coverage. It's a revenue stream, not an expense.",
             },
             {
-              q: "What sports are covered?",
-              a: "All sports supported by Pick a Partner are covered, including pickleball, tennis, lawn bowling, badminton, racquetball, and flag football. Coverage extends to organized and casual play at participating venues.",
+              q: "What sports does this cover?",
+              a: "Everything Pick a Partner supports: pickleball, tennis, lawn bowling, badminton, racquetball, flag football, and more. Doesn't matter if it's a league night or casual open play. If it's happening at a participating venue, it's coverable.",
             },
             {
-              q: "How does coverage work?",
-              a: "Coverage activates instantly at the point of activity and deactivates when the event ends. It provides per-participant liability that fills gaps in general liability policies, which typically only protect employees — not participants.",
+              q: "How does the coverage actually work?",
+              a: "It turns on the moment the participant taps \"Get Coverage\" and turns off when their session ends. Think of it like a light switch. No pre-scheduling, no policy management, no renewal dates. The coverage lives inside the waiver flow, so there's nothing extra for you or the player to manage.",
             },
             {
-              q: "What happens if I need to file a claim?",
-              a: "Filing a claim is straightforward. Visit the Daily Event Insurance portal, submit your claim details and any supporting documentation, and a claims specialist will guide you through the process.",
+              q: "Someone got hurt. How do they file a claim?",
+              a: "They go to the Daily Event Insurance portal and submit the details. A real claims specialist picks it up and walks them through it. No phone trees, no \"press 1 for claims.\" It's designed to be painless because the last thing someone with a sprained ankle wants is a bureaucratic maze.",
             },
             {
-              q: "Is this real insurance?",
-              a: "Yes. Daily Event Insurance policies are underwritten by A-rated carriers including AIG, Lloyd's of London Syndicates, and Great American Insurance Group. Coverage is licensed in all 50 states.",
+              q: "Is this legit insurance or some startup gimmick?",
+              a: "It's the real deal. Policies are underwritten by AIG, Lloyd's of London Syndicates, and Great American Insurance Group. These are some of the largest, most established carriers in the world. Coverage is licensed and compliant in all 50 states.",
+            },
+            {
+              q: "What if my venue already has general liability?",
+              a: "Good, you should. But GL covers your employees and your premises. It typically does not cover participant-on-participant injuries during sporting activities. That's the gap. A player takes a bad fall during a match and blames the other player or the venue? GL might not help. Per-participant coverage fills that hole.",
             },
           ].map((item, i) => (
             <Accordion.Item
@@ -347,12 +354,12 @@ export function InsurancePage() {
         <div className="rounded-3xl bg-gradient-to-r from-teal-600 to-blue-600 p-8 text-center shadow-2xl shadow-teal-500/15 md:p-16">
           <Shield className="mx-auto mb-6 h-14 w-14 text-white/90" />
           <h2 className="text-3xl font-bold text-white md:text-4xl">
-            Ready to Play Protected?
+            Stop Hoping Nobody Gets Hurt
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-teal-100/80">
-            FREE per-participant liability coverage for your venue. Earn $2-$10
-            per participant. Underwritten by AIG, Lloyd&apos;s of London, and Great
-            American Insurance Group.
+            Free coverage for your venue. Revenue per participant. Backed by
+            AIG, Lloyd&apos;s of London, and Great American. Set it up in 10
+            minutes and never think about it again.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
@@ -370,7 +377,7 @@ export function InsurancePage() {
               rel="noopener noreferrer"
               className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/50 hover:bg-white/10 active:scale-[0.98]"
             >
-              Visit Our Insurance Page
+              Learn More About DEI
             </a>
           </div>
         </div>
@@ -380,8 +387,8 @@ export function InsurancePage() {
       <section className="relative mx-auto max-w-4xl px-6 pb-24">
         <div className="flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-12">
           {[
-            { icon: BadgeCheck, label: "Licensed" },
-            { icon: Lock, label: "Secure Payments" },
+            { icon: BadgeCheck, label: "All 50 States" },
+            { icon: Lock, label: "A-Rated Carriers" },
             { icon: Building2, label: "500+ Facilities" },
           ].map((badge) => (
             <div
