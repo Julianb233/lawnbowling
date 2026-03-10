@@ -69,7 +69,18 @@ export async function POST(request: NextRequest) {
       signed_at: new Date().toISOString(),
     });
 
-    return NextResponse.json(waiver, { status: 201 });
+    const response = NextResponse.json(waiver, { status: 201 });
+
+    // Set cookie so middleware can skip DB checks for waiver status
+    response.cookies.set("pap_has_waiver", "1", {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365, // 1 year
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    return response;
   } catch (error) {
     console.error("Sign waiver error:", error);
     return NextResponse.json({ error: "Failed to sign waiver" }, { status: 500 });

@@ -15,6 +15,13 @@ interface VenueData {
   sports: string[];
 }
 
+interface WaiverTemplateData {
+  id?: string;
+  title: string;
+  body: string;
+  is_active: boolean;
+}
+
 const AVAILABLE_SPORTS = [
   "pickleball",
   "lawn_bowling",
@@ -32,6 +39,14 @@ export default function VenueSettingsPage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [newSport, setNewSport] = useState("");
+  const [waiverTemplate, setWaiverTemplate] = useState<WaiverTemplateData>({
+    title: "Liability Waiver",
+    body: "",
+    is_active: true,
+  });
+  const [waiverLoading, setWaiverLoading] = useState(true);
+  const [waiverSaving, setWaiverSaving] = useState(false);
+  const [waiverMessage, setWaiverMessage] = useState("");
 
   useEffect(() => {
     fetch("/api/admin/venue")
@@ -40,7 +55,38 @@ export default function VenueSettingsPage() {
         setVenue(data.venue);
         setLoading(false);
       });
+    fetch("/api/admin/waiver-template")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.template) {
+          setWaiverTemplate(data.template);
+        }
+        setWaiverLoading(false);
+      })
+      .catch(() => setWaiverLoading(false));
   }, []);
+
+  const handleWaiverSave = async () => {
+    if (!venue) return;
+    setWaiverSaving(true);
+    setWaiverMessage("");
+    const res = await fetch("/api/admin/waiver-template", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        venue_id: venue.id,
+        ...waiverTemplate,
+      }),
+    });
+    setWaiverSaving(false);
+    if (res.ok) {
+      const data = await res.json();
+      setWaiverTemplate(data.template);
+      setWaiverMessage("Waiver text saved successfully");
+    } else {
+      setWaiverMessage("Failed to save waiver text");
+    }
+  };
 
   const handleSave = async () => {
     if (!venue) return;
@@ -280,10 +326,67 @@ export default function VenueSettingsPage() {
           </div>
         </section>
 
+        {/* Waiver Text Configuration (WAIV-05) */}
+        <section>
+          <h2 className="text-lg font-semibold text-zinc-200 mb-3">
+            Waiver Text
+          </h2>
+          <p className="text-sm text-zinc-500 mb-3">
+            Customize the liability waiver text that players must accept before
+            playing. Leave blank to use the default waiver.
+          </p>
+          {waiverLoading ? (
+            <p className="text-sm text-zinc-500">Loading waiver template...</p>
+          ) : (
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-zinc-400 mb-1">
+                  Waiver Title
+                </label>
+                <input
+                  type="text"
+                  value={waiverTemplate.title}
+                  onChange={(e) =>
+                    setWaiverTemplate({ ...waiverTemplate, title: e.target.value })
+                  }
+                  className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+                  placeholder="Liability Waiver"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-zinc-400 mb-1">
+                  Waiver Body
+                </label>
+                <textarea
+                  value={waiverTemplate.body}
+                  onChange={(e) =>
+                    setWaiverTemplate({ ...waiverTemplate, body: e.target.value })
+                  }
+                  rows={12}
+                  className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none resize-y"
+                  placeholder="Enter your custom waiver text here..."
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <Button onClick={handleWaiverSave} disabled={waiverSaving}>
+                  {waiverSaving ? "Saving..." : "Save Waiver Text"}
+                </Button>
+                {waiverMessage && (
+                  <span
+                    className={`text-sm ${waiverMessage.includes("success") ? "text-emerald-400" : "text-red-400"}`}
+                  >
+                    {waiverMessage}
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+        </section>
+
         {/* Save */}
         <div className="flex items-center gap-3 pt-2">
           <Button onClick={handleSave} disabled={saving}>
-            {saving ? "Saving..." : "Save Changes"}
+            {saving ? "Saving..." : "Save Venue Settings"}
           </Button>
           {message && (
             <span
