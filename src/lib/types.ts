@@ -161,3 +161,99 @@ export interface PlayerStats {
   updated_at: string;
   player?: Player; // joined
 }
+
+// ===== Social & Scheduling =====
+
+export interface Favorite {
+  id: string;
+  player_id: string;
+  favorite_id: string;
+  created_at: string;
+  favorite?: Player; // joined
+}
+
+export interface PlayerReview {
+  id: string;
+  reviewer_id: string;
+  reviewed_id: string;
+  match_id: string | null;
+  rating: number;
+  comment: string | null;
+  created_at: string;
+  reviewer?: Player; // joined
+}
+
+export interface ScheduledGame {
+  id: string;
+  organizer_id: string;
+  venue_id: string | null;
+  sport: string;
+  title: string;
+  description: string | null;
+  scheduled_at: string;
+  duration_minutes: number;
+  max_players: number;
+  is_recurring: boolean;
+  recurrence_rule: string | null;
+  status: "upcoming" | "in_progress" | "completed" | "cancelled";
+  created_at: string;
+  organizer?: Player; // joined
+  rsvps?: GameRSVP[]; // joined
+}
+
+export interface GameRSVP {
+  id: string;
+  game_id: string;
+  player_id: string;
+  status: "going" | "maybe" | "not_going";
+  created_at: string;
+  player?: Player; // joined
+}
+
+export interface Friendship {
+  id: string;
+  player_id: string;
+  friend_id: string;
+  status: "pending" | "accepted" | "blocked";
+  created_at: string;
+  friend?: Player; // joined
+  player?: Player; // joined (for incoming)
+}
+
+export interface ActivityItem {
+  id: string;
+  venue_id: string | null;
+  player_id: string | null;
+  type: "check_in" | "match_complete" | "new_player" | "scheduled_game";
+  metadata: Record<string, unknown>;
+  created_at: string;
+  player?: Player; // joined
+}
+
+export interface PlayerReport {
+  id: string;
+  reporter_id: string;
+  reported_id: string;
+  reason: string;
+  details: string | null;
+  status: "pending" | "reviewed" | "resolved" | "dismissed";
+  admin_notes: string | null;
+  created_at: string;
+  reporter?: Player; // joined
+  reported?: Player; // joined
+}
+
+export interface NotificationPreferences {
+  player_id: string;
+  push_partner_requests: boolean;
+  push_match_ready: boolean;
+  push_friend_checkin: boolean;
+  push_scheduled_reminder: boolean;
+  email_weekly_summary: boolean;
+  email_upcoming_games: boolean;
+  profile_public: boolean;
+  stats_public: boolean;
+  updated_at: string;
+}
+
+export type ReportReason = "unsportsmanlike" | "harassment" | "no_show" | "cheating" | "other";

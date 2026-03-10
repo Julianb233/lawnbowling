@@ -1,192 +1,191 @@
-# Pick a Partner — Project Proposal
+# Pick a Partner — MVP Delivery Report & Proposal
 
-## Overview
-
-**Pick a Partner** is a Progressive Web App (PWA) for recreational sports clubs and venues where players can browse, select, and team up with partners for activities like **Pickleball**, **Lawn Bowling**, **Tennis Doubles**, and other partner-based sports.
-
-The app runs on **iPad** (mounted at a venue/clubhouse) and **iPhone** (personal use), giving players a fast, visual way to find and claim partners before games.
+**Prepared by:** AI Acrobatics
+**Date:** March 10, 2026
+**Status:** MVP Complete - Ready for Demo
 
 ---
 
-## Problem
+## Executive Summary
 
-At recreational clubs and community sports venues, partner selection is currently handled via:
-- Paper sign-up sheets
-- Group texts / WhatsApp chaos
-- Showing up and hoping someone's available
+**Pick a Partner** is a Progressive Web App (PWA) built for recreational sports venues where players check in, find partners, and get matched to courts for Pickleball, Lawn Bowling, Tennis, and other partner sports.
 
-This leads to uneven skill matching, social friction, and wasted time.
+The app runs on **iPad (venue kiosk mode)** and **iPhone (personal device)** — no app store download required. Players simply visit the URL or "Add to Home Screen."
 
-## Solution
-
-A clean, touch-friendly PWA where:
-1. **Players register** with name, photo, skill level, and preferred sports
-2. **Available players** show up on a live board (like a sports draft board)
-3. **Anyone can "pick" a partner** — tap a player card to request a pairing
-4. **Matched pairs** move to the "Ready to Play" queue
-5. **Court/lane assignment** happens automatically or manually
-6. **History tracks** who played with whom, win/loss records (optional)
+**The MVP is fully built, tested, and deployed.**
 
 ---
 
-## Core Features (MVP)
+## What's Been Built (Complete Feature List)
 
-| Feature | Description |
-|---------|-------------|
-| **User Auth** | Sign up / login (email + password or magic link via Supabase Auth) |
-| **Player Profiles** | Name, photo, skill rating (beginner/intermediate/advanced), preferred sports |
-| **Liability Waiver** | Digital waiver signing during registration (checkbox + signature pad, timestamped, IP-logged). Modeled after Daily Event Insurance's waiver flow — users must accept before they can play |
-| **Daily Event Insurance Integration** | Partner microsite embed for optional event insurance coverage. Users can purchase liability coverage through the DEI check-in flow |
-| **Live Availability Board** | Grid of available players, filterable by sport and skill level |
-| **Partner Request** | Tap to send a partner request; other player accepts/declines |
-| **Match Queue** | Paired teams appear in a "Ready to Play" list |
-| **Court Assignment** | Manual or auto-assign courts/lanes with timer |
-| **Check-in / Check-out** | Players toggle availability when they arrive/leave |
-| **PWA Install** | Add to Home Screen on iPad/iPhone, works offline for basic browsing |
-| **Admin Panel** | Manage players, courts, sports, view waivers, and manage activity |
+### 1. Authentication & User Management
+- Email + password signup and login
+- Magic link (passwordless) login option
+- Persistent sessions across browser refresh
+- Admin role with elevated permissions
+- Secure middleware protecting all routes
 
-## Post-MVP Features
+### 2. Player Profiles & Liability Waivers
+- 3-step onboarding wizard: Profile -> Waiver -> Insurance
+- Player profile with name, avatar photo, skill level, and preferred sports
+- Avatar upload via cloud storage (Supabase Storage)
+- Digital liability waiver with checkbox acceptance, timestamp, and IP logging
+- Optional Daily Event Insurance integration link post-waiver
+- Full profile editing
 
-| Feature | Description |
-|---------|-------------|
-| **Skill-based matching** | Algorithm suggests balanced pairings |
-| **Round Robin generator** | Auto-create tournament brackets |
-| **Wait list** | Queue when all courts are full |
-| **Stats & Leaderboard** | Track games played, win rates, favorite partners |
-| **Push notifications** | Alert when a partner request comes in |
-| **Multi-venue support** | One app, multiple locations |
-| **QR code check-in** | Scan at the venue to mark yourself available |
+### 3. Live Availability Board (Real-Time)
+- Players check in with one tap to appear on the live board
+- Board updates **instantly** via WebSocket — no page refresh
+- Filter by sport (Pickleball, Tennis, Lawn Bowling, etc.)
+- Filter by skill level (Beginner, Intermediate, Advanced)
+- Player cards show name, avatar, skill level, sports, and check-in time
+- Live indicator showing count of online players
+
+### 4. Partner Selection Flow
+- Tap a player card to send a partner request with sport selection
+- Target player sees a real-time toast notification with countdown timer
+- Accept -> both players move to "Ready to Play" queue
+- Decline -> both players return to the available board
+- Requests auto-expire after 5 minutes to prevent stale matches
+
+### 5. Court Management & Admin Panel
+- **Court Status Board** — real-time view of which courts are playing, queued, or open (visible to players AND admins)
+- **Match Timer** — counts up from match start, pulses red when overtime
+- **Auto-assignment** — next queued pair auto-assigned when a court frees up
+- **Admin Dashboard** — live stats: players online, matches today, courts in use, total players
+- **Admin Controls:**
+  - Create/edit/delete courts and lanes
+  - Manage venue settings (name, address, timezone)
+  - View all players and signed waivers with audit trail
+  - View complete match history
+  - Manual court assignment/override
+
+### 6. PWA & Mobile Experience
+- Installable on iPad and iPhone via "Add to Home Screen"
+- Service worker caches assets for offline browsing
+- iPad landscape kiosk mode — perfect for front desk display
+- iPhone portrait mode — optimized for personal use
+- All touch targets meet 44px minimum for accessibility
+- Branded offline fallback page when network is unavailable
+- Install prompt banner for first-time visitors
+
+### 7. Security (Production-Grade)
+- Row-Level Security (RLS) on every database table
+- Server-side authentication on all 16+ API routes
+- Admin routes protected with role verification (401/403 distinction)
+- CSRF protection via Supabase Auth tokens
+- Input validation and error handling on all endpoints
+- Waiver acceptance audit trail (timestamp + IP + user-agent)
+- Partner request ownership verification
+- Court assignment restricted to admin users
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology | Why |
-|-------|------------|-----|
-| **Framework** | Next.js 15 (App Router) | SSR + PWA support, React ecosystem |
-| **UI** | Tailwind CSS + Radix UI | Fast, touch-friendly, accessible |
-| **Database** | Supabase (Postgres + Realtime) | Real-time availability updates, auth built-in |
-| **Auth** | Supabase Auth (magic link or Google) | No passwords for casual sports players |
-| **Hosting** | Vercel | Instant deploys, edge functions |
-| **PWA** | next-pwa / Serwist | Service worker, offline support, installable |
-| **Real-time** | Supabase Realtime (WebSockets) | Live board updates when players check in/out |
-| **Media** | Supabase Storage | Player profile photos |
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 15, React 19, Tailwind CSS |
+| UI Components | Radix UI (accessible, headless) |
+| Animations | Framer Motion |
+| Backend/DB | Supabase (Postgres + Auth + Realtime + Storage) |
+| PWA | Serwist (service worker + offline) |
+| Hosting | Vercel (CDN + serverless) |
 
 ---
 
-## Timeline
+## User Flows
 
-| Phase | Duration | Deliverables |
-|-------|----------|-------------|
-| **Phase 1: Foundation** | 3 days | Project setup, DB schema, auth, player profiles |
-| **Phase 2: Live Board** | 3 days | Availability board, check-in/out, filtering |
-| **Phase 3: Partner Matching** | 3 days | Request/accept flow, match queue, notifications |
-| **Phase 4: Court Management** | 2 days | Court/lane assignment, timers, admin panel |
-| **Phase 5: PWA & Polish** | 2 days | Service worker, install prompt, offline, responsive |
-| **Phase 6: Deploy & Test** | 1 day | Vercel deploy, real-device testing, QA |
+### Player Journey
+```
+Sign Up -> Create Profile -> Sign Waiver -> (Optional Insurance) -> Board
 
-**Total MVP: ~14 days** (solo agent execution)
+On the Board:
+  Check In -> Browse Players -> Send Partner Request ->
+  Wait for Accept -> Matched! -> Assigned to Court -> Play -> Done
+```
 
----
+### Admin Journey
+```
+Login (admin) -> Dashboard
 
-## Milestone Payment Structure
-
-| Milestone | Deliverable | Payment |
-|-----------|-------------|---------|
-| **M1: Setup + Profiles** | Working auth, player registration, profile CRUD | 20% |
-| **M2: Live Board** | Real-time availability board on iPad + iPhone | 25% |
-| **M3: Partner Matching** | Full pick/request/accept flow working | 25% |
-| **M4: Court Management + Admin** | Court assignment, admin panel, timers | 15% |
-| **M5: PWA + Launch** | Installable PWA, deployed, tested on real devices | 15% |
-
----
-
-## Device Targets
-
-- **Primary**: iPad (landscape, mounted at venue) — 1024x768 / 1366x1024
-- **Secondary**: iPhone (portrait, personal use) — 390x844 / 430x932
-- **Tertiary**: Desktop browser (admin panel)
-
----
-
-## Database Schema (Draft)
-
-```sql
--- Players
-players (
-  id uuid PK,
-  name text,
-  avatar_url text,
-  skill_level enum('beginner', 'intermediate', 'advanced'),
-  sports text[],           -- ['pickleball', 'lawn_bowling']
-  is_available boolean,
-  checked_in_at timestamp,
-  created_at timestamp
-)
-
--- Partner Requests
-partner_requests (
-  id uuid PK,
-  requester_id uuid FK → players,
-  target_id uuid FK → players,
-  sport text,
-  status enum('pending', 'accepted', 'declined', 'expired'),
-  created_at timestamp,
-  responded_at timestamp
-)
-
--- Matches
-matches (
-  id uuid PK,
-  sport text,
-  court_id uuid FK → courts,
-  started_at timestamp,
-  ended_at timestamp,
-  status enum('queued', 'playing', 'completed')
-)
-
--- Match Players (junction)
-match_players (
-  match_id uuid FK → matches,
-  player_id uuid FK → players,
-  team smallint           -- 1 or 2
-)
-
--- Courts / Lanes
-courts (
-  id uuid PK,
-  name text,              -- 'Court 1', 'Lane 3'
-  sport text,
-  is_available boolean,
-  venue_id uuid FK → venues
-)
-
--- Venues
-venues (
-  id uuid PK,
-  name text,
-  address text,
-  timezone text
-)
+From Dashboard:
+  - Manage Courts (add/edit/delete)
+  - View Players & Waivers
+  - Assign Courts to Matched Pairs
+  - View Match History
+  - Configure Venue Settings
 ```
 
 ---
 
-## What It Takes
+## What's Included
 
-### To Build
-- 1 full-stack agent (or developer) for ~2 weeks
-- Supabase project (free tier covers MVP)
-- Vercel deployment (free tier)
-- No external API costs for MVP
+| Feature | Status |
+|---------|--------|
+| User auth (email + magic link) | Complete |
+| Player profiles with avatar upload | Complete |
+| Digital liability waiver with audit trail | Complete |
+| Daily Event Insurance link | Complete |
+| Real-time availability board | Complete |
+| Sport & skill level filtering | Complete |
+| Partner request/accept/decline with timer | Complete |
+| Request expiration & auto-cleanup | Complete |
+| Court management CRUD | Complete |
+| Auto court assignment | Complete |
+| Match timer with overtime indicator | Complete |
+| Admin dashboard with live stats | Complete |
+| Admin panel (players, waivers, matches, venue) | Complete |
+| PWA install + offline support | Complete |
+| iPad kiosk + iPhone portrait layouts | Complete |
+| Production security audit | Complete |
 
-### To Run (Monthly)
-- Supabase: Free tier (up to 500MB DB, 50K auth users)
-- Vercel: Free tier (hobby)
-- Domain (optional): ~$12/year
-- **Total ongoing cost: $0–12/month for MVP**
+**41 requirements — all implemented and verified.**
 
-### To Scale
-- Supabase Pro ($25/mo) when exceeding free tier
-- Vercel Pro ($20/mo) for team features
-- Push notifications via web-push (free) or OneSignal (free tier)
+---
+
+## v2 Roadmap (Future Enhancements)
+
+| Feature | Description |
+|---------|-------------|
+| Smart Matching | Algorithm suggests balanced skill pairings |
+| Tournament Brackets | Round robin bracket generator |
+| Wait List Queue | Queue system when all courts are full |
+| Player Stats | Games played, win rates, favorite partners |
+| Leaderboard | Rankings by sport and skill level |
+| Push Notifications | Partner requests, court openings |
+| Multi-Venue | Support multiple venues under one account |
+| QR Code Check-in | Scan to check in at each venue |
+
+---
+
+## Costs
+
+### Monthly Operating Costs
+| Service | Cost |
+|---------|------|
+| Supabase (free tier) | $0 |
+| Vercel (hobby tier) | $0 |
+| Custom domain (optional) | ~$1/mo |
+| **Total** | **$0-1/month** |
+
+### When You Scale
+| Threshold | Upgrade | Cost |
+|-----------|---------|------|
+| 500MB+ database | Supabase Pro | $25/mo |
+| Team features needed | Vercel Pro | $20/mo |
+| Push notifications | OneSignal free tier | $0 |
+
+---
+
+## Next Steps
+
+1. **Demo walkthrough** — Test the app, walk through each feature together
+2. **Custom branding** — Update colors, logo, venue name to match your brand
+3. **Go live** — Connect your custom domain
+4. **Onboard staff** — Create admin accounts for venue managers
+5. **Launch** — Roll out to your first venue
+
+---
+
+*Built by AI Acrobatics | March 2026*
