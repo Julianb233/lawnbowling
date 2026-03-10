@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createPartnerRequest, hasPendingRequest } from "@/lib/db/partner-requests";
+import { sendPushToPlayer } from "@/lib/push";
+import { createNotification } from "@/lib/db/notifications";
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,7 +26,7 @@ export async function POST(request: NextRequest) {
     // Get current player
     const { data: currentPlayer, error: playerError } = await supabase
       .from("players")
-      .select("id, is_available, sports")
+      .select("id, is_available, sports, display_name")
       .eq("user_id", user.id)
       .single();
 
@@ -89,6 +91,32 @@ export async function POST(request: NextRequest) {
       sport,
       expires_at: expiresAt,
     });
+
+    // Create persistent notification for the target player
+    createNotification({
+      player_id: target_id,
+      type: "partner_request_received",
+      title: "New Partner Request",
+      body: `${currentPlayer.display_name || "A player"} wants to play ${sport} with you!`,
+      metadata: {
+        request_id: partnerRequest.id,
+        requester_id: currentPlayer.id,
+        sport,
+      },
+    }).catch((err: unknown) => console.error("Failed to create notification:", err));
+
+    // Send push notification to target player (fire-and-forget)
+    const requesterName = currentPlayer.display_name || "Someone";
+    sendPushToPlayer(target_id, "partner_request", {
+      title: "Partner Request",
+      body: `${requesterName} wants to play ${sport} with you!`,
+      tag: `partner-request-${partnerRequest.id}`,
+      url: "/board",
+      actions: [
+        { action: "accept", title: "View" },
+        { action: "dismiss", title: "Later" },
+      ],
+    }).catch((err: unknown) => console.error("Push notification failed:", err));
 
     return NextResponse.json({ request: partnerRequest }, { status: 201 });
   } catch (error) {

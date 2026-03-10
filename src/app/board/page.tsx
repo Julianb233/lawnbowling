@@ -19,6 +19,7 @@ import { MatchQueue } from "@/components/partner/MatchQueue";
 import { CourtStatusBoard } from "@/components/courts/CourtStatusBoard";
 import { SuggestedPartners } from "@/components/board/SuggestedPartners";
 import { VenueSelector } from "@/components/venue/VenueSelector";
+import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import type { Sport, SkillLevel, Player } from "@/lib/types";
 
 export default function BoardPage() {
@@ -159,7 +160,10 @@ export default function BoardPage() {
                 />
               </div>
             </motion.div>
-            <LiveIndicator count={players.length} />
+            <div className="flex items-center gap-2">
+              <NotificationCenter playerId={currentPlayer?.id ?? null} />
+              <LiveIndicator count={players.length} />
+            </div>
           </div>
         </header>
 

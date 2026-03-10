@@ -364,6 +364,29 @@ export interface TournamentMatch {
   winner?: Player; // joined
 }
 
+// Notifications
+export type NotificationType =
+  | "partner_request_received"
+  | "partner_request_accepted"
+  | "partner_request_declined"
+  | "partner_request_expired"
+  | "match_assigned"
+  | "court_assigned"
+  | "friend_checked_in"
+  | "game_reminder"
+  | "match_completed";
+
+export interface AppNotification {
+  id: string;
+  player_id: string;
+  type: NotificationType;
+  title: string;
+  body: string;
+  metadata: Record<string, unknown>;
+  is_read: boolean;
+  created_at: string;
+}
+
 // Subscription / Pricing
 export type SubscriptionPlan = "free" | "basic" | "premium" | "venue_owner";
 export type SportSkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
