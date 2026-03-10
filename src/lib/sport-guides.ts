@@ -497,154 +497,578 @@ export const SPORT_GUIDES: Record<Sport, SportGuide> = {
     sport: "badminton",
     emoji: "\u{1F3F8}",
     name: "Badminton",
-    tagline: "Fast reflexes, light rackets, and a shuttlecock that can fly over 200 mph",
+    tagline: "The fastest racket sport in the world",
     overview:
-      "Badminton is a racquet sport played with a lightweight shuttlecock over a net. It can be played as singles or doubles. The game demands quick reflexes, agility, and strategic shot placement. Badminton is one of the most popular sports worldwide and has been an Olympic sport since 1992.",
+      "Badminton is a racket sport played with a shuttlecock (also called a birdie) across a high net. With roots tracing back over 2,000 years to ancient civilizations in Europe and Asia, the modern game was formalized in British India during the 19th century and named after the Duke of Beaufort's Badminton House in Gloucestershire, England. Today it is one of the most popular sports worldwide, with an estimated 220 million people playing regularly.\n\nWhat makes badminton unique is the shuttlecock itself \u2014 its feathered (or synthetic) design creates enormous drag, meaning the birdie decelerates rapidly after being struck. This produces a game of dramatic contrasts: explosive smashes that launch the shuttlecock at over 300 mph off the racket, followed by delicate net shots that barely clear the tape. The sport demands lightning reflexes, exceptional footwork, and both power and finesse. Whether played casually in a backyard or competitively on an indoor court, badminton is accessible, fast-paced, and addictively fun.\n\nBadminton became an Olympic sport in 1992 at the Barcelona Games. It is particularly dominant in Asian countries, with China, Indonesia, Japan, and South Korea producing many of the world's top players. The sport can be played as singles or doubles, with mixed doubles being one of the most exciting formats to watch and play.",
     equipment: [
-      { name: "Racket", description: "A lightweight racket (80-100g) with a strung head.", icon: "racket" },
-      { name: "Shuttlecock", description: "A feathered or synthetic projectile hit back and forth over the net.", icon: "shuttlecock" },
-      { name: "Court Shoes", description: "Non-marking shoes with good grip for quick lateral movement.", icon: "shoes" },
+      {
+        name: "Shuttlecock (Birdie)",
+        description:
+          "A projectile with a cork base and feathered or synthetic skirt. Feathered shuttlecocks are used in competitive play; nylon ones are more durable for recreational use.",
+        icon: "\u{1F3F8}",
+      },
+      {
+        name: "Racket",
+        description:
+          "A lightweight racket (typically 75\u201395 grams) with a thin, tightly-strung frame. Much lighter than tennis rackets, allowing for quick wrist action.",
+        icon: "\u{1F3F8}",
+      },
+      {
+        name: "Net",
+        description:
+          "The net stands 5 feet 1 inch (1.55m) high at the edges and 5 feet (1.524m) at the center. It divides the court in half.",
+        icon: "\u{1F3D0}",
+      },
+      {
+        name: "Court Shoes",
+        description:
+          "Non-marking indoor court shoes with good grip and lateral support. Badminton involves constant lunging and quick direction changes.",
+        icon: "\u{1F45F}",
+      },
+      {
+        name: "Comfortable Clothing",
+        description:
+          "Lightweight, breathable athletic clothing that allows full range of motion. Badminton is an intense cardio workout.",
+        icon: "\u{1F455}",
+      },
     ],
-    courtDiagram: "badminton-court",
+    courtDiagram: "badminton",
     howToPlay: [
-      { step: 1, title: "Serve", description: "Serve diagonally underhand from below the waist." },
-      { step: 2, title: "Rally", description: "Hit the shuttlecock back and forth over the net." },
-      { step: 3, title: "Score", description: "Score a point when the opponent fails to return the shuttlecock." },
+      {
+        step: 1,
+        title: "Serve the Shuttlecock",
+        description:
+          "Stand in your service court and hit the shuttlecock underhand diagonally to the opponent's service court. The racket must contact the birdie below your waist, and the entire shuttlecock must be below 1.15 meters at the point of contact.",
+      },
+      {
+        step: 2,
+        title: "Return and Rally",
+        description:
+          "The receiver hits the shuttlecock back over the net. Unlike tennis, the shuttlecock cannot bounce \u2014 it must be struck in the air. Players rally back and forth, keeping the birdie in play.",
+      },
+      {
+        step: 3,
+        title: "Use Different Shots",
+        description:
+          "Develop a repertoire of shots: clears (high and deep), drops (soft shots just over the net), smashes (powerful downward shots), drives (fast and flat), and net shots (delicate plays at the net).",
+      },
+      {
+        step: 4,
+        title: "Move to Position",
+        description:
+          "After each shot, return to your base position in the center of the court. Good footwork is essential \u2014 use a six-point movement pattern to cover all corners efficiently.",
+      },
+      {
+        step: 5,
+        title: "Win the Rally",
+        description:
+          "A rally ends when the shuttlecock hits the ground, goes into the net, lands out of bounds, or a fault is committed. The winner of the rally scores a point regardless of who served.",
+      },
+      {
+        step: 6,
+        title: "Score to 21",
+        description:
+          "Games are played to 21 points using rally scoring. You must win by 2 points. If the score reaches 29-all, the next point wins. Matches are best of 3 games.",
+      },
+      {
+        step: 7,
+        title: "Switch Sides",
+        description:
+          "Players switch ends after each game and when the leading score reaches 11 in the third game. In doubles, service alternates between all four players following a specific rotation.",
+      },
     ],
     scoring: {
-      system: "Rally Scoring to 21",
-      explanation: "A point is scored on every rally. Games are played to 21 points with a 2-point lead required. Best of 3 games wins the match.",
+      system: "Rally point scoring to 21, best of 3 games",
+      explanation:
+        "Badminton uses rally point scoring, meaning a point is awarded on every rally regardless of which side served. Games are played to 21 points. If the score is tied at 20-all, play continues until one side has a 2-point lead (e.g., 22-20, 23-21). If the score reaches 29-all, the next point wins the game. A match is best of 3 games. The side winning a rally adds a point to its score and serves in the next rally.",
       examples: [
-        { scenario: "Opponent fails to return shuttlecock", score: "You score 1 point" },
-        { scenario: "Shuttlecock lands out of bounds on your hit", score: "Opponent scores 1 point" },
+        {
+          scenario: "Server wins the rally at 15-12",
+          score: "Server scores, now leading 16-12. Server continues to serve.",
+        },
+        {
+          scenario: "Receiver wins the rally at 18-20",
+          score: "Receiver scores, now 19-20. Receiver takes over the serve.",
+        },
+        {
+          scenario: "Score reaches 20-20",
+          score: "Play continues until someone leads by 2 (e.g., 22-20) or the score reaches 30-29.",
+        },
       ],
-      tips: ["At 20-20, play continues until one side leads by 2 points.", "At 29-29, the next point wins."],
+      tips: [
+        "Every rally earns a point \u2014 there is no side-out scoring",
+        "The serving side switches service courts after each point they score",
+        "In doubles, only one player serves per service turn (not both like in pickleball)",
+        "At 20-all, you must win by 2 up to a cap of 30",
+      ],
     },
     rules: [
-      { rule: "Underhand Serve", explanation: "The serve must be hit below the server's waist with the racket pointing downward." },
-      { rule: "Rally Scoring", explanation: "A point is scored on every serve, regardless of who served." },
-      { rule: "In/Out", explanation: "The shuttlecock must land within the court boundaries. Lines are in." },
-      { rule: "Net Play", explanation: "Players must not touch the net with their body or racket during play." },
+      {
+        rule: "Underhand Serve Below the Waist",
+        explanation:
+          "The serve must be hit underhand with the racket head below the server's hand. The entire shuttlecock must be below 1.15 meters from the court surface at the instant of being hit. The serve must travel diagonally to the opponent's service court.",
+      },
+      {
+        rule: "Shuttlecock Cannot Bounce",
+        explanation:
+          "Unlike tennis or pickleball, the shuttlecock must be hit before it touches the ground. If the birdie hits the floor on your side, the rally is lost.",
+      },
+      {
+        rule: "Service Court Rules",
+        explanation:
+          "When the server's score is even, they serve from the right court. When odd, from the left court. In doubles, the same rule applies, and the server alternates courts based on the serving side's score.",
+      },
+      {
+        rule: "Faults",
+        explanation:
+          "A fault occurs when: the shuttlecock lands out of bounds, goes through or under the net, a player touches the net with their body or racket, the shuttlecock is hit twice in succession by the same side, or the serve is illegal.",
+      },
+      {
+        rule: "Lets",
+        explanation:
+          "A let is called when the server serves before the receiver is ready, both sides commit a fault simultaneously, or the shuttlecock gets caught on top of the net after passing over it on a serve. The rally is replayed.",
+      },
+      {
+        rule: "Court Boundaries",
+        explanation:
+          "In singles, the long and narrow court is used (inner sidelines, full length including back tramlines). In doubles, the full width is used but serves must land within the short service line to the back boundary line.",
+      },
+      {
+        rule: "Net Contact",
+        explanation:
+          "Players cannot touch the net or its supports with their body, racket, or clothing during a rally. You may reach over the net to follow through on a shot, but you cannot strike the shuttlecock on the opponent's side.",
+      },
+      {
+        rule: "Doubles Rotation",
+        explanation:
+          "In doubles, only the serving side switches courts when they score. The receiving side does not change positions. When the serving side loses a rally, the serve passes to the other team.",
+      },
+      {
+        rule: "Obstructing an Opponent",
+        explanation:
+          "Players cannot obstruct an opponent from making a legal shot at the shuttlecock. Deliberately distracting or blocking an opponent results in a fault.",
+      },
     ],
     beginnerTips: [
-      "Focus on footwork — good positioning beats power.",
-      "Use a variety of shots: clears, drops, smashes, and net shots.",
-      "Return to center court after each shot.",
+      "Focus on your footwork first \u2014 being in the right position is more important than hitting hard. Use small, quick steps to recover to center court after every shot.",
+      "Hold the racket with a relaxed grip. A death grip kills your wrist action, which is where most of badminton's power comes from.",
+      "Learn the basic grip: the forehand grip (like shaking hands with the racket) and the backhand grip (rotating the thumb onto the flat side of the handle).",
+      "Master the clear (high, deep shot to the back of the court) first. It gives you time to recover and is the foundation of rallying.",
+      "Always return to the center of the court after playing a shot. This gives you the best coverage of the court.",
+      "Aim for accuracy over power. A well-placed drop shot is more effective than a poorly aimed smash.",
+      "Watch the shuttlecock all the way onto your racket. Keep your non-racket arm up for balance.",
+      "Practice your serve until it is consistent and accurate. A good serve sets up the rally in your favor.",
     ],
     etiquette: [
-      "Shake hands or tap rackets before and after each match.",
-      "Call shuttlecocks in or out honestly.",
-      "Wait for opponents to be ready before serving.",
+      "Shake hands or tap rackets with your opponent before and after the match",
+      "Return the shuttlecock to the server by hitting it gently to their side, not randomly across the court",
+      "Call faults on yourself honestly \u2014 if you touched the net or hit the birdie into your body, own it",
+      "Do not celebrate excessively on your opponent's errors \u2014 save celebrations for your own good shots",
+      "Wait until the rally is over before retrieving a shuttlecock from an adjacent court",
+      "Compliment your opponent's good shots \u2014 a simple nod or 'nice shot' goes a long way",
     ],
     funFacts: [
-      "A badminton smash can exceed 200 mph, making it the fastest racquet sport.",
-      "The modern game originated in British India in the 19th century.",
+      "The fastest recorded badminton smash reached 306 mph (493 km/h), hit by Tan Boon Heong of Malaysia in a controlled test \u2014 making it the fastest racket sport in the world by initial racket-to-shuttlecock speed.",
+      "Badminton became an official Olympic sport in 1992 at the Barcelona Games. It has been dominated by Asian nations, with China winning the most gold medals.",
+      "A shuttlecock has 16 feathers, and top-level feathered shuttlecocks are made from the left wing feathers of a goose. Each bird contributes feathers for only a few birdies.",
+      "The longest badminton rally in a competitive match lasted 108 shots \u2014 between Taufik Hidayat and Lee Chong Wei at the 2005 All England Open.",
+      "An estimated 220 million people play badminton worldwide, making it the second most popular participation sport in the world after soccer.",
     ],
     difficulty: "Moderate",
-    typicalDuration: "20-45 minutes per match",
+    typicalDuration: "20-45 min/match",
     playersNeeded: "2 (singles) or 4 (doubles)",
   },
+
   racquetball: {
     sport: "racquetball",
     emoji: "\u{1F3BE}",
     name: "Racquetball",
-    tagline: "Fast-paced indoor action with walls in play",
+    tagline: "Fast-paced, high-energy indoor racket sport",
     overview:
-      "Racquetball is played in an enclosed court where the ball can bounce off any wall. It combines elements of handball and squash, providing an intense cardiovascular workout. The enclosed court makes for fast, dynamic rallies that keep players moving.",
+      "Racquetball is a high-speed indoor racket sport played in an enclosed four-walled court. Unlike tennis or badminton, every wall, the floor, and even the ceiling are in play, creating a fast-paced, three-dimensional game where the ball ricochets unpredictably and rallies are intense. The sport provides one of the best cardiovascular workouts in all of athletics, burning up to 800 calories per hour.\n\nInvented in 1950 by Joe Sobek, a professional handball and tennis player from Greenwich, Connecticut, racquetball was originally called \"paddle rackets.\" Sobek designed a strung racket and a bouncy rubber ball that could be played on existing handball courts. The sport exploded in popularity during the 1970s and 1980s, with dedicated racquetball clubs opening across the United States. Today, there are approximately 5.6 million players in the US alone.\n\nThe beauty of racquetball lies in its simplicity and accessibility. The basic rules are easy to learn, and because the ball bounces off walls, rallies last longer than in many other racket sports. This makes it satisfying for beginners while offering tremendous depth for advanced players who can read wall angles and execute ceiling shots, kill shots, and passing shots with precision.",
     equipment: [
-      { name: "Racquet", description: "A short-handled racquet with a wrist strap (required for safety).", icon: "racket" },
-      { name: "Ball", description: "A hollow rubber ball designed for indoor court play.", icon: "ball" },
-      { name: "Goggles", description: "Protective eyewear is required in competitive play.", icon: "goggles" },
+      {
+        name: "Racquetball Racket",
+        description:
+          "A short-handled racket no longer than 22 inches. Modern rackets are made from graphite, aluminum, or composite materials and feature a wrist strap (required during play for safety).",
+        icon: "\u{1F3BE}",
+      },
+      {
+        name: "Racquetball",
+        description:
+          "A hollow, pressurized rubber ball approximately 2.25 inches in diameter. Balls come in different colors indicating speed: blue (standard), green (slower for beginners), red/black (faster for advanced play).",
+        icon: "\u{26AA}",
+      },
+      {
+        name: "Protective Eyewear",
+        description:
+          "Safety goggles or sport glasses are REQUIRED during play. The ball travels at speeds over 100 mph in the enclosed court, making eye protection essential.",
+        icon: "\u{1F97D}",
+      },
+      {
+        name: "Court Shoes",
+        description:
+          "Non-marking indoor court shoes with good cushioning and lateral support. The quick direction changes demand supportive footwear.",
+        icon: "\u{1F45F}",
+      },
+      {
+        name: "Glove (Optional)",
+        description:
+          "A racquetball glove worn on the racket hand improves grip and reduces blisters. Most regular players wear one.",
+        icon: "\u{1F9E4}",
+      },
     ],
-    courtDiagram: "racquetball-court",
+    courtDiagram: "racquetball",
     howToPlay: [
-      { step: 1, title: "Serve", description: "Bounce the ball and hit it to the front wall so it lands behind the short line." },
-      { step: 2, title: "Rally", description: "Hit the ball to the front wall before it bounces twice on the floor." },
-      { step: 3, title: "Score", description: "Only the server can score points. Games are played to 15." },
+      {
+        step: 1,
+        title: "Serve the Ball",
+        description:
+          "Stand in the service zone (between the short line and the service line). Drop the ball, let it bounce once, then hit it toward the front wall. The ball must hit the front wall first and then bounce past the short line before the receiver can return it.",
+      },
+      {
+        step: 2,
+        title: "Return the Serve",
+        description:
+          "The receiver stands behind the receiving line and must return the ball after it crosses the short line. The ball may bounce once off the floor before being returned, or it can be hit in the air (a volley).",
+      },
+      {
+        step: 3,
+        title: "Rally Using the Walls",
+        description:
+          "Hit the ball so it reaches the front wall before touching the floor. The ball can hit any number of side walls, back wall, or ceiling before or after hitting the front wall. This is what makes racquetball unique \u2014 every surface is in play.",
+      },
+      {
+        step: 4,
+        title: "Win the Rally",
+        description:
+          "A rally ends when a player fails to return the ball to the front wall before it bounces twice on the floor, hits themselves with the ball, or commits a fault. Only the server can score a point.",
+      },
+      {
+        step: 5,
+        title: "Master Key Shots",
+        description:
+          "Learn the essential shots: the drive serve (low and fast), ceiling shot (defensive, sends ball high to back wall), kill shot (low to front wall, barely bounces), and passing shot (drives ball past your opponent).",
+      },
+      {
+        step: 6,
+        title: "Control Center Court",
+        description:
+          "After each shot, try to return to center court position (slightly behind the short line). The player who controls center court controls the game by having the best angles to all areas.",
+      },
+      {
+        step: 7,
+        title: "Win the Game",
+        description:
+          "Games 1 and 2 are played to 15 points. If a third game (tiebreaker) is needed, it is played to 11. Only the server can score. A match is best of 3 games.",
+      },
     ],
     scoring: {
-      system: "Side-Out Scoring to 15",
-      explanation: "Only the server can score points. If the server loses a rally, the serve passes to the opponent. Matches are best of 3 games (15, 15, 11 for tiebreaker).",
+      system: "Side-out scoring to 15 (games 1 & 2), tiebreaker to 11, best of 3",
+      explanation:
+        "Racquetball uses side-out scoring, meaning only the serving player or team can score points. If the receiver wins the rally, they gain the serve (a \"side-out\") but do not score a point. The first two games are played to 15 points (no win-by-2 required). If the match is split 1-1, a tiebreaker third game is played to 11 points.",
       examples: [
-        { scenario: "Server wins the rally", score: "Server scores 1 point" },
-        { scenario: "Receiver wins the rally", score: "Side out — receiver now serves" },
+        {
+          scenario: "Server wins the rally at 8-5",
+          score: "Server scores, now leads 9-5. Server continues to serve.",
+        },
+        {
+          scenario: "Receiver wins the rally at 12-10",
+          score: "No point scored \u2014 it is a side-out. Receiver now becomes the server at 10-12.",
+        },
+        {
+          scenario: "Tiebreaker third game at 10-9",
+          score: "Next point by the server wins the game (no win-by-2 needed).",
+        },
       ],
-      tips: ["The tiebreaker third game is played to 11 points.", "There is no win-by-2 rule in racquetball."],
+      tips: [
+        "Only the server scores points \u2014 winning a rally as receiver just earns you the serve",
+        "No win-by-2 is required in racquetball \u2014 first to 15 (or 11 in tiebreaker) wins",
+        "In doubles, each player on the serving team serves before a side-out (except the first service of the game)",
+        "Keep track of the score verbally before each serve",
+      ],
     },
     rules: [
-      { rule: "Front Wall Serve", explanation: "The ball must hit the front wall first on a serve and land behind the short line." },
-      { rule: "Wall Play", explanation: "The ball can bounce off any wall during a rally, but must hit the front wall before the floor." },
-      { rule: "Side-Out Scoring", explanation: "Only the server scores points. Losing a rally as server means a side-out." },
-      { rule: "Hinders", explanation: "If a player obstructs an opponent's shot, a hinder is called and the rally is replayed." },
+      {
+        rule: "Serve Must Hit Front Wall First",
+        explanation:
+          "On the serve, the ball must hit the front wall first before touching any other surface. After hitting the front wall, the ball must cross the short line before bouncing on the floor. The server gets two serve attempts per rally.",
+      },
+      {
+        rule: "Short Serve",
+        explanation:
+          "A serve that hits the front wall but bounces on the floor before crossing the short line is a \"short serve\" and is a fault. Two faults result in a side-out.",
+      },
+      {
+        rule: "Screen Serve",
+        explanation:
+          "If the served ball passes so close to the server that the receiver cannot see it clearly, it is a \"screen serve\" and is replayed. A screen serve counts as a fault in some rule sets.",
+      },
+      {
+        rule: "Hinders",
+        explanation:
+          "A hinder occurs when a player unintentionally blocks an opponent's shot or movement. The rally is replayed. If the interference is avoidable (the player could have moved but didn't), it is a penalty hinder and the rally is awarded to the opponent.",
+      },
+      {
+        rule: "Ball Must Reach Front Wall",
+        explanation:
+          "Every return must reach the front wall before bouncing on the floor. The ball may hit any combination of side walls, back wall, or ceiling before or after reaching the front wall.",
+      },
+      {
+        rule: "One Bounce Maximum",
+        explanation:
+          "The ball may bounce on the floor only once before being returned. If the ball bounces twice, the rally is lost. Players may also hit the ball in the air (volley) before it bounces.",
+      },
+      {
+        rule: "Ceiling Shots Are Legal",
+        explanation:
+          "Players may intentionally hit the ceiling, which sends the ball deep to the back of the court. This is a common defensive strategy to force the opponent out of center court.",
+      },
+      {
+        rule: "Wrist Strap Required",
+        explanation:
+          "All players must wear the wrist strap attached to the racket handle during play. This prevents the racket from flying out of a player's hand and injuring opponents.",
+      },
+      {
+        rule: "Eyewear Required",
+        explanation:
+          "Protective eyewear is mandatory in all sanctioned play. The ball can travel over 100 mph in the confined court, making eye protection critical for safety.",
+      },
+      {
+        rule: "Out-of-Court Ball",
+        explanation:
+          "If the ball hits the front wall and then goes out of the court (above the back wall or through a court opening), it is a side-out or point loss depending on who hit it.",
+      },
     ],
     beginnerTips: [
-      "Control center court for the best positioning.",
-      "Use ceiling shots to reset rallies.",
-      "Always wear protective eyewear.",
+      "Always wear protective eyewear \u2014 this is not optional. The ball moves fast in an enclosed space and eye injuries are the most common safety concern.",
+      "Focus on ceiling shots as your go-to defensive shot. Hitting the ceiling near the front wall sends the ball deep and gives you time to recover position.",
+      "Control center court. After each shot, move back to a position slightly behind the short line in the center of the court. The player in center court dominates.",
+      "Learn to read the walls. Start by watching how the ball bounces off one wall, then progress to multi-wall combinations. This is the unique skill in racquetball.",
+      "Use a relaxed grip and snap your wrist through the ball. Power comes from wrist action, not from a stiff arm swing.",
+      "Master the drive serve first \u2014 a low, hard serve to the back corner is the most effective basic serve.",
+      "Move out of your opponent's way after hitting the ball. Give them a clear path to the ball and the front wall.",
+      "Start with a blue ball (standard speed). Green balls are slower and great for learning, but most recreational games use blue.",
     ],
     etiquette: [
-      "Give your opponent room to hit — avoid blocking shots.",
-      "Call hinders (obstructions) fairly.",
-      "Wear proper court shoes with non-marking soles.",
+      "Always yield to your opponent when they are about to hit the ball \u2014 do not stand in their swing path or block their shot to the front wall",
+      "Call hinders on yourself if you block your opponent's shot or movement, even if they don't ask for it",
+      "Wear the wrist strap at all times \u2014 a loose racket in an enclosed court is dangerous",
+      "Do not swing your racket recklessly near your opponent \u2014 controlled swings are safer in close quarters",
+      "Shake hands before and after the match, and agree on the score before each serve",
+      "If you hit your opponent with the ball during a rally, check that they are okay before continuing play",
     ],
     funFacts: [
-      "Racquetball was invented in 1950 by Joe Sobek, a professional handball and tennis player.",
-      "The ball can travel over 150 mph off the front wall.",
+      "Racquetball was invented in 1950 by Joe Sobek, who designed it as a fast-paced sport that could be played on existing handball courts with a strung racket.",
+      "The ball can reach speeds of over 160 mph off the racket during professional play. In the enclosed court, this means reaction times are measured in fractions of a second.",
+      "Every wall, the floor, and the ceiling are in play \u2014 making racquetball a truly three-dimensional sport unlike any other racket game.",
+      "At its peak popularity in the 1980s, there were over 30,000 dedicated racquetball courts in the United States. The sport was once featured on ESPN prime time.",
+      "Racquetball is played in over 90 countries and has been featured in the Pan American Games since 1995, with ongoing campaigns for Olympic inclusion.",
     ],
     difficulty: "Moderate",
-    typicalDuration: "20-45 minutes per match",
+    typicalDuration: "20-40 min/match",
     playersNeeded: "2 (singles) or 4 (doubles)",
   },
+
   flag_football: {
     sport: "flag_football",
     emoji: "\u{1F3C8}",
     name: "Flag Football",
-    tagline: "All the strategy of football without the tackles",
+    tagline: "All the strategy, none of the tackles",
     overview:
-      "Flag football is a non-contact version of American football where instead of tackling, defensive players pull flags from the ball carrier's belt. It emphasizes speed, agility, and passing, making it accessible to a wide range of ages and skill levels. Flag football will debut as an Olympic sport at the 2028 Los Angeles Games.",
+      "Flag football is the non-contact version of American football where instead of tackling the ball carrier, defenders pull a flag or flag belt from their waist to end the play. It preserves all the strategic depth of football \u2014 the route running, passing, play calling, and defensive scheming \u2014 while eliminating the physical collisions that make tackle football inaccessible to many people.\n\nThe sport has experienced explosive growth in recent years. NFL Flag, the league's official youth flag football program, has over 7 million participants. In a landmark moment for the sport, flag football was approved for inclusion in the 2028 Los Angeles Olympic Games, marking the first time any form of American football will be contested at the Olympics. This decision has accelerated the sport's international growth, with federations in over 100 countries now developing competitive flag football programs.\n\nFlag football is typically played 5-on-5 or 7-on-7 on a smaller field than tackle football. The reduced field size and player count create a fast, open game with more opportunities for every player to be involved. It is an outstanding co-ed sport, with many recreational leagues featuring mixed-gender teams. The rules are straightforward enough for newcomers to pick up quickly, while the strategic depth keeps experienced players engaged for years.",
     equipment: [
-      { name: "Flag Belt", description: "A belt with detachable flags worn by each player.", icon: "belt" },
-      { name: "Football", description: "A standard or youth-size football.", icon: "football" },
-      { name: "Cleats", description: "Athletic shoes with cleats for traction on grass or turf.", icon: "shoes" },
+      {
+        name: "Football",
+        description:
+          "A regulation or youth-sized American football. Smaller footballs are easier to throw and catch for beginners. Leagues typically provide game balls.",
+        icon: "\u{1F3C8}",
+      },
+      {
+        name: "Flag Belt",
+        description:
+          "A belt worn around the waist with two or three detachable flags. When a defender pulls a flag, the ball carrier is \"down.\" Flag belts are typically provided by the league.",
+        icon: "\u{1F3F3}\u{FE0F}",
+      },
+      {
+        name: "Cones / Markers",
+        description:
+          "Used to mark end zones, first-down lines, and no-run zones. Portable and easy to set up on any flat grass or turf field.",
+        icon: "\u{1F6A9}",
+      },
+      {
+        name: "Cleats (Optional)",
+        description:
+          "Rubber-molded cleats provide traction on grass fields. Many leagues allow turf shoes or athletic shoes as well. Metal cleats are typically not allowed.",
+        icon: "\u{1F45F}",
+      },
+      {
+        name: "Mouthguard (Optional)",
+        description:
+          "While flag football is non-contact, incidental collisions can happen. A mouthguard is recommended, and some leagues require them.",
+        icon: "\u{1F9B7}",
+      },
     ],
-    courtDiagram: "flag-football-field",
+    courtDiagram: "flag_football",
     howToPlay: [
-      { step: 1, title: "Snap", description: "The center snaps the ball to the quarterback." },
-      { step: 2, title: "Pass or Run", description: "The quarterback throws to a receiver or hands off the ball." },
-      { step: 3, title: "Score", description: "Reach the end zone for a touchdown (6 points)." },
+      {
+        step: 1,
+        title: "The Snap",
+        description:
+          "Each play begins with a snap. The center hikes the ball between their legs to the quarterback. In many flag football leagues, the snap can be made from the center to the QB directly (shotgun) or with the QB under center.",
+      },
+      {
+        step: 2,
+        title: "The Play Call",
+        description:
+          "Before the snap, the quarterback (or team captain) calls the play in the huddle. Receivers are assigned routes (patterns to run), and each player has a specific job on every play.",
+      },
+      {
+        step: 3,
+        title: "Pass or Run",
+        description:
+          "After the snap, the QB can throw the ball to a receiver or hand it off to a runner (if running is allowed). In many leagues, there are \"no-run zones\" near the end zone and first-down markers where the offense must pass.",
+      },
+      {
+        step: 4,
+        title: "Advance the Ball",
+        description:
+          "The offense tries to advance the ball down the field. They typically get 4 downs (attempts) to cross midfield for a first down, then 4 more downs to score a touchdown.",
+      },
+      {
+        step: 5,
+        title: "Pull the Flag",
+        description:
+          "Instead of tackling, defenders stop the ball carrier by pulling one of their flags from the flag belt. The play is dead at the spot where the flag was pulled. The ball carrier must make no attempt to guard or swat at their flags.",
+      },
+      {
+        step: 6,
+        title: "Score a Touchdown",
+        description:
+          "A touchdown is scored when a player carries or catches the ball in the opponent's end zone, worth 6 points. After a touchdown, the scoring team attempts an extra point conversion.",
+      },
+      {
+        step: 7,
+        title: "Extra Points",
+        description:
+          "After a touchdown, the team chooses to attempt a 1-point conversion from the 5-yard line or a 2-point conversion from the 10-yard line. This strategic choice can be the difference in close games.",
+      },
+      {
+        step: 8,
+        title: "Defense and Turnovers",
+        description:
+          "The defense tries to prevent the offense from scoring by pulling flags, intercepting passes, or forcing incomplete passes. An interception can be returned for a touchdown. There are no fumbles in flag football \u2014 the ball is dead where it hits the ground.",
+      },
     ],
     scoring: {
-      system: "Touchdowns and Extra Points",
-      explanation: "A touchdown is worth 6 points. After a touchdown, teams attempt an extra point (1 point from the 5-yard line, or 2 points from the 10-yard line). Some leagues also allow safeties (2 points).",
+      system: "Touchdown (6 pts), extra point (1 or 2 pts), safety (2 pts)",
+      explanation:
+        "Scoring in flag football mirrors tackle football with slight variations. A touchdown is worth 6 points. After scoring, teams choose between a 1-point conversion attempt from the 5-yard line or a 2-point attempt from the 10-yard line. A safety (defensive team pulls the flag of a ball carrier in their own end zone) is worth 2 points, and the scoring team also receives the ball. Some leagues award additional points for interception returns for touchdowns.",
       examples: [
-        { scenario: "Ball carrier reaches end zone", score: "Touchdown — 6 points" },
-        { scenario: "Extra point conversion from 5 yards", score: "1 additional point" },
+        {
+          scenario: "Receiver catches a pass in the end zone",
+          score: "Touchdown! 6 points. Team chooses to go for 2-point conversion from the 10-yard line.",
+        },
+        {
+          scenario: "Team scores TD and converts from the 5-yard line",
+          score: "6 + 1 = 7 points total for that possession.",
+        },
+        {
+          scenario: "QB's flag is pulled in their own end zone",
+          score: "Safety! Defensive team gets 2 points and receives the ball.",
+        },
+        {
+          scenario: "Defender intercepts a 2-point conversion and returns it",
+          score: "Defensive team is awarded 2 points in most league rules.",
+        },
       ],
-      tips: ["Some leagues play with a running clock to keep games moving.", "Interceptions returned for touchdowns are common game-changers."],
+      tips: [
+        "Going for 2 is higher risk but can swing a close game \u2014 consider the score and time remaining",
+        "There are no field goals in most flag football formats",
+        "Some leagues use a continuous clock; others stop the clock on incomplete passes and out-of-bounds",
+        "Interceptions returned for touchdowns are worth 6 points plus the conversion attempt",
+      ],
     },
     rules: [
-      { rule: "No Contact", explanation: "No tackling, blocking, or physical contact is allowed." },
-      { rule: "Flag Pull", explanation: "A play ends when a defender pulls the ball carrier's flag from their belt." },
-      { rule: "Team Size", explanation: "Teams typically have 5 or 7 players per side on the field." },
-      { rule: "First Downs", explanation: "First downs are earned by crossing midfield or specific yard markers." },
+      {
+        rule: "No Contact",
+        explanation:
+          "Flag football is strictly non-contact. No tackling, blocking, diving at another player, or screening (shielding a runner). Offensive players cannot stiff-arm or guard their flags. Contact results in a penalty.",
+      },
+      {
+        rule: "Flag Pulling Ends the Play",
+        explanation:
+          "The play is dead when a defender cleanly pulls a flag from the ball carrier's belt. The ball is spotted where the flag was pulled. If a flag falls off accidentally, the ball carrier is down at that spot.",
+      },
+      {
+        rule: "No Fumbles",
+        explanation:
+          "If the ball carrier drops the ball, the play is dead at the spot of the drop. There are no fumble recoveries in flag football. This keeps the game safe and eliminates pile-ups.",
+      },
+      {
+        rule: "No-Run Zones",
+        explanation:
+          "Many leagues designate \"no-run zones\" within 5 yards of the end zone and at midfield. In these zones, the offense must pass the ball. This prevents power running in tight spaces and encourages open play.",
+      },
+      {
+        rule: "Rushing the Quarterback",
+        explanation:
+          "In most leagues, defenders cannot rush the QB unless they are lined up 7 yards from the line of scrimmage. Some leagues use a designated \"blitz\" player or require a delay before rushing. The QB typically has 7 seconds to throw.",
+      },
+      {
+        rule: "Flag Guarding is Illegal",
+        explanation:
+          "The ball carrier cannot use their hands, arms, or the ball to prevent a defender from pulling their flag. This is called \"flag guarding\" and results in a penalty \u2014 the play is dead at the spot of the infraction.",
+      },
+      {
+        rule: "Receiving Rules",
+        explanation:
+          "All players on the field are eligible receivers. A receiver must have at least one foot in bounds when catching the ball. A catch is not complete until the receiver has control of the ball with feet in bounds.",
+      },
+      {
+        rule: "Downs and First Downs",
+        explanation:
+          "Teams get 4 downs to cross midfield for a first down. Once they cross midfield, they get 4 more downs to score a touchdown. If they fail to convert, the other team takes over at the spot.",
+      },
+      {
+        rule: "Interceptions",
+        explanation:
+          "Interceptions are live and can be returned by the defensive team. If an interception is returned for a touchdown, it counts as a score. Interceptions on extra-point attempts can also be returned for points.",
+      },
+      {
+        rule: "Overtime",
+        explanation:
+          "If the game is tied at the end of regulation, each team gets one possession from a set yard line. If still tied, teams alternate single-play attempts until one team scores and the other does not.",
+      },
     ],
     beginnerTips: [
-      "Communication is key — call out assignments before the snap.",
-      "Quick cuts and changes of direction beat speed alone.",
-      "Practice flag pulling technique to make clean defensive stops.",
+      "Learn 3-4 basic passing routes: the slant (diagonal cut inward), the out (cut toward the sideline), the curl (run deep then turn back), and the go/fly (straight deep). These cover most situations.",
+      "As a quarterback, throw to where the receiver will be, not where they are. Leading your receiver makes catches easier and keeps the play moving.",
+      "Wear your flag belt snugly on your hips, not your waist. Flags should hang at the sides and be easily accessible \u2014 tucking or hiding them is a penalty.",
+      "On defense, focus on the ball carrier's hips, not the ball or their upper body. The hips tell you where they are going, making flag pulls much easier.",
+      "Communication is everything. Call out defensive assignments, alert teammates to blitzes, and coordinate routes before the snap.",
+      "Practice catching with your hands, not your body. Secure the ball with your fingers and pull it into your chest. This leads to fewer drops.",
+      "If you are new, play receiver or defensive back first. These positions let you focus on one skill (catching or covering) rather than managing the whole offense.",
+      "Stay on your feet \u2014 diving is typically not allowed in flag football for safety reasons. Learn to cut and change direction to avoid flag pulls instead.",
     ],
     etiquette: [
-      "Play with good sportsmanship — no contact means no excuses.",
-      "Respect the referee's calls.",
-      "Shake hands with the opposing team after the game.",
+      "Respect the no-contact rule completely \u2014 flag football depends on players honoring the spirit of non-contact play",
+      "Call penalties on yourself if you accidentally make contact \u2014 self-officiating is common in recreational leagues",
+      "High-five or fist-bump the other team before and after the game, regardless of the outcome",
+      "Include everyone in the play calling \u2014 great flag football teams get every player involved, not just the best athlete",
+      "Keep the competitive spirit friendly. Arguing calls aggressively goes against the recreational spirit of the game",
+      "Pick up your flags quickly after each play and return them to the opposing team if they come off during the play",
     ],
     funFacts: [
-      "Flag football will be an Olympic sport starting at the 2028 LA Games.",
-      "Over 20 million people play flag football in the United States.",
+      "Flag football will make its Olympic debut at the 2028 Los Angeles Games, marking the first time any form of American football will be in the Olympics. Both men's and women's competitions will be held.",
+      "NFL Flag, the official youth flag football program, has over 7 million participants across all 50 US states and 100+ countries, making it one of the largest youth sports programs in the world.",
+      "In 2024, the NFL announced that flag football would be the first new sport added to the Summer Olympics in over a decade. The International Federation of American Football (IFAF) worked for over 20 years to achieve this milestone.",
+      "Many NFL stars played flag football growing up, including Patrick Mahomes, who credits flag football with developing his scrambling ability and improvisation skills.",
+      "Flag football is one of the fastest-growing high school sports in the United States. Several states have added it as an officially sanctioned girls' sport, with over 20 states offering championships.",
     ],
     difficulty: "Easy to Learn",
-    typicalDuration: "40-60 minutes per game",
-    playersNeeded: "10-14 (5v5 or 7v7)",
+    typicalDuration: "30-60 min/game",
+    playersNeeded: "5v5 or 7v7",
   },
 };
 
