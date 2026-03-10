@@ -15,6 +15,10 @@ export function InstallPrompt() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    // iOS does not fire beforeinstallprompt -- let IOSInstallGuide handle it
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !("MSStream" in window);
+    if (isIOS) return;
+
     if (localStorage.getItem(DISMISS_KEY)) return;
 
     const handler = (e: Event) => {
