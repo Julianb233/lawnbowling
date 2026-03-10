@@ -30,7 +30,7 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "relative flex flex-col items-center gap-0.5 px-4 py-1 text-xs transition-colors",
+                "relative flex flex-col items-center justify-center gap-0.5 px-4 py-2 text-xs transition-colors min-h-[44px]",
                 active ? "text-emerald-400 font-semibold" : "text-zinc-500"
               )}
             >
