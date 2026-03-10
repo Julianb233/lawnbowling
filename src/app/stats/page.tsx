@@ -6,6 +6,7 @@ import { BottomNav } from "@/components/board/BottomNav";
 import { PlayerStatsCard } from "@/components/stats/PlayerStatsCard";
 import { MatchHistory } from "@/components/stats/MatchHistory";
 import { WeeklyActivity } from "@/components/stats/WeeklyActivity";
+import { FavoritePartnersList } from "@/components/stats/FavoritePartnersList";
 import { usePlayerStats } from "@/lib/hooks/usePlayerStats";
 
 export default function StatsPage() {
@@ -45,6 +46,15 @@ export default function StatsPage() {
             <PlayerStatsCard stats={stats} />
 
             {currentUserId && <WeeklyActivity playerId={currentUserId} />}
+
+            {currentUserId && (
+              <div>
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
+                  Favorite Partners
+                </h2>
+                <FavoritePartnersList playerId={currentUserId} />
+              </div>
+            )}
 
             {currentUserId && (
               <div>

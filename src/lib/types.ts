@@ -198,6 +198,21 @@ export interface PlayerStats {
   player?: Player; // joined
 }
 
+// Favorite Partners (computed from match history)
+export interface FavoritePartner {
+  partner_id: string;
+  games_together: number;
+  wins_together: number;
+  win_rate_together: number;
+  last_played_at: string | null;
+  partner?: {
+    id: string;
+    display_name: string;
+    avatar_url: string | null;
+    skill_level: string;
+  };
+}
+
 // ===== Social & Scheduling =====
 
 export interface Favorite {

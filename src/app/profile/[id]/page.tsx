@@ -4,13 +4,14 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerById, getPlayerByUserId } from "@/lib/db/players";
 import { getWaiverByPlayerId } from "@/lib/db/waivers";
+import { getPlayerStats, getFavoritePartners } from "@/lib/db/stats";
 import { isFavorite } from "@/lib/db/favorites";
-import { ProfileCard } from "@/components/profile/ProfileCard";
 import { WaiverStatus } from "@/components/waiver/WaiverStatus";
 import { SportsTags } from "@/components/profile/SportsTags";
 import { SkillBadge } from "@/components/profile/SkillBadge";
 import { FavoriteButton } from "@/components/social/FavoriteButton";
 import { AddFriendButton } from "@/components/social/AddFriendButton";
+import { ProfileStatsSection } from "@/components/stats/ProfileStatsSection";
 import * as Avatar from "@radix-ui/react-avatar";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Shield } from "lucide-react";
@@ -46,7 +47,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
   const currentPlayer = user ? await getPlayerByUserId(user.id) : null;
   const isOwnProfile = currentPlayer?.id === player.id;
 
-  const [waiver, favorited, friendStatus] = await Promise.all([
+  const [waiver, favorited, friendStatus, stats, favoritePartners] = await Promise.all([
     getWaiverByPlayerId(player.id),
     currentPlayer && !isOwnProfile
       ? isFavorite(currentPlayer.id, player.id)
@@ -54,6 +55,8 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
     currentPlayer && !isOwnProfile
       ? getFriendshipStatus(currentPlayer.id, player.id)
       : ("none" as const),
+    getPlayerStats(player.id),
+    getFavoritePartners(player.id, { limit: 5 }),
   ]);
 
   const initials = player.display_name
@@ -120,6 +123,8 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
               <SportsTags sports={player.sports} />
             </div>
           )}
+
+          <ProfileStatsSection stats={stats} favoritePartners={favoritePartners} />
 
           <div>
             <h2 className="mb-2 text-sm font-medium text-zinc-600">Waiver Status</h2>

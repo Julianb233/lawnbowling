@@ -5,16 +5,20 @@ import { useRouter } from "next/navigation";
 import { ProfileForm } from "@/components/profile/ProfileForm";
 import { WaiverStatus } from "@/components/waiver/WaiverStatus";
 import { ProfileCard } from "@/components/profile/ProfileCard";
+import { ProfileStatsSection } from "@/components/stats/ProfileStatsSection";
 import type { PlayerProfile, SkillLevel, Sport } from "@/lib/db/players";
 import type { Waiver } from "@/lib/db/waivers";
+import type { PlayerStats, FavoritePartner } from "@/lib/types";
 import { ArrowLeft, LogOut, Pencil } from "lucide-react";
 
 interface ProfilePageClientProps {
   player: PlayerProfile;
   waiver: Waiver | null;
+  stats: PlayerStats | null;
+  favoritePartners: FavoritePartner[];
 }
 
-export function ProfilePageClient({ player, waiver }: ProfilePageClientProps) {
+export function ProfilePageClient({ player, waiver, stats, favoritePartners }: ProfilePageClientProps) {
   const [editing, setEditing] = useState(false);
   const router = useRouter();
 
@@ -87,6 +91,9 @@ export function ProfilePageClient({ player, waiver }: ProfilePageClientProps) {
         ) : (
           <div className="space-y-4">
             <ProfileCard player={player} />
+
+            <ProfileStatsSection stats={stats} favoritePartners={favoritePartners} />
+
             <button
               onClick={() => setEditing(true)}
               className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-300 px-4 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 min-h-[44px]"

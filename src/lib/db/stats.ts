@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { PlayerStats, MatchResult } from "@/lib/types";
+import type { PlayerStats, MatchResult, FavoritePartner } from "@/lib/types";
 import { calculateElo } from "@/lib/matchmaking";
 import { upsertPlayerSkillRating } from "@/lib/db/matchmaking";
 
@@ -113,6 +113,40 @@ export async function reportMatchResult(result: {
     }
   }
 
+  // Update partner stats for teammates
+  if (matchPlayers && matchPlayers.length >= 2) {
+    const teams = new Map<number, string[]>();
+    for (const mp of matchPlayers) {
+      if (mp.team !== null) {
+        const teamList = teams.get(mp.team) ?? [];
+        teamList.push(mp.player_id);
+        teams.set(mp.team, teamList);
+      }
+    }
+    for (const [teamNum, playerIds] of teams) {
+      const teamWon = result.winner_team === teamNum;
+      await updatePartnerStats(playerIds, teamWon);
+    }
+
+    // Update favorite_partner_id on player_stats (most games together)
+    for (const mp of matchPlayers) {
+      const { data: topPartner } = await supabase
+        .from("partner_stats")
+        .select("partner_id")
+        .eq("player_id", mp.player_id)
+        .order("games_together", { ascending: false })
+        .limit(1)
+        .single();
+
+      if (topPartner) {
+        await supabase
+          .from("player_stats")
+          .update({ favorite_partner_id: topPartner.partner_id })
+          .eq("player_id", mp.player_id);
+      }
+    }
+  }
+
   // Update per-sport ELO ratings
   if (result.winner_team !== null && matchPlayers && matchPlayers.length >= 2) {
     const winners = matchPlayers.filter((mp) => mp.team === result.winner_team);
@@ -189,4 +223,82 @@ export async function getMatchHistory(playerId: string, options?: { sport?: stri
   const { data, error } = await query;
   if (error) throw error;
   return data;
+}
+
+export async function getFavoritePartners(
+  playerId: string,
+  options?: { limit?: number }
+): Promise<FavoritePartner[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("partner_stats")
+    .select(
+      "partner_id, games_together, wins_together, last_played_at, partner:players!partner_stats_partner_id_fkey(id, display_name, avatar_url, skill_level)"
+    )
+    .eq("player_id", playerId)
+    .gt("games_together", 0)
+    .order("games_together", { ascending: false })
+    .limit(options?.limit ?? 5);
+
+  if (error) throw error;
+
+  return (data ?? []).map((row) => ({
+    partner_id: row.partner_id,
+    games_together: row.games_together,
+    wins_together: row.wins_together,
+    win_rate_together:
+      row.games_together > 0
+        ? Math.round((row.wins_together / row.games_together) * 10000) / 100
+        : 0,
+    last_played_at: row.last_played_at,
+    partner: row.partner as unknown as FavoritePartner["partner"],
+  }));
+}
+
+async function updatePartnerStats(
+  teamPlayerIds: string[],
+  isWin: boolean
+) {
+  if (teamPlayerIds.length < 2) return;
+  const supabase = await createClient();
+  const now = new Date().toISOString();
+
+  for (let i = 0; i < teamPlayerIds.length; i++) {
+    for (let j = i + 1; j < teamPlayerIds.length; j++) {
+      const pairs = [
+        { player_id: teamPlayerIds[i], partner_id: teamPlayerIds[j] },
+        { player_id: teamPlayerIds[j], partner_id: teamPlayerIds[i] },
+      ];
+
+      for (const pair of pairs) {
+        const { data: existing } = await supabase
+          .from("partner_stats")
+          .select("games_together, wins_together")
+          .eq("player_id", pair.player_id)
+          .eq("partner_id", pair.partner_id)
+          .single();
+
+        if (existing) {
+          await supabase
+            .from("partner_stats")
+            .update({
+              games_together: existing.games_together + 1,
+              wins_together: existing.wins_together + (isWin ? 1 : 0),
+              last_played_at: now,
+              updated_at: now,
+            })
+            .eq("player_id", pair.player_id)
+            .eq("partner_id", pair.partner_id);
+        } else {
+          await supabase.from("partner_stats").insert({
+            player_id: pair.player_id,
+            partner_id: pair.partner_id,
+            games_together: 1,
+            wins_together: isWin ? 1 : 0,
+            last_played_at: now,
+          });
+        }
+      }
+    }
+  }
 }
