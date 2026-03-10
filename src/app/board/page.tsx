@@ -13,6 +13,7 @@ import { BottomNav } from "@/components/board/BottomNav";
 import { RequestModal } from "@/components/partner/RequestModal";
 import { IncomingRequest, IncomingRequestProvider } from "@/components/partner/IncomingRequest";
 import { MatchQueue } from "@/components/partner/MatchQueue";
+import { CourtStatusBoard } from "@/components/courts/CourtStatusBoard";
 import type { Sport, SkillLevel, Player } from "@/lib/types";
 
 export default function BoardPage() {
@@ -196,12 +197,7 @@ export default function BoardPage() {
                 <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-400">
                   Courts Status
                 </h2>
-                <div className="flex flex-col items-center justify-center py-8 text-center">
-                  <p className="text-3xl">{"\u{1F3DF}\uFE0F"}</p>
-                  <p className="mt-2 text-sm text-zinc-500">
-                    Court status will appear here
-                  </p>
-                </div>
+                <CourtStatusBoard />
               </motion.div>
             </aside>
           </div>
