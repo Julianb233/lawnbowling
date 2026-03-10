@@ -35,6 +35,12 @@ export default function HomePage() {
               For Venues
             </Link>
             <Link
+              href="/for-players"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
+            >
+              For Players
+            </Link>
+            <Link
               href="/insurance"
               className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
             >
@@ -520,6 +526,9 @@ export default function HomePage() {
             </Link>
             <Link href="/for-venues" className="hover:text-zinc-700 transition">
               For Venues
+            </Link>
+            <Link href="/for-players" className="hover:text-zinc-700 transition">
+              For Players
             </Link>
             <Link href="/insurance" className="hover:text-zinc-700 transition">
               Insurance
