@@ -48,3 +48,42 @@ const serwist = new Serwist({
 });
 
 serwist.addEventListeners();
+
+// Handle incoming push notifications
+self.addEventListener("push", (event) => {
+  if (!event.data) return;
+
+  const data = event.data.json() as { title?: string; body?: string; url?: string };
+  const title = data.title || "Pick a Partner";
+  const options: NotificationOptions = {
+    body: data.body || "",
+    icon: "/icons/icon-192x192.png",
+    badge: "/icons/icon-192x192.png",
+    data: { url: data.url || "/" },
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+// Handle notification click — open the app to the relevant URL
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+
+  const url = (event.notification.data as { url?: string })?.url || "/";
+
+  event.waitUntil(
+    self.clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((clients) => {
+        // Focus an existing tab if possible
+        for (const client of clients) {
+          if (client.url.includes(self.location.origin) && "focus" in client) {
+            client.navigate(url);
+            return client.focus();
+          }
+        }
+        // Otherwise open a new window
+        return self.clients.openWindow(url);
+      })
+  );
+});

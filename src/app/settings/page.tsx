@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, LogOut, Save, Loader2 } from "lucide-react";
 import type { SkillLevel, Sport } from "@/lib/db/players";
+import type { NotificationPreferences } from "@/lib/types";
+import { NotificationSettings } from "@/components/settings/NotificationSettings";
 
 const SKILL_LEVELS: { value: SkillLevel; label: string }[] = [
   { value: "beginner", label: "Beginner" },
@@ -18,6 +20,19 @@ const SPORTS: { value: Sport; label: string }[] = [
   { value: "table_tennis", label: "Table Tennis" },
   { value: "lawn_bowling", label: "Lawn Bowling" },
 ];
+
+const DEFAULT_PREFS: NotificationPreferences = {
+  player_id: "",
+  push_partner_requests: true,
+  push_match_ready: true,
+  push_friend_checkin: true,
+  push_scheduled_reminder: true,
+  email_weekly_summary: true,
+  email_upcoming_games: true,
+  profile_public: true,
+  stats_public: true,
+  updated_at: "",
+};
 
 interface PlayerData {
   display_name: string;
@@ -36,27 +51,39 @@ export default function SettingsPage() {
   const [displayName, setDisplayName] = useState("");
   const [skillLevel, setSkillLevel] = useState<SkillLevel>("beginner");
   const [sports, setSports] = useState<Sport[]>([]);
+  const [notifPrefs, setNotifPrefs] =
+    useState<NotificationPreferences>(DEFAULT_PREFS);
 
   useEffect(() => {
-    async function loadProfile() {
+    async function loadData() {
       try {
-        const res = await fetch("/api/profile");
-        if (res.status === 401) {
+        const [profileRes, prefsRes] = await Promise.all([
+          fetch("/api/profile"),
+          fetch("/api/settings/notifications"),
+        ]);
+
+        if (profileRes.status === 401) {
           router.push("/login");
           return;
         }
-        if (!res.ok) throw new Error("Failed to load profile");
-        const player: PlayerData = await res.json();
+        if (!profileRes.ok) throw new Error("Failed to load profile");
+
+        const player: PlayerData = await profileRes.json();
         setDisplayName(player.display_name);
         setSkillLevel(player.skill_level);
         setSports(player.sports || []);
+
+        if (prefsRes.ok) {
+          const prefs = await prefsRes.json();
+          setNotifPrefs(prefs);
+        }
       } catch {
         setError("Failed to load profile");
       } finally {
         setLoading(false);
       }
     }
-    loadProfile();
+    loadData();
   }, [router]);
 
   function toggleSport(sport: Sport) {
@@ -210,6 +237,12 @@ export default function SettingsPage() {
             )}
             {saving ? "Saving..." : "Save Changes"}
           </button>
+
+          {/* Divider */}
+          <div className="border-t border-zinc-200" />
+
+          {/* Notification Preferences */}
+          <NotificationSettings preferences={notifPrefs} />
 
           {/* Divider */}
           <div className="border-t border-zinc-200" />

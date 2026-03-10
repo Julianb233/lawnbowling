@@ -373,6 +373,20 @@ create table notification_preferences (
   updated_at timestamptz default now()
 );
 
+-- Push Subscriptions (Web Push)
+create table push_subscriptions (
+  id uuid primary key default gen_random_uuid(),
+  player_id uuid not null references players(id) on delete cascade,
+  endpoint text not null,
+  p256dh text not null,
+  auth text not null,
+  created_at timestamptz default now(),
+  unique (player_id, endpoint)
+);
+
+alter table push_subscriptions enable row level security;
+create policy "Push subs: own" on push_subscriptions for all using (public.is_own_player(player_id));
+
 -- Venue Branding
 alter table venues add column if not exists logo_url text;
 alter table venues add column if not exists primary_color text default '#22c55e';
