@@ -111,13 +111,20 @@ export interface PlayerSportSkill {
 }
 
 // Waitlist
+export type WaitlistStatus = "waiting" | "notified" | "assigned" | "expired";
+
 export interface WaitlistEntry {
   id: string;
+  venue_id: string;
   player_id: string;
+  partner_id: string | null;
   sport: string;
   position: number;
+  status: WaitlistStatus;
+  estimated_wait_minutes: number | null;
   created_at: string;
   player?: { display_name: string; avatar_url?: string | null };
+  partner?: { display_name: string; avatar_url?: string | null } | null;
 }
 
 // Board constants

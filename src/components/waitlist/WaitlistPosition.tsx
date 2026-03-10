@@ -1,16 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Clock, X } from "lucide-react";
+import { Timer, X } from "lucide-react";
 
 interface WaitlistPositionProps {
   position: number;
   sport: string;
   waitlistId: string;
+  estimatedWaitMinutes?: number | null;
   onLeave?: () => void;
 }
 
-export function WaitlistPosition({ position, sport, waitlistId, onLeave }: WaitlistPositionProps) {
+export function WaitlistPosition({
+  position,
+  sport,
+  waitlistId,
+  estimatedWaitMinutes,
+  onLeave,
+}: WaitlistPositionProps) {
   async function handleLeave() {
     await fetch(`/api/waitlist?id=${waitlistId}`, { method: "DELETE" });
     onLeave?.();
@@ -23,12 +30,19 @@ export function WaitlistPosition({ position, sport, waitlistId, onLeave }: Waitl
       className="flex items-center justify-between rounded-xl bg-amber-500/10 border border-amber-500/20 px-4 py-3"
     >
       <div className="flex items-center gap-3">
-        <Clock className="h-5 w-5 text-amber-400" />
+        <Timer className="h-5 w-5 text-amber-400" />
         <div>
           <p className="text-sm font-semibold text-amber-400">
             You are #{position} in line
           </p>
-          <p className="text-xs text-zinc-500">for {sport}</p>
+          <p className="text-xs text-zinc-500">
+            for {sport}
+            {estimatedWaitMinutes != null && estimatedWaitMinutes > 0 && (
+              <span className="ml-1 text-amber-500">
+                \u00b7 ~{estimatedWaitMinutes} min wait
+              </span>
+            )}
+          </p>
         </div>
       </div>
       <button

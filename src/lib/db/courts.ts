@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { promoteNextFromWaitlist } from "@/lib/db/waitlist";
 import type { Court, Match } from "@/lib/types";
 
 export async function listCourts(venueId?: string) {
@@ -38,7 +39,7 @@ export async function createCourt(court: {
 
 export async function updateCourt(
   id: string,
-  updates: Partial<Pick<Court, "name" | "sport" | "is_available">>
+  updates: Partial<Pick<Court, "name" | "sport" | "is_available">>,
 ) {
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -60,7 +61,6 @@ export async function deleteCourt(id: string) {
 export async function assignCourtToMatch(matchId: string, courtId: string) {
   const supabase = await createClient();
 
-  // Mark match as playing on this court
   const { data: match, error: matchError } = await supabase
     .from("matches")
     .update({
@@ -75,7 +75,6 @@ export async function assignCourtToMatch(matchId: string, courtId: string) {
 
   if (matchError) throw matchError;
 
-  // Mark court as unavailable
   const { error: courtError } = await supabase
     .from("courts")
     .update({ is_available: false })
@@ -89,7 +88,6 @@ export async function assignCourtToMatch(matchId: string, courtId: string) {
 export async function autoAssignCourt(matchId: string, sport: string) {
   const supabase = await createClient();
 
-  // Find first available court for this sport
   const { data: court } = await supabase
     .from("courts")
     .select("*")
@@ -106,7 +104,6 @@ export async function autoAssignCourt(matchId: string, sport: string) {
 export async function completeMatch(matchId: string) {
   const supabase = await createClient();
 
-  // Get match to find the court
   const { data: match, error: fetchError } = await supabase
     .from("matches")
     .select("*")
@@ -115,7 +112,6 @@ export async function completeMatch(matchId: string) {
 
   if (fetchError) throw fetchError;
 
-  // Mark match completed
   const { error: matchError } = await supabase
     .from("matches")
     .update({
@@ -126,7 +122,6 @@ export async function completeMatch(matchId: string) {
 
   if (matchError) throw matchError;
 
-  // Auto-increment games_played for all match players
   const { data: matchPlayers } = await supabase
     .from("match_players")
     .select("player_id")
@@ -163,7 +158,6 @@ export async function completeMatch(matchId: string) {
     }
   }
 
-  // Free up the court
   if (match.court_id) {
     const { error: courtError } = await supabase
       .from("courts")
@@ -172,7 +166,6 @@ export async function completeMatch(matchId: string) {
 
     if (courtError) throw courtError;
 
-    // Auto-assign next queued match for this sport to the freed court
     const { data: court } = await supabase
       .from("courts")
       .select("sport")
@@ -192,6 +185,16 @@ export async function completeMatch(matchId: string) {
 
       if (nextMatch) {
         await assignCourtToMatch(nextMatch.id, match.court_id);
+      } else {
+        try {
+          await promoteNextFromWaitlist(
+            match.venue_id ?? "",
+            court.sport,
+            match.court_id!,
+          );
+        } catch {
+          // Waitlist promotion is best-effort
+        }
       }
     }
   }
