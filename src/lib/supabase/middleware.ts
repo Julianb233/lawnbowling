@@ -33,7 +33,12 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const publicPaths = ["/login", "/signup", "/auth/callback", "/offline", "/insurance"];
+  const publicPaths = ["/login", "/signup", "/auth/callback", "/offline", "/insurance", "/terms", "/privacy", "/contact"];
+
+  // Root path is public (landing page)
+  if (request.nextUrl.pathname === "/") {
+    return supabaseResponse;
+  }
   const isPublicPath = publicPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   );
