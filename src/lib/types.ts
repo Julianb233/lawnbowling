@@ -307,7 +307,28 @@ export interface NotificationPreferences {
   updated_at: string;
 }
 
-export type ReportReason = "unsportsmanlike" | "harassment" | "no_show" | "cheating" | "other";
+export type ReportReason =
+  | "unsportsmanlike"
+  | "harassment"
+  | "no_show"
+  | "cheating"
+  | "other";
+
+// Staff Invitations (venue onboarding)
+export type StaffInvitationStatus = "pending" | "accepted" | "expired";
+export type StaffRole = "admin" | "staff";
+
+export interface StaffInvitation {
+  id: string;
+  venue_id: string;
+  invited_by: string;
+  email: string;
+  role: StaffRole;
+  status: StaffInvitationStatus;
+  token: string;
+  created_at: string;
+  expires_at: string;
+}
 
 // ===== Tournaments =====
 

@@ -72,10 +72,10 @@ export default function ForVenuesPage() {
               Insurance
             </Link>
             <Link
-              href="/signup"
+              href="/onboarding"
               className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/15 transition hover:bg-emerald-500 hover:shadow-emerald-500/25"
             >
-              Get Started
+              Set Up Your Venue
             </Link>
           </div>
         </div>
@@ -355,7 +355,7 @@ export default function ForVenuesPage() {
                 <li key={f} className="flex items-center gap-2 text-sm text-zinc-700"><CheckCircle className="h-4 w-4 shrink-0 text-emerald-500" />{f}</li>
               ))}
             </ul>
-            <Link href="/signup" className="mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition active:scale-[0.98] border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50">Get Started Free</Link>
+            <Link href="/onboarding" className="mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition active:scale-[0.98] border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50">Get Started Free</Link>
           </div>
           <div className="rounded-2xl border border-emerald-500 bg-white shadow-xl shadow-emerald-500/10 p-8">
             <div className="mb-4 inline-flex rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-600">Most Popular</div>
@@ -367,7 +367,7 @@ export default function ForVenuesPage() {
                 <li key={f} className="flex items-center gap-2 text-sm text-zinc-700"><CheckCircle className="h-4 w-4 shrink-0 text-emerald-500" />{f}</li>
               ))}
             </ul>
-            <Link href="/signup" className="mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition active:scale-[0.98] bg-emerald-600 text-white shadow-lg shadow-emerald-500/15 hover:bg-emerald-500">Start Free Trial</Link>
+            <Link href="/onboarding" className="mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition active:scale-[0.98] bg-emerald-600 text-white shadow-lg shadow-emerald-500/15 hover:bg-emerald-500">Start Free Trial</Link>
           </div>
           <div className="rounded-2xl border border-zinc-200 bg-white shadow-sm p-8">
             <h3 className="text-xl font-bold text-zinc-900">Enterprise</h3>
