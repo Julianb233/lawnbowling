@@ -101,6 +101,8 @@ export interface PlayerSportSkill {
   id: string;
   player_id: string;
   sport: string;
+  skill_level: SportSkillLevel;
+  rating: number;
   elo_rating: number;
   games_played: number;
   wins: number;
