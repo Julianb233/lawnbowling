@@ -238,7 +238,7 @@ export default function BoardPage() {
                 transition={{ delay: 0.3 }}
                 className="mt-4 rounded-2xl glass p-4"
               >
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-400">
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
                   Courts Status
                 </h2>
                 <CourtStatusBoard />
@@ -250,7 +250,7 @@ export default function BoardPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mt-6 rounded-2xl glass border-amber-500/20 px-4 py-3 text-center text-sm text-amber-400/80"
+            className="mt-6 rounded-2xl glass border-amber-200 px-4 py-3 text-center text-sm text-amber-700"
           >
             {"\u{1F4A1}"} Tap a player card to send a partner request. They&apos;ll get a ping!
           </motion.div>
