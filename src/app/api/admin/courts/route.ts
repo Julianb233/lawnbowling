@@ -3,68 +3,89 @@ import { createClient } from "@/lib/supabase/server";
 import { isAdmin } from "@/lib/auth/admin";
 import { listCourts, createCourt, updateCourt, deleteCourt } from "@/lib/db/courts";
 
-async function getAuthUser() {
+async function requireAdminUser() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user;
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  if (authError || !user) return { user: null, error: "Unauthorized", status: 401 as const };
+  const admin = await isAdmin(user.id);
+  if (!admin) return { user: null, error: "Forbidden", status: 403 as const };
+  return { user, error: null, status: null };
 }
 
 export async function GET() {
-  const user = await getAuthUser();
-  if (!user || !(await isAdmin(user.id))) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
+  try {
+    const auth = await requireAdminUser();
+    if (auth.error) {
+      return NextResponse.json({ error: auth.error }, { status: auth.status! });
+    }
 
-  const courts = await listCourts();
-  return NextResponse.json({ courts });
+    const courts = await listCourts();
+    return NextResponse.json({ courts });
+  } catch (error) {
+    console.error("List courts error:", error);
+    return NextResponse.json({ error: "Failed to fetch courts" }, { status: 500 });
+  }
 }
 
 export async function POST(request: NextRequest) {
-  const user = await getAuthUser();
-  if (!user || !(await isAdmin(user.id))) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
+  try {
+    const auth = await requireAdminUser();
+    if (auth.error) {
+      return NextResponse.json({ error: auth.error }, { status: auth.status! });
+    }
 
-  const { venue_id, name, sport } = await request.json();
-  if (!venue_id || !name || !sport) {
-    return NextResponse.json(
-      { error: "venue_id, name, and sport are required" },
-      { status: 400 }
-    );
-  }
+    const { venue_id, name, sport } = await request.json();
+    if (!venue_id || !name || !sport) {
+      return NextResponse.json(
+        { error: "venue_id, name, and sport are required" },
+        { status: 400 }
+      );
+    }
 
-  const court = await createCourt({ venue_id, name, sport });
-  return NextResponse.json({ court }, { status: 201 });
+    const court = await createCourt({ venue_id, name, sport });
+    return NextResponse.json({ court }, { status: 201 });
+  } catch (error) {
+    console.error("Create court error:", error);
+    return NextResponse.json({ error: "Failed to create court" }, { status: 500 });
+  }
 }
 
 export async function PUT(request: NextRequest) {
-  const user = await getAuthUser();
-  if (!user || !(await isAdmin(user.id))) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
+  try {
+    const auth = await requireAdminUser();
+    if (auth.error) {
+      return NextResponse.json({ error: auth.error }, { status: auth.status! });
+    }
 
-  const { id, ...updates } = await request.json();
-  if (!id) {
-    return NextResponse.json({ error: "id is required" }, { status: 400 });
-  }
+    const { id, ...updates } = await request.json();
+    if (!id) {
+      return NextResponse.json({ error: "id is required" }, { status: 400 });
+    }
 
-  const court = await updateCourt(id, updates);
-  return NextResponse.json({ court });
+    const court = await updateCourt(id, updates);
+    return NextResponse.json({ court });
+  } catch (error) {
+    console.error("Update court error:", error);
+    return NextResponse.json({ error: "Failed to update court" }, { status: 500 });
+  }
 }
 
 export async function DELETE(request: NextRequest) {
-  const user = await getAuthUser();
-  if (!user || !(await isAdmin(user.id))) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
+  try {
+    const auth = await requireAdminUser();
+    if (auth.error) {
+      return NextResponse.json({ error: auth.error }, { status: auth.status! });
+    }
 
-  const { id } = await request.json();
-  if (!id) {
-    return NextResponse.json({ error: "id is required" }, { status: 400 });
-  }
+    const { id } = await request.json();
+    if (!id) {
+      return NextResponse.json({ error: "id is required" }, { status: 400 });
+    }
 
-  await deleteCourt(id);
-  return NextResponse.json({ success: true });
+    await deleteCourt(id);
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Delete court error:", error);
+    return NextResponse.json({ error: "Failed to delete court" }, { status: 500 });
+  }
 }

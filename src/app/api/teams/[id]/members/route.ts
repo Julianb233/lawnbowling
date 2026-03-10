@@ -4,6 +4,12 @@ import { getTeamMembers, joinTeam, leaveTeam, removeMember } from "@/lib/db/team
 
 export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await params;
     const members = await getTeamMembers(id);
     return NextResponse.json({ members });
@@ -43,10 +49,20 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     const playerId = url.searchParams.get("playerId");
 
     if (playerId && playerId !== user.id) {
-      // Captain removing a member
+      // Captain removing another member — verify caller is captain
+      const { data: team } = await supabase
+        .from("teams")
+        .select("captain_id")
+        .eq("id", id)
+        .single();
+
+      if (!team || team.captain_id !== user.id) {
+        return NextResponse.json({ error: "Only the team captain can remove members" }, { status: 403 });
+      }
+
       await removeMember(id, playerId);
     } else {
-      // Player leaving
+      // Player leaving their own team
       await leaveTeam(id, user.id);
     }
 

@@ -19,42 +19,47 @@ By signing this waiver, I acknowledge and agree to the following:
 6. PHOTO/VIDEO CONSENT: I consent to being photographed or recorded during activities for venue promotional purposes.`;
 
 export async function POST(request: NextRequest) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  try {
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
 
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { player_id } = body;
+
+    if (!player_id) {
+      return NextResponse.json({ error: "player_id is required" }, { status: 400 });
+    }
+
+    // Verify player belongs to user
+    const { data: player } = await supabase
+      .from("players")
+      .select("id, user_id")
+      .eq("id", player_id)
+      .single();
+
+    if (!player || player.user_id !== user.id) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    const ip = request.headers.get("x-forwarded-for") ?? request.headers.get("x-real-ip") ?? "unknown";
+    const userAgent = request.headers.get("user-agent") ?? "unknown";
+
+    const waiver = await createWaiver({
+      player_id,
+      waiver_text: DEFAULT_WAIVER_TEXT,
+      accepted: true,
+      ip_address: ip,
+      user_agent: userAgent,
+      signed_at: new Date().toISOString(),
+    });
+
+    return NextResponse.json(waiver, { status: 201 });
+  } catch (error) {
+    console.error("Sign waiver error:", error);
+    return NextResponse.json({ error: "Failed to sign waiver" }, { status: 500 });
   }
-
-  const body = await request.json();
-  const { player_id } = body;
-
-  if (!player_id) {
-    return NextResponse.json({ error: "player_id is required" }, { status: 400 });
-  }
-
-  // Verify player belongs to user
-  const { data: player } = await supabase
-    .from("players")
-    .select("id, user_id")
-    .eq("id", player_id)
-    .single();
-
-  if (!player || player.user_id !== user.id) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
-
-  const ip = request.headers.get("x-forwarded-for") ?? request.headers.get("x-real-ip") ?? "unknown";
-  const userAgent = request.headers.get("user-agent") ?? "unknown";
-
-  const waiver = await createWaiver({
-    player_id,
-    waiver_text: DEFAULT_WAIVER_TEXT,
-    accepted: true,
-    ip_address: ip,
-    user_agent: userAgent,
-    signed_at: new Date().toISOString(),
-  });
-
-  return NextResponse.json(waiver, { status: 201 });
 }
