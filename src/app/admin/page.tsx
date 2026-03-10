@@ -14,9 +14,9 @@ interface Stats {
 
 function StatCard({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+    <div className="rounded-xl border border-zinc-200 bg-white p-6">
       <p className="text-sm text-zinc-500">{label}</p>
-      <p className="mt-1 text-3xl font-bold text-zinc-100">{value}</p>
+      <p className="mt-1 text-3xl font-bold text-zinc-800">{value}</p>
     </div>
   );
 }
@@ -74,12 +74,12 @@ export default function AdminDashboard() {
   }, [selectedVenueId]);
 
   if (venueLoading || loading || !stats) {
-    return <div className="text-zinc-400">Loading dashboard...</div>;
+    return <div className="text-zinc-500">Loading dashboard...</div>;
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-100 mb-1">Dashboard</h1>
+      <h1 className="text-2xl font-bold text-zinc-800 mb-1">Dashboard</h1>
       {selectedVenue && (
         <p className="text-sm text-zinc-500 mb-6">{selectedVenue.name}</p>
       )}

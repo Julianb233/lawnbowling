@@ -117,13 +117,13 @@ export default function VenueSettingsPage() {
 
   if (loading) {
     return (
-      <div className="text-zinc-400">Loading venue settings...</div>
+      <div className="text-zinc-500">Loading venue settings...</div>
     );
   }
 
   if (!venue) {
     return (
-      <div className="text-zinc-400">
+      <div className="text-zinc-500">
         No venue configured. Create one in Supabase first.
       </div>
     );
@@ -135,25 +135,25 @@ export default function VenueSettingsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-100 mb-6">Venue Settings</h1>
+      <h1 className="text-2xl font-bold text-zinc-800 mb-6">Venue Settings</h1>
       <div className="max-w-lg space-y-6">
         {/* Basic Info */}
         <section>
-          <h2 className="text-lg font-semibold text-zinc-200 mb-3">Basic Info</h2>
+          <h2 className="text-lg font-semibold text-zinc-700 mb-3">Basic Info</h2>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">
+              <label className="block text-sm font-medium text-zinc-500 mb-1">
                 Venue Name
               </label>
               <input
                 type="text"
                 value={venue.name}
                 onChange={(e) => setVenue({ ...venue, name: e.target.value })}
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">
+              <label className="block text-sm font-medium text-zinc-500 mb-1">
                 Address
               </label>
               <input
@@ -162,23 +162,23 @@ export default function VenueSettingsPage() {
                 onChange={(e) =>
                   setVenue({ ...venue, address: e.target.value || null })
                 }
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">
+              <label className="block text-sm font-medium text-zinc-500 mb-1">
                 Timezone
               </label>
               <input
                 type="text"
                 value={venue.timezone}
                 onChange={(e) => setVenue({ ...venue, timezone: e.target.value })}
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none"
                 placeholder="America/Los_Angeles"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">
+              <label className="block text-sm font-medium text-zinc-500 mb-1">
                 Tagline
               </label>
               <input
@@ -187,7 +187,7 @@ export default function VenueSettingsPage() {
                 onChange={(e) =>
                   setVenue({ ...venue, tagline: e.target.value || null })
                 }
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none"
                 placeholder="Find your perfect partner"
               />
             </div>
@@ -196,7 +196,7 @@ export default function VenueSettingsPage() {
 
         {/* Sports Management (ADMIN-03) */}
         <section>
-          <h2 className="text-lg font-semibold text-zinc-200 mb-3">
+          <h2 className="text-lg font-semibold text-zinc-700 mb-3">
             Available Sports
           </h2>
           <p className="text-sm text-zinc-500 mb-3">
@@ -214,12 +214,12 @@ export default function VenueSettingsPage() {
               venue.sports.map((sport) => (
                 <span
                   key={sport}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 px-3 py-1 text-sm text-emerald-400"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-sm text-emerald-600"
                 >
                   <span className="capitalize">{sport.replace("_", " ")}</span>
                   <button
                     onClick={() => removeSport(sport)}
-                    className="ml-1 text-emerald-400/60 hover:text-red-400 transition-colors"
+                    className="ml-1 text-emerald-600/60 hover:text-red-600 transition-colors"
                     title={`Remove ${sport}`}
                   >
                     x
@@ -234,7 +234,7 @@ export default function VenueSettingsPage() {
             <select
               value={newSport}
               onChange={(e) => setNewSport(e.target.value)}
-              className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 flex-1"
+              className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 flex-1"
             >
               <option value="">Select a sport to add...</option>
               {unusedSports.map((s) => (
@@ -260,7 +260,7 @@ export default function VenueSettingsPage() {
               <input
                 type="text"
                 placeholder="Or type a custom sport..."
-                className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 focus:border-emerald-500 focus:outline-none flex-1"
+                className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 focus:border-emerald-500 focus:outline-none flex-1"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     const val = (e.target as HTMLInputElement).value.trim().toLowerCase().replace(/\s+/g, "_");
@@ -277,12 +277,12 @@ export default function VenueSettingsPage() {
 
         {/* Contact Info */}
         <section>
-          <h2 className="text-lg font-semibold text-zinc-200 mb-3">
+          <h2 className="text-lg font-semibold text-zinc-700 mb-3">
             Contact Information
           </h2>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">
+              <label className="block text-sm font-medium text-zinc-500 mb-1">
                 Contact Email
               </label>
               <input
@@ -291,12 +291,12 @@ export default function VenueSettingsPage() {
                 onChange={(e) =>
                   setVenue({ ...venue, contact_email: e.target.value || null })
                 }
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none"
                 placeholder="info@venue.com"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">
+              <label className="block text-sm font-medium text-zinc-500 mb-1">
                 Contact Phone
               </label>
               <input
@@ -305,12 +305,12 @@ export default function VenueSettingsPage() {
                 onChange={(e) =>
                   setVenue({ ...venue, contact_phone: e.target.value || null })
                 }
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none"
                 placeholder="(555) 555-5555"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">
+              <label className="block text-sm font-medium text-zinc-500 mb-1">
                 Website URL
               </label>
               <input
@@ -319,7 +319,7 @@ export default function VenueSettingsPage() {
                 onChange={(e) =>
                   setVenue({ ...venue, website_url: e.target.value || null })
                 }
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none"
                 placeholder="https://venue.com"
               />
             </div>
@@ -328,7 +328,7 @@ export default function VenueSettingsPage() {
 
         {/* Waiver Text Configuration (WAIV-05) */}
         <section>
-          <h2 className="text-lg font-semibold text-zinc-200 mb-3">
+          <h2 className="text-lg font-semibold text-zinc-700 mb-3">
             Waiver Text
           </h2>
           <p className="text-sm text-zinc-500 mb-3">
@@ -340,7 +340,7 @@ export default function VenueSettingsPage() {
           ) : (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">
+                <label className="block text-sm font-medium text-zinc-500 mb-1">
                   Waiver Title
                 </label>
                 <input
@@ -349,12 +349,12 @@ export default function VenueSettingsPage() {
                   onChange={(e) =>
                     setWaiverTemplate({ ...waiverTemplate, title: e.target.value })
                   }
-                  className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none"
                   placeholder="Liability Waiver"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">
+                <label className="block text-sm font-medium text-zinc-500 mb-1">
                   Waiver Body
                 </label>
                 <textarea
@@ -363,7 +363,7 @@ export default function VenueSettingsPage() {
                     setWaiverTemplate({ ...waiverTemplate, body: e.target.value })
                   }
                   rows={12}
-                  className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none resize-y"
+                  className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none resize-y"
                   placeholder="Enter your custom waiver text here..."
                 />
               </div>
@@ -373,7 +373,7 @@ export default function VenueSettingsPage() {
                 </Button>
                 {waiverMessage && (
                   <span
-                    className={`text-sm ${waiverMessage.includes("success") ? "text-emerald-400" : "text-red-400"}`}
+                    className={`text-sm ${waiverMessage.includes("success") ? "text-emerald-600" : "text-red-600"}`}
                   >
                     {waiverMessage}
                   </span>
@@ -390,7 +390,7 @@ export default function VenueSettingsPage() {
           </Button>
           {message && (
             <span
-              className={`text-sm ${message.includes("success") ? "text-emerald-400" : "text-red-400"}`}
+              className={`text-sm ${message.includes("success") ? "text-emerald-600" : "text-red-600"}`}
             >
               {message}
             </span>

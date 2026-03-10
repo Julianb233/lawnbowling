@@ -21,33 +21,33 @@ export default async function AdminLayout({
   await requireAdmin();
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-950">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-50">
       {/* Mobile: horizontal scrollable nav */}
       <nav
-        className="flex lg:hidden overflow-x-auto gap-1 p-2 border-b border-zinc-800 bg-zinc-900 scrollbar-hide"
+        className="flex lg:hidden overflow-x-auto gap-1 p-2 border-b border-zinc-200 bg-white scrollbar-hide"
         aria-label="Admin navigation"
       >
         {navItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className="shrink-0 rounded-lg px-3 py-2 text-sm text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 transition-colors min-h-[44px] flex items-center"
+            className="shrink-0 rounded-lg px-3 py-2 text-sm text-zinc-500 hover:bg-white hover:text-zinc-800 transition-colors min-h-[44px] flex items-center"
           >
             {item.label}
           </Link>
         ))}
         <Link
           href="/"
-          className="shrink-0 rounded-lg px-3 py-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors min-h-[44px] flex items-center ml-auto"
+          className="shrink-0 rounded-lg px-3 py-2 text-xs text-zinc-500 hover:text-zinc-700 transition-colors min-h-[44px] flex items-center ml-auto"
         >
           Back to App
         </Link>
       </nav>
 
       {/* Desktop: sidebar */}
-      <aside className="hidden lg:block w-56 shrink-0 border-r border-zinc-800 bg-zinc-900">
-        <div className="p-4 border-b border-zinc-800">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+      <aside className="hidden lg:block w-56 shrink-0 border-r border-zinc-200 bg-white">
+        <div className="p-4 border-b border-zinc-200">
+          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-wider">
             Admin Panel
           </h2>
         </div>
@@ -56,16 +56,16 @@ export default async function AdminLayout({
             <Link
               key={item.href}
               href={item.href}
-              className="block rounded-lg px-3 py-2 text-sm text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 transition-colors min-h-[44px] flex items-center"
+              className="block rounded-lg px-3 py-2 text-sm text-zinc-500 hover:bg-white hover:text-zinc-800 transition-colors min-h-[44px] flex items-center"
             >
               {item.label}
             </Link>
           ))}
         </nav>
-        <div className="p-4 mt-auto border-t border-zinc-800">
+        <div className="p-4 mt-auto border-t border-zinc-200">
           <Link
             href="/"
-            className="block text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="block text-xs text-zinc-500 hover:text-zinc-700 transition-colors"
           >
             Back to App
           </Link>
