@@ -14,8 +14,8 @@ export async function getPlayerSkills(
     .eq("player_id", playerId);
 
   if (error) {
-    // Table might not exist yet -- return empty
-    if (error.code === "42P01") return [];
+    // Table might not exist yet -- return empty (42P01 = PG, PGRST205 = PostgREST)
+    if (error.code === "42P01" || error.code === "PGRST205") return [];
     throw error;
   }
   return (data ?? []) as PlayerSkillRating[];
@@ -36,7 +36,7 @@ export async function getBulkPlayerSkills(
     .in("player_id", playerIds);
 
   if (error) {
-    if (error.code === "42P01") return new Map();
+    if (error.code === "42P01" || error.code === "PGRST205") return new Map();
     throw error;
   }
 
