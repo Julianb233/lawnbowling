@@ -15,13 +15,13 @@ export async function GET(request: Request) {
       const { data: existingPlayer } = await supabase
         .from("players")
         .select("id")
-        .eq("id", data.user.id)
+        .eq("user_id", data.user.id)
         .single();
 
       if (!existingPlayer) {
         await supabase.from("players").insert({
-          id: data.user.id,
-          name: data.user.user_metadata?.name || data.user.email?.split("@")[0] || "Player",
+          user_id: data.user.id,
+          display_name: data.user.user_metadata?.name || data.user.email?.split("@")[0] || "Player",
         });
       }
 

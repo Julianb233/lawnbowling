@@ -46,8 +46,8 @@ export default function SignupPage() {
     // Auto-confirmed — create player profile
     if (data.user && data.session) {
       await supabase.from("players").insert({
-        id: data.user.id,
-        name,
+        user_id: data.user.id,
+        display_name: name,
       });
       router.push("/");
       router.refresh();

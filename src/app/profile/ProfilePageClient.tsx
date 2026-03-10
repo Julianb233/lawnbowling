@@ -7,7 +7,7 @@ import { WaiverStatus } from "@/components/waiver/WaiverStatus";
 import { ProfileCard } from "@/components/profile/ProfileCard";
 import type { PlayerProfile, SkillLevel, Sport } from "@/lib/db/players";
 import type { Waiver } from "@/lib/db/waivers";
-import { ArrowLeft, Pencil } from "lucide-react";
+import { ArrowLeft, LogOut, Pencil } from "lucide-react";
 
 interface ProfilePageClientProps {
   player: PlayerProfile;
@@ -92,6 +92,17 @@ export function ProfilePageClient({ player, waiver }: ProfilePageClientProps) {
               className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/20 px-4 py-3 text-sm font-medium text-white/80 hover:bg-white/5 min-h-[44px]"
             >
               <Pencil className="h-4 w-4" /> Edit Profile
+            </button>
+
+            <button
+              onClick={async () => {
+                await fetch("/api/auth/logout", { method: "POST" });
+                router.push("/login");
+                router.refresh();
+              }}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-red-500/30 px-4 py-3 text-sm font-medium text-red-400 hover:bg-red-500/10 min-h-[44px]"
+            >
+              <LogOut className="h-4 w-4" /> Sign Out
             </button>
           </div>
         )}
