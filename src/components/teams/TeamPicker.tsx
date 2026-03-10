@@ -107,7 +107,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
               "flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-medium transition-all",
               mode === m.value
                 ? "bg-emerald-600 text-white"
-                : "bg-zinc-800 text-zinc-400 hover:text-zinc-200"
+                : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
             )}
           >
             {m.icon}
@@ -156,7 +156,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
                       </div>
                     )}
                   </div>
-                  <span className="text-zinc-200">{p.name}</span>
+                  <span className="text-zinc-700">{p.name}</span>
                 </motion.button>
               ))}
             </AnimatePresence>
@@ -170,7 +170,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
           <h4 className="mb-2 text-sm font-bold text-blue-400">Team 1</h4>
           <div className="space-y-1.5">
             {team1.map((p) => (
-              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-300">
+              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600">
                 <div className="h-5 w-5 overflow-hidden rounded-full bg-zinc-700">
                   {p.avatar_url ? (
                     <img src={p.avatar_url} alt="" className="h-full w-full object-cover" />
@@ -191,7 +191,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
           <h4 className="mb-2 text-sm font-bold text-red-400">Team 2</h4>
           <div className="space-y-1.5">
             {team2.map((p) => (
-              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-300">
+              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600">
                 <div className="h-5 w-5 overflow-hidden rounded-full bg-zinc-700">
                   {p.avatar_url ? (
                     <img src={p.avatar_url} alt="" className="h-full w-full object-cover" />
@@ -214,7 +214,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
         <div className="flex gap-2">
           <button
             onClick={handleReset}
-            className="flex-1 rounded-xl border border-zinc-700 py-2.5 text-sm font-medium text-zinc-400 hover:text-zinc-200"
+            className="flex-1 rounded-xl border border-zinc-200 py-2.5 text-sm font-medium text-zinc-400 hover:text-zinc-700"
           >
             Reset
           </button>

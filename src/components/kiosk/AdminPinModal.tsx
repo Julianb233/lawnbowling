@@ -57,9 +57,9 @@ export function AdminPinModal({ open, onClose, onSuccess }: AdminPinModalProps) 
             <div className="mb-6 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Lock className="h-5 w-5 text-zinc-400" />
-                <h2 className="text-lg font-bold text-zinc-100">Admin PIN</h2>
+                <h2 className="text-lg font-bold text-zinc-900">Admin PIN</h2>
               </div>
-              <button onClick={() => { onClose(); setPin(""); }} className="rounded-full p-1 hover:bg-zinc-800">
+              <button onClick={() => { onClose(); setPin(""); }} className="rounded-full p-1 hover:bg-zinc-100">
                 <X className="h-5 w-5 text-zinc-400" />
               </button>
             </div>
@@ -86,7 +86,7 @@ export function AdminPinModal({ open, onClose, onSuccess }: AdminPinModalProps) 
                   <button
                     key={key}
                     onClick={() => key === "del" ? handleDelete() : handleDigit(key)}
-                    className="flex h-16 items-center justify-center rounded-xl bg-zinc-800 text-xl font-bold text-zinc-100 hover:bg-zinc-700 active:bg-zinc-600 min-h-[64px] touch-manipulation"
+                    className="flex h-16 items-center justify-center rounded-xl bg-zinc-100 text-xl font-bold text-zinc-900 hover:bg-zinc-100 active:bg-zinc-600 min-h-[64px] touch-manipulation"
                   >
                     {key === "del" ? "&#9003;" : key}
                   </button>

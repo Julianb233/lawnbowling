@@ -14,9 +14,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
           {
             "bg-emerald-600 text-white hover:bg-emerald-700": variant === "default",
-            "bg-zinc-800 text-zinc-100 hover:bg-zinc-700": variant === "secondary",
-            "border border-zinc-700 bg-transparent text-zinc-100 hover:bg-zinc-800": variant === "outline",
-            "bg-transparent text-zinc-100 hover:bg-zinc-800": variant === "ghost",
+            "bg-zinc-100 text-zinc-900 hover:bg-zinc-100": variant === "secondary",
+            "border border-zinc-200 bg-transparent text-zinc-900 hover:bg-zinc-100": variant === "outline",
+            "bg-transparent text-zinc-900 hover:bg-zinc-100": variant === "ghost",
             "bg-red-600 text-white hover:bg-red-700": variant === "destructive",
           },
           {

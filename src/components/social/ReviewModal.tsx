@@ -49,10 +49,10 @@ export function ReviewModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="w-full max-w-sm rounded-2xl glass p-6">
-        <h2 className="text-lg font-bold text-zinc-100 mb-1">
+        <h2 className="text-lg font-bold text-zinc-900 mb-1">
           Rate {reviewedName}
         </h2>
-        <p className="text-sm text-zinc-400 mb-4">
+        <p className="text-sm text-zinc-500 mb-4">
           How was your experience playing with them?
         </p>
 
@@ -71,7 +71,7 @@ export function ReviewModal({
                   "h-8 w-8 transition-colors",
                   (hoverRating || rating) >= star
                     ? "fill-amber-400 text-amber-400"
-                    : "fill-none text-zinc-600"
+                    : "fill-none text-zinc-300"
                 )}
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -88,13 +88,13 @@ export function ReviewModal({
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Add a comment (optional)"
-          className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700 px-4 py-3 text-sm text-zinc-100 placeholder:text-zinc-500 resize-none h-20 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+          className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-500 resize-none h-20 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
         />
 
         <div className="mt-4 flex gap-2">
           <button
             onClick={onClose}
-            className="flex-1 rounded-xl border border-zinc-700 px-4 py-2.5 text-sm font-medium text-zinc-400 hover:bg-zinc-800 transition-colors"
+            className="flex-1 rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-600 hover:bg-zinc-100 transition-colors"
           >
             Cancel
           </button>
@@ -105,7 +105,7 @@ export function ReviewModal({
               "flex-1 rounded-xl px-4 py-2.5 text-sm font-bold text-white transition-all",
               rating > 0
                 ? "bg-gradient-to-r from-emerald-500 to-green-600 hover:shadow-lg"
-                : "bg-zinc-700 text-zinc-500 cursor-not-allowed"
+                : "bg-zinc-200 text-zinc-400 cursor-not-allowed"
             )}
           >
             Submit

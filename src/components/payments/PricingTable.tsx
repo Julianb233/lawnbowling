@@ -64,12 +64,12 @@ export function PricingTable({ currentPlan = "free" }: PricingTableProps) {
             <div className="mb-4 flex items-center gap-3">
               <div className={cn(
                 "flex h-12 w-12 items-center justify-center rounded-xl",
-                isPopular ? "bg-green-500/20 text-green-400" : "bg-zinc-800 text-zinc-400"
+                isPopular ? "bg-green-500/20 text-green-400" : "bg-zinc-100 text-zinc-400"
               )}>
                 {PLAN_ICONS[tier.plan]}
               </div>
               <div>
-                <h3 className="text-lg font-bold text-zinc-100">{tier.name}</h3>
+                <h3 className="text-lg font-bold text-zinc-900">{tier.name}</h3>
                 <p className="text-sm text-zinc-500">
                   {tier.price === 0 ? "Free forever" : `$${(tier.price / 100).toFixed(2)}/mo`}
                 </p>
@@ -93,10 +93,10 @@ export function PricingTable({ currentPlan = "free" }: PricingTableProps) {
               className={cn(
                 "w-full rounded-xl px-4 py-3 text-sm font-bold transition-all min-h-[48px]",
                 isCurrentPlan
-                  ? "bg-zinc-800 text-zinc-500 cursor-default"
+                  ? "bg-zinc-100 text-zinc-500 cursor-default"
                   : isPopular
                     ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-green-500/25"
-                    : "bg-zinc-800 text-zinc-200 hover:bg-zinc-700"
+                    : "bg-zinc-100 text-zinc-700 hover:bg-zinc-100"
               )}
             >
               {loading === tier.plan ? (

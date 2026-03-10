@@ -27,7 +27,7 @@ export function PlayerRating({ average, count, className }: PlayerRatingProps) {
                 ? "fill-amber-400 text-amber-400"
                 : average >= star - 0.5
                 ? "fill-amber-400/50 text-amber-400"
-                : "fill-none text-zinc-600"
+                : "fill-none text-zinc-300"
             )}
             viewBox="0 0 20 20"
             stroke="currentColor"
@@ -37,7 +37,7 @@ export function PlayerRating({ average, count, className }: PlayerRatingProps) {
           </svg>
         ))}
       </div>
-      <span className="text-xs text-zinc-400">
+      <span className="text-xs text-zinc-500">
         {average.toFixed(1)} ({count})
       </span>
     </div>

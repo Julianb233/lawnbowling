@@ -41,7 +41,7 @@ export function GuideNav({ sport }: { sport: Sport }) {
   }, []);
 
   return (
-    <nav className="sticky top-[57px] z-30 -mx-4 overflow-x-auto border-b border-zinc-800 bg-zinc-950/95 backdrop-blur px-4 py-2 scrollbar-hide">
+    <nav className="sticky top-[57px] z-30 -mx-4 overflow-x-auto border-b border-zinc-200 bg-white/95 backdrop-blur px-4 py-2 scrollbar-hide">
       <div className="flex gap-1 min-w-max">
         {SECTIONS.map(({ id, label }) => (
           <a
@@ -55,7 +55,7 @@ export function GuideNav({ sport }: { sport: Sport }) {
               "rounded-full px-3 py-1.5 text-xs font-medium transition-all whitespace-nowrap",
               activeSection === id
                 ? "text-white"
-                : "text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50"
+                : "text-zinc-500 hover:text-zinc-600 hover:bg-zinc-100"
             )}
             style={
               activeSection === id

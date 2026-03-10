@@ -22,11 +22,11 @@ export default async function GameDetailPage({
 
   return (
     <div className="min-h-screen bg-animated-gradient">
-      <header className="sticky top-0 z-40 glass border-b border-zinc-700/30">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
           <Link
             href="/schedule"
-            className="text-sm text-zinc-400 hover:text-zinc-200"
+            className="text-sm text-zinc-400 hover:text-zinc-700"
           >
             {"\u2190"} Back to Schedule
           </Link>

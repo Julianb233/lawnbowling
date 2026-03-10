@@ -13,7 +13,7 @@ export default async function AnalyticsPage() {
   const supabase = await createClient();
 
   const { data: venue } = await supabase.from("venues").select("*").limit(1).single();
-  if (!venue) return <p className="text-zinc-400">No venue configured</p>;
+  if (!venue) return <p className="text-zinc-500">No venue configured</p>;
 
   const analytics = await getVenueAnalytics(venue.id);
 
@@ -21,7 +21,7 @@ export default async function AnalyticsPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-100">Analytics</h1>
+          <h1 className="text-2xl font-bold text-zinc-800">Analytics</h1>
           <p className="text-sm text-zinc-500">Venue performance overview</p>
         </div>
         <div className="flex gap-2">
@@ -39,15 +39,15 @@ export default async function AnalyticsPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-          <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-4">
+        <div className="rounded-xl border border-zinc-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-4">
             Sport Popularity
           </h3>
           <SportBreakdown breakdown={analytics.sportBreakdown} />
         </div>
 
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-          <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-4">
+        <div className="rounded-xl border border-zinc-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-4">
             Peak Hours & Days
           </h3>
           <PeakHoursGrid hourCounts={analytics.peakHours} dayCounts={analytics.peakDays} />

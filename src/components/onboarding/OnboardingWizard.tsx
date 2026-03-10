@@ -57,13 +57,13 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex flex-col bg-zinc-950"
+      className="fixed inset-0 z-[200] flex flex-col bg-white"
     >
       {/* Skip button */}
       <div className="flex justify-end p-4">
         <button
           onClick={handleComplete}
-          className="flex items-center gap-1 rounded-full px-4 py-2 text-sm text-zinc-500 hover:text-zinc-300 min-h-[44px]"
+          className="flex items-center gap-1 rounded-full px-4 py-2 text-sm text-zinc-500 hover:text-zinc-600 min-h-[44px]"
         >
           Skip <X className="h-4 w-4" />
         </button>
@@ -96,7 +96,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
           <button
             onClick={() => setStep(Math.max(0, step - 1))}
             disabled={step === 0}
-            className="flex items-center gap-1 rounded-xl px-6 py-3 text-sm font-medium text-zinc-400 hover:text-zinc-200 disabled:invisible min-h-[48px]"
+            className="flex items-center gap-1 rounded-xl px-6 py-3 text-sm font-medium text-zinc-400 hover:text-zinc-700 disabled:invisible min-h-[48px]"
           >
             <ChevronLeft className="h-4 w-4" /> Back
           </button>

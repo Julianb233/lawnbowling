@@ -18,6 +18,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const search = searchParams.get("search");
     const skill = searchParams.get("skill");
+    const venueId = searchParams.get("venue_id");
     const limit = parseInt(searchParams.get("limit") ?? "50");
     const offset = parseInt(searchParams.get("offset") ?? "0");
 
@@ -32,6 +33,9 @@ export async function GET(request: NextRequest) {
     }
     if (skill) {
       query = query.eq("skill_level", skill);
+    }
+    if (venueId) {
+      query = query.eq("venue_id", venueId);
     }
 
     const { data, error, count } = await query;

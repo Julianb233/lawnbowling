@@ -13,13 +13,13 @@ const HOURS = Array.from({ length: 24 }, (_, i) =>
 );
 
 function getIntensity(value: number, max: number): string {
-  if (max === 0) return "bg-zinc-800";
+  if (max === 0) return "bg-zinc-100";
   const ratio = value / max;
-  if (ratio === 0) return "bg-zinc-800";
-  if (ratio < 0.25) return "bg-emerald-900/40";
-  if (ratio < 0.5) return "bg-emerald-700/50";
-  if (ratio < 0.75) return "bg-emerald-500/60";
-  return "bg-emerald-400/70";
+  if (ratio === 0) return "bg-zinc-100";
+  if (ratio < 0.25) return "bg-emerald-100";
+  if (ratio < 0.5) return "bg-emerald-200";
+  if (ratio < 0.75) return "bg-emerald-300";
+  return "bg-emerald-400";
 }
 
 export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {

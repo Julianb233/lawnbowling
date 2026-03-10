@@ -4,7 +4,7 @@ export default function BoardLoading() {
   return (
     <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
       {/* Header skeleton */}
-      <header className="sticky top-0 z-40 glass border-b border-zinc-700/30">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
           <div>
             <div className="h-6 w-40 rounded skeleton" />

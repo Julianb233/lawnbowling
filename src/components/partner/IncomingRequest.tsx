@@ -102,13 +102,13 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
         )}
 
         <div className="flex-1 min-w-0">
-          <Toast.Title className="text-sm font-semibold text-zinc-100">
+          <Toast.Title className="text-sm font-semibold text-zinc-900">
             Partner Request!
           </Toast.Title>
           <Toast.Description className="mt-1 text-sm text-zinc-400">
-            <span className="font-medium text-zinc-200">{requesterName}</span>{" "}
+            <span className="font-medium text-zinc-700">{requesterName}</span>{" "}
             wants to play{" "}
-            <span className="font-medium text-zinc-200">
+            <span className="font-medium text-zinc-700">
               {sportInfo?.emoji || ""} {sportInfo?.label || request.sport}
             </span>
           </Toast.Description>
@@ -135,14 +135,14 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
             <button
               onClick={() => handleRespond(false)}
               disabled={responding}
-              className="flex-1 rounded-xl border border-zinc-700/50 bg-zinc-800/60 px-3 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 btn-press disabled:opacity-50 min-h-[44px]"
+              className="flex-1 rounded-xl border border-zinc-300 bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-700 btn-press disabled:opacity-50 min-h-[44px]"
             >
               Decline
             </button>
           </div>
         </div>
 
-        <span className="shrink-0 rounded-full bg-zinc-800/60 px-2 py-0.5 text-xs font-mono text-zinc-500 tabular-nums">
+        <span className="shrink-0 rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-mono text-zinc-500 tabular-nums">
           {timeLeft}
         </span>
       </div>

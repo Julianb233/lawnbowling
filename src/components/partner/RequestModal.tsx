@@ -95,15 +95,15 @@ export function RequestModal({
                   >
                     <Check className="h-8 w-8 text-emerald-400" />
                   </motion.div>
-                  <p className="mt-4 text-lg font-semibold text-zinc-100">Request Sent!</p>
+                  <p className="mt-4 text-lg font-semibold text-zinc-900">Request Sent!</p>
                 </motion.div>
               ) : (
                 <motion.div key="form">
-                  <Dialog.Close className="absolute right-4 top-4 rounded-full p-1 text-zinc-500 hover:text-zinc-300 transition-colors">
+                  <Dialog.Close className="absolute right-4 top-4 rounded-full p-1 text-zinc-500 hover:text-zinc-600 transition-colors">
                     <X className="h-5 w-5" />
                   </Dialog.Close>
 
-                  <Dialog.Title className="text-center text-lg font-semibold text-zinc-100 mb-6">
+                  <Dialog.Title className="text-center text-lg font-semibold text-zinc-900 mb-6">
                     Pick {target.display_name} as your partner?
                   </Dialog.Title>
 
@@ -130,7 +130,7 @@ export function RequestModal({
                         style={{ backgroundColor: sportColor.primary }}
                       />
                     </div>
-                    <h3 className="text-base font-semibold text-zinc-100">{target.display_name}</h3>
+                    <h3 className="text-base font-semibold text-zinc-900">{target.display_name}</h3>
                     {skillInfo && (
                       <span className="inline-flex items-center gap-1 text-sm text-amber-400">
                         {"\u2605".repeat(skillInfo.stars)}{"\u2606".repeat(3 - skillInfo.stars)}{" "}
@@ -143,14 +143,14 @@ export function RequestModal({
                   <div className="mb-6">
                     <label className="mb-2 block text-sm font-medium text-zinc-400">Sport</label>
                     <Select.Root value={selectedSport} onValueChange={setSelectedSport}>
-                      <Select.Trigger className="inline-flex h-11 w-full items-center justify-between rounded-xl border border-zinc-700/50 bg-zinc-800/60 px-4 text-sm text-zinc-200 hover:border-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]">
+                      <Select.Trigger className="inline-flex h-11 w-full items-center justify-between rounded-xl border border-zinc-300 bg-zinc-100 px-4 text-sm text-zinc-700 hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]">
                         <Select.Value />
                         <Select.Icon>
                           <ChevronDown className="h-4 w-4 text-zinc-500" />
                         </Select.Icon>
                       </Select.Trigger>
                       <Select.Portal>
-                        <Select.Content className="z-50 overflow-hidden rounded-xl border border-zinc-700/50 bg-zinc-800 shadow-xl backdrop-blur">
+                        <Select.Content className="z-50 overflow-hidden rounded-xl border border-zinc-300 bg-zinc-100 shadow-xl backdrop-blur">
                           <Select.Viewport className="p-1">
                             {availableSports.map((sport) => {
                               const info = SPORT_LABELS[sport as Sport];
@@ -158,7 +158,7 @@ export function RequestModal({
                                 <Select.Item
                                   key={sport}
                                   value={sport}
-                                  className="flex h-10 cursor-pointer items-center gap-2 rounded-lg px-3 text-sm text-zinc-200 outline-none data-[highlighted]:bg-zinc-700/60 min-h-[44px]"
+                                  className="flex h-10 cursor-pointer items-center gap-2 rounded-lg px-3 text-sm text-zinc-700 outline-none data-[highlighted]:bg-zinc-700/60 min-h-[44px]"
                                 >
                                   <Select.ItemText>
                                     {info?.emoji || ""} {info?.label || sport}
@@ -193,7 +193,7 @@ export function RequestModal({
                     </motion.button>
                     <button
                       onClick={() => onOpenChange(false)}
-                      className="w-full rounded-xl px-4 py-3 text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors min-h-[44px]"
+                      className="w-full rounded-xl px-4 py-3 text-sm font-medium text-zinc-500 hover:text-zinc-600 transition-colors min-h-[44px]"
                     >
                       Nevermind
                     </button>

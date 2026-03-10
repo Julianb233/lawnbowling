@@ -23,7 +23,7 @@ export function SportBreakdown({ breakdown }: SportBreakdownProps) {
   return (
     <div className="space-y-3">
       {/* Bar chart */}
-      <div className="flex h-4 rounded-full overflow-hidden bg-zinc-800">
+      <div className="flex h-4 rounded-full overflow-hidden bg-zinc-100">
         {entries.map(([sport, count]) => (
           <div
             key={sport}
@@ -43,7 +43,7 @@ export function SportBreakdown({ breakdown }: SportBreakdownProps) {
               <div
                 className={`h-3 w-3 rounded-full ${COLORS[sport] || "bg-zinc-600"}`}
               />
-              <span className="text-xs text-zinc-300">
+              <span className="text-xs text-zinc-600">
                 {info?.emoji} {info?.label || sport} ({pct}%)
               </span>
             </div>

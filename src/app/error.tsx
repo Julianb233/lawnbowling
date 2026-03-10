@@ -8,19 +8,21 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-animated-gradient px-4">
+    <div className="flex min-h-screen items-center justify-center bg-white px-4">
       <div className="text-center max-w-sm">
-        <div className="text-6xl mb-4">{"\uD83D\uDE35"}</div>
-        <h2 className="text-2xl font-bold text-zinc-100 mb-2">
+        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-amber-500/10">
+          <span className="text-4xl">{"\uD83D\uDE35"}</span>
+        </div>
+        <h2 className="text-2xl font-bold text-zinc-900 mb-2">
           Something went wrong
         </h2>
-        <p className="text-zinc-400 mb-6">
+        <p className="text-zinc-600 mb-6">
           Don&apos;t worry, it happens to the best of us. Let&apos;s get you
           back in the game.
         </p>
         <button
           onClick={() => reset()}
-          className="rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 px-6 py-3 text-sm font-bold text-white shadow-lg hover:shadow-xl transition-all"
+          className="rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-500/15 hover:shadow-emerald-500/25 transition-all"
         >
           Try Again
         </button>

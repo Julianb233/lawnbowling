@@ -29,7 +29,7 @@ export function TeamCard({ team, memberCount, role }: TeamCardProps) {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className={cn(
-          "rounded-2xl border border-zinc-800 bg-zinc-900/80 p-4 transition-colors hover:border-zinc-700",
+          "rounded-2xl border border-zinc-200 bg-white/80 p-4 transition-colors hover:border-zinc-200",
           "cursor-pointer"
         )}
       >
@@ -47,7 +47,7 @@ export function TeamCard({ team, memberCount, role }: TeamCardProps) {
           )}
         </div>
 
-        <h3 className="mb-1 font-bold text-zinc-100">{team.name}</h3>
+        <h3 className="mb-1 font-bold text-zinc-900">{team.name}</h3>
         {team.description && (
           <p className="mb-3 line-clamp-2 text-sm text-zinc-500">{team.description}</p>
         )}

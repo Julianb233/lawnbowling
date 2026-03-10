@@ -54,7 +54,7 @@ export default function MatchesAdminPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-100 mb-6">
+      <h1 className="text-2xl font-bold text-zinc-800 mb-6">
         Match History ({total})
       </h1>
 
@@ -63,7 +63,7 @@ export default function MatchesAdminPage() {
         <select
           value={sportFilter}
           onChange={(e) => setSportFilter(e.target.value)}
-          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100"
+          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800"
         >
           <option value="">All Sports</option>
           <option value="pickleball">Pickleball</option>
@@ -73,7 +73,7 @@ export default function MatchesAdminPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100"
+          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800"
         >
           <option value="">All Statuses</option>
           <option value="queued">Queued</option>
@@ -83,12 +83,12 @@ export default function MatchesAdminPage() {
       </div>
 
       {loading ? (
-        <div className="text-zinc-400">Loading matches...</div>
+        <div className="text-zinc-500">Loading matches...</div>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-zinc-800 text-left text-zinc-500">
+              <tr className="border-b border-zinc-200 text-left text-zinc-500">
                 <th className="pb-2 font-medium">Sport</th>
                 <th className="pb-2 font-medium">Players</th>
                 <th className="pb-2 font-medium">Court</th>
@@ -111,26 +111,26 @@ export default function MatchesAdminPage() {
 
                 return (
                   <tr key={match.id}>
-                    <td className="py-3 text-zinc-100 capitalize">
+                    <td className="py-3 text-zinc-800 capitalize">
                       {match.sport.replace("_", " ")}
                     </td>
-                    <td className="py-3 text-zinc-400">
+                    <td className="py-3 text-zinc-500">
                       {match.match_players
                         ?.map((mp) => mp.players?.display_name)
                         .filter(Boolean)
                         .join(", ") || "-"}
                     </td>
-                    <td className="py-3 text-zinc-400">
+                    <td className="py-3 text-zinc-500">
                       {match.courts?.name ?? "-"}
                     </td>
                     <td className="py-3">
                       <span
                         className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                           match.status === "completed"
-                            ? "bg-zinc-700/50 text-zinc-400"
+                            ? "bg-zinc-100 text-zinc-500"
                             : match.status === "playing"
-                              ? "bg-red-500/20 text-red-400"
-                              : "bg-yellow-500/20 text-yellow-400"
+                              ? "bg-red-50 text-red-600"
+                              : "bg-yellow-50 text-yellow-700"
                         }`}
                       >
                         {match.status}
@@ -146,7 +146,7 @@ export default function MatchesAdminPage() {
                       {match.status === "completed" && (
                         <button
                           onClick={() => setReportMatchId(match.id)}
-                          className="rounded-lg bg-emerald-600/20 px-3 py-1 text-xs font-medium text-emerald-400 hover:bg-emerald-600/30 transition-colors"
+                          className="rounded-lg bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600 hover:bg-emerald-100 transition-colors"
                         >
                           Report Score
                         </button>

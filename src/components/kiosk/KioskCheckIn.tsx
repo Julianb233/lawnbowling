@@ -52,7 +52,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
 
   return (
     <div className="p-6">
-      <h2 className="mb-6 text-center text-3xl font-black text-zinc-100">Tap to Check In</h2>
+      <h2 className="mb-6 text-center text-3xl font-black text-zinc-900">Tap to Check In</h2>
       <div className="grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-5">
         {players.map((player) => {
           const isJustCheckedIn = checkedIn === player.id;
@@ -68,7 +68,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
               key={player.id}
               whileTap={{ scale: 0.9 }}
               onClick={() => handleTapCheckIn(player)}
-              className="flex flex-col items-center gap-2 rounded-2xl p-4 glass hover:bg-white/5 min-h-[100px] touch-manipulation"
+              className="flex flex-col items-center gap-2 rounded-2xl p-4 glass hover:bg-zinc-50 min-h-[100px] touch-manipulation"
             >
               <AnimatePresence mode="wait">
                 {isJustCheckedIn ? (
@@ -92,7 +92,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                   </motion.div>
                 )}
               </AnimatePresence>
-              <span className="text-sm font-medium text-zinc-300 truncate max-w-full">
+              <span className="text-sm font-medium text-zinc-600 truncate max-w-full">
                 {player.display_name}
               </span>
             </motion.button>

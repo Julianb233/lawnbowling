@@ -64,7 +64,7 @@ export function TeamRoster({ teamId, currentUserId, captainId }: TeamRosterProps
     return (
       <div className="space-y-3">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-14 animate-pulse rounded-xl bg-zinc-800/50" />
+          <div key={i} className="h-14 animate-pulse rounded-xl bg-zinc-100" />
         ))}
       </div>
     );
@@ -76,9 +76,9 @@ export function TeamRoster({ teamId, currentUserId, captainId }: TeamRosterProps
         <motion.div
           key={m.id}
           {...ANIMATIONS.fadeInUp}
-          className="flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900/50 p-3"
+          className="flex items-center gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-3"
         >
-          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-zinc-800">
+          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-zinc-100">
             {m.player.avatar_url ? (
               <img src={m.player.avatar_url} alt="" className="h-full w-full object-cover" />
             ) : (
@@ -90,7 +90,7 @@ export function TeamRoster({ teamId, currentUserId, captainId }: TeamRosterProps
 
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <span className="font-medium text-zinc-200 truncate">{m.player.display_name}</span>
+              <span className="font-medium text-zinc-700 truncate">{m.player.display_name}</span>
               {m.role === "captain" && (
                 <Crown className="h-3.5 w-3.5 shrink-0 text-amber-400" />
               )}

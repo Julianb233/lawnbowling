@@ -45,7 +45,7 @@ export function TeamList() {
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-40 animate-pulse rounded-2xl bg-zinc-800/50" />
+          <div key={i} className="h-40 animate-pulse rounded-2xl bg-zinc-100" />
         ))}
       </div>
     );
@@ -64,7 +64,7 @@ export function TeamList() {
         </button>
         <button
           onClick={() => setShowJoin(true)}
-          className="flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-sm font-semibold text-zinc-300 transition-colors hover:border-zinc-600 hover:text-zinc-100"
+          className="flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-2.5 text-sm font-semibold text-zinc-600 transition-colors hover:border-zinc-400 hover:text-zinc-900"
         >
           <KeyRound className="h-4 w-4" />
           Join Team

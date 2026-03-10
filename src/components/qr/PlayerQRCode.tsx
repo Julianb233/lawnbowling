@@ -31,11 +31,11 @@ export function PlayerQRCode({ playerId, playerName, venueId, size = 200 }: Play
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className="rounded-2xl bg-zinc-900 p-4">
+      <div className="rounded-2xl bg-white p-4">
         <canvas ref={canvasRef} />
       </div>
       <p className="text-sm text-zinc-400">
-        Show this QR code to check in as <strong className="text-zinc-200">{playerName}</strong>
+        Show this QR code to check in as <strong className="text-zinc-700">{playerName}</strong>
       </p>
     </div>
   );

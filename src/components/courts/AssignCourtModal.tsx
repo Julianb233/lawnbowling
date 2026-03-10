@@ -51,8 +51,8 @@ export function AssignCourtModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-      <div className="w-full max-w-md rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-        <h2 className="text-lg font-semibold text-zinc-100 mb-4">
+      <div className="w-full max-w-md rounded-xl border border-zinc-200 bg-white p-6">
+        <h2 className="text-lg font-semibold text-zinc-900 mb-4">
           Assign Court
         </h2>
         <p className="text-sm text-zinc-400 mb-4">
@@ -69,11 +69,11 @@ export function AssignCourtModal({
             {availableCourts.map((court) => (
               <button
                 key={court.id}
-                className="flex w-full items-center justify-between rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-3 text-left hover:border-emerald-600 transition-colors"
+                className="flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-zinc-100 px-4 py-3 text-left hover:border-emerald-600 transition-colors"
                 disabled={assigning !== null}
                 onClick={() => handleAssign(court.id)}
               >
-                <span className="font-medium text-zinc-100">{court.name}</span>
+                <span className="font-medium text-zinc-900">{court.name}</span>
                 {assigning === court.id ? (
                   <span className="text-xs text-zinc-400">Assigning...</span>
                 ) : (

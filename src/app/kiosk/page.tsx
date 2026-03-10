@@ -32,12 +32,12 @@ export default function KioskPage() {
 
   return (
     <KioskWrapper inactivityTimeout={30000} onInactivityReset={handleInactivityReset}>
-      <div className="min-h-screen bg-zinc-950">
+      <div className="min-h-screen bg-white">
         {/* Venue header */}
-        <header className="border-b border-zinc-800 px-6 py-4">
+        <header className="border-b border-zinc-200 px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black text-zinc-100">
+              <h1 className="text-2xl font-black text-zinc-900">
                 {venue?.name || "Pick a Partner"}
               </h1>
               <p className="text-sm text-zinc-500">Kiosk Mode</p>
@@ -48,7 +48,7 @@ export default function KioskPage() {
                 className={`rounded-xl px-6 py-3 text-sm font-bold min-h-[60px] touch-manipulation ${
                   view === "checkin"
                     ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                    : "bg-zinc-800 text-zinc-400"
+                    : "bg-zinc-100 text-zinc-400"
                 }`}
               >
                 Check In
@@ -58,7 +58,7 @@ export default function KioskPage() {
                 className={`rounded-xl px-6 py-3 text-sm font-bold min-h-[60px] touch-manipulation ${
                   view === "board"
                     ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                    : "bg-zinc-800 text-zinc-400"
+                    : "bg-zinc-100 text-zinc-400"
                 }`}
               >
                 Board ({players.length})

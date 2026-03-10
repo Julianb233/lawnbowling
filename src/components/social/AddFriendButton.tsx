@@ -32,7 +32,7 @@ export function AddFriendButton({
     return (
       <span
         className={cn(
-          "inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium text-emerald-400 bg-emerald-400/10",
+          "inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50",
           className
         )}
       >
@@ -45,7 +45,7 @@ export function AddFriendButton({
     return (
       <span
         className={cn(
-          "inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium text-amber-400 bg-amber-400/10",
+          "inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium text-amber-700 bg-amber-50",
           className
         )}
       >
@@ -60,7 +60,7 @@ export function AddFriendButton({
       disabled={isPending}
       className={cn(
         "inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium",
-        "bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors",
+        "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors",
         className
       )}
     >

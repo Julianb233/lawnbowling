@@ -29,9 +29,9 @@ const STATUS_CONFIG = {
   declined: {
     icon: X,
     message: (name: string) => `${name} declined your request`,
-    containerClass: "bg-zinc-700/60 ring-1 ring-zinc-600/30",
+    containerClass: "bg-zinc-700/60 ring-1 ring-zinc-200/30",
     iconClass: "bg-zinc-600/40 text-zinc-400",
-    textClass: "text-zinc-300",
+    textClass: "text-zinc-600",
   },
   expired: {
     icon: Clock,
@@ -92,7 +92,7 @@ export function SentRequestToast({
         </div>
 
         <Toast.Close
-          className="shrink-0 rounded-full p-2 text-zinc-500 hover:text-zinc-300 transition-colors touch-manipulation"
+          className="shrink-0 rounded-full p-2 text-zinc-500 hover:text-zinc-600 transition-colors touch-manipulation"
           aria-label="Dismiss notification"
           style={{ minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}
         >

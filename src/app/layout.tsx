@@ -38,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-180.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
@@ -55,8 +55,14 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-950 text-zinc-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
+        {/* Floating orbs background */}
+        <div className="orb orb-emerald" style={{ width: 400, height: 400, top: '10%', left: '5%' }} />
+        <div className="orb orb-blue" style={{ width: 350, height: 350, top: '60%', right: '10%' }} />
+        <div className="orb orb-amber" style={{ width: 300, height: 300, bottom: '15%', left: '30%' }} />
+        <div className="orb orb-coral" style={{ width: 250, height: 250, top: '30%', right: '25%' }} />
+        <div className="orb orb-purple" style={{ width: 200, height: 200, bottom: '40%', left: '60%' }} />
         {children}
         <InstallPrompt />
         <IOSInstallGuide />

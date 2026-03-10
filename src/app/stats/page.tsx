@@ -26,10 +26,10 @@ export default function StatsPage() {
   const loading = loadingAuth || loadingStats;
 
   return (
-    <div className="min-h-screen bg-zinc-950 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur">
+    <div className="min-h-screen bg-white pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <h1 className="text-xl font-bold text-zinc-100">My Stats</h1>
+          <h1 className="text-xl font-bold text-zinc-900">My Stats</h1>
           <p className="text-sm text-zinc-500">Your performance at a glance</p>
         </div>
       </header>
@@ -37,8 +37,8 @@ export default function StatsPage() {
       <div className="mx-auto max-w-3xl space-y-6 px-4 py-6">
         {loading ? (
           <div className="space-y-4">
-            <div className="h-48 animate-pulse rounded-2xl bg-zinc-800/50" />
-            <div className="h-32 animate-pulse rounded-2xl bg-zinc-800/50" />
+            <div className="h-48 animate-pulse rounded-2xl bg-zinc-100" />
+            <div className="h-32 animate-pulse rounded-2xl bg-zinc-100" />
           </div>
         ) : (
           <>

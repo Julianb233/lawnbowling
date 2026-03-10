@@ -41,8 +41,8 @@ export function FavoriteButton({
       className={cn(
         "flex h-8 w-8 items-center justify-center rounded-full transition-all",
         favorited
-          ? "text-amber-400 bg-amber-400/10"
-          : "text-zinc-500 hover:text-amber-400 hover:bg-amber-400/5",
+          ? "text-amber-500 bg-amber-50"
+          : "text-zinc-400 hover:text-amber-500 hover:bg-amber-50",
         className
       )}
       aria-label={favorited ? "Remove from favorites" : "Add to favorites"}

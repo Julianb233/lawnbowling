@@ -66,12 +66,12 @@ export function JoinTeamModal({ open, onOpenChange, onJoined }: JoinTeamModalPro
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-700/50 bg-zinc-900 p-6 shadow-2xl">
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-300 bg-white p-6 shadow-2xl">
           <div className="mb-4 flex items-center justify-between">
-            <Dialog.Title className="text-lg font-bold text-zinc-100">
+            <Dialog.Title className="text-lg font-bold text-zinc-900">
               Join a Team
             </Dialog.Title>
-            <Dialog.Close className="rounded-full p-1 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200">
+            <Dialog.Close className="rounded-full p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
               <X className="h-5 w-5" />
             </Dialog.Close>
           </div>
@@ -85,12 +85,12 @@ export function JoinTeamModal({ open, onOpenChange, onJoined }: JoinTeamModalPro
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="Enter invite code..."
-                  className="flex-1 rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="flex-1 rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                 />
                 <button
                   onClick={handleLookup}
                   disabled={loading || !code.trim()}
-                  className="rounded-xl bg-zinc-700 px-4 py-3 text-sm font-medium text-zinc-200 transition-colors hover:bg-zinc-600 disabled:opacity-50"
+                  className="rounded-xl bg-zinc-700 px-4 py-3 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-600 disabled:opacity-50"
                 >
                   <KeyRound className="h-4 w-4" />
                 </button>
@@ -98,11 +98,11 @@ export function JoinTeamModal({ open, onOpenChange, onJoined }: JoinTeamModalPro
             </div>
 
             {preview && (
-              <div className="rounded-xl border border-zinc-700 bg-zinc-800/50 p-4">
+              <div className="rounded-xl border border-zinc-200 bg-zinc-100 p-4">
                 <div className="flex items-center gap-3">
                   <Users className="h-8 w-8 text-emerald-400" />
                   <div>
-                    <h3 className="font-bold text-zinc-100">{preview.name}</h3>
+                    <h3 className="font-bold text-zinc-900">{preview.name}</h3>
                     <p className="text-sm text-zinc-500">
                       {preview.sport} &middot; Captain: {preview.captain?.name}
                     </p>

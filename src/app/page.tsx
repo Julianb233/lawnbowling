@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import Image from "next/image";
 import {
   Users,
   Zap,
@@ -11,7 +10,10 @@ import {
   Smartphone,
   Trophy,
   MapPin,
+  Star,
+  CheckCircle,
 } from "lucide-react";
+import { SportsSlideshow } from "@/components/home/SportsSlideshow";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -24,7 +26,7 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 overflow-hidden">
+    <div className="min-h-screen bg-white overflow-hidden">
       {/* Animated background orbs */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute top-[-20%] left-[-10%] h-[600px] w-[600px] rounded-full bg-emerald-500/10 blur-[120px] animate-[gradientShift_15s_ease_infinite]" />
@@ -33,26 +35,32 @@ export default async function HomePage() {
       </div>
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-white/5 bg-zinc-950/80 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20">
               <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-white">
+            <span className="text-lg font-bold text-zinc-900">
               Pick a Partner
             </span>
           </div>
           <div className="flex items-center gap-3">
             <Link
+              href="/for-venues"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
+            >
+              For Venues
+            </Link>
+            <Link
               href="/insurance"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 transition hover:text-white"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
             >
               Insurance
             </Link>
             <Link
               href="/login"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 transition hover:text-white"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
             >
               Sign In
             </Link>
@@ -67,25 +75,25 @@ export default async function HomePage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-32 md:pt-32 md:pb-40">
+      <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-24 md:pt-28 md:pb-32">
         <div className="flex flex-col items-center text-center">
           {/* Badge */}
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5">
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5">
             <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-sm font-medium text-emerald-400">
+            <span className="text-sm font-medium text-emerald-700">
               Live at venues now
             </span>
           </div>
 
           {/* Headline */}
-          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-white md:text-7xl">
+          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
             Find Your{" "}
             <span className="text-gradient">Perfect Partner</span>
             <br />
             Hit the Court
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400 md:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
             The real-time player board for recreational sports. Check in, pick a
             partner, and get matched to a court — all from your phone or the
             venue kiosk.
@@ -102,7 +110,7 @@ export default async function HomePage() {
             </Link>
             <Link
               href="#how-it-works"
-              className="inline-flex items-center gap-2 rounded-2xl border border-zinc-700 bg-zinc-900/50 px-8 py-4 text-lg font-semibold text-zinc-300 backdrop-blur transition-all hover:border-zinc-600 hover:bg-zinc-800/50 hover:text-white active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-8 py-4 text-lg font-semibold text-zinc-700 transition-all hover:border-zinc-300 hover:bg-zinc-100 hover:text-zinc-900 active:scale-[0.98]"
             >
               See How It Works
             </Link>
@@ -110,27 +118,142 @@ export default async function HomePage() {
 
           {/* Sport Tags */}
           <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
-            <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-sm font-medium text-emerald-400">
+            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-sm font-medium text-emerald-700">
               Pickleball
             </span>
-            <span className="rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-400">
+            <span className="rounded-full border border-amber-200 bg-amber-50 px-4 py-1.5 text-sm font-medium text-amber-700">
               Tennis
             </span>
-            <span className="rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-sm font-medium text-blue-400">
+            <span className="rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-700">
               Lawn Bowling
             </span>
-            <span className="rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-1.5 text-sm font-medium text-purple-400">
+            <span className="rounded-full border border-purple-200 bg-purple-50 px-4 py-1.5 text-sm font-medium text-purple-700">
               Badminton
             </span>
-            <span className="rounded-full border border-rose-500/20 bg-rose-500/10 px-4 py-1.5 text-sm font-medium text-rose-400">
+            <span className="rounded-full border border-rose-200 bg-rose-50 px-4 py-1.5 text-sm font-medium text-rose-700">
               Racquetball
+            </span>
+            <span className="rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 text-sm font-medium text-orange-700">
+              Flag Football
             </span>
           </div>
         </div>
       </section>
 
+      {/* Sports Slideshow */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <SportsSlideshow />
+      </section>
+
+      {/* Social Proof */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+            Trusted by Players & Venues
+          </h2>
+          <p className="mt-4 text-lg text-zinc-500">
+            Join the community making recreational sports simple
+          </p>
+        </div>
+
+        {/* Stats row */}
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 mb-12">
+          {[
+            { value: "500+", label: "Active Players" },
+            { value: "12", label: "Partner Venues" },
+            { value: "2,400+", label: "Matches Made" },
+            { value: "4.9", label: "App Rating", icon: Star },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className="glass-card-light rounded-2xl p-6 text-center"
+            >
+              <div className="flex items-center justify-center gap-1">
+                <span className="text-3xl font-extrabold text-zinc-900 md:text-4xl">
+                  {stat.value}
+                </span>
+                {stat.icon && (
+                  <stat.icon className="h-6 w-6 text-amber-500 fill-amber-500" />
+                )}
+              </div>
+              <span className="mt-1 block text-sm font-medium text-zinc-500">
+                {stat.label}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Testimonials */}
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              quote:
+                "No more awkward lobby small-talk trying to find a doubles partner. I just check in and tap — matched in seconds.",
+              name: "Sarah M.",
+              role: "Pickleball Player",
+              avatarBg: "bg-emerald-100 text-emerald-600",
+            },
+            {
+              quote:
+                "We replaced the paper sign-up sheet and our court utilization went up 40%. Players love the automatic rotation.",
+              name: "David R.",
+              role: "Rec Center Manager",
+              avatarBg: "bg-blue-100 text-blue-600",
+            },
+            {
+              quote:
+                "The skill-level matching is what sold me. I always get paired with someone at my level so games are actually competitive.",
+              name: "Marcus T.",
+              role: "Tennis Player",
+              avatarBg: "bg-amber-100 text-amber-600",
+            },
+          ].map((testimonial) => (
+            <div
+              key={testimonial.name}
+              className="glass-card-light rounded-2xl p-6"
+            >
+              <div className="mb-4 flex gap-1">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star
+                    key={i}
+                    className="h-4 w-4 text-amber-400 fill-amber-400"
+                  />
+                ))}
+              </div>
+              <p className="text-sm leading-relaxed text-zinc-600 italic">
+                &ldquo;{testimonial.quote}&rdquo;
+              </p>
+              <div className="mt-4 flex items-center gap-3">
+                <div
+                  className={`flex h-10 w-10 items-center justify-center rounded-full font-bold text-sm ${testimonial.avatarBg}`}
+                >
+                  {testimonial.name.charAt(0)}
+                </div>
+                <div>
+                  <span className="block text-sm font-semibold text-zinc-900">
+                    {testimonial.name}
+                  </span>
+                  <span className="block text-xs text-zinc-500">
+                    {testimonial.role}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Features Grid */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-32">
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+            Everything You Need to Play
+          </h2>
+          <p className="mt-4 text-lg text-zinc-500">
+            Built for rec centers, designed for players
+          </p>
+        </div>
+
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {[
             {
@@ -164,17 +287,17 @@ export default async function HomePage() {
           ].map((feature) => (
             <div
               key={feature.title}
-              className="group rounded-2xl border border-white/5 bg-zinc-900/50 p-6 backdrop-blur transition-all hover:border-white/10 hover:bg-zinc-800/50"
+              className="group glass-card-light rounded-2xl p-6 transition-all hover:shadow-lg"
             >
               <div
                 className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg ${feature.glow}`}
               >
                 <feature.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-white">
+              <h3 className="mb-2 text-lg font-semibold text-zinc-900">
                 {feature.title}
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-400">
+              <p className="text-sm leading-relaxed text-zinc-500">
                 {feature.desc}
               </p>
             </div>
@@ -182,74 +305,16 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Sports Gallery */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-32">
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
-            Your Sport. Your Partner. Your Court.
-          </h2>
-          <p className="mt-4 text-lg text-zinc-400">
-            Built for the sports people actually play at rec centers
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {[
-            {
-              src: "/images/pickleball.jpg",
-              alt: "Player hitting a pickleball with a paddle on an outdoor court",
-              sport: "Pickleball",
-              color: "emerald",
-            },
-            {
-              src: "/images/tennis.jpg",
-              alt: "Four adults playing doubles tennis on an outdoor court",
-              sport: "Tennis",
-              color: "amber",
-            },
-            {
-              src: "/images/lawn-bowling.jpg",
-              alt: "Person throwing a bocce ball on a green lawn",
-              sport: "Lawn Bowling",
-              color: "blue",
-            },
-            {
-              src: "/images/flag-football.jpg",
-              alt: "Football team in a huddle planning their next play",
-              sport: "Flag Football",
-              color: "rose",
-            },
-          ].map((item) => (
-            <div key={item.sport} className="group relative overflow-hidden rounded-2xl">
-              <div className="aspect-[4/3] relative">
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                />
-                {/* Dark gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              </div>
-              {/* Sport label */}
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <span className="text-lg font-bold text-white drop-shadow-lg">
-                  {item.sport}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* How It Works */}
-      <section id="how-it-works" className="relative mx-auto max-w-6xl px-6 pb-32">
+      <section
+        id="how-it-works"
+        className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32"
+      >
         <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             How It Works
           </h2>
-          <p className="mt-4 text-lg text-zinc-400">
+          <p className="mt-4 text-lg text-zinc-500">
             From check-in to court in under 60 seconds
           </p>
         </div>
@@ -276,15 +341,17 @@ export default async function HomePage() {
             },
           ].map((item) => (
             <div key={item.step} className="relative">
-              <div className="glass rounded-2xl p-8">
-                <span className="text-5xl font-black text-emerald-500/20">
+              <div className="glass-card-light rounded-2xl p-8">
+                <span className="text-5xl font-black text-emerald-500/15">
                   {item.step}
                 </span>
                 <div className="mt-4 flex items-center gap-3">
-                  <item.icon className="h-5 w-5 text-emerald-400" />
-                  <h3 className="text-xl font-bold text-white">{item.title}</h3>
+                  <item.icon className="h-5 w-5 text-emerald-600" />
+                  <h3 className="text-xl font-bold text-zinc-900">
+                    {item.title}
+                  </h3>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-400">
+                <p className="mt-3 text-sm leading-relaxed text-zinc-500">
                   {item.desc}
                 </p>
               </div>
@@ -294,21 +361,21 @@ export default async function HomePage() {
       </section>
 
       {/* Device Showcase */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-32">
-        <div className="glass rounded-3xl p-8 md:p-12">
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <div className="glass-card-light rounded-3xl p-8 md:p-12">
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div>
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5">
-                <Smartphone className="h-4 w-4 text-blue-400" />
-                <span className="text-sm font-medium text-blue-400">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
+                <Smartphone className="h-4 w-4 text-blue-600" />
+                <span className="text-sm font-medium text-blue-700">
                   Works Everywhere
                 </span>
               </div>
-              <h2 className="text-3xl font-bold text-white md:text-4xl">
+              <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
                 iPad Kiosk.{" "}
-                <span className="text-zinc-500">iPhone Personal.</span>
+                <span className="text-zinc-400">iPhone Personal.</span>
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-400">
+              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
                 Set up an iPad at the front desk as a shared check-in kiosk.
                 Players can also use their own phones — install the PWA for an
                 app-like experience with no download required.
@@ -320,10 +387,11 @@ export default async function HomePage() {
                   "iPad landscape kiosk mode",
                   "iPhone portrait personal mode",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-zinc-300">
-                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                    </span>
+                  <li
+                    key={item}
+                    className="flex items-center gap-3 text-zinc-600"
+                  >
+                    <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -333,10 +401,10 @@ export default async function HomePage() {
               {/* Device mockup */}
               <div className="relative">
                 {/* iPad */}
-                <div className="h-64 w-80 rounded-2xl border border-zinc-700 bg-zinc-800 p-3 shadow-2xl md:h-72 md:w-96">
-                  <div className="flex h-full flex-col rounded-xl bg-zinc-900">
-                    <div className="flex items-center gap-2 border-b border-zinc-800 px-4 py-2">
-                      <span className="text-xs font-bold text-emerald-400">
+                <div className="h-64 w-80 rounded-2xl border border-zinc-200 bg-zinc-100 p-3 shadow-2xl md:h-72 md:w-96">
+                  <div className="flex h-full flex-col rounded-xl bg-white">
+                    <div className="flex items-center gap-2 border-b border-zinc-100 px-4 py-2">
+                      <span className="text-xs font-bold text-emerald-600">
                         Pick a Partner
                       </span>
                       <span className="ml-auto flex items-center gap-1">
@@ -349,11 +417,11 @@ export default async function HomePage() {
                         {[1, 2, 3, 4, 5, 6].map((i) => (
                           <div
                             key={i}
-                            className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-2"
+                            className="rounded-lg border border-zinc-100 bg-zinc-50 p-2"
                           >
-                            <div className="mx-auto mb-1 h-6 w-6 rounded-full bg-zinc-700" />
-                            <div className="mx-auto h-1.5 w-10 rounded-full bg-zinc-700" />
-                            <div className="mx-auto mt-1 h-1 w-6 rounded-full bg-emerald-500/30" />
+                            <div className="mx-auto mb-1 h-6 w-6 rounded-full bg-zinc-300" />
+                            <div className="mx-auto h-1.5 w-10 rounded-full bg-zinc-300" />
+                            <div className="mx-auto mt-1 h-1 w-6 rounded-full bg-emerald-300" />
                           </div>
                         ))}
                       </div>
@@ -361,10 +429,10 @@ export default async function HomePage() {
                   </div>
                 </div>
                 {/* Phone overlay */}
-                <div className="absolute -bottom-6 -right-6 h-40 w-20 rounded-2xl border border-zinc-600 bg-zinc-800 p-1.5 shadow-2xl md:-right-8 md:h-48 md:w-24">
-                  <div className="flex h-full flex-col rounded-xl bg-zinc-900">
-                    <div className="border-b border-zinc-800 px-2 py-1">
-                      <span className="text-[6px] font-bold text-emerald-400">
+                <div className="absolute -bottom-6 -right-6 h-40 w-20 rounded-2xl border border-zinc-300 bg-zinc-100 p-1.5 shadow-2xl md:-right-8 md:h-48 md:w-24">
+                  <div className="flex h-full flex-col rounded-xl bg-white">
+                    <div className="border-b border-zinc-100 px-2 py-1">
+                      <span className="text-[6px] font-bold text-emerald-600">
                         PaP
                       </span>
                     </div>
@@ -372,9 +440,9 @@ export default async function HomePage() {
                       {[1, 2, 3].map((i) => (
                         <div
                           key={i}
-                          className="rounded border border-zinc-700/50 bg-zinc-800/30 p-1"
+                          className="rounded border border-zinc-100 bg-zinc-50 p-1"
                         >
-                          <div className="h-1 w-full rounded-full bg-zinc-700" />
+                          <div className="h-1 w-full rounded-full bg-zinc-200" />
                         </div>
                       ))}
                     </div>
@@ -387,7 +455,7 @@ export default async function HomePage() {
       </section>
 
       {/* Venue CTA */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-32">
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
         <div className="rounded-3xl bg-gradient-to-r from-emerald-600 to-emerald-500 p-8 text-center shadow-2xl shadow-emerald-500/20 md:p-16">
           <h2 className="text-3xl font-bold text-white md:text-4xl">
             Ready to modernize your venue?
@@ -398,14 +466,14 @@ export default async function HomePage() {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
-              href="/signup"
-              className="rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-emerald-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
+              href="/for-venues"
+              className="rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-emerald-700 shadow-lg transition hover:bg-zinc-50 active:scale-[0.98]"
             >
-              Set Up Your Venue
+              Learn More
             </Link>
             <Link
-              href="/(public)/contact"
-              className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/50 hover:bg-white/10 active:scale-[0.98]"
+              href="/contact"
+              className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/60 hover:bg-white/10 active:scale-[0.98]"
             >
               Contact Us
             </Link>
@@ -414,29 +482,38 @@ export default async function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 bg-zinc-950">
+      <footer className="border-t border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <div className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-white">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Pick a Partner</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
-            <Link href="/insurance" className="hover:text-zinc-300 transition">
+            <Link href="/about" className="hover:text-zinc-700 transition">
+              About
+            </Link>
+            <Link href="/for-venues" className="hover:text-zinc-700 transition">
+              For Venues
+            </Link>
+            <Link href="/insurance" className="hover:text-zinc-700 transition">
               Insurance
             </Link>
-            <Link href="/(public)/terms" className="hover:text-zinc-300 transition">
+            <Link href="/faq" className="hover:text-zinc-700 transition">
+              FAQ
+            </Link>
+            <Link href="/terms" className="hover:text-zinc-700 transition">
               Terms
             </Link>
-            <Link href="/(public)/privacy" className="hover:text-zinc-300 transition">
+            <Link href="/privacy" className="hover:text-zinc-700 transition">
               Privacy
             </Link>
-            <Link href="/(public)/contact" className="hover:text-zinc-300 transition">
+            <Link href="/contact" className="hover:text-zinc-700 transition">
               Contact
             </Link>
           </div>
-          <span className="text-sm text-zinc-600">
+          <span className="text-sm text-zinc-400">
             &copy; {new Date().getFullYear()} Pick a Partner
           </span>
         </div>

@@ -45,16 +45,16 @@ export function AvatarUpload({ currentUrl, displayName, onUpload }: AvatarUpload
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="group relative rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+        className="group relative rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white"
         disabled={uploading}
       >
-        <Avatar.Root className="inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-white/10">
+        <Avatar.Root className="inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-zinc-100">
           <Avatar.Image
             src={preview ?? undefined}
             alt={displayName}
             className="h-full w-full object-cover"
           />
-          <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-white/60">
+          <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-zinc-500">
             {initials || "?"}
           </Avatar.Fallback>
         </Avatar.Root>

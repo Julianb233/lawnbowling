@@ -64,7 +64,7 @@ function SuggestionCard({
       exit={{ opacity: 0, x: 20 }}
       transition={{ delay: index * 0.1, type: "spring", stiffness: 300, damping: 25 }}
       whileHover={{ scale: 1.02 }}
-      className="relative flex items-center gap-3 rounded-xl p-3 glass hover:border-white/15 transition-all cursor-pointer touch-manipulation"
+      className="relative flex items-center gap-3 rounded-xl p-3 glass hover:border-zinc-300 transition-all cursor-pointer touch-manipulation"
       onClick={() => !isPending && onPickMe?.(player)}
     >
       {/* Rank badge */}
@@ -106,7 +106,7 @@ function SuggestionCard({
       {/* Info */}
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <h4 className="truncate text-sm font-semibold text-zinc-100">
+          <h4 className="truncate text-sm font-semibold text-zinc-900">
             {player.display_name}
           </h4>
           <ScoreBadge score={score} />
@@ -234,7 +234,7 @@ export function SuggestedPartners({
             "rounded-full px-3 py-1 text-xs font-medium transition-all",
             autoMatch
               ? "bg-green-500/20 text-green-400 ring-1 ring-green-500/30"
-              : "bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-700/50"
+              : "bg-zinc-100 text-zinc-500 hover:text-zinc-600 hover:bg-zinc-100"
           )}
         >
           {autoMatch ? "Auto-matching..." : "Auto-match"}
@@ -246,12 +246,12 @@ export function SuggestedPartners({
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="h-16 animate-pulse rounded-xl bg-zinc-800/30"
+              className="h-16 animate-pulse rounded-xl bg-zinc-50"
             />
           ))}
         </div>
       ) : suggestions.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-zinc-700/50 px-4 py-6 text-center glass">
+        <div className="rounded-xl border border-dashed border-zinc-300 px-4 py-6 text-center glass">
           <p className="text-sm text-zinc-500">
             No suggestions yet. Check in and wait for other players!
           </p>

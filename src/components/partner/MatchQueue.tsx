@@ -44,14 +44,14 @@ function PlayerPill({ player }: { player: MatchQueuePlayer["player"] }) {
         <img
           src={player.avatar_url}
           alt={displayName}
-          className="h-8 w-8 rounded-full object-cover ring-1 ring-zinc-600"
+          className="h-8 w-8 rounded-full object-cover ring-1 ring-zinc-200"
         />
       ) : (
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-xs font-bold text-white ring-1 ring-zinc-600">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-xs font-bold text-white ring-1 ring-zinc-200">
           {initials}
         </div>
       )}
-      <span className="text-sm font-medium text-zinc-200 truncate">{displayName}</span>
+      <span className="text-sm font-medium text-zinc-700 truncate">{displayName}</span>
     </div>
   );
 }

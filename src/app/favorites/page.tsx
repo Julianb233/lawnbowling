@@ -19,12 +19,12 @@ export default async function FavoritesPage() {
 
   return (
     <div className="min-h-screen bg-animated-gradient">
-      <header className="sticky top-0 z-40 glass border-b border-zinc-700/30">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
-          <h1 className="text-xl font-bold text-zinc-100">
+          <h1 className="text-xl font-bold text-zinc-900">
             {"\u2B50"} Favorites
           </h1>
-          <Link href="/board" className="text-sm text-zinc-400 hover:text-zinc-200">
+          <Link href="/board" className="text-sm text-zinc-500 hover:text-zinc-700">
             Back
           </Link>
         </div>
@@ -34,12 +34,12 @@ export default async function FavoritesPage() {
         {!favorites || favorites.length === 0 ? (
           <div className="rounded-2xl glass p-8 text-center">
             <p className="text-3xl mb-2">{"\u2B50"}</p>
-            <p className="text-zinc-400 mb-4">
+            <p className="text-zinc-500 mb-4">
               No favorites yet. Star players you enjoy playing with!
             </p>
             <Link
               href="/board"
-              className="inline-block rounded-xl bg-emerald-500/20 px-4 py-2 text-sm font-medium text-emerald-400 hover:bg-emerald-500/30 transition-colors"
+              className="inline-block rounded-xl bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-100 transition-colors"
             >
               Find Players
             </Link>
@@ -53,7 +53,7 @@ export default async function FavoritesPage() {
                 <Link
                   key={fav.id}
                   href={`/profile/${player.id}`}
-                  className="flex items-center gap-3 rounded-xl glass p-3 hover:bg-white/5 transition-colors"
+                  className="flex items-center gap-3 rounded-xl glass p-3 hover:bg-zinc-50 transition-colors"
                 >
                   <div className="relative">
                     {player.avatar_url ? (
@@ -68,11 +68,11 @@ export default async function FavoritesPage() {
                       </div>
                     )}
                     {player.is_available && (
-                      <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-green-500 ring-2 ring-zinc-900" />
+                      <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-green-500 ring-2 ring-white" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-zinc-100 truncate">
+                    <p className="text-sm font-medium text-zinc-900 truncate">
                       {player.name}
                     </p>
                     <p className="text-xs text-zinc-500 capitalize">
@@ -80,7 +80,7 @@ export default async function FavoritesPage() {
                       {player.is_available ? "Online" : "Offline"}
                     </p>
                   </div>
-                  <span className="text-amber-400">{"\u2B50"}</span>
+                  <span className="text-amber-500">{"\u2B50"}</span>
                 </Link>
               );
             })}

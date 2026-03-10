@@ -50,7 +50,7 @@ export function TeamChat({ teamId, currentUserId }: TeamChatProps) {
   }
 
   return (
-    <div className="flex h-[480px] flex-col rounded-xl border border-zinc-800 bg-zinc-950">
+    <div className="flex h-[480px] flex-col rounded-xl border border-zinc-200 bg-white">
       {/* Messages area */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.length === 0 && (
@@ -66,7 +66,7 @@ export function TeamChat({ teamId, currentUserId }: TeamChatProps) {
               className={cn("flex gap-2", isMe ? "flex-row-reverse" : "flex-row")}
             >
               {!isMe && (
-                <div className="mt-1 h-7 w-7 shrink-0 overflow-hidden rounded-full bg-zinc-800">
+                <div className="mt-1 h-7 w-7 shrink-0 overflow-hidden rounded-full bg-zinc-100">
                   {msg.sender?.avatar_url ? (
                     <img src={msg.sender.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
@@ -85,7 +85,7 @@ export function TeamChat({ teamId, currentUserId }: TeamChatProps) {
                     "rounded-2xl px-3.5 py-2 text-sm",
                     isMe
                       ? "rounded-br-md bg-emerald-600 text-white"
-                      : "rounded-bl-md bg-zinc-800 text-zinc-200"
+                      : "rounded-bl-md bg-zinc-100 text-zinc-700"
                   )}
                 >
                   {msg.content}
@@ -102,14 +102,14 @@ export function TeamChat({ teamId, currentUserId }: TeamChatProps) {
       {/* Input */}
       <form
         onSubmit={handleSend}
-        className="flex items-center gap-2 border-t border-zinc-800 p-3"
+        className="flex items-center gap-2 border-t border-zinc-200 p-3"
       >
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type a message..."
-          className="flex-1 rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-emerald-500 focus:outline-none"
+          className="flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none"
         />
         <button
           type="submit"

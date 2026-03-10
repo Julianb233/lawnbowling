@@ -108,7 +108,7 @@ export function CourtStatusBoard() {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="h-40 animate-pulse rounded-xl border border-zinc-800 bg-zinc-900"
+            className="h-40 animate-pulse rounded-xl border border-zinc-200 bg-white"
           />
         ))}
       </div>

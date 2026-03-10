@@ -100,9 +100,9 @@ export default function TournamentDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-950">
+      <div className="min-h-screen bg-white">
         <div className="mx-auto max-w-3xl px-4 py-8">
-          <div className="h-48 animate-pulse rounded-2xl bg-zinc-800/50" />
+          <div className="h-48 animate-pulse rounded-2xl bg-zinc-100" />
         </div>
       </div>
     );
@@ -110,7 +110,7 @@ export default function TournamentDetailPage() {
 
   if (!tournament) {
     return (
-      <div className="min-h-screen bg-zinc-950">
+      <div className="min-h-screen bg-white">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center">
           <p className="text-zinc-500">Tournament not found</p>
           <Link href="/tournament" className="mt-4 inline-block text-sm text-emerald-400 hover:underline">
@@ -132,16 +132,16 @@ export default function TournamentDetailPage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-zinc-950 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur">
+    <div className="min-h-screen bg-white pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <Link href="/tournament" className="mb-2 flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-300">
+          <Link href="/tournament" className="mb-2 flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-600">
             <ArrowLeft className="h-4 w-4" />
             Tournaments
           </Link>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-xl font-bold text-zinc-100">{tournament.name}</h1>
+              <h1 className="text-xl font-bold text-zinc-900">{tournament.name}</h1>
               <div className="mt-1 flex items-center gap-3 text-sm text-zinc-500">
                 <span style={{ color: sportColor.primary }}>
                   {sportLabel?.emoji} {sportLabel?.label ?? tournament.sport}
@@ -177,17 +177,17 @@ export default function TournamentDetailPage() {
 
       <div className="mx-auto max-w-3xl px-4 py-6">
         <Tabs.Root defaultValue="bracket">
-          <Tabs.List className="mb-6 flex gap-1 rounded-xl bg-zinc-900/80 p-1">
+          <Tabs.List className="mb-6 flex gap-1 rounded-xl bg-white/80 p-1">
             <Tabs.Trigger
               value="bracket"
-              className="flex-1 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 transition-colors data-[state=active]:bg-zinc-800 data-[state=active]:text-zinc-100"
+              className="flex-1 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 transition-colors data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
             >
               <Trophy className="mr-1.5 inline h-4 w-4" />
               Bracket
             </Tabs.Trigger>
             <Tabs.Trigger
               value="standings"
-              className="flex-1 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 transition-colors data-[state=active]:bg-zinc-800 data-[state=active]:text-zinc-100"
+              className="flex-1 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 transition-colors data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
             >
               Standings
             </Tabs.Trigger>
@@ -215,9 +215,9 @@ export default function TournamentDetailPage() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-sm rounded-2xl border border-zinc-700/50 bg-zinc-900 p-6 shadow-2xl"
+              className="w-full max-w-sm rounded-2xl border border-zinc-300 bg-white p-6 shadow-2xl"
             >
-              <h3 className="mb-4 text-lg font-bold text-zinc-100">Report Result</h3>
+              <h3 className="mb-4 text-lg font-bold text-zinc-900">Report Result</h3>
               <form onSubmit={handleReportResult} className="space-y-4">
                 <div>
                   <label className="mb-2 block text-sm font-medium text-zinc-400">Winner</label>
@@ -234,7 +234,7 @@ export default function TournamentDetailPage() {
                           "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left",
                           winnerId === p.id
                             ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
-                            : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:border-zinc-600"
+                            : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
                         )}
                       >
                         {p.name}
@@ -249,7 +249,7 @@ export default function TournamentDetailPage() {
                     value={score}
                     onChange={(e) => setScore(e.target.value)}
                     placeholder="e.g. 21-15"
-                    className="w-full rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                   />
                 </div>
                 <div className="flex gap-2">
@@ -260,7 +260,7 @@ export default function TournamentDetailPage() {
                       setScore("");
                       setWinnerId("");
                     }}
-                    className="flex-1 rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-sm font-semibold text-zinc-300 hover:border-zinc-600"
+                    className="flex-1 rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-sm font-semibold text-zinc-600 hover:border-zinc-400"
                   >
                     Cancel
                   </button>

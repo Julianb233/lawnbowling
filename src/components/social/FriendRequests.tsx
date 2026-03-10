@@ -26,7 +26,7 @@ export function FriendRequests({ requests, onRespond }: FriendRequestsProps) {
 
   return (
     <div className="space-y-2">
-      <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">
+      <h3 className="text-sm font-semibold text-zinc-600 uppercase tracking-wider">
         Pending Requests ({requests.length})
       </h3>
       {requests.map((req) => (
@@ -38,7 +38,7 @@ export function FriendRequests({ requests, onRespond }: FriendRequestsProps) {
             {req.player?.display_name?.charAt(0)?.toUpperCase() || "?"}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-zinc-100 truncate">
+            <p className="text-sm font-medium text-zinc-900 truncate">
               {req.player?.display_name || "Unknown"}
             </p>
             <p className="text-xs text-zinc-500">Wants to be friends</p>
@@ -47,14 +47,14 @@ export function FriendRequests({ requests, onRespond }: FriendRequestsProps) {
             <button
               onClick={() => respond(req.id, true)}
               disabled={isPending}
-              className="rounded-lg bg-emerald-500/20 px-3 py-1.5 text-xs font-medium text-emerald-400 hover:bg-emerald-500/30 transition-colors"
+              className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-700 hover:bg-emerald-100 transition-colors"
             >
               Accept
             </button>
             <button
               onClick={() => respond(req.id, false)}
               disabled={isPending}
-              className="rounded-lg bg-red-500/20 px-3 py-1.5 text-xs font-medium text-red-400 hover:bg-red-500/30 transition-colors"
+              className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-100 transition-colors"
             >
               Decline
             </button>

@@ -7,7 +7,7 @@ export function TipsList({ tips }: { tips: string[] }) {
 
   return (
     <section id="tips">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-100">
+      <h2 className="mb-4 text-2xl font-bold text-zinc-900">
         Tips for Beginners
       </h2>
       <div className="space-y-2">
@@ -18,12 +18,12 @@ export function TipsList({ tips }: { tips: string[] }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.06 }}
-            className="flex items-start gap-3 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4"
+            className="flex items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-4"
           >
             <span className="mt-0.5 text-lg shrink-0">
               {tipEmojis[i % tipEmojis.length]}
             </span>
-            <p className="text-sm leading-relaxed text-zinc-300">{tip}</p>
+            <p className="text-sm leading-relaxed text-zinc-600">{tip}</p>
           </motion.div>
         ))}
       </div>

@@ -30,7 +30,7 @@ export function ActivityFeed({ items }: ActivityFeedProps) {
     return (
       <div className="rounded-2xl glass p-8 text-center">
         <p className="text-3xl mb-2">{"\uD83D\uDCE1"}</p>
-        <p className="text-zinc-400">No activity yet. Check back soon!</p>
+        <p className="text-zinc-500">No activity yet. Check back soon!</p>
       </div>
     );
   }
@@ -51,16 +51,16 @@ export function ActivityFeed({ items }: ActivityFeedProps) {
           >
             <span className="text-xl mt-0.5">{config.icon}</span>
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-zinc-200">
-                <span className="font-medium text-zinc-100">
+              <p className="text-sm text-zinc-700">
+                <span className="font-medium text-zinc-900">
                   {item.player?.display_name || "Someone"}
                 </span>{" "}
                 {config.verb}
                 {meta?.sport && (
-                  <span className="text-zinc-400"> for {meta.sport}</span>
+                  <span className="text-zinc-500"> for {meta.sport}</span>
                 )}
                 {meta?.title && (
-                  <span className="text-zinc-400">: {meta.title}</span>
+                  <span className="text-zinc-500">: {meta.title}</span>
                 )}
               </p>
               <p className="text-xs text-zinc-500 mt-0.5">

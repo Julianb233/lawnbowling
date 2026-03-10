@@ -51,7 +51,7 @@ export default function PlayersAdminPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-100 mb-6">
+      <h1 className="text-2xl font-bold text-zinc-800 mb-6">
         Players ({total})
       </h1>
 
@@ -62,12 +62,12 @@ export default function PlayersAdminPage() {
           placeholder="Search by name..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none flex-1 max-w-xs"
+          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none flex-1 max-w-xs"
         />
         <select
           value={skillFilter}
           onChange={(e) => setSkillFilter(e.target.value)}
-          className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100"
+          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800"
         >
           <option value="">All Skill Levels</option>
           <option value="beginner">Beginner</option>
@@ -77,12 +77,12 @@ export default function PlayersAdminPage() {
       </div>
 
       {loading ? (
-        <div className="text-zinc-400">Loading players...</div>
+        <div className="text-zinc-500">Loading players...</div>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-zinc-800 text-left text-zinc-500">
+              <tr className="border-b border-zinc-200 text-left text-zinc-500">
                 <th className="pb-2 font-medium">Name</th>
                 <th className="pb-2 font-medium">Skill</th>
                 <th className="pb-2 font-medium">Sports</th>
@@ -95,21 +95,21 @@ export default function PlayersAdminPage() {
             <tbody className="divide-y divide-zinc-800">
               {players.map((player) => (
                 <tr key={player.id}>
-                  <td className="py-3 text-zinc-100">{player.display_name}</td>
+                  <td className="py-3 text-zinc-800">{player.display_name}</td>
                   <td className="py-3">
                     <SkillBadge level={player.skill_level} />
                   </td>
-                  <td className="py-3 text-zinc-400">
+                  <td className="py-3 text-zinc-500">
                     {player.sports
                       ?.map((s) => s.replace("_", " "))
                       .join(", ") || "-"}
                   </td>
                   <td className="py-3">
                     <span
-                      className={`inline-flex items-center gap-1 text-xs ${player.is_available ? "text-emerald-400" : "text-zinc-500"}`}
+                      className={`inline-flex items-center gap-1 text-xs ${player.is_available ? "text-emerald-600" : "text-zinc-500"}`}
                     >
                       <span
-                        className={`h-2 w-2 rounded-full ${player.is_available ? "bg-emerald-500" : "bg-zinc-600"}`}
+                        className={`h-2 w-2 rounded-full ${player.is_available ? "bg-emerald-500" : "bg-zinc-400"}`}
                       />
                       {player.is_available ? "Online" : "Offline"}
                     </span>
@@ -118,8 +118,8 @@ export default function PlayersAdminPage() {
                     <span
                       className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                         player.role === "admin"
-                          ? "bg-purple-500/20 text-purple-400"
-                          : "bg-zinc-700/50 text-zinc-400"
+                          ? "bg-purple-100 text-purple-700"
+                          : "bg-zinc-100 text-zinc-500"
                       }`}
                     >
                       {player.role}

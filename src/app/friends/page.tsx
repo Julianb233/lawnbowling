@@ -26,17 +26,17 @@ export default async function FriendsPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-zinc-950 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur">
+    <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-2">
             <Link
               href="/board"
-              className="inline-flex items-center justify-center h-8 w-8 rounded-lg text-zinc-400 hover:text-zinc-100 transition-colors"
+              className="inline-flex items-center justify-center h-8 w-8 rounded-lg text-zinc-400 hover:text-zinc-900 transition-colors"
             >
               <ArrowLeft className="h-5 w-5" />
             </Link>
-            <h1 className="text-xl font-bold text-zinc-100">Friends</h1>
+            <h1 className="text-xl font-bold text-zinc-900">Friends</h1>
           </div>
           <p className="text-sm text-zinc-500 ml-10">
             {friends.length} friend{friends.length !== 1 ? "s" : ""}

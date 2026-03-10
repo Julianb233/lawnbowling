@@ -176,12 +176,12 @@ export function CourtDiagram({ sport }: { sport: Sport }) {
 
   return (
     <section id="court">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-100">{titles[sport]}</h2>
+      <h2 className="mb-4 text-2xl font-bold text-zinc-900">{titles[sport]}</h2>
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-6"
+        className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:p-6"
       >
         {sport === "pickleball" && <PickleballCourt />}
         {sport === "lawn_bowling" && <LawnBowlingRink />}

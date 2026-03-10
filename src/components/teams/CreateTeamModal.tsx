@@ -54,12 +54,12 @@ export function CreateTeamModal({ open, onOpenChange, onCreated }: CreateTeamMod
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-700/50 bg-zinc-900 p-6 shadow-2xl">
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-300 bg-white p-6 shadow-2xl">
           <div className="mb-4 flex items-center justify-between">
-            <Dialog.Title className="text-lg font-bold text-zinc-100">
+            <Dialog.Title className="text-lg font-bold text-zinc-900">
               Create Team
             </Dialog.Title>
-            <Dialog.Close className="rounded-full p-1 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200">
+            <Dialog.Close className="rounded-full p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
               <X className="h-5 w-5" />
             </Dialog.Close>
           </div>
@@ -72,7 +72,7 @@ export function CreateTeamModal({ open, onOpenChange, onCreated }: CreateTeamMod
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. The Picklers"
-                className="w-full rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                 required
               />
             </div>
@@ -84,7 +84,7 @@ export function CreateTeamModal({ open, onOpenChange, onCreated }: CreateTeamMod
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Tell people about your team..."
                 rows={3}
-                className="w-full resize-none rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full resize-none rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
               />
             </div>
 
@@ -102,7 +102,7 @@ export function CreateTeamModal({ open, onOpenChange, onCreated }: CreateTeamMod
                         "flex-1 rounded-xl border px-3 py-2.5 text-sm font-medium transition-all",
                         sport === s
                           ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
-                          : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:border-zinc-600"
+                          : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
                       )}
                     >
                       {label.emoji} {label.short}
