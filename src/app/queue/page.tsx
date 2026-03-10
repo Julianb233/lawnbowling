@@ -31,7 +31,13 @@ export default async function QueuePage() {
   return (
     <QueuePageClient
       player={player}
-      activeMatch={activeMatch?.matches ?? null}
+      activeMatch={(() => {
+        const m = activeMatch?.matches;
+        if (!m) return null;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const match = Array.isArray(m) ? (m as any[])[0] : m;
+        return (match as { id: string; status: string; sport: string; created_at: string; court_id: string | null; courts?: { name: string } | null }) ?? null;
+      })()}
     />
   );
 }

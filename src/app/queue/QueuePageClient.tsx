@@ -12,7 +12,7 @@ interface ActiveMatch {
   sport: string;
   created_at: string;
   court_id: string | null;
-  courts?: { name: string } | null;
+  courts?: { name: string } | { name: string }[] | null;
 }
 
 export function QueuePageClient({
@@ -22,7 +22,7 @@ export function QueuePageClient({
   player: Player;
   activeMatch: ActiveMatch | null;
 }) {
-  const displayName = player.display_name || player.name || "Player";
+  const displayName = player.name || "Player";
 
   return (
     <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
@@ -62,7 +62,7 @@ export function QueuePageClient({
               {SPORT_LABELS[activeMatch.sport as Sport]?.emoji}{" "}
               {SPORT_LABELS[activeMatch.sport as Sport]?.label || activeMatch.sport}
               {activeMatch.courts
-                ? ` \u2022 Court: ${activeMatch.courts.name}`
+                ? ` \u2022 Court: ${Array.isArray(activeMatch.courts) ? activeMatch.courts[0]?.name : activeMatch.courts.name}`
                 : " \u2022 Waiting for court assignment"}
             </p>
           </motion.div>
