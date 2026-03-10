@@ -122,21 +122,58 @@ export async function generateRoundRobinBracket(tournamentId: string) {
   const supabase = await createClient();
 
   const participants = await getParticipants(tournamentId);
-  if (participants.length < 2) throw new Error("Need at least 2 participants");
+  const n = participants.length;
+  if (n < 2) throw new Error("Need at least 2 participants");
+
+  // Seed participants
+  for (let i = 0; i < n; i++) {
+    await supabase
+      .from("tournament_participants")
+      .update({ seed: i + 1 })
+      .eq("tournament_id", tournamentId)
+      .eq("player_id", participants[i].player_id);
+  }
+
+  // Circle method for round-robin scheduling:
+  // Fix player 0 in place, rotate the rest clockwise each round.
+  // For odd N, add a "bye" placeholder (null). For even N, use all players.
+  const playerIds = participants.map((p) => p.player_id);
+  const isOdd = n % 2 !== 0;
+  if (isOdd) playerIds.push("__BYE__"); // placeholder for bye
+  const total = playerIds.length;
+  const numRounds = total - 1;
+  const halfSize = total / 2;
 
   const matches: Omit<TournamentMatch, "id" | "completed_at" | "player1" | "player2" | "winner">[] = [];
-  let round = 1;
-  let matchNumber = 1;
 
-  // Round robin: every player plays every other player
-  for (let i = 0; i < participants.length; i++) {
-    for (let j = i + 1; j < participants.length; j++) {
+  // Build rotation array (indices 1..total-1); index 0 is fixed
+  const rotation = Array.from({ length: total - 1 }, (_, i) => i + 1);
+
+  for (let round = 0; round < numRounds; round++) {
+    let matchNumber = 1;
+
+    // Pair: fixed player (index 0) vs rotation[0]
+    const pairs: [number, number][] = [];
+    pairs.push([0, rotation[0]]);
+
+    // Remaining pairs: rotation[1] vs rotation[total-2], rotation[2] vs rotation[total-3], etc.
+    for (let i = 1; i < halfSize; i++) {
+      pairs.push([rotation[i], rotation[total - 1 - i]]);
+    }
+
+    for (const [aIdx, bIdx] of pairs) {
+      const p1 = playerIds[aIdx];
+      const p2 = playerIds[bIdx];
+
+      // Skip bye matches
+      if (p1 === "__BYE__" || p2 === "__BYE__") continue;
+
       matches.push({
         tournament_id: tournamentId,
-        round,
+        round: round + 1,
         match_number: matchNumber++,
-        player1_id: participants[i].player_id,
-        player2_id: participants[j].player_id,
+        player1_id: p1,
+        player2_id: p2,
         winner_id: null,
         score: null,
         court_id: null,
@@ -144,20 +181,18 @@ export async function generateRoundRobinBracket(tournamentId: string) {
         scheduled_at: null,
       });
     }
-    // New round after each set
-    if (matchNumber > participants.length / 2) {
-      round++;
-      matchNumber = 1;
-    }
+
+    // Rotate: move last element to front of rotation array
+    rotation.unshift(rotation.pop()!);
   }
 
   const { error } = await supabase.from("tournament_matches").insert(matches);
   if (error) throw error;
 
-  // Update tournament status
+  // Update tournament status and track start time
   await supabase
     .from("tournaments")
-    .update({ status: "in_progress" })
+    .update({ status: "in_progress", started_at: new Date().toISOString() })
     .eq("id", tournamentId);
 
   return matches;
@@ -243,7 +278,7 @@ export async function generateSingleEliminationBracket(tournamentId: string) {
 
   await supabase
     .from("tournaments")
-    .update({ status: "in_progress" })
+    .update({ status: "in_progress", started_at: new Date().toISOString() })
     .eq("id", tournamentId);
 
   return matches;
@@ -358,7 +393,7 @@ export async function recordTournamentResult(matchId: string, winnerId: string, 
   if (remaining === 0) {
     await supabase
       .from("tournaments")
-      .update({ status: "completed" })
+      .update({ status: "completed", ended_at: new Date().toISOString() })
       .eq("id", match.tournament_id);
   }
 

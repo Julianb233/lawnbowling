@@ -428,6 +428,8 @@ create table tournaments (
   max_players integer default 16,
   created_by uuid not null references players(id),
   starts_at timestamptz,
+  started_at timestamptz,
+  ended_at timestamptz,
   created_at timestamptz default now()
 );
 

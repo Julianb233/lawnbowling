@@ -138,77 +138,129 @@ function EliminationBracket({ matches, onReportResult, currentPlayerId }: Omit<T
 }
 
 function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<TournamentBracketProps, "format">) {
-  return (
-    <div className="overflow-hidden rounded-2xl border border-zinc-200">
-      <table className="w-full">
-        <thead>
-          <tr className="border-b border-zinc-200 bg-zinc-50">
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">#</th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">Player 1</th>
-            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500">Score</th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">Player 2</th>
-            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {matches.map((match) => {
-            const canReport =
-              match.status !== "completed" &&
-              currentPlayerId &&
-              (match.player1_id === currentPlayerId || match.player2_id === currentPlayerId);
+  // Group matches by round
+  const rounds = new Map<number, MatchData[]>();
+  for (const match of matches) {
+    const roundMatches = rounds.get(match.round) ?? [];
+    roundMatches.push(match);
+    rounds.set(match.round, roundMatches);
+  }
+  const roundNumbers = Array.from(rounds.keys()).sort((a, b) => a - b);
 
-            return (
-              <tr key={match.id} className="border-b border-zinc-200/50 hover:bg-zinc-50">
-                <td className="px-4 py-3 text-sm text-zinc-500">{match.match_number}</td>
-                <td className="px-4 py-3">
-                  <span
+  // Progress tracking
+  const completed = matches.filter((m) => m.status === "completed").length;
+  const total = matches.length;
+  const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+  return (
+    <div className="space-y-6">
+      {/* Progress bar */}
+      <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
+        <div className="mb-2 flex items-center justify-between text-sm">
+          <span className="font-medium text-zinc-700">Tournament Progress</span>
+          <span className="text-zinc-500">{completed}/{total} matches played</span>
+        </div>
+        <div className="h-2 overflow-hidden rounded-full bg-zinc-200">
+          <motion.div
+            className="h-full rounded-full bg-emerald-500"
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          />
+        </div>
+      </div>
+
+      {/* Rounds */}
+      {roundNumbers.map((roundNum) => {
+        const roundMatches = rounds.get(roundNum) ?? [];
+        const roundComplete = roundMatches.every((m) => m.status === "completed");
+
+        return (
+          <div key={roundNum}>
+            <div className="mb-3 flex items-center gap-2">
+              <h4 className="text-sm font-semibold text-zinc-700">Round {roundNum}</h4>
+              {roundComplete && (
+                <span className="rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] font-medium text-green-500">
+                  Complete
+                </span>
+              )}
+            </div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {roundMatches.map((match) => {
+                const canReport =
+                  match.status !== "completed" &&
+                  currentPlayerId &&
+                  (match.player1_id === currentPlayerId || match.player2_id === currentPlayerId);
+                const p1Won = match.winner_id === match.player1_id && !!match.winner_id;
+                const p2Won = match.winner_id === match.player2_id && !!match.winner_id;
+
+                return (
+                  <motion.div
+                    key={match.id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
                     className={cn(
-                      "text-sm font-medium",
-                      match.winner_id === match.player1_id ? "text-green-400" : "text-zinc-600"
+                      "rounded-xl border p-3 transition-colors",
+                      match.status === "completed"
+                        ? "border-zinc-200 bg-zinc-50"
+                        : "border-zinc-200 bg-white"
                     )}
                   >
-                    {match.player1?.display_name ?? "TBD"}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-center text-sm text-zinc-400">
-                  {match.score ?? "-"}
-                </td>
-                <td className="px-4 py-3">
-                  <span
-                    className={cn(
-                      "text-sm font-medium",
-                      match.winner_id === match.player2_id ? "text-green-400" : "text-zinc-600"
-                    )}
-                  >
-                    {match.player2?.display_name ?? "TBD"}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-center">
-                  {canReport && onReportResult ? (
-                    <button
-                      onClick={() => onReportResult(match.id)}
-                      className="rounded-lg bg-emerald-600/20 px-2 py-1 text-xs font-medium text-emerald-400 hover:bg-emerald-600/30"
-                    >
-                      Report
-                    </button>
-                  ) : (
-                    <span
-                      className={cn(
-                        "rounded-full px-2 py-0.5 text-xs font-medium",
-                        match.status === "completed"
-                          ? "bg-green-500/10 text-green-400"
-                          : "bg-zinc-700/50 text-zinc-500"
-                      )}
-                    >
-                      {match.status === "completed" ? "Done" : "Pending"}
-                    </span>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex-1 space-y-1.5">
+                        <div className={cn(
+                          "flex items-center gap-2 text-sm font-medium",
+                          p1Won ? "text-emerald-600" : "text-zinc-700"
+                        )}>
+                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-500">
+                            {match.player1?.display_name?.[0]?.toUpperCase() ?? "?"}
+                          </div>
+                          <span className="truncate">{match.player1?.display_name ?? "TBD"}</span>
+                          {p1Won && <span className="text-emerald-500">W</span>}
+                        </div>
+                        <div className={cn(
+                          "flex items-center gap-2 text-sm font-medium",
+                          p2Won ? "text-emerald-600" : "text-zinc-700"
+                        )}>
+                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-500">
+                            {match.player2?.display_name?.[0]?.toUpperCase() ?? "?"}
+                          </div>
+                          <span className="truncate">{match.player2?.display_name ?? "TBD"}</span>
+                          {p2Won && <span className="text-emerald-500">W</span>}
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end gap-1">
+                        {match.score && (
+                          <span className="text-xs font-medium text-zinc-500">{match.score}</span>
+                        )}
+                        {canReport && onReportResult ? (
+                          <button
+                            onClick={() => onReportResult(match.id)}
+                            className="rounded-lg bg-emerald-600/20 px-2.5 py-1 text-xs font-medium text-emerald-500 hover:bg-emerald-600/30"
+                          >
+                            Report
+                          </button>
+                        ) : (
+                          <span
+                            className={cn(
+                              "rounded-full px-2 py-0.5 text-[10px] font-medium",
+                              match.status === "completed"
+                                ? "bg-green-500/10 text-green-500"
+                                : "bg-zinc-100 text-zinc-400"
+                            )}
+                          >
+                            {match.status === "completed" ? "Done" : "Pending"}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
