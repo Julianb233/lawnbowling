@@ -387,6 +387,51 @@ export interface AppNotification {
   created_at: string;
 }
 
+// ===== Lawn Bowling =====
+
+export type BowlsPosition = "skip" | "vice" | "lead" | "second";
+export type BowlsGameFormat = "fours" | "triples" | "pairs" | "singles";
+
+export const BOWLS_POSITION_LABELS: Record<BowlsPosition, { label: string; description: string; order: number }> = {
+  skip: { label: "Skip", description: "Team captain — directs strategy, bowls last", order: 4 },
+  vice: { label: "Vice", description: "Second in command — measures, bowls third", order: 3 },
+  second: { label: "Second", description: "Supports the team — bowls second", order: 2 },
+  lead: { label: "Lead", description: "Sets the head — bowls first, places the jack", order: 1 },
+};
+
+export const BOWLS_FORMAT_LABELS: Record<BowlsGameFormat, { label: string; playersPerTeam: number; teams: number; description: string }> = {
+  fours: { label: "Fours (Rinks)", playersPerTeam: 4, teams: 2, description: "2 teams of 4 — Skip, Vice, Second, Lead" },
+  triples: { label: "Triples", playersPerTeam: 3, teams: 2, description: "2 teams of 3 — Skip, Vice, Lead" },
+  pairs: { label: "Pairs", playersPerTeam: 2, teams: 2, description: "2 teams of 2 — Skip and Lead" },
+  singles: { label: "Singles", playersPerTeam: 1, teams: 2, description: "1 vs 1" },
+};
+
+export function getPositionsForFormat(format: BowlsGameFormat): BowlsPosition[] {
+  switch (format) {
+    case "fours": return ["skip", "vice", "second", "lead"];
+    case "triples": return ["skip", "vice", "lead"];
+    case "pairs": return ["skip", "lead"];
+    case "singles": return [];
+  }
+}
+
+export interface BowlsCheckin {
+  id: string;
+  player_id: string;
+  tournament_id: string;
+  preferred_position: BowlsPosition;
+  checked_in_at: string;
+  player?: Player;
+}
+
+export interface BowlsTeamAssignment {
+  rink: number;
+  team: 1 | 2;
+  player_id: string;
+  position: BowlsPosition;
+  player?: Player;
+}
+
 // Subscription / Pricing
 export type SubscriptionPlan = "free" | "basic" | "premium" | "venue_owner";
 export type SportSkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
