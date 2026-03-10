@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-03-09)
 
 **Core value:** Players at recreational sports venues can quickly find and team up with partners
-**Current focus:** Phase 5 Court Management & Admin verified and complete
+**Current focus:** Complete — all phases built, build passing, ready for deploy
 
 ## Current Position
 
 Phase: 6 of 6 (Complete)
-Plan: All plans complete
-Status: v1 complete, v2 features in progress
-Last activity: 2026-03-10 -- Phase 5 audit complete, ADMIN-03 sport management added, venue extended fields implemented
+Plan: All 12 plans complete
+Status: v1 complete, build verified (35 pages, 0 errors)
+Last activity: 2026-03-10 — Bussit autopilot: created missing pages (/queue, /settings, /activity, /friends), wired social features, build verified
 
 Progress: [██████████] 100%
 
@@ -51,16 +51,27 @@ Progress: [██████████] 100%
 - ADMIN-03: NEW -- Sport management UI on venue settings page
 - ADMIN-04: Players, waivers, match history views verified
 
+### Bussit Autopilot Results (2026-03-10)
+
+- Task #1: Fix signup bug — already fixed in code
+- Task #2: Created /queue page (commit adf4dd5)
+- Task #3: Created /settings page (commit 226a3d1)
+- Task #4: Wired social features — /activity, /friends pages, social buttons on profiles (commit 3510fd7)
+- Task #5: Build check — 35 pages, 0 TypeScript errors
+- Task #6: Updated ROADMAP and STATE
+
 ### Pending Todos
 
-None.
+- Deploy to Vercel (pick-a-partner.vercel.app)
+- Set up Supabase project and run schema.sql migration
+- Seed admin user
 
 ### Blockers/Concerns
 
-- Next.js 16.1.6 Turbopack build has intermittent ENOENT race condition (not code-related)
+None.
 
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: Phase 5 verified -- all MATCH/ADMIN requirements pass, sport management and venue extended fields implemented
+Stopped at: All phases complete, build passing, ready for Vercel deploy
 Resume file: None
