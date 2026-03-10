@@ -7,9 +7,10 @@ import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { href: "/board", label: "Home", icon: "\u{1F3E0}" },
+  { href: "/teams", label: "Teams", icon: "\u{1F465}" },
   { href: "/queue", label: "Queue", icon: "\u{1F4CB}" },
+  { href: "/stats", label: "Stats", icon: "\u{1F4CA}" },
   { href: "/profile", label: "Me", icon: "\u{1F464}" },
-  { href: "/settings", label: "Settings", icon: "\u2699\uFE0F" },
 ];
 
 export function BottomNav() {
