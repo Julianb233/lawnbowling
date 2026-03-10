@@ -19,8 +19,8 @@ export async function GET() {
     try {
       const waiver = await getWaiverByPlayerId(player.id);
       steps.waiver = waiver ? "found" : "null";
-    } catch (e) {
-      steps.waiver_error = String(e);
+    } catch (e: unknown) {
+      steps.waiver_error = e instanceof Error ? { message: e.message, stack: e.stack } : JSON.stringify(e);
     }
 
     try {
