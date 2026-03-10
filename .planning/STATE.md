@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-03-09)
 
 **Core value:** Players at recreational sports venues can quickly find and team up with partners
-**Current focus:** Complete — all phases built, build passing, ready for deploy
+**Current focus:** Complete — all phases built, deployed to Vercel
 
 ## Current Position
 
-Phase: 6 of 6 (Complete)
+Phase: 6 of 6 (Complete + Deployed)
 Plan: All 12 plans complete
-Status: v1 complete, build verified (35 pages, 0 errors)
-Last activity: 2026-03-10 — Completed 02-02: waiver cookie gating, admin waiver template management, pagination on admin waiver view
+Status: v1 deployed to https://pick-a-partner.vercel.app
+Last activity: 2026-03-10 — Phase 6 final audit, polish, and Vercel production deploy
 
 Progress: [██████████] 100%
 
@@ -60,11 +60,19 @@ Progress: [██████████] 100%
 - Task #5: Build check — 35 pages, 0 TypeScript errors
 - Task #6: Updated ROADMAP and STATE
 
+### Phase 6 Final Audit (2026-03-10)
+
+- PWA-01 (Installable): manifest.json complete, icons at all sizes, InstallPrompt + IOSInstallGuide
+- PWA-02 (Responsive): iPad landscape sidebar layout, iPhone portrait bottom nav, responsive grid
+- PWA-03 (Touch targets): Global 44px min via CSS, per-component touch-manipulation
+- PWA-04 (Offline): Service worker with serwist, offline fallback page with auto-reconnect
+- Deployed to Vercel: https://pick-a-partner.vercel.app (commit bb5d93d)
+
 ### Pending Todos
 
-- Deploy to Vercel (pick-a-partner.vercel.app)
 - Set up Supabase project and run schema.sql migration
 - Seed admin user
+- Configure Supabase env vars in Vercel project settings
 
 ### Blockers/Concerns
 
@@ -73,5 +81,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: Completed 02-02-PLAN.md (waiver flow, admin view, DEI integration)
+Stopped at: Phase 6 complete -- all phases done, deployed to Vercel
 Resume file: None
