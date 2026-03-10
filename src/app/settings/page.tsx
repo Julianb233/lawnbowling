@@ -101,14 +101,14 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-screen items-center justify-center bg-animated-gradient">
         <Loader2 className="h-8 w-8 animate-spin text-green-500" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white px-4 py-8 pb-24">
+    <div className="min-h-screen bg-animated-gradient px-4 py-8 pb-24">
       <div className="mx-auto max-w-md">
         <button
           onClick={() => router.back()}

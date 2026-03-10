@@ -94,7 +94,7 @@ export function ReviewModal({
         <div className="mt-4 flex gap-2">
           <button
             onClick={onClose}
-            className="flex-1 rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-400 hover:bg-zinc-100 transition-colors"
+            className="flex-1 rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-600 hover:bg-zinc-100 transition-colors"
           >
             Cancel
           </button>
