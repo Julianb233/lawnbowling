@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/admin";
+import { AdminShell } from "./AdminShell";
 
 const navItems = [
   { href: "/admin", label: "Dashboard" },
-  { href: "/admin/venue", label: "Venue" },
+  { href: "/admin/venues", label: "Venues" },
+  { href: "/admin/venue", label: "Settings" },
   { href: "/admin/courts", label: "Courts" },
   { href: "/admin/players", label: "Players" },
   { href: "/admin/waivers", label: "Waivers" },
@@ -70,8 +72,10 @@ export default async function AdminLayout({
         </div>
       </aside>
 
-      {/* Main content */}
-      <main className="flex-1 p-4 lg:p-8">{children}</main>
+      {/* Main content with venue context */}
+      <main className="flex-1 p-4 lg:p-8">
+        <AdminShell>{children}</AdminShell>
+      </main>
     </div>
   );
 }

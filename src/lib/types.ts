@@ -108,6 +108,16 @@ export interface PlayerSportSkill {
   updated_at: string;
 }
 
+// Waitlist
+export interface WaitlistEntry {
+  id: string;
+  player_id: string;
+  sport: string;
+  position: number;
+  created_at: string;
+  player?: { display_name: string; avatar_url?: string | null };
+}
+
 // Board constants
 export type Sport = "pickleball" | "lawn_bowling" | "tennis";
 
@@ -333,3 +343,55 @@ export interface TournamentMatch {
   player2?: Player; // joined
   winner?: Player; // joined
 }
+
+// Subscription / Pricing
+export type SubscriptionPlan = "free" | "basic" | "premium" | "venue_owner";
+export type SportSkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
+
+export const PRICING_TIERS = [
+  {
+    plan: "free" as SubscriptionPlan,
+    name: "Free",
+    price: 0,
+    interval: "forever",
+    cta: "Get Started",
+    features: [
+      "Check in & find partners",
+      "Join matches & courts",
+      "Basic player profile",
+      "View leaderboard",
+    ],
+  },
+  {
+    plan: "premium" as SubscriptionPlan,
+    name: "Premium",
+    price: 9.99,
+    interval: "month",
+    popular: true,
+    cta: "Go Premium",
+    features: [
+      "Everything in Free",
+      "Smart skill-based matching",
+      "Detailed stats & analytics",
+      "Priority court assignment",
+      "Schedule recurring games",
+      "Ad-free experience",
+    ],
+  },
+  {
+    plan: "venue_owner" as SubscriptionPlan,
+    name: "Venue Owner",
+    price: 49.99,
+    interval: "month",
+    cta: "Contact Sales",
+    features: [
+      "Everything in Premium",
+      "Full admin dashboard",
+      "Custom branding & theming",
+      "Kiosk mode for iPads",
+      "Export data & reports",
+      "Multi-court management",
+      "Priority support",
+    ],
+  },
+];

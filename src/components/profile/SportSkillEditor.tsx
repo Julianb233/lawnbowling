@@ -76,8 +76,8 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
       <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">Skill per Sport</h3>
       {sports.map((sport) => {
         const skill = skills.find((s) => s.sport === sport);
-        const currentLevel = skill?.skill_level || "beginner";
-        const rating = skill?.rating || 1000;
+        const currentLevel = (skill as PlayerSportSkill & { skill_level?: string })?.skill_level || "beginner";
+        const rating = skill?.elo_rating || 1000;
 
         return (
           <motion.div

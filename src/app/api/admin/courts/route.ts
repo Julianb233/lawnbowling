@@ -12,14 +12,16 @@ async function requireAdminUser() {
   return { user, error: null, status: null };
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const auth = await requireAdminUser();
     if (auth.error) {
       return NextResponse.json({ error: auth.error }, { status: auth.status! });
     }
 
-    const courts = await listCourts();
+    const { searchParams } = new URL(request.url);
+    const venueId = searchParams.get("venue_id") || undefined;
+    const courts = await listCourts(venueId);
     return NextResponse.json({ courts });
   } catch (error) {
     console.error("List courts error:", error);

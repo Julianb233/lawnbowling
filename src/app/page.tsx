@@ -194,52 +194,90 @@ export default async function HomePage() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {[
-            {
-              src: "/images/pickleball.jpg",
-              alt: "Player hitting a pickleball with a paddle on an outdoor court",
-              sport: "Pickleball",
-              color: "emerald",
-            },
-            {
-              src: "/images/tennis.jpg",
-              alt: "Four adults playing doubles tennis on an outdoor court",
-              sport: "Tennis",
-              color: "amber",
-            },
-            {
-              src: "/images/lawn-bowling.jpg",
-              alt: "Person throwing a bocce ball on a green lawn",
-              sport: "Lawn Bowling",
-              color: "blue",
-            },
-            {
-              src: "/images/flag-football.jpg",
-              alt: "Football team in a huddle planning their next play",
-              sport: "Flag Football",
-              color: "rose",
-            },
-          ].map((item) => (
-            <div key={item.sport} className="group relative overflow-hidden rounded-2xl">
-              <div className="aspect-[4/3] relative">
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                />
-                {/* Dark gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              </div>
-              {/* Sport label */}
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <span className="text-lg font-bold text-white drop-shadow-lg">
-                  {item.sport}
-                </span>
-              </div>
+          {/* Pickleball - Video */}
+          <div className="group relative overflow-hidden rounded-2xl">
+            <div className="aspect-[4/3] relative">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                poster="/images/pickleball.jpg"
+              >
+                <source src="/images/pickleball.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             </div>
-          ))}
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Pickleball
+              </span>
+            </div>
+          </div>
+
+          {/* Tennis - Video */}
+          <div className="group relative overflow-hidden rounded-2xl">
+            <div className="aspect-[4/3] relative">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                poster="/images/tennis.jpg"
+              >
+                <source src="/images/tennis.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Tennis
+              </span>
+            </div>
+          </div>
+
+          {/* Lawn Bowling - Photo with Ken Burns */}
+          <div className="group relative overflow-hidden rounded-2xl">
+            <div className="aspect-[4/3] relative">
+              <Image
+                src="/images/lawn-bowling.jpg"
+                alt="Person throwing a bocce ball on a green lawn"
+                fill
+                className="object-cover animate-[kenBurns_20s_ease_infinite_alternate]"
+                sizes="(max-width: 768px) 50vw, 25vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Lawn Bowling
+              </span>
+            </div>
+          </div>
+
+          {/* Flag Football - Video */}
+          <div className="group relative overflow-hidden rounded-2xl">
+            <div className="aspect-[4/3] relative">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                poster="/images/flag-football.jpg"
+              >
+                <source src="/images/football.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Flag Football
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
