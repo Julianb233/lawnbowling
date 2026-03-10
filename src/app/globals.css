@@ -188,11 +188,11 @@ textarea,
   font-variant-numeric: tabular-nums;
 }
 
-/* === CUSTOM SCROLLBAR === */
+/* === CUSTOM SCROLLBAR (light mode) === */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
 
 /* === GRADIENT TEXT === */
 .text-gradient {
@@ -236,4 +236,58 @@ a,
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* === FLOATING ORBS === */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.12;
+  z-index: -10;
+  pointer-events: none;
+}
+
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(0.95); }
+  66% { transform: translate(20px, -20px) scale(1.05); }
+}
+
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(20px, 30px) scale(1.03); }
+  50% { transform: translate(-30px, -10px) scale(0.97); }
+  75% { transform: translate(10px, -30px) scale(1.02); }
+}
+
+.orb-emerald {
+  background: #34d399;
+  animation: orbFloat1 18s ease-in-out infinite;
+}
+
+.orb-coral {
+  background: #fb923c;
+  animation: orbFloat2 22s ease-in-out infinite;
+}
+
+.orb-blue {
+  background: #60a5fa;
+  animation: orbFloat3 20s ease-in-out infinite;
+}
+
+.orb-amber {
+  background: #fbbf24;
+  animation: orbFloat1 25s ease-in-out infinite;
+}
+
+.orb-purple {
+  background: #a78bfa;
+  animation: orbFloat2 16s ease-in-out infinite;
 }
