@@ -12,10 +12,20 @@ export default async function ProfilePage() {
 
   if (!user) redirect("/login");
 
-  const player = await getPlayerByUserId(user.id);
+  let player;
+  try {
+    player = await getPlayerByUserId(user.id);
+  } catch {
+    redirect("/profile/setup");
+  }
   if (!player) redirect("/profile/setup");
 
-  const waiver = await getWaiverByPlayerId(player.id);
+  let waiver = null;
+  try {
+    waiver = await getWaiverByPlayerId(player.id);
+  } catch {
+    // Waiver lookup failed — continue with null waiver
+  }
 
   return <ProfilePageClient player={player} waiver={waiver} />;
 }

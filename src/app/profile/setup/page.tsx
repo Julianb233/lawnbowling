@@ -11,7 +11,12 @@ export default async function ProfileSetupPage() {
 
   if (!user) redirect("/login");
 
-  const existingPlayer = await getPlayerByUserId(user.id);
+  let existingPlayer = null;
+  try {
+    existingPlayer = await getPlayerByUserId(user.id);
+  } catch {
+    // DB error — proceed with setup flow
+  }
   if (existingPlayer) {
     redirect("/profile");
   }
