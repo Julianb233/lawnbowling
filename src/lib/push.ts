@@ -1,8 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const webpush = require("web-push") as typeof import("web-push");
 import { createClient } from "@/lib/supabase/server";
 
+let webpushModule: typeof import("web-push") | null = null;
 let vapidConfigured = false;
+
+function getWebPush(): typeof import("web-push") {
+  if (!webpushModule) {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    webpushModule = require("web-push") as typeof import("web-push");
+  }
+  return webpushModule;
+}
+
 function ensureVapid() {
   if (vapidConfigured) return;
   const pub = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
@@ -11,8 +19,12 @@ function ensureVapid() {
     console.warn("VAPID keys not set — push notifications disabled");
     return;
   }
-  webpush.setVapidDetails("mailto:support@pickapartner.app", pub, priv);
-  vapidConfigured = true;
+  try {
+    getWebPush().setVapidDetails("mailto:support@pickapartner.app", pub, priv);
+    vapidConfigured = true;
+  } catch (err) {
+    console.error("VAPID configuration failed:", err);
+  }
 }
 
 export interface PushPayload {
@@ -64,7 +76,7 @@ export async function sendPushToUser(
 
   for (const sub of subscriptions as PushSubscriptionRow[]) {
     try {
-      await webpush.sendNotification(
+      await getWebPush().sendNotification(
         { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
         JSON.stringify(payload)
       );
