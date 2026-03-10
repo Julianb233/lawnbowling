@@ -101,32 +101,32 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+      <div className="flex min-h-screen items-center justify-center bg-white">
         <Loader2 className="h-8 w-8 animate-spin text-green-500" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 px-4 py-8 pb-24">
+    <div className="min-h-screen bg-white px-4 py-8 pb-24">
       <div className="mx-auto max-w-md">
         <button
           onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-white/60 hover:text-white min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h1 className="mb-8 text-2xl font-bold text-white">Settings</h1>
+        <h1 className="mb-8 text-2xl font-bold text-zinc-900">Settings</h1>
 
         {error && (
-          <div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-400">
+          <div className="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-600">
             Settings saved
           </div>
         )}
@@ -136,7 +136,7 @@ export default function SettingsPage() {
           <div>
             <label
               htmlFor="display-name"
-              className="mb-2 block text-sm font-medium text-white/70"
+              className="mb-2 block text-sm font-medium text-zinc-600"
             >
               Display Name
             </label>
@@ -145,14 +145,14 @@ export default function SettingsPage() {
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
+              className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
               placeholder="Your display name"
             />
           </div>
 
           {/* Skill Level */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-white/70">
+            <label className="mb-2 block text-sm font-medium text-zinc-600">
               Skill Level
             </label>
             <div className="flex gap-2">
@@ -162,8 +162,8 @@ export default function SettingsPage() {
                   onClick={() => setSkillLevel(level.value)}
                   className={`flex-1 rounded-lg border px-3 py-3 text-sm font-medium transition-colors min-h-[44px] ${
                     skillLevel === level.value
-                      ? "border-green-500 bg-green-500/20 text-green-400"
-                      : "border-white/10 bg-white/5 text-white/60 hover:bg-white/10"
+                      ? "border-green-500 bg-green-50 text-green-600"
+                      : "border-zinc-200 bg-white text-zinc-500 hover:bg-zinc-50"
                   }`}
                 >
                   {level.label}
@@ -174,7 +174,7 @@ export default function SettingsPage() {
 
           {/* Sports Preferences */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-white/70">
+            <label className="mb-2 block text-sm font-medium text-zinc-600">
               Sports Preferences
             </label>
             <div className="flex flex-wrap gap-2">
@@ -186,8 +186,8 @@ export default function SettingsPage() {
                     onClick={() => toggleSport(sport.value)}
                     className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors min-h-[44px] ${
                       active
-                        ? "border-green-500 bg-green-500/20 text-green-400"
-                        : "border-white/10 bg-white/5 text-white/60 hover:bg-white/10"
+                        ? "border-green-500 bg-green-50 text-green-600"
+                        : "border-zinc-200 bg-white text-zinc-500 hover:bg-zinc-50"
                     }`}
                   >
                     {sport.label}
@@ -212,13 +212,13 @@ export default function SettingsPage() {
           </button>
 
           {/* Divider */}
-          <div className="border-t border-white/10" />
+          <div className="border-t border-zinc-200" />
 
           {/* Sign Out */}
           <button
             onClick={handleSignOut}
             disabled={signingOut}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-red-500/30 px-4 py-3 text-sm font-medium text-red-400 hover:bg-red-500/10 disabled:opacity-50 min-h-[44px] transition-colors"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 disabled:opacity-50 min-h-[44px] transition-colors"
           >
             {signingOut ? (
               <Loader2 className="h-4 w-4 animate-spin" />

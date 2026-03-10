@@ -66,7 +66,7 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
       </div>
 
       <div>
-        <label htmlFor="display_name" className="mb-1.5 block text-sm font-medium text-white/80">
+        <label htmlFor="display_name" className="mb-1.5 block text-sm font-medium text-zinc-700">
           Display Name
         </label>
         <input
@@ -75,28 +75,28 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name"
-          className="w-full rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 min-h-[44px]"
+          className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 min-h-[44px]"
           required
         />
       </div>
 
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-white/80">Skill Level</label>
+        <label className="mb-1.5 block text-sm font-medium text-zinc-700">Skill Level</label>
         <Select.Root value={skillLevel} onValueChange={(v) => setSkillLevel(v as SkillLevel)}>
-          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 min-h-[44px]">
+          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-white px-4 py-3 text-zinc-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 min-h-[44px]">
             <Select.Value />
             <Select.Icon>
-              <ChevronDown className="h-4 w-4 text-white/40" />
+              <ChevronDown className="h-4 w-4 text-zinc-400" />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="overflow-hidden rounded-lg border border-white/20 bg-gray-900 shadow-xl">
+            <Select.Content className="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-xl">
               <Select.Viewport className="p-1">
                 {(["beginner", "intermediate", "advanced"] as SkillLevel[]).map((level) => (
                   <Select.Item
                     key={level}
                     value={level}
-                    className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2.5 text-sm text-white outline-none hover:bg-white/10 min-h-[44px]"
+                    className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2.5 text-sm text-zinc-900 outline-none hover:bg-zinc-50 min-h-[44px]"
                   >
                     <Select.ItemIndicator>
                       <Check className="h-4 w-4" />
@@ -111,7 +111,7 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
       </div>
 
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-white/80">Sports</label>
+        <label className="mb-1.5 block text-sm font-medium text-zinc-700">Sports</label>
         <SportsSelect selected={sports} onChange={setSports} />
       </div>
 

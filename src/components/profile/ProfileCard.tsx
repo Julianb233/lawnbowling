@@ -25,12 +25,12 @@ export function ProfileCard({ player, onClick, compact = false }: ProfileCardPro
   return (
     <Component
       onClick={onClick}
-      className={`flex items-start gap-4 rounded-xl border border-white/10 bg-white/5 p-4 text-left transition-colors ${
-        onClick ? "cursor-pointer hover:bg-white/10 min-h-[44px]" : ""
+      className={`flex items-start gap-4 rounded-xl border border-zinc-200 bg-white p-4 text-left transition-colors ${
+        onClick ? "cursor-pointer hover:bg-zinc-50 min-h-[44px]" : ""
       } ${compact ? "p-3" : "p-4"}`}
     >
       <Avatar.Root
-        className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-white/10 ${
+        className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-zinc-100 ${
           compact ? "h-10 w-10" : "h-14 w-14"
         }`}
       >
@@ -39,20 +39,20 @@ export function ProfileCard({ player, onClick, compact = false }: ProfileCardPro
           alt={player.display_name}
           className="h-full w-full object-cover"
         />
-        <Avatar.Fallback className="flex h-full w-full items-center justify-center text-sm font-bold text-white/60">
+        <Avatar.Fallback className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
           {initials}
         </Avatar.Fallback>
       </Avatar.Root>
 
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <h3 className={`font-semibold text-white truncate ${compact ? "text-sm" : "text-base"}`}>
+          <h3 className={`font-semibold text-zinc-900 truncate ${compact ? "text-sm" : "text-base"}`}>
             {player.display_name}
           </h3>
           {player.insurance_status === "active" ? (
             <ShieldCheck className="h-4 w-4 shrink-0 text-green-400" />
           ) : (
-            <Shield className="h-4 w-4 shrink-0 text-white/30" />
+            <Shield className="h-4 w-4 shrink-0 text-zinc-600" />
           )}
         </div>
         <div className="mt-1">

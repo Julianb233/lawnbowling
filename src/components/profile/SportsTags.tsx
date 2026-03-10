@@ -20,7 +20,7 @@ export function SportsTags({ sports, size = "md" }: { sports: Sport[]; size?: "s
         return (
           <span
             key={sport}
-            className={`inline-flex items-center gap-1 rounded-full bg-white/10 ${sizeClasses}`}
+            className={`inline-flex items-center gap-1 rounded-full bg-zinc-100 ${sizeClasses}`}
           >
             {emoji} {label}
           </span>
@@ -59,8 +59,8 @@ export function SportsSelect({
             onClick={() => toggle(sport)}
             className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-colors min-h-[44px] ${
               isSelected
-                ? "border-blue-500 bg-blue-500/20 text-blue-300"
-                : "border-white/20 bg-white/5 text-white/60 hover:bg-white/10"
+                ? "border-blue-500 bg-blue-50 text-blue-600"
+                : "border-zinc-300 bg-zinc-50 text-zinc-500 hover:bg-zinc-100"
             }`}
           >
             {emoji} {label}

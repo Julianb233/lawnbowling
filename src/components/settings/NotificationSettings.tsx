@@ -23,7 +23,7 @@ function Toggle({
       disabled={disabled}
       className={cn(
         "relative h-6 w-11 rounded-full transition-colors",
-        checked ? "bg-emerald-500" : "bg-zinc-700"
+        checked ? "bg-emerald-500" : "bg-zinc-300"
       )}
     >
       <span
@@ -78,7 +78,7 @@ export function NotificationSettings({ preferences }: NotificationSettingsProps)
     <div className="space-y-6">
       {sections.map((section) => (
         <div key={section.title}>
-          <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-3">
+          <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-3">
             {section.title}
           </h3>
           <div className="space-y-1">
@@ -87,7 +87,7 @@ export function NotificationSettings({ preferences }: NotificationSettingsProps)
                 key={item.key}
                 className="flex items-center justify-between rounded-xl glass px-4 py-3"
               >
-                <span className="text-sm text-zinc-200">{item.label}</span>
+                <span className="text-sm text-zinc-700">{item.label}</span>
                 <Toggle
                   checked={prefs[item.key] as boolean}
                   onChange={(v) => update(item.key, v)}
