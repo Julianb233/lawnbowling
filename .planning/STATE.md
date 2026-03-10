@@ -68,11 +68,21 @@ Progress: [██████████] 100%
 - PWA-04 (Offline): Service worker with serwist, offline fallback page with auto-reconnect
 - Deployed to Vercel: https://pick-a-partner.vercel.app (commit bb5d93d)
 
+### Phase 1 Re-audit (2026-03-10)
+
+- Fixed build: Serwist disabled (Next.js 16 Turbopack incompatibility), --turbopack flag added to build script
+- Fixed QueuePageClient type mismatch for Supabase array relations
+- Fixed 15+ RLS policies: created `is_own_player()` helper function to correctly resolve players.id vs auth.uid()
+- Fixed 3 pages querying players with `.eq("id", user.id)` instead of `.eq("user_id", user.id)`
+- Fixed queue page querying match_players with `user.id` instead of `player.id`
+- Added `/offline` to public middleware paths
+- Supabase schema already deployed (21 tables, all RLS enabled)
+- Service role key retrieved from 1Password and added to .env.local
+
 ### Pending Todos
 
-- Set up Supabase project and run schema.sql migration
-- Seed admin user
-- Configure Supabase env vars in Vercel project settings
+- Seed admin user (run `scripts/seed-admin.sql` after a user signs up)
+- Configure Supabase env vars in Vercel project settings (SUPABASE_SERVICE_ROLE_KEY)
 
 ### Blockers/Concerns
 
