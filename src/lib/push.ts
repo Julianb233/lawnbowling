@@ -2,14 +2,18 @@
 const webpush = require("web-push") as typeof import("web-push");
 import { createClient } from "@/lib/supabase/server";
 
-const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!;
-const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY!;
-
-webpush.setVapidDetails(
-  "mailto:support@pickapartner.app",
-  VAPID_PUBLIC_KEY,
-  VAPID_PRIVATE_KEY
-);
+let vapidConfigured = false;
+function ensureVapid() {
+  if (vapidConfigured) return;
+  const pub = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  const priv = process.env.VAPID_PRIVATE_KEY;
+  if (!pub || !priv) {
+    console.warn("VAPID keys not set — push notifications disabled");
+    return;
+  }
+  webpush.setVapidDetails("mailto:support@pickapartner.app", pub, priv);
+  vapidConfigured = true;
+}
 
 export interface PushPayload {
   title: string;
@@ -40,6 +44,8 @@ export async function sendPushToUser(
   userId: string,
   payload: PushPayload
 ): Promise<{ sent: number; failed: number }> {
+  ensureVapid();
+  if (!vapidConfigured) return { sent: 0, failed: 0 };
   const supabase = await createClient();
   const { data: subscriptions, error } = await supabase
     .from("push_subscriptions")
