@@ -31,7 +31,7 @@ export function RequestModal({
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const initials = target.name
+  const initials = target.display_name
     .split(" ")
     .map((n) => n[0])
     .join("")
@@ -104,7 +104,7 @@ export function RequestModal({
                   </Dialog.Close>
 
                   <Dialog.Title className="text-center text-lg font-semibold text-zinc-100 mb-6">
-                    Pick {target.name} as your partner?
+                    Pick {target.display_name} as your partner?
                   </Dialog.Title>
 
                   {/* Target player card */}
@@ -113,7 +113,7 @@ export function RequestModal({
                       {target.avatar_url ? (
                         <img
                           src={target.avatar_url}
-                          alt={target.name}
+                          alt={target.display_name}
                           className={cn("h-16 w-16 rounded-full object-cover ring-2 shadow-lg", sportColor.ring)}
                         />
                       ) : (
@@ -130,7 +130,7 @@ export function RequestModal({
                         style={{ backgroundColor: sportColor.primary }}
                       />
                     </div>
-                    <h3 className="text-base font-semibold text-zinc-100">{target.name}</h3>
+                    <h3 className="text-base font-semibold text-zinc-100">{target.display_name}</h3>
                     {skillInfo && (
                       <span className="inline-flex items-center gap-1 text-sm text-amber-400">
                         {"\u2605".repeat(skillInfo.stars)}{"\u2606".repeat(3 - skillInfo.stars)}{" "}

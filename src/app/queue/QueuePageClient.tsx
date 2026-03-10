@@ -22,7 +22,7 @@ export function QueuePageClient({
   player: Player;
   activeMatch: ActiveMatch | null;
 }) {
-  const displayName = player.name || "Player";
+  const displayName = player.display_name || "Player";
 
   return (
     <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">

@@ -12,7 +12,7 @@ interface RosterMember {
   role: string;
   player: {
     id: string;
-    name: string;
+    display_name: string;
     avatar_url: string | null;
     skill_level: string;
     sports: string[];

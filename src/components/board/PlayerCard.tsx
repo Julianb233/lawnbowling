@@ -134,9 +134,9 @@ export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: P
 
       {/* Player info */}
       <div className="flex items-start gap-3">
-        <Avatar name={player.name} url={player.avatar_url} primarySport={primarySport} />
+        <Avatar name={player.display_name} url={player.avatar_url} primarySport={primarySport} />
         <div className="min-w-0 flex-1">
-          <h3 className="truncate text-base font-semibold text-zinc-100">{player.name}</h3>
+          <h3 className="truncate text-base font-semibold text-zinc-100">{player.display_name}</h3>
           <div className="mt-0.5 flex items-center gap-2">
             <SkillStars level={player.skill_level} index={index} />
           </div>
@@ -173,7 +173,7 @@ export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: P
       <motion.button
         onClick={() => !isPending && onPickMe?.(player)}
         disabled={isPending}
-        aria-label={isPending ? `Request sent to ${player.name}` : `Pick ${player.name} as partner`}
+        aria-label={isPending ? `Request sent to ${player.display_name}` : `Pick ${player.display_name} as partner`}
         whileHover={isPending ? {} : { scale: 1.02 }}
         whileTap={isPending ? {} : { scale: 0.95 }}
         className={cn(

@@ -34,10 +34,10 @@ export function ReviewsList({ reviews }: ReviewsListProps) {
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
               <div className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-700 text-xs font-bold text-zinc-300">
-                {review.reviewer?.name?.charAt(0)?.toUpperCase() || "?"}
+                {review.reviewer?.display_name?.charAt(0)?.toUpperCase() || "?"}
               </div>
               <span className="text-sm font-medium text-zinc-200">
-                {review.reviewer?.name || "Anonymous"}
+                {review.reviewer?.display_name || "Anonymous"}
               </span>
             </div>
             <span className="text-xs text-zinc-500">

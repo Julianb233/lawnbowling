@@ -35,12 +35,12 @@ export function FriendsList({ friends, currentPlayerId }: FriendsListProps) {
               {friendPlayer.avatar_url ? (
                 <img
                   src={friendPlayer.avatar_url}
-                  alt={friendPlayer.name}
+                  alt={friendPlayer.display_name}
                   className="h-10 w-10 rounded-full object-cover"
                 />
               ) : (
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-green-600 text-sm font-bold text-white">
-                  {friendPlayer.name.charAt(0).toUpperCase()}
+                  {friendPlayer.display_name.charAt(0).toUpperCase()}
                 </div>
               )}
               {friendPlayer.is_available && (
@@ -49,7 +49,7 @@ export function FriendsList({ friends, currentPlayerId }: FriendsListProps) {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-zinc-100 truncate">
-                {friendPlayer.name}
+                {friendPlayer.display_name}
               </p>
               <p className="text-xs text-zinc-500 capitalize">
                 {friendPlayer.skill_level} &middot;{" "}

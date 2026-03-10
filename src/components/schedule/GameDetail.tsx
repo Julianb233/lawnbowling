@@ -83,7 +83,7 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
             href={`/profile/${game.organizer.id}`}
             className="text-sm font-medium text-emerald-400 hover:underline"
           >
-            {game.organizer.name}
+            {game.organizer.display_name}
           </Link>
         </div>
       )}
