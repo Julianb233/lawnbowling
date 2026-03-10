@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { PlayerStatsCard } from "@/components/stats/PlayerStatsCard";
@@ -8,8 +10,6 @@ import { MatchHistory } from "@/components/stats/MatchHistory";
 import { WeeklyActivity } from "@/components/stats/WeeklyActivity";
 import { FavoritePartnersList } from "@/components/stats/FavoritePartnersList";
 import { usePlayerStats } from "@/lib/hooks/usePlayerStats";
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
 
 export default function StatsPage() {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
@@ -19,7 +19,9 @@ export default function StatsPage() {
   useEffect(() => {
     async function loadUser() {
       const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (user) setCurrentUserId(user.id);
       setLoadingAuth(false);
     }
