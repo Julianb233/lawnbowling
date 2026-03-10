@@ -7,7 +7,7 @@ export async function getPlayerStats(playerId: string) {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("player_stats")
-    .select("*, player:players(id, display_name, avatar_url, skill_level, sports)")
+    .select("*, player:players!player_stats_player_id_fkey(id, display_name, avatar_url, skill_level, sports)")
     .eq("player_id", playerId)
     .single();
 
@@ -19,7 +19,7 @@ export async function getLeaderboard(options?: { sport?: string; limit?: number 
   const supabase = await createClient();
   let query = supabase
     .from("player_stats")
-    .select("*, player:players(id, display_name, avatar_url, skill_level, sports)")
+    .select("*, player:players!player_stats_player_id_fkey(id, display_name, avatar_url, skill_level, sports)")
     .gte("games_played", 5)
     .order("win_rate", { ascending: false })
     .order("wins", { ascending: false })

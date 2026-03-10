@@ -50,7 +50,11 @@ export async function updateSession(request: NextRequest) {
 
   if (!user && !isPublicPath) {
     const url = request.nextUrl.clone();
+    const returnTo = request.nextUrl.pathname;
     url.pathname = "/login";
+    if (returnTo && returnTo !== "/login") {
+      url.searchParams.set("returnTo", returnTo);
+    }
     return NextResponse.redirect(url);
   }
 
