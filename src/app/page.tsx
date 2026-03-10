@@ -72,6 +72,103 @@ export default function HomePage() {
         <SportsSlideshow />
       </section>
 
+      {/* Sports Video Gallery */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+            See the Action
+          </h2>
+          <p className="mt-4 text-lg text-zinc-500">
+            Real players, real courts, real fun
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {/* Pickleball - Video */}
+          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                poster="/images/pickleball.jpg"
+              >
+                <source src="/images/pickleball.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Pickleball
+              </span>
+            </div>
+          </div>
+
+          {/* Tennis - Video */}
+          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                poster="/images/tennis.jpg"
+              >
+                <source src="/images/tennis.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Tennis
+              </span>
+            </div>
+          </div>
+
+          {/* Lawn Bowling - Photo with Ken Burns */}
+          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <img
+                src="/images/lawn-bowling.jpg"
+                alt="Person throwing a bocce ball on a green lawn"
+                className="absolute inset-0 h-full w-full object-cover animate-[kenBurns_20s_ease_infinite_alternate]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Lawn Bowling
+              </span>
+            </div>
+          </div>
+
+          {/* Flag Football - Video */}
+          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                poster="/images/flag-football.jpg"
+              >
+                <source src="/images/football.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Flag Football
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Social Proof */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
         <div className="mb-12 text-center">
