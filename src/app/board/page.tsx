@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useRealtimePlayers } from "@/lib/hooks/useRealtimePlayers";
 import { usePartnerRequests } from "@/lib/hooks/usePartnerRequests";
 import { useSentRequests, type SentRequestUpdate } from "@/lib/hooks/useSentRequests";
+import { useVenues } from "@/lib/hooks/useVenues";
 import { AvailabilityBoard } from "@/components/board/AvailabilityBoard";
 import { BoardFilters } from "@/components/board/BoardFilters";
 import { CheckInButton } from "@/components/board/CheckInButton";
@@ -17,9 +18,8 @@ import { SentRequestToast } from "@/components/partner/SentRequestToast";
 import { MatchQueue } from "@/components/partner/MatchQueue";
 import { CourtStatusBoard } from "@/components/courts/CourtStatusBoard";
 import { SuggestedPartners } from "@/components/board/SuggestedPartners";
-import { GlobalSearch } from "@/components/search/GlobalSearch";
-import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
-import type { Sport, SkillLevel, Player, Venue } from "@/lib/types";
+import { VenueSelector } from "@/components/venue/VenueSelector";
+import type { Sport, SkillLevel, Player } from "@/lib/types";
 
 export default function BoardPage() {
   const [sportFilter, setSportFilter] = useState<Sport | null>(null);
@@ -27,18 +27,10 @@ export default function BoardPage() {
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   const [loadingPlayer, setLoadingPlayer] = useState(true);
   const [requestTarget, setRequestTarget] = useState<Player | null>(null);
-  const [venue, setVenue] = useState<Venue | null>(null);
+  const { venues, selectedVenue: venue, selectedVenueId, selectVenue } = useVenues();
   const [statusNotifications, setStatusNotifications] = useState<
     Array<{ id: string; targetName: string; sport: string; status: "accepted" | "declined" | "expired" }>
   >([]);
-
-  // Fetch default venue
-  useEffect(() => {
-    fetch("/api/venue/default")
-      .then((r) => r.ok ? r.json() : null)
-      .then((data) => { if (data && !data.error) setVenue(data); })
-      .catch(() => {});
-  }, []);
 
   const { players, loading } = useRealtimePlayers({
     sportFilter,
@@ -52,7 +44,6 @@ export default function BoardPage() {
     currentPlayer?.id ?? null
   );
 
-  // Watch for responses to our sent requests (decline/accept/expire notifications)
   const handleSentRequestUpdate = useCallback((update: SentRequestUpdate) => {
     setStatusNotifications((prev) => [
       ...prev,
@@ -67,7 +58,6 @@ export default function BoardPage() {
 
   const { pendingSent, refetch: refetchSent } = useSentRequests(currentPlayer?.id ?? null, handleSentRequestUpdate);
 
-  // Compute set of player IDs with pending outgoing requests for card indicators
   const pendingTargetIds = useMemo(
     () => new Set(pendingSent.map((r) => r.target_id)),
     [pendingSent]
@@ -96,7 +86,6 @@ export default function BoardPage() {
     loadCurrentPlayer();
   }, [supabase]);
 
-  // Expire stale requests on load
   useEffect(() => {
     fetch("/api/partner/expire").catch(() => {});
   }, []);
@@ -119,7 +108,6 @@ export default function BoardPage() {
       throw new Error(data.error || "Failed to send request");
     }
 
-    // Refresh sent requests to update pending indicators on player cards
     refetchSent();
   }, [refetchSent]);
 
@@ -161,14 +149,21 @@ export default function BoardPage() {
               <h1 className="text-xl font-black text-zinc-100 lg:text-2xl">
                 {"\u{1F3D3}"} <span className="text-gradient">Pick a Partner</span>
               </h1>
-              <p className="text-sm text-zinc-500">{venue?.name ?? "Loading venue..."}</p>
+              <div className="flex items-center gap-2">
+                <p className="text-sm text-zinc-500">{venue?.name ?? "Loading venue..."}</p>
+                <VenueSelector
+                  venues={venues}
+                  selectedVenueId={selectedVenueId}
+                  onSelect={selectVenue}
+                  compact
+                />
+              </div>
             </motion.div>
             <LiveIndicator count={players.length} />
           </div>
         </header>
 
         <div className="mx-auto max-w-7xl px-4 py-4 lg:px-8">
-          {/* Check-in button for authenticated player */}
           {!loadingPlayer && currentPlayer && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -184,7 +179,6 @@ export default function BoardPage() {
             </motion.div>
           )}
 
-          {/* Filters */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -199,7 +193,6 @@ export default function BoardPage() {
             />
           </motion.div>
 
-          {/* Suggested Partners (only for checked-in players) */}
           {currentPlayer?.is_available && (
             <SuggestedPartners
               currentPlayerId={currentPlayer.id}
@@ -209,9 +202,7 @@ export default function BoardPage() {
             />
           )}
 
-          {/* Main content: Board + Queue sidebar */}
           <div className="flex gap-6">
-            {/* Board (main) */}
             <div className="min-w-0 flex-1">
               <motion.div
                 initial={{ opacity: 0 }}
@@ -231,7 +222,6 @@ export default function BoardPage() {
               />
             </div>
 
-            {/* Queue sidebar (iPad only) */}
             <aside className="hidden w-72 shrink-0 lg:block xl:w-80">
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
@@ -256,7 +246,6 @@ export default function BoardPage() {
             </aside>
           </div>
 
-          {/* Tip banner */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -267,10 +256,8 @@ export default function BoardPage() {
           </motion.div>
         </div>
 
-        {/* Bottom navigation (mobile only) */}
         <BottomNav />
 
-        {/* Partner Request Modal */}
         {requestTarget && currentPlayer && (
           <RequestModal
             target={requestTarget}
@@ -281,7 +268,6 @@ export default function BoardPage() {
           />
         )}
 
-        {/* Incoming request notifications */}
         {incomingRequests.map((req) => (
           <IncomingRequest
             key={req.id}
@@ -290,7 +276,6 @@ export default function BoardPage() {
           />
         ))}
 
-        {/* Toast notifications for sent request responses */}
         {statusNotifications.map((notif) => (
           <SentRequestToast
             key={notif.id}
