@@ -68,7 +68,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
       <div className="mx-auto max-w-md">
         <Link
           href="/"
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-900 min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back to Board
         </Link>
@@ -86,12 +86,12 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
               </Avatar.Fallback>
             </Avatar.Root>
 
-            <h1 className="flex items-center gap-2 text-2xl font-bold text-white">
+            <h1 className="flex items-center gap-2 text-2xl font-bold text-zinc-900">
               {player.display_name}
               {player.insurance_status === "active" ? (
-                <ShieldCheck className="h-5 w-5 text-green-400" />
+                <ShieldCheck className="h-5 w-5 text-green-600" />
               ) : (
-                <Shield className="h-5 w-5 text-white/30" />
+                <Shield className="h-5 w-5 text-zinc-300" />
               )}
             </h1>
 
@@ -116,13 +116,13 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
 
           {player.sports.length > 0 && (
             <div>
-              <h2 className="mb-2 text-sm font-medium text-zinc-400">Sports</h2>
+              <h2 className="mb-2 text-sm font-medium text-zinc-600">Sports</h2>
               <SportsTags sports={player.sports} />
             </div>
           )}
 
           <div>
-            <h2 className="mb-2 text-sm font-medium text-zinc-400">Waiver Status</h2>
+            <h2 className="mb-2 text-sm font-medium text-zinc-600">Waiver Status</h2>
             <WaiverStatus waiver={waiver} />
           </div>
 

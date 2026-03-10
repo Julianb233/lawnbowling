@@ -50,9 +50,9 @@ export function ProfileCard({ player, onClick, compact = false }: ProfileCardPro
             {player.display_name}
           </h3>
           {player.insurance_status === "active" ? (
-            <ShieldCheck className="h-4 w-4 shrink-0 text-green-400" />
+            <ShieldCheck className="h-4 w-4 shrink-0 text-green-600" />
           ) : (
-            <Shield className="h-4 w-4 shrink-0 text-zinc-600" />
+            <Shield className="h-4 w-4 shrink-0 text-zinc-400" />
           )}
         </div>
         <div className="mt-1">

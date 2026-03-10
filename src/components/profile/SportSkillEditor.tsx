@@ -73,7 +73,7 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">Skill per Sport</h3>
+      <h3 className="text-sm font-semibold text-zinc-600 uppercase tracking-wider">Skill per Sport</h3>
       {sports.map((sport) => {
         const skill = skills.find((s) => s.sport === sport);
         const currentLevel = (skill as PlayerSportSkill & { skill_level?: string })?.skill_level || "beginner";
@@ -101,8 +101,8 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
                   className={cn(
                     "flex flex-1 flex-col items-center gap-1 rounded-lg border px-2 py-2 text-xs transition-colors min-h-[60px]",
                     currentLevel === level.value
-                      ? "border-green-500 bg-green-500/20 text-green-400"
-                      : "border-zinc-200 bg-zinc-100 text-zinc-500 hover:border-zinc-400"
+                      ? "border-green-500 bg-green-50 text-green-700"
+                      : "border-zinc-200 bg-zinc-50 text-zinc-500 hover:border-zinc-400"
                   )}
                 >
                   {saving === sport ? (

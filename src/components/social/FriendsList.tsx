@@ -13,7 +13,7 @@ export function FriendsList({ friends, currentPlayerId }: FriendsListProps) {
     return (
       <div className="rounded-2xl glass p-8 text-center">
         <p className="text-3xl mb-2">{"\\uD83D\\uDC65"}</p>
-        <p className="text-zinc-400">No friends yet. Start connecting!</p>
+        <p className="text-zinc-500">No friends yet. Start connecting!</p>
       </div>
     );
   }

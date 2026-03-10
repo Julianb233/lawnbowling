@@ -63,14 +63,14 @@ export function ProfilePageClient({ player, waiver }: ProfilePageClientProps) {
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h1 className="mb-6 text-2xl font-bold text-white">My Profile</h1>
+        <h1 className="mb-6 text-2xl font-bold text-zinc-900">My Profile</h1>
 
         <div className="mb-6">
           <WaiverStatus waiver={waiver} />
         </div>
 
         {editing ? (
-          <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
+          <div className="rounded-xl glass p-6">
             <ProfileForm
               player={player}
               onSubmit={handleSubmit}
@@ -100,7 +100,7 @@ export function ProfilePageClient({ player, waiver }: ProfilePageClientProps) {
                 router.push("/login");
                 router.refresh();
               }}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-red-500/30 px-4 py-3 text-sm font-medium text-red-400 hover:bg-red-500/10 min-h-[44px]"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 min-h-[44px]"
             >
               <LogOut className="h-4 w-4" /> Sign Out
             </button>
