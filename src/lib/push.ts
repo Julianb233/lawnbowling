@@ -29,7 +29,9 @@ export type PushNotificationType =
   | "partner_request"
   | "partner_accepted"
   | "court_available"
-  | "game_reminder";
+  | "game_reminder"
+  | "waitlist_matched"
+  | "waitlist_update";
 
 interface PushSubscriptionRow {
   id: string;

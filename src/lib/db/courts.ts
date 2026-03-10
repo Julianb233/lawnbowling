@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { sendPushToPlayer } from "@/lib/push";
+import { dequeueFromWaitlist } from "@/lib/db/waitlist";
 import type { Court, Match } from "@/lib/types";
 
 export async function listCourts(venueId?: string) {
@@ -197,6 +198,7 @@ export async function completeMatch(matchId: string) {
       .single();
 
     if (court) {
+      // First, try to assign next queued match
       const { data: nextMatch } = await supabase
         .from("matches")
         .select("id")
@@ -209,6 +211,20 @@ export async function completeMatch(matchId: string) {
 
       if (nextMatch) {
         await assignCourtToMatch(nextMatch.id, match.court_id);
+      } else {
+        // No queued matches, try to dequeue from waitlist
+        // Get venue_id from the court
+        const { data: courtData } = await supabase
+          .from("courts")
+          .select("venue_id")
+          .eq("id", match.court_id)
+          .single();
+
+        if (courtData?.venue_id) {
+          await dequeueFromWaitlist(courtData.venue_id, court.sport, match.court_id).catch(
+            (err: unknown) => console.error("Waitlist dequeue failed:", err)
+          );
+        }
       }
     }
   }
