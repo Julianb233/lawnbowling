@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { sendPushToPlayer } from "@/lib/push";
 import type { Court, Match } from "@/lib/types";
 
 export async function listCourts(venueId?: string) {
@@ -82,6 +83,22 @@ export async function assignCourtToMatch(matchId: string, courtId: string) {
     .eq("id", courtId);
 
   if (courtError) throw courtError;
+
+  // Notify match players that a court has been assigned
+  const { data: courtPlayersData } = await supabase
+    .from("match_players").select("player_id").eq("match_id", matchId);
+  const { data: courtInfoData } = await supabase
+    .from("courts").select("name").eq("id", courtId).single();
+  if (courtPlayersData) {
+    for (const mp of courtPlayersData) {
+      sendPushToPlayer(mp.player_id, "court_available", {
+        title: "Court Ready!",
+        body: `You've been assigned to ${courtInfoData?.name || "a court"}. Head over now!`,
+        tag: `court-assigned-${matchId}`,
+        url: "/board",
+      }).catch((err: unknown) => console.error("Push notification failed:", err));
+    }
+  }
 
   return match as Match;
 }

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { updateRequestStatus } from "@/lib/db/partner-requests";
 import { createMatch } from "@/lib/db/matches";
+import { sendPushToPlayer } from "@/lib/push";
 
 export async function POST(request: NextRequest) {
   try {
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
     // Verify the current user is the target
     const { data: currentPlayer } = await supabase
       .from("players")
-      .select("id")
+      .select("id, display_name")
       .eq("user_id", user.id)
       .single();
 
@@ -84,6 +85,16 @@ export async function POST(request: NextRequest) {
         },
         [partnerRequest.requester_id, partnerRequest.target_id]
       );
+
+
+      // Notify the requester that their request was accepted
+      const responderName = currentPlayer.display_name || "Your partner";
+      sendPushToPlayer(partnerRequest.requester_id, "partner_accepted", {
+        title: "Partner Found!",
+        body: `${responderName} accepted your request for ${partnerRequest.sport}!`,
+        tag: `partner-accepted-${partnerRequest.id}`,
+        url: "/board",
+      }).catch((err: unknown) => console.error("Push notification failed:", err));
 
       return NextResponse.json({ status: "accepted", match });
     } else {

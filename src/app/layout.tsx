@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { IOSInstallGuide } from "@/components/pwa/IOSInstallGuide";
+import { PushNotificationPrompt } from "@/components/push/PushNotificationPrompt";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -66,6 +67,7 @@ export default function RootLayout({
         {children}
         <InstallPrompt />
         <IOSInstallGuide />
+        <PushNotificationPrompt />
       </body>
     </html>
   );

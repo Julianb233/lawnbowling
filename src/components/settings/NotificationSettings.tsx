@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
+import { usePushSubscription } from "@/lib/hooks/usePushSubscription";
 import type { NotificationPreferences } from "@/lib/types";
 
 interface NotificationSettingsProps {
@@ -40,6 +41,7 @@ export function NotificationSettings({ preferences }: NotificationSettingsProps)
   const [prefs, setPrefs] = useState(preferences);
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
+  const { permission, isSubscribed, subscribe, unsubscribe } = usePushSubscription();
 
   function update(key: keyof NotificationPreferences, value: boolean) {
     const updated = { ...prefs, [key]: value };
@@ -53,6 +55,10 @@ export function NotificationSettings({ preferences }: NotificationSettingsProps)
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     });
+  }
+
+  async function handlePushToggle(enabled: boolean) {
+    if (enabled) { await subscribe(); } else { await unsubscribe(); }
   }
 
   const sections = [
@@ -76,6 +82,18 @@ export function NotificationSettings({ preferences }: NotificationSettingsProps)
 
   return (
     <div className="space-y-6">
+      {permission !== "unsupported" && (
+        <div>
+          <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-3">Browser Push</h3>
+          <div className="flex items-center justify-between rounded-xl glass px-4 py-3">
+            <div>
+              <span className="text-sm text-zinc-700">Enable push notifications</span>
+              {permission === "denied" && <p className="text-xs text-red-400 mt-0.5">Blocked in browser settings</p>}
+            </div>
+            <Toggle checked={isSubscribed} onChange={handlePushToggle} disabled={permission === "denied"} />
+          </div>
+        </div>
+      )}
       {sections.map((section) => (
         <div key={section.title}>
           <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-3">
