@@ -23,7 +23,7 @@ export default async function QueuePage() {
   const { data: activeMatch } = await supabase
     .from("match_players")
     .select("match_id, matches(id, status, sport, created_at, court_id, courts(name))")
-    .eq("player_id", user.id)
+    .eq("player_id", player.id)
     .eq("matches.status", "queued")
     .limit(1)
     .maybeSingle();
