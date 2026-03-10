@@ -26,8 +26,8 @@ export default async function FriendsPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-white pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-2">
             <Link
