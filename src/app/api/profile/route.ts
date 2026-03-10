@@ -3,6 +3,27 @@ import { createClient } from "@/lib/supabase/server";
 import { createPlayer, updatePlayer, getPlayerByUserId } from "@/lib/db/players";
 import type { SkillLevel, Sport } from "@/lib/db/players";
 
+export async function GET() {
+  try {
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const player = await getPlayerByUserId(user.id);
+    if (!player) {
+      return NextResponse.json({ error: "Profile not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(player);
+  } catch (error) {
+    console.error("Get profile error:", error);
+    return NextResponse.json({ error: "Failed to get profile" }, { status: 500 });
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();

@@ -1,0 +1,234 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, LogOut, Save, Loader2 } from "lucide-react";
+import type { SkillLevel, Sport } from "@/lib/db/players";
+
+const SKILL_LEVELS: { value: SkillLevel; label: string }[] = [
+  { value: "beginner", label: "Beginner" },
+  { value: "intermediate", label: "Intermediate" },
+  { value: "advanced", label: "Advanced" },
+];
+
+const SPORTS: { value: Sport; label: string }[] = [
+  { value: "pickleball", label: "Pickleball" },
+  { value: "tennis", label: "Tennis" },
+  { value: "badminton", label: "Badminton" },
+  { value: "table_tennis", label: "Table Tennis" },
+  { value: "lawn_bowling", label: "Lawn Bowling" },
+];
+
+interface PlayerData {
+  display_name: string;
+  skill_level: SkillLevel;
+  sports: Sport[];
+}
+
+export default function SettingsPage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  const [displayName, setDisplayName] = useState("");
+  const [skillLevel, setSkillLevel] = useState<SkillLevel>("beginner");
+  const [sports, setSports] = useState<Sport[]>([]);
+
+  useEffect(() => {
+    async function loadProfile() {
+      try {
+        const res = await fetch("/api/profile");
+        if (res.status === 401) {
+          router.push("/login");
+          return;
+        }
+        if (!res.ok) throw new Error("Failed to load profile");
+        const player: PlayerData = await res.json();
+        setDisplayName(player.display_name);
+        setSkillLevel(player.skill_level);
+        setSports(player.sports || []);
+      } catch {
+        setError("Failed to load profile");
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadProfile();
+  }, [router]);
+
+  function toggleSport(sport: Sport) {
+    setSports((prev) =>
+      prev.includes(sport) ? prev.filter((s) => s !== sport) : [...prev, sport]
+    );
+  }
+
+  async function handleSave() {
+    setError(null);
+    setSuccess(false);
+    setSaving(true);
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          display_name: displayName,
+          skill_level: skillLevel,
+          sports,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to save");
+      }
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 2000);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to save");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleSignOut() {
+    setSigningOut(true);
+    await fetch("/api/auth/logout", { method: "POST" });
+    router.push("/login");
+    router.refresh();
+  }
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+        <Loader2 className="h-8 w-8 animate-spin text-green-500" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-zinc-950 px-4 py-8 pb-24">
+      <div className="mx-auto max-w-md">
+        <button
+          onClick={() => router.back()}
+          className="mb-6 inline-flex items-center gap-1 text-sm text-white/60 hover:text-white min-h-[44px]"
+        >
+          <ArrowLeft className="h-4 w-4" /> Back
+        </button>
+
+        <h1 className="mb-8 text-2xl font-bold text-white">Settings</h1>
+
+        {error && (
+          <div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-400">
+            Settings saved
+          </div>
+        )}
+
+        <div className="space-y-6">
+          {/* Display Name */}
+          <div>
+            <label
+              htmlFor="display-name"
+              className="mb-2 block text-sm font-medium text-white/70"
+            >
+              Display Name
+            </label>
+            <input
+              id="display-name"
+              type="text"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
+              placeholder="Your display name"
+            />
+          </div>
+
+          {/* Skill Level */}
+          <div>
+            <label className="mb-2 block text-sm font-medium text-white/70">
+              Skill Level
+            </label>
+            <div className="flex gap-2">
+              {SKILL_LEVELS.map((level) => (
+                <button
+                  key={level.value}
+                  onClick={() => setSkillLevel(level.value)}
+                  className={`flex-1 rounded-lg border px-3 py-3 text-sm font-medium transition-colors min-h-[44px] ${
+                    skillLevel === level.value
+                      ? "border-green-500 bg-green-500/20 text-green-400"
+                      : "border-white/10 bg-white/5 text-white/60 hover:bg-white/10"
+                  }`}
+                >
+                  {level.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Sports Preferences */}
+          <div>
+            <label className="mb-2 block text-sm font-medium text-white/70">
+              Sports Preferences
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {SPORTS.map((sport) => {
+                const active = sports.includes(sport.value);
+                return (
+                  <button
+                    key={sport.value}
+                    onClick={() => toggleSport(sport.value)}
+                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors min-h-[44px] ${
+                      active
+                        ? "border-green-500 bg-green-500/20 text-green-400"
+                        : "border-white/10 bg-white/5 text-white/60 hover:bg-white/10"
+                    }`}
+                  >
+                    {sport.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Save Button */}
+          <button
+            onClick={handleSave}
+            disabled={saving || !displayName.trim()}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-3 text-sm font-semibold text-white hover:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] transition-colors"
+          >
+            {saving ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Save className="h-4 w-4" />
+            )}
+            {saving ? "Saving..." : "Save Changes"}
+          </button>
+
+          {/* Divider */}
+          <div className="border-t border-white/10" />
+
+          {/* Sign Out */}
+          <button
+            onClick={handleSignOut}
+            disabled={signingOut}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-red-500/30 px-4 py-3 text-sm font-medium text-red-400 hover:bg-red-500/10 disabled:opacity-50 min-h-[44px] transition-colors"
+          >
+            {signingOut ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <LogOut className="h-4 w-4" />
+            )}
+            {signingOut ? "Signing out..." : "Sign Out"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
