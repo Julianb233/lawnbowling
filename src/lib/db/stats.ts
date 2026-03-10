@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import type { PlayerStats, MatchResult } from "@/lib/types";
+import { calculateElo } from "@/lib/matchmaking";
+import { upsertPlayerSkillRating } from "@/lib/db/matchmaking";
 
 export async function getPlayerStats(playerId: string) {
   const supabase = await createClient();
@@ -108,6 +110,46 @@ export async function reportMatchResult(result: {
         favorite_sport: match.sport,
         last_played_at: new Date().toISOString(),
       });
+    }
+  }
+
+  // Update per-sport ELO ratings
+  if (result.winner_team !== null && matchPlayers && matchPlayers.length >= 2) {
+    const winners = matchPlayers.filter((mp) => mp.team === result.winner_team);
+    const losers = matchPlayers.filter(
+      (mp) => mp.team !== null && mp.team !== result.winner_team
+    );
+
+    const allPlayerIds = matchPlayers.map((mp) => mp.player_id);
+    const { data: skillRows } = await supabase
+      .from("player_sport_skills")
+      .select("player_id, elo_rating")
+      .eq("sport", match.sport)
+      .in("player_id", allPlayerIds);
+
+    const eloMap = new Map<string, number>();
+    for (const row of skillRows ?? []) {
+      eloMap.set(row.player_id, row.elo_rating);
+    }
+
+    const defaultElo = 1200;
+
+    for (const winner of winners) {
+      const winnerElo = eloMap.get(winner.player_id) ?? defaultElo;
+      const avgLoserElo =
+        losers.reduce((sum, l) => sum + (eloMap.get(l.player_id) ?? defaultElo), 0) /
+        (losers.length || 1);
+      const [newWinnerElo] = calculateElo(winnerElo, avgLoserElo);
+      await upsertPlayerSkillRating(winner.player_id, match.sport, newWinnerElo, true);
+    }
+
+    for (const loser of losers) {
+      const loserElo = eloMap.get(loser.player_id) ?? defaultElo;
+      const avgWinnerElo =
+        winners.reduce((sum, w) => sum + (eloMap.get(w.player_id) ?? defaultElo), 0) /
+        (winners.length || 1);
+      const [, newLoserElo] = calculateElo(avgWinnerElo, loserElo);
+      await upsertPlayerSkillRating(loser.player_id, match.sport, newLoserElo, false);
     }
   }
 

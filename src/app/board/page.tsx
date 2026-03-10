@@ -16,6 +16,7 @@ import { IncomingRequest, IncomingRequestProvider } from "@/components/partner/I
 import { SentRequestToast } from "@/components/partner/SentRequestToast";
 import { MatchQueue } from "@/components/partner/MatchQueue";
 import { CourtStatusBoard } from "@/components/courts/CourtStatusBoard";
+import { SuggestedPartners } from "@/components/board/SuggestedPartners";
 import type { Sport, SkillLevel, Player, Venue } from "@/lib/types";
 
 export default function BoardPage() {
@@ -195,6 +196,16 @@ export default function BoardPage() {
               onSkillChange={setSkillFilter}
             />
           </motion.div>
+
+          {/* Suggested Partners (only for checked-in players) */}
+          {currentPlayer?.is_available && (
+            <SuggestedPartners
+              currentPlayerId={currentPlayer.id}
+              sportFilter={sportFilter}
+              onPickMe={handlePickMe}
+              pendingTargetIds={pendingTargetIds}
+            />
+          )}
 
           {/* Main content: Board + Queue sidebar */}
           <div className="flex gap-6">
