@@ -20,9 +20,9 @@ export function BoardFilters({
   onSkillChange,
 }: BoardFiltersProps) {
   return (
-    <div className="flex flex-wrap items-center gap-3 rounded-2xl p-3 glass lg:p-4">
+    <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 rounded-2xl p-3 glass lg:p-4">
       {/* Sport toggle buttons */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex gap-2 overflow-x-auto pb-1 sm:pb-0 sm:flex-wrap scrollbar-hide">
         {ALL_SPORTS.map((sport) => {
           const info = SPORT_LABELS[sport];
           const active = selectedSport === sport;
@@ -37,7 +37,7 @@ export function BoardFilters({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={cn(
-                "inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-all",
+                "inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-all min-h-[44px] shrink-0",
                 "touch-manipulation select-none",
                 active
                   ? "text-white shadow-lg"

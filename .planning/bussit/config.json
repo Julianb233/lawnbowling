@@ -3,10 +3,9 @@
   "projectPath": "/opt/agency-workspace/pick-a-partner",
   "autopilot": {
     "defaultWorkerCount": 5,
-    "maxWorkerCount": 10,
-    "progressUpdateInterval": 30,
-    "stuckWorkerTimeout": 600,
-    "maxTaskRetries": 3
-  },
-  "startedAt": "2026-03-09T00:00:00Z"
+    "startedAt": "2026-03-10",
+    "strategy": "verify-and-fill-gaps",
+    "phases": 6,
+    "plans": 12
+  }
 }

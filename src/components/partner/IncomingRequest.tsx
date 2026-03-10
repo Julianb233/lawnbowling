@@ -125,7 +125,7 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
               onClick={() => handleRespond(true)}
               disabled={responding}
               className={cn(
-                "flex-1 rounded-xl px-3 py-2 text-sm font-bold text-white btn-press",
+                "flex-1 rounded-xl px-3 py-2 text-sm font-bold text-white btn-press min-h-[44px]",
                 `bg-gradient-to-r ${sportColor.gradient}`,
                 "disabled:opacity-50"
               )}
@@ -135,7 +135,7 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
             <button
               onClick={() => handleRespond(false)}
               disabled={responding}
-              className="flex-1 rounded-xl border border-zinc-700/50 bg-zinc-800/60 px-3 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 btn-press disabled:opacity-50"
+              className="flex-1 rounded-xl border border-zinc-700/50 bg-zinc-800/60 px-3 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 btn-press disabled:opacity-50 min-h-[44px]"
             >
               Decline
             </button>
@@ -158,7 +158,7 @@ export function IncomingRequestProvider({
   return (
     <Toast.Provider swipeDirection="right">
       {children}
-      <Toast.Viewport className="fixed bottom-4 right-4 z-50 flex w-full max-w-sm flex-col gap-3" />
+      <Toast.Viewport className="fixed top-16 right-4 z-50 flex w-full max-w-sm flex-col gap-3" />
     </Toast.Provider>
   );
 }

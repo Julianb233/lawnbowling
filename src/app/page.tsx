@@ -18,7 +18,7 @@ export default async function HomePage() {
   const { data: player } = await supabase
     .from("players")
     .select("*")
-    .eq("id", user.id)
+    .eq("user_id", user.id)
     .single();
 
   return (

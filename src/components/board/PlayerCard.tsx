@@ -95,7 +95,7 @@ export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: P
       whileHover={{ scale: 1.03, y: -4 }}
       whileTap={{ scale: 0.98 }}
       className={cn(
-        "group relative flex flex-col rounded-2xl p-4 transition-all duration-200 cursor-pointer",
+        "group relative flex flex-col rounded-2xl p-4 transition-all duration-200 cursor-pointer touch-manipulation",
         "glass",
         "hover:border-white/15",
         "lg:p-5"
@@ -177,7 +177,7 @@ export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: P
         whileHover={isPending ? {} : { scale: 1.02 }}
         whileTap={isPending ? {} : { scale: 0.95 }}
         className={cn(
-          "mt-3 w-full rounded-xl px-4 py-2.5 text-sm font-bold text-white shadow-lg transition-all btn-press",
+          "mt-3 w-full rounded-xl px-4 py-2.5 text-sm font-bold text-white shadow-lg transition-all btn-press min-h-[44px]",
           `bg-gradient-to-r ${sportColor.gradient}`,
           "hover:shadow-xl",
           "touch-manipulation",

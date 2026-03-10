@@ -104,24 +104,30 @@ alter table courts enable row level security;
 alter table matches enable row level security;
 alter table match_players enable row level security;
 
+-- Helper function: checks if a given players.id belongs to the current auth user
+-- Used by RLS policies where player_id references players.id (not auth.users.id)
+create or replace function public.is_own_player(p_player_id uuid) returns boolean as $$
+  select exists (select 1 from public.players where id = p_player_id and user_id = auth.uid());
+$$ language sql security definer stable;
+
 -- RLS Policies: Players can read all, update own
 create policy "Players are viewable by everyone" on players for select using (true);
 create policy "Players can update own profile" on players for update using (auth.uid() = user_id);
 create policy "Players can insert own profile" on players for insert with check (auth.uid() = user_id);
 
--- RLS Policies: Waivers
-create policy "Players can view own waivers" on waivers for select using (auth.uid() = player_id);
-create policy "Players can create own waivers" on waivers for insert with check (auth.uid() = player_id);
+-- RLS Policies: Waivers (player_id references players.id, not auth.users.id)
+create policy "Players can view own waivers" on waivers for select using (public.is_own_player(player_id));
+create policy "Players can create own waivers" on waivers for insert with check (public.is_own_player(player_id));
 create policy "Admins can view all waivers" on waivers for select using (
   exists (select 1 from players where user_id = auth.uid() and role = 'admin')
 );
 
--- RLS Policies: Partner requests
+-- RLS Policies: Partner requests (requester_id/target_id reference players.id)
 create policy "Players can view own requests" on partner_requests for select using (
-  auth.uid() = requester_id or auth.uid() = target_id
+  public.is_own_player(requester_id) or public.is_own_player(target_id)
 );
-create policy "Players can create requests" on partner_requests for insert with check (auth.uid() = requester_id);
-create policy "Target can update request" on partner_requests for update using (auth.uid() = target_id);
+create policy "Players can create requests" on partner_requests for insert with check (public.is_own_player(requester_id));
+create policy "Target can update request" on partner_requests for update using (public.is_own_player(target_id));
 
 -- RLS Policies: Courts, Venues, Matches - readable by all
 create policy "Courts viewable by all" on courts for select using (true);
@@ -227,31 +233,31 @@ alter table team_messages enable row level security;
 alter table match_results enable row level security;
 alter table player_stats enable row level security;
 
--- Teams: readable by all, manageable by captain
+-- Teams: readable by all, manageable by captain (captain_id references players.id)
 create policy "Teams viewable by all" on teams for select using (true);
-create policy "Captains can update team" on teams for update using (auth.uid() = captain_id);
-create policy "Players can create teams" on teams for insert with check (auth.uid() = captain_id);
+create policy "Captains can update team" on teams for update using (public.is_own_player(captain_id));
+create policy "Players can create teams" on teams for insert with check (public.is_own_player(captain_id));
 
--- Team members: viewable by all, join/leave own
+-- Team members: viewable by all, join/leave own (player_id references players.id)
 create policy "Team members viewable by all" on team_members for select using (true);
-create policy "Players can join teams" on team_members for insert with check (auth.uid() = player_id);
-create policy "Players can leave teams" on team_members for delete using (auth.uid() = player_id);
+create policy "Players can join teams" on team_members for insert with check (public.is_own_player(player_id));
+create policy "Players can leave teams" on team_members for delete using (public.is_own_player(player_id));
 create policy "Captains can remove members" on team_members for delete using (
-  exists (select 1 from teams where id = team_id and captain_id = auth.uid())
+  exists (select 1 from teams where id = team_id and public.is_own_player(captain_id))
 );
 
--- Team messages: viewable by team members
+-- Team messages: viewable by team members (player_id references players.id)
 create policy "Team members can view messages" on team_messages for select using (
-  exists (select 1 from team_members where team_id = team_messages.team_id and player_id = auth.uid())
+  exists (select 1 from team_members where team_id = team_messages.team_id and public.is_own_player(player_id))
 );
 create policy "Team members can send messages" on team_messages for insert with check (
-  exists (select 1 from team_members where team_id = team_messages.team_id and player_id = auth.uid())
+  exists (select 1 from team_members where team_id = team_messages.team_id and public.is_own_player(player_id))
 );
 
--- Match results: viewable by all, reportable by match players
+-- Match results: viewable by all, reportable by match players (player_id references players.id)
 create policy "Match results viewable by all" on match_results for select using (true);
 create policy "Players can report results" on match_results for insert with check (
-  exists (select 1 from match_players where match_id = match_results.match_id and player_id = auth.uid())
+  exists (select 1 from match_players where match_id = match_results.match_id and public.is_own_player(player_id))
 );
 
 -- Player stats: viewable by all
@@ -388,21 +394,22 @@ alter table activity_feed enable row level security;
 alter table player_reports enable row level security;
 alter table notification_preferences enable row level security;
 
-create policy "Favorites: own" on favorites for all using (auth.uid() = player_id);
+-- All *_id columns below reference players.id, so use is_own_player()
+create policy "Favorites: own" on favorites for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
 create policy "Reviews: viewable by all" on player_reviews for select using (true);
-create policy "Reviews: own" on player_reviews for insert with check (auth.uid() = reviewer_id);
+create policy "Reviews: own" on player_reviews for insert with check (public.is_own_player(reviewer_id));
 create policy "Games: viewable by all" on scheduled_games for select using (true);
-create policy "Games: own" on scheduled_games for insert with check (auth.uid() = organizer_id);
-create policy "Games: manage own" on scheduled_games for update using (auth.uid() = organizer_id);
+create policy "Games: own" on scheduled_games for insert with check (public.is_own_player(organizer_id));
+create policy "Games: manage own" on scheduled_games for update using (public.is_own_player(organizer_id));
 create policy "RSVPs: viewable by all" on game_rsvps for select using (true);
-create policy "RSVPs: own" on game_rsvps for all using (auth.uid() = player_id);
-create policy "Friends: own" on friendships for all using (auth.uid() = player_id or auth.uid() = friend_id);
+create policy "RSVPs: own" on game_rsvps for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
+create policy "Friends: own" on friendships for all using (public.is_own_player(player_id) or public.is_own_player(friend_id));
 create policy "Feed: viewable by all" on activity_feed for select using (true);
-create policy "Reports: own" on player_reports for insert with check (auth.uid() = reporter_id);
+create policy "Reports: own" on player_reports for insert with check (public.is_own_player(reporter_id));
 create policy "Reports: admin view" on player_reports for select using (
   exists (select 1 from players where user_id = auth.uid() and role = 'admin')
 );
-create policy "Notif prefs: own" on notification_preferences for all using (auth.uid() = player_id);
+create policy "Notif prefs: own" on notification_preferences for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
 
 alter publication supabase_realtime add table activity_feed;
 alter publication supabase_realtime add table scheduled_games;

@@ -18,6 +18,13 @@
 - `src/components/pwa/InstallPrompt.tsx` — PWA install prompt
 - `public/manifest.json` — PWA manifest
 
+## Fixes Applied (Phase 1 Re-audit)
+- **QueuePageClient type mismatch**: Supabase returns `courts` as array; fixed type and rendering
+- **Serwist incompatibility**: `@serwist/next` v9 crashes Next.js 16 Turbopack builds; disabled by default, gated behind `ENABLE_SERWIST=1`
+- **Build script**: Added `--turbopack` flag to `npm run build` for reliable builds
+- **Env example**: Added `SUPABASE_SERVICE_ROLE_KEY` to `.env.local.example`
+
 ## Verification
-- `npx next build` passes with 0 errors
-- 136+ source files across components, lib, and app directories
+- `npx next build --turbopack` passes with 0 errors
+- `npx tsc --noEmit` reports 0 errors
+- 152 source files across components, lib, and app directories

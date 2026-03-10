@@ -1,52 +1,50 @@
-# Phase 6, Plan 01: PWA Manifest, Service Worker, iOS Install Guide - SUMMARY
+---
+phase: 06-pwa-polish-deploy
+plan: 01
+status: complete
+duration: verified-existing
+---
 
-**Completed:** 2026-03-10
+# 06-01 Summary: PWA Manifest, Service Worker, Install Prompt, Offline
 
 ## What Was Done
 
-### Manifest Polish
-- Added `scope: "/"` and `prefer_related_applications: false` to `public/manifest.json`
-- Manifest already had correct `display: standalone`, `orientation: any`, icons at 192/512/maskable-512
+All PWA-01 through PWA-04 requirements were verified as already implemented and functional.
 
-### Apple-specific Meta Tags
-- Added `apple-touch-icon` links for 180x180 and 152x152 sizes in `src/app/layout.tsx`
-- Apple Web App metadata was already configured (capable, black-translucent, title)
+### Manifest & Icons (PWA-01)
+- `public/manifest.json` has all required fields: `display: standalone`, `orientation: any`, `scope: /`, `start_url: /board`, `theme_color: #22c55e`, `background_color: #0f172a`
+- Icons present at all sizes: 152, 180, 192, 512, and maskable-512
+- Splash screens present for iPhone and iPad landscape
+- `prefer_related_applications: false` set correctly
 
-### iOS Install Guide (NEW)
-- Created `src/components/pwa/IOSInstallGuide.tsx`
-- Detects iOS Safari (not standalone) and shows install instructions
-- Shows share icon SVG with step-by-step "Add to Home Screen" guide
-- Dismisses for 7 days via localStorage
-- Uses glass styling consistent with app design
-- All touch targets are 44px minimum
+### Service Worker (PWA-04)
+- `src/app/sw.ts` configured with @serwist/next: precaching, NetworkFirst for /api/*, CacheFirst for images with 30-day expiry, defaultCache spread for all other assets
+- `public/sw.js` is the built output (comprehensive, includes all caching strategies)
+- `next.config.ts` has serwist integration (gated behind ENABLE_SERWIST env var for build compatibility)
+- Offline fallback correctly routes document requests to `/offline`
 
-### Service Worker Enhancement
-- Added NetworkFirst strategy for `/api/*` routes (5-second timeout)
-- Added CacheFirst strategy for images (100 max entries, 30-day expiry)
-- Kept existing Serwist precache + offline fallback
+### Install Prompts (PWA-01)
+- `InstallPrompt.tsx`: Chrome/Android beforeinstallprompt handler with iOS guard (returns null on iOS)
+- `IOSInstallGuide.tsx`: iOS-specific install guide with share icon SVG, step-by-step instructions, 7-day dismiss with localStorage, standalone mode detection
+- Both rendered in `layout.tsx`
 
-### Offline Page Enhancement
-- Added online event listener for auto-detection of reconnection
-- Shows "You're Back Online!" with auto-redirect to /board after 2 seconds
+### Layout Meta Tags (PWA-01, PWA-02)
+- `layout.tsx` exports proper Metadata (appleWebApp.capable, manifest link) and Viewport (device-width, viewport-fit: cover, themeColor)
+- apple-touch-icon links for 152 and 180 sizes
+- apple-touch-startup-image links for iPhone and iPad landscape
 
-### Global CSS Polish
-- Added `-webkit-tap-highlight-color: transparent` to remove iOS blue flash
-- Added `touch-action: manipulation` on buttons/links to prevent 300ms delay
-- Added `.safe-bottom` utility for bottom nav spacing
+### Offline Page (PWA-04)
+- `src/app/offline/page.tsx` detects reconnection via `online` event and auto-redirects to /board after 2 seconds
 
-### Vercel Config
-- Updated `vercel.json` with security headers (X-Content-Type-Options, X-Frame-Options, Referrer-Policy)
-- Added `Service-Worker-Allowed: /` header for sw.js
-- Added no-cache header for manifest.json
+## Files Verified
+- `public/manifest.json` -- complete
+- `src/app/sw.ts` -- complete
+- `src/app/layout.tsx` -- complete
+- `src/components/pwa/InstallPrompt.tsx` -- complete
+- `src/components/pwa/IOSInstallGuide.tsx` -- complete
+- `src/app/offline/page.tsx` -- complete
+- `public/icons/` -- all 5 icons present
+- `public/splash/` -- both splash screens present
 
-## Files Modified
-- `src/components/pwa/IOSInstallGuide.tsx` (NEW)
-- `src/app/layout.tsx` (apple-touch-icon links, IOSInstallGuide import)
-- `public/manifest.json` (scope, prefer_related_applications)
-- `src/app/sw.ts` (custom runtime caching)
-- `src/app/offline/page.tsx` (online detection)
-- `src/app/globals.css` (touch optimizations, safe-bottom)
-- `vercel.json` (security headers)
-
-## Verification
-- TypeScript: `npx tsc --noEmit` passes with zero errors
+## Outcome
+All PWA requirements satisfied. No code changes needed.

@@ -72,11 +72,11 @@ export function RequestModal({
         </Dialog.Overlay>
         <Dialog.Content asChild>
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl glass p-6 shadow-2xl"
+            className="fixed z-50 w-full glass p-6 shadow-2xl bottom-0 left-0 right-0 rounded-t-2xl sm:rounded-2xl sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:max-w-sm sm:-translate-x-1/2 sm:-translate-y-1/2"
             style={{ boxShadow: `0 0 40px ${sportColor.glow}, 0 20px 60px rgba(0,0,0,0.5)` }}
           >
             <AnimatePresence mode="wait">
@@ -183,7 +183,7 @@ export function RequestModal({
                       onClick={handleSubmit}
                       disabled={submitting || !selectedSport}
                       className={cn(
-                        "w-full rounded-xl px-4 py-3 text-base font-bold text-white shadow-lg btn-press",
+                        "w-full rounded-xl px-4 py-3 text-base font-bold text-white shadow-lg btn-press min-h-[44px]",
                         `bg-gradient-to-r ${sportColor.gradient}`,
                         "disabled:opacity-50 disabled:cursor-not-allowed"
                       )}
@@ -193,7 +193,7 @@ export function RequestModal({
                     </motion.button>
                     <button
                       onClick={() => onOpenChange(false)}
-                      className="w-full rounded-xl px-4 py-3 text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors"
+                      className="w-full rounded-xl px-4 py-3 text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors min-h-[44px]"
                     >
                       Nevermind
                     </button>
