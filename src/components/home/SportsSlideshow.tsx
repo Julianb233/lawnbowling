@@ -197,7 +197,7 @@ export function SportsSlideshow() {
               className={`h-2 rounded-full transition-all duration-300 ${
                 i === index
                   ? "w-8 bg-white"
-                  : "w-2 bg-white/50 hover:bg-white/70"
+                  : "w-2 bg-zinc-500 hover:bg-white/70"
               }`}
             />
           ))}

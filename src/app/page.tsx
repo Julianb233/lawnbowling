@@ -24,7 +24,7 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 overflow-hidden">
+    <div className="min-h-screen bg-white overflow-hidden">
       {/* Animated background orbs */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute top-[-20%] left-[-10%] h-[600px] w-[600px] rounded-full bg-emerald-500/10 blur-[120px] animate-[gradientShift_15s_ease_infinite]" />
@@ -33,7 +33,7 @@ export default async function HomePage() {
       </div>
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-white/5 bg-zinc-950/80 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20">
@@ -46,13 +46,13 @@ export default async function HomePage() {
           <div className="flex items-center gap-3">
             <Link
               href="/insurance"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 transition hover:text-white"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 transition hover:text-zinc-900"
             >
               Insurance
             </Link>
             <Link
               href="/login"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 transition hover:text-white"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 transition hover:text-zinc-900"
             >
               Sign In
             </Link>
@@ -102,7 +102,7 @@ export default async function HomePage() {
             </Link>
             <Link
               href="#how-it-works"
-              className="inline-flex items-center gap-2 rounded-2xl border border-zinc-700 bg-zinc-900/50 px-8 py-4 text-lg font-semibold text-zinc-300 backdrop-blur transition-all hover:border-zinc-600 hover:bg-zinc-800/50 hover:text-white active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-8 py-4 text-lg font-semibold text-zinc-600 backdrop-blur transition-all hover:border-zinc-400 hover:bg-zinc-100 hover:text-zinc-900 active:scale-[0.98]"
             >
               See How It Works
             </Link>
@@ -164,7 +164,7 @@ export default async function HomePage() {
           ].map((feature) => (
             <div
               key={feature.title}
-              className="group rounded-2xl border border-white/5 bg-zinc-900/50 p-6 backdrop-blur transition-all hover:border-white/10 hover:bg-zinc-800/50"
+              className="group rounded-2xl border border-zinc-200 bg-zinc-50 p-6 backdrop-blur transition-all hover:border-zinc-200 hover:bg-zinc-100"
             >
               <div
                 className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg ${feature.glow}`}
@@ -358,7 +358,7 @@ export default async function HomePage() {
                   "iPad landscape kiosk mode",
                   "iPhone portrait personal mode",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-zinc-300">
+                  <li key={item} className="flex items-center gap-3 text-zinc-600">
                     <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                     </span>
@@ -371,9 +371,9 @@ export default async function HomePage() {
               {/* Device mockup */}
               <div className="relative">
                 {/* iPad */}
-                <div className="h-64 w-80 rounded-2xl border border-zinc-700 bg-zinc-800 p-3 shadow-2xl md:h-72 md:w-96">
-                  <div className="flex h-full flex-col rounded-xl bg-zinc-900">
-                    <div className="flex items-center gap-2 border-b border-zinc-800 px-4 py-2">
+                <div className="h-64 w-80 rounded-2xl border border-zinc-200 bg-zinc-100 p-3 shadow-2xl md:h-72 md:w-96">
+                  <div className="flex h-full flex-col rounded-xl bg-white">
+                    <div className="flex items-center gap-2 border-b border-zinc-200 px-4 py-2">
                       <span className="text-xs font-bold text-emerald-400">
                         Pick a Partner
                       </span>
@@ -387,7 +387,7 @@ export default async function HomePage() {
                         {[1, 2, 3, 4, 5, 6].map((i) => (
                           <div
                             key={i}
-                            className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-2"
+                            className="rounded-lg border border-zinc-200 bg-zinc-100 p-2"
                           >
                             <div className="mx-auto mb-1 h-6 w-6 rounded-full bg-zinc-700" />
                             <div className="mx-auto h-1.5 w-10 rounded-full bg-zinc-700" />
@@ -399,9 +399,9 @@ export default async function HomePage() {
                   </div>
                 </div>
                 {/* Phone overlay */}
-                <div className="absolute -bottom-6 -right-6 h-40 w-20 rounded-2xl border border-zinc-600 bg-zinc-800 p-1.5 shadow-2xl md:-right-8 md:h-48 md:w-24">
-                  <div className="flex h-full flex-col rounded-xl bg-zinc-900">
-                    <div className="border-b border-zinc-800 px-2 py-1">
+                <div className="absolute -bottom-6 -right-6 h-40 w-20 rounded-2xl border border-zinc-600 bg-zinc-100 p-1.5 shadow-2xl md:-right-8 md:h-48 md:w-24">
+                  <div className="flex h-full flex-col rounded-xl bg-white">
+                    <div className="border-b border-zinc-200 px-2 py-1">
                       <span className="text-[6px] font-bold text-emerald-400">
                         PaP
                       </span>
@@ -410,7 +410,7 @@ export default async function HomePage() {
                       {[1, 2, 3].map((i) => (
                         <div
                           key={i}
-                          className="rounded border border-zinc-700/50 bg-zinc-800/30 p-1"
+                          className="rounded border border-zinc-300 bg-zinc-50 p-1"
                         >
                           <div className="h-1 w-full rounded-full bg-zinc-700" />
                         </div>
@@ -443,7 +443,7 @@ export default async function HomePage() {
             </Link>
             <Link
               href="/(public)/contact"
-              className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/50 hover:bg-white/10 active:scale-[0.98]"
+              className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-zinc-2000 hover:bg-zinc-100 active:scale-[0.98]"
             >
               Contact Us
             </Link>
@@ -452,7 +452,7 @@ export default async function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 bg-zinc-950">
+      <footer className="border-t border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <div className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
@@ -461,16 +461,16 @@ export default async function HomePage() {
             <span className="font-semibold text-white">Pick a Partner</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
-            <Link href="/insurance" className="hover:text-zinc-300 transition">
+            <Link href="/insurance" className="hover:text-zinc-600 transition">
               Insurance
             </Link>
-            <Link href="/(public)/terms" className="hover:text-zinc-300 transition">
+            <Link href="/(public)/terms" className="hover:text-zinc-600 transition">
               Terms
             </Link>
-            <Link href="/(public)/privacy" className="hover:text-zinc-300 transition">
+            <Link href="/(public)/privacy" className="hover:text-zinc-600 transition">
               Privacy
             </Link>
-            <Link href="/(public)/contact" className="hover:text-zinc-300 transition">
+            <Link href="/(public)/contact" className="hover:text-zinc-600 transition">
               Contact
             </Link>
           </div>
