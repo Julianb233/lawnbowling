@@ -69,6 +69,32 @@ export async function getPlayerPosition(venueId: string, playerId: string) {
   return data;
 }
 
+export async function promoteNextFromWaitlist(
+  venueId: string,
+  sport: string,
+  courtId: string
+) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("court_waitlist")
+    .select("*")
+    .eq("venue_id", venueId)
+    .eq("sport", sport)
+    .eq("status", "waiting")
+    .order("position", { ascending: true })
+    .limit(1)
+    .single();
+
+  if (data) {
+    await supabase
+      .from("court_waitlist")
+      .update({ status: "promoted" })
+      .eq("id", data.id);
+  }
+
+  return data;
+}
+
 export async function notifyNextInLine(venueId: string, sport: string) {
   const supabase = await createClient();
   const { data } = await supabase
