@@ -28,6 +28,8 @@ export function BoardFilters({
             <button
               key={sport}
               onClick={() => onSportChange(active ? null : sport)}
+              aria-label={`Filter by ${info.label}`}
+              aria-pressed={active}
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-all",
                 "touch-manipulation select-none",
@@ -49,6 +51,7 @@ export function BoardFilters({
         <select
           value={selectedSkill ?? ""}
           onChange={(e) => onSkillChange((e.target.value || null) as SkillLevel | null)}
+          aria-label="Filter by skill level"
           className={cn(
             "rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-700",
             "focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100",

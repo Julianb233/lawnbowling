@@ -38,6 +38,7 @@ export function CheckInButton({ playerId, isAvailable, onToggle }: CheckInButton
     <button
       onClick={handleToggle}
       disabled={loading}
+      aria-label={available ? "Check out from venue" : "Check in as available"}
       className={cn(
         "w-full rounded-2xl px-8 py-5 text-xl font-bold text-white shadow-lg transition-all duration-300 active:scale-95",
         "touch-manipulation select-none",

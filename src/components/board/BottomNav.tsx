@@ -15,7 +15,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-zinc-200 bg-white/95 backdrop-blur lg:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-zinc-200 bg-white/95 backdrop-blur lg:hidden pb-[env(safe-area-inset-bottom)]" aria-label="Main navigation">
       <div className="flex items-center justify-around py-2">
         {NAV_ITEMS.map((item) => {
           const active = pathname === item.href;

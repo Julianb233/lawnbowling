@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { notFound } from "next/navigation";
 import { getPlayerById } from "@/lib/db/players";
 import { getWaiverByPlayerId } from "@/lib/db/waivers";
