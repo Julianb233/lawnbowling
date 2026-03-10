@@ -11,6 +11,7 @@ const navItems = [
   { href: "/admin/waivers", label: "Waivers" },
   { href: "/admin/waiver-templates", label: "Templates" },
   { href: "/admin/matches", label: "Matches" },
+  { href: "/admin/venue-qr", label: "QR Codes" },
 ];
 
 export default async function AdminLayout({
