@@ -38,6 +38,17 @@ body {
   padding-right: env(safe-area-inset-right);
 }
 
+/* iOS touch optimizations */
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+
 /* Minimum 44px touch targets on all interactive elements */
 button,
 a,
@@ -50,6 +61,11 @@ textarea,
 [role="radio"] {
   min-height: 44px;
   min-width: 44px;
+}
+
+/* Safe bottom padding for pages with bottom nav */
+.safe-bottom {
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
 }
 
 /* Focus rings for keyboard navigation */
