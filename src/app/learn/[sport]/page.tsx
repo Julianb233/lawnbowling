@@ -24,7 +24,7 @@ export default function SportGuidePage() {
 
   if (!guide) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+      <div className="flex min-h-screen items-center justify-center bg-white">
         <div className="text-center">
           <p className="mb-4 text-6xl">404</p>
           <p className="mb-4 text-zinc-400">Sport guide not found</p>
@@ -37,18 +37,18 @@ export default function SportGuidePage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 pb-24 lg:pb-8">
+    <div className="min-h-screen bg-white pb-24 lg:pb-8">
       {/* Header */}
-      <header className="sticky top-0 z-40 glass border-b border-zinc-700/30">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3">
           <Link
             href="/learn"
-            className="inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-200 min-h-[44px]"
+            className="inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-700 min-h-[44px]"
           >
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div>
-            <h1 className="text-lg font-bold text-zinc-100">
+            <h1 className="text-lg font-bold text-zinc-900">
               {guide.emoji} {guide.name} Guide
             </h1>
           </div>
@@ -68,17 +68,17 @@ export default function SportGuidePage() {
 
           {/* Overview */}
           <section id="overview">
-            <h2 className="mb-4 text-2xl font-bold text-zinc-100">Overview</h2>
+            <h2 className="mb-4 text-2xl font-bold text-zinc-900">Overview</h2>
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5"
+              className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:p-5"
             >
               {guide.overview.split("\n\n").map((para, i) => (
                 <p
                   key={i}
-                  className={`text-zinc-300 leading-relaxed ${i > 0 ? "mt-4" : ""}`}
+                  className={`text-zinc-600 leading-relaxed ${i > 0 ? "mt-4" : ""}`}
                 >
                   {para}
                 </p>
@@ -94,7 +94,7 @@ export default function SportGuidePage() {
 
           {/* How to Play */}
           <section id="how-to-play">
-            <h2 className="mb-4 text-2xl font-bold text-zinc-100">
+            <h2 className="mb-4 text-2xl font-bold text-zinc-900">
               How to Play
             </h2>
             <div className="space-y-3">
@@ -105,13 +105,13 @@ export default function SportGuidePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06 }}
-                  className="flex gap-4 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4"
+                  className="flex gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-4"
                 >
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-sm font-bold text-emerald-400">
                     {step.step}
                   </div>
                   <div>
-                    <h3 className="mb-1 font-semibold text-zinc-100">
+                    <h3 className="mb-1 font-semibold text-zinc-900">
                       {step.title}
                     </h3>
                     <p className="text-sm leading-relaxed text-zinc-400">
@@ -137,7 +137,7 @@ export default function SportGuidePage() {
 
           {/* Fun Facts */}
           <section id="fun-facts">
-            <h2 className="mb-4 text-2xl font-bold text-zinc-100">
+            <h2 className="mb-4 text-2xl font-bold text-zinc-900">
               Fun Facts
             </h2>
             <div className="space-y-2">
@@ -148,12 +148,12 @@ export default function SportGuidePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className="flex items-start gap-3 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4"
+                  className="flex items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-4"
                 >
                   <span className="mt-0.5 text-lg shrink-0">
                     {"\u{1F4A0}"}
                   </span>
-                  <p className="text-sm leading-relaxed text-zinc-300">
+                  <p className="text-sm leading-relaxed text-zinc-600">
                     {fact}
                   </p>
                 </motion.div>

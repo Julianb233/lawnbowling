@@ -66,7 +66,7 @@ export function WeeklyActivity({ playerId }: WeeklyActivityProps) {
   const maxCount = Math.max(...days.map((d) => d.count), 1);
 
   return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-900/80 p-4">
+    <div className="rounded-2xl border border-zinc-200 bg-white/80 p-4">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-sm font-semibold text-zinc-400">This Week</h3>
         {streak > 0 && (
@@ -82,11 +82,11 @@ export function WeeklyActivity({ playerId }: WeeklyActivityProps) {
           const height = d.count > 0 ? Math.max((d.count / maxCount) * 100, 12) : 4;
           return (
             <div key={d.label} className="flex flex-1 flex-col items-center gap-1">
-              <span className="text-xs font-bold text-zinc-300">{d.count > 0 ? d.count : ""}</span>
+              <span className="text-xs font-bold text-zinc-600">{d.count > 0 ? d.count : ""}</span>
               <div
                 className={cn(
                   "w-full rounded-t-md transition-all",
-                  d.count > 0 ? "bg-emerald-500" : "bg-zinc-800"
+                  d.count > 0 ? "bg-emerald-500" : "bg-zinc-100"
                 )}
                 style={{ height: `${height}%`, minHeight: 3 }}
               />

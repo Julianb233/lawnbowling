@@ -18,9 +18,9 @@ export default function KioskScanPage() {
 
   return (
     <KioskWrapper>
-      <div className="flex min-h-screen flex-col bg-zinc-950">
-        <header className="border-b border-zinc-800 px-6 py-4 text-center">
-          <h1 className="text-2xl font-black text-zinc-100">
+      <div className="flex min-h-screen flex-col bg-white">
+        <header className="border-b border-zinc-200 px-6 py-4 text-center">
+          <h1 className="text-2xl font-black text-zinc-900">
             {venue?.name || "Pick a Partner"}
           </h1>
           <p className="text-sm text-zinc-500">Scan your QR code to check in</p>

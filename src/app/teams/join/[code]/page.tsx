@@ -59,7 +59,7 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+      <div className="flex min-h-screen items-center justify-center bg-white">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
       </div>
     );
@@ -69,28 +69,28 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
   const sportColor = team ? getSportColor(team.sport) : null;
 
   return (
-    <div className="min-h-screen bg-zinc-950 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur">
+    <div className="min-h-screen bg-white pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-3">
-            <Link href="/teams" className="rounded-lg p-1 text-zinc-400 hover:text-zinc-200">
+            <Link href="/teams" className="rounded-lg p-1 text-zinc-400 hover:text-zinc-700">
               <ArrowLeft className="h-5 w-5" />
             </Link>
-            <h1 className="text-lg font-bold text-zinc-100">Join Team</h1>
+            <h1 className="text-lg font-bold text-zinc-900">Join Team</h1>
           </div>
         </div>
       </header>
 
       <div className="mx-auto max-w-md px-4 py-8">
         {team ? (
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/80 p-6 text-center">
+          <div className="rounded-2xl border border-zinc-200 bg-white/80 p-6 text-center">
             <div
               className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl text-3xl"
               style={{ backgroundColor: sportColor ? `${sportColor.primary}15` : undefined }}
             >
               {sportLabel?.emoji ?? "?"}
             </div>
-            <h2 className="mb-1 text-xl font-bold text-zinc-100">{team.name}</h2>
+            <h2 className="mb-1 text-xl font-bold text-zinc-900">{team.name}</h2>
             {team.description && (
               <p className="mb-3 text-sm text-zinc-400">{team.description}</p>
             )}
@@ -112,7 +112,7 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
             )}
           </div>
         ) : (
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/80 p-6 text-center">
+          <div className="rounded-2xl border border-zinc-200 bg-white/80 p-6 text-center">
             <p className="text-zinc-500">{error || "Team not found"}</p>
             <Link href="/teams" className="mt-4 inline-block text-sm text-emerald-400 hover:underline">
               Back to Teams

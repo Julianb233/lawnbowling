@@ -42,12 +42,12 @@ export function GameCard({ game, currentPlayerId }: GameCardProps) {
   const spotsLeft = game.max_players - goingCount;
 
   return (
-    <div className="rounded-2xl glass p-4 hover:bg-white/5 transition-colors">
+    <div className="rounded-2xl glass p-4 hover:bg-zinc-50 transition-colors">
       <div className="flex items-start justify-between mb-2">
         <div>
           <Link
             href={`/schedule/${game.id}`}
-            className="text-base font-semibold text-zinc-100 hover:text-emerald-400 transition-colors"
+            className="text-base font-semibold text-zinc-900 hover:text-emerald-400 transition-colors"
           >
             {game.title}
           </Link>

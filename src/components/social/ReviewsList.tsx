@@ -33,10 +33,10 @@ export function ReviewsList({ reviews }: ReviewsListProps) {
         <div key={review.id} className="rounded-xl glass p-3">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-700 text-xs font-bold text-zinc-300">
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-700 text-xs font-bold text-zinc-600">
                 {review.reviewer?.display_name?.charAt(0)?.toUpperCase() || "?"}
               </div>
-              <span className="text-sm font-medium text-zinc-200">
+              <span className="text-sm font-medium text-zinc-700">
                 {review.reviewer?.display_name || "Anonymous"}
               </span>
             </div>

@@ -39,11 +39,11 @@ export default function PricingPageClient() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 px-4 py-8 pb-24">
+    <div className="min-h-screen bg-white px-4 py-8 pb-24">
       <div className="mx-auto max-w-4xl">
         <button
           onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-white/60 hover:text-white min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
@@ -62,14 +62,14 @@ export default function PricingPageClient() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 rounded-xl border border-zinc-700 bg-zinc-800/50 px-4 py-3 text-sm text-zinc-400"
+            className="mb-6 rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-sm text-zinc-400"
           >
             Checkout was cancelled. No charges were made.
           </motion.div>
         )}
 
         <div className="mb-8 text-center">
-          <h1 className="mb-2 text-3xl font-black text-zinc-100">Choose Your Plan</h1>
+          <h1 className="mb-2 text-3xl font-black text-zinc-900">Choose Your Plan</h1>
           <p className="text-zinc-500">Unlock premium features for players and venues</p>
         </div>
 
@@ -85,7 +85,7 @@ export default function PricingPageClient() {
               <div className="mt-8 text-center">
                 <button
                   onClick={handleManage}
-                  className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-200"
+                  className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-700"
                 >
                   <ExternalLink className="h-4 w-4" />
                   Manage Subscription

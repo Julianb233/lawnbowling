@@ -54,11 +54,11 @@ export function ProfilePageClient({ player, waiver }: ProfilePageClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 px-4 py-8">
+    <div className="min-h-screen bg-zinc-50 px-4 py-8">
       <div className="mx-auto max-w-md">
         <button
           onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-white/60 hover:text-white min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
@@ -70,7 +70,7 @@ export function ProfilePageClient({ player, waiver }: ProfilePageClientProps) {
         </div>
 
         {editing ? (
-          <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+          <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
             <ProfileForm
               player={player}
               onSubmit={handleSubmit}
@@ -79,7 +79,7 @@ export function ProfilePageClient({ player, waiver }: ProfilePageClientProps) {
             />
             <button
               onClick={() => setEditing(false)}
-              className="mt-3 w-full rounded-lg border border-white/20 px-4 py-3 text-sm text-white/60 hover:bg-white/5 min-h-[44px]"
+              className="mt-3 w-full rounded-lg border border-zinc-300 px-4 py-3 text-sm text-zinc-500 hover:bg-zinc-50 min-h-[44px]"
             >
               Cancel
             </button>
@@ -89,7 +89,7 @@ export function ProfilePageClient({ player, waiver }: ProfilePageClientProps) {
             <ProfileCard player={player} />
             <button
               onClick={() => setEditing(true)}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/20 px-4 py-3 text-sm font-medium text-white/80 hover:bg-white/5 min-h-[44px]"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-300 px-4 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 min-h-[44px]"
             >
               <Pencil className="h-4 w-4" /> Edit Profile
             </button>

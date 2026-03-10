@@ -140,13 +140,13 @@ export default function BoardPage() {
     <IncomingRequestProvider>
       <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
         {/* Header */}
-        <header className="sticky top-0 z-40 glass border-b border-zinc-700/30">
+        <header className="sticky top-0 z-40 glass border-b border-zinc-200">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <h1 className="text-xl font-black text-zinc-100 lg:text-2xl">
+              <h1 className="text-xl font-black text-zinc-900 lg:text-2xl">
                 {"\u{1F3D3}"} <span className="text-gradient">Pick a Partner</span>
               </h1>
               <div className="flex items-center gap-2">

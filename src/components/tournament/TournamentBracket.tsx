@@ -41,13 +41,13 @@ function PlayerSlot({
         isWinner
           ? "border-green-500/30 bg-green-500/10 text-green-400"
           : isEmpty
-            ? "border-zinc-800 bg-zinc-900/50 text-zinc-600"
-            : "border-zinc-700 bg-zinc-800/80 text-zinc-300"
+            ? "border-zinc-200 bg-zinc-50 text-zinc-600"
+            : "border-zinc-200 bg-zinc-100 text-zinc-600"
       )}
     >
       {player ? (
         <>
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-700 text-[10px] font-bold text-zinc-300">
+          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-700 text-[10px] font-bold text-zinc-600">
             {player.display_name?.[0]?.toUpperCase() ?? "?"}
           </div>
           <span className="truncate">{player.display_name}</span>
@@ -139,10 +139,10 @@ function EliminationBracket({ matches, onReportResult, currentPlayerId }: Omit<T
 
 function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<TournamentBracketProps, "format">) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-zinc-800">
+    <div className="overflow-hidden rounded-2xl border border-zinc-200">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-zinc-800 bg-zinc-900/50">
+          <tr className="border-b border-zinc-200 bg-zinc-50">
             <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">#</th>
             <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">Player 1</th>
             <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500">Score</th>
@@ -158,13 +158,13 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
               (match.player1_id === currentPlayerId || match.player2_id === currentPlayerId);
 
             return (
-              <tr key={match.id} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
+              <tr key={match.id} className="border-b border-zinc-200/50 hover:bg-zinc-50">
                 <td className="px-4 py-3 text-sm text-zinc-500">{match.match_number}</td>
                 <td className="px-4 py-3">
                   <span
                     className={cn(
                       "text-sm font-medium",
-                      match.winner_id === match.player1_id ? "text-green-400" : "text-zinc-300"
+                      match.winner_id === match.player1_id ? "text-green-400" : "text-zinc-600"
                     )}
                   >
                     {match.player1?.display_name ?? "TBD"}
@@ -177,7 +177,7 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
                   <span
                     className={cn(
                       "text-sm font-medium",
-                      match.winner_id === match.player2_id ? "text-green-400" : "text-zinc-300"
+                      match.winner_id === match.player2_id ? "text-green-400" : "text-zinc-600"
                     )}
                   >
                     {match.player2?.display_name ?? "TBD"}

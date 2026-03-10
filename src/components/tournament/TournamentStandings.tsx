@@ -30,10 +30,10 @@ export function TournamentStandings({ standings }: TournamentStandingsProps) {
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-zinc-800">
+    <div className="overflow-hidden rounded-2xl border border-zinc-200">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-zinc-800 bg-zinc-900/50">
+          <tr className="border-b border-zinc-200 bg-zinc-50">
             <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">#</th>
             <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">Player</th>
             <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500">W</th>
@@ -46,7 +46,7 @@ export function TournamentStandings({ standings }: TournamentStandingsProps) {
             <tr
               key={s.player_id}
               className={cn(
-                "border-b border-zinc-800/50 transition-colors hover:bg-zinc-800/30",
+                "border-b border-zinc-200/50 transition-colors hover:bg-zinc-50",
                 i === 0 && "bg-amber-500/5"
               )}
             >
@@ -54,7 +54,7 @@ export function TournamentStandings({ standings }: TournamentStandingsProps) {
                 {i === 0 ? (
                   <Trophy className="h-4 w-4 text-amber-400" />
                 ) : i === 1 ? (
-                  <Medal className="h-4 w-4 text-zinc-300" />
+                  <Medal className="h-4 w-4 text-zinc-600" />
                 ) : i === 2 ? (
                   <Medal className="h-4 w-4 text-amber-600" />
                 ) : (
@@ -63,10 +63,10 @@ export function TournamentStandings({ standings }: TournamentStandingsProps) {
               </td>
               <td className="px-4 py-3">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-800 text-xs font-medium text-zinc-400">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-100 text-xs font-medium text-zinc-400">
                     {s.player.display_name?.[0]?.toUpperCase() ?? "?"}
                   </div>
-                  <span className="text-sm font-medium text-zinc-200">
+                  <span className="text-sm font-medium text-zinc-700">
                     {s.player.display_name}
                   </span>
                 </div>

@@ -27,13 +27,13 @@ export function QueuePageClient({
   return (
     <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 glass border-b border-zinc-700/30">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-3">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <h1 className="text-xl font-black text-zinc-100">
+            <h1 className="text-xl font-black text-zinc-900">
               {"\u{1F4CB}"} <span className="text-gradient">Match Queue</span>
             </h1>
             <p className="text-sm text-zinc-500">Waiting to play</p>
@@ -70,7 +70,7 @@ export function QueuePageClient({
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-4 rounded-2xl glass border border-zinc-700/30 p-4 text-center"
+            className="mb-4 rounded-2xl glass border border-zinc-200 p-4 text-center"
           >
             <p className="text-sm text-zinc-500">
               You&apos;re not in the queue. Head to the{" "}

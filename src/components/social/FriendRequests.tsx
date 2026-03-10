@@ -38,7 +38,7 @@ export function FriendRequests({ requests, onRespond }: FriendRequestsProps) {
             {req.player?.display_name?.charAt(0)?.toUpperCase() || "?"}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-zinc-100 truncate">
+            <p className="text-sm font-medium text-zinc-900 truncate">
               {req.player?.display_name || "Unknown"}
             </p>
             <p className="text-xs text-zinc-500">Wants to be friends</p>

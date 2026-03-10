@@ -54,7 +54,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="w-full max-w-md rounded-2xl glass p-6 max-h-[90vh] overflow-y-auto">
-        <h2 className="text-lg font-bold text-zinc-100 mb-4">
+        <h2 className="text-lg font-bold text-zinc-900 mb-4">
           Schedule a Game
         </h2>
 
@@ -65,7 +65,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Friday Night Pickleball"
-              className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700 px-4 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
             />
           </div>
 
@@ -82,7 +82,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                       "rounded-xl px-3 py-2 text-sm border transition-all",
                       sport === s
                         ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
-                        : "border-zinc-700 text-zinc-400 hover:bg-zinc-800"
+                        : "border-zinc-200 text-zinc-400 hover:bg-zinc-100"
                     )}
                   >
                     {info?.emoji} {info?.label || s}
@@ -99,7 +99,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700 px-4 py-2.5 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
               />
             </div>
             <div>
@@ -108,7 +108,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700 px-4 py-2.5 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
               />
             </div>
           </div>
@@ -123,7 +123,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               max={20}
               value={maxPlayers}
               onChange={(e) => setMaxPlayers(Number(e.target.value))}
-              className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700 px-4 py-2.5 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
             />
           </div>
 
@@ -135,7 +135,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="All skill levels welcome!"
-              className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700 px-4 py-3 text-sm text-zinc-100 placeholder:text-zinc-500 resize-none h-16 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-500 resize-none h-16 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
             />
           </div>
 
@@ -154,7 +154,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                 )}
               />
             </button>
-            <span className="text-sm text-zinc-300">Recurring</span>
+            <span className="text-sm text-zinc-600">Recurring</span>
           </div>
 
           {isRecurring && (
@@ -165,7 +165,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               <select
                 value={recurrenceRule}
                 onChange={(e) => setRecurrenceRule(e.target.value)}
-                className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700 px-4 py-2.5 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
               >
                 <option value="">Select...</option>
                 <option value="weekly:monday">Weekly - Monday</option>
@@ -185,7 +185,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
         <div className="mt-6 flex gap-2">
           <button
             onClick={onClose}
-            className="flex-1 rounded-xl border border-zinc-700 px-4 py-2.5 text-sm font-medium text-zinc-400 hover:bg-zinc-800 transition-colors"
+            className="flex-1 rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-400 hover:bg-zinc-100 transition-colors"
           >
             Cancel
           </button>

@@ -46,18 +46,18 @@ export default function VenuesAdminPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-100 mb-6">Venue Management</h1>
+      <h1 className="text-2xl font-bold text-zinc-900 mb-6">Venue Management</h1>
 
       {/* Create venue */}
-      <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 mb-6">
-        <h2 className="text-sm font-semibold text-zinc-300 mb-3">Add New Venue</h2>
+      <div className="rounded-xl border border-zinc-200 bg-white p-4 mb-6">
+        <h2 className="text-sm font-semibold text-zinc-600 mb-3">Add New Venue</h2>
         <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             placeholder="Venue name"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
-            className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none flex-1"
+            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-emerald-500 focus:outline-none flex-1"
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
           />
           <input
@@ -65,7 +65,7 @@ export default function VenuesAdminPage() {
             placeholder="Address (optional)"
             value={newAddress}
             onChange={(e) => setNewAddress(e.target.value)}
-            className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-zinc-100 focus:border-emerald-500 focus:outline-none flex-1"
+            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-emerald-500 focus:outline-none flex-1"
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
           />
           <Button onClick={handleCreate} disabled={creating || !newName.trim()}>
@@ -82,11 +82,11 @@ export default function VenuesAdminPage() {
             className={`flex items-center justify-between rounded-lg border px-4 py-3 transition-colors ${
               venue.id === selectedVenueId
                 ? "border-emerald-600 bg-emerald-950/30"
-                : "border-zinc-800 bg-zinc-900"
+                : "border-zinc-200 bg-white"
             }`}
           >
             <div>
-              <span className="font-medium text-zinc-100">{venue.name}</span>
+              <span className="font-medium text-zinc-900">{venue.name}</span>
               {venue.address && (
                 <span className="ml-2 text-xs text-zinc-500">{venue.address}</span>
               )}

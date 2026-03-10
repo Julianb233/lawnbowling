@@ -66,8 +66,8 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
             className="w-full max-w-md rounded-2xl glass p-6"
           >
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-zinc-100">Book {court.name}</h2>
-              <button onClick={onClose} className="rounded-full p-1 hover:bg-zinc-800">
+              <h2 className="text-lg font-bold text-zinc-900">Book {court.name}</h2>
+              <button onClick={onClose} className="rounded-full p-1 hover:bg-zinc-100">
                 <X className="h-5 w-5 text-zinc-400" />
               </button>
             </div>
@@ -87,7 +87,7 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
                     type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
-                    className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-green-500/50 min-h-[44px]"
+                    className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-white outline-none focus:border-green-500/50 min-h-[44px]"
                   />
                 </div>
                 <div>
@@ -98,7 +98,7 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
                     type="time"
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
-                    className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-green-500/50 min-h-[44px]"
+                    className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-white outline-none focus:border-green-500/50 min-h-[44px]"
                   />
                 </div>
                 <div>
@@ -111,7 +111,7 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
                         className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium min-h-[44px] ${
                           duration === d
                             ? "border-green-500 bg-green-500/20 text-green-400"
-                            : "border-white/10 bg-white/5 text-white/60"
+                            : "border-zinc-200 bg-zinc-50 text-zinc-500"
                         }`}
                       >
                         {d}m

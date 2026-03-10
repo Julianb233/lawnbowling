@@ -6,7 +6,7 @@ export default function PricingPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+        <div className="flex min-h-screen items-center justify-center bg-white">
           <Loader2 className="h-8 w-8 animate-spin text-green-500" />
         </div>
       }

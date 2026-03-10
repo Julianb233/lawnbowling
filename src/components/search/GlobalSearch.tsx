@@ -71,11 +71,11 @@ export function GlobalSearch() {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 rounded-xl bg-white/5 px-3 py-2 text-sm text-zinc-500 hover:bg-white/10 min-h-[44px] transition-colors"
+        className="flex items-center gap-2 rounded-xl bg-zinc-50 px-3 py-2 text-sm text-zinc-500 hover:bg-zinc-100 min-h-[44px] transition-colors"
       >
         <Search className="h-4 w-4" />
         <span className="hidden sm:inline">Search...</span>
-        <kbd className="hidden rounded bg-zinc-800 px-1.5 py-0.5 text-xs text-zinc-500 sm:inline">
+        <kbd className="hidden rounded bg-zinc-100 px-1.5 py-0.5 text-xs text-zinc-500 sm:inline">
           &#8984;K
         </kbd>
       </button>
@@ -98,7 +98,7 @@ export function GlobalSearch() {
               className="w-full max-w-lg rounded-2xl glass overflow-hidden"
             >
               {/* Search input */}
-              <div className="flex items-center gap-3 border-b border-zinc-800 px-4 py-3">
+              <div className="flex items-center gap-3 border-b border-zinc-200 px-4 py-3">
                 <Search className="h-5 w-5 text-zinc-500" />
                 <input
                   ref={inputRef}
@@ -107,7 +107,7 @@ export function GlobalSearch() {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                   placeholder="Search players, teams, games..."
-                  className="flex-1 bg-transparent text-zinc-100 placeholder-zinc-600 outline-none"
+                  className="flex-1 bg-transparent text-zinc-900 placeholder-zinc-600 outline-none"
                 />
                 {query && (
                   <button onClick={() => setQuery("")}>

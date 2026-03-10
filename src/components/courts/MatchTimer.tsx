@@ -30,7 +30,7 @@ export function MatchTimer({ startedAt, durationMinutes }: MatchTimerProps) {
       className={`inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-mono font-medium ${
         isOvertime
           ? "bg-red-500/20 text-red-400 animate-pulse"
-          : "bg-zinc-700/50 text-zinc-300"
+          : "bg-zinc-700/50 text-zinc-600"
       }`}
     >
       <span className="relative flex h-2 w-2">

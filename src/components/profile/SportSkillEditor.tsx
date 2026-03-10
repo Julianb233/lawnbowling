@@ -68,7 +68,7 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
   }
 
   if (loading) {
-    return <div className="animate-pulse rounded-xl bg-zinc-800 h-32" />;
+    return <div className="animate-pulse rounded-xl bg-zinc-100 h-32" />;
   }
 
   return (
@@ -87,7 +87,7 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
             className="rounded-xl glass p-4"
           >
             <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm font-medium text-zinc-200 capitalize">
+              <span className="text-sm font-medium text-zinc-700 capitalize">
                 {sport.replace("_", " ")}
               </span>
               <span className="text-xs text-zinc-500">ELO: {Math.round(rating)}</span>
@@ -102,7 +102,7 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
                     "flex flex-1 flex-col items-center gap-1 rounded-lg border px-2 py-2 text-xs transition-colors min-h-[60px]",
                     currentLevel === level.value
                       ? "border-green-500 bg-green-500/20 text-green-400"
-                      : "border-zinc-700 bg-zinc-800/50 text-zinc-500 hover:border-zinc-600"
+                      : "border-zinc-200 bg-zinc-100 text-zinc-500 hover:border-zinc-400"
                   )}
                 >
                   {saving === sport ? (

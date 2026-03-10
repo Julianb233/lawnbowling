@@ -22,7 +22,7 @@ export function InsuranceOffer({ onDismiss, onStatusUpdate }: InsuranceOfferProp
     <div className="relative rounded-xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-6">
       <button
         onClick={handleDismiss}
-        className="absolute right-3 top-3 rounded-full p-1 text-white/40 hover:text-white/80 min-h-[44px] min-w-[44px] flex items-center justify-center"
+        className="absolute right-3 top-3 rounded-full p-1 text-zinc-400 hover:text-zinc-700 min-h-[44px] min-w-[44px] flex items-center justify-center"
         aria-label="Dismiss"
       >
         <X className="h-4 w-4" />
@@ -34,7 +34,7 @@ export function InsuranceOffer({ onDismiss, onStatusUpdate }: InsuranceOfferProp
         </div>
         <div className="space-y-2">
           <h3 className="font-semibold text-white">Protect Yourself with Event Insurance</h3>
-          <p className="text-sm text-white/60">
+          <p className="text-sm text-zinc-500">
             Get liability coverage for your recreational sports activities. Daily Event Insurance offers
             affordable per-event coverage so you can play with peace of mind.
           </p>
@@ -50,7 +50,7 @@ export function InsuranceOffer({ onDismiss, onStatusUpdate }: InsuranceOfferProp
             </a>
             <button
               onClick={handleDismiss}
-              className="rounded-lg border border-white/20 px-4 py-2.5 text-sm text-white/60 transition-colors hover:bg-white/5 min-h-[44px]"
+              className="rounded-lg border border-zinc-300 px-4 py-2.5 text-sm text-zinc-500 transition-colors hover:bg-zinc-50 min-h-[44px]"
             >
               Maybe Later
             </button>

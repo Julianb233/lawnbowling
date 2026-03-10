@@ -11,17 +11,17 @@ export default function LearnPage() {
   const guides = getAllGuides();
 
   return (
-    <div className="min-h-screen bg-zinc-950 pb-24 lg:pb-8">
-      <header className="sticky top-0 z-40 glass border-b border-zinc-700/30">
+    <div className="min-h-screen bg-white pb-24 lg:pb-8">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3">
           <Link
             href="/board"
-            className="inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-200 min-h-[44px]"
+            className="inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-700 min-h-[44px]"
           >
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div>
-            <h1 className="text-xl font-black text-zinc-100">
+            <h1 className="text-xl font-black text-zinc-900">
               Learn to Play
             </h1>
             <p className="text-sm text-zinc-500">
@@ -44,7 +44,7 @@ export default function LearnPage() {
               >
                 <Link
                   href={`/learn/${guide.sport}`}
-                  className="group block rounded-2xl border border-zinc-800 bg-zinc-900/80 p-6 transition-all hover:border-zinc-600 hover:bg-zinc-800/80"
+                  className="group block rounded-2xl border border-zinc-200 bg-white/80 p-6 transition-all hover:border-zinc-400 hover:bg-zinc-100"
                   style={{
                     boxShadow: `0 0 0 0 ${colors.glow}`,
                   }}
@@ -56,7 +56,7 @@ export default function LearnPage() {
                   }}
                 >
                   <div className="mb-4 text-5xl">{guide.emoji}</div>
-                  <h2 className="mb-1 text-xl font-bold text-zinc-100">
+                  <h2 className="mb-1 text-xl font-bold text-zinc-900">
                     {guide.name}
                   </h2>
                   <p className="mb-4 text-sm text-zinc-400 line-clamp-2">
@@ -73,11 +73,11 @@ export default function LearnPage() {
                     >
                       {guide.difficulty}
                     </span>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-zinc-800 px-2.5 py-1 text-xs text-zinc-400">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-1 text-xs text-zinc-400">
                       <Clock className="h-3 w-3" />
                       {guide.typicalDuration}
                     </span>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-zinc-800 px-2.5 py-1 text-xs text-zinc-400">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-1 text-xs text-zinc-400">
                       <Users className="h-3 w-3" />
                       {guide.playersNeeded}
                     </span>

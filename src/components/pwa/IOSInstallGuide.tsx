@@ -52,7 +52,7 @@ export function IOSInstallGuide() {
             Install Pick a Partner
           </p>
           <div className="mt-2 space-y-1.5">
-            <p className="text-zinc-300 text-xs flex items-center gap-2">
+            <p className="text-zinc-600 text-xs flex items-center gap-2">
               <span className="shrink-0">1.</span>
               Tap the{" "}
               <svg
@@ -70,7 +70,7 @@ export function IOSInstallGuide() {
               </svg>{" "}
               Share button
             </p>
-            <p className="text-zinc-300 text-xs flex items-center gap-2">
+            <p className="text-zinc-600 text-xs flex items-center gap-2">
               <span className="shrink-0">2.</span>
               Then tap <strong className="text-white">Add to Home Screen</strong>
             </p>
@@ -78,7 +78,7 @@ export function IOSInstallGuide() {
         </div>
         <button
           onClick={handleDismiss}
-          className="text-zinc-400 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="text-zinc-400 hover:text-zinc-900 min-h-[44px] min-w-[44px] flex items-center justify-center rounded focus:outline-none focus:ring-2 focus:ring-green-400"
           aria-label="Dismiss install guide"
         >
           Got it

@@ -33,7 +33,7 @@ export function WaitlistPosition({ position, sport, waitlistId, onLeave }: Waitl
       </div>
       <button
         onClick={handleLeave}
-        className="rounded-lg p-2 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
+        className="rounded-lg p-2 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-600 min-h-[44px] min-w-[44px] flex items-center justify-center"
       >
         <X className="h-4 w-4" />
       </button>

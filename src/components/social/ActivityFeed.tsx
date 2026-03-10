@@ -51,8 +51,8 @@ export function ActivityFeed({ items }: ActivityFeedProps) {
           >
             <span className="text-xl mt-0.5">{config.icon}</span>
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-zinc-200">
-                <span className="font-medium text-zinc-100">
+              <p className="text-sm text-zinc-700">
+                <span className="font-medium text-zinc-900">
                   {item.player?.display_name || "Someone"}
                 </span>{" "}
                 {config.verb}

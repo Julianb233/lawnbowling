@@ -10,8 +10,8 @@ export function SportGuideLinks({ sports }: { sports: string[] }) {
   if (!sports || sports.length === 0) return null;
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
-      <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-300">
+    <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
+      <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-600">
         <BookOpen className="h-4 w-4" />
         Learn How to Play
       </h3>

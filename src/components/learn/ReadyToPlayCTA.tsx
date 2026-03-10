@@ -16,14 +16,14 @@ export function ReadyToPlayCTA({ sport }: { sport: Sport }) {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="rounded-2xl border border-zinc-800 p-6 text-center sm:p-8"
+        className="rounded-2xl border border-zinc-200 p-6 text-center sm:p-8"
         style={{
           background: `linear-gradient(135deg, ${colors.primary}10, transparent 60%)`,
           borderColor: `${colors.primary}30`,
         }}
       >
         <div className="mb-3 text-4xl">{label.emoji}</div>
-        <h2 className="mb-2 text-2xl font-bold text-zinc-100">
+        <h2 className="mb-2 text-2xl font-bold text-zinc-900">
           Ready to Play {label.label}?
         </h2>
         <p className="mb-5 text-zinc-400">

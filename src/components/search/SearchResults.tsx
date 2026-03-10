@@ -33,11 +33,11 @@ export function SearchResults({ players, teams, games, onSelect }: SearchResults
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.03 }}
               onClick={() => onSelect("player", p.id)}
-              className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-white/5 min-h-[44px]"
+              className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-zinc-50 min-h-[44px]"
             >
               <User className="h-4 w-4 shrink-0 text-green-500" />
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-zinc-200">{p.display_name}</p>
+                <p className="truncate text-sm font-medium text-zinc-700">{p.display_name}</p>
                 <p className="text-xs text-zinc-500">{p.skill_level} - {p.sports.join(", ")}</p>
               </div>
             </motion.button>
@@ -55,11 +55,11 @@ export function SearchResults({ players, teams, games, onSelect }: SearchResults
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.03 }}
               onClick={() => onSelect("team", t.id)}
-              className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-white/5 min-h-[44px]"
+              className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-zinc-50 min-h-[44px]"
             >
               <Users className="h-4 w-4 shrink-0 text-blue-500" />
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-zinc-200">{t.name}</p>
+                <p className="truncate text-sm font-medium text-zinc-700">{t.name}</p>
                 <p className="text-xs text-zinc-500">{t.sport}</p>
               </div>
             </motion.button>
@@ -77,11 +77,11 @@ export function SearchResults({ players, teams, games, onSelect }: SearchResults
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.03 }}
               onClick={() => onSelect("game", g.id)}
-              className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-white/5 min-h-[44px]"
+              className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-zinc-50 min-h-[44px]"
             >
               <Calendar className="h-4 w-4 shrink-0 text-amber-500" />
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-zinc-200">{g.title}</p>
+                <p className="truncate text-sm font-medium text-zinc-700">{g.title}</p>
                 <p className="text-xs text-zinc-500">
                   {g.sport} - {new Date(g.scheduled_at).toLocaleDateString()}
                 </p>

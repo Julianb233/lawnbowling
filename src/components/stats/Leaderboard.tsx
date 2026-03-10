@@ -58,7 +58,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
             "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
             sportFilter === "all"
               ? "bg-emerald-600 text-white"
-              : "bg-zinc-800 text-zinc-400 hover:text-zinc-200"
+              : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
           )}
         >
           All Sports
@@ -73,7 +73,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                 "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
                 sportFilter === s
                   ? "bg-emerald-600 text-white"
-                  : "bg-zinc-800 text-zinc-400 hover:text-zinc-200"
+                  : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
               )}
             >
               {label.emoji} {label.short}
@@ -85,7 +85,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="h-14 animate-pulse rounded-xl bg-zinc-800/50" />
+            <div key={i} className="h-14 animate-pulse rounded-xl bg-zinc-100" />
           ))}
         </div>
       ) : entries.length === 0 ? (
@@ -105,14 +105,14 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                   "flex items-center gap-3 rounded-xl border p-3",
                   isMe
                     ? "border-emerald-500/30 bg-emerald-500/5"
-                    : "border-zinc-800 bg-zinc-900/50"
+                    : "border-zinc-200 bg-zinc-50"
                 )}
               >
                 <div className="flex h-8 w-8 items-center justify-center">
                   {getRankDisplay(rank)}
                 </div>
 
-                <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-zinc-800">
+                <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-zinc-100">
                   {entry.player?.avatar_url ? (
                     <img src={entry.player.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
@@ -123,7 +123,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-medium text-zinc-200">
+                  <p className="truncate font-medium text-zinc-700">
                     {entry.player?.display_name}
                     {isMe && <span className="ml-1 text-xs text-emerald-400">(You)</span>}
                   </p>

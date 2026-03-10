@@ -41,7 +41,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+      <div className="flex min-h-screen items-center justify-center bg-white">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
       </div>
     );
@@ -49,7 +49,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
 
   if (!team) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+      <div className="flex min-h-screen items-center justify-center bg-white">
         <p className="text-zinc-500">Team not found</p>
       </div>
     );
@@ -59,15 +59,15 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
   const sportColor = getSportColor(team.sport);
 
   return (
-    <div className="min-h-screen bg-zinc-950 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur">
+    <div className="min-h-screen bg-white pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-3">
-            <Link href="/teams" className="rounded-lg p-1 text-zinc-400 hover:text-zinc-200">
+            <Link href="/teams" className="rounded-lg p-1 text-zinc-400 hover:text-zinc-700">
               <ArrowLeft className="h-5 w-5" />
             </Link>
             <div className="flex-1">
-              <h1 className="text-lg font-bold text-zinc-100">{team.name}</h1>
+              <h1 className="text-lg font-bold text-zinc-900">{team.name}</h1>
               <p className="text-sm text-zinc-500">
                 <span
                   className="inline-block rounded-full px-2 py-0.5 text-xs font-medium"
@@ -94,22 +94,22 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
         </div>
 
         <Tabs.Root defaultValue="members">
-          <Tabs.List className="mb-4 flex gap-1 rounded-xl bg-zinc-900 p-1">
+          <Tabs.List className="mb-4 flex gap-1 rounded-xl bg-white p-1">
             <Tabs.Trigger
               value="members"
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-zinc-500 data-[state=active]:bg-zinc-800 data-[state=active]:text-zinc-100"
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-zinc-500 data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
             >
               <Users className="h-4 w-4" /> Members
             </Tabs.Trigger>
             <Tabs.Trigger
               value="chat"
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-zinc-500 data-[state=active]:bg-zinc-800 data-[state=active]:text-zinc-100"
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-zinc-500 data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
             >
               <MessageCircle className="h-4 w-4" /> Chat
             </Tabs.Trigger>
             <Tabs.Trigger
               value="stats"
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-zinc-500 data-[state=active]:bg-zinc-800 data-[state=active]:text-zinc-100"
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-zinc-500 data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
             >
               <BarChart3 className="h-4 w-4" /> Stats
             </Tabs.Trigger>
@@ -128,7 +128,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
           </Tabs.Content>
 
           <Tabs.Content value="stats">
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 text-center">
+            <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6 text-center">
               <BarChart3 className="mx-auto mb-2 h-8 w-8 text-zinc-700" />
               <p className="text-sm text-zinc-500">Team stats coming soon</p>
             </div>

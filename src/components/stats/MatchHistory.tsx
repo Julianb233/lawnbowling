@@ -54,7 +54,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
     return (
       <div className="space-y-3">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-20 animate-pulse rounded-xl bg-zinc-800/50" />
+          <div key={i} className="h-20 animate-pulse rounded-xl bg-zinc-100" />
         ))}
       </div>
     );
@@ -82,7 +82,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
           <motion.div
             key={match.id}
             {...ANIMATIONS.fadeInUp}
-            className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-3"
+            className="rounded-xl border border-zinc-200 bg-zinc-50 p-3"
           >
             <div className="mb-2 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -107,7 +107,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                 )}
               </div>
               {result && result.team1_score !== null && (
-                <span className="text-sm font-bold text-zinc-300">
+                <span className="text-sm font-bold text-zinc-600">
                   {result.team1_score} - {result.team2_score}
                 </span>
               )}
@@ -141,7 +141,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                   {mp.players?.avatar_url ? (
                     <img src={mp.players.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-zinc-800 text-[10px] text-zinc-500">
+                    <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-[10px] text-zinc-500">
                       {mp.players?.display_name?.charAt(0)}
                     </div>
                   )}

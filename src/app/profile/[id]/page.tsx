@@ -64,24 +64,24 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
     .slice(0, 2);
 
   return (
-    <div className="min-h-screen bg-zinc-950 px-4 py-8">
+    <div className="min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-md">
         <Link
           href="/"
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-100 min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-900 min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back to Board
         </Link>
 
         <div className="space-y-6">
           <div className="flex flex-col items-center text-center">
-            <Avatar.Root className="mb-4 inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-white/10">
+            <Avatar.Root className="mb-4 inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-zinc-100">
               <Avatar.Image
                 src={player.avatar_url ?? undefined}
                 alt={player.display_name}
                 className="h-full w-full object-cover"
               />
-              <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-white/60">
+              <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-zinc-500">
                 {initials}
               </Avatar.Fallback>
             </Avatar.Root>

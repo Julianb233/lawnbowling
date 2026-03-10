@@ -27,7 +27,7 @@ export function WaitlistBoard({ venueId, sport }: WaitlistBoardProps) {
   }, [venueId, sport]);
 
   if (loading) {
-    return <div className="animate-pulse rounded-xl bg-zinc-800 h-24" />;
+    return <div className="animate-pulse rounded-xl bg-zinc-100 h-24" />;
   }
 
   if (entries.length === 0) {
@@ -43,7 +43,7 @@ export function WaitlistBoard({ venueId, sport }: WaitlistBoardProps) {
     <div className="rounded-xl glass p-4">
       <div className="mb-3 flex items-center gap-2">
         <Users className="h-4 w-4 text-amber-400" />
-        <h3 className="text-sm font-semibold text-zinc-300">
+        <h3 className="text-sm font-semibold text-zinc-600">
           Waitlist ({entries.length})
         </h3>
       </div>
@@ -54,13 +54,13 @@ export function WaitlistBoard({ venueId, sport }: WaitlistBoardProps) {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="flex items-center gap-3 rounded-lg bg-white/5 px-3 py-2"
+            className="flex items-center gap-3 rounded-lg bg-zinc-50 px-3 py-2"
           >
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/20 text-xs font-bold text-amber-400">
               #{entry.position}
             </span>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-zinc-200">
+              <p className="truncate text-sm font-medium text-zinc-700">
                 {entry.player?.display_name || "Player"}
               </p>
               <p className="text-xs text-zinc-500">{entry.sport}</p>

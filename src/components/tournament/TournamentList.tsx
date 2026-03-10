@@ -33,7 +33,7 @@ export function TournamentList() {
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-40 animate-pulse rounded-2xl bg-zinc-800/50" />
+          <div key={i} className="h-40 animate-pulse rounded-2xl bg-zinc-100" />
         ))}
       </div>
     );
