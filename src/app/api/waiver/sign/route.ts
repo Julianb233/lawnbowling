@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createWaiver } from "@/lib/db/waivers";
+import { getActiveWaiverTemplate } from "@/lib/db/waiver-templates";
+import { getVenue } from "@/lib/db/venues";
 
 const DEFAULT_WAIVER_TEXT = `LIABILITY WAIVER AND RELEASE OF CLAIMS
 
@@ -37,7 +39,7 @@ export async function POST(request: NextRequest) {
     // Verify player belongs to user
     const { data: player } = await supabase
       .from("players")
-      .select("id, user_id")
+      .select("id, user_id, venue_id")
       .eq("id", player_id)
       .single();
 
@@ -45,12 +47,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
+    // Use venue-specific waiver template if available, fall back to default
+    let waiverText = DEFAULT_WAIVER_TEXT;
+    const venue = await getVenue();
+    if (venue) {
+      const template = await getActiveWaiverTemplate(venue.id);
+      if (template) {
+        waiverText = template.body;
+      }
+    }
+
     const ip = request.headers.get("x-forwarded-for") ?? request.headers.get("x-real-ip") ?? "unknown";
     const userAgent = request.headers.get("user-agent") ?? "unknown";
 
     const waiver = await createWaiver({
       player_id,
-      waiver_text: DEFAULT_WAIVER_TEXT,
+      waiver_text: waiverText,
       accepted: true,
       ip_address: ip,
       user_agent: userAgent,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ProfileForm } from "@/components/profile/ProfileForm";
 import { WaiverForm } from "@/components/waiver/WaiverForm";
@@ -13,7 +13,25 @@ type Step = "profile" | "waiver" | "insurance" | "complete";
 export function SetupFlowClient({ userId }: { userId: string }) {
   const [step, setStep] = useState<Step>("profile");
   const [playerId, setPlayerId] = useState<string | null>(null);
+  const [waiverText, setWaiverText] = useState<string | undefined>(undefined);
+  const [venueName, setVenueName] = useState<string | undefined>(undefined);
   const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/waiver/template")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.template?.body) {
+          setWaiverText(data.template.body);
+        }
+        if (data.venue_name) {
+          setVenueName(data.venue_name);
+        }
+      })
+      .catch(() => {
+        // Fall back to default waiver text in WaiverForm
+      });
+  }, []);
 
   async function handleProfileSubmit(data: {
     display_name: string;
@@ -132,7 +150,11 @@ export function SetupFlowClient({ userId }: { userId: string }) {
           )}
 
           {step === "waiver" && (
-            <WaiverForm onSubmit={handleWaiverSubmit} />
+            <WaiverForm
+              onSubmit={handleWaiverSubmit}
+              waiverText={waiverText}
+              venueName={venueName}
+            />
           )}
 
           {step === "insurance" && (

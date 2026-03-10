@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-03-09)
 
 **Core value:** Players at recreational sports venues can quickly find and team up with partners
-**Current focus:** Deployment & verification
+**Current focus:** Phase 2 verified and complete
 
 ## Current Position
 
 Phase: 6 of 6 (Complete)
 Plan: All plans complete
 Status: v1 complete, v2 features in progress
-Last activity: 2026-03-10 — All v1 phases built, v2 social features added
+Last activity: 2026-03-10 — Phase 2 audit complete, WAIV-05 gap fixed (venue-configurable waiver templates)
 
 Progress: [██████████] 100%
 
@@ -53,5 +53,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: All phases complete, v2 social features added, ready for deployment
+Stopped at: Phase 2 verified — all PROF/WAIV/INSR requirements pass, venue waiver templates implemented
 Resume file: None

@@ -7,6 +7,7 @@ const navItems = [
   { href: "/admin/courts", label: "Courts" },
   { href: "/admin/players", label: "Players" },
   { href: "/admin/waivers", label: "Waivers" },
+  { href: "/admin/waiver-templates", label: "Waiver Templates" },
   { href: "/admin/matches", label: "Matches" },
 ];
 
