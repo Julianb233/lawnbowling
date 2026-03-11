@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // Limit static generation workers to prevent ENOENT race conditions
+    // on machines with many CPUs (default = nproc, e.g. 48).
+    workerThreads: false,
+    cpus: 4,
+  },
   images: {
     remotePatterns: [
       {
