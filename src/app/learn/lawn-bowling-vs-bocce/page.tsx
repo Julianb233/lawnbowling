@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
+import { getArticleSchema, getBreadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title:
@@ -72,8 +73,21 @@ const comparisonRows = [
 ];
 
 export default function LawnBowlingVsBoccePage() {
+  const articleSchema = getArticleSchema({
+    title: "Lawn Bowling vs Bocce Ball: Complete Guide to the Differences",
+    description: "What is the difference between lawn bowling and bocce ball? Compare rules, equipment, scoring, playing surfaces, and culture.",
+    url: "/learn/lawn-bowling-vs-bocce",
+  });
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Learn", url: "/learn" },
+    { name: "Lawn Bowling vs Bocce", url: "/learn/lawn-bowling-vs-bocce" },
+  ]);
+
   return (
     <div className="min-h-screen bg-white overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }} />
       <LearnNav />
 
       {/* Breadcrumb */}

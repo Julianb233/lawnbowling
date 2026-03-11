@@ -11,6 +11,7 @@ import {
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
 import { LearnBreadcrumb } from "@/components/learn/LearnBreadcrumb";
+import { getArticleSchema, getBreadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Lawn Bowling Positions | Lead, Second, Third, Skip | Lawnbowling",
@@ -148,8 +149,21 @@ const positions = [
 ];
 
 export default function PositionsPage() {
+  const articleSchema = getArticleSchema({
+    title: "Lawn Bowling Positions | Lead, Second, Third, Skip",
+    description: "Learn about the four lawn bowling team positions: Lead, Second, Third (Vice-Skip), and Skip.",
+    url: "/learn/positions",
+  });
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Learn", url: "/learn" },
+    { name: "Positions", url: "/learn/positions" },
+  ]);
+
   return (
     <div className="min-h-screen bg-white overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }} />
       <LearnNav />
 
       <div className="mx-auto max-w-4xl px-6 pt-10 pb-24">

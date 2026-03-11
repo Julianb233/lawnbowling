@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
+import { getArticleSchema, getBreadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title:
@@ -272,8 +273,21 @@ const DEALERS = [
 // ---------------------------------------------------------------------------
 
 export default function EquipmentGuidePage() {
+  const articleSchema = getArticleSchema({
+    title: "Lawn Bowling Equipment Buying Guide",
+    description: "Complete lawn bowling equipment guide. Learn about bowls, shoes, bags, and accessories.",
+    url: "/learn/equipment",
+  });
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Learn", url: "/learn" },
+    { name: "Equipment Guide", url: "/learn/equipment" },
+  ]);
+
   return (
     <div className="min-h-screen bg-white overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }} />
       <LearnNav />
 
       {/* Breadcrumb */}
