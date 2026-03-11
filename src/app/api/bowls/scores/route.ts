@@ -1,9 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
+const MAX_SCORE_PER_END = 9;
+const MAX_ENDS = 30;
+
+function validateScores(scores: unknown): { valid: boolean; parsed: number[]; error?: string } {
+  if (!Array.isArray(scores)) return { valid: true, parsed: [] };
+  if (scores.length > MAX_ENDS) {
+    return { valid: false, parsed: [], error: `Cannot exceed ${MAX_ENDS} ends` };
+  }
+  const parsed: number[] = [];
+  for (const s of scores) {
+    const n = Number(s);
+    if (!Number.isFinite(n) || n < 0 || n > MAX_SCORE_PER_END || !Number.isInteger(n)) {
+      return { valid: false, parsed: [], error: `Scores must be integers between 0 and ${MAX_SCORE_PER_END}` };
+    }
+    parsed.push(n);
+  }
+  return { valid: true, parsed };
+}
+
 /**
  * GET /api/bowls/scores?tournament_id=xxx&round=1
- * Get all scores for a tournament round.
+ * Get all scores for a tournament round. Public endpoint for spectators.
  */
 export async function GET(req: NextRequest) {
   const tournamentId = req.nextUrl.searchParams.get("tournament_id");
@@ -22,7 +41,11 @@ export async function GET(req: NextRequest) {
     .order("rink", { ascending: true });
 
   if (round) {
-    query = query.eq("round", parseInt(round, 10));
+    const roundNum = parseInt(round, 10);
+    if (!Number.isFinite(roundNum) || roundNum < 1) {
+      return NextResponse.json({ error: "Invalid round number" }, { status: 400 });
+    }
+    query = query.eq("round", roundNum);
   }
 
   const { data, error } = await query;
@@ -37,19 +60,18 @@ export async function GET(req: NextRequest) {
 /**
  * POST /api/bowls/scores
  * Create or update scores for a rink in a tournament round.
- * Body: {
- *   tournament_id: string,
- *   round: number,
- *   rink: number,
- *   team_a_players?: { player_id: string, display_name: string }[],
- *   team_b_players?: { player_id: string, display_name: string }[],
- *   team_a_scores: number[],
- *   team_b_scores: number[],
- *   is_finalized?: boolean,
- * }
+ * Requires authentication.
  */
 export async function POST(req: NextRequest) {
   try {
+    const supabase = await createClient();
+
+    // Auth check
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await req.json();
     const {
       tournament_id,
@@ -60,6 +82,7 @@ export async function POST(req: NextRequest) {
       team_a_scores,
       team_b_scores,
       is_finalized,
+      expected_updated_at, // For optimistic concurrency control
     } = body;
 
     if (!tournament_id || !round || !rink) {
@@ -69,52 +92,82 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Ensure scores are arrays of numbers
-    const scoresA: number[] = Array.isArray(team_a_scores)
-      ? team_a_scores.map(Number)
-      : [];
-    const scoresB: number[] = Array.isArray(team_b_scores)
-      ? team_b_scores.map(Number)
-      : [];
+    // Validate round and rink are positive integers
+    if (!Number.isInteger(round) || round < 1 || !Number.isInteger(rink) || rink < 1) {
+      return NextResponse.json(
+        { error: "round and rink must be positive integers" },
+        { status: 400 }
+      );
+    }
+
+    // Validate scores
+    const valA = validateScores(team_a_scores);
+    if (!valA.valid) {
+      return NextResponse.json({ error: valA.error }, { status: 400 });
+    }
+    const valB = validateScores(team_b_scores);
+    if (!valB.valid) {
+      return NextResponse.json({ error: valB.error }, { status: 400 });
+    }
+
+    const scoresA = valA.parsed;
+    const scoresB = valB.parsed;
+
+    // Ensure both arrays are the same length
+    if (scoresA.length !== scoresB.length) {
+      return NextResponse.json(
+        { error: "team_a_scores and team_b_scores must have the same length" },
+        { status: 400 }
+      );
+    }
 
     // Calculate totals
     const totalA = scoresA.reduce((sum, s) => sum + s, 0);
     const totalB = scoresB.reduce((sum, s) => sum + s, 0);
 
     // Calculate ends won
-    const endsCount = Math.min(scoresA.length, scoresB.length);
     let endsWonA = 0;
     let endsWonB = 0;
-    for (let i = 0; i < endsCount; i++) {
+    for (let i = 0; i < scoresA.length; i++) {
       if (scoresA[i] > scoresB[i]) endsWonA++;
       else if (scoresB[i] > scoresA[i]) endsWonB++;
     }
 
-    // Determine winner (only if finalized or there are scores)
+    // Determine winner
     let winner: string | null = null;
-    if (scoresA.length > 0 || scoresB.length > 0) {
+    if (scoresA.length > 0) {
       if (totalA > totalB) winner = "team_a";
       else if (totalB > totalA) winner = "team_b";
       else winner = "draw";
     }
 
-    const supabase = await createClient();
-
     // Check if score record already exists
     const { data: existing } = await supabase
       .from("tournament_scores")
-      .select("id, is_finalized")
+      .select("id, is_finalized, updated_at")
       .eq("tournament_id", tournament_id)
       .eq("round", round)
       .eq("rink", rink)
       .maybeSingle();
 
     // Don't allow updates to finalized scores
-    if (existing?.is_finalized && !is_finalized) {
+    if (existing?.is_finalized) {
       return NextResponse.json(
         { error: "Cannot modify finalized scores" },
         { status: 403 }
       );
+    }
+
+    // Optimistic concurrency check
+    if (existing && expected_updated_at) {
+      const existingTime = new Date(existing.updated_at).getTime();
+      const expectedTime = new Date(expected_updated_at).getTime();
+      if (existingTime !== expectedTime) {
+        return NextResponse.json(
+          { error: "Score was modified by another user. Please refresh and try again.", conflict: true },
+          { status: 409 }
+        );
+      }
     }
 
     const scoreData = {
@@ -166,11 +219,18 @@ export async function POST(req: NextRequest) {
 
 /**
  * PATCH /api/bowls/scores
- * Finalize all scores for a round.
- * Body: { tournament_id: string, round: number }
+ * Finalize all scores for a round. Requires authentication.
  */
 export async function PATCH(req: NextRequest) {
   try {
+    const supabase = await createClient();
+
+    // Auth check
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { tournament_id, round } = await req.json();
 
     if (!tournament_id || !round) {
@@ -180,7 +240,39 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
-    const supabase = await createClient();
+    if (!Number.isInteger(round) || round < 1) {
+      return NextResponse.json(
+        { error: "round must be a positive integer" },
+        { status: 400 }
+      );
+    }
+
+    // Verify all rinks have scores before finalizing
+    const { data: scores } = await supabase
+      .from("tournament_scores")
+      .select("id, team_a_scores, team_b_scores")
+      .eq("tournament_id", tournament_id)
+      .eq("round", round);
+
+    if (!scores || scores.length === 0) {
+      return NextResponse.json(
+        { error: "No scores to finalize for this round" },
+        { status: 400 }
+      );
+    }
+
+    const emptyRinks = scores.filter(
+      (s) => {
+        const aScores = s.team_a_scores as number[];
+        return !aScores || aScores.length === 0;
+      }
+    );
+    if (emptyRinks.length > 0) {
+      return NextResponse.json(
+        { error: `${emptyRinks.length} rink(s) have no scores entered` },
+        { status: 400 }
+      );
+    }
 
     const { data, error } = await supabase
       .from("tournament_scores")
