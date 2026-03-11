@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Fragment } from "react";
 import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
@@ -51,14 +51,28 @@ export default function BowlsTournamentPage() {
   const [players, setPlayers] = useState<Player[]>([]);
   const [checkins, setCheckins] = useState<BowlsCheckin[]>([]);
   const [format, setFormat] = useState<BowlsGameFormat>("fours");
-  const [drawResult, setDrawResult] = useState<DrawResult | null>(null);
+  const [roundDraws, setRoundDraws] = useState<Record<number, DrawResult>>({});
+  const [activeRound, setActiveRound] = useState(1);
   const [loading, setLoading] = useState(true);
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [justCheckedIn, setJustCheckedIn] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [generatingDraw, setGeneratingDraw] = useState(false);
   const [tournamentName, setTournamentName] = useState("Lawn Bowls");
-  const [drawRound, setDrawRound] = useState(1);
+  const [tournamentDate] = useState(() =>
+    new Date().toLocaleDateString("en-AU", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })
+  );
+
+  const drawResult = roundDraws[activeRound] ?? null;
+  const totalRounds = Object.keys(roundDraws).length;
+  const roundNumbers = Object.keys(roundDraws)
+    .map(Number)
+    .sort((a, b) => a - b);
 
   const loadPlayers = useCallback(async () => {
     const supabase = createClient();
@@ -154,8 +168,9 @@ export default function BowlsTournamentPage() {
     }
   }
 
-  async function handleGenerateDraw() {
+  async function handleGenerateDraw(targetRound?: number) {
     setGeneratingDraw(true);
+    const round = targetRound ?? activeRound;
     try {
       const res = await fetch("/api/bowls/draw", {
         method: "POST",
@@ -167,13 +182,19 @@ export default function BowlsTournamentPage() {
       });
       if (res.ok) {
         const data = await res.json();
-        setDrawResult(data);
+        setRoundDraws((prev) => ({ ...prev, [round]: data }));
+        setActiveRound(round);
         setView("draw");
       }
     } catch {
       // Handle error
     }
     setGeneratingDraw(false);
+  }
+
+  function handleNextRound() {
+    const nextRound = (roundNumbers.length > 0 ? Math.max(...roundNumbers) : 0) + 1;
+    handleGenerateDraw(nextRound);
   }
 
   const isCheckedIn = (playerId: string) =>
@@ -221,7 +242,7 @@ export default function BowlsTournamentPage() {
             </div>
 
             {/* Format selector */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 no-print">
               <select
                 value={format}
                 onChange={(e) => setFormat(e.target.value as BowlsGameFormat)}
@@ -422,7 +443,7 @@ export default function BowlsTournamentPage() {
                   </p>
                 </div>
                 <button
-                  onClick={handleGenerateDraw}
+                  onClick={() => handleGenerateDraw()}
                   disabled={possibleRinks < 1 || generatingDraw}
                   className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] disabled:opacity-40 min-h-[48px] touch-manipulation"
                 >
@@ -494,7 +515,7 @@ export default function BowlsTournamentPage() {
         {/* ===== DRAW VIEW ===== */}
         {view === "draw" && (
           <div>
-            {!drawResult ? (
+            {totalRounds === 0 ? (
               <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
                 <p className="text-lg font-semibold text-zinc-400">
                   No draw generated yet
@@ -511,18 +532,40 @@ export default function BowlsTournamentPage() {
               </div>
             ) : (
               <div>
-                <div className="mb-6 flex items-center justify-between">
+                {/* Round Tabs */}
+                {totalRounds > 1 && (
+                  <div className="mb-4 flex gap-1 overflow-x-auto no-print">
+                    {roundNumbers.map((round) => (
+                      <button
+                        key={round}
+                        onClick={() => setActiveRound(round)}
+                        className={cn(
+                          "shrink-0 rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
+                          activeRound === round
+                            ? "bg-[#1B5E20] text-white"
+                            : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50"
+                        )}
+                      >
+                        Round {round}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                <div className="mb-6 flex items-center justify-between no-print">
                   <div>
                     <h2 className="text-xl font-black text-zinc-900">
-                      Tournament Draw &mdash; Round {drawRound}
+                      Tournament Draw &mdash; Round {activeRound}
                     </h2>
-                    <p className="text-sm text-zinc-500">
-                      {tournamentName} &middot; {BOWLS_FORMAT_LABELS[drawResult.format].label} &middot;{" "}
-                      {drawResult.rinkCount} rink
-                      {drawResult.rinkCount !== 1 ? "s" : ""}
-                    </p>
+                    {drawResult && (
+                      <p className="text-sm text-zinc-500">
+                        {tournamentName} &middot; {BOWLS_FORMAT_LABELS[drawResult.format].label} &middot;{" "}
+                        {drawResult.rinkCount} rink
+                        {drawResult.rinkCount !== 1 ? "s" : ""}
+                      </p>
+                    )}
                   </div>
-                  <div className="flex items-center gap-2 no-print">
+                  <div className="flex items-center gap-2">
                     <button
                       onClick={() => window.print()}
                       className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
@@ -530,131 +573,184 @@ export default function BowlsTournamentPage() {
                       Print Draw Sheet
                     </button>
                     <button
-                      onClick={() => {
-                        setDrawRound((prev) => prev + 1);
-                        handleGenerateDraw();
-                      }}
-                      className="rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 px-4 py-2 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/10 min-h-[44px] touch-manipulation"
+                      onClick={handleNextRound}
+                      disabled={generatingDraw}
+                      className="rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 px-4 py-2 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/10 disabled:opacity-40 min-h-[44px] touch-manipulation"
                     >
-                      Next Round Draw
+                      {generatingDraw ? "Generating..." : "Generate Next Round"}
                     </button>
                     <button
-                      onClick={handleGenerateDraw}
-                      className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                      onClick={() => handleGenerateDraw()}
+                      disabled={generatingDraw}
+                      className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 disabled:opacity-40 min-h-[44px] touch-manipulation"
                     >
                       Re-Draw
                     </button>
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  {drawResult.rinks.map((rink, idx) => {
-                    const team1 = rink.filter((a) => a.team === 1);
-                    const team2 = rink.filter((a) => a.team === 2);
-
-                    return (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                        className="rounded-2xl bg-white border border-zinc-200 overflow-hidden"
-                      >
-                        <div className="bg-zinc-50 border-b border-zinc-200 px-5 py-3">
-                          <h3 className="text-sm font-bold text-zinc-700">
-                            Rink {idx + 1}
-                          </h3>
-                        </div>
-                        <div className="grid grid-cols-2 divide-x divide-zinc-100">
-                          <div className="p-4">
-                            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
-                              Team 1
-                            </p>
-                            <div className="space-y-2">
-                              {team1
-                                .sort(
-                                  (a, b) =>
-                                    BOWLS_POSITION_LABELS[b.position].order -
-                                    BOWLS_POSITION_LABELS[a.position].order
-                                )
-                                .map((a) => (
-                                  <div
-                                    key={a.player_id}
-                                    className="flex items-center gap-3"
-                                  >
-                                    <span
-                                      className={cn(
-                                        "inline-flex h-7 items-center rounded-full px-2 text-[11px] font-bold text-white",
-                                        POSITION_COLORS[a.position]
-                                      )}
-                                    >
-                                      {BOWLS_POSITION_LABELS[a.position].label}
-                                    </span>
-                                    <span className="text-sm font-medium text-zinc-700 truncate">
-                                      {a.player?.display_name ?? "TBD"}
-                                    </span>
-                                  </div>
-                                ))}
-                            </div>
-                          </div>
-
-                          <div className="p-4">
-                            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
-                              Team 2
-                            </p>
-                            <div className="space-y-2">
-                              {team2
-                                .sort(
-                                  (a, b) =>
-                                    BOWLS_POSITION_LABELS[b.position].order -
-                                    BOWLS_POSITION_LABELS[a.position].order
-                                )
-                                .map((a) => (
-                                  <div
-                                    key={a.player_id}
-                                    className="flex items-center gap-3"
-                                  >
-                                    <span
-                                      className={cn(
-                                        "inline-flex h-7 items-center rounded-full px-2 text-[11px] font-bold text-white",
-                                        POSITION_COLORS[a.position]
-                                      )}
-                                    >
-                                      {BOWLS_POSITION_LABELS[a.position].label}
-                                    </span>
-                                    <span className="text-sm font-medium text-zinc-700 truncate">
-                                      {a.player?.display_name ?? "TBD"}
-                                    </span>
-                                  </div>
-                                ))}
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-
-                {drawResult.unassigned.length > 0 && (
-                  <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-200 p-5">
-                    <h3 className="mb-2 text-sm font-bold text-amber-800">
-                      Unassigned Players ({drawResult.unassigned.length})
-                    </h3>
-                    <p className="mb-3 text-xs text-amber-600">
-                      Not enough players for a full rink. These players can be
-                      added as substitutes or wait for more check-ins.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {drawResult.unassigned.map((u) => (
-                        <span
-                          key={u.player_id}
-                          className="rounded-full bg-amber-200/60 px-3 py-1 text-xs font-medium text-amber-800"
-                        >
-                          {u.player?.display_name ?? "Unknown"}
-                        </span>
-                      ))}
+                {/* Print-only draw sheet header */}
+                <div className="hidden print:block print:mb-4">
+                  <div className="border-b-2 border-[#1B5E20] pb-3 mb-4">
+                    <h1 className="text-2xl font-black text-zinc-900">{tournamentName}</h1>
+                    <div className="flex justify-between text-sm text-zinc-600 mt-1">
+                      <span>{tournamentDate}</span>
+                      <span>Round {activeRound}{totalRounds > 1 ? ` of ${totalRounds}` : ""}</span>
+                      {drawResult && <span>{BOWLS_FORMAT_LABELS[drawResult.format].label}</span>}
                     </div>
                   </div>
+                </div>
+
+                {drawResult && (
+                  <>
+                    <div className="space-y-4">
+                      {drawResult.rinks.map((rink, idx) => {
+                        const team1 = rink.filter((a) => a.team === 1);
+                        const team2 = rink.filter((a) => a.team === 2);
+
+                        return (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="rounded-2xl bg-white border border-zinc-200 overflow-hidden print:rounded print:border-zinc-400"
+                          >
+                            <div className="bg-zinc-50 border-b border-zinc-200 px-5 py-3 print:bg-zinc-100 print:py-2">
+                              <h3 className="text-sm font-bold text-zinc-700">
+                                Rink {idx + 1}
+                              </h3>
+                            </div>
+                            <div className="grid grid-cols-2 divide-x divide-zinc-100 print:divide-zinc-300">
+                              <div className="p-4 print:p-3">
+                                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 print:text-zinc-600">
+                                  Team 1
+                                </p>
+                                <div className="space-y-2 print:space-y-1">
+                                  {team1
+                                    .sort(
+                                      (a, b) =>
+                                        BOWLS_POSITION_LABELS[b.position].order -
+                                        BOWLS_POSITION_LABELS[a.position].order
+                                    )
+                                    .map((a) => (
+                                      <div
+                                        key={a.player_id}
+                                        className="flex items-center gap-3 print:gap-2"
+                                      >
+                                        <span
+                                          className={cn(
+                                            "inline-flex h-7 items-center rounded-full px-2 text-[11px] font-bold text-white print:bg-zinc-700 print:h-auto print:py-0.5 print:text-[10px]",
+                                            POSITION_COLORS[a.position]
+                                          )}
+                                        >
+                                          {BOWLS_POSITION_LABELS[a.position].label}
+                                        </span>
+                                        <span className="text-sm font-medium text-zinc-700 truncate print:text-xs print:text-black">
+                                          {a.player?.display_name ?? "TBD"}
+                                        </span>
+                                      </div>
+                                    ))}
+                                </div>
+                              </div>
+
+                              <div className="p-4 print:p-3">
+                                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 print:text-zinc-600">
+                                  Team 2
+                                </p>
+                                <div className="space-y-2 print:space-y-1">
+                                  {team2
+                                    .sort(
+                                      (a, b) =>
+                                        BOWLS_POSITION_LABELS[b.position].order -
+                                        BOWLS_POSITION_LABELS[a.position].order
+                                    )
+                                    .map((a) => (
+                                      <div
+                                        key={a.player_id}
+                                        className="flex items-center gap-3 print:gap-2"
+                                      >
+                                        <span
+                                          className={cn(
+                                            "inline-flex h-7 items-center rounded-full px-2 text-[11px] font-bold text-white print:bg-zinc-700 print:h-auto print:py-0.5 print:text-[10px]",
+                                            POSITION_COLORS[a.position]
+                                          )}
+                                        >
+                                          {BOWLS_POSITION_LABELS[a.position].label}
+                                        </span>
+                                        <span className="text-sm font-medium text-zinc-700 truncate print:text-xs print:text-black">
+                                          {a.player?.display_name ?? "TBD"}
+                                        </span>
+                                      </div>
+                                    ))}
+                                </div>
+                              </div>
+                            </div>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Print-only score recording table */}
+                    <div className="hidden print:block mt-6">
+                      <h3 className="text-sm font-bold text-zinc-700 mb-2">Score Recording</h3>
+                      <table className="w-full border-collapse text-xs">
+                        <thead>
+                          <tr>
+                            <th className="border border-zinc-400 px-2 py-1 text-left bg-zinc-100">Rink</th>
+                            {Array.from({ length: 12 }, (_, i) => (
+                              <th key={i} className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100 w-8">
+                                {i + 1}
+                              </th>
+                            ))}
+                            <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {drawResult.rinks.map((_, idx) => (
+                            <Fragment key={idx}>
+                              <tr>
+                                <td className="border border-zinc-400 px-2 py-2 font-medium">R{idx + 1} - T1</td>
+                                {Array.from({ length: 12 }, (_, i) => (
+                                  <td key={i} className="border border-zinc-400 px-2 py-2">&nbsp;</td>
+                                ))}
+                                <td className="border border-zinc-400 px-2 py-2">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td className="border border-zinc-400 px-2 py-2 font-medium">R{idx + 1} - T2</td>
+                                {Array.from({ length: 12 }, (_, i) => (
+                                  <td key={i} className="border border-zinc-400 px-2 py-2">&nbsp;</td>
+                                ))}
+                                <td className="border border-zinc-400 px-2 py-2">&nbsp;</td>
+                              </tr>
+                            </Fragment>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {drawResult.unassigned.length > 0 && (
+                      <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-200 p-5 print:bg-white print:border-zinc-400 print:rounded">
+                        <h3 className="mb-2 text-sm font-bold text-amber-800 print:text-black">
+                          Unassigned Players ({drawResult.unassigned.length})
+                        </h3>
+                        <p className="mb-3 text-xs text-amber-600 print:text-zinc-600">
+                          Not enough players for a full rink. These players can be
+                          added as substitutes or wait for more check-ins.
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {drawResult.unassigned.map((u) => (
+                            <span
+                              key={u.player_id}
+                              className="rounded-full bg-amber-200/60 px-3 py-1 text-xs font-medium text-amber-800 print:bg-zinc-200 print:text-black"
+                            >
+                              {u.player?.display_name ?? "Unknown"}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             )}

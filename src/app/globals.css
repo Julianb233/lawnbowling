@@ -473,7 +473,9 @@ a,
     color: black !important;
     padding: 0 !important;
     margin: 0 !important;
-    font-size: 12pt !important;
+    font-size: 11pt !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   nav,
@@ -483,12 +485,18 @@ a,
     display: none !important;
   }
 
+  /* Hide the sticky header in print — the print-only header replaces it */
   header {
     position: static !important;
     background: white !important;
-    border-bottom: 2px solid #1B5E20 !important;
-    padding: 8pt 0 !important;
+    border-bottom: none !important;
+    padding: 0 !important;
     backdrop-filter: none !important;
+  }
+
+  /* Show print-only elements */
+  .print\:block {
+    display: block !important;
   }
 
   * {
@@ -515,6 +523,12 @@ a,
 
   table {
     border-collapse: collapse !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Ensure rink cards stay compact for print */
+  .space-y-4 > * {
+    margin-bottom: 6pt !important;
   }
 
   @page {
