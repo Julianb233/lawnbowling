@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 /**
  * KioskLayout — shared layout component for all kiosk views.
@@ -197,7 +197,7 @@ export function KioskHeading({ level = 1, children, className = "", align = "cen
     3: "24px",
   };
 
-  const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+  const Tag = `h${level}` as "h1" | "h2" | "h3";
 
   return (
     <Tag
