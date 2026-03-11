@@ -1,18 +1,18 @@
-# Pick a Partner Screenshots
+# Lawnbowling Screenshots
 Captured: 2026-03-10
 
 ## Pages Captured
 
 ### login-page.png
-- URL: https://pick-a-partner.vercel.app/login
-- Shows: "Pick a Partner" title, email/password form, Sign In button, Send Magic Link option, Sign up link
+- URL: https://lawnbowl.app/login
+- Shows: "Lawnbowling" title, email/password form, Sign In button, Send Magic Link option, Sign up link
 
 ### signup-page.png  
-- URL: https://pick-a-partner.vercel.app/signup
+- URL: https://lawnbowl.app/signup
 - Shows: "Join the Game" title, Display Name / Email / Password fields, Create Account button
 
 ### offline-page.png
-- URL: https://pick-a-partner.vercel.app/offline
+- URL: https://lawnbowl.app/offline
 - Note: Redirects to login page (offline page only renders via service worker when network is unavailable)
 
 All screenshots taken via Browserbase browser automation.

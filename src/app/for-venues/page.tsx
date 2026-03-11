@@ -109,7 +109,7 @@ export default function ForVenuesPage() {
           </div>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-500 px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-emerald-500/20 transition-all hover:shadow-emerald-500/35 hover:scale-[1.02] active:scale-[0.98]"
@@ -398,7 +398,7 @@ export default function ForVenuesPage() {
           <h2 className="text-3xl font-bold text-white md:text-4xl">Your Courts Are Sitting Empty Right Now</h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-emerald-100/80">Every hour without players is revenue you won&apos;t get back. List your venue for free and let Lawnbowling fill those courts with matched, insured players.</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-emerald-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]">
+            <a href="https://dailyeventinsurance.com/m/lawnbowling/quote/new" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-emerald-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]">
               Get Free Coverage
               <ExternalLink className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
             </a>

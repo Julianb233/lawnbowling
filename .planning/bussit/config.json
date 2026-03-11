@@ -1,11 +1,23 @@
 {
-  "project": "pick-a-partner",
-  "projectPath": "/opt/agency-workspace/pick-a-partner",
+  "project": "lawnbowling",
+  "projectPath": "/opt/agency-workspace/lawnbowling",
+  "gsd": {
+    "projectFile": ".planning/PROJECT.md",
+    "roadmapFile": ".planning/ROADMAP.md",
+    "stateFile": ".planning/STATE.md",
+    "phasesDir": ".planning/phases"
+  },
+  "parallelization": {
+    "maxConcurrentBuilds": 10
+  },
   "autopilot": {
     "defaultWorkerCount": 5,
-    "startedAt": "2026-03-10",
-    "strategy": "verify-and-fill-gaps",
-    "phases": 6,
-    "plans": 12
+    "startedAt": "2026-03-11",
+    "strategy": "plan-and-build",
+    "phases": 9,
+    "plans": 23
+  },
+  "beadsIntegration": {
+    "enabled": false
   }
 }

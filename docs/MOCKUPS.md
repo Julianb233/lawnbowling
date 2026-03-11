@@ -1,10 +1,10 @@
-# Pick a Partner — PWA Mockups
+# Lawnbowling — PWA Mockups
 
 ## iPad (Landscape — Venue Kiosk Mode)
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────┐
-│  🏓 Pick a Partner              ⚡ LIVE    🏟️ Sunset Rec Center    [Admin] [+]  │
+│  🏓 Lawnbowling              ⚡ LIVE    🏟️ Sunset Rec Center    [Admin] [+]  │
 ├──────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                  │
 │  ┌─── Filter ────────────────────────────────────────────────────────────────┐   │
@@ -64,7 +64,7 @@
 │ 9:41          ▂▄▆█ 📶  │
 ├────────────────────────┤
 │                        │
-│  🏓 Pick a Partner     │
+│  🏓 Lawnbowling     │
 │  Sunset Rec Center     │
 │  ⚡ LIVE  · 12 players │
 │                        │
@@ -153,7 +153,7 @@
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────┐
-│  🏓 Pick a Partner      Match Queue                   [← Back to Board]         │
+│  🏓 Lawnbowling      Match Queue                   [← Back to Board]         │
 ├──────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                  │
 │  PLAYING NOW                                                                     │
@@ -251,7 +251,7 @@
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────┐
 │                                                                                  │
-│                     🏓 Pick a Partner                                            │
+│                     🏓 Lawnbowling                                            │
 │                     Sunset Recreation Center                                     │
 │                                                                                  │
 │                                                                                  │

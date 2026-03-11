@@ -98,7 +98,7 @@ export function InsurancePage() {
           </div>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-teal-600 to-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-teal-500/20 transition-all hover:shadow-teal-500/35 hover:scale-[1.02] active:scale-[0.98]"
@@ -392,7 +392,7 @@ export function InsurancePage() {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-teal-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
@@ -401,7 +401,7 @@ export function InsurancePage() {
               <ExternalLink className="h-5 w-5" />
             </a>
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner"
+              href="https://dailyeventinsurance.com/m/lawnbowling"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/50 hover:bg-white/10 active:scale-[0.98]"
