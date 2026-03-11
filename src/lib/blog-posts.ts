@@ -1,6 +1,8 @@
 // Blog post data for SEO-optimized lawn bowling content
 // Each post targets a specific high-value keyword from the SEO strategy
 
+import { newBlogPosts } from "./blog-posts-new";
+
 export interface BlogPost {
   title: string;
   slug: string;

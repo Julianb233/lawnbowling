@@ -7,7 +7,7 @@ export interface Club {
   city: string;
   state: string;
   state_code: string;
-  region: "west" | "east" | "south" | "midwest";
+  region: string | null;
   address: string | null;
   lat: number | null;
   lng: number | null;

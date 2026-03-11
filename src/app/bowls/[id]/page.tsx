@@ -16,11 +16,14 @@ import type {
   BowlsGameFormat,
   BowlsCheckin,
   BowlsTeamAssignment,
+  ClubRosterMember,
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 type PageView = "checkin" | "board" | "draw";
+
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 interface DrawResult {
   rinks: BowlsTeamAssignment[][];
@@ -59,6 +62,11 @@ export default function BowlsTournamentPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [generatingDraw, setGeneratingDraw] = useState(false);
   const [tournamentName, setTournamentName] = useState("Lawn Bowls");
+  const [rosterMembers, setRosterMembers] = useState<ClubRosterMember[]>([]);
+  const [activeLetter, setActiveLetter] = useState<string | null>(null);
+  const [selectedRosterMember, setSelectedRosterMember] = useState<ClubRosterMember | null>(null);
+  const [guestName, setGuestName] = useState("");
+  const [showGuestForm, setShowGuestForm] = useState(false);
   const [showInsuranceOffer, setShowInsuranceOffer] = useState(false);
   const [insuranceOfferPlayer, setInsuranceOfferPlayer] = useState<string | null>(null);
   const [tournamentDate] = useState(() =>
@@ -85,6 +93,18 @@ export default function BowlsTournamentPage() {
     setPlayers((data as Player[]) ?? []);
     setLoading(false);
   }, []);
+
+  const loadRosterMembers = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/bowls/members?tournament_id=${tournamentId}`);
+      if (res.ok) {
+        const data = await res.json();
+        setRosterMembers(data);
+      }
+    } catch {
+      // Will retry
+    }
+  }, [tournamentId]);
 
   const loadCheckins = useCallback(async () => {
     try {
@@ -116,12 +136,13 @@ export default function BowlsTournamentPage() {
 
   useEffect(() => {
     loadPlayers();
+    loadRosterMembers();
     loadCheckins();
     loadTournament();
 
     const interval = setInterval(loadCheckins, 5000);
     return () => clearInterval(interval);
-  }, [loadPlayers, loadCheckins, loadTournament]);
+  }, [loadPlayers, loadRosterMembers, loadCheckins, loadTournament]);
 
   function handlePlayerTap(player: Player) {
     const existing = checkins.find((c) => c.player_id === player.id);
@@ -302,6 +323,12 @@ export default function BowlsTournamentPage() {
               className="rounded-lg px-4 py-2 text-sm font-semibold text-purple-600 hover:bg-purple-50 transition-colors"
             >
               Results
+            </Link>
+            <Link
+              href={`/bowls/${tournamentId}/draw-sheet`}
+              className="rounded-lg px-4 py-2 text-sm font-semibold text-zinc-500 hover:bg-zinc-100 transition-colors"
+            >
+              Draw Sheet
             </Link>
           </div>
         </div>
