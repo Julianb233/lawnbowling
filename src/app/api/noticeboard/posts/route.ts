@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
       const notificationPromises = playerIds
         .filter((pid) => pid !== player.id) // Don't notify the author
         .map((pid) =>
-          sendPushToPlayer(pid, "partner_request" as never, {
+          sendPushToPlayer(pid, "noticeboard_announcement", {
             title: "New Announcement",
             body: title?.trim() || content.trim().slice(0, 100),
             tag: `noticeboard-${post.id}`,

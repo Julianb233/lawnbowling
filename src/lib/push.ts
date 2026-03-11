@@ -25,7 +25,8 @@ export type PushNotificationType =
   | "partner_request"
   | "partner_accepted"
   | "court_available"
-  | "game_reminder";
+  | "game_reminder"
+  | "noticeboard_announcement";
 
 interface PushSubscriptionRow {
   id: string;
@@ -106,6 +107,8 @@ function getPrefKeyForType(type: PushNotificationType): string | null {
       return "push_match_ready";
     case "game_reminder":
       return "push_scheduled_reminder";
+    case "noticeboard_announcement":
+      return null; // Always deliver announcement notifications
     default:
       return null;
   }

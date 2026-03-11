@@ -277,7 +277,7 @@ export interface ActivityItem {
   id: string;
   venue_id: string | null;
   player_id: string | null;
-  type: "check_in" | "match_complete" | "new_player" | "scheduled_game";
+  type: "check_in" | "match_complete" | "new_player" | "scheduled_game" | "noticeboard_post";
   metadata: Record<string, unknown>;
   created_at: string;
   player?: Player; // joined
