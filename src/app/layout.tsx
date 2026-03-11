@@ -12,6 +12,8 @@ import {
 import { SITE_URL } from "@/lib/site-config";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { DesktopThemeToggle } from "@/components/DesktopThemeToggle";
+import { PlayerOnboarding } from "@/components/onboarding/PlayerOnboarding";
+import { DrawmasterTour } from "@/components/onboarding/DrawmasterTour";
 import "./globals.css";
 
 // Inline script to set dark class before first paint (prevents FOIT)
@@ -178,6 +180,8 @@ export default function RootLayout({
           <div className="orb orb-purple" style={{ width: 200, height: 200, bottom: '40%', left: '60%' }} />
           <DesktopThemeToggle />
           {children}
+          <PlayerOnboarding />
+          <DrawmasterTour />
           <InstallPrompt />
           <IOSInstallGuide />
           <PushNotificationPrompt />

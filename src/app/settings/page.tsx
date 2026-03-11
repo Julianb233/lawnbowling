@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, LogOut, Save, Loader2, Sun, Moon, Monitor } from "lucide-react";
+import { ArrowLeft, LogOut, Save, Loader2, Sun, Moon, Monitor, RotateCcw } from "lucide-react";
 import { ContactPreferencesEditor } from "@/components/profile/ContactPreferences";
 import { HomeClubSelector } from "@/components/clubs/HomeClubSelector";
 import { useTheme } from "@/components/ThemeProvider";
@@ -174,7 +174,7 @@ export default function SettingsPage() {
                   className={`flex-1 inline-flex items-center justify-center gap-2 rounded-lg border px-3 py-3 text-sm font-medium transition-colors min-h-[44px] ${
                     currentMode === opt.value
                       ? "border-green-500 bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400"
-                      : "border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/10"
+                      : "border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:bg-background dark:hover:bg-white/10"
                   }`}
                 >
                   <opt.Icon className="h-4 w-4" />
@@ -218,7 +218,7 @@ export default function SettingsPage() {
                   className={`flex-1 rounded-lg border px-3 py-3 text-sm font-medium transition-colors min-h-[44px] ${
                     skillLevel === level.value
                       ? "border-green-500 bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400"
-                      : "border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/10"
+                      : "border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:bg-background dark:hover:bg-white/10"
                   }`}
                 >
                   {level.label}
@@ -242,7 +242,7 @@ export default function SettingsPage() {
                     className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors min-h-[44px] ${
                       active
                         ? "border-green-500 bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400"
-                        : "border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/10"
+                        : "border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:bg-background dark:hover:bg-white/10"
                     }`}
                   >
                     {sport.label}
@@ -277,6 +277,46 @@ export default function SettingsPage() {
 
           {/* Contact Preferences */}
           <ContactPreferencesEditor />
+
+          {/* Divider */}
+          <div className="border-t border-zinc-200 dark:border-white/10" />
+
+          {/* Restart Onboarding */}
+          <div>
+            <label className="mb-2 block text-sm font-medium text-zinc-600 dark:text-zinc-400">
+              Help & Guides
+            </label>
+            <button
+              onClick={() => {
+                try {
+                  const state = JSON.parse(localStorage.getItem("onboarding_state") || "{}");
+                  state.player = false;
+                  state.player_dismiss_count = 0;
+                  state.drawmaster = false;
+                  state.drawmaster_dismiss_count = 0;
+                  state.admin_wizard_step = null;
+                  localStorage.setItem("onboarding_state", JSON.stringify(state));
+                  // Also update Supabase
+                  fetch("/api/profile", {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ onboarding_state: state }),
+                  });
+                  setSuccess(true);
+                  setTimeout(() => setSuccess(false), 2000);
+                } catch {
+                  // ignore
+                }
+              }}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:bg-background dark:hover:bg-white/10 min-h-[44px] transition-colors"
+            >
+              <RotateCcw className="h-4 w-4" />
+              Restart Onboarding Tours
+            </button>
+            <p className="mt-1.5 text-xs text-zinc-400">
+              Re-launch the player walkthrough, drawmaster tour, or admin setup wizard.
+            </p>
+          </div>
 
           {/* Divider */}
           <div className="border-t border-zinc-200 dark:border-white/10" />
