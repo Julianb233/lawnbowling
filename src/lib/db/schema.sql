@@ -599,3 +599,22 @@ create policy "Players can remove own endorsements" on player_endorsements for d
 
 create index idx_endorsements_endorsed on player_endorsements(endorsed_id);
 create index idx_endorsements_endorser on player_endorsements(endorser_id);
+
+-- ===== PROFILE ENHANCEMENTS: CLUB AFFILIATIONS =====
+
+create table player_clubs (
+  id uuid primary key default uuid_generate_v4(),
+  player_id uuid not null references players(id) on delete cascade,
+  club_slug text not null,
+  role text check (role in ('member', 'officer', 'president')) default 'member',
+  joined_at timestamptz default now(),
+  unique(player_id, club_slug)
+);
+
+alter table player_clubs enable row level security;
+
+create policy "Club affiliations viewable by all" on player_clubs for select using (true);
+create policy "Players can manage own clubs" on player_clubs for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
+
+create index idx_player_clubs_player on player_clubs(player_id);
+create index idx_player_clubs_slug on player_clubs(club_slug);

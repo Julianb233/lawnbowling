@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, LogOut, Save, Loader2 } from "lucide-react";
+import { ContactPreferencesEditor } from "@/components/profile/ContactPreferences";
 import type { SkillLevel, Sport } from "@/lib/db/players";
 
 const SKILL_LEVELS: { value: SkillLevel; label: string }[] = [
@@ -210,6 +211,12 @@ export default function SettingsPage() {
             )}
             {saving ? "Saving..." : "Save Changes"}
           </button>
+
+          {/* Divider */}
+          <div className="border-t border-zinc-200" />
+
+          {/* Contact Preferences */}
+          <ContactPreferencesEditor />
 
           {/* Divider */}
           <div className="border-t border-zinc-200" />

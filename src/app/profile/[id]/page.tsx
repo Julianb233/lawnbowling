@@ -16,8 +16,11 @@ import { MatchHistory } from "@/components/profile/MatchHistory";
 import { AvailabilitySchedule } from "@/components/profile/AvailabilitySchedule";
 import { PhotoGalleryReadonly } from "@/components/profile/PhotoGallery";
 import { getPlayerPhotos } from "@/lib/db/gallery";
+import { getContactPreferences } from "@/lib/db/contact-preferences";
+import { ContactInfo } from "@/components/profile/ContactPreferences";
 import { getPlayerAchievements } from "@/lib/db/achievements";
 import { AchievementBadges } from "@/components/profile/AchievementBadges";
+import { Endorsements } from "@/components/profile/Endorsements";
 import * as Avatar from "@radix-ui/react-avatar";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Shield } from "lucide-react";
@@ -53,7 +56,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
   const currentPlayer = user ? await getPlayerByUserId(user.id) : null;
   const isOwnProfile = currentPlayer?.id === player.id;
 
-  const [waiver, favorited, friendStatus, stats, favoritePartners, photos, achievements] = await Promise.all([
+  const [waiver, favorited, friendStatus, stats, favoritePartners, photos, achievements, contactPrefs] = await Promise.all([
     getWaiverByPlayerId(player.id),
     currentPlayer && !isOwnProfile
       ? isFavorite(currentPlayer.id, player.id)
@@ -65,6 +68,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
     getFavoritePartners(player.id, { limit: 5 }),
     getPlayerPhotos(player.id),
     getPlayerAchievements(player.id),
+    getContactPreferences(player.id),
   ]);
 
   const initials = player.display_name
@@ -166,11 +170,19 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
 
           <AchievementBadges achievements={achievements} />
 
+          <Endorsements
+            playerId={player.id}
+            isOwnProfile={isOwnProfile}
+            currentPlayerId={currentPlayer?.id ?? null}
+          />
+
           <PhotoGalleryReadonly photos={photos} />
 
           <MatchHistory playerId={player.id} />
 
           <AvailabilitySchedule playerId={player.id} />
+
+          <ContactInfo prefs={contactPrefs} />
 
           <div>
             <h2 className="mb-2 text-sm font-medium text-zinc-600">Waiver Status</h2>
