@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { generateBowlsDraw } from "@/lib/bowls-draw";
+import { sendPushToTournamentPlayers } from "@/lib/push";
 import type { BowlsCheckin, BowlsGameFormat } from "@/lib/types";
 
 /**
@@ -21,6 +22,13 @@ export async function POST(req: NextRequest) {
 
     const supabase = await createClient();
 
+    // Get tournament name for the notification
+    const { data: tournament } = await supabase
+      .from("tournaments")
+      .select("name")
+      .eq("id", tournament_id)
+      .single();
+
     // Get all checked-in players for this tournament
     const { data: checkins, error } = await supabase
       .from("bowls_checkins")
@@ -33,6 +41,17 @@ export async function POST(req: NextRequest) {
     }
 
     const draw = generateBowlsDraw(checkins as BowlsCheckin[], format);
+
+    // Send push notifications to all checked-in players
+    const tournamentName = tournament?.name ?? "Tournament";
+    sendPushToTournamentPlayers(tournament_id, "draw_announcement", {
+      title: "Draw Announced",
+      body: `The draw for ${tournamentName} is ready — ${draw.rinkCount} rink${draw.rinkCount !== 1 ? "s" : ""}. Check your rink assignment!`,
+      tag: `draw-${tournament_id}`,
+      url: `/bowls/${tournament_id}`,
+    }).catch(() => {
+      // Push is best-effort, don't block the draw response
+    });
 
     return NextResponse.json(draw);
   } catch (err) {

@@ -42,6 +42,7 @@ export type PushNotificationType =
   | "partner_accepted"
   | "court_available"
   | "game_reminder"
+  | "draw_announcement"
   | "waitlist_matched"
   | "waitlist_update";
 
@@ -117,6 +118,38 @@ export async function sendPushToPlayer(
   return sendPushToUser(player.user_id, payload);
 }
 
+export async function sendPushToTournamentPlayers(
+  tournamentId: string,
+  type: PushNotificationType,
+  payload: PushPayload
+): Promise<{ sent: number; failed: number }> {
+  const supabase = await createClient();
+  const { data: checkins } = await supabase
+    .from("bowls_checkins")
+    .select("player_id")
+    .eq("tournament_id", tournamentId);
+
+  if (!checkins || checkins.length === 0) return { sent: 0, failed: 0 };
+
+  let totalSent = 0;
+  let totalFailed = 0;
+  const seen = new Set<string>();
+
+  for (const checkin of checkins) {
+    if (seen.has(checkin.player_id)) continue;
+    seen.add(checkin.player_id);
+    try {
+      const result = await sendPushToPlayer(checkin.player_id, type, payload);
+      totalSent += result.sent;
+      totalFailed += result.failed;
+    } catch {
+      totalFailed++;
+    }
+  }
+
+  return { sent: totalSent, failed: totalFailed };
+}
+
 function getPrefKeyForType(type: PushNotificationType): string | null {
   switch (type) {
     case "partner_request":
@@ -126,6 +159,8 @@ function getPrefKeyForType(type: PushNotificationType): string | null {
       return "push_match_ready";
     case "game_reminder":
       return "push_scheduled_reminder";
+    case "draw_announcement":
+      return null; // Always send draw announcements
     default:
       return null;
   }

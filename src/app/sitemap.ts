@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { getStatesWithClubs } from "@/lib/clubs-data";
+import { CLUBS, getStatesWithClubs } from "@/lib/clubs-data";
+import { getAllBlogPosts } from "@/lib/blog-posts";
 
 const BASE_URL = "https://lawnbowl.app";
 
@@ -69,7 +70,55 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
+      url: `${BASE_URL}/learn/rules`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/learn/positions`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/learn/formats`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/learn/glossary`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/shop`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/shop/equipment`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
+    {
       url: `${BASE_URL}/insurance`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/insurance/lawn-bowls`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
@@ -135,14 +184,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  // Placeholder for future blog pages
-  // When blog is added, query blog posts here and map them:
-  // const blogPages: MetadataRoute.Sitemap = posts.map(post => ({
-  //   url: `${BASE_URL}/blog/${post.slug}`,
-  //   lastModified: post.updatedAt,
-  //   changeFrequency: "monthly",
-  //   priority: 0.6,
-  // }));
+  // Individual club detail pages
+  const clubDetailPages: MetadataRoute.Sitemap = CLUBS.map((club) => ({
+    url: `${BASE_URL}/clubs/${club.stateCode.toLowerCase()}/${club.id}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
 
-  return [...staticPages, ...clubStatePages];
+  // Blog post pages
+  const blogPosts = getAllBlogPosts();
+  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...clubStatePages, ...clubDetailPages, ...blogPages];
 }
