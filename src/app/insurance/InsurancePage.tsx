@@ -116,6 +116,35 @@ export function InsurancePage() {
         </div>
       </section>
 
+      {/* Lawn Bowls Coverage Callout */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-16">
+        <Link
+          href="/insurance/lawn-bowls"
+          className="group block rounded-2xl border-2 border-emerald-500/30 bg-gradient-to-r from-emerald-50 to-emerald-100/50 p-6 shadow-sm transition-all hover:border-emerald-500/50 hover:shadow-md md:p-8"
+        >
+          <div className="flex flex-col items-center gap-6 md:flex-row">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-700 shadow-lg shadow-emerald-600/15">
+              <Shield className="h-8 w-8 text-white" />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
+                Lawn Bowls Coverage
+              </h2>
+              <p className="mt-2 text-zinc-600">
+                Per-session insurance designed specifically for lawn bowlers.
+                Coverage from $3/player covers falls, sprains, bowl-strike
+                injuries, and more. 54% of lawn bowls injuries are from falls
+                -- don&apos;t play unprotected.
+              </p>
+            </div>
+            <div className="flex shrink-0 items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/15 transition group-hover:bg-emerald-500">
+              View Lawn Bowls Coverage
+              <ExternalLink className="h-4 w-4" />
+            </div>
+          </div>
+        </Link>
+      </section>
+
       {/* How Insurance Works */}
       <section
         id="how-it-works"
