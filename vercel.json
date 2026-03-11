@@ -24,6 +24,41 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "lawnbowling.app"
+        }
+      ],
+      "destination": "https://lawnbowl.app/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lawnbowl.app"
+        }
+      ],
+      "destination": "https://lawnbowl.app/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lawnbowling.app"
+        }
+      ],
+      "destination": "https://lawnbowl.app/:path",
+      "permanent": true
+    }
+  ],
   "crons": [
     {
       "path": "/api/partner/expire",
