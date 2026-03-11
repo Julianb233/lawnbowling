@@ -19,7 +19,6 @@ import type {
   GreenConditions,
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { PrintDrawSheet } from "@/components/bowls/PrintDrawSheet";
 import { DrawSheet } from "@/components/draw/DrawSheet";
 import { TournamentWizard } from "@/components/bowls/TournamentWizard";
 import { GreenConditionsWidget } from "@/components/bowls/GreenConditionsWidget";
@@ -338,7 +337,7 @@ export default function BowlsTournamentPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for your name..."
-                className="w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-5 py-4 text-lg text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                className="w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-5 py-4 text-lg text-zinc-900 dark:text-foreground placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
               />
             </div>
 
@@ -372,7 +371,7 @@ export default function BowlsTournamentPage() {
                       "relative flex flex-col items-center gap-2 rounded-2xl p-4 transition-all min-h-[120px] touch-manipulation",
                       checked
                         ? "bg-blue-50 border-2 border-blue-200"
-                        : "bg-white border border-zinc-200 hover:border-zinc-300 hover:shadow-sm"
+                        : "bg-white dark:bg-card border border-zinc-200 hover:border-zinc-300 hover:shadow-sm"
                     )}
                   >
                     <AnimatePresence mode="wait">
@@ -438,7 +437,7 @@ export default function BowlsTournamentPage() {
               {positionsNeeded.map((pos) => (
                 <div
                   key={pos}
-                  className="rounded-2xl bg-white border border-zinc-200 p-4 text-center"
+                  className="rounded-2xl bg-white dark:bg-card border border-zinc-200 p-4 text-center"
                 >
                   <div
                     className={cn(
@@ -471,7 +470,7 @@ export default function BowlsTournamentPage() {
                       "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left",
                       drawStyle === style
                         ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                        : "border-zinc-200 bg-white text-zinc-500 hover:border-zinc-400"
+                        : "border-zinc-200 bg-white dark:bg-card text-zinc-500 hover:border-zinc-400"
                     )}
                   >
                     {DRAW_STYLE_LABELS[style]}
@@ -483,7 +482,7 @@ export default function BowlsTournamentPage() {
               )}
             </div>
 
-            <div className="mb-6 rounded-2xl bg-white border border-zinc-200 p-4">
+            <div className="mb-6 rounded-2xl bg-white dark:bg-card border border-zinc-200 p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
@@ -529,7 +528,7 @@ export default function BowlsTournamentPage() {
                     key={checkin.id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-4 rounded-xl bg-white border border-zinc-200 px-4 py-3"
+                    className="flex items-center gap-4 rounded-xl bg-white dark:bg-card border border-zinc-200 px-4 py-3"
                   >
                     <div
                       className={cn(
@@ -540,7 +539,7 @@ export default function BowlsTournamentPage() {
                       {initials}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-zinc-900 truncate">
+                      <p className="text-sm font-semibold text-zinc-900 dark:text-foreground truncate">
                         {displayName}
                       </p>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400">
@@ -582,7 +581,7 @@ export default function BowlsTournamentPage() {
               })}
 
               {checkins.length === 0 && (
-                <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
+                <div className="rounded-2xl bg-white dark:bg-card border border-zinc-200 p-12 text-center">
                   <p className="text-lg font-semibold text-zinc-400">
                     No players checked in yet
                   </p>
@@ -600,7 +599,7 @@ export default function BowlsTournamentPage() {
     return (
       <div>
         {!drawResult ? (
-              <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
+              <div className="rounded-2xl bg-white dark:bg-card border border-zinc-200 p-12 text-center">
                 <p className="text-lg font-semibold text-zinc-400">
                   No draw generated yet
                 </p>
@@ -610,19 +609,6 @@ export default function BowlsTournamentPage() {
               </div>
             ) : (
               <div>
-                {multiRoundDraw ? (
-                  <PrintDrawSheet
-                    multiRoundDraw={multiRoundDraw}
-                    tournamentName={tournamentName}
-                  />
-                ) : (
-                  <PrintDrawSheet
-                    drawResult={drawResult}
-                    tournamentName={tournamentName}
-                    round={drawRound}
-                  />
-                )}
-                <div className="screen-draw-view">
                 {/* Draw style label */}
                 {multiRoundDraw && (
                   <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#1B5E20]/10 px-3 py-1">
@@ -646,7 +632,7 @@ export default function BowlsTournamentPage() {
                           "rounded-lg px-4 py-2 text-sm font-semibold transition-colors min-h-[40px] touch-manipulation",
                           selectedRound === idx
                             ? "bg-[#1B5E20] text-white"
-                            : "bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-400"
+                            : "bg-white dark:bg-card border border-zinc-200 text-zinc-600 hover:border-zinc-400"
                         )}
                       >
                         Round {idx + 1}
@@ -680,7 +666,7 @@ export default function BowlsTournamentPage() {
                     )}
                     <button
                       onClick={() => handleGenerateDraw()}
-                      className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                      className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 dark:bg-background min-h-[44px] touch-manipulation"
                     >
                       Re-Draw
                     </button>
@@ -693,7 +679,6 @@ export default function BowlsTournamentPage() {
                   tournamentName={tournamentName}
                   roundNumber={multiRoundDraw ? selectedRound + 1 : drawRound}
                 />
-                </div>
               </div>
             )}
           </div>
@@ -701,7 +686,7 @@ export default function BowlsTournamentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
+    <div className="min-h-screen bg-zinc-50 dark:bg-background pb-20 lg:pb-0">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-5xl px-4 py-4">
@@ -830,7 +815,7 @@ export default function BowlsTournamentPage() {
 
               <button
                 onClick={() => setSelectedPlayer(null)}
-                className="mt-4 w-full rounded-2xl border border-zinc-200 bg-zinc-50 py-3 text-sm font-semibold text-zinc-600 hover:bg-zinc-100 min-h-[48px] touch-manipulation"
+                className="mt-4 w-full rounded-2xl border border-zinc-200 bg-zinc-50 dark:bg-background py-3 text-sm font-semibold text-zinc-600 hover:bg-zinc-100 min-h-[48px] touch-manipulation"
               >
                 Cancel
               </button>
