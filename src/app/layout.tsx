@@ -3,6 +3,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { IOSInstallGuide } from "@/components/pwa/IOSInstallGuide";
 import { PushNotificationPrompt } from "@/components/push/PushNotificationPrompt";
+import {
+  getSportsOrganizationSchema,
+  getSoftwareApplicationSchema,
+  getWebSiteSchema,
+  jsonLd,
+} from "@/lib/schema";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,15 +21,83 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const BASE_URL = "https://lawnbowl.app";
+
 export const metadata: Metadata = {
-  title: "Lawnbowling — The World's Best Lawn Bowling App",
-  description: "Tournament management, club directory, and everything lawn bowling. Check in, draw, score, and manage your club.",
+  title: {
+    default: "Lawnbowling — The World's Best Lawn Bowling App",
+    template: "%s | Lawnbowling",
+  },
+  description:
+    "Tournament management, club directory, and everything lawn bowling. Check in, draw, score, and manage your club. Free for players.",
   manifest: "/manifest.json",
+  metadataBase: new URL(BASE_URL),
+  alternates: {
+    canonical: "/",
+  },
+  keywords: [
+    "lawn bowling",
+    "lawn bowls",
+    "lawn bowling app",
+    "lawn bowling tournament",
+    "lawn bowling clubs",
+    "lawn bowling near me",
+    "lawn bowling rules",
+    "lawn bowling scoring",
+    "bowls tournament software",
+    "lawn bowling club management",
+    "lawn bowling draw generator",
+    "lawn bowling kiosk",
+    "lawn bowling league",
+    "round robin lawn bowling",
+    "pick a partner lawn bowls",
+  ],
+  authors: [{ name: "Lawnbowling", url: BASE_URL }],
+  creator: "Lawnbowling",
+  publisher: "Lawnbowling",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: BASE_URL,
+    siteName: "Lawnbowling",
+    title: "Lawnbowling — The World's Best Lawn Bowling App",
+    description:
+      "Tournament management, club directory, and everything lawn bowling. Free for players, powerful tools for clubs.",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Lawnbowling — Tournament management, club directory, and everything lawn bowling",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lawnbowling — The World's Best Lawn Bowling App",
+    description:
+      "Tournament management, club directory, and everything lawn bowling. Free for players, powerful tools for clubs.",
+    images: ["/opengraph-image.png"],
+    creator: "@lawnbowlapp",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "Lawnbowling",
   },
+  category: "sports",
+  classification: "Sports Application",
 };
 
 export const viewport: Viewport = {
@@ -53,6 +127,24 @@ export default function RootLayout({
           rel="apple-touch-startup-image"
           href="/splash/splash-ipad-landscape.png"
           media="(min-device-width: 1024px) and (orientation: landscape)"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: jsonLd(getSportsOrganizationSchema()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: jsonLd(getSoftwareApplicationSchema()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: jsonLd(getWebSiteSchema()),
+          }}
         />
       </head>
       <body
