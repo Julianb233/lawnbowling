@@ -12,6 +12,9 @@ import { SkillBadge } from "@/components/profile/SkillBadge";
 import { FavoriteButton } from "@/components/social/FavoriteButton";
 import { AddFriendButton } from "@/components/social/AddFriendButton";
 import { ProfileStatsSection } from "@/components/stats/ProfileStatsSection";
+import { MatchHistory } from "@/components/profile/MatchHistory";
+import { PhotoGalleryReadonly } from "@/components/profile/PhotoGallery";
+import { getPlayerPhotos } from "@/lib/db/gallery";
 import * as Avatar from "@radix-ui/react-avatar";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Shield } from "lucide-react";
@@ -47,7 +50,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
   const currentPlayer = user ? await getPlayerByUserId(user.id) : null;
   const isOwnProfile = currentPlayer?.id === player.id;
 
-  const [waiver, favorited, friendStatus, stats, favoritePartners] = await Promise.all([
+  const [waiver, favorited, friendStatus, stats, favoritePartners, photos] = await Promise.all([
     getWaiverByPlayerId(player.id),
     currentPlayer && !isOwnProfile
       ? isFavorite(currentPlayer.id, player.id)
@@ -57,6 +60,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
       : ("none" as const),
     getPlayerStats(player.id),
     getFavoritePartners(player.id, { limit: 5 }),
+    getPlayerPhotos(player.id),
   ]);
 
   const initials = player.display_name
@@ -117,6 +121,36 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
             )}
           </div>
 
+          {player.bio && (
+            <div>
+              <h2 className="mb-2 text-sm font-medium text-zinc-600">About</h2>
+              <p className="text-sm text-zinc-700 whitespace-pre-line">{player.bio}</p>
+            </div>
+          )}
+
+          {(player.preferred_position || player.preferred_hand || player.years_experience !== null) && (
+            <div>
+              <h2 className="mb-2 text-sm font-medium text-zinc-600">Preferences</h2>
+              <div className="flex flex-wrap gap-2">
+                {player.preferred_position && (
+                  <span className="inline-flex items-center rounded-full bg-[#1B5E20]/10 px-3 py-1 text-xs font-medium text-[#1B5E20]">
+                    {player.preferred_position.charAt(0).toUpperCase() + player.preferred_position.slice(1)}
+                  </span>
+                )}
+                {player.preferred_hand && (
+                  <span className="inline-flex items-center rounded-full bg-[#1B5E20]/10 px-3 py-1 text-xs font-medium text-[#1B5E20]">
+                    {player.preferred_hand.charAt(0).toUpperCase() + player.preferred_hand.slice(1)}
+                  </span>
+                )}
+                {player.years_experience !== null && (
+                  <span className="inline-flex items-center rounded-full bg-[#1B5E20]/10 px-3 py-1 text-xs font-medium text-[#1B5E20]">
+                    {player.years_experience} {player.years_experience === 1 ? "year" : "years"} experience
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
           {player.sports.length > 0 && (
             <div>
               <h2 className="mb-2 text-sm font-medium text-zinc-600">Sports</h2>
@@ -125,6 +159,10 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
           )}
 
           <ProfileStatsSection stats={stats} favoritePartners={favoritePartners} />
+
+          <PhotoGalleryReadonly photos={photos} />
+
+          <MatchHistory playerId={player.id} />
 
           <div>
             <h2 className="mb-2 text-sm font-medium text-zinc-600">Waiver Status</h2>
