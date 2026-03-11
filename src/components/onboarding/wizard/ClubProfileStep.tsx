@@ -47,7 +47,7 @@ export function ClubProfileStep({ data, onChange, errors }: ClubProfileStepProps
           type="text"
           value={data.name}
           onChange={(e) => onChange({ ...data, name: e.target.value })}
-          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
+          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 dark:text-foreground placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
           placeholder="e.g., Long Beach Lawn Bowling Club"
         />
         {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
@@ -62,7 +62,7 @@ export function ClubProfileStep({ data, onChange, errors }: ClubProfileStepProps
           type="text"
           value={data.address}
           onChange={(e) => onChange({ ...data, address: e.target.value })}
-          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
+          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 dark:text-foreground placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
           placeholder="e.g., 1085 E Ocean Blvd, Long Beach, CA"
         />
         {errors.address && <p className="mt-1 text-xs text-red-500">{errors.address}</p>}
@@ -77,7 +77,7 @@ export function ClubProfileStep({ data, onChange, errors }: ClubProfileStepProps
           type="email"
           value={data.contactEmail}
           onChange={(e) => onChange({ ...data, contactEmail: e.target.value })}
-          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
+          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 dark:text-foreground placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
           placeholder="admin@yourclub.com"
         />
         {errors.contactEmail && <p className="mt-1 text-xs text-red-500">{errors.contactEmail}</p>}

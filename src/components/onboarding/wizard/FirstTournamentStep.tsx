@@ -31,7 +31,7 @@ export function FirstTournamentStep({ data, onChange, skippable, onSkip }: First
           type="text"
           value={data.name}
           onChange={(e) => onChange({ ...data, name: e.target.value })}
-          className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
+          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-card px-4 py-3 text-zinc-900 dark:text-foreground placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
           placeholder="e.g., Saturday Social Bowls"
         />
       </div>
@@ -45,7 +45,7 @@ export function FirstTournamentStep({ data, onChange, skippable, onSkip }: First
           type="date"
           value={data.date}
           onChange={(e) => onChange({ ...data, date: e.target.value })}
-          className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
+          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-card px-4 py-3 text-zinc-900 dark:text-foreground placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
         />
       </div>
 

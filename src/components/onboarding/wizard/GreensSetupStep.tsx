@@ -50,7 +50,7 @@ export function GreensSetupStep({ greens, onChange, errors }: GreensSetupStepPro
                 type="text"
                 value={green.name}
                 onChange={(e) => updateGreen(i, "name", e.target.value)}
-                className="w-full rounded-lg border border-zinc-200 bg-zinc-50 dark:bg-background px-3 py-2 text-sm text-zinc-900 outline-none focus:border-green-500/50 min-h-[44px]"
+                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-background px-3 py-2 text-sm text-zinc-900 dark:text-foreground outline-none focus:border-green-500/50 min-h-[44px]"
               />
             </div>
             <div className="w-24">
@@ -61,7 +61,7 @@ export function GreensSetupStep({ greens, onChange, errors }: GreensSetupStepPro
                 max="20"
                 value={green.rinkCount}
                 onChange={(e) => updateGreen(i, "rinkCount", e.target.value)}
-                className="w-full rounded-lg border border-zinc-200 bg-zinc-50 dark:bg-background px-3 py-2 text-sm text-zinc-900 outline-none focus:border-green-500/50 min-h-[44px]"
+                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-background px-3 py-2 text-sm text-zinc-900 dark:text-foreground outline-none focus:border-green-500/50 min-h-[44px]"
               />
             </div>
             {greens.length > 1 && (
@@ -79,7 +79,7 @@ export function GreensSetupStep({ greens, onChange, errors }: GreensSetupStepPro
 
       <button
         onClick={addGreen}
-        className="flex items-center gap-2 rounded-xl border border-dashed border-zinc-300 px-4 py-3 text-sm font-medium text-zinc-500 hover:border-green-400 hover:text-green-600 transition-colors w-full justify-center min-h-[44px]"
+        className="flex items-center gap-2 rounded-xl border border-dashed border-zinc-300 px-4 py-3 text-sm font-medium text-zinc-500 dark:text-muted-foreground hover:border-green-400 hover:text-green-600 transition-colors w-full justify-center min-h-[44px]"
       >
         <Plus className="h-4 w-4" /> Add Another Green
       </button>

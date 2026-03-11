@@ -40,7 +40,7 @@ export function DoneStep({ completedItems, clubName }: DoneStepProps) {
         {items.map((item) => (
           <div
             key={item.label}
-            className="flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-4 py-3"
+            className="flex items-center gap-3 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-card px-4 py-3"
           >
             <div
               className={`flex h-6 w-6 items-center justify-center rounded-full ${
@@ -77,7 +77,7 @@ export function DoneStep({ completedItems, clubName }: DoneStepProps) {
         </Link>
         <Link
           href="/clubs"
-          className="flex items-center justify-between rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm font-medium text-zinc-600 hover:bg-zinc-50 dark:bg-background transition-colors min-h-[44px]"
+          className="flex items-center justify-between rounded-xl border border-zinc-200 dark:border-white/10 bg-white px-4 py-3 text-sm font-medium text-zinc-600 hover:bg-zinc-50 dark:bg-background transition-colors min-h-[44px]"
         >
           View Your Club Page
           <ExternalLink className="h-4 w-4" />
