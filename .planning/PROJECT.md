@@ -109,12 +109,15 @@ v2.0 — Lawnbowling National Launch
 - [ ] EDU-04: First 10 blog posts generated and published
 - [ ] EDU-05: Equipment buying guide (/learn/equipment)
 
-#### Shop (Dropshipping)
-- [ ] SHOP-01: Product catalog page (/shop) with categories
-- [ ] SHOP-02: Product detail pages with images, descriptions
-- [ ] SHOP-03: Cart and checkout flow (Stripe integration)
-- [ ] SHOP-04: Supplier/fulfillment integration for dropshipping
-- [ ] SHOP-05: Categories: bowls, shoes, bags, accessories, clothing
+#### Shop (Print-on-Demand via Printify)
+- [ ] SHOP-01: Printify API integration (product sync, order creation, webhooks)
+- [ ] SHOP-02: Product catalog page (/shop) with real SKUs and 40% markup
+- [ ] SHOP-03: Product detail pages with Printify images, descriptions, variants
+- [ ] SHOP-04: Cart and checkout flow (Stripe integration)
+- [ ] SHOP-05: Order submission to Printify API + tracking
+- [ ] SHOP-06: Categories: polos, t-shirts, hats/visors, hoodies, tote bags, mugs, towels, water bottles
+- [ ] SHOP-07: Club-branded merchandise (clubs can customize with their logo)
+- [ ] SHOP-08: Affiliate links for big-ticket items (bowls, shoes from Henselite/Aero)
 
 #### SEO & Growth
 - [ ] SEO-01: Dynamic sitemap.ts with all club/state/blog URLs

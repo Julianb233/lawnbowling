@@ -2,97 +2,78 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-09)
+See: .planning/PROJECT.md (updated 2026-03-11)
 
-**Core value:** Players at recreational sports venues can quickly find and team up with partners
-**Current focus:** Phase 7 — Bowls Tournament Production Launch
+**Core value:** The world's best lawn bowling app — national domination
+**Current focus:** Phases 7-15 in parallel — Lawnbowling National Launch
 
 ## Current Position
 
-Phase: 7 of 7
-Plan: 07-01 next
-Status: Phase 7 in progress — dynamic tournaments, competitor features
-Last activity: 2026-03-10 — Competitor research complete, Phase 7 roadmap added
+Phase: 7-15 of 15 (parallel execution)
+Plan: Multiple plans queued across all phases
+Status: Roadmap created, ready for parallel execution
+Last activity: 2026-03-11 — Roadmap created with 9 new phases, 23 plans
 
-Progress: [████████░░] 86%
+Progress: [████████░░] 86% (v1 complete, v2 starting)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: -
-- Total execution time: 0 hours
+- Total plans completed: 12 (Phases 1-6)
+- Average duration: ~2 hours per plan
+- Total execution time: ~24 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
-
-**Recent Trend:**
-- Last 5 plans: N/A
-- Trend: N/A
+| 1-6 | 12/12 | ~24h | ~2h |
 
 ## Accumulated Context
 
 ### Decisions
 
-- Supabase for auth + database + realtime (all-in-one, free tier covers MVP)
-- Liability waiver modeled after Daily Event Insurance's flow (checkbox + timestamp + IP)
-- DEI integration as optional post-waiver insurance link
-- iPad landscape (kiosk) + iPhone portrait (personal) as primary targets
+- Supabase for auth + database + realtime (all-in-one)
+- Liability waiver with timestamp + IP
+- DEI insurance integration (owner's company)
+- iPad landscape (kiosk) + iPhone portrait (personal)
+- Rebranded to Lawnbowling (from Pick a Partner)
+- Domains: lawnbowl.app (primary), lawnbowl.camp (DEI), lawnbowling.app (redirect)
+- Printify for print-on-demand merch with 40% markup
+- AI-generated blog/educational content
+- Everything in parallel, YOLO mode
+- Show to clubs this week
 
-### Phase 5 Audit Results
+### Research Complete (12 reports)
 
-**Court Management (MATCH-02 to MATCH-05, ADMIN-05):** All complete -- no changes needed
-**Admin Panel (ADMIN-01 to ADMIN-04):** Complete after fixes:
-- ADMIN-01: Venue settings extended with contact info, tagline
-- ADMIN-02: Courts admin now uses dynamic venue sports
-- ADMIN-03: NEW -- Sport management UI on venue settings page
-- ADMIN-04: Players, waivers, match history views verified; match history now has sport/status filters (05-02)
+- LAWN_BOWLING_RULES.md — Rules, positions, formats, 80+ term glossary
+- LAWN_BOWLING_TECH.md — 20+ competitors, technology gaps confirmed
+- LAWN_BOWLING_UX.md — Elderly UX, 12 kiosk issues identified
+- LAWN_BOWLING_MARKET.md — 7-8K clubs globally, $200K+ revenue potential
+- LAWN_BOWLING_SYNTHESIS.md — Master synthesis
+- DEI_LAWN_BOWLS.md — Insurance product design, pricing
+- SEO_STRATEGY.md — 100+ keywords, content plan, technical SEO
+- USA_CLUBS_WEST.md — 57 clubs
+- USA_CLUBS_EAST.md — 13 clubs
+- USA_CLUBS_SOUTH.md — 19 clubs
+- USA_CLUBS_MIDWEST.md — 9 clubs
+- DROPSHIPPING_AND_CONTENT.md — Shop strategy, 30+ blog topics
+- PRINTIFY_SHOP.md — (in progress)
 
-### Bussit Autopilot Results (2026-03-10)
+### Assets Generated
 
-- Task #1: Fix signup bug — already fixed in code
-- Task #2: Created /queue page (commit adf4dd5)
-- Task #3: Created /settings page (commit 226a3d1)
-- Task #4: Wired social features — /activity, /friends pages, social buttons on profiles (commit 3510fd7)
-- Task #5: Build check — 35 pages, 0 TypeScript errors
-- Task #6: Updated ROADMAP and STATE
-
-### Phase 6 Final Audit (2026-03-10)
-
-- PWA-01 (Installable): manifest.json complete, icons at all sizes, InstallPrompt + IOSInstallGuide
-- PWA-02 (Responsive): iPad landscape sidebar layout, iPhone portrait bottom nav, responsive grid
-- PWA-03 (Touch targets): Global 44px min via CSS, per-component touch-manipulation
-- PWA-04 (Offline): Service worker with serwist, offline fallback page with auto-reconnect
-- Deployed to Vercel: https://pick-a-partner.vercel.app (commit bb5d93d)
-
-### Phase 1 Re-audit (2026-03-10)
-
-- Fixed build: Serwist disabled (Next.js 16 Turbopack incompatibility), --turbopack flag added to build script
-- Fixed QueuePageClient type mismatch for Supabase array relations
-- Fixed 15+ RLS policies: created `is_own_player()` helper function to correctly resolve players.id vs auth.uid()
-- Fixed 3 pages querying players with `.eq("id", user.id)` instead of `.eq("user_id", user.id)`
-- Fixed queue page querying match_players with `user.id` instead of `player.id`
-- Added `/offline` to public middleware paths
-- Supabase schema already deployed (21 tables, all RLS enabled)
-- Service role key retrieved from 1Password and added to .env.local
-
-### Pending Todos
-
-- Seed admin user (run `scripts/seed-admin.sql` after a user signs up)
-- Configure Supabase env vars in Vercel project settings (SUPABASE_SERVICE_ROLE_KEY)
+- lawn-bowl-logo.png — App icon (green bowl with gold bias mark)
+- lawn-bowl-wordmark.png — "LAWN BOWL" wordmark with bowl icon
 
 ### Blockers/Concerns
 
-None.
+- Printify API key needed for shop integration
+- Stripe account needed for checkout
+- lawnbowl.app domain DNS configuration needed
+- lawnbowl.camp domain DNS configuration needed
 
 ## Session Continuity
 
-Last session: 2026-03-10 07:50 UTC
-Stopped at: Phase 6 re-verified -- 06-01 and 06-02 plans confirmed complete with atomic commits
+Last session: 2026-03-11
+Stopped at: Roadmap created, ready for parallel execution
 Resume file: None
-
-### Session History
-- 2026-03-10 07:50: Phase 6 executor spawned. Manifest enhanced (scope, prefer_related_applications, icon-152/180 entries). Apple touch icons pointed to correct files. InstallPrompt iOS guard added. All prior work (sw.ts caching, offline detection, responsive polish, vercel.json, admin layout) confirmed by previous workers. Build passes with webpack mode. All 10 verification checks pass.

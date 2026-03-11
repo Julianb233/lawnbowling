@@ -1,147 +1,229 @@
-# Roadmap: Pick a Partner
+# Roadmap: Lawnbowling
 
 ## Overview
 
-Pick a Partner is a PWA for recreational sports venues where players check in, find partners, and get matched to courts for Pickleball, Lawn Bowling, Tennis, and other partner sports. The build starts with project foundation and auth, layers on player profiles with liability waivers, builds the real-time availability board and partner selection flow, adds court management and admin, and finishes with PWA optimization and deploy.
+Lawnbowling is the world's best lawn bowling app — a PWA platform for tournament management, club directory, insurance, education, and merchandise. Rebranded from Pick a Partner (Phases 1-6 complete). Phases 7+ build the Lawnbowling national platform.
+
+**Execution mode:** Parallel — independent phases run simultaneously with multiple agents.
 
 ## Phases
 
-- [x] **Phase 1: Foundation & Auth** - Project setup, Supabase, auth flow, database schema
-- [x] **Phase 2: Player Profiles & Waivers** - Registration with profiles, liability waiver, DEI integration
-- [x] **Phase 3: Live Availability Board** - Real-time check-in/out board with filtering
-- [x] **Phase 4: Partner Selection** - Pick/request/accept flow, match queue
-- [x] **Phase 5: Court Management & Admin** - Court/lane assignment, timers, admin panel
-- [x] **Phase 6: PWA, Polish & Deploy** - Service worker, responsive polish, Vercel deploy
-- [ ] **Phase 7: Bowls Tournament Production Launch** - Dynamic tournaments, real data, competitor features
+- [x] **Phase 1: Foundation & Auth** — Project setup, Supabase, auth flow, database schema
+- [x] **Phase 2: Player Profiles & Waivers** — Registration, profiles, liability waiver, DEI integration
+- [x] **Phase 3: Live Availability Board** — Real-time check-in/out board with filtering
+- [x] **Phase 4: Partner Selection** — Pick/request/accept flow, match queue
+- [x] **Phase 5: Court Management & Admin** — Court assignment, timers, admin panel
+- [x] **Phase 6: PWA, Polish & Deploy** — Service worker, responsive polish, Vercel deploy
+- [ ] **Phase 7: Rebrand & Foundation** — Rename to Lawnbowling, new logo, colors, domain, multi-club DB
+- [ ] **Phase 8: Tournament Lifecycle** — Score entry, results, multi-round, history, print draw
+- [ ] **Phase 9: Kiosk UX Overhaul** — Elderly-friendly redesign, 4-screen check-in, WCAG AAA
+- [ ] **Phase 10: Club Directory** — Supabase clubs table, directory pages, state pages, club detail, seed data, claim flow
+- [ ] **Phase 11: Live Display & Engagement** — TV scoreboard, live draw display, push notifications, weather
+- [ ] **Phase 12: Educational Content & Blog** — Learning hub, blog engine, 10 AI posts, equipment guide, bocce comparison
+- [ ] **Phase 13: DEI Insurance Platform** — In-app lawn bowls insurance page, lawnbowl.camp microsite, check-in offer
+- [ ] **Phase 14: Print-on-Demand Shop** — Printify API integration, product catalog, cart, checkout, order fulfillment
+- [ ] **Phase 15: SEO & Growth Engine** — Sitemap, Schema.org, meta tags, OG cards, Google Business Profile
+
+## Parallel Execution Map
+
+```
+Week 1 (LAUNCH WEEK):
+  ├── Phase 7:  Rebrand & Foundation ──────────┐
+  ├── Phase 8:  Tournament Lifecycle ──────────┤ CORE APP
+  ├── Phase 9:  Kiosk UX Overhaul ────────────┘
+  ├── Phase 10: Club Directory ────────────────── DIRECTORY
+  ├── Phase 12: Educational Content ───────────── CONTENT
+  └── Phase 15: SEO & Growth ──────────────────── SEO
+
+Week 2:
+  ├── Phase 11: Live Display ──────────────────── ENGAGEMENT
+  ├── Phase 13: DEI Insurance ─────────────────── INSURANCE
+  └── Phase 14: Print-on-Demand Shop ──────────── SHOP
+```
 
 ## Phase Details
 
-### Phase 1: Foundation & Auth
-**Goal**: Working Next.js app with Supabase backend, auth, and complete database schema
-**Depends on**: Nothing (first phase)
-**Requirements**: AUTH-01, AUTH-02, AUTH-03, AUTH-04
+### Phase 7: Rebrand & Foundation
+**Goal**: Transform Pick a Partner into Lawnbowling with new brand identity and multi-club database architecture
+**Depends on**: Phase 6 (complete)
+**Requirements**: BRAND-01, BRAND-02, BRAND-03, BRAND-04, BRAND-05, MULTI-01, MULTI-02, MULTI-03, MULTI-04
 **Success Criteria** (what must be TRUE):
-  1. User can sign up and log in via Supabase Auth (magic link or email+password)
-  2. User session persists across browser refresh
-  3. Admin role exists and is distinguishable from regular user
-  4. Database schema is deployed with all tables (players, partner_requests, matches, courts, venues, waivers)
-  5. App runs locally and builds without errors
+  1. All references to "Pick a Partner" replaced with "Lawnbowling"
+  2. New logo (app icon + wordmark) integrated in header, manifest, favicons
+  3. Color scheme updated to lawn bowling green (#1B5E20 primary)
+  4. App deployed to lawnbowl.app domain on Vercel
+  5. Club entity exists in database with onboarding flow
+  6. npm run build passes
+**Plans**: 3 plans
+
+Plans:
+- [ ] 07-01: Find-and-replace rebrand, logo integration, color scheme, manifest update
+- [ ] 07-02: Multi-club database schema, club onboarding flow, club admin dashboard
+- [ ] 07-03: Domain setup (lawnbowl.app, lawnbowling.app redirect), Vercel config
+
+### Phase 8: Tournament Lifecycle
+**Goal**: Complete tournament-day workflow — scoring, results, multi-round, history, print
+**Depends on**: Phase 7 (tournament entity needs club scope)
+**Requirements**: TOUR-01, TOUR-02, TOUR-03, TOUR-04, TOUR-05, TOUR-06, TOUR-07
+**Research flag**: Standard patterns, straightforward
+**Success Criteria** (what must be TRUE):
+  1. Drawmaster can enter scores per end per rink in real-time
+  2. Results automatically calculated (shots, ends, winner)
+  3. Multi-round tournaments supported (generate new draw after results)
+  4. Tournament history viewable with past results and player stats
+  5. Print-friendly draw sheet available
+  6. Dynamic tournament entity replaces hardcoded demo ID
+**Plans**: 3 plans
+
+Plans:
+- [ ] 08-01: Score entry UI and API (per end, per rink, real-time via Supabase Realtime)
+- [ ] 08-02: Results calculation, multi-round draw, tournament progression
+- [ ] 08-03: Tournament history, player stats, print-friendly draw sheet
+
+### Phase 9: Kiosk UX Overhaul
+**Goal**: Redesign kiosk mode for 60-80+ year old users with WCAG AAA accessibility
+**Depends on**: Phase 7 (rebrand first, then redesign)
+**Requirements**: KIOSK-01, KIOSK-02, KIOSK-03, KIOSK-04, KIOSK-05, KIOSK-06
+**Research flag**: UX research complete (LAWN_BOWLING_UX.md — 12 issues identified)
+**Success Criteria** (what must be TRUE):
+  1. All kiosk touch targets are 56-72pt minimum
+  2. No text below 16px in kiosk views, headings 32px+
+  3. WCAG AAA contrast (7:1 ratio) throughout kiosk
+  4. 4-screen check-in flow works: Welcome → Name Search → Position → Confirm
+  5. A-Z letter filter handles 300 member names smoothly
+  6. 15-second auto-reset after confirmation, 10-second undo window
 **Plans**: 2 plans
 
 Plans:
-- [x] 01-01: Next.js project scaffold, Supabase setup, Tailwind + Radix UI config
-- [x] 01-02: Auth flow (signup/login/logout), database schema migration, admin role seeding
+- [ ] 09-01: Kiosk component redesign (touch targets, typography, contrast, layout)
+- [ ] 09-02: 4-screen check-in flow with A-Z filter, auto-reset, undo
 
-### Phase 2: Player Profiles & Waivers
-**Goal**: Users can register with full profiles and sign a liability waiver before playing; optional DEI insurance offered
-**Depends on**: Phase 1
-**Requirements**: PROF-01, PROF-02, PROF-03, PROF-04, PROF-05, WAIV-01, WAIV-02, WAIV-03, WAIV-04, WAIV-05, INSR-01, INSR-02, INSR-03
+### Phase 10: Club Directory
+**Goal**: National club directory with search, filters, state pages, and claim flow — SEO machine
+**Depends on**: Phase 7 (clubs table)
+**Requirements**: DIR-01, DIR-02, DIR-03, DIR-04, DIR-05, DIR-06, DIR-07
 **Success Criteria** (what must be TRUE):
-  1. New user completes profile (name, photo, skill level, sports) during registration
-  2. User must accept liability waiver before accessing the availability board
-  3. Waiver acceptance is logged with timestamp and IP address
-  4. After waiver, user is offered optional Daily Event Insurance link
-  5. Admin can view all signed waivers
+  1. /clubs page shows all clubs with search, region/state/activity filters
+  2. /clubs/[state] pages exist for each state with clubs
+  3. /clubs/[state]/[slug] detail pages with full club info
+  4. 90+ USA clubs seeded from research data
+  5. "Claim your club" flow allows managers to take ownership
+  6. Claimed clubs can link to their venue in the app
+**Plans**: 3 plans
+
+Plans:
+- [ ] 10-01: Clubs DB migration, API routes, seed 90+ clubs
+- [ ] 10-02: Directory page, state pages, club detail page (already started)
+- [ ] 10-03: Claim flow, club-venue linking, club manager dashboard
+
+### Phase 11: Live Display & Engagement
+**Goal**: TV scoreboard, live draw display, notifications, and weather for clubhouse engagement
+**Depends on**: Phase 8 (needs scoring data)
+**Requirements**: LIVE-01, LIVE-02, LIVE-03, LIVE-04
+**Success Criteria** (what must be TRUE):
+  1. /tv route displays live scoreboard optimized for clubhouse TV
+  2. Draw announcements auto-display when generated
+  3. Push notifications sent for draw announcements
+  4. Weather widget shows current conditions via Open-Meteo
 **Plans**: 2 plans
 
 Plans:
-- [x] 02-01: Player profile CRUD (create, read, update), avatar upload via Supabase Storage
-- [x] 02-02: Liability waiver flow, waiver admin view, DEI integration link
+- [ ] 11-01: TV scoreboard mode (/tv), live draw display with auto-refresh
+- [ ] 11-02: Push notifications (web push), weather widget integration
 
-### Phase 3: Live Availability Board
-**Goal**: Real-time board showing available players, with check-in/out and filtering by sport/skill
-**Depends on**: Phase 2
-**Requirements**: AVAIL-01, AVAIL-02, AVAIL-03, AVAIL-04, AVAIL-05
+### Phase 12: Educational Content & Blog
+**Goal**: Learning hub and blog with AI-generated content targeting top lawn bowling keywords
+**Depends on**: Phase 7 (rebrand — content needs new brand)
+**Requirements**: EDU-01, EDU-02, EDU-03, EDU-04, EDU-05
+**Research flag**: Content strategy complete (DROPSHIPPING_AND_CONTENT.md, SEO_STRATEGY.md)
 **Success Criteria** (what must be TRUE):
-  1. Player can check in and immediately appear on the live board
-  2. Board updates in real-time when players check in/out (no page refresh needed)
-  3. Board can be filtered by sport and skill level
-  4. Each player card shows name, avatar, skill level, sports, and check-in time
-  5. Works on both iPad landscape and iPhone portrait layouts
+  1. /learn hub with beginner guide, rules, positions, formats, glossary
+  2. /learn/lawn-bowling-vs-bocce comparison page published
+  3. /blog engine with MDX or DB-backed posts
+  4. 10 blog posts published targeting top keywords
+  5. Equipment buying guide at /learn/equipment
+**Plans**: 3 plans
+
+Plans:
+- [ ] 12-01: Learning hub pages (/learn, /learn/rules, /learn/positions, /learn/formats, /learn/glossary)
+- [ ] 12-02: Blog engine, first 5 blog posts (bocce comparison, how to play, rules, beginner guide, equipment)
+- [ ] 12-03: Next 5 blog posts, equipment guide, internal linking strategy
+
+### Phase 13: DEI Insurance Platform
+**Goal**: Lawn bowling-specific insurance product with in-app page and standalone microsite
+**Depends on**: Phase 7 (rebrand), Phase 8 (check-in integration)
+**Requirements**: DEI-01, DEI-02, DEI-03, DEI-04, DEI-05, DEI-06
+**Research flag**: DEI research complete (DEI_LAWN_BOWLS.md — pricing, coverage, UX designed)
+**Success Criteria** (what must be TRUE):
+  1. /insurance/lawn-bowls page with lawn bowling-specific coverage info
+  2. lawnbowl.camp standalone microsite deployed
+  3. Per-session coverage tiers ($3-15/player) with quote flow
+  4. Insurance offer appears at tournament check-in
+  5. Admin can view member coverage status
 **Plans**: 2 plans
 
 Plans:
-- [x] 03-01: Check-in/out toggle, Supabase Realtime subscription, available players query
-- [x] 03-02: Board UI (player cards grid), sport/skill filters, responsive iPad + iPhone layouts
+- [ ] 13-01: In-app lawn bowls insurance page, check-in integration, admin coverage view
+- [ ] 13-02: lawnbowl.camp standalone microsite (Next.js, Vercel, co-branded)
 
-### Phase 4: Partner Selection
-**Goal**: Full partner pick/request/accept flow — users can pick a partner, get matched, and enter the play queue
-**Depends on**: Phase 3
-**Requirements**: PICK-01, PICK-02, PICK-03, PICK-04, PICK-05, MATCH-01
+### Phase 14: Print-on-Demand Shop
+**Goal**: Merch shop with Printify integration, real SKUs, 40% markup, and Stripe checkout
+**Depends on**: Phase 7 (rebrand — shop needs new brand)
+**Requirements**: SHOP-01, SHOP-02, SHOP-03, SHOP-04, SHOP-05, SHOP-06, SHOP-07, SHOP-08
+**Research flag**: Printify research in progress
 **Success Criteria** (what must be TRUE):
-  1. User can tap a player card to send a partner request
-  2. Target player sees the request and can accept or decline
-  3. Accepted pair moves to the "Ready to Play" queue
-  4. Declined requests return both players to the available board
-  5. Expired requests are auto-cleaned after timeout
+  1. /shop page with product catalog synced from Printify API
+  2. Products display real SKUs, images, variants with 40% markup pricing
+  3. Cart and checkout work with Stripe
+  4. Orders submitted to Printify API for fulfillment
+  5. Order tracking and status updates via webhooks
+  6. Club-branded merchandise customization available
+  7. Affiliate links for bowls, shoes, bags from authorized dealers
+**Plans**: 3 plans
+
+Plans:
+- [ ] 14-01: Printify API integration (product sync, SKU mapping, 40% markup pricing)
+- [ ] 14-02: Shop UI (catalog, product detail, cart, Stripe checkout)
+- [ ] 14-03: Order fulfillment (Printify order API, webhooks, tracking), club custom merch, affiliate links
+
+### Phase 15: SEO & Growth Engine
+**Goal**: Technical SEO foundation to rank #1 for lawn bowling keywords nationally
+**Depends on**: Phase 10 (directory URLs), Phase 12 (blog URLs)
+**Requirements**: SEO-01, SEO-02, SEO-03, SEO-04, SEO-05
+**Research flag**: SEO strategy complete (SEO_STRATEGY.md — full keyword + content plan)
+**Success Criteria** (what must be TRUE):
+  1. Dynamic sitemap.ts includes all club, state, blog, and learn URLs
+  2. Schema.org markup on all page types
+  3. Meta tags and OG cards configured for every route
+  4. lawnbowling.app 301 redirects to lawnbowl.app
+  5. Google Business Profile created and verified
 **Plans**: 2 plans
 
 Plans:
-- [x] 04-01: Partner request API (create, accept, decline, expire), real-time request notifications
-- [x] 04-02: Request modal UI, match queue display, request status handling
-
-### Phase 5: Court Management & Admin
-**Goal**: Courts/lanes can be managed, assigned to matched pairs with timers; admin panel for full venue control
-**Depends on**: Phase 4
-**Requirements**: MATCH-02, MATCH-03, MATCH-04, MATCH-05, ADMIN-01, ADMIN-02, ADMIN-03, ADMIN-04, ADMIN-05
-**Success Criteria** (what must be TRUE):
-  1. Admin can create/edit/delete courts and lanes
-  2. Matched pairs can be assigned to open courts (manual or auto)
-  3. Court status board shows which courts are playing, queued, or open
-  4. Match timer shows elapsed/remaining time per court
-  5. Completing a match frees the court for the next queued pair
-**Plans**: 2 plans
-
-Plans:
-- [x] 05-01: Court CRUD, court assignment logic, match timer, court status board
-- [x] 05-02: Admin panel (venue settings, player management, waiver viewer, match history)
-
-### Phase 6: PWA, Polish & Deploy
-**Goal**: Installable PWA on iPad/iPhone, responsive polish, production deploy to Vercel
-**Depends on**: Phase 5
-**Requirements**: PWA-01, PWA-02, PWA-03, PWA-04
-**Success Criteria** (what must be TRUE):
-  1. App can be installed on iPad and iPhone via "Add to Home Screen"
-  2. Service worker caches assets for offline browsing
-  3. iPad landscape kiosk mode and iPhone portrait mode both work smoothly
-  4. All touch targets are 44px minimum
-  5. App is deployed to Vercel and accessible via pick-a-partner.vercel.app
-**Plans**: 2 plans
-
-Plans:
-- [x] 06-01: PWA manifest, service worker (Serwist), install prompt, offline support
-- [x] 06-02: Responsive polish (iPad landscape + iPhone portrait), accessibility pass, Vercel deploy
-
-### Phase 7: Bowls Tournament Production Launch
-**Goal**: Connect bowls to real tournament data, add competitor-inspired features, make production-ready
-**Depends on**: Phase 6
-**Requirements**: BOWLS-01 (migration), BOWLS-02 (dynamic routing), BOWLS-03 (tournament CRUD), BOWLS-04 (nav integration), BOWLS-05 (seed data), BOWLS-06 (kiosk update)
-**Success Criteria** (what must be TRUE):
-  1. bowls_checkins table exists in Supabase
-  2. /bowls shows tournament list with active/past tournaments
-  3. /bowls/[id] shows check-in/board/draw for specific tournament
-  4. New tournament can be created via modal
-  5. Demo seed data includes a bowls tournament with check-ins
-  6. BottomNav includes Bowls link
-  7. Kiosk mode works with dynamic routing
-  8. npm run build passes
-**Plans**: 2 plans
-
-Plans:
-- [ ] 07-01: Migration, dynamic routing, tournament CRUD API
-- [ ] 07-02: Tournament modal, seed data, kiosk update, nav, build verification
+- [ ] 15-01: Dynamic sitemap, Schema.org markup, meta tags, OG cards
+- [ ] 15-02: Domain redirects, Google Business Profile, robots.txt, Search Console
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
+Phases 7-10, 12, 15 run in parallel (Week 1). Phases 11, 13, 14 follow (Week 2).
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
+| Phase | Plans | Status | Completed |
+|-------|-------|--------|-----------|
 | 1. Foundation & Auth | 2/2 | Complete | 2026-03-09 |
 | 2. Player Profiles & Waivers | 2/2 | Complete | 2026-03-09 |
 | 3. Live Availability Board | 2/2 | Complete | 2026-03-09 |
 | 4. Partner Selection | 2/2 | Complete | 2026-03-09 |
 | 5. Court Management & Admin | 2/2 | Complete | 2026-03-09 |
 | 6. PWA, Polish & Deploy | 2/2 | Complete | 2026-03-10 |
-| 7. Bowls Tournament Production Launch | 0/2 | In Progress | - |
+| 7. Rebrand & Foundation | 0/3 | Not Started | - |
+| 8. Tournament Lifecycle | 0/3 | Not Started | - |
+| 9. Kiosk UX Overhaul | 0/2 | Not Started | - |
+| 10. Club Directory | 0/3 | Not Started | - |
+| 11. Live Display & Engagement | 0/2 | Not Started | - |
+| 12. Educational Content & Blog | 0/3 | Not Started | - |
+| 13. DEI Insurance Platform | 0/2 | Not Started | - |
+| 14. Print-on-Demand Shop | 0/3 | Not Started | - |
+| 15. SEO & Growth Engine | 0/2 | Not Started | - |
+
+**Total:** 15 phases, 35 plans (12 complete, 23 remaining)
