@@ -52,15 +52,30 @@ export function AdminPinModal({ open, onClose, onSuccess }: AdminPinModalProps) 
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.9 }}
-            className="w-full max-w-xs rounded-2xl glass p-6"
+            className="w-full max-w-sm rounded-2xl glass p-8"
           >
             <div className="mb-6 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Lock className="h-5 w-5 text-zinc-400" />
-                <h2 className="text-lg font-bold text-zinc-900">Admin PIN</h2>
+              <div className="flex items-center gap-3">
+                <Lock className="h-6 w-6" style={{ color: "#4A4A4A" }} />
+                <h2
+                  className="font-bold"
+                  style={{ fontSize: "32px", color: "#1A1A1A" }}
+                >
+                  Admin PIN
+                </h2>
               </div>
-              <button onClick={() => { onClose(); setPin(""); }} className="rounded-full p-1 hover:bg-zinc-100">
-                <X className="h-5 w-5 text-zinc-400" />
+              <button
+                onClick={() => { onClose(); setPin(""); }}
+                className="rounded-full p-3 hover:bg-zinc-100 touch-manipulation"
+                style={{
+                  minHeight: "56px",
+                  minWidth: "56px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <X className="h-6 w-6" style={{ color: "#4A4A4A" }} />
               </button>
             </div>
 
@@ -70,7 +85,7 @@ export function AdminPinModal({ open, onClose, onSuccess }: AdminPinModalProps) 
                 <motion.div
                   key={i}
                   animate={error ? { x: [-8, 8, -4, 4, 0] } : {}}
-                  className={`h-4 w-4 rounded-full border-2 transition-colors ${
+                  className={`h-5 w-5 rounded-full border-2 transition-colors ${
                     i < pin.length
                       ? error ? "border-red-500 bg-red-500" : "border-green-500 bg-green-500"
                       : "border-zinc-600"
@@ -86,9 +101,16 @@ export function AdminPinModal({ open, onClose, onSuccess }: AdminPinModalProps) 
                   <button
                     key={key}
                     onClick={() => key === "del" ? handleDelete() : handleDigit(key)}
-                    className="flex h-16 items-center justify-center rounded-xl bg-zinc-100 text-xl font-bold text-zinc-900 hover:bg-zinc-100 active:bg-zinc-600 min-h-[64px] touch-manipulation"
+                    className="flex items-center justify-center rounded-xl touch-manipulation active:scale-[0.95]"
+                    style={{
+                      minHeight: "64px",
+                      fontSize: "24px",
+                      fontWeight: 700,
+                      backgroundColor: "#F0F0F0",
+                      color: "#1A1A1A",
+                    }}
                   >
-                    {key === "del" ? "&#9003;" : key}
+                    {key === "del" ? "\u232B" : key}
                   </button>
                 )
               ))}

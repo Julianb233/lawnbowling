@@ -7,6 +7,7 @@ import {
   getParticipants,
   generateRoundRobinBracket,
   generateSingleEliminationBracket,
+  generateDoubleEliminationBracket,
 } from "@/lib/db/tournaments";
 
 export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {

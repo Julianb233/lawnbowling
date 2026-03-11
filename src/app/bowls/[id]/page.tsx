@@ -59,6 +59,8 @@ export default function BowlsTournamentPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [generatingDraw, setGeneratingDraw] = useState(false);
   const [tournamentName, setTournamentName] = useState("Lawn Bowls");
+  const [showInsuranceOffer, setShowInsuranceOffer] = useState(false);
+  const [insuranceOfferPlayer, setInsuranceOfferPlayer] = useState<string | null>(null);
   const [tournamentDate] = useState(() =>
     new Date().toLocaleDateString("en-AU", {
       weekday: "long",
@@ -142,10 +144,18 @@ export default function BowlsTournamentPage() {
       });
 
       if (res.ok) {
+        const checkedInPlayer = selectedPlayer;
         setJustCheckedIn(selectedPlayer.id);
         setSelectedPlayer(null);
         await loadCheckins();
         setTimeout(() => setJustCheckedIn(null), 2000);
+
+        // Show insurance offer for players without active coverage
+        if (checkedInPlayer.insurance_status !== "active") {
+          setInsuranceOfferPlayer(checkedInPlayer.display_name);
+          setShowInsuranceOffer(true);
+          setTimeout(() => setShowInsuranceOffer(false), 8000);
+        }
       }
     } catch {
       // Handle error

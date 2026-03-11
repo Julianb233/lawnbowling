@@ -1,5 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Tournament, TournamentParticipant, TournamentMatch } from "@/lib/types";
+import {
+  generateDoubleEliminationBracket as generateDoubleElimBracketLogic,
+  handleForfeit as handleForfeitLogic,
+} from "@/lib/tournament-engine";
 
 export async function listTournaments(venueId?: string) {
   const supabase = await createClient();
@@ -411,4 +415,114 @@ export async function getTournamentStandings(tournamentId: string) {
 
   if (error) throw error;
   return data;
+}
+
+export async function generateDoubleEliminationBracket(tournamentId: string) {
+  const supabase = await createClient();
+
+  const participants = await getParticipants(tournamentId);
+  if (participants.length < 2) throw new Error("Need at least 2 participants");
+
+  // Seed participants
+  const seeded = [...participants];
+  for (let i = 0; i < seeded.length; i++) {
+    await supabase
+      .from("tournament_participants")
+      .update({ seed: i + 1 })
+      .eq("tournament_id", tournamentId)
+      .eq("player_id", seeded[i].player_id);
+  }
+
+  const playerIds = seeded.map((p) => p.player_id);
+  const bracketMatches = generateDoubleElimBracketLogic(playerIds);
+
+  const matches: Omit<TournamentMatch, "id" | "completed_at" | "player1" | "player2" | "winner">[] =
+    bracketMatches.map((m) => ({
+      tournament_id: tournamentId,
+      round: m.round,
+      match_number: m.matchNumber,
+      player1_id: m.player1Id,
+      player2_id: m.player2Id,
+      winner_id: m.winnerId,
+      score: null,
+      court_id: null,
+      status: m.status,
+      scheduled_at: null,
+      bracket: m.bracket,
+    }));
+
+  const { error } = await supabase.from("tournament_matches").insert(matches);
+  if (error) throw error;
+
+  await supabase
+    .from("tournaments")
+    .update({ status: "in_progress", started_at: new Date().toISOString() })
+    .eq("id", tournamentId);
+
+  return matches;
+}
+
+export async function forfeitMatch(matchId: string, forfeitingPlayerId: string) {
+  const supabase = await createClient();
+
+  const { data: match, error: matchError } = await supabase
+    .from("tournament_matches")
+    .select("*")
+    .eq("id", matchId)
+    .single();
+
+  if (matchError || !match) throw new Error("Match not found");
+  if (match.status === "completed") throw new Error("Match already completed");
+
+  const { winnerId, loserId } = handleForfeitLogic(
+    match.player1_id,
+    match.player2_id,
+    forfeitingPlayerId
+  );
+
+  // Update match
+  const { error } = await supabase
+    .from("tournament_matches")
+    .update({
+      winner_id: winnerId,
+      score: "Forfeit",
+      status: "completed",
+      completed_at: new Date().toISOString(),
+    })
+    .eq("id", matchId);
+
+  if (error) throw error;
+
+  // Update participant stats
+  if (winnerId) {
+    const { data: wp } = await supabase
+      .from("tournament_participants")
+      .select("wins")
+      .eq("tournament_id", match.tournament_id)
+      .eq("player_id", winnerId)
+      .single();
+    if (wp) {
+      await supabase
+        .from("tournament_participants")
+        .update({ wins: wp.wins + 1 })
+        .eq("tournament_id", match.tournament_id)
+        .eq("player_id", winnerId);
+    }
+  }
+
+  const { data: lp } = await supabase
+    .from("tournament_participants")
+    .select("losses")
+    .eq("tournament_id", match.tournament_id)
+    .eq("player_id", loserId)
+    .single();
+  if (lp) {
+    await supabase
+      .from("tournament_participants")
+      .update({ losses: lp.losses + 1, eliminated: true })
+      .eq("tournament_id", match.tournament_id)
+      .eq("player_id", loserId);
+  }
+
+  return { winnerId, loserId };
 }

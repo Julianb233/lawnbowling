@@ -12,6 +12,7 @@ const navItems = [
   { href: "/admin/waiver-templates", label: "Templates" },
   { href: "/admin/matches", label: "Matches" },
   { href: "/admin/claims", label: "Claims" },
+  { href: "/admin/insurance", label: "Insurance" },
 ];
 
 export default async function AdminLayout({

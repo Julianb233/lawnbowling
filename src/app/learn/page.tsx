@@ -8,6 +8,8 @@ import {
   Target,
   ChevronRight,
   Lightbulb,
+  CircleDot,
+  Scale,
 } from "lucide-react";
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
@@ -54,6 +56,24 @@ const topics = [
     icon: Search,
     color: "bg-purple-500/10 text-purple-700",
     borderColor: "border-purple-200 hover:border-purple-400",
+  },
+  {
+    title: "Equipment Buying Guide",
+    description:
+      "Everything you need to get started -- bowls, shoes, bags, and accessories with expert tips and links to trusted retailers.",
+    href: "/learn/equipment",
+    icon: CircleDot,
+    color: "bg-orange-500/10 text-orange-700",
+    borderColor: "border-orange-200 hover:border-orange-400",
+  },
+  {
+    title: "Lawn Bowling vs Bocce",
+    description:
+      "They look similar but play very differently. Compare rules, equipment, scoring, surfaces, and culture side by side.",
+    href: "/learn/lawn-bowling-vs-bocce",
+    icon: Scale,
+    color: "bg-teal-500/10 text-teal-700",
+    borderColor: "border-teal-200 hover:border-teal-400",
   },
 ];
 

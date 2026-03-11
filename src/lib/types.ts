@@ -453,6 +453,26 @@ export interface TournamentScore {
   updated_at: string;
 }
 
+// ===== Club Members Roster =====
+
+export type RosterSkillLevel = "novice" | "expert";
+
+export interface ClubRosterMember {
+  id: string;
+  tournament_id: string;
+  display_name: string;
+  first_name: string | null;
+  last_name: string | null;
+  skill_level: RosterSkillLevel;
+  member_since: string | null;
+  is_active: boolean;
+  phone: string | null;
+  email: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 // ===== Club Claims & Management =====
 
 export type ClaimStatus = "pending" | "approved" | "rejected";
