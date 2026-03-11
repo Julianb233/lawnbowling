@@ -128,7 +128,7 @@ export function DrawSheet({
           )}
           <button
             onClick={() => window.print()}
-            className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 transition-colors min-h-[44px] touch-manipulation"
+            className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 dark:bg-background transition-colors min-h-[44px] touch-manipulation"
           >
             Print Draw Sheet
           </button>
@@ -168,7 +168,7 @@ export function DrawSheet({
             {draw.unassigned.map((u) => (
               <span
                 key={u.player_id}
-                className="rounded-full bg-amber-200/60 px-3 py-1 text-xs font-medium text-amber-800 print:bg-white print:border print:border-black print:text-black"
+                className="rounded-full bg-amber-200/60 px-3 py-1 text-xs font-medium text-amber-800 print:bg-white dark:bg-card print:border print:border-black print:text-black"
               >
                 {u.player?.display_name ?? "Unknown"}
               </span>

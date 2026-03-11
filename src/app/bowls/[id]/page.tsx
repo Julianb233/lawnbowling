@@ -371,7 +371,7 @@ export default function BowlsTournamentPage() {
                       "relative flex flex-col items-center gap-2 rounded-2xl p-4 transition-all min-h-[120px] touch-manipulation",
                       checked
                         ? "bg-blue-50 border-2 border-blue-200"
-                        : "bg-white dark:bg-card border border-zinc-200 hover:border-zinc-300 hover:shadow-sm"
+                        : "bg-white dark:bg-card border border-zinc-200 dark:border-white/10 hover:border-zinc-300 hover:shadow-sm"
                     )}
                   >
                     <AnimatePresence mode="wait">
@@ -437,7 +437,7 @@ export default function BowlsTournamentPage() {
               {positionsNeeded.map((pos) => (
                 <div
                   key={pos}
-                  className="rounded-2xl bg-white dark:bg-card border border-zinc-200 p-4 text-center"
+                  className="rounded-2xl bg-white dark:bg-card border border-zinc-200 dark:border-white/10 p-4 text-center"
                 >
                   <div
                     className={cn(
@@ -470,7 +470,7 @@ export default function BowlsTournamentPage() {
                       "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left",
                       drawStyle === style
                         ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                        : "border-zinc-200 bg-white dark:bg-card text-zinc-500 hover:border-zinc-400"
+                        : "border-zinc-200 dark:border-white/10 bg-white dark:bg-card text-zinc-500 hover:border-zinc-400"
                     )}
                   >
                     {DRAW_STYLE_LABELS[style]}
@@ -482,7 +482,7 @@ export default function BowlsTournamentPage() {
               )}
             </div>
 
-            <div className="mb-6 rounded-2xl bg-white dark:bg-card border border-zinc-200 p-4">
+            <div className="mb-6 rounded-2xl bg-white dark:bg-card border border-zinc-200 dark:border-white/10 p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
@@ -528,7 +528,7 @@ export default function BowlsTournamentPage() {
                     key={checkin.id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-4 rounded-xl bg-white dark:bg-card border border-zinc-200 px-4 py-3"
+                    className="flex items-center gap-4 rounded-xl bg-white dark:bg-card border border-zinc-200 dark:border-white/10 px-4 py-3"
                   >
                     <div
                       className={cn(
@@ -571,7 +571,7 @@ export default function BowlsTournamentPage() {
                         e.stopPropagation();
                         handleUndoCheckin(checkin.player_id);
                       }}
-                      className="ml-1 rounded-lg border border-zinc-200 px-2 py-1 text-xs font-medium text-zinc-400 hover:border-red-300 hover:text-red-500 hover:bg-red-50 transition-colors min-h-[32px] touch-manipulation"
+                      className="ml-1 rounded-lg border border-zinc-200 dark:border-white/10 px-2 py-1 text-xs font-medium text-zinc-400 hover:border-red-300 hover:text-red-500 hover:bg-red-50 transition-colors min-h-[32px] touch-manipulation"
                       title="Remove player from check-in list"
                     >
                       Remove
@@ -581,7 +581,7 @@ export default function BowlsTournamentPage() {
               })}
 
               {checkins.length === 0 && (
-                <div className="rounded-2xl bg-white dark:bg-card border border-zinc-200 p-12 text-center">
+                <div className="rounded-2xl bg-white dark:bg-card border border-zinc-200 dark:border-white/10 p-12 text-center">
                   <p className="text-lg font-semibold text-zinc-400">
                     No players checked in yet
                   </p>
@@ -599,7 +599,7 @@ export default function BowlsTournamentPage() {
     return (
       <div>
         {!drawResult ? (
-              <div className="rounded-2xl bg-white dark:bg-card border border-zinc-200 p-12 text-center">
+              <div className="rounded-2xl bg-white dark:bg-card border border-zinc-200 dark:border-white/10 p-12 text-center">
                 <p className="text-lg font-semibold text-zinc-400">
                   No draw generated yet
                 </p>
@@ -632,7 +632,7 @@ export default function BowlsTournamentPage() {
                           "rounded-lg px-4 py-2 text-sm font-semibold transition-colors min-h-[40px] touch-manipulation",
                           selectedRound === idx
                             ? "bg-[#1B5E20] text-white"
-                            : "bg-white dark:bg-card border border-zinc-200 text-zinc-600 hover:border-zinc-400"
+                            : "bg-white dark:bg-card border border-zinc-200 dark:border-white/10 text-zinc-600 hover:border-zinc-400"
                         )}
                       >
                         Round {idx + 1}
@@ -791,7 +791,7 @@ export default function BowlsTournamentPage() {
                   <button
                     key={pos}
                     onClick={() => handlePositionSelect(pos)}
-                    className="flex w-full items-center gap-4 rounded-2xl border border-zinc-200 p-4 text-left transition-all hover:border-[#1B5E20]/30 hover:bg-[#1B5E20]/5 active:scale-[0.98] min-h-[72px] touch-manipulation"
+                    className="flex w-full items-center gap-4 rounded-2xl border border-zinc-200 dark:border-white/10 p-4 text-left transition-all hover:border-[#1B5E20]/30 hover:bg-[#1B5E20]/5 active:scale-[0.98] min-h-[72px] touch-manipulation"
                   >
                     <div
                       className={cn(
@@ -815,7 +815,7 @@ export default function BowlsTournamentPage() {
 
               <button
                 onClick={() => setSelectedPlayer(null)}
-                className="mt-4 w-full rounded-2xl border border-zinc-200 bg-zinc-50 dark:bg-background py-3 text-sm font-semibold text-zinc-600 hover:bg-zinc-100 min-h-[48px] touch-manipulation"
+                className="mt-4 w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-background py-3 text-sm font-semibold text-zinc-600 hover:bg-zinc-100 min-h-[48px] touch-manipulation"
               >
                 Cancel
               </button>
