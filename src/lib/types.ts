@@ -324,6 +324,7 @@ export const TOURNAMENT_FORMAT_LABELS: Record<TournamentFormat, string> = {
 export interface Tournament {
   id: string;
   venue_id: string | null;
+  club_id: string | null;
   name: string;
   sport: string;
   format: TournamentFormat;

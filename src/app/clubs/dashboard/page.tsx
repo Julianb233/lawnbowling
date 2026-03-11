@@ -97,7 +97,7 @@ function ClubDashboardContent() {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<ClubDashboardData | null>(null);
-  const success = searchParams.get("success");
+  const success = searchParams ? searchParams.get("success") : null;
 
   useEffect(() => {
     async function loadDashboard() {
