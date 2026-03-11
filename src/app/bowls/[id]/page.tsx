@@ -18,6 +18,7 @@ import type {
   BowlsTeamAssignment,
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 type PageView = "checkin" | "board" | "draw";
 
@@ -259,6 +260,18 @@ export default function BowlsTournamentPage() {
                 {tab.label}
               </button>
             ))}
+            <Link
+              href={`/bowls/${tournamentId}/scores`}
+              className="rounded-lg px-4 py-2 text-sm font-semibold text-emerald-600 hover:bg-emerald-50 transition-colors"
+            >
+              Scores
+            </Link>
+            <Link
+              href={`/bowls/${tournamentId}/results`}
+              className="rounded-lg px-4 py-2 text-sm font-semibold text-purple-600 hover:bg-purple-50 transition-colors"
+            >
+              Results
+            </Link>
           </div>
         </div>
       </header>

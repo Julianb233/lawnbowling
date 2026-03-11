@@ -52,7 +52,13 @@ create index if not exists idx_clubs_state_code on clubs(state_code);
 create index if not exists idx_clubs_region on clubs(region);
 create index if not exists idx_clubs_status on clubs(status);
 create index if not exists idx_clubs_slug on clubs(slug);
+create index if not exists idx_clubs_division on clubs(division);
+create index if not exists idx_clubs_surface_type on clubs(surface_type);
 create index if not exists idx_clubs_name_search on clubs using gin(to_tsvector('english', name || ' ' || city || ' ' || state));
+create index if not exists idx_clubs_tags on clubs using gin(tags);
+create index if not exists idx_clubs_activities on clubs using gin(activities);
+create index if not exists idx_clubs_region_state on clubs(region, state_code);
+create index if not exists idx_clubs_featured on clubs(is_featured) where is_featured = true;
 
 -- RLS
 alter table clubs enable row level security;

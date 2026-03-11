@@ -432,6 +432,27 @@ export interface BowlsTeamAssignment {
   player?: Player;
 }
 
+export type ScoreWinner = "team_a" | "team_b" | "draw" | null;
+
+export interface TournamentScore {
+  id: string;
+  tournament_id: string;
+  round: number;
+  rink: number;
+  team_a_players: { player_id: string; display_name: string }[];
+  team_b_players: { player_id: string; display_name: string }[];
+  team_a_scores: number[];
+  team_b_scores: number[];
+  total_a: number;
+  total_b: number;
+  ends_won_a: number;
+  ends_won_b: number;
+  winner: ScoreWinner;
+  is_finalized: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 // Subscription / Pricing
 export type SubscriptionPlan = "free" | "basic" | "premium" | "venue_owner";
 export type SportSkillLevel = "beginner" | "intermediate" | "advanced" | "expert";

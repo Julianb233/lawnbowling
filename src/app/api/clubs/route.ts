@@ -1,13 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
+/**
+ * GET /api/clubs
+ * List clubs with search, filtering, and pagination.
+ *
+ * Query params:
+ *   q        - search term (matches name, city, state, description)
+ *   region   - filter by region (west, east, south, midwest)
+ *   state    - filter by 2-letter state code
+ *   activity - filter by activity (e.g. "Tournaments")
+ *   surface  - filter by surface_type (natural_grass, synthetic, hybrid, unknown)
+ *   division - filter by Bowls USA division
+ *   status   - filter by club status (active, seasonal, inactive, unverified, claimed)
+ *   tag      - filter by tag
+ *   featured - if "true", return only featured clubs
+ *   sort     - sort field (name, state, member_count, founded, created_at). Default: state
+ *   order    - sort order (asc, desc). Default: asc
+ *   limit    - page size (default 100, max 500)
+ *   offset   - pagination offset (default 0)
+ */
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const region = searchParams.get("region");
   const stateCode = searchParams.get("state");
   const activity = searchParams.get("activity");
   const search = searchParams.get("q");
-  const limit = parseInt(searchParams.get("limit") ?? "100");
+  const surface = searchParams.get("surface");
+  const division = searchParams.get("division");
+  const status = searchParams.get("status");
+  const tag = searchParams.get("tag");
+  const featured = searchParams.get("featured");
+  const sort = searchParams.get("sort") ?? "state";
+  const order = searchParams.get("order") ?? "asc";
+  const limit = Math.min(parseInt(searchParams.get("limit") ?? "100"), 500);
   const offset = parseInt(searchParams.get("offset") ?? "0");
 
   const supabase = await createClient();
@@ -15,16 +41,21 @@ export async function GET(req: NextRequest) {
   let query = supabase
     .from("clubs")
     .select("*", { count: "exact" })
-    .order("state", { ascending: true })
+    .order(sort, { ascending: order === "asc" })
     .order("name", { ascending: true })
     .range(offset, offset + limit - 1);
 
   if (region) query = query.eq("region", region);
   if (stateCode) query = query.eq("state_code", stateCode.toUpperCase());
   if (activity) query = query.contains("activities", [activity]);
+  if (surface) query = query.eq("surface_type", surface);
+  if (division) query = query.eq("division", division);
+  if (status) query = query.eq("status", status);
+  if (tag) query = query.contains("tags", [tag]);
+  if (featured === "true") query = query.eq("is_featured", true);
   if (search) {
     query = query.or(
-      `name.ilike.%${search}%,city.ilike.%${search}%,state.ilike.%${search}%`
+      `name.ilike.%${search}%,city.ilike.%${search}%,state.ilike.%${search}%,description.ilike.%${search}%`
     );
   }
 
@@ -40,4 +71,115 @@ export async function GET(req: NextRequest) {
     limit,
     offset,
   });
+}
+
+/**
+ * POST /api/clubs
+ * Create a new club (admin only).
+ */
+export async function POST(req: NextRequest) {
+  const supabase = await createClient();
+
+  // Check auth
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const body = await req.json();
+
+  // Generate slug if not provided
+  if (!body.slug) {
+    body.slug = `${body.name}-${body.city}-${body.state_code}`
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+  }
+
+  const { data, error } = await supabase
+    .from("clubs")
+    .insert(body)
+    .select()
+    .single();
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
+
+  return NextResponse.json({ club: data }, { status: 201 });
+}
+
+/**
+ * PATCH /api/clubs
+ * Update a club by id (admin or club manager).
+ * Requires { id, ...fields } in the body.
+ */
+export async function PATCH(req: NextRequest) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const body = await req.json();
+  const { id, ...updates } = body;
+
+  if (!id) {
+    return NextResponse.json(
+      { error: "Club id is required" },
+      { status: 400 }
+    );
+  }
+
+  const { data, error } = await supabase
+    .from("clubs")
+    .update(updates)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
+
+  return NextResponse.json({ club: data });
+}
+
+/**
+ * DELETE /api/clubs
+ * Delete a club by id (admin only).
+ * Requires { id } in the body.
+ */
+export async function DELETE(req: NextRequest) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const body = await req.json();
+  const { id } = body;
+
+  if (!id) {
+    return NextResponse.json(
+      { error: "Club id is required" },
+      { status: 400 }
+    );
+  }
+
+  const { error } = await supabase.from("clubs").delete().eq("id", id);
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
+
+  return NextResponse.json({ success: true });
 }
