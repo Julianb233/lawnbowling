@@ -102,8 +102,64 @@ textarea,
 
 /* Focus rings for keyboard navigation */
 :focus-visible {
-  outline: 2px solid #1B5E20;
+  outline: 3px solid #0D47A1;
   outline-offset: 2px;
+}
+
+/* ===== KIOSK DESIGN TOKENS ===== */
+/* Elderly-friendly kiosk mode: 60-80+ year old users */
+/* Based on UX research at .planning/research/LAWN_BOWLING_UX.md */
+
+:root {
+  /* Kiosk touch targets */
+  --kiosk-touch-target-min: 56px;
+  --kiosk-touch-target-primary: 72px;
+  --kiosk-touch-target-gap: 12px;
+
+  /* Kiosk typography */
+  --kiosk-text-heading: 32px;
+  --kiosk-text-subheading: 24px;
+  --kiosk-text-body: 20px;
+  --kiosk-text-label: 18px;
+  --kiosk-text-caption: 16px;
+  --kiosk-line-height: 1.5;
+  --kiosk-letter-spacing: 0.01em;
+
+  /* Kiosk colors — "The Bowling Green" palette */
+  --kiosk-primary: #1B5E20;
+  --kiosk-primary-dark: #0D3B12;
+  --kiosk-bg: #FAFAF5;
+  --kiosk-surface: #FFFFFF;
+  --kiosk-text: #1A1A1A;
+  --kiosk-text-secondary: #4A4A4A;
+  --kiosk-accent: #B8860B;
+  --kiosk-success: #2E7D32;
+  --kiosk-error: #C62828;
+  --kiosk-on-primary: #FFFFFF;
+
+  /* Kiosk spacing */
+  --kiosk-padding: 24px;
+  --kiosk-card-radius: 16px;
+
+  /* Kiosk focus */
+  --kiosk-focus-outline: 3px solid #0D47A1;
+  --kiosk-focus-offset: 2px;
+}
+
+/* Kiosk-specific: larger touch targets, minimum 56px */
+.kiosk-mode button,
+.kiosk-mode [role="button"],
+.kiosk-mode [role="tab"] {
+  min-height: var(--kiosk-touch-target-min);
+  min-width: var(--kiosk-touch-target-min);
+}
+
+/* Kiosk-specific: reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .kiosk-mode * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* iPad landscape: side-by-side layout */
