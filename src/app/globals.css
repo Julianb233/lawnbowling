@@ -123,7 +123,7 @@ textarea,
 
   /* Kiosk typography */
   --kiosk-text-heading: 32px;
-  --kiosk-text-subheading: 24px;
+  --kiosk-text-subheading: 32px;
   --kiosk-text-body: 20px;
   --kiosk-text-label: 18px;
   --kiosk-text-caption: 16px;
@@ -139,7 +139,7 @@ textarea,
   --kiosk-text-secondary: #4A4A4A;
   --kiosk-accent: #B8860B;
   --kiosk-success: #2E7D32;
-  --kiosk-error: #C62828;
+  --kiosk-error: #991B1B;
   --kiosk-on-primary: #FFFFFF;
 
   /* Kiosk spacing */
