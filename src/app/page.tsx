@@ -1,697 +1,554 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   Users,
-  Trophy,
+  Zap,
   Shield,
+  Timer,
   Smartphone,
+  Trophy,
   MapPin,
   Star,
   CheckCircle,
-  QrCode,
-  ClipboardList,
-  BookOpen,
-  ShoppingBag,
-  BarChart3,
-  Globe,
-  ChevronRight,
-  CircleDot,
-  ArrowRight,
-  Play,
-  Zap,
 } from "lucide-react";
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
-import { LawnBowlingHero } from "@/components/home/LawnBowlingHero";
+import { HeroSlideshow } from "@/components/home/HeroSlideshow";
+import { SportsSlideshow } from "@/components/home/SportsSlideshow";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-[#1B5E20]/5 bg-[#FEFCF9]/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#1B5E20]">
-              <CircleDot className="h-5 w-5 text-white" />
+    <div className="min-h-screen bg-white overflow-hidden">
+      {/* Navigation — overlays hero */}
+      <nav className="absolute top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/20 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20">
+              <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold tracking-tight text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>
-              Lawnbowling
+            <span className="text-lg font-bold text-white">
+              Pick a Partner
             </span>
-          </Link>
-          <div className="flex items-center gap-1 sm:gap-2">
-            <Link href="/clubs" className="hidden md:block rounded-lg px-3.5 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12] hover:bg-[#1B5E20]/5">
-              Clubs
+          </div>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/for-venues"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
+            >
+              For Venues
             </Link>
-            <Link href="/learn" className="hidden md:block rounded-lg px-3.5 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12] hover:bg-[#1B5E20]/5">
-              Learn
+            <Link
+              href="/for-players"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
+            >
+              For Players
             </Link>
-            <Link href="/bowls" className="hidden md:block rounded-lg px-3.5 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12] hover:bg-[#1B5E20]/5">
-              Tournaments
+            <Link
+              href="/insurance"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
+            >
+              Insurance
             </Link>
-            <Link href="/shop" className="hidden lg:block rounded-lg px-3.5 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12] hover:bg-[#1B5E20]/5">
-              Shop
-            </Link>
-            <Link href="/login" className="rounded-lg px-3 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12] min-h-[44px] inline-flex items-center">
+            <Link
+              href="/login"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
+            >
               Sign In
             </Link>
             <Link
               href="/signup"
-              className="rounded-full bg-[#1B5E20] px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/20 transition-all hover:bg-[#2E7D32] hover:shadow-xl hover:shadow-[#1B5E20]/25 active:scale-[0.97] min-h-[44px] inline-flex items-center sm:px-5"
+              className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-500 hover:shadow-emerald-500/30"
             >
-              <span className="hidden sm:inline">Get Started</span>
-              <span className="sm:hidden">Sign Up</span>
+              Get Started
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero — Illustrated slideshow */}
-      <LawnBowlingHero />
+      {/* Hero with background image slideshow */}
+      <HeroSlideshow />
 
-      {/* Social proof strip */}
-      <section className="border-b border-[#1B5E20]/5 bg-white py-6 sm:py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <FadeIn variant="fade-in">
-            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 sm:gap-x-12 md:gap-x-16">
-              {[
-                { value: "100+", label: "Clubs Listed" },
-                { value: "24", label: "States" },
-                { value: "Free", label: "Forever" },
-                { value: "PWA", label: "No Download" },
-              ].map((stat) => (
-                <div key={stat.label} className="flex items-baseline gap-2">
-                  <span className="text-2xl font-extrabold tracking-tight text-[#1B5E20] sm:text-3xl" style={{ fontFamily: "var(--font-display)" }}>
-                    {stat.value}
-                  </span>
-                  <span className="text-xs font-medium uppercase tracking-wider text-[#3D5A3E]/60 sm:text-sm">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
+      {/* Sports Slideshow — detailed sport cards */}
+      <section className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+            Sports We Support
+          </h2>
+          <p className="mt-4 text-lg text-zinc-500">
+            Swipe through our supported sports — more added all the time
+          </p>
+        </div>
+        <SportsSlideshow />
+      </section>
+
+      {/* Sports Video Gallery */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+            See the Action
+          </h2>
+          <p className="mt-4 text-lg text-zinc-500">
+            Real players, real courts, real fun
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {/* Pickleball - Video */}
+          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                poster="/images/pickleball.jpg"
+              >
+                <source src="/images/pickleball.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
             </div>
-          </FadeIn>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Pickleball
+              </span>
+            </div>
+          </div>
+
+          {/* Tennis - Video */}
+          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                poster="/images/tennis.jpg"
+              >
+                <source src="/images/tennis.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Tennis
+              </span>
+            </div>
+          </div>
+
+          {/* Lawn Bowling - Photo with Ken Burns */}
+          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <img
+                src="/images/lawn-bowling.jpg"
+                alt="Person throwing a bocce ball on a green lawn"
+                className="absolute inset-0 h-full w-full object-cover animate-[kenBurns_20s_ease_infinite_alternate]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Lawn Bowling
+              </span>
+            </div>
+          </div>
+
+          {/* Flag Football - Video */}
+          <div className="group relative overflow-hidden rounded-2xl shadow-lg">
+            <div className="aspect-[4/3] relative">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                poster="/images/flag-football.jpg"
+              >
+                <source src="/images/football.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <span className="text-lg font-bold text-white drop-shadow-lg">
+                Flag Football
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* How It Works — with action bowl image */}
-      <section className="py-20 sm:py-28 lg:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <FadeIn variant="slide-right">
-              <div>
-                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.15em] text-[#1B5E20]">
-                  How it works
-                </p>
-                <h2
-                  className="text-3xl font-bold tracking-tight text-[#0A2E12] sm:text-4xl lg:text-5xl"
-                  style={{ fontFamily: "var(--font-display)" }}
+      {/* Social Proof */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+            Trusted by Players & Venues
+          </h2>
+          <p className="mt-4 text-lg text-zinc-500">
+            Join the community making recreational sports simple
+          </p>
+        </div>
+
+        {/* Stats row */}
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 mb-12">
+          {[
+            { value: "500+", label: "Active Players" },
+            { value: "12", label: "Partner Venues" },
+            { value: "2,400+", label: "Matches Made" },
+            { value: "4.9", label: "App Rating", icon: Star },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className="glass-card-light rounded-2xl p-6 text-center"
+            >
+              <div className="flex items-center justify-center gap-1">
+                <span className="text-3xl font-extrabold text-zinc-900 md:text-4xl">
+                  {stat.value}
+                </span>
+                {stat.icon && (
+                  <stat.icon className="h-6 w-6 text-amber-500 fill-amber-500" />
+                )}
+              </div>
+              <span className="mt-1 block text-sm font-medium text-zinc-500">
+                {stat.label}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Testimonials */}
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              quote:
+                "No more awkward lobby small-talk trying to find a doubles partner. I just check in and tap — matched in seconds.",
+              name: "Sarah M.",
+              role: "Pickleball Player",
+              avatarBg: "bg-emerald-100 text-emerald-600",
+            },
+            {
+              quote:
+                "We replaced the paper sign-up sheet and our court utilization went up 40%. Players love the automatic rotation.",
+              name: "David R.",
+              role: "Rec Center Manager",
+              avatarBg: "bg-blue-100 text-blue-600",
+            },
+            {
+              quote:
+                "The skill-level matching is what sold me. I always get paired with someone at my level so games are actually competitive.",
+              name: "Marcus T.",
+              role: "Tennis Player",
+              avatarBg: "bg-amber-100 text-amber-600",
+            },
+          ].map((testimonial) => (
+            <div
+              key={testimonial.name}
+              className="glass-card-light rounded-2xl p-6"
+            >
+              <div className="mb-4 flex gap-1">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star
+                    key={i}
+                    className="h-4 w-4 text-amber-400 fill-amber-400"
+                  />
+                ))}
+              </div>
+              <p className="text-sm leading-relaxed text-zinc-600 italic">
+                &ldquo;{testimonial.quote}&rdquo;
+              </p>
+              <div className="mt-4 flex items-center gap-3">
+                <div
+                  className={`flex h-10 w-10 items-center justify-center rounded-full font-bold text-sm ${testimonial.avatarBg}`}
                 >
-                  Tournament day,{" "}
-                  <span className="italic text-[#2E7D32]">simplified.</span>
-                </h2>
-                <p className="mt-4 text-lg leading-relaxed text-[#3D5A3E]/80 sm:mt-6">
-                  From arrival to first bowl in under 2 minutes. No paper draw sheets,
-                  no manual scoring, no headaches.
-                </p>
-
-                <div className="mt-8 space-y-6 sm:mt-10">
-                  {[
-                    {
-                      num: "01",
-                      title: "Check In",
-                      desc: "Players scan the QR code or tap their name on the kiosk. Select your position — Skip, Lead, or Vice.",
-                      icon: QrCode,
-                    },
-                    {
-                      num: "02",
-                      title: "Generate Draw",
-                      desc: "One tap. Teams balanced by position and skill. Rinks assigned instantly.",
-                      icon: ClipboardList,
-                    },
-                    {
-                      num: "03",
-                      title: "Play & Score",
-                      desc: "Live scoring per end, per rink. Results calculated automatically. Multi-round ready.",
-                      icon: Trophy,
-                    },
-                  ].map((step) => (
-                    <div key={step.num} className="group flex gap-4 sm:gap-5">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#1B5E20]/5 text-[#1B5E20] transition-colors group-hover:bg-[#1B5E20] group-hover:text-white">
-                        <step.icon className="h-5 w-5" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-bold text-[#0A2E12]">{step.title}</h3>
-                        <p className="mt-1 text-sm leading-relaxed text-[#3D5A3E]/70 sm:text-base">
-                          {step.desc}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                  {testimonial.name.charAt(0)}
+                </div>
+                <div>
+                  <span className="block text-sm font-semibold text-zinc-900">
+                    {testimonial.name}
+                  </span>
+                  <span className="block text-xs text-zinc-500">
+                    {testimonial.role}
+                  </span>
                 </div>
               </div>
-            </FadeIn>
-
-            <FadeIn variant="slide-left" delay={0.2}>
-              <div className="relative">
-                <div className="relative aspect-square overflow-hidden rounded-3xl bg-gradient-to-br from-[#E8F5E9] via-[#C8E6C9] to-[#A5D6A7] shadow-2xl shadow-[#1B5E20]/10">
-                  {/* Illustrated bowling green with bowls */}
-                  <div className="absolute inset-0 p-8 sm:p-12">
-                    {/* Green surface */}
-                    <div className="absolute bottom-[15%] left-[10%] right-[10%] top-[30%] rounded-xl bg-[#2E7D32]/20">
-                      {/* Rink markers */}
-                      <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[#1B5E20]/15" />
-                      <div className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[#1B5E20]/15" />
-                    </div>
-                    {/* Jack (small yellow ball) */}
-                    <div className="absolute left-1/2 top-[42%] h-4 w-4 -translate-x-1/2 rounded-full bg-[#F5C89A] shadow-md sm:h-5 sm:w-5" />
-                    {/* Bowls approaching */}
-                    <div className="absolute left-[35%] top-[48%] h-8 w-8 rounded-full border-3 border-[#1B5E20]/50 bg-[#1B5E20]/10 shadow-md sm:h-10 sm:w-10" />
-                    <div className="absolute left-[35%] top-[48%] h-8 w-8 sm:h-10 sm:w-10">
-                      <div className="absolute right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#1B5E20]/40" />
-                    </div>
-                    <div className="absolute left-[55%] top-[45%] h-8 w-8 rounded-full border-3 border-[#C62828]/40 bg-[#C62828]/10 shadow-md sm:h-10 sm:w-10" />
-                    <div className="absolute left-[55%] top-[45%] h-8 w-8 sm:h-10 sm:w-10">
-                      <div className="absolute right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#C62828]/30" />
-                    </div>
-                    {/* More bowls scattered */}
-                    <div className="absolute bottom-[25%] left-[25%] h-7 w-7 rounded-full border-2 border-[#1B5E20]/30 bg-[#1B5E20]/5 sm:h-9 sm:w-9" />
-                    <div className="absolute bottom-[30%] right-[25%] h-7 w-7 rounded-full border-2 border-[#C62828]/30 bg-[#C62828]/5 sm:h-9 sm:w-9" />
-                    {/* Curved delivery path */}
-                    <svg className="absolute inset-0 h-full w-full opacity-20" viewBox="0 0 100 100" fill="none">
-                      <path d="M50 90 Q 35 70, 40 50" stroke="#1B5E20" strokeWidth="0.5" strokeDasharray="2 2" />
-                    </svg>
-                  </div>
-                </div>
-                {/* Floating stat card */}
-                <div className="absolute -bottom-4 -left-4 rounded-2xl border border-[#1B5E20]/10 bg-white/95 p-4 shadow-xl backdrop-blur-sm sm:-bottom-6 sm:-left-6 sm:p-5">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B5E20] sm:h-12 sm:w-12">
-                      <Zap className="h-5 w-5 text-white sm:h-6 sm:w-6" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-[#3D5A3E]/60 sm:text-sm">Draw generated</p>
-                      <p className="text-lg font-bold text-[#0A2E12] sm:text-xl" style={{ fontFamily: "var(--font-display)" }}>
-                        in 2 seconds
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* Community band — illustrated, no photos */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0A2E12] via-[#1B5E20] to-[#0A2E12]">
-        <div className="relative py-20 sm:py-28 lg:py-32">
-          {/* Illustrated bowling green pattern */}
-          <div className="absolute inset-0 overflow-hidden opacity-[0.08]">
-            {/* Green lines representing rinks */}
-            <div className="absolute inset-x-0 top-1/2 h-px bg-white" />
-            <div className="absolute inset-x-0 top-1/3 h-px bg-white/60" />
-            <div className="absolute inset-x-0 bottom-1/3 h-px bg-white/60" />
-            {/* Scattered bowls */}
-            <div className="absolute right-[10%] top-[20%] h-16 w-16 rounded-full border-4 border-white sm:h-24 sm:w-24" />
-            <div className="absolute right-[30%] bottom-[15%] h-12 w-12 rounded-full border-3 border-white sm:h-16 sm:w-16" />
-            <div className="absolute right-[15%] bottom-[30%] h-4 w-4 rounded-full bg-white sm:h-6 sm:w-6" />
-            <div className="absolute left-[60%] top-[15%] h-10 w-10 rounded-full border-3 border-white sm:h-14 sm:w-14" />
-          </div>
-          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
-              <FadeIn variant="fade-up">
-                <div className="max-w-lg">
-                  <h2
-                    className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl"
-                    style={{ fontFamily: "var(--font-display)" }}
-                  >
-                    Every age. Every skill level.{" "}
-                    <span className="italic text-[#A8D5BA]">One green.</span>
-                  </h2>
-                  <p className="mt-4 text-base leading-relaxed text-white/75 sm:mt-6 sm:text-lg">
-                    Lawn bowling is one of the most inclusive sports on earth. From newcomers
-                    to national champions, from 18 to 88 — everyone belongs on the green.
-                  </p>
-                  <Link
-                    href="/learn"
-                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/25 sm:mt-8"
-                  >
-                    Start learning <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </FadeIn>
-              <FadeIn variant="fade-up" delay={0.2}>
-                <div className="flex justify-center gap-6 sm:gap-8">
-                  {[
-                    { age: "18", label: "Newcomer" },
-                    { age: "45", label: "Weekender" },
-                    { age: "72", label: "Champion" },
-                  ].map((person) => (
-                    <div key={person.age} className="text-center">
-                      <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#A8D5BA]/40 bg-white/10 backdrop-blur-sm sm:h-20 sm:w-20">
-                        <span className="text-2xl font-bold text-white sm:text-3xl" style={{ fontFamily: "var(--font-display)" }}>
-                          {person.age}
-                        </span>
-                      </div>
-                      <p className="text-xs font-medium uppercase tracking-wider text-[#A8D5BA]/70 sm:text-sm">
-                        {person.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </FadeIn>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* Features Grid */}
-      <section className="bg-white py-20 sm:py-28 lg:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <div className="mb-12 max-w-2xl sm:mb-16">
-              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.15em] text-[#1B5E20]">
-                Platform
-              </p>
-              <h2
-                className="text-3xl font-bold tracking-tight text-[#0A2E12] sm:text-4xl lg:text-5xl"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Everything your club needs.{" "}
-                <span className="text-[#3D5A3E]/40">Nothing it doesn&apos;t.</span>
-              </h2>
-            </div>
-          </FadeIn>
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+            Everything You Need to Play
+          </h2>
+          <p className="mt-4 text-lg text-zinc-500">
+            Built for rec centers, designed for players
+          </p>
+        </div>
 
-          <StaggerContainer className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-5" staggerDelay={0.08}>
-            {[
-              {
-                icon: QrCode,
-                title: "QR Check-In",
-                desc: "Scan to check in. No accounts needed. Position selection built in.",
-                accent: "from-[#1B5E20] to-[#2E7D32]",
-              },
-              {
-                icon: ClipboardList,
-                title: "Smart Draw",
-                desc: "One-tap generation. Fours, Triples, Pairs, Singles. Balanced by position.",
-                accent: "from-[#1565C0] to-[#42A5F5]",
-              },
-              {
-                icon: BarChart3,
-                title: "Live Scoring",
-                desc: "Enter scores per end on the iPad. Real-time updates across all rinks.",
-                accent: "from-[#E65100] to-[#FF9800]",
-              },
-              {
-                icon: Globe,
-                title: "Club Directory",
-                desc: "100+ clubs searchable by state. Claim and manage your listing.",
-                accent: "from-[#1B5E20] to-[#4CAF50]",
-              },
-              {
-                icon: Shield,
-                title: "Insurance",
-                desc: "Per-session coverage from $3/player. Integrated at check-in.",
-                accent: "from-[#4A148C] to-[#7B1FA2]",
-              },
-              {
-                icon: BookOpen,
-                title: "Learn & Blog",
-                desc: "Rules, glossary, positions, formats. 10+ articles targeting top keywords.",
-                accent: "from-[#BF360C] to-[#E64A19]",
-              },
-            ].map((feature) => (
-              <StaggerItem key={feature.title}>
-                <div className="group relative rounded-2xl border border-[#0A2E12]/5 bg-[#FEFCF9] p-6 transition-all hover:border-[#1B5E20]/15 hover:shadow-lg hover:shadow-[#1B5E20]/5 sm:p-7">
-                  <div className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${feature.accent} shadow-lg`}>
-                    <feature.icon className="h-5 w-5 text-white" />
-                  </div>
-                  <h3 className="mb-2 text-base font-bold text-[#0A2E12] sm:text-lg">
-                    {feature.title}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              icon: Zap,
+              title: "Real-Time Board",
+              desc: "See who's available right now. The board updates instantly as players check in and out.",
+              gradient: "from-emerald-500 to-teal-500",
+              glow: "shadow-emerald-500/20",
+            },
+            {
+              icon: Users,
+              title: "Pick & Match",
+              desc: "Tap a player to send a partner request. Accept, decline, or let it expire — simple.",
+              gradient: "from-blue-500 to-indigo-500",
+              glow: "shadow-blue-500/20",
+            },
+            {
+              icon: Timer,
+              title: "Court Timers",
+              desc: "Courts are assigned automatically. Match timers keep things moving so everyone plays.",
+              gradient: "from-amber-500 to-orange-500",
+              glow: "shadow-amber-500/20",
+            },
+            {
+              icon: Shield,
+              title: "Waiver Built In",
+              desc: "Digital liability waivers are signed before play. Logged, timestamped, fully compliant.",
+              gradient: "from-purple-500 to-pink-500",
+              glow: "shadow-purple-500/20",
+            },
+          ].map((feature) => (
+            <div
+              key={feature.title}
+              className="group glass-card-light rounded-2xl p-6 transition-all hover:shadow-lg"
+            >
+              <div
+                className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg ${feature.glow}`}
+              >
+                <feature.icon className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-zinc-900">
+                {feature.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-zinc-500">
+                {feature.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section
+        id="how-it-works"
+        className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32"
+      >
+        <div className="mb-16 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+            How It Works
+          </h2>
+          <p className="mt-4 text-lg text-zinc-500">
+            From check-in to court in under 60 seconds
+          </p>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-3">
+          {[
+            {
+              step: "01",
+              title: "Check In",
+              desc: "Walk up to the venue kiosk or open the app on your phone. Tap to mark yourself as available.",
+              icon: MapPin,
+            },
+            {
+              step: "02",
+              title: "Pick a Partner",
+              desc: "Browse available players filtered by sport and skill level. Tap someone to send a partner request.",
+              icon: Users,
+            },
+            {
+              step: "03",
+              title: "Hit the Court",
+              desc: "Once matched, you're assigned a court with a timer. Play your game, then free the court for the next pair.",
+              icon: Trophy,
+            },
+          ].map((item) => (
+            <div key={item.step} className="relative">
+              <div className="glass-card-light rounded-2xl p-8">
+                <span className="text-5xl font-black text-emerald-500/15">
+                  {item.step}
+                </span>
+                <div className="mt-4 flex items-center gap-3">
+                  <item.icon className="h-5 w-5 text-emerald-600" />
+                  <h3 className="text-xl font-bold text-zinc-900">
+                    {item.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-[#3D5A3E]/70">
-                    {feature.desc}
-                  </p>
                 </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Clubhouse section — illustrated */}
-      <section className="py-20 sm:py-28 lg:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <FadeIn variant="slide-right">
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#E8F5E9] via-[#C8E6C9] to-[#A5D6A7] p-8 shadow-2xl shadow-[#1B5E20]/10 sm:p-12">
-                {/* Illustrated clubhouse scene */}
-                <div className="relative mx-auto aspect-square max-w-[280px] sm:max-w-[320px]">
-                  {/* Bowling green */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1/3 rounded-xl bg-[#2E7D32]/30" />
-                  <div className="absolute bottom-[10%] left-[15%] right-[15%] h-px bg-[#1B5E20]/30" />
-                  {/* Clubhouse building */}
-                  <div className="absolute bottom-[30%] left-[10%] h-[40%] w-[45%] rounded-t-lg bg-[#FEFCF9] shadow-lg">
-                    <div className="absolute -top-3 left-0 right-0 h-6 rounded-t-lg bg-[#8D6E63]" />
-                    <div className="mt-4 flex justify-center gap-2 px-3">
-                      <div className="h-6 w-5 rounded-sm bg-[#1B5E20]/20" />
-                      <div className="h-8 w-6 rounded-t-lg bg-[#1B5E20]/30" />
-                      <div className="h-6 w-5 rounded-sm bg-[#1B5E20]/20" />
-                    </div>
-                  </div>
-                  {/* Bowls on the green */}
-                  <div className="absolute bottom-[12%] right-[20%] h-6 w-6 rounded-full border-2 border-[#1B5E20]/40 bg-[#1B5E20]/10" />
-                  <div className="absolute bottom-[8%] right-[30%] h-5 w-5 rounded-full border-2 border-[#1B5E20]/40 bg-[#1B5E20]/10" />
-                  <div className="absolute bottom-[15%] right-[25%] h-3 w-3 rounded-full bg-[#F5C89A]" />
-                  {/* Flag */}
-                  <div className="absolute right-[15%] top-[20%]">
-                    <div className="h-16 w-0.5 bg-[#1B5E20]/40" />
-                    <div className="absolute -right-4 top-0 h-4 w-4 rounded-sm bg-[#1B5E20]/30" />
-                  </div>
-                </div>
-              </div>
-            </FadeIn>
-
-            <FadeIn variant="slide-left" delay={0.2}>
-              <div>
-                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.15em] text-[#1B5E20]">
-                  Club Directory
+                <p className="mt-3 text-sm leading-relaxed text-zinc-500">
+                  {item.desc}
                 </p>
-                <h2
-                  className="text-3xl font-bold tracking-tight text-[#0A2E12] sm:text-4xl lg:text-5xl"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  Find your{" "}
-                  <span className="italic text-[#2E7D32]">home green.</span>
-                </h2>
-                <p className="mt-4 text-lg leading-relaxed text-[#3D5A3E]/80 sm:mt-6">
-                  Browse 100+ lawn bowling clubs across the USA. Filter by state,
-                  see club details, and find your nearest green.
-                </p>
-                <ul className="mt-6 space-y-3 sm:mt-8">
-                  {[
-                    "Searchable by state and region",
-                    "Club hours, contact info, and photos",
-                    "Claim and manage your club listing",
-                    "New clubs added weekly",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-[#3D5A3E]/80">
-                      <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#1B5E20]" />
-                      <span className="text-sm sm:text-base">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href="/clubs"
-                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#1B5E20] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/20 transition-all hover:bg-[#2E7D32] hover:shadow-xl active:scale-[0.97]"
-                >
-                  Explore Directory <ArrowRight className="h-4 w-4" />
-                </Link>
               </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="bg-[#0A2E12] py-20 sm:py-28 lg:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <div className="mb-12 text-center sm:mb-16">
-              <h2
-                className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Loved by bowlers.
-              </h2>
-              <p className="mt-3 text-base text-[#A8D5BA]/80 sm:text-lg">
-                Real feedback from real clubs.
-              </p>
             </div>
-          </FadeIn>
-
-          <StaggerContainer className="grid gap-5 sm:gap-6 md:grid-cols-3" staggerDelay={0.1}>
-            {[
-              {
-                quote: "We ditched the paper draw sheet and our tournament days run 30 minutes faster. The automatic team balancing is spot on.",
-                name: "Margaret W.",
-                role: "Drawmaster, Santa Monica LBC",
-              },
-              {
-                quote: "I love the QR check-in. Our older members just scan the code — no passwords, no apps to download. It just works.",
-                name: "Robert K.",
-                role: "Club Secretary, Sun City LBC",
-              },
-              {
-                quote: "Finally, an app that understands lawn bowling positions. Skip, Lead, Vice — it balances the draw properly every time.",
-                name: "Patricia L.",
-                role: "Tournament Director, Laguna Beach LBC",
-              },
-            ].map((t) => (
-              <StaggerItem key={t.name}>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
-                  <div className="mb-4 flex gap-1">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="h-4 w-4 fill-[#F5C89A] text-[#F5C89A]" />
-                    ))}
-                  </div>
-                  <p className="text-sm leading-relaxed text-white/80 sm:text-base">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <div className="mt-6 flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1B5E20] text-sm font-bold text-white">
-                      {t.name.charAt(0)}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-white">{t.name}</p>
-                      <p className="text-xs text-[#A8D5BA]/60">{t.role}</p>
-                    </div>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+          ))}
         </div>
       </section>
 
-      {/* Celebration section — PWA */}
-      <section className="py-20 sm:py-28 lg:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <FadeIn variant="slide-right" className="order-2 lg:order-1">
-              <div>
-                <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#1B5E20]/10 bg-[#1B5E20]/5 px-4 py-1.5">
-                  <Smartphone className="h-4 w-4 text-[#1B5E20]" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#1B5E20]">
-                    Progressive Web App
-                  </span>
-                </div>
-                <h2
-                  className="text-3xl font-bold tracking-tight text-[#0A2E12] sm:text-4xl lg:text-5xl"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  iPad in the clubhouse.{" "}
-                  <span className="text-[#3D5A3E]/40">Phone in your pocket.</span>
-                </h2>
-                <p className="mt-4 text-lg leading-relaxed text-[#3D5A3E]/80 sm:mt-6">
-                  Set up an iPad as a shared kiosk. Members use their phones too.
-                  No app store, no download — just open the link.
-                </p>
-                <ul className="mt-6 space-y-3 sm:mt-8">
-                  {[
-                    "Install via 'Add to Home Screen'",
-                    "Works offline with cached data",
-                    "56pt+ touch targets for all ages",
-                    "WCAG AAA accessible",
-                    "Push notifications for draw announcements",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-[#3D5A3E]/80">
-                      <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#1B5E20]" />
-                      <span className="text-sm sm:text-base">{item}</span>
-                    </li>
-                  ))}
-                </ul>
+      {/* Device Showcase */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <div className="glass-card-light rounded-3xl p-8 md:p-12">
+          <div className="grid items-center gap-8 md:grid-cols-2">
+            <div>
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
+                <Smartphone className="h-4 w-4 text-blue-600" />
+                <span className="text-sm font-medium text-blue-700">
+                  Works Everywhere
+                </span>
               </div>
-            </FadeIn>
-
-            <FadeIn variant="slide-left" delay={0.2} className="order-1 lg:order-2">
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#E8F5E9] to-[#C8E6C9] p-8 shadow-2xl shadow-[#1B5E20]/10 sm:p-12">
-                {/* Illustrated devices */}
-                <div className="relative mx-auto aspect-square max-w-[280px] sm:max-w-[320px]">
-                  {/* iPad */}
-                  <div className="absolute left-[5%] top-[10%] h-[60%] w-[55%] rounded-2xl border-4 border-[#0A2E12]/20 bg-white dark:bg-[#1a3d28] shadow-xl">
-                    <div className="m-2 h-[85%] rounded-lg bg-[#1B5E20]/10 p-2">
-                      <div className="h-2 w-12 rounded bg-[#1B5E20]/30" />
-                      <div className="mt-2 space-y-1.5">
-                        <div className="h-4 w-full rounded bg-[#1B5E20]/15" />
-                        <div className="h-4 w-full rounded bg-[#1B5E20]/10" />
-                        <div className="h-4 w-3/4 rounded bg-[#1B5E20]/15" />
-                      </div>
+              <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+                iPad Kiosk.{" "}
+                <span className="text-zinc-400">iPhone Personal.</span>
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+                Set up an iPad at the front desk as a shared check-in kiosk.
+                Players can also use their own phones — install the PWA for an
+                app-like experience with no download required.
+              </p>
+              <ul className="mt-6 space-y-3">
+                {[
+                  "Install via 'Add to Home Screen'",
+                  "Works offline with cached data",
+                  "iPad landscape kiosk mode",
+                  "iPhone portrait personal mode",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-3 text-zinc-600"
+                  >
+                    <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex items-center justify-center">
+              {/* Device mockup */}
+              <div className="relative">
+                {/* iPad */}
+                <div className="h-64 w-80 rounded-2xl border border-zinc-200 bg-zinc-100 p-3 shadow-2xl md:h-72 md:w-96">
+                  <div className="flex h-full flex-col rounded-xl bg-white">
+                    <div className="flex items-center gap-2 border-b border-zinc-100 px-4 py-2">
+                      <span className="text-xs font-bold text-emerald-600">
+                        Pick a Partner
+                      </span>
+                      <span className="ml-auto flex items-center gap-1">
+                        <span className="live-dot" />
+                        <span className="text-[10px] text-zinc-500">Live</span>
+                      </span>
                     </div>
-                    <div className="mx-auto mt-0.5 h-1 w-8 rounded-full bg-[#0A2E12]/15" />
-                  </div>
-                  {/* Phone */}
-                  <div className="absolute bottom-[8%] right-[10%] h-[50%] w-[28%] rounded-2xl border-3 border-[#0A2E12]/20 bg-white dark:bg-[#1a3d28] shadow-xl">
-                    <div className="mx-auto mt-1.5 h-1 w-6 rounded-full bg-[#0A2E12]/10" />
-                    <div className="m-1.5 h-[80%] rounded-lg bg-[#1B5E20]/10 p-1.5">
-                      <div className="h-1.5 w-8 rounded bg-[#1B5E20]/30" />
-                      <div className="mt-1.5 space-y-1">
-                        <div className="h-3 w-full rounded bg-[#1B5E20]/15" />
-                        <div className="h-3 w-full rounded bg-[#1B5E20]/10" />
+                    <div className="flex-1 p-3">
+                      <div className="grid grid-cols-3 gap-2">
+                        {[1, 2, 3, 4, 5, 6].map((i) => (
+                          <div
+                            key={i}
+                            className="rounded-lg border border-zinc-100 bg-zinc-50 p-2"
+                          >
+                            <div className="mx-auto mb-1 h-6 w-6 rounded-full bg-zinc-300" />
+                            <div className="mx-auto h-1.5 w-10 rounded-full bg-zinc-300" />
+                            <div className="mx-auto mt-1 h-1 w-6 rounded-full bg-emerald-300" />
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
-                  {/* Checkmark badge */}
-                  <div className="absolute right-[5%] top-[15%] flex h-12 w-12 items-center justify-center rounded-full bg-[#1B5E20] shadow-lg">
-                    <CheckCircle className="h-6 w-6 text-white" />
+                </div>
+                {/* Phone overlay */}
+                <div className="absolute -bottom-6 -right-6 h-40 w-20 rounded-2xl border border-zinc-300 bg-zinc-100 p-1.5 shadow-2xl md:-right-8 md:h-48 md:w-24">
+                  <div className="flex h-full flex-col rounded-xl bg-white">
+                    <div className="border-b border-zinc-100 px-2 py-1">
+                      <span className="text-[6px] font-bold text-emerald-600">
+                        PaP
+                      </span>
+                    </div>
+                    <div className="flex-1 space-y-1 p-1.5">
+                      {[1, 2, 3].map((i) => (
+                        <div
+                          key={i}
+                          className="rounded border border-zinc-100 bg-zinc-50 p-1"
+                        >
+                          <div className="h-1 w-full rounded-full bg-zinc-200" />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Links */}
-      <section className="bg-white py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <StaggerContainer className="grid gap-4 sm:gap-5 md:grid-cols-3" staggerDelay={0.1}>
-            {[
-              {
-                href: "/clubs",
-                icon: Globe,
-                title: "Find a Club",
-                desc: "100+ lawn bowling clubs across the USA. Filter by state or region.",
-                cta: "Explore Directory",
-              },
-              {
-                href: "/learn",
-                icon: BookOpen,
-                title: "Learn Lawn Bowling",
-                desc: "Rules, positions, formats, and an 85+ term glossary.",
-                cta: "Start Learning",
-              },
-              {
-                href: "/bowls",
-                icon: Trophy,
-                title: "Run a Tournament",
-                desc: "Check-in, draw generation, live scoring, and results.",
-                cta: "Get Started",
-              },
-            ].map((card) => (
-              <StaggerItem key={card.title}>
-                <Link
-                  href={card.href}
-                  className="group flex flex-col rounded-2xl border border-[#0A2E12]/5 bg-[#FEFCF9] p-6 transition-all hover:border-[#1B5E20]/15 hover:shadow-lg hover:shadow-[#1B5E20]/5 sm:p-7"
-                >
-                  <card.icon className="mb-4 h-7 w-7 text-[#1B5E20]" />
-                  <h3 className="mb-2 text-lg font-bold text-[#0A2E12]">{card.title}</h3>
-                  <p className="mb-4 flex-1 text-sm leading-relaxed text-[#3D5A3E]/70">
-                    {card.desc}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1B5E20] transition-all group-hover:gap-2.5">
-                    {card.cta} <ChevronRight className="h-4 w-4" />
-                  </span>
-                </Link>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 sm:pb-28 lg:px-8">
-        <FadeIn variant="scale-in">
-          <div className="relative overflow-hidden rounded-3xl bg-[#1B5E20] px-6 py-16 text-center shadow-2xl shadow-[#1B5E20]/30 sm:px-8 sm:py-20 md:px-16 md:py-24">
-            {/* Subtle pattern overlay */}
-            <div className="absolute inset-0 opacity-5" style={{
-              backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px)",
-              backgroundSize: "40px 40px",
-            }} />
-            <div className="relative">
-              <h2
-                className="mx-auto max-w-2xl text-3xl font-bold text-white sm:text-4xl md:text-5xl"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Ready to modernize your club?
-              </h2>
-              <p className="mx-auto mt-4 max-w-xl text-base text-green-100/70 sm:mt-6 sm:text-lg">
-                Replace the paper draw sheet. Lawnbowling handles check-in, draws,
-                scoring, and results — so you can focus on the game.
-              </p>
-              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
-                <Link
-                  href="/signup"
-                  className="group w-full rounded-full bg-white px-8 py-4 text-base font-semibold text-[#1B5E20] shadow-xl transition-all hover:bg-[#F0FFF4] hover:shadow-2xl active:scale-[0.97] sm:w-auto sm:text-lg"
-                >
-                  Start Free Trial
-                </Link>
-                <Link
-                  href="/contact"
-                  className="w-full rounded-full border-2 border-white/20 px-8 py-4 text-base font-semibold text-white transition-all hover:border-white/40 hover:bg-white/10 active:scale-[0.97] sm:w-auto sm:text-lg"
-                >
-                  Contact Us
-                </Link>
-              </div>
             </div>
           </div>
-        </FadeIn>
+        </div>
+      </section>
+
+      {/* Venue CTA */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <div className="rounded-3xl bg-gradient-to-r from-emerald-600 to-emerald-500 p-8 text-center shadow-2xl shadow-emerald-500/20 md:p-16">
+          <h2 className="text-3xl font-bold text-white md:text-4xl">
+            Ready to modernize your venue?
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-emerald-100/80">
+            Pick a Partner replaces the clipboard sign-up sheet. No more
+            confusion about who&apos;s next or who&apos;s available.
+          </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href="/for-venues"
+              className="rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-emerald-700 shadow-lg transition hover:bg-zinc-50 active:scale-[0.98]"
+            >
+              Learn More
+            </Link>
+            <Link
+              href="/contact"
+              className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/60 hover:bg-white/10 active:scale-[0.98]"
+            >
+              Contact Us
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#0A2E12]/5 bg-[#FEFCF9]">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-4">
-            <div className="col-span-2 sm:col-span-2 md:col-span-1">
-              <div className="mb-3 flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1B5E20]">
-                  <CircleDot className="h-4 w-4 text-white" />
-                </div>
-                <span className="font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>
-                  Lawnbowling
-                </span>
-              </div>
-              <p className="text-sm leading-relaxed text-[#3D5A3E]/60">
-                The world&apos;s best lawn bowling app. Tournament management,
-                club directory, and everything bowls.
-              </p>
+      <footer className="border-t border-zinc-200 bg-white">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
+              <Users className="h-4 w-4 text-white" />
             </div>
-            <div>
-              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]/40">Platform</h4>
-              <div className="space-y-2">
-                <Link href="/bowls" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Tournaments</Link>
-                <Link href="/clubs" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Club Directory</Link>
-                <Link href="/shop" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Shop</Link>
-                <Link href="/insurance" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Insurance</Link>
-              </div>
-            </div>
-            <div>
-              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]/40">Learn</h4>
-              <div className="space-y-2">
-                <Link href="/learn" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Learning Hub</Link>
-                <Link href="/learn/rules" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Rules</Link>
-                <Link href="/learn/glossary" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Glossary</Link>
-                <Link href="/blog" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Blog</Link>
-              </div>
-            </div>
-            <div>
-              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]/40">Company</h4>
-              <div className="space-y-2">
-                <Link href="/about" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">About</Link>
-                <Link href="/contact" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Contact</Link>
-                <Link href="/privacy" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Privacy</Link>
-                <Link href="/faq" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">FAQ</Link>
-              </div>
-            </div>
+            <span className="font-semibold text-zinc-900">Pick a Partner</span>
           </div>
-          <div className="mt-10 border-t border-[#0A2E12]/5 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row">
-            <span className="text-xs text-[#3D5A3E]/40">
-              &copy; {new Date().getFullYear()} Lawnbowling. All rights reserved.
-            </span>
-            <span className="text-xs text-[#3D5A3E]/40">
-              lawnbowl.app
-            </span>
+          <div className="flex items-center gap-6 text-sm text-zinc-500">
+            <Link href="/about" className="hover:text-zinc-700 transition">
+              About
+            </Link>
+            <Link href="/for-venues" className="hover:text-zinc-700 transition">
+              For Venues
+            </Link>
+            <Link href="/for-players" className="hover:text-zinc-700 transition">
+              For Players
+            </Link>
+            <Link href="/insurance" className="hover:text-zinc-700 transition">
+              Insurance
+            </Link>
+            <Link href="/faq" className="hover:text-zinc-700 transition">
+              FAQ
+            </Link>
+            <Link href="/terms" className="hover:text-zinc-700 transition">
+              Terms
+            </Link>
+            <Link href="/privacy" className="hover:text-zinc-700 transition">
+              Privacy
+            </Link>
+            <Link href="/contact" className="hover:text-zinc-700 transition">
+              Contact
+            </Link>
           </div>
+          <span className="text-sm text-zinc-400">
+            &copy; {new Date().getFullYear()} Pick a Partner
+          </span>
         </div>
       </footer>
     </div>

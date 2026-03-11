@@ -16,20 +16,17 @@ import {
   Heart,
   Search,
   Clock,
-  Circle,
-  Dribbble,
-  Wind,
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "For Players | Lawnbowling",
+  title: "For Players | Pick a Partner",
   description:
-    "Never play alone again. Lawnbowling matches you with players at your skill level, finds nearby courts, and handles scheduling. Pickleball, tennis, basketball, badminton, volleyball, and more.",
+    "Never play alone again. Pick a Partner matches you with players at your skill level, finds nearby courts, and handles scheduling. Pickleball, tennis, basketball, badminton, volleyball, and more.",
 };
 
 export default function ForPlayersPage() {
   return (
-    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
+    <div className="min-h-screen bg-white overflow-hidden">
       {/* Floating glowing orbs */}
       <div
         className="orb orb-blue"
@@ -50,14 +47,14 @@ export default function ForPlayersPage() {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 dark:bg-[#1a3d28]/80 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-[#1B5E20] shadow-lg shadow-[#1B5E20]/15">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/15">
               <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
-              Lawnbowling
+            <span className="text-lg font-bold text-zinc-900">
+              Pick a Partner
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -75,7 +72,7 @@ export default function ForPlayersPage() {
             </Link>
             <Link
               href="/signup"
-              className="rounded-xl bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/15 transition hover:bg-[#1B5E20] hover:shadow-[#1B5E20]/25"
+              className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/15 transition hover:bg-emerald-500 hover:shadow-emerald-500/25"
             >
               Get Started
             </Link>
@@ -86,9 +83,9 @@ export default function ForPlayersPage() {
       {/* Hero */}
       <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-20 md:pt-28 md:pb-24">
         <div className="flex flex-col items-center text-center">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#1B5E20]/20 bg-[#1B5E20]/10 px-4 py-1.5">
-            <Trophy className="h-4 w-4 text-[#1B5E20]" />
-            <span className="text-sm font-medium text-[#1B5E20]">
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5">
+            <Trophy className="h-4 w-4 text-blue-600" />
+            <span className="text-sm font-medium text-blue-600">
               For Players
             </span>
           </div>
@@ -99,7 +96,7 @@ export default function ForPlayersPage() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
             You want to play, but your usual partner bailed. The courts near
-            you might be packed, or empty, and you have no idea. Lawnbowling
+            you might be packed, or empty, and you have no idea. Pick a Partner
             matches you with players at your skill level, shows you open courts
             nearby, and gets you playing in minutes -- not hours of texting
             group chats.
@@ -107,7 +104,7 @@ export default function ForPlayersPage() {
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Link
               href="/signup"
-              className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#1B5E20] to-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-[#1B5E20]/20 transition-all hover:shadow-[#1B5E20]/35 hover:scale-[1.02] active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-blue-500/20 transition-all hover:shadow-blue-500/35 hover:scale-[1.02] active:scale-[0.98]"
             >
               Find Your Partner
               <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
@@ -128,25 +125,25 @@ export default function ForPlayersPage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             Your Sport. Your Level. Your Schedule.
           </h2>
-          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 text-lg text-zinc-600">
             Find partners for whatever you play
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
           {[
-            { name: "Pickleball", icon: Zap, color: "bg-[#1B5E20]/5 border-[#1B5E20]/15 text-[#2E7D32]" },
-            { name: "Tennis", icon: Circle, color: "bg-amber-50 border-amber-200 text-amber-700" },
-            { name: "Basketball", icon: Dribbble, color: "bg-orange-50 border-orange-200 text-orange-700" },
-            { name: "Badminton", icon: Wind, color: "bg-blue-50 border-blue-200 text-[#2E7D32]" },
-            { name: "Volleyball", icon: Target, color: "bg-purple-50 border-purple-200 text-purple-700" },
-            { name: "Racquetball", icon: Target, color: "bg-rose-50 border-rose-200 text-rose-700" },
+            { name: "Pickleball", emoji: "🏓", color: "bg-emerald-50 border-emerald-200 text-emerald-700" },
+            { name: "Tennis", emoji: "🎾", color: "bg-amber-50 border-amber-200 text-amber-700" },
+            { name: "Basketball", emoji: "🏀", color: "bg-orange-50 border-orange-200 text-orange-700" },
+            { name: "Badminton", emoji: "🏸", color: "bg-blue-50 border-blue-200 text-blue-700" },
+            { name: "Volleyball", emoji: "🏐", color: "bg-purple-50 border-purple-200 text-purple-700" },
+            { name: "Racquetball", emoji: "🎯", color: "bg-rose-50 border-rose-200 text-rose-700" },
           ].map((sport) => (
             <div
               key={sport.name}
               className={`flex flex-col items-center gap-2 rounded-2xl border p-6 transition-all hover:shadow-md ${sport.color}`}
             >
-              <sport.icon className="w-8 h-8" strokeWidth={1.5} />
+              <span className="text-3xl">{sport.emoji}</span>
               <span className="text-sm font-semibold">{sport.name}</span>
             </div>
           ))}
@@ -167,7 +164,7 @@ export default function ForPlayersPage() {
               problem: "Can't find people to play with",
               solution: "Our player board shows everyone who's available right now at venues near you. One tap to send a match request.",
               icon: Search,
-              gradient: "from-[#1B5E20] to-indigo-500",
+              gradient: "from-blue-500 to-indigo-500",
             },
             {
               problem: "Skill mismatches ruin the fun",
@@ -179,22 +176,22 @@ export default function ForPlayersPage() {
               problem: "No idea where to play",
               solution: "Browse venues near you with real-time court availability. See which courts are open, which are packed, and walk right in.",
               icon: MapPin,
-              gradient: "from-[#1B5E20] to-teal-500",
+              gradient: "from-emerald-500 to-teal-500",
             },
           ].map((item) => (
             <div
               key={item.problem}
-              className="group rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
+              className="group rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
             >
               <div
                 className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} shadow-lg`}
               >
                 <item.icon className="h-6 w-6 text-white" />
               </div>
-              <p className="mb-3 text-base font-bold text-zinc-900 dark:text-zinc-100">
+              <p className="mb-3 text-base font-bold text-zinc-900">
                 &ldquo;{item.problem}&rdquo;
               </p>
-              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+              <p className="text-sm leading-relaxed text-zinc-600">
                 {item.solution}
               </p>
             </div>
@@ -208,7 +205,7 @@ export default function ForPlayersPage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             Everything You Need to Play More
           </h2>
-          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 text-lg text-zinc-600">
             From finding a partner to stepping on court, we handle all of it
           </p>
         </div>
@@ -219,15 +216,15 @@ export default function ForPlayersPage() {
               icon: Target,
               title: "Skill-Based Matching",
               desc: "Rate yourself from beginner to advanced. The system matches you with players at your level so every game is competitive.",
-              gradient: "from-[#1B5E20] to-indigo-500",
-              glow: "shadow-[#1B5E20]/15",
+              gradient: "from-blue-500 to-indigo-500",
+              glow: "shadow-blue-500/15",
             },
             {
               icon: MapPin,
               title: "Court Finder",
               desc: "Browse venues near you with real-time court availability. Know before you drive whether there's a court waiting.",
-              gradient: "from-[#1B5E20] to-teal-500",
-              glow: "shadow-[#1B5E20]/15",
+              gradient: "from-emerald-500 to-teal-500",
+              glow: "shadow-emerald-500/15",
             },
             {
               icon: Calendar,
@@ -254,23 +251,23 @@ export default function ForPlayersPage() {
               icon: Shield,
               title: "Play Insured",
               desc: "Every game comes with per-participant liability coverage. Rolled ankles and strained shoulders happen. You're covered.",
-              gradient: "from-teal-500 to-[#1B5E20]",
+              gradient: "from-teal-500 to-blue-500",
               glow: "shadow-teal-500/15",
             },
           ].map((feature) => (
             <div
               key={feature.title}
-              className="group rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
+              className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
             >
               <div
                 className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg ${feature.glow}`}
               >
                 <feature.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+              <h3 className="mb-2 text-lg font-semibold text-zinc-900">
                 {feature.title}
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+              <p className="text-sm leading-relaxed text-zinc-600">
                 {feature.desc}
               </p>
             </div>
@@ -287,7 +284,7 @@ export default function ForPlayersPage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             From Couch to Court in 60 Seconds
           </h2>
-          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 text-lg text-zinc-600">
             Three steps. That&apos;s it.
           </p>
         </div>
@@ -315,18 +312,18 @@ export default function ForPlayersPage() {
           ].map((item) => (
             <div key={item.step} className="relative">
               <div className="glass rounded-2xl p-8">
-                <span className="text-5xl font-black text-[#1B5E20]/20">
+                <span className="text-5xl font-black text-blue-500/20">
                   {item.step}
                 </span>
                 <div className="mt-4 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-indigo-600 shadow-lg shadow-[#1B5E20]/15">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/15">
                     <item.icon className="h-5 w-5 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+                  <h3 className="text-xl font-bold text-zinc-900">
                     {item.title}
                   </h3>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                <p className="mt-3 text-sm leading-relaxed text-zinc-600">
                   {item.desc}
                 </p>
               </div>
@@ -350,9 +347,9 @@ export default function ForPlayersPage() {
                 Every Game Comes With Coverage.{" "}
                 <span className="text-zinc-400">Play Worry-Free.</span>
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
                 Rolled ankles. Strained shoulders. A bad collision at the net.
-                It happens in every sport. With Lawnbowling, per-participant
+                It happens in every sport. With Pick a Partner, per-participant
                 liability coverage activates the moment you check in and
                 deactivates when you leave. No paperwork, no separate app,
                 no extra cost to stress about.
@@ -383,7 +380,7 @@ export default function ForPlayersPage() {
               ].map((item) => (
                 <div
                   key={item.text}
-                  className="flex items-center gap-4 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 shadow-sm"
+                  className="flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-teal-500/10">
                     <item.icon className="h-5 w-5 text-teal-600" />
@@ -423,7 +420,7 @@ export default function ForPlayersPage() {
                   <stat.icon className="h-6 w-6 text-amber-500 fill-amber-500" />
                 )}
               </div>
-              <span className="mt-1 block text-sm font-medium text-zinc-500 dark:text-zinc-400">
+              <span className="mt-1 block text-sm font-medium text-zinc-500">
                 {stat.label}
               </span>
             </div>
@@ -438,7 +435,7 @@ export default function ForPlayersPage() {
                 "No more awkward lobby small-talk trying to find a doubles partner. I just check in and tap -- matched in seconds.",
               name: "Sarah M.",
               role: "Pickleball Player",
-              avatarBg: "bg-[#1B5E20]/10 text-[#1B5E20]",
+              avatarBg: "bg-emerald-100 text-emerald-600",
             },
             {
               quote:
@@ -452,7 +449,7 @@ export default function ForPlayersPage() {
                 "I moved to a new city and didn't know anyone who played. Within a week I had a regular group of four for Tuesday night pickleball.",
               name: "Jenny L.",
               role: "Badminton & Pickleball",
-              avatarBg: "bg-blue-100 text-[#1B5E20]",
+              avatarBg: "bg-blue-100 text-blue-600",
             },
           ].map((testimonial) => (
             <div
@@ -477,10 +474,10 @@ export default function ForPlayersPage() {
                   {testimonial.name.charAt(0)}
                 </div>
                 <div>
-                  <span className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                  <span className="block text-sm font-semibold text-zinc-900">
                     {testimonial.name}
                   </span>
-                  <span className="block text-xs text-zinc-500 dark:text-zinc-400">
+                  <span className="block text-xs text-zinc-500">
                     {testimonial.role}
                   </span>
                 </div>
@@ -496,8 +493,8 @@ export default function ForPlayersPage() {
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div>
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
-                <Smartphone className="h-4 w-4 text-[#1B5E20]" />
-                <span className="text-sm font-medium text-[#2E7D32]">
+                <Smartphone className="h-4 w-4 text-blue-600" />
+                <span className="text-sm font-medium text-blue-700">
                   No Download Required
                 </span>
               </div>
@@ -505,8 +502,8 @@ export default function ForPlayersPage() {
                 Install It Like an App.{" "}
                 <span className="text-zinc-400">Without the App Store.</span>
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-                Lawnbowling is a PWA -- a progressive web app that installs
+              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+                Pick a Partner is a PWA -- a progressive web app that installs
                 directly to your home screen. No downloads, no updates, no
                 storage eaten up. Works on iPhone, Android, and iPad. Open it
                 and you&apos;re playing in seconds.
@@ -520,9 +517,9 @@ export default function ForPlayersPage() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="flex items-center gap-3 text-zinc-600 dark:text-zinc-400"
+                    className="flex items-center gap-3 text-zinc-600"
                   >
-                    <CheckCircle className="h-5 w-5 text-[#1B5E20] shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-500 shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -534,12 +531,12 @@ export default function ForPlayersPage() {
                 <div className="h-72 w-40 rounded-3xl border border-zinc-300 bg-zinc-100 p-2 shadow-2xl md:h-80 md:w-44">
                   <div className="flex h-full flex-col rounded-2xl bg-white">
                     <div className="flex items-center justify-between border-b border-zinc-100 px-3 py-2">
-                      <span className="text-xs font-bold text-[#1B5E20]">
-                        Lawnbowling
+                      <span className="text-xs font-bold text-emerald-600">
+                        Pick a Partner
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="live-dot" />
-                        <span className="text-[8px] text-zinc-500 dark:text-zinc-400">Live</span>
+                        <span className="text-[8px] text-zinc-500">Live</span>
                       </span>
                     </div>
                     <div className="flex-1 space-y-2 p-2.5">
@@ -551,13 +548,13 @@ export default function ForPlayersPage() {
                           <div className="h-6 w-6 rounded-full bg-zinc-300 shrink-0" />
                           <div className="flex-1 space-y-1">
                             <div className="h-1.5 w-16 rounded-full bg-zinc-300" />
-                            <div className="h-1 w-10 rounded-full bg-[#1B5E20]" />
+                            <div className="h-1 w-10 rounded-full bg-emerald-300" />
                           </div>
                         </div>
                       ))}
                     </div>
                     <div className="border-t border-zinc-100 px-3 py-2">
-                      <div className="h-6 w-full rounded-lg bg-[#1B5E20] flex items-center justify-center">
+                      <div className="h-6 w-full rounded-lg bg-blue-500 flex items-center justify-center">
                         <span className="text-[7px] font-bold text-white">Find Partner</span>
                       </div>
                     </div>
@@ -571,7 +568,7 @@ export default function ForPlayersPage() {
 
       {/* CTA */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
-        <div className="rounded-3xl bg-gradient-to-r from-[#1B5E20] to-indigo-600 p-8 text-center shadow-2xl shadow-[#1B5E20]/15 md:p-16">
+        <div className="rounded-3xl bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center shadow-2xl shadow-blue-500/15 md:p-16">
           <h2 className="text-3xl font-bold text-white md:text-4xl">
             Your Next Game Is Waiting
           </h2>
@@ -583,7 +580,7 @@ export default function ForPlayersPage() {
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/signup"
-              className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-[#2E7D32] shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-blue-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
             >
               Find Your Partner
               <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
@@ -599,36 +596,36 @@ export default function ForPlayersPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-zinc-50 dark:bg-white/5">
+      <footer className="border-t border-zinc-200 bg-zinc-50">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#1B5E20] to-[#1B5E20]">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900 dark:text-zinc-100">Lawnbowling</span>
+            <span className="font-semibold text-zinc-900">Pick a Partner</span>
           </Link>
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-zinc-500 dark:text-zinc-400">
-            <Link href="/for-venues" className="py-1 hover:text-zinc-700 transition">
+          <div className="flex items-center gap-6 text-sm text-zinc-500">
+            <Link href="/for-venues" className="hover:text-zinc-700 transition">
               For Venues
             </Link>
-            <Link href="/insurance" className="py-1 hover:text-zinc-700 transition">
+            <Link href="/insurance" className="hover:text-zinc-700 transition">
               Insurance
             </Link>
-            <Link href="/about" className="py-1 hover:text-zinc-700 transition">
+            <Link href="/about" className="hover:text-zinc-700 transition">
               About
             </Link>
-            <Link href="/faq" className="py-1 hover:text-zinc-700 transition">
+            <Link href="/faq" className="hover:text-zinc-700 transition">
               FAQ
             </Link>
-            <Link href="/terms" className="py-1 hover:text-zinc-700 transition">
+            <Link href="/terms" className="hover:text-zinc-700 transition">
               Terms
             </Link>
-            <Link href="/privacy" className="py-1 hover:text-zinc-700 transition">
+            <Link href="/privacy" className="hover:text-zinc-700 transition">
               Privacy
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Lawnbowling
+            &copy; {new Date().getFullYear()} Pick a Partner
           </span>
         </div>
       </footer>
