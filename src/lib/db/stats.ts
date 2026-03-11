@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { PlayerStats, MatchResult, FavoritePartner } from "@/lib/types";
+import type { PlayerStats, MatchResult } from "@/lib/types";
 import { calculateElo } from "@/lib/matchmaking";
 import { upsertPlayerSkillRating } from "@/lib/db/matchmaking";
 
@@ -7,7 +7,7 @@ export async function getPlayerStats(playerId: string) {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("player_stats")
-    .select("*, player:players!player_stats_player_id_fkey(id, display_name, avatar_url, skill_level, sports)")
+    .select("*, player:players(id, display_name, avatar_url, skill_level, sports)")
     .eq("player_id", playerId)
     .single();
 
@@ -15,33 +15,141 @@ export async function getPlayerStats(playerId: string) {
   return data as (PlayerStats & { player: { id: string; display_name: string; avatar_url: string | null; skill_level: string; sports: string[] } }) | null;
 }
 
-export async function getLeaderboard(options?: { sport?: string; limit?: number; clubId?: string }) {
+export type LeaderboardSortBy = "win_rate" | "games_played" | "wins" | "elo_rating";
+
+export interface LeaderboardOptions {
+  sport?: string;
+  skillLevel?: string;
+  sortBy?: LeaderboardSortBy;
+  limit?: number;
+}
+
+export interface LeaderboardEntry {
+  player_id: string;
+  games_played: number;
+  wins: number;
+  losses: number;
+  win_rate: number;
+  elo_rating: number | null;
+  favorite_sport: string | null;
+  last_played_at: string | null;
+  player: {
+    id: string;
+    display_name: string;
+    avatar_url: string | null;
+    skill_level: string;
+    sports: string[];
+  };
+}
+
+export async function getLeaderboard(
+  options?: LeaderboardOptions
+): Promise<LeaderboardEntry[]> {
   const supabase = await createClient();
+  const sortBy = options?.sortBy ?? "win_rate";
+  const limit = options?.limit ?? 50;
+
+  // When filtering by sport, use player_sport_skills for sport-specific stats
+  if (options?.sport) {
+    let query = supabase
+      .from("player_sport_skills")
+      .select(
+        "player_id, games_in_sport, wins, losses, elo_rating, skill_level, player:players(id, display_name, avatar_url, skill_level, sports)"
+      )
+      .eq("sport", options.sport)
+      .gte("games_in_sport", 3);
+
+    if (options?.skillLevel) {
+      query = query.eq("skill_level", options.skillLevel);
+    }
+
+    if (sortBy === "elo_rating") {
+      query = query.order("elo_rating", { ascending: false });
+    } else if (sortBy === "games_played") {
+      query = query.order("games_in_sport", { ascending: false });
+    } else if (sortBy === "wins") {
+      query = query.order("wins", { ascending: false });
+    } else {
+      query = query.order("wins", { ascending: false });
+    }
+
+    query = query.limit(limit);
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const entries: LeaderboardEntry[] = (data ?? []).map((row: any) => {
+      const gamesPlayed = row.games_in_sport || 0;
+      const wins = row.wins || 0;
+      const losses = row.losses || 0;
+      const winRate = gamesPlayed > 0 ? (wins / gamesPlayed) * 100 : 0;
+      return {
+        player_id: row.player_id,
+        games_played: gamesPlayed,
+        wins,
+        losses,
+        win_rate: Math.round(winRate * 100) / 100,
+        elo_rating: row.elo_rating ?? null,
+        favorite_sport: options.sport ?? null,
+        last_played_at: null,
+        player: row.player,
+      };
+    });
+
+    if (sortBy === "win_rate") {
+      entries.sort((a, b) => b.win_rate - a.win_rate || b.wins - a.wins);
+    }
+
+    return entries;
+  }
+
+  // No sport filter: use player_stats (aggregate)
   let query = supabase
     .from("player_stats")
-    .select("*, player:players!player_stats_player_id_fkey(id, display_name, avatar_url, skill_level, sports, home_club_id)")
-    .gte("games_played", 5)
-    .order("win_rate", { ascending: false })
-    .order("wins", { ascending: false })
-    .limit(options?.limit ?? 20);
+    .select(
+      "*, player:players(id, display_name, avatar_url, skill_level, sports)"
+    )
+    .gte("games_played", 5);
 
-  if (options?.sport) {
-    query = query.eq("favorite_sport", options.sport);
+  if (sortBy === "games_played") {
+    query = query.order("games_played", { ascending: false });
+  } else if (sortBy === "wins") {
+    query = query.order("wins", { ascending: false });
+  } else {
+    query = query
+      .order("win_rate", { ascending: false })
+      .order("wins", { ascending: false });
   }
 
-  if (options?.clubId) {
-    query = query.eq("player.home_club_id", options.clubId);
-  }
+  query = query.limit(limit);
 
   const { data, error } = await query;
   if (error) throw error;
 
-  // Filter out null players when club filter is applied (Supabase returns nulls for non-matching joins)
-  const results = options?.clubId
-    ? (data ?? []).filter((entry: Record<string, unknown>) => entry.player != null)
-    : (data ?? []);
+  // Filter by skill level client-side (joined field)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let filtered = (data ?? []).filter((row: any) => row.player !== null);
+  if (options?.skillLevel) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    filtered = filtered.filter(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (row: any) => row.player?.skill_level === options.skillLevel
+    );
+  }
 
-  return results as (PlayerStats & { player: { id: string; display_name: string; avatar_url: string | null; skill_level: string; sports: string[] } })[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return filtered.map((row: any) => ({
+    player_id: row.player_id,
+    games_played: row.games_played || 0,
+    wins: row.wins || 0,
+    losses: row.losses || 0,
+    win_rate: row.win_rate || 0,
+    elo_rating: null,
+    favorite_sport: row.favorite_sport ?? null,
+    last_played_at: row.last_played_at ?? null,
+    player: row.player,
+  })) as LeaderboardEntry[];
 }
 
 export async function reportMatchResult(result: {
@@ -123,40 +231,6 @@ export async function reportMatchResult(result: {
     }
   }
 
-  // Update partner stats for teammates
-  if (matchPlayers && matchPlayers.length >= 2) {
-    const teams = new Map<number, string[]>();
-    for (const mp of matchPlayers) {
-      if (mp.team !== null) {
-        const teamList = teams.get(mp.team) ?? [];
-        teamList.push(mp.player_id);
-        teams.set(mp.team, teamList);
-      }
-    }
-    for (const [teamNum, playerIds] of teams) {
-      const teamWon = result.winner_team === teamNum;
-      await updatePartnerStats(playerIds, teamWon);
-    }
-
-    // Update favorite_partner_id on player_stats (most games together)
-    for (const mp of matchPlayers) {
-      const { data: topPartner } = await supabase
-        .from("partner_stats")
-        .select("partner_id")
-        .eq("player_id", mp.player_id)
-        .order("games_together", { ascending: false })
-        .limit(1)
-        .single();
-
-      if (topPartner) {
-        await supabase
-          .from("player_stats")
-          .update({ favorite_partner_id: topPartner.partner_id })
-          .eq("player_id", mp.player_id);
-      }
-    }
-  }
-
   // Update per-sport ELO ratings
   if (result.winner_team !== null && matchPlayers && matchPlayers.length >= 2) {
     const winners = matchPlayers.filter((mp) => mp.team === result.winner_team);
@@ -233,82 +307,4 @@ export async function getMatchHistory(playerId: string, options?: { sport?: stri
   const { data, error } = await query;
   if (error) throw error;
   return data;
-}
-
-export async function getFavoritePartners(
-  playerId: string,
-  options?: { limit?: number }
-): Promise<FavoritePartner[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("partner_stats")
-    .select(
-      "partner_id, games_together, wins_together, last_played_at, partner:players!partner_stats_partner_id_fkey(id, display_name, avatar_url, skill_level)"
-    )
-    .eq("player_id", playerId)
-    .gt("games_together", 0)
-    .order("games_together", { ascending: false })
-    .limit(options?.limit ?? 5);
-
-  if (error) throw error;
-
-  return (data ?? []).map((row) => ({
-    partner_id: row.partner_id,
-    games_together: row.games_together,
-    wins_together: row.wins_together,
-    win_rate_together:
-      row.games_together > 0
-        ? Math.round((row.wins_together / row.games_together) * 10000) / 100
-        : 0,
-    last_played_at: row.last_played_at,
-    partner: row.partner as unknown as FavoritePartner["partner"],
-  }));
-}
-
-async function updatePartnerStats(
-  teamPlayerIds: string[],
-  isWin: boolean
-) {
-  if (teamPlayerIds.length < 2) return;
-  const supabase = await createClient();
-  const now = new Date().toISOString();
-
-  for (let i = 0; i < teamPlayerIds.length; i++) {
-    for (let j = i + 1; j < teamPlayerIds.length; j++) {
-      const pairs = [
-        { player_id: teamPlayerIds[i], partner_id: teamPlayerIds[j] },
-        { player_id: teamPlayerIds[j], partner_id: teamPlayerIds[i] },
-      ];
-
-      for (const pair of pairs) {
-        const { data: existing } = await supabase
-          .from("partner_stats")
-          .select("games_together, wins_together")
-          .eq("player_id", pair.player_id)
-          .eq("partner_id", pair.partner_id)
-          .single();
-
-        if (existing) {
-          await supabase
-            .from("partner_stats")
-            .update({
-              games_together: existing.games_together + 1,
-              wins_together: existing.wins_together + (isWin ? 1 : 0),
-              last_played_at: now,
-              updated_at: now,
-            })
-            .eq("player_id", pair.player_id)
-            .eq("partner_id", pair.partner_id);
-        } else {
-          await supabase.from("partner_stats").insert({
-            player_id: pair.player_id,
-            partner_id: pair.partner_id,
-            games_together: 1,
-            wins_together: isWin ? 1 : 0,
-            last_played_at: now,
-          });
-        }
-      }
-    }
-  }
 }

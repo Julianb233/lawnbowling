@@ -1,5 +1,4 @@
 import { describe, it, expect } from "vitest";
-import type { RequestStatus } from "../lib/types";
 
 describe("Partner Request Flow", () => {
   it("should create a request with pending status", () => {
@@ -19,7 +18,7 @@ describe("Partner Request Flow", () => {
   });
 
   it("should accept a request", () => {
-    const request: { status: RequestStatus; responded_at: string | null } = {
+    const request: { status: string; responded_at: string | null } = {
       status: "pending",
       responded_at: null,
     };
@@ -33,7 +32,7 @@ describe("Partner Request Flow", () => {
   });
 
   it("should decline a request", () => {
-    const request: { status: RequestStatus; responded_at: string | null } = {
+    const request: { status: string; responded_at: string | null } = {
       status: "pending",
       responded_at: null,
     };
