@@ -46,6 +46,9 @@ export default function ShopLayout({
             <Link href="/shop/equipment" className="hover:text-[#1B5E20]">
               Equipment
             </Link>
+            <Link href="/shop/custom-merch" className="hover:text-[#1B5E20]">
+              Custom
+            </Link>
           </nav>
         </div>
       </header>
