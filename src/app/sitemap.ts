@@ -191,14 +191,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  // Placeholder for future blog pages
-  // When blog is added, query blog posts here and map them:
-  // const blogPages: MetadataRoute.Sitemap = posts.map(post => ({
-  //   url: `${BASE_URL}/blog/${post.slug}`,
-  //   lastModified: post.updatedAt,
-  //   changeFrequency: "monthly",
-  //   priority: 0.6,
-  // }));
+  const clubDetailPages: MetadataRoute.Sitemap = CLUBS.map((club) => ({
+    url: `${BASE_URL}/clubs/${club.stateCode.toLowerCase()}/${club.id}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
 
-  return [...staticPages, ...clubStatePages];
+  const blogPosts = getAllBlogPosts();
+  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  const shopProductPages: MetadataRoute.Sitemap = PRODUCTS.map((product) => ({
+    url: `${BASE_URL}/shop/${product.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.5,
+  }));
+
+  return [
+    ...staticPages,
+    ...clubStatePages,
+    ...clubDetailPages,
+    ...blogPages,
+    ...shopProductPages,
+  ];
 }
