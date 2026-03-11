@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -27,6 +28,7 @@ import {
   getBreadcrumbSchema,
   jsonLd,
 } from "@/lib/schema";
+import { SingleClubMap } from "@/components/clubs/SingleClubMap";
 
 interface ClubPageProps {
   params: Promise<{ state: string; slug: string }>;
@@ -62,11 +64,13 @@ export async function generateMetadata({
       description,
       url: `https://lawnbowl.app/clubs/${club.stateCode.toLowerCase()}/${club.id}`,
       type: "website",
+      ...(club.coverImageUrl && { images: [{ url: club.coverImageUrl }] }),
     },
     twitter: {
-      card: "summary",
+      card: club.coverImageUrl ? "summary_large_image" : "summary",
       title,
       description,
+      ...(club.coverImageUrl && { images: [club.coverImageUrl] }),
     },
   };
 }
@@ -109,6 +113,21 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(clubSchema) }}
       />
 
+      {/* Cover Image Hero */}
+      {club.coverImageUrl && (
+        <div className="relative h-48 w-full overflow-hidden bg-zinc-200 sm:h-60">
+          <Image
+            src={club.coverImageUrl}
+            alt={`${club.name} cover photo`}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
+        </div>
+      )}
+
       {/* Header */}
       <header className="border-b border-zinc-200 bg-white">
         <div className="mx-auto max-w-4xl px-4 py-6">
@@ -134,22 +153,33 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
           </nav>
 
           <div className="flex items-start justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900 sm:text-3xl">
-                {club.name}
-              </h1>
-              <div className="mt-1 flex items-center gap-1.5 text-sm text-zinc-500">
-                <MapPin className="h-4 w-4 shrink-0" />
-                <span>
-                  {club.city}, {club.state}
-                </span>
-                {club.founded && (
-                  <>
-                    <span className="text-zinc-300">·</span>
-                    <Calendar className="h-3.5 w-3.5" />
-                    <span>Est. {club.founded}</span>
-                  </>
-                )}
+            <div className="flex items-center gap-3">
+              {club.logoUrl && (
+                <Image
+                  src={club.logoUrl}
+                  alt={`${club.name} logo`}
+                  width={48}
+                  height={48}
+                  className="h-12 w-12 shrink-0 rounded-full border border-zinc-200 object-cover"
+                />
+              )}
+              <div>
+                <h1 className="text-2xl font-black tracking-tight text-zinc-900 sm:text-3xl">
+                  {club.name}
+                </h1>
+                <div className="mt-1 flex items-center gap-1.5 text-sm text-zinc-500">
+                  <MapPin className="h-4 w-4 shrink-0" />
+                  <span>
+                    {club.city}, {club.state}
+                  </span>
+                  {club.founded && (
+                    <>
+                      <span className="text-zinc-300">·</span>
+                      <Calendar className="h-3.5 w-3.5" />
+                      <span>Est. {club.founded}</span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
             <span
@@ -266,23 +296,17 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
               </section>
             )}
 
-            {/* Map Placeholder */}
+            {/* Location Map */}
             <section className="rounded-2xl border border-zinc-200 bg-white p-6">
               <h2 className="mb-4 text-lg font-bold text-zinc-900">
                 Location
               </h2>
-              <div className="flex aspect-[16/9] items-center justify-center rounded-xl bg-zinc-100">
-                <div className="text-center">
-                  <MapPin className="mx-auto h-8 w-8 text-zinc-400" />
-                  <p className="mt-2 text-sm font-medium text-zinc-500">
-                    {club.address ??
-                      `${club.city}, ${club.state}`}
-                  </p>
-                  <p className="mt-1 text-xs text-zinc-400">
-                    Map coming soon
-                  </p>
-                </div>
-              </div>
+              <SingleClubMap
+                lat={club.lat}
+                lng={club.lng}
+                clubName={club.name}
+                address={club.address ?? `${club.city}, ${club.state}`}
+              />
             </section>
           </div>
 
