@@ -46,7 +46,7 @@ export function weeklyDigestEmail(data: DigestData) {
       </div>
       <h3 style="color:#fafafa;font-size:16px;margin:0 0 12px">Upcoming Games</h3>
       <ul style="list-style:none;padding:0;margin:0 0 24px">${upcomingHtml}</ul>
-      <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://pickapartner.app'}/stats"
+      <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://lawnbowl.app'}/stats"
          style="display:inline-block;background:#22c55e;color:#fff;text-decoration:none;padding:14px 28px;border-radius:10px;font-weight:600;font-size:16px">
         View Full Stats
       </a>

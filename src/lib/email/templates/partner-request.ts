@@ -18,7 +18,7 @@ export function partnerRequestEmail(playerName: string, requesterName: string, s
       <p style="color:#a1a1aa;font-size:14px;margin:0 0 24px">
         Head to the board to accept or decline this request. Requests expire in 5 minutes!
       </p>
-      <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://pickapartner.app'}/board"
+      <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://lawnbowl.app'}/board"
          style="display:inline-block;background:#22c55e;color:#fff;text-decoration:none;padding:14px 28px;border-radius:10px;font-weight:600;font-size:16px">
         View Request
       </a>

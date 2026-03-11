@@ -29,7 +29,7 @@ export function matchReminderEmail(playerName: string, gameTitle: string, schedu
         <p style="color:#a1a1aa;font-size:14px;margin:0 0 4px">${formatted}</p>
         <p style="color:#a1a1aa;font-size:14px;margin:0">${venueName}</p>
       </div>
-      <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://pickapartner.app'}/schedule"
+      <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://lawnbowl.app'}/schedule"
          style="display:inline-block;background:#22c55e;color:#fff;text-decoration:none;padding:14px 28px;border-radius:10px;font-weight:600;font-size:16px">
         View Schedule
       </a>
