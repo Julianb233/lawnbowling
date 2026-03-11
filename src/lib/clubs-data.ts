@@ -2,7 +2,7 @@
 // Each club represents a real lawn bowling club in the USA
 
 export type USRegion = "west" | "east" | "south" | "midwest";
-export type ClubStatus = "active" | "seasonal" | "inactive" | "unverified";
+export type ClubStatus = "active" | "seasonal" | "inactive" | "unverified" | "claimed";
 export type SurfaceType = "natural_grass" | "synthetic" | "hybrid" | "unknown";
 export type BowlsUSADivision =
   | "pacific_intermountain"
