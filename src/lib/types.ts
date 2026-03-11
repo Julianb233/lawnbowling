@@ -391,8 +391,8 @@ export interface AppNotification {
 
 // ===== Noticeboard =====
 
-export type NoticeboardEmoji = "👍" | "❤️" | "😂" | "🎳" | "🏆";
-export const NOTICEBOARD_EMOJIS: NoticeboardEmoji[] = ["👍", "❤️", "😂", "🎳", "🏆"];
+export type NoticeboardEmoji = "👍" | "👏" | "🔥" | "🎉" | "❤️";
+export const NOTICEBOARD_EMOJIS: NoticeboardEmoji[] = ["👍", "👏", "🔥", "🎉", "❤️"];
 
 export type NoticeboardPostType = "announcement" | "event" | "general" | "question" | "tournament_result" | "member_post";
 

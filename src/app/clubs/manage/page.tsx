@@ -19,6 +19,8 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { ClubMembershipManager } from "@/components/clubs/ClubMembershipManager";
+import type { ClubRole } from "@/lib/types";
 import type { Club } from "@/lib/db/clubs";
 
 interface LinkedVenue {
@@ -41,6 +43,7 @@ export default function ClubManagerDashboard() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
+  const [userClubRole, setUserClubRole] = useState<ClubRole>("owner");
 
   // Form state
   const [name, setName] = useState("");
@@ -533,6 +536,16 @@ export default function ClubManagerDashboard() {
             {saving ? "Saving..." : "Save Changes"}
           </button>
         </form>
+
+        {/* Membership Management */}
+        {selectedClub && (
+          <section className="mt-8 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+            <ClubMembershipManager
+              clubId={selectedClub.id}
+              currentUserRole={userClubRole}
+            />
+          </section>
+        )}
       </main>
 
       <style jsx>{`
