@@ -618,7 +618,23 @@ export const CLUBS: ClubData[] = [
   },
 ];
 
+export const DIVISION_LABELS: Record<BowlsUSADivision, string> = {
+  pacific_intermountain: "Pacific Inter-Mountain",
+  southwest: "Southwest",
+  south_central: "South Central",
+  southeast: "Southeast",
+  central: "Central",
+  eastern: "Eastern",
+  northeast: "Northeast",
+  northwest: "Northwest",
+  none: "Unaffiliated",
+};
+
 // Helper functions
+export function getClubById(id: string): ClubData | undefined {
+  return CLUBS.find((c) => c.id === id);
+}
+
 export function getClubsByState(stateCode: string): ClubData[] {
   return CLUBS.filter((c) => c.stateCode === stateCode);
 }

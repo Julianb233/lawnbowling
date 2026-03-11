@@ -453,6 +453,41 @@ export interface TournamentScore {
   updated_at: string;
 }
 
+// ===== Club Claims & Management =====
+
+export type ClaimStatus = "pending" | "approved" | "rejected";
+
+export interface ClubClaimRequest {
+  id: string;
+  club_id: string;
+  player_id: string;
+  status: ClaimStatus;
+  role_at_club: string | null;
+  message: string | null;
+  rejection_reason: string | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  created_at: string;
+  updated_at: string;
+  player?: Player;
+  club?: {
+    id: string;
+    name: string;
+    slug: string;
+    city: string;
+    state_code: string;
+  };
+}
+
+export interface ClubVenue {
+  id: string;
+  club_id: string;
+  venue_id: string;
+  is_primary: boolean;
+  created_at: string;
+  venue?: Venue;
+}
+
 // Subscription / Pricing
 export type SubscriptionPlan = "free" | "basic" | "premium" | "venue_owner";
 export type SportSkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
