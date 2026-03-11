@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { Navigation } from "lucide-react";
 import {
   getAllClubs,
+  searchClubs,
   COUNTRIES,
   REGION_LABELS,
   type ClubData,
@@ -28,18 +29,38 @@ const COUNTRY_COLORS: Record<string, string> = {
 
 interface ClubMapProps {
   fullScreen?: boolean;
+  /** When true, hides internal filter UI and uses parent-provided filter props */
+  hideFilters?: boolean;
+  region?: USRegion | "all";
+  stateFilter?: string | "all";
+  activity?: string | "all";
+  searchQuery?: string;
 }
 
-export function ClubMap({ fullScreen = false }: ClubMapProps) {
+export function ClubMap({
+  fullScreen = false,
+  hideFilters = false,
+  region: parentRegion,
+  stateFilter: parentState,
+  activity: parentActivity,
+  searchQuery: parentSearch,
+}: ClubMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
-  const markersRef = useRef<L.LayerGroup | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const markersRef = useRef<any>(null);
   const leafletRef = useRef<LeafletModule | null>(null);
 
   const [ready, setReady] = useState(false);
   const [activeCountry, setActiveCountry] = useState<CountryCode | "all">("all");
   const [activeRegion, setActiveRegion] = useState<USRegion | "all">("all");
   const [activeActivity, setActiveActivity] = useState<string | "all">("all");
+
+  // Use parent filters when hideFilters is true, otherwise use internal state
+  const effectiveRegion = hideFilters ? (parentRegion ?? "all") : activeRegion;
+  const effectiveState = hideFilters ? (parentState ?? "all") : "all";
+  const effectiveActivity = hideFilters ? (parentActivity ?? "all") : activeActivity;
+  const effectiveSearch = hideFilters ? (parentSearch ?? "") : "";
 
   const allClubs = useMemo(() => getAllClubs(), []);
 
@@ -54,18 +75,23 @@ export function ClubMap({ fullScreen = false }: ClubMapProps) {
   }, [allClubs]);
 
   const filteredClubs = useMemo(() => {
-    let clubs = allClubs.filter((c) => c.lat != null && c.lng != null);
+    let clubs = effectiveSearch.length > 1
+      ? searchClubs(effectiveSearch).filter((c) => c.lat != null && c.lng != null)
+      : allClubs.filter((c) => c.lat != null && c.lng != null);
     if (activeCountry !== "all") {
       clubs = clubs.filter((c) => (c.country ?? c.countryCode ?? "US") === activeCountry);
     }
-    if (activeRegion !== "all") {
-      clubs = clubs.filter((c) => c.region === activeRegion);
+    if (effectiveRegion !== "all") {
+      clubs = clubs.filter((c) => c.region === effectiveRegion);
     }
-    if (activeActivity !== "all") {
-      clubs = clubs.filter((c) => c.activities.includes(activeActivity));
+    if (effectiveState !== "all") {
+      clubs = clubs.filter((c) => c.stateCode === effectiveState);
+    }
+    if (effectiveActivity !== "all") {
+      clubs = clubs.filter((c) => c.activities.includes(effectiveActivity));
     }
     return clubs;
-  }, [allClubs, activeCountry, activeRegion, activeActivity]);
+  }, [allClubs, activeCountry, effectiveRegion, effectiveState, effectiveActivity, effectiveSearch]);
 
   // Initialize Leaflet map
   useEffect(() => {
@@ -80,9 +106,53 @@ export function ClubMap({ fullScreen = false }: ClubMapProps) {
       document.head.appendChild(link);
     }
 
+    // Add MarkerCluster CSS
+    if (!document.getElementById("markercluster-css")) {
+      const mc = document.createElement("link");
+      mc.id = "markercluster-css";
+      mc.rel = "stylesheet";
+      mc.href = "https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css";
+      document.head.appendChild(mc);
+    }
+    if (!document.getElementById("markercluster-default-css")) {
+      const mcd = document.createElement("link");
+      mcd.id = "markercluster-default-css";
+      mcd.rel = "stylesheet";
+      mcd.href = "https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css";
+      document.head.appendChild(mcd);
+    }
+
+    // Brand-colored cluster icons
+    if (!document.getElementById("markercluster-brand-css")) {
+      const style = document.createElement("style");
+      style.id = "markercluster-brand-css";
+      style.textContent = `
+        .marker-cluster-small,
+        .marker-cluster-medium,
+        .marker-cluster-large {
+          background-color: rgba(27, 94, 32, 0.25);
+        }
+        .marker-cluster-small div,
+        .marker-cluster-medium div,
+        .marker-cluster-large div {
+          background-color: #1B5E20;
+          color: #fff;
+          font-weight: 700;
+          font-size: 13px;
+          font-family: system-ui, -apple-system, sans-serif;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
     let cancelled = false;
 
-    import("leaflet").then((L) => {
+    import("leaflet").then(async (L) => {
+      if (cancelled || !mapContainerRef.current || mapRef.current) return;
+
+      // Dynamically import markercluster after leaflet
+      await import("leaflet.markercluster");
+
       if (cancelled || !mapContainerRef.current || mapRef.current) return;
 
       // Fix default icon paths
@@ -107,7 +177,11 @@ export function ClubMap({ fullScreen = false }: ClubMapProps) {
       }).addTo(map);
 
       mapRef.current = map;
-      markersRef.current = L.layerGroup().addTo(map);
+      markersRef.current = L.markerClusterGroup({
+        maxClusterRadius: 50,
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: false,
+      }).addTo(map);
       leafletRef.current = L;
       setReady(true);
     });
@@ -172,8 +246,8 @@ export function ClubMap({ fullScreen = false }: ClubMapProps) {
           <div style="font-size:11px;color:#666;margin-top:2px;">${club.city}, ${stateLabel}</div>
           ${club.founded ? `<div style="font-size:10px;color:#999;">Est. ${club.founded}</div>` : ""}
           <div style="display:flex;gap:8px;margin-top:6px;font-size:11px;color:#444;">
-            ${club.memberCount ? `<span>👥 ${club.memberCount}</span>` : ""}
-            ${club.greens ? `<span>🌿 ${club.greens} green${club.greens > 1 ? "s" : ""}</span>` : ""}
+            ${club.memberCount ? `<span>${club.memberCount} members</span>` : ""}
+            ${club.greens ? `<span>${club.greens} green${club.greens > 1 ? "s" : ""}</span>` : ""}
             ${club.rinks ? `<span>${club.rinks} rinks</span>` : ""}
           </div>
           ${contacts ? `
@@ -225,42 +299,44 @@ export function ClubMap({ fullScreen = false }: ClubMapProps) {
         </div>
       )}
 
-      {/* Filters overlay */}
-      <div className="absolute left-3 right-16 top-3 z-[1000] sm:left-3 sm:right-auto sm:max-w-sm">
-        <div className="rounded-xl border border-zinc-200 bg-white/95 p-2.5 shadow-lg backdrop-blur">
-          <p className="mb-1.5 text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
-            {filteredClubs.length} clubs shown
-          </p>
+      {/* Filters overlay — hidden when parent provides filters */}
+      {!hideFilters && (
+        <div className="absolute left-3 right-16 top-3 z-[1000] sm:left-3 sm:right-auto sm:max-w-sm">
+          <div className="rounded-xl border border-zinc-200 bg-white/95 p-2.5 shadow-lg backdrop-blur">
+            <p className="mb-1.5 text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
+              {filteredClubs.length} clubs shown
+            </p>
 
-          {/* Country filter */}
-          {countries.length > 1 && (
-            <div className="mb-1.5 flex flex-wrap gap-1">
-              <FilterChip active={activeCountry === "all"} onClick={() => { setActiveCountry("all"); setActiveRegion("all"); }} label="All Countries" />
-              {countries.map((cc) => (
-                <FilterChip key={cc} active={activeCountry === cc} onClick={() => { setActiveCountry(cc); setActiveRegion("all"); }} label={`${COUNTRIES[cc]?.flag ?? ""} ${COUNTRIES[cc]?.name ?? cc}`} />
+            {/* Country filter */}
+            {countries.length > 1 && (
+              <div className="mb-1.5 flex flex-wrap gap-1">
+                <FilterChip active={activeCountry === "all"} onClick={() => { setActiveCountry("all"); setActiveRegion("all"); }} label="All Countries" />
+                {countries.map((cc) => (
+                  <FilterChip key={cc} active={activeCountry === cc} onClick={() => { setActiveCountry(cc); setActiveRegion("all"); }} label={`${COUNTRIES[cc]?.flag ?? ""} ${COUNTRIES[cc]?.name ?? cc}`} />
+                ))}
+              </div>
+            )}
+
+            {/* Region filter (US only) */}
+            {(activeCountry === "all" || activeCountry === "US") && (
+              <div className="mb-1.5 flex flex-wrap gap-1">
+                <FilterChip active={activeRegion === "all"} onClick={() => setActiveRegion("all")} label="All Regions" small />
+                {(Object.keys(REGION_LABELS) as USRegion[]).map((r) => (
+                  <FilterChip key={r} active={activeRegion === r} onClick={() => setActiveRegion(r)} label={`${REGION_LABELS[r].label}`} small />
+                ))}
+              </div>
+            )}
+
+            {/* Activity filter */}
+            <div className="flex flex-wrap gap-1">
+              <FilterChip active={activeActivity === "all"} onClick={() => setActiveActivity("all")} label="All Activities" small />
+              {activities.slice(0, 5).map((a) => (
+                <FilterChip key={a} active={activeActivity === a} onClick={() => setActiveActivity(a)} label={a} small />
               ))}
             </div>
-          )}
-
-          {/* Region filter (US only) */}
-          {(activeCountry === "all" || activeCountry === "US") && (
-            <div className="mb-1.5 flex flex-wrap gap-1">
-              <FilterChip active={activeRegion === "all"} onClick={() => setActiveRegion("all")} label="All Regions" small />
-              {(Object.keys(REGION_LABELS) as USRegion[]).map((r) => (
-                <FilterChip key={r} active={activeRegion === r} onClick={() => setActiveRegion(r)} label={`${REGION_LABELS[r].label}`} small />
-              ))}
-            </div>
-          )}
-
-          {/* Activity filter */}
-          <div className="flex flex-wrap gap-1">
-            <FilterChip active={activeActivity === "all"} onClick={() => setActiveActivity("all")} label="All Activities" small />
-            {activities.slice(0, 5).map((a) => (
-              <FilterChip key={a} active={activeActivity === a} onClick={() => setActiveActivity(a)} label={a} small />
-            ))}
           </div>
         </div>
-      </div>
+      )}
 
       {/* Locate me */}
       <button
