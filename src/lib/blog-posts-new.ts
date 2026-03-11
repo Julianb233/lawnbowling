@@ -1,9 +1,23 @@
 // New blog posts 6-10 for Phase 12-03
 // This file is imported by blog-posts.ts
+// Uses inline type to avoid circular dependency
 
-import type { BlogPost } from "./blog-posts";
+export interface BlogPostData {
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  date: string;
+  category: string;
+  tags: string[];
+  readTime: number;
+  metaTitle: string;
+  metaDescription: string;
+  featuredImage?: string;
+}
 
-export const newBlogPosts: BlogPost[] = [
+export const newBlogPosts: BlogPostData[] = [
   // ─────────────────────────────────────────────────
   // Post 6: What Is Bias in Lawn Bowls?
   // Target keyword: "lawn bowls bias"

@@ -42,7 +42,6 @@ export default function DrawSheetPage() {
   const tournamentId = params.id as string;
   const [data, setData] = useState<DrawSheetData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [paperSize, setPaperSize] = useState<"a4" | "letter">("a4");
 
   const loadData = useCallback(async () => {
     const supabase = createClient();
@@ -133,12 +132,7 @@ export default function DrawSheetPage() {
   });
 
   return (
-    <div
-      className={cn(
-        "min-h-screen bg-white",
-        paperSize === "letter" ? "draw-sheet-letter" : "draw-sheet-a4"
-      )}
-    >
+    <div className="min-h-screen bg-white">
       {/* Screen-only toolbar */}
       <div className="no-print sticky top-0 z-50 border-b border-zinc-200 bg-zinc-50 px-4 py-3">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
@@ -150,30 +144,9 @@ export default function DrawSheetPage() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <div className="flex rounded-lg border border-zinc-200 overflow-hidden">
-              <button
-                onClick={() => setPaperSize("a4")}
-                className={cn(
-                  "px-3 py-2 text-xs font-semibold transition-colors",
-                  paperSize === "a4"
-                    ? "bg-[#1B5E20] text-white"
-                    : "bg-white text-zinc-600 hover:bg-zinc-50"
-                )}
-              >
-                A4
-              </button>
-              <button
-                onClick={() => setPaperSize("letter")}
-                className={cn(
-                  "px-3 py-2 text-xs font-semibold transition-colors",
-                  paperSize === "letter"
-                    ? "bg-[#1B5E20] text-white"
-                    : "bg-white text-zinc-600 hover:bg-zinc-50"
-                )}
-              >
-                Letter
-              </button>
-            </div>
+            <span className="text-xs text-zinc-500">
+              Select A4 or Letter in your print dialog
+            </span>
             <button
               onClick={() => window.print()}
               className="rounded-lg bg-[#1B5E20] px-4 py-2 text-sm font-bold text-white hover:bg-[#145218]"
