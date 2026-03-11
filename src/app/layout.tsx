@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { IOSInstallGuide } from "@/components/pwa/IOSInstallGuide";
-import { RegisterPushSW } from "@/components/pwa/RegisterPushSW";
+import { PushNotificationPrompt } from "@/components/push/PushNotificationPrompt";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -65,9 +65,9 @@ export default function RootLayout({
         <div className="orb orb-coral" style={{ width: 250, height: 250, top: '30%', right: '25%' }} />
         <div className="orb orb-purple" style={{ width: 200, height: 200, bottom: '40%', left: '60%' }} />
         {children}
-        <RegisterPushSW />
         <InstallPrompt />
         <IOSInstallGuide />
+        <PushNotificationPrompt />
       </body>
     </html>
   );

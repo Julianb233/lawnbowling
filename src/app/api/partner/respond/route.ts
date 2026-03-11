@@ -3,7 +3,6 @@ import { createClient } from "@/lib/supabase/server";
 import { updateRequestStatus } from "@/lib/db/partner-requests";
 import { createMatch } from "@/lib/db/matches";
 import { sendPushToPlayer } from "@/lib/push";
-import { createNotification } from "@/lib/db/notifications";
 
 export async function POST(request: NextRequest) {
   try {
@@ -87,21 +86,9 @@ export async function POST(request: NextRequest) {
         [partnerRequest.requester_id, partnerRequest.target_id]
       );
 
-      // Create persistent notification for the requester
-      const responderName = currentPlayer.display_name || "Your partner";
-      createNotification({
-        player_id: partnerRequest.requester_id,
-        type: "partner_request_accepted",
-        title: "Request Accepted!",
-        body: `${responderName} accepted your ${partnerRequest.sport} request!`,
-        metadata: {
-          request_id: partnerRequest.id,
-          match_id: match.id,
-          sport: partnerRequest.sport,
-        },
-      }).catch((err: unknown) => console.error("Failed to create notification:", err));
 
-      // Send push notification
+      // Notify the requester that their request was accepted
+      const responderName = currentPlayer.display_name || "Your partner";
       sendPushToPlayer(partnerRequest.requester_id, "partner_accepted", {
         title: "Partner Found!",
         body: `${responderName} accepted your request for ${partnerRequest.sport}!`,
@@ -113,19 +100,6 @@ export async function POST(request: NextRequest) {
     } else {
       // Decline: just update the request status
       await updateRequestStatus(request_id, "declined");
-
-      // Create persistent notification for the requester
-      createNotification({
-        player_id: partnerRequest.requester_id,
-        type: "partner_request_declined",
-        title: "Request Declined",
-        body: `${currentPlayer.display_name || "A player"} declined your ${partnerRequest.sport} request.`,
-        metadata: {
-          request_id: partnerRequest.id,
-          sport: partnerRequest.sport,
-        },
-      }).catch((err: unknown) => console.error("Failed to create notification:", err));
-
       return NextResponse.json({ status: "declined" });
     }
   } catch (error) {

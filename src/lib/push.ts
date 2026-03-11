@@ -1,97 +1,112 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const webpush = require("web-push") as typeof import("web-push");
 import { createClient } from "@/lib/supabase/server";
-import type { PushNotificationType } from "@/lib/types";
 
-/** Map notification type to the preference column that controls it */
-const TYPE_TO_PREF: Record<PushNotificationType, string> = {
-  partner_request: "push_partner_requests",
-  match_ready: "push_match_ready",
-  friend_checkin: "push_friend_checkin",
-  scheduled_reminder: "push_scheduled_reminder",
-};
+const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!;
+const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY!;
 
-function getWebPush() {
-  // Lazy-load web-push to keep it server-only
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const wp = require("web-push");
-  wp.setVapidDetails(
-    "mailto:hello@pickapartner.app",
-    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-    process.env.VAPID_PRIVATE_KEY!
-  );
-  return wp as {
-    sendNotification: (
-      sub: { endpoint: string; keys: { p256dh: string; auth: string } },
-      payload: string
-    ) => Promise<void>;
-  };
+webpush.setVapidDetails(
+  "mailto:support@pickapartner.app",
+  VAPID_PUBLIC_KEY,
+  VAPID_PRIVATE_KEY
+);
+
+export interface PushPayload {
+  title: string;
+  body: string;
+  icon?: string;
+  badge?: string;
+  tag?: string;
+  url?: string;
+  actions?: Array<{ action: string; title: string }>;
 }
 
-/**
- * Send a push notification to a player, respecting their preferences.
- * Returns the number of subscriptions notified (0 if opted out or no subscriptions).
- */
-export async function sendPushToPlayer(
-  playerId: string,
-  type: PushNotificationType,
-  payload: { title: string; body: string; url?: string }
-): Promise<number> {
+export type PushNotificationType =
+  | "partner_request"
+  | "partner_accepted"
+  | "court_available"
+  | "game_reminder";
+
+interface PushSubscriptionRow {
+  id: string;
+  user_id: string;
+  endpoint: string;
+  p256dh: string;
+  auth: string;
+  created_at: string;
+}
+
+export async function sendPushToUser(
+  userId: string,
+  payload: PushPayload
+): Promise<{ sent: number; failed: number }> {
   const supabase = await createClient();
-
-  // Check if user has this notification type enabled
-  const prefColumn = TYPE_TO_PREF[type];
-  const { data: prefs } = await supabase
-    .from("notification_preferences")
-    .select(prefColumn)
-    .eq("player_id", playerId)
-    .maybeSingle();
-
-  // Default is true if no preferences row exists
-  if (prefs && (prefs as unknown as Record<string, unknown>)[prefColumn] === false)
-    return 0;
-
-  // Get all push subscriptions for this player
-  const { data: subs } = await supabase
+  const { data: subscriptions, error } = await supabase
     .from("push_subscriptions")
-    .select("endpoint, p256dh, auth")
-    .eq("player_id", playerId);
+    .select("*")
+    .eq("user_id", userId);
 
-  if (!subs || subs.length === 0) return 0;
-
-  const webpush = getWebPush();
-  const message = JSON.stringify({
-    title: payload.title,
-    body: payload.body,
-    url: payload.url || "/",
-  });
+  if (error || !subscriptions || subscriptions.length === 0) {
+    return { sent: 0, failed: 0 };
+  }
 
   let sent = 0;
-  for (const sub of subs) {
+  let failed = 0;
+  const staleIds: string[] = [];
+
+  for (const sub of subscriptions as PushSubscriptionRow[]) {
     try {
       await webpush.sendNotification(
-        {
-          endpoint: sub.endpoint,
-          keys: { p256dh: sub.p256dh, auth: sub.auth },
-        },
-        message
+        { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
+        JSON.stringify(payload)
       );
       sent++;
     } catch (err: unknown) {
-      // 410 Gone or 404 = subscription expired, clean it up
-      if (
-        err &&
-        typeof err === "object" &&
-        "statusCode" in err &&
-        ((err as { statusCode: number }).statusCode === 410 ||
-          (err as { statusCode: number }).statusCode === 404)
-      ) {
-        await supabase
-          .from("push_subscriptions")
-          .delete()
-          .eq("player_id", playerId)
-          .eq("endpoint", sub.endpoint);
-      }
+      const statusCode = err && typeof err === "object" && "statusCode" in err
+        ? (err as { statusCode: number }).statusCode : 0;
+      if (statusCode === 410 || statusCode === 404) { staleIds.push(sub.id); }
+      failed++;
     }
   }
 
-  return sent;
+  if (staleIds.length > 0) {
+    await supabase.from("push_subscriptions").delete().in("id", staleIds);
+  }
+  return { sent, failed };
+}
+
+export async function sendPushToPlayer(
+  playerId: string,
+  type: PushNotificationType,
+  payload: PushPayload
+): Promise<{ sent: number; failed: number }> {
+  const supabase = await createClient();
+  const { data: player, error: playerError } = await supabase
+    .from("players").select("user_id").eq("id", playerId).single();
+
+  if (playerError || !player?.user_id) { return { sent: 0, failed: 0 }; }
+
+  const prefKey = getPrefKeyForType(type);
+  if (prefKey) {
+    const { data: prefs } = await supabase
+      .from("notification_preferences").select(prefKey).eq("player_id", playerId).single();
+    if (prefs && (prefs as unknown as Record<string, unknown>)[prefKey] === false) {
+      return { sent: 0, failed: 0 };
+    }
+  }
+  return sendPushToUser(player.user_id, payload);
+}
+
+function getPrefKeyForType(type: PushNotificationType): string | null {
+  switch (type) {
+    case "partner_request":
+    case "partner_accepted":
+      return "push_partner_requests";
+    case "court_available":
+      return "push_match_ready";
+    case "game_reminder":
+      return "push_scheduled_reminder";
+    default:
+      return null;
+  }
 }
