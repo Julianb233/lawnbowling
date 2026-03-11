@@ -4,14 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import * as Accordion from "@radix-ui/react-accordion";
 import {
-  Users,
+  CircleDot,
   ChevronDown,
   Search,
   Rocket,
-  Gamepad2,
+  Trophy,
   Shield,
   Building2,
   UserCircle,
+  Users,
   Wrench,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -28,46 +29,46 @@ const categories: FaqCategory[] = [
     icon: Rocket,
     questions: [
       {
-        q: "What is Pick a Partner?",
-        a: "Pick a Partner is a real-time digital player board for recreational sports at community venues. It replaces the traditional clipboard sign-up sheet, letting you check in, find partners, and get matched to courts — all from your phone or the venue kiosk.",
+        q: "What is Lawnbowling?",
+        a: "Lawnbowling is the digital platform for lawn bowling clubs. It replaces the paper draw sheet with automatic tournament draws, live scoring, a nationwide club directory, and learning resources — all accessible from a phone, iPad, or desktop.",
       },
       {
         q: "How do I create an account?",
-        a: "Tap 'Get Started' on the home page or visit the signup page. You can sign up with your email and a password. Once registered, you can set your preferred sports, skill levels, and profile details.",
+        a: "Tap 'Get Started' on the home page or visit the signup page. You can sign up with your email and a password. Once registered, you can set your preferred position, skill level, and profile details.",
       },
       {
-        q: "Is Pick a Partner free for players?",
-        a: "Yes. Pick a Partner is completely free for players. You can check in, browse available players, send partner requests, and get assigned to courts at no cost.",
+        q: "Is Lawnbowling free for players?",
+        a: "Yes. Lawnbowling is completely free for players. You can check in for tournament days, view your draw, enter scores, and track your stats at no cost.",
       },
       {
         q: "Do I need to download an app?",
-        a: "No. Pick a Partner is a Progressive Web App (PWA). Just visit the site on your phone's browser and tap 'Add to Home Screen' for an app-like experience. It works on iPhone, Android, iPad, and desktop.",
+        a: "No. Lawnbowling is a Progressive Web App (PWA). Just visit the site on your phone's browser and tap 'Add to Home Screen' for an app-like experience. It works on iPhone, Android, iPad, and desktop.",
       },
     ],
   },
   {
     name: "Playing",
-    icon: Gamepad2,
+    icon: Trophy,
     questions: [
       {
-        q: "How do I check in at a venue?",
-        a: "Walk up to the venue's iPad kiosk or open Pick a Partner on your phone. Select your sport and tap 'Check In' to mark yourself as available on the live board.",
+        q: "How do I check in for a tournament?",
+        a: "Walk up to the clubhouse iPad kiosk or open Lawnbowling on your phone. Tap 'Check In' to mark yourself as available for the draw. You can also select your preferred position (lead, second, third, or skip).",
       },
       {
-        q: "How does partner matching work?",
-        a: "Browse the live board to see who's available. Tap a player to send a partner request. If they accept, you're matched and assigned a court automatically. Requests expire after a set time if not accepted.",
+        q: "How does the draw work?",
+        a: "The drawmaster taps one button to generate the draw. Teams are formed automatically, rinks are assigned, and positions are balanced. You see your team, rink, and position instantly on screen.",
       },
       {
         q: "What sports are supported?",
-        a: "Currently supported: pickleball, tennis, lawn bowling, badminton, racquetball, and flag football. We're actively adding more sports based on venue and player requests.",
+        a: "Lawnbowling is built specifically for lawn bowling. All features — tournament draws, live scoring, club directory, and learning resources — are designed for the sport of bowls.",
       },
       {
-        q: "How do court timers work?",
-        a: "Once matched, your pair is assigned to an available court with a countdown timer (usually 15-30 minutes depending on venue settings). When time is up, the court is freed for the next players in rotation.",
+        q: "What formats are supported?",
+        a: "Lawnbowling supports Singles, Pairs, Triples, and Fours. Multiple rotation formats are available including Mead Draw and Gavel Draw for multi-round tournaments.",
       },
       {
-        q: "Can I play with a specific friend?",
-        a: "Yes. Find them on the board and tap their name to send a partner request directly. You can also add players as friends to quickly find them in future sessions.",
+        q: "How does scoring work?",
+        a: "Scores are entered per end, per rink on the iPad or phone. Results calculate automatically when all ends are complete. Stats update live.",
       },
     ],
   },
@@ -80,7 +81,7 @@ const categories: FaqCategory[] = [
         a: "Daily Event Insurance is per-event liability coverage for recreational sports. Instead of an annual policy, you pay a small fee per session — typically $5-$15 — and are covered for that specific event.",
       },
       {
-        q: "How do I get insurance through Pick a Partner?",
+        q: "How do I get insurance through Lawnbowling?",
         a: "After signing your digital waiver at the venue, an insurance offer appears in your profile. Tap 'Get Coverage' to activate instantly. No forms or phone calls required.",
       },
       {
@@ -94,12 +95,12 @@ const categories: FaqCategory[] = [
     ],
   },
   {
-    name: "Venues",
+    name: "Clubs",
     icon: Building2,
     questions: [
       {
-        q: "How do I set up my venue on Pick a Partner?",
-        a: "Create a venue account, enter your facility details (name, address, hours, sports), define your courts, and you're ready to go. Most venues are live within 30 minutes.",
+        q: "How do I set up my club on Lawnbowling?",
+        a: "Create a club account, enter your facility details (name, address, hours), define your rinks, and you're ready to go. Most clubs are live within 30 minutes.",
       },
       {
         q: "What equipment do I need?",
@@ -125,11 +126,7 @@ const categories: FaqCategory[] = [
     questions: [
       {
         q: "How do I update my profile?",
-        a: "Go to Settings > Profile to update your display name, avatar, preferred sports, and skill levels.",
-      },
-      {
-        q: "Can I change my skill level?",
-        a: "Yes. Visit your profile and tap on any sport to adjust your self-reported skill level. Venues may also have admin-set ratings based on observed play.",
+        a: "Go to Settings > Profile to update your display name, avatar, preferred position, and skill level.",
       },
       {
         q: "How do I delete my account?",
@@ -137,7 +134,7 @@ const categories: FaqCategory[] = [
       },
       {
         q: "Is my data private?",
-        a: "Yes. We only display your display name and sport preferences on the live board. Your email and personal details are never shared. See our Privacy Policy for details.",
+        a: "Yes. We only display your display name on the check-in board. Your email and personal details are never shared. See our Privacy Policy for details.",
       },
     ],
   },
@@ -147,11 +144,11 @@ const categories: FaqCategory[] = [
     questions: [
       {
         q: "Does it work offline?",
-        a: "Pick a Partner caches key data for offline access, but real-time features (live board, partner requests, court assignment) require an internet connection.",
+        a: "Lawnbowling caches key data for offline access, but real-time features (live board, partner requests, court assignment) require an internet connection.",
       },
       {
         q: "What browsers are supported?",
-        a: "Pick a Partner works in all modern browsers: Safari (iOS/macOS), Chrome (Android/desktop), Firefox, and Edge. We recommend the latest version for the best experience.",
+        a: "Lawnbowling works in all modern browsers: Safari (iOS/macOS), Chrome (Android/desktop), Firefox, and Edge. We recommend the latest version for the best experience.",
       },
       {
         q: "How do I install the PWA?",
@@ -204,11 +201,11 @@ export function FaqPage() {
       <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/15">
-              <Users className="h-5 w-5 text-white" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-lg">
+              <CircleDot className="h-5 w-5 text-[#1B5E20]" />
             </div>
             <span className="text-lg font-bold text-zinc-900">
-              Pick a Partner
+              Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -242,7 +239,7 @@ export function FaqPage() {
             <span className="text-gradient">Questions</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-600">
-            Everything you need to know about Pick a Partner — for players and
+            Everything you need to know about Lawnbowling — for players and
             venues alike.
           </p>
 
@@ -332,10 +329,10 @@ export function FaqPage() {
       <footer className="border-t border-zinc-200 bg-zinc-50">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
-              <Users className="h-4 w-4 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1B5E20]">
+              <CircleDot className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Lawnbowling</span>
           </Link>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <Link
@@ -364,7 +361,7 @@ export function FaqPage() {
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Pick a Partner
+            &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>
       </footer>

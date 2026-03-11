@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { PlayerStats, MatchResult } from "@/lib/types";
+import type { PlayerStats, MatchResult, FavoritePartner } from "@/lib/types";
 import { calculateElo } from "@/lib/matchmaking";
 import { upsertPlayerSkillRating } from "@/lib/db/matchmaking";
 
@@ -152,7 +152,7 @@ export async function getLeaderboard(
   })) as LeaderboardEntry[];
 }
 
-export async function getFavoritePartners(playerId: string, options?: { limit?: number }) {
+export async function getFavoritePartners(playerId: string, options?: { limit?: number }): Promise<FavoritePartner[]> {
   const supabase = await createClient();
   const limit = options?.limit ?? 5;
 
@@ -177,10 +177,11 @@ export async function getFavoritePartners(playerId: string, options?: { limit?: 
   if (!allMatchPlayers?.length) return [];
 
   // Count games with each partner (same team)
-  const partnerMap = new Map<string, { games: number; wins: number; player: unknown }>();
+  const partnerMap = new Map<string, { games: number; wins: number; player: FavoritePartner["partner"] }>();
   for (const mp of allMatchPlayers) {
     if (mp.team === teamByMatch.get(mp.match_id)) {
-      const existing = partnerMap.get(mp.player_id) || { games: 0, wins: 0, player: mp.players };
+      const playerData = Array.isArray(mp.players) ? mp.players[0] : mp.players;
+      const existing = partnerMap.get(mp.player_id) || { games: 0, wins: 0, player: playerData as unknown as FavoritePartner["partner"] };
       existing.games++;
       partnerMap.set(mp.player_id, existing);
     }
