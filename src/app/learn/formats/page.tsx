@@ -120,7 +120,7 @@ const socialFormats = [
   {
     name: "Pick-a-Partner",
     description:
-      "Players choose their own partner rather than being drawn randomly. Typically played as pairs. May be organized as a one-day tournament or a regular club event. This is the namesake format of our app.",
+      "Players choose their own partner rather than being drawn randomly. Typically played as pairs. May be organized as a one-day tournament or a regular club event. One of the most popular social bowls formats.",
   },
   {
     name: "Two-Bowl Formats",

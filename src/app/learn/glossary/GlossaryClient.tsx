@@ -571,7 +571,7 @@ const glossaryTerms: GlossaryTerm[] = [
   {
     term: "Pick-a-Partner",
     definition:
-      "A format where players choose their own partner rather than being randomly drawn. Typically played as pairs. The namesake format of this app.",
+      "A format where players choose their own partner rather than being randomly drawn. Typically played as pairs. One of the most popular social bowls formats.",
     category: "Social & Organizational",
   },
 

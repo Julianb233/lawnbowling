@@ -64,7 +64,7 @@ export function InsuranceOffer({ onDismiss, onStatusUpdate }: InsuranceOfferProp
 
         <div className="flex flex-wrap gap-3 pt-1">
           <a
-            href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+            href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => onStatusUpdate?.("active")}
