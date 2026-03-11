@@ -99,6 +99,7 @@ export async function PATCH(request: NextRequest) {
     if (preferred_hand !== undefined) updates.preferred_hand = preferred_hand;
     if (years_experience !== undefined) updates.years_experience = years_experience;
     if (home_club_id !== undefined) updates.home_club_id = home_club_id;
+    if (body.onboarding_state !== undefined) updates.onboarding_state = body.onboarding_state;
 
     const player = await updatePlayer(user.id, updates);
     return NextResponse.json(player);

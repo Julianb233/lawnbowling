@@ -443,6 +443,14 @@ export default function BowlsTournamentPage() {
                     >
                       {player.display_name}
                     </span>
+                    {playerTopRatings.has(player.id) && (() => {
+                      const r = playerTopRatings.get(player.id)!;
+                      return (
+                        <span className="text-[10px] font-bold text-[#1B5E20] dark:text-emerald-400">
+                          {r.position.charAt(0).toUpperCase() + r.position.slice(1)} {r.elo}
+                        </span>
+                      );
+                    })()}
                     {checked && (
                       <span className="text-[11px] text-zinc-400">
                         tap to undo
@@ -703,7 +711,6 @@ export default function BowlsTournamentPage() {
                   draw={drawResult}
                   revealMode={true}
                   currentUserId={currentUserId ?? undefined}
-                  revealMode={true}
                   tournamentName={tournamentName}
                   roundNumber={multiRoundDraw ? selectedRound + 1 : drawRound}
                 />
