@@ -2,863 +2,445 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowLeft,
-  ChevronRight,
-  Circle,
-  ShoppingBag,
+  CircleDot,
   Footprints,
   Briefcase,
-  Ruler,
-  Sparkles,
-  DollarSign,
+  Gem,
+  BookOpen,
+  ChevronRight,
+  Info,
   Star,
+  ExternalLink,
 } from "lucide-react";
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
-import { LearnBreadcrumb } from "@/components/learn/LearnBreadcrumb";
 import { getArticleSchema, getBreadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title:
-    "Lawn Bowling Equipment Buying Guide | Bowls, Shoes, Bags & Accessories",
+    "Lawn Bowling Equipment Buying Guide | What You Need to Get Started | Lawnbowling",
   description:
-    "Complete buying guide for lawn bowling equipment. Compare bowls from Henselite, Drakes Pride, Taylor, and Aero. Find the right size, bias, shoes, bags, and accessories for your level.",
-  alternates: {
-    canonical: "/learn/equipment",
-  },
-  openGraph: {
-    title: "Lawn Bowling Equipment Buying Guide (2026)",
-    description:
-      "Everything you need to know about buying lawn bowling equipment. Bowls, shoes, bags, and accessories compared.",
-    url: "https://lawnbowl.app/learn/equipment",
-    type: "article",
-  },
+    "Complete lawn bowling equipment guide. Learn about bowls, shoes, bags, and accessories. Expert buying tips, brand comparisons, and links to authorized retailers.",
 };
 
-const equipmentSchema = getArticleSchema({
-  title: "Lawn Bowling Equipment Buying Guide",
-  description:
-    "Complete lawn bowling equipment guide. Bowls, shoes, bags, and accessories with expert buying tips.",
-  url: "/learn/equipment",
-});
+// ---------------------------------------------------------------------------
+// Data
+// ---------------------------------------------------------------------------
 
-const equipmentBreadcrumbs = getBreadcrumbSchema([
-  { name: "Home", url: "/" },
-  { name: "Learn", url: "/learn" },
-  { name: "Equipment", url: "/learn/equipment" },
-]);
+interface Product {
+  name: string;
+  description: string;
+  url: string;
+  retailer: string;
+  priceRange: string;
+}
+
+interface EquipmentCategory {
+  key: string;
+  label: string;
+  icon: React.ReactNode;
+  description: string;
+  buyingTips: string[];
+  products: Product[];
+}
+
+const CATEGORIES: EquipmentCategory[] = [
+  {
+    key: "bowls",
+    label: "Bowls",
+    icon: <CircleDot className="size-6" />,
+    description:
+      "Your bowls are the most important piece of equipment. They come in sizes 00 to 5 with various bias profiles for different playing styles and positions.",
+    buyingTips: [
+      "Size matters: bowls should feel comfortable in your hand. Visit a pro shop or try club bowls to get fitted before buying.",
+      "Bias: narrow-bias bowls suit leads (draw shots), wider bias suits skips (tactical shots around other bowls).",
+      "Popular brands: Henselite, Taylor, Drakes Pride, Aero.",
+      "New bowlers: consider second-hand bowls until you know your preferred size and bias. Many clubs sell used sets.",
+      "Budget $400-$650 for a new set of four bowls. Second-hand sets can be found for $100-$250.",
+    ],
+    products: [
+      {
+        name: "Henselite Tiger II",
+        description:
+          "World's most popular bowl. Medium bias, suitable for all positions and conditions.",
+        url: "https://www.henselite.com.au",
+        retailer: "Henselite",
+        priceRange: "$450-$650",
+      },
+      {
+        name: "Taylor Ace",
+        description:
+          "Narrow to mid-bias bowl, ideal for leads. Excellent draw line and consistency.",
+        url: "https://www.taylorbowls.com",
+        retailer: "Taylor Bowls",
+        priceRange: "$400-$600",
+      },
+      {
+        name: "Drakes Pride Professional",
+        description:
+          "Mid-bias bowl suitable for all conditions. A reliable all-rounder at a competitive price.",
+        url: "https://www.drakespride.com",
+        retailer: "Drakes Pride",
+        priceRange: "$350-$550",
+      },
+      {
+        name: "Aero Quantum",
+        description:
+          "Modern design with ergonomic dimple grip. Mid-to-wide bias for versatile play.",
+        url: "https://www.aerobowls.com",
+        retailer: "Aero Bowls",
+        priceRange: "$500-$700",
+      },
+    ],
+  },
+  {
+    key: "shoes",
+    label: "Shoes",
+    icon: <Footprints className="size-6" />,
+    description:
+      "Flat-soled shoes are required on the green to protect the playing surface. Comfort and grip are essential for long matches.",
+    buyingTips: [
+      "Flat soles only -- heels and treaded soles damage the green and are not permitted.",
+      "White is traditional, but many clubs now accept coloured shoes.",
+      "Waterproof options are great for dewy morning games.",
+      "Good arch support is essential if you play regularly -- matches can last 2-3 hours.",
+    ],
+    products: [
+      {
+        name: "Henselite Pro Sport",
+        description:
+          "Lightweight with excellent grip. Approved by World Bowls. Available in white and grey.",
+        url: "https://www.henselite.com.au",
+        retailer: "Henselite",
+        priceRange: "$90-$140",
+      },
+      {
+        name: "Drakes Pride Cosmic",
+        description:
+          "Comfortable everyday bowling shoe with reinforced toe. Great value for beginners.",
+        url: "https://www.drakespride.com",
+        retailer: "Drakes Pride",
+        priceRange: "$60-$90",
+      },
+      {
+        name: "Dek Bowling Shoes",
+        description:
+          "Budget-friendly flat-sole shoes ideal for casual bowlers getting started.",
+        url: "https://www.amazon.com",
+        retailer: "Amazon",
+        priceRange: "$30-$50",
+      },
+    ],
+  },
+  {
+    key: "bags",
+    label: "Bags",
+    icon: <Briefcase className="size-6" />,
+    description:
+      "A proper bowls bag protects your investment and keeps gear organized. Sizes range from 2-bowl carry bags to large trolley bags.",
+    buyingTips: [
+      "Two-bowl bags are great for triples/fours players who carry fewer bowls.",
+      "Four-bowl bags with wheels save your back over a long season.",
+      "Look for padded dividers to prevent bowl-to-bowl damage.",
+      "External pockets for a measure, chalk spray, and towel are essential.",
+    ],
+    products: [
+      {
+        name: "Henselite Pro Trolley Bag",
+        description:
+          "4-bowl trolley bag with telescopic handle and multiple accessory pockets.",
+        url: "https://www.henselite.com.au",
+        retailer: "Henselite",
+        priceRange: "$120-$180",
+      },
+      {
+        name: "Taylor Bowls Midi Bag",
+        description: "Compact 2-bowl shoulder bag, perfect for pairs and triples.",
+        url: "https://www.taylorbowls.com",
+        retailer: "Taylor Bowls",
+        priceRange: "$40-$60",
+      },
+      {
+        name: "Drakes Pride Locker Bag",
+        description: "Full-size locker bag fits 4 bowls, shoes, and accessories.",
+        url: "https://www.drakespride.com",
+        retailer: "Drakes Pride",
+        priceRange: "$80-$120",
+      },
+    ],
+  },
+  {
+    key: "accessories",
+    label: "Accessories",
+    icon: <Gem className="size-6" />,
+    description:
+      "Essential accessories every bowler needs -- from measures and chalk spray to grip aids and rain gear.",
+    buyingTips: [
+      "A string measure is required for close shots -- keep one in your bag.",
+      "Chalk spray marks touchers (bowls that touch the jack).",
+      "A bowls towel keeps your bowls clean and dry between deliveries.",
+      "Grip wax helps maintain control in humid or cold conditions.",
+    ],
+    products: [
+      {
+        name: "Retractable Bowls Measure",
+        description:
+          "String measure with belt clip. Essential for determining shot in close situations.",
+        url: "https://www.amazon.com",
+        retailer: "Amazon",
+        priceRange: "$8-$15",
+      },
+      {
+        name: "Henselite Chalk Spray",
+        description:
+          "Quick-drying chalk spray for marking touchers. Standard white.",
+        url: "https://www.amazon.com",
+        retailer: "Amazon",
+        priceRange: "$5-$10",
+      },
+      {
+        name: "Grip Wax & Grip Aids",
+        description:
+          "Bowling grip wax and aids for better control in all weather conditions.",
+        url: "https://www.amazon.com",
+        retailer: "Amazon",
+        priceRange: "$8-$20",
+      },
+    ],
+  },
+  {
+    key: "books",
+    label: "Books & Learning",
+    icon: <BookOpen className="size-6" />,
+    description:
+      "Level up your game with instruction books, strategy guides, and lawn bowls history.",
+    buyingTips: [
+      "Start with a beginner's guide if you are new to the sport.",
+      "Strategy books help intermediate players improve shot selection and green reading.",
+      "Historical books provide wonderful context and appreciation for the sport's rich heritage.",
+    ],
+    products: [
+      {
+        name: "Lawn Bowls: A Beginner's Guide",
+        description:
+          "Comprehensive introduction covering rules, techniques, etiquette and tips.",
+        url: "https://www.amazon.com",
+        retailer: "Amazon",
+        priceRange: "$12-$18",
+      },
+      {
+        name: "The Complete Book of Bowls",
+        description:
+          "In-depth guide covering advanced tactics, green reading, and competitive play.",
+        url: "https://www.amazon.com",
+        retailer: "Amazon",
+        priceRange: "$20-$30",
+      },
+    ],
+  },
+];
+
+const DEALERS = [
+  {
+    name: "Henselite",
+    url: "https://www.henselite.com.au",
+    description: "World's leading manufacturer of lawn bowls and accessories.",
+    type: "Manufacturer",
+  },
+  {
+    name: "Taylor Bowls",
+    url: "https://www.taylorbowls.com",
+    description: "Premium Scottish bowls manufacturer since 1796.",
+    type: "Manufacturer",
+  },
+  {
+    name: "Drakes Pride",
+    url: "https://www.drakespride.com",
+    description: "Quality bowls, clothing and accessories for all levels.",
+    type: "Manufacturer",
+  },
+  {
+    name: "Amazon",
+    url: "https://www.amazon.com",
+    description:
+      "Wide selection of bowling accessories, books, and entry-level gear.",
+    type: "General Retailer",
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
 
 export default function EquipmentGuidePage() {
+  const articleSchema = getArticleSchema({
+    title: "Lawn Bowling Equipment Buying Guide",
+    description: "Complete lawn bowling equipment guide. Learn about bowls, shoes, bags, and accessories.",
+    url: "/learn/equipment",
+  });
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Learn", url: "/learn" },
+    { name: "Equipment Guide", url: "/learn/equipment" },
+  ]);
+
   return (
-    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
+    <div className="min-h-screen bg-white overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }} />
       <LearnNav />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLd(equipmentSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLd(equipmentBreadcrumbs) }}
-      />
 
-      <div className="mx-auto max-w-4xl px-6 pt-10 pb-24">
-        <LearnBreadcrumb items={[{ label: "Equipment Guide" }]} />
+      {/* Breadcrumb */}
+      <div className="mx-auto max-w-4xl px-6 pt-8">
+        <Link
+          href="/learn"
+          className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-700 transition"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Learning Hub
+        </Link>
+      </div>
 
-        {/* Page Header */}
-        <header className="mb-12">
-          <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 md:text-5xl">
-            Equipment{" "}
-            <span className="text-[#1B5E20]">Buying Guide</span>
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-            From your first borrowed set to a fully kitted-out bag, here is
-            everything you need to know about lawn bowling equipment. We cover
-            bowls, shoes, bags, and accessories -- with recommendations for
-            every budget.
-          </p>
-        </header>
-
-        {/* Table of Contents */}
-        <nav className="mb-12 rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-            On This Page
-          </h2>
-          <ul className="space-y-2 text-[15px]">
-            {[
-              { id: "bowls", label: "Bowls -- Your Most Important Purchase" },
-              { id: "choosing-size", label: "Choosing the Right Size" },
-              { id: "understanding-bias", label: "Understanding Bias" },
-              { id: "top-brands", label: "Top Bowl Brands Compared" },
-              { id: "new-vs-used", label: "New vs Second-Hand Bowls" },
-              { id: "shoes", label: "Shoes" },
-              { id: "bags", label: "Bags" },
-              { id: "accessories", label: "Accessories" },
-              { id: "beginners-budget", label: "Beginner's Budget" },
-            ].map((item) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className="text-[#1B5E20] hover:underline"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Content Sections */}
-        <div className="space-y-16">
-          {/* Bowls */}
-          <section id="bowls">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1B5E20]/10">
-                <Circle className="h-5 w-5 text-[#1B5E20]" />
-              </div>
-              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
-                Bowls -- Your Most Important Purchase
-              </h2>
-            </div>
-            <div className="space-y-4">
-              <p className="text-[16px] leading-relaxed text-zinc-700">
-                Lawn bowls are precision-engineered balls made of{" "}
-                <strong>composite resin</strong>. They are not perfectly round
-                -- each bowl is slightly <strong>asymmetrical</strong>, which
-                creates the <strong>bias</strong> (curve) that defines the
-                sport. A set consists of <strong>4 matched bowls</strong> with
-                identical markings.
-              </p>
-              <div className="rounded-xl border border-[#1B5E20]/20 bg-[#1B5E20]/5 p-6">
-                <h3 className="mb-3 font-bold text-[#1B5E20]">
-                  Do You Need Your Own Bowls to Start?
-                </h3>
-                <p className="text-[15px] leading-relaxed text-zinc-700">
-                  <strong>No.</strong> Every club maintains a set of{" "}
-                  <strong>club bowls</strong> in various sizes for members and
-                  visitors. Use these while you learn. Once you decide lawn
-                  bowls is your sport, your own set makes a meaningful
-                  difference -- familiar weight, consistent grip, and faster
-                  improvement.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Choosing Size */}
-          <section id="choosing-size">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1B5E20]/10">
-                <Ruler className="h-5 w-5 text-[#1B5E20]" />
-              </div>
-              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
-                Choosing the Right Size
-              </h2>
-            </div>
-            <div className="space-y-4">
-              <p className="text-[16px] leading-relaxed text-zinc-700">
-                Bowls come in <strong>9 standard sizes</strong>, numbered{" "}
-                <strong>0000</strong> (smallest) through <strong>5</strong>{" "}
-                (largest). The right size depends on the span of your hand.
-              </p>
-              <div className="overflow-hidden rounded-xl border border-zinc-200">
-                <table className="w-full text-left text-[15px]">
-                  <thead className="bg-zinc-50 dark:bg-white/5">
-                    <tr>
-                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
-                        Size
-                      </th>
-                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
-                        Typical User
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-zinc-100">
-                    {[
-                      {
-                        size: "0000 -- 00",
-                        user: "Small hands, juniors",
-                      },
-                      {
-                        size: "0 -- 1",
-                        user: "Women with smaller hands",
-                      },
-                      {
-                        size: "2 -- 3",
-                        user: "Women with larger hands, men with smaller hands",
-                      },
-                      { size: "3 -- 4", user: "Most men" },
-                      { size: "4 -- 5", user: "Men with larger hands" },
-                    ].map((row) => (
-                      <tr key={row.size}>
-                        <td className="px-5 py-3 font-medium text-[#1B5E20]">
-                          {row.size}
-                        </td>
-                        <td className="px-5 py-3 text-zinc-700">{row.user}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
-                  How to Test the Size
-                </h3>
-                <p className="text-[15px] leading-relaxed text-zinc-700">
-                  Hold a bowl in one hand with your fingers underneath and
-                  thumb on top. If you can comfortably grip it and turn your
-                  hand over without it slipping, the size is right. If you are
-                  straining, go smaller. If it feels loose, go larger. The
-                  best way to find your size is at a club where you can try
-                  different options.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Understanding Bias */}
-          <section id="understanding-bias">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1B5E20]/10">
-                <Sparkles className="h-5 w-5 text-[#1B5E20]" />
-              </div>
-              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
-                Understanding Bias
-              </h2>
-            </div>
-            <div className="space-y-4">
-              <p className="text-[16px] leading-relaxed text-zinc-700">
-                Different bowl models have different amounts of bias -- the
-                degree of curve in the bowl's path. This is the most important
-                technical decision when buying bowls.
-              </p>
-              <div className="grid gap-4 sm:grid-cols-3">
-                {[
-                  {
-                    label: "Narrow Bias",
-                    desc: "Relatively straight path with a gentle curve at the end. Preferred by leads and for fast greens.",
-                    color: "text-[#1B5E20]",
-                    bg: "bg-[#1B5E20]/10",
-                  },
-                  {
-                    label: "Medium Bias",
-                    desc: "Versatile middle ground. Best choice for beginners and most club players.",
-                    color: "text-[#1B5E20]",
-                    bg: "bg-[#1B5E20]/10",
-                  },
-                  {
-                    label: "Wide Bias",
-                    desc: "Pronounced curved path. Preferred by skips who need to draw around obstacles.",
-                    color: "text-amber-600",
-                    bg: "bg-amber-500/10",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="rounded-xl border border-zinc-200 bg-zinc-50 p-5"
-                  >
-                    <p className={`text-sm font-semibold ${item.color}`}>
-                      {item.label}
-                    </p>
-                    <p className="mt-2 text-[14px] leading-relaxed text-zinc-700">
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <div className="rounded-xl border border-[#1B5E20]/20 bg-[#1B5E20]/5 p-6">
-                <p className="text-[15px] leading-relaxed text-zinc-700">
-                  <strong>Beginner recommendation:</strong> Start with a{" "}
-                  <strong>medium-bias</strong> bowl. This gives you the most
-                  flexibility as you learn and allows you to play any position
-                  on the team.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Top Brands */}
-          <section id="top-brands">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1B5E20]/10">
-                <Star className="h-5 w-5 text-[#1B5E20]" />
-              </div>
-              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
-                Top Bowl Brands Compared
-              </h2>
-            </div>
-            <div className="space-y-4">
-              <p className="text-[16px] leading-relaxed text-zinc-700">
-                Four manufacturers dominate the global lawn bowls market. All
-                produce competition-grade bowls approved by World Bowls.
-              </p>
-
-              {[
-                {
-                  brand: "Henselite",
-                  origin: "Australia",
-                  models:
-                    "Tiger, Tiger II, Tiger Evo, Tiger Pro, Dreamline XG",
-                  price: "$600 -- $650+ per set of 4",
-                  known:
-                    "Mega Grip technology, 10-year guarantee, largest market share",
-                  best: "All levels. Tiger II is an excellent all-around choice for beginners.",
-                },
-                {
-                  brand: "Taylor",
-                  origin: "Scotland",
-                  models: "Ace, Blaze, Vector VS, International",
-                  price: "$400 -- $600 per set of 4",
-                  known:
-                    "Precision engineering, oldest brand in the sport (est. 1796)",
-                  best: "Leads (Ace/Blaze for narrow bias), all-rounders (Vector VS).",
-                },
-                {
-                  brand: "Drakes Pride",
-                  origin: "United Kingdom",
-                  models: "Professional, XP, Pro-50",
-                  price: "$400 -- $550 per set of 4",
-                  known:
-                    "Consistent performance, preferred supplier for many UK clubs",
-                  best: "Club players wanting reliable, mid-range bowls.",
-                },
-                {
-                  brand: "Aero",
-                  origin: "Australia",
-                  models: "Quantum, GrooVe, Sonic, Optima, Z Scoop",
-                  price: "$500 -- $650+ per set of 4",
-                  known:
-                    "Most grip styles and color options of any brand, innovative designs",
-                  best: "Players wanting extensive customization.",
-                },
-              ].map((b) => (
-                <div
-                  key={b.brand}
-                  className="rounded-xl border border-zinc-200 bg-zinc-50 p-6"
-                >
-                  <div className="flex items-baseline justify-between mb-3">
-                    <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
-                      {b.brand}
-                    </h3>
-                    <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                      {b.origin}
-                    </span>
-                  </div>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div>
-                      <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wide">
-                        Popular Models
-                      </p>
-                      <p className="mt-1 text-[14px] text-zinc-700">
-                        {b.models}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wide">
-                        Price Range
-                      </p>
-                      <p className="mt-1 text-[14px] text-zinc-700">
-                        {b.price}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wide">
-                        Known For
-                      </p>
-                      <p className="mt-1 text-[14px] text-zinc-700">
-                        {b.known}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wide">
-                        Best For
-                      </p>
-                      <p className="mt-1 text-[14px] text-zinc-700">
-                        {b.best}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* New vs Used */}
-          <section id="new-vs-used">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1B5E20]/10">
-                <ShoppingBag className="h-5 w-5 text-[#1B5E20]" />
-              </div>
-              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
-                New vs Second-Hand Bowls
-              </h2>
-            </div>
-            <div className="space-y-4">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                  <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
-                    New Bowls
-                  </h3>
-                  <ul className="space-y-2 text-[15px] text-zinc-700">
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1B5E20]/60" />
-                      $400 -- $650 per set
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1B5E20]/60" />
-                      Choose exact model, size, color, and grip
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1B5E20]/60" />
-                      Manufacturer warranty (up to 10 years)
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1B5E20]/60" />
-                      Current bias certification
-                    </li>
-                  </ul>
-                </div>
-                <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                  <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
-                    Second-Hand Bowls
-                  </h3>
-                  <ul className="space-y-2 text-[15px] text-zinc-700">
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500/60" />
-                      $100 -- $250 per set
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500/60" />
-                      Limited choice of model and color
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500/60" />
-                      Check for valid bias stamp
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500/60" />
-                      Excellent value for beginners
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
-                  Tips for Buying Second-Hand
-                </h3>
-                <ul className="space-y-2 text-[15px] text-zinc-700">
-                  {[
-                    "Check for a valid bias stamp (stamps expire and bowls can be re-tested).",
-                    "Inspect the running surface for wear -- chips or excessive flatting affect performance.",
-                    "Ensure all 4 bowls are the same size, weight, and model.",
-                    "Test the grip -- heavily polished bowls can become slippery.",
-                    "Ask at your local club first -- many clubs sell second-hand sets from departing members.",
-                  ].map((tip, i) => (
-                    <li key={i} className="flex gap-3">
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#1B5E20] text-[10px] font-bold text-white mt-0.5">
-                        {i + 1}
-                      </span>
-                      {tip}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* Shoes */}
-          <section id="shoes">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1B5E20]/10">
-                <Footprints className="h-5 w-5 text-[#1B5E20]" />
-              </div>
-              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
-                Shoes
-              </h2>
-            </div>
-            <div className="space-y-4">
-              <p className="text-[16px] leading-relaxed text-zinc-700">
-                You <strong>must</strong> wear flat-soled shoes on a bowling
-                green. Regular athletic shoes with textured soles will damage
-                the turf. &ldquo;Flat-soled&rdquo; means no tread pattern, no
-                heels, and no grip texture -- just a smooth, uniform surface.
-              </p>
-              <div className="overflow-hidden rounded-xl border border-zinc-200">
-                <table className="w-full text-left text-[15px]">
-                  <thead className="bg-zinc-50 dark:bg-white/5">
-                    <tr>
-                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
-                        Type
-                      </th>
-                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
-                        Price
-                      </th>
-                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
-                        Best For
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-zinc-100">
-                    {[
-                      {
-                        type: "Dedicated bowling shoes",
-                        price: "$30 -- $120",
-                        best: "Regular players",
-                      },
-                      {
-                        type: "Flat-soled sneakers",
-                        price: "$20 -- $50",
-                        best: "Budget-conscious beginners",
-                      },
-                      {
-                        type: "Club loaner shoes",
-                        price: "Free",
-                        best: "First-time visitors",
-                      },
-                    ].map((row) => (
-                      <tr key={row.type}>
-                        <td className="px-5 py-3 font-medium text-zinc-900 dark:text-zinc-100">
-                          {row.type}
-                        </td>
-                        <td className="px-5 py-3 text-[#1B5E20] font-medium">
-                          {row.price}
-                        </td>
-                        <td className="px-5 py-3 text-zinc-700">{row.best}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
-                  Popular Shoe Brands
-                </h3>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {[
-                    {
-                      brand: "Henselite (Seneca, Pro Flex)",
-                      range: "$80 -- $120",
-                      tier: "Premium",
-                    },
-                    {
-                      brand: "DEK",
-                      range: "$30 -- $50",
-                      tier: "Budget",
-                    },
-                    {
-                      brand: "Drakes Pride",
-                      range: "$50 -- $90",
-                      tier: "Mid-range",
-                    },
-                    {
-                      brand: "Asics Gel Rink Scorcher 4",
-                      range: "$80 -- $110",
-                      tier: "Athletic crossover",
-                    },
-                  ].map((s) => (
-                    <div
-                      key={s.brand}
-                      className="flex items-center justify-between rounded-lg border border-zinc-100 bg-white px-4 py-3"
-                    >
-                      <div>
-                        <p className="text-[14px] font-semibold text-zinc-900 dark:text-zinc-100">
-                          {s.brand}
-                        </p>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400">{s.tier}</p>
-                      </div>
-                      <p className="text-[14px] font-medium text-[#1B5E20]">
-                        {s.range}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Bags */}
-          <section id="bags">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/10">
-                <Briefcase className="h-5 w-5 text-purple-600" />
-              </div>
-              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
-                Bags
-              </h2>
-            </div>
-            <div className="space-y-4">
-              <p className="text-[16px] leading-relaxed text-zinc-700">
-                A set of 4 bowls weighs about <strong>6.5 kg (14 lbs)</strong>,
-                so a proper bag matters. Here are your options.
-              </p>
-              <div className="overflow-hidden rounded-xl border border-zinc-200">
-                <table className="w-full text-left text-[15px]">
-                  <thead className="bg-zinc-50 dark:bg-white/5">
-                    <tr>
-                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
-                        Type
-                      </th>
-                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
-                        Capacity
-                      </th>
-                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
-                        Price
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-zinc-100">
-                    {[
-                      {
-                        type: "2-bowl carrier",
-                        cap: "2 bowls",
-                        price: "$20 -- $40",
-                      },
-                      {
-                        type: "4-bowl bag (standard)",
-                        cap: "4 bowls + accessories",
-                        price: "$40 -- $80",
-                      },
-                      {
-                        type: "Trolley bag (wheeled)",
-                        cap: "4 bowls + shoes + accessories",
-                        price: "$80 -- $200",
-                      },
-                      {
-                        type: "Backpack style",
-                        cap: "4 bowls + accessories",
-                        price: "$50 -- $100",
-                      },
-                    ].map((row) => (
-                      <tr key={row.type}>
-                        <td className="px-5 py-3 font-medium text-zinc-900 dark:text-zinc-100">
-                          {row.type}
-                        </td>
-                        <td className="px-5 py-3 text-zinc-700">{row.cap}</td>
-                        <td className="px-5 py-3 text-[#1B5E20] font-medium">
-                          {row.price}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="rounded-xl border border-[#1B5E20]/20 bg-[#1B5E20]/5 p-6">
-                <p className="text-[15px] leading-relaxed text-zinc-700">
-                  <strong>Recommendation:</strong> A standard{" "}
-                  <strong>4-bowl bag</strong> with a separate accessory
-                  compartment is all most players need. Upgrade to a trolley
-                  bag if you play frequently or prefer not to carry the weight.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Accessories */}
-          <section id="accessories">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-500/10">
-                <Sparkles className="h-5 w-5 text-amber-600" />
-              </div>
-              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
-                Accessories
-              </h2>
-            </div>
-            <div className="space-y-4">
-              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
-                  Must-Have Accessories
-                </h3>
-                <div className="space-y-3">
-                  {[
-                    {
-                      name: "Chalk spray or stick",
-                      price: "$5 -- $12",
-                      desc: "Marks touchers (bowls that have touched the jack). Essential for proper play.",
-                    },
-                    {
-                      name: "Polishing cloth",
-                      price: "$5 -- $10",
-                      desc: "Wipe bowls before play to remove moisture and ensure consistent grip.",
-                    },
-                    {
-                      name: "Retractable tape measure",
-                      price: "$10 -- $20",
-                      desc: "Determines closest bowl at the end of each end. Bowls-specific measures lock at the measuring point.",
-                    },
-                  ].map((item) => (
-                    <div
-                      key={item.name}
-                      className="flex items-start justify-between gap-4 rounded-lg border border-zinc-100 bg-white dark:bg-[#1a3d28] p-4"
-                    >
-                      <div>
-                        <p className="font-semibold text-zinc-900 text-[15px]">
-                          {item.name}
-                        </p>
-                        <p className="mt-1 text-[13px] text-zinc-600 dark:text-zinc-400">
-                          {item.desc}
-                        </p>
-                      </div>
-                      <span className="shrink-0 text-[14px] font-medium text-[#1B5E20]">
-                        {item.price}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
-                  Nice-to-Have Accessories
-                </h3>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {[
-                    { name: "Bowl grip/wax", price: "$5 -- $15" },
-                    { name: "Bowl polish", price: "$8 -- $15" },
-                    { name: "Calipers", price: "$15 -- $35" },
-                    { name: "Bowling gloves", price: "$15 -- $25" },
-                    { name: "Scorecard holder", price: "$5 -- $30" },
-                    { name: "Bowling arm (delivery aid)", price: "$50 -- $150" },
-                  ].map((item) => (
-                    <div
-                      key={item.name}
-                      className="flex items-center justify-between rounded-lg border border-zinc-100 bg-white px-4 py-3"
-                    >
-                      <p className="text-[14px] text-zinc-700">{item.name}</p>
-                      <p className="text-[14px] font-medium text-[#1B5E20]">
-                        {item.price}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Beginner's Budget */}
-          <section id="beginners-budget">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1B5E20]/10">
-                <DollarSign className="h-5 w-5 text-[#1B5E20]" />
-              </div>
-              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
-                Beginner&apos;s Budget
-              </h2>
-            </div>
-            <div className="space-y-4">
-              <p className="text-[16px] leading-relaxed text-zinc-700">
-                Here is a prioritized buying timeline for new players. You do
-                not need to buy everything at once -- build your kit as your
-                commitment grows.
-              </p>
-
-              {[
-                {
-                  phase: "Before Your First Game",
-                  items: [
-                    {
-                      item: "Nothing. Use club equipment.",
-                      cost: "$0",
-                    },
-                  ],
-                  subtotal: "$0",
-                },
-                {
-                  phase: "Month 1 -- 3 (After Joining)",
-                  items: [
-                    { item: "Flat-soled shoes", cost: "$30 -- $80" },
-                    {
-                      item: "Bowls (second-hand)",
-                      cost: "$100 -- $250",
-                    },
-                    { item: "4-bowl bag", cost: "$40 -- $80" },
-                  ],
-                  subtotal: "$170 -- $410",
-                },
-                {
-                  phase: "Month 3 -- 6 (Getting Involved)",
-                  items: [
-                    { item: "Retractable measure", cost: "$10 -- $20" },
-                    { item: "Chalk spray", cost: "$5 -- $12" },
-                    { item: "Polishing cloth", cost: "$5 -- $10" },
-                  ],
-                  subtotal: "$20 -- $42",
-                },
-                {
-                  phase: "Month 6+ (Committed Player)",
-                  items: [
-                    { item: "Calipers", cost: "$15 -- $35" },
-                    { item: "Bowl polish", cost: "$8 -- $15" },
-                    {
-                      item: "Trolley bag (upgrade)",
-                      cost: "$80 -- $200",
-                    },
-                  ],
-                  subtotal: "$103 -- $250",
-                },
-              ].map((phase) => (
-                <div
-                  key={phase.phase}
-                  className="rounded-xl border border-zinc-200 bg-zinc-50 p-6"
-                >
-                  <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
-                    {phase.phase}
-                  </h3>
-                  <div className="space-y-2">
-                    {phase.items.map((row) => (
-                      <div
-                        key={row.item}
-                        className="flex items-center justify-between text-[15px]"
-                      >
-                        <span className="text-zinc-700">{row.item}</span>
-                        <span className="font-medium text-zinc-900 dark:text-zinc-100">
-                          {row.cost}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-3 flex items-center justify-between border-t border-zinc-200 pt-3">
-                    <span className="text-[14px] font-semibold text-zinc-500 uppercase tracking-wide">
-                      Subtotal
-                    </span>
-                    <span className="font-bold text-[#1B5E20]">
-                      {phase.subtotal}
-                    </span>
-                  </div>
-                </div>
-              ))}
-
-              <div className="rounded-xl border-2 border-[#1B5E20]/30 bg-[#1B5E20]/5 p-6">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-[#1B5E20]">
-                    Total Estimated Cost (Fully Equipped)
-                  </h3>
-                  <span className="text-lg font-bold text-[#1B5E20]">
-                    $200 -- $700
-                  </span>
-                </div>
-                <p className="mt-2 text-[14px] text-zinc-600 dark:text-zinc-400">
-                  With second-hand bowls: $200 -- $500. With new bowls: $500 --
-                  $900. Spread over 6+ months as your involvement grows.
-                </p>
-              </div>
-            </div>
-          </section>
+      {/* Hero */}
+      <section className="mx-auto max-w-4xl px-6 pt-10 pb-12 text-center">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#1B5E20]/20 bg-[#1B5E20]/10 px-4 py-1.5">
+          <span className="text-sm font-medium text-[#1B5E20]">
+            Buying Guide
+          </span>
         </div>
+        <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-zinc-900 md:text-5xl">
+          Equipment & Gear Guide
+        </h1>
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600">
+          Everything you need to get started or upgrade your lawn bowling kit.
+          Expert buying tips plus links to trusted retailers.
+        </p>
+      </section>
 
-        {/* Navigation */}
-        <div className="mt-16 flex flex-col gap-4 sm:flex-row sm:justify-between">
-          <Link
-            href="/learn"
-            className="inline-flex items-center gap-2 text-[15px] font-semibold text-[#1B5E20] hover:underline"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Learning Hub
-          </Link>
-          <Link
-            href="/blog/lawn-bowling-equipment"
-            className="inline-flex items-center gap-2 text-[15px] font-semibold text-[#1B5E20] hover:underline"
-          >
-            Read Full Equipment Article
-            <ChevronRight className="h-4 w-4" />
-          </Link>
+      {/* Quick Nav */}
+      <div className="mx-auto max-w-4xl px-6 pb-12">
+        <div className="flex flex-wrap justify-center gap-2">
+          {CATEGORIES.map((cat) => (
+            <a
+              key={cat.key}
+              href={`#${cat.key}`}
+              className="flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-700 transition hover:border-[#1B5E20] hover:text-[#1B5E20]"
+            >
+              {cat.icon}
+              {cat.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Categories */}
+      <div className="mx-auto max-w-4xl px-6 pb-16 space-y-14">
+        {CATEGORIES.map((cat) => (
+          <section key={cat.key} id={cat.key} className="scroll-mt-20">
+            {/* Category header */}
+            <div className="mb-6 flex items-start gap-3">
+              <div className="flex size-12 items-center justify-center rounded-xl bg-[#1B5E20]/10 text-[#1B5E20]">
+                {cat.icon}
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-zinc-900">{cat.label}</h2>
+                <p className="mt-1 text-[15px] text-zinc-600">
+                  {cat.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Buying tips */}
+            <div className="mb-6 rounded-xl border border-[#1B5E20]/20 bg-[#1B5E20]/5 p-5">
+              <div className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-[#1B5E20]">
+                <Info className="size-4" />
+                Buying Tips
+              </div>
+              <ul className="space-y-1.5 text-[15px] text-zinc-700">
+                {cat.buyingTips.map((tip, i) => (
+                  <li key={i} className="flex gap-2">
+                    <ChevronRight className="mt-0.5 size-3.5 flex-shrink-0 text-[#1B5E20]" />
+                    <span>{tip}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Products */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {cat.products.map((product) => (
+                <Link
+                  key={product.name}
+                  href={product.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col rounded-xl border border-zinc-200 bg-white p-5 transition hover:shadow-md hover:-translate-y-0.5"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="font-semibold text-zinc-900 group-hover:text-[#1B5E20]">
+                      {product.name}
+                    </h3>
+                    <ExternalLink className="size-4 flex-shrink-0 text-zinc-400 group-hover:text-[#1B5E20]" />
+                  </div>
+                  <p className="mt-1.5 flex-1 text-sm text-zinc-600">
+                    {product.description}
+                  </p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <span className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600">
+                      {product.retailer}
+                    </span>
+                    <span className="text-sm font-semibold text-zinc-900">
+                      {product.priceRange}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      {/* Authorized Dealers */}
+      <section className="mx-auto max-w-4xl px-6 pb-16">
+        <h2 className="mb-6 text-center text-xl font-bold text-zinc-900">
+          Authorized Dealers & Retailers
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {DEALERS.map((dealer) => (
+            <Link
+              key={dealer.name}
+              href={dealer.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col rounded-xl border border-zinc-200 bg-white p-5 text-center transition hover:shadow-md"
+            >
+              <div className="mb-2 flex items-center justify-center gap-1">
+                <Star className="size-4 text-[#B8860B]" />
+                <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                  {dealer.type}
+                </span>
+              </div>
+              <h3 className="text-lg font-bold text-zinc-900 group-hover:text-[#1B5E20]">
+                {dealer.name}
+              </h3>
+              <p className="mt-1 flex-1 text-sm text-zinc-600">
+                {dealer.description}
+              </p>
+              <span className="mt-3 inline-flex items-center justify-center gap-1 text-sm font-medium text-[#1B5E20]">
+                Visit Store <ExternalLink className="size-3.5" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <div className="mx-auto max-w-4xl px-6 pb-8">
+        <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-center text-xs text-zinc-500">
+          Links on this page may be affiliate links. We may earn a small
+          commission at no extra cost to you when you purchase through these
+          links. This helps support the Lawnbowling app. Prices shown are
+          approximate and may vary by retailer.
         </div>
       </div>
 

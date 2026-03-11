@@ -60,6 +60,28 @@
       ],
       "destination": "https://lawnbowl.app/:path",
       "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "lawnbowl.camp"
+        }
+      ],
+      "destination": "https://lawnbowl.app/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lawnbowl.camp"
+        }
+      ],
+      "destination": "https://lawnbowl.app/:path",
+      "permanent": true
     }
   ],
   "crons": [

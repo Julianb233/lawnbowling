@@ -60,7 +60,7 @@ export function getSoftwareApplicationSchema() {
     featureList: [
       "Tournament draw generator",
       "Round-robin bracket maker",
-      "Club directory with 90+ lawn bowling clubs",
+      "Club directory with 200+ US clubs",
       "QR code venue check-in",
       "Live scoring",
       "Player matchmaking",
@@ -221,6 +221,51 @@ export function getFAQSchema(
         text: faq.answer,
       },
     })),
+  };
+}
+
+/**
+ * Article schema for learn/educational pages.
+ */
+export function getArticleSchema(article: {
+  title: string;
+  description: string;
+  url: string;
+  datePublished?: string;
+  dateModified?: string;
+  image?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.description,
+    url: article.url.startsWith("http")
+      ? article.url
+      : `${BASE_URL}${article.url}`,
+    image: article.image ?? `${BASE_URL}/opengraph-image.png`,
+    datePublished: article.datePublished ?? "2025-01-01",
+    dateModified: article.dateModified ?? new Date().toISOString().split("T")[0],
+    author: {
+      "@type": "Organization",
+      name: "Lawnbowling",
+      url: BASE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Lawnbowling",
+      url: BASE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/icons/icon-512.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": article.url.startsWith("http")
+        ? article.url
+        : `${BASE_URL}${article.url}`,
+    },
   };
 }
 
