@@ -9,6 +9,7 @@ import {
   getWebSiteSchema,
   jsonLd,
 } from "@/lib/schema";
+import { SITE_URL } from "@/lib/site-config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,7 +34,7 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const BASE_URL = "https://lawnbowl.app";
+const BASE_URL = SITE_URL;
 
 export const metadata: Metadata = {
   title: {

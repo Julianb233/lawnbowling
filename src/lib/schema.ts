@@ -2,8 +2,9 @@
 // See https://schema.org for full specification
 
 import type { ClubData } from "./clubs-data";
+import { SITE_URL } from "./site-config";
 
-const BASE_URL = "https://lawnbowl.app";
+const BASE_URL = SITE_URL;
 
 /**
  * SportsOrganization schema for the Lawnbowling app itself.

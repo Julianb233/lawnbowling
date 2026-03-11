@@ -2,8 +2,9 @@ import type { MetadataRoute } from "next";
 import { CLUBS, getStatesWithClubs } from "@/lib/clubs-data";
 import { getAllBlogPosts } from "@/lib/blog-posts";
 import { PRODUCTS } from "@/lib/shop/products";
+import { SITE_URL } from "@/lib/site-config";
 
-const BASE_URL = "https://lawnbowl.app";
+const BASE_URL = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
