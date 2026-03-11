@@ -1,4 +1,4 @@
-// Push notification service worker for Pick a Partner
+// Push notification service worker for Lawnbowling
 // This runs independently of the Serwist PWA service worker
 
 self.addEventListener("push", function (event) {
@@ -8,14 +8,14 @@ self.addEventListener("push", function (event) {
   try {
     payload = event.data.json();
   } catch (e) {
-    payload = { title: "Pick a Partner", body: event.data.text() };
+    payload = { title: "Lawnbowling", body: event.data.text() };
   }
 
   var options = {
     body: payload.body,
     icon: payload.icon || "/icons/icon-192.png",
     badge: payload.badge || "/icons/icon-72.png",
-    tag: payload.tag || "pap-notification",
+    tag: payload.tag || "lb-notification",
     data: { url: payload.url || "/" },
     actions: payload.actions || [],
     vibrate: [200, 100, 200],

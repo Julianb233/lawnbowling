@@ -1,6 +1,6 @@
 -- Club Directory Table
 -- Stores all lawn bowling clubs in the USA (and eventually worldwide)
--- Uses the same Supabase instance as Pick a Partner
+-- Uses the same Supabase instance as Lawnbowling
 
 create table if not exists clubs (
   id uuid primary key default uuid_generate_v4(),

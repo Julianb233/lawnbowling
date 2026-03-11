@@ -6,7 +6,6 @@ import {
   CLUBS,
   US_STATES,
   SURFACE_LABELS,
-  DIVISION_LABELS,
   getClubsByState,
   getStatesWithClubs,
   type ClubData,
@@ -41,8 +40,8 @@ export async function generateMetadata({
 
   const stateInfo = US_STATES[stateCode];
   const clubs = getClubsByState(stateCode);
-  const title = `Lawn Bowling Clubs in ${stateInfo.name}`;
-  const description = `Find ${clubs.length} lawn bowling club${clubs.length !== 1 ? "s" : ""} in ${stateInfo.name}. Browse clubs by city, surface type, and division. Join your local lawn bowling community.`;
+  const title = `Lawn Bowls Clubs in ${stateInfo.name}`;
+  const description = `Find ${clubs.length} lawn bowls club${clubs.length !== 1 ? "s" : ""} in ${stateInfo.name}. Browse clubs by city and surface type. Join your local lawn bowls community.`;
 
   return {
     title,
@@ -53,7 +52,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://lawnbowl.app/clubs/${stateCode.toLowerCase()}`,
+      url: `https://lawnbowls.app/clubs/${stateCode.toLowerCase()}`,
       type: "website",
     },
     twitter: {
@@ -114,7 +113,7 @@ export default async function StatePage({ params }: StatePageProps) {
           <div className="flex items-start justify-between gap-4">
             <div>
               <h1 className="text-2xl font-black tracking-tight text-zinc-900 sm:text-3xl">
-                Lawn Bowling Clubs in {stateInfo.name}
+                Lawn Bowls Clubs in {stateInfo.name}
               </h1>
               <p className="mt-1 text-sm text-zinc-500">
                 {clubs.length} club{clubs.length !== 1 ? "s" : ""} found
@@ -145,7 +144,7 @@ export default async function StatePage({ params }: StatePageProps) {
             Know a club in {stateInfo.name} we&apos;re missing?
           </h3>
           <p className="mt-1 text-sm text-zinc-500">
-            Help us build the most complete lawn bowling directory
+            Help us build the most complete lawn bowls directory
           </p>
           <Link
             href="/clubs/claim"
@@ -216,11 +215,6 @@ function ClubListCard({ club }: { club: ClubData }) {
               {club.surfaceType !== "unknown" && (
                 <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-600">
                   {SURFACE_LABELS[club.surfaceType]}
-                </span>
-              )}
-              {club.division !== "none" && (
-                <span className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
-                  {DIVISION_LABELS[club.division]}
                 </span>
               )}
               {club.website && (

@@ -149,7 +149,7 @@ export default function LoginPage() {
 
             <p className="mt-4 text-lg leading-relaxed text-gray-500">
               The real-time player board for recreational sports venues.
-              Check in, pick a partner, and play.
+              Check in, draw teams, and bowl.
             </p>
 
             {/* Feature Cards */}

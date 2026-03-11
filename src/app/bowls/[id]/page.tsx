@@ -58,6 +58,7 @@ export default function BowlsTournamentPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [generatingDraw, setGeneratingDraw] = useState(false);
   const [tournamentName, setTournamentName] = useState("Lawn Bowls");
+  const [drawRound, setDrawRound] = useState(1);
 
   const loadPlayers = useCallback(async () => {
     const supabase = createClient();
@@ -90,7 +91,6 @@ export default function BowlsTournamentPage() {
       .single();
     if (data) {
       setTournamentName(data.name);
-      // If tournament has a bowls format stored in the format field, use it
       const bowlsFormats = ["fours", "triples", "pairs", "singles"];
       if (bowlsFormats.includes(data.format)) {
         setFormat(data.format as BowlsGameFormat);
@@ -200,7 +200,7 @@ export default function BowlsTournamentPage() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
@@ -225,7 +225,7 @@ export default function BowlsTournamentPage() {
               <select
                 value={format}
                 onChange={(e) => setFormat(e.target.value as BowlsGameFormat)}
-                className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-700 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-700 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
               >
                 {(Object.entries(BOWLS_FORMAT_LABELS) as [BowlsGameFormat, typeof BOWLS_FORMAT_LABELS[BowlsGameFormat]][]).map(
                   ([key, val]) => (
@@ -239,7 +239,7 @@ export default function BowlsTournamentPage() {
           </div>
 
           {/* View tabs */}
-          <div className="mt-3 flex gap-1">
+          <div className="mt-3 flex gap-1 no-print">
             {(
               [
                 { key: "checkin" as PageView, label: "Check In" },
@@ -253,7 +253,7 @@ export default function BowlsTournamentPage() {
                 className={cn(
                   "rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
                   view === tab.key
-                    ? "bg-blue-500 text-white"
+                    ? "bg-[#1B5E20] text-white"
                     : "text-zinc-500 hover:bg-zinc-100"
                 )}
               >
@@ -286,7 +286,7 @@ export default function BowlsTournamentPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for your name..."
-                className="w-full rounded-2xl border border-zinc-200 bg-white px-5 py-4 text-lg text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="w-full rounded-2xl border border-zinc-200 bg-white px-5 py-4 text-lg text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
               />
             </div>
 
@@ -330,7 +330,7 @@ export default function BowlsTournamentPage() {
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
                           exit={{ scale: 0 }}
-                          className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-500"
+                          className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1B5E20]"
                         >
                           <span className="text-xl text-white">&#10003;</span>
                         </motion.div>
@@ -352,7 +352,7 @@ export default function BowlsTournamentPage() {
                           key="avatar"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
-                          className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-sm font-bold text-white"
+                          className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#1B5E20] to-emerald-600 text-sm font-bold text-white"
                         >
                           {initials}
                         </motion.div>
@@ -414,7 +414,7 @@ export default function BowlsTournamentPage() {
                   <p className="text-xs text-zinc-500">players checked in</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-black text-blue-600">
+                  <p className="text-2xl font-black text-[#1B5E20]">
                     {possibleRinks}
                   </p>
                   <p className="text-xs text-zinc-500">
@@ -424,7 +424,7 @@ export default function BowlsTournamentPage() {
                 <button
                   onClick={handleGenerateDraw}
                   disabled={possibleRinks < 1 || generatingDraw}
-                  className="rounded-xl bg-blue-500 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-600 disabled:opacity-40 min-h-[48px] touch-manipulation"
+                  className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] disabled:opacity-40 min-h-[48px] touch-manipulation"
                 >
                   {generatingDraw ? "Generating..." : "Generate Draw"}
                 </button>
@@ -504,7 +504,7 @@ export default function BowlsTournamentPage() {
                 </p>
                 <button
                   onClick={() => setView("board")}
-                  className="mt-4 rounded-xl bg-blue-500 px-6 py-3 text-sm font-bold text-white hover:bg-blue-600"
+                  className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218]"
                 >
                   Go to Board
                 </button>
@@ -514,20 +514,37 @@ export default function BowlsTournamentPage() {
                 <div className="mb-6 flex items-center justify-between">
                   <div>
                     <h2 className="text-xl font-black text-zinc-900">
-                      Tournament Draw
+                      Tournament Draw &mdash; Round {drawRound}
                     </h2>
                     <p className="text-sm text-zinc-500">
-                      {BOWLS_FORMAT_LABELS[drawResult.format].label} &middot;{" "}
+                      {tournamentName} &middot; {BOWLS_FORMAT_LABELS[drawResult.format].label} &middot;{" "}
                       {drawResult.rinkCount} rink
                       {drawResult.rinkCount !== 1 ? "s" : ""}
                     </p>
                   </div>
-                  <button
-                    onClick={handleGenerateDraw}
-                    className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50"
-                  >
-                    Re-Draw
-                  </button>
+                  <div className="flex items-center gap-2 no-print">
+                    <button
+                      onClick={() => window.print()}
+                      className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                    >
+                      Print Draw Sheet
+                    </button>
+                    <button
+                      onClick={() => {
+                        setDrawRound((prev) => prev + 1);
+                        handleGenerateDraw();
+                      }}
+                      className="rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 px-4 py-2 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/10 min-h-[44px] touch-manipulation"
+                    >
+                      Next Round Draw
+                    </button>
+                    <button
+                      onClick={handleGenerateDraw}
+                      className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                    >
+                      Re-Draw
+                    </button>
+                  </div>
                 </div>
 
                 <div className="space-y-4">
@@ -668,7 +685,7 @@ export default function BowlsTournamentPage() {
                   <button
                     key={pos}
                     onClick={() => handlePositionSelect(pos)}
-                    className="flex w-full items-center gap-4 rounded-2xl border border-zinc-200 p-4 text-left transition-all hover:border-blue-300 hover:bg-blue-50/50 active:scale-[0.98] min-h-[72px] touch-manipulation"
+                    className="flex w-full items-center gap-4 rounded-2xl border border-zinc-200 p-4 text-left transition-all hover:border-[#1B5E20]/30 hover:bg-[#1B5E20]/5 active:scale-[0.98] min-h-[72px] touch-manipulation"
                   >
                     <div
                       className={cn(

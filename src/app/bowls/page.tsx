@@ -36,7 +36,6 @@ export default function BowlsPage() {
       .order("created_at", { ascending: false });
 
     if (data) {
-      // Get check-in counts for each tournament
       const enriched = await Promise.all(
         data.map(async (t) => {
           const { count } = await supabase
@@ -61,7 +60,7 @@ export default function BowlsPage() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
@@ -75,13 +74,23 @@ export default function BowlsPage() {
               <h1 className="text-2xl font-black tracking-tight text-zinc-900">
                 Lawn Bowls
               </h1>
-              <Link href="/bowls/about" className="text-sm text-blue-500 hover:text-blue-600">
-                About Lawn Bowls →
-              </Link>
+              <div className="flex items-center gap-3">
+                <Link href="/bowls/about" className="text-sm text-[#1B5E20] hover:text-[#145218]">
+                  About
+                </Link>
+                <span className="text-zinc-300">|</span>
+                <Link href="/bowls/history" className="text-sm text-[#1B5E20] hover:text-[#145218]">
+                  History
+                </Link>
+                <span className="text-zinc-300">|</span>
+                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] hover:text-[#145218]">
+                  Player Stats
+                </Link>
+              </div>
             </div>
             <button
               onClick={() => setShowCreate(true)}
-              className="rounded-xl bg-blue-500 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-blue-600 min-h-[44px] touch-manipulation"
+              className="rounded-xl bg-[#1B5E20] px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation"
             >
               + New Tournament
             </button>
@@ -90,7 +99,6 @@ export default function BowlsPage() {
       </header>
 
       <main className="mx-auto max-w-3xl px-4 py-6">
-        {/* Active tournaments */}
         {activeTournaments.length > 0 && (
           <section className="mb-8">
             <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-zinc-400">
@@ -104,7 +112,6 @@ export default function BowlsPage() {
           </section>
         )}
 
-        {/* Past tournaments */}
         {pastTournaments.length > 0 && (
           <section className="mb-8">
             <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-zinc-400">
@@ -118,10 +125,9 @@ export default function BowlsPage() {
           </section>
         )}
 
-        {/* Empty state */}
         {tournaments.length === 0 && (
           <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
               <span className="text-3xl">{"\u{1F3B3}"}</span>
             </div>
             <h3 className="text-lg font-bold text-zinc-900">
@@ -132,7 +138,7 @@ export default function BowlsPage() {
             </p>
             <button
               onClick={() => setShowCreate(true)}
-              className="mt-4 rounded-xl bg-blue-500 px-6 py-3 text-sm font-bold text-white hover:bg-blue-600"
+              className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218]"
             >
               Create Tournament
             </button>
@@ -184,7 +190,7 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <div className="text-right">
-              <p className="text-lg font-black text-blue-600">
+              <p className="text-lg font-black text-[#1B5E20]">
                 {t.checkin_count ?? 0}
               </p>
               <p className="text-[11px] text-zinc-400">checked in</p>

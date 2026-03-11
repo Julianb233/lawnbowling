@@ -20,7 +20,7 @@ function ensureVapid() {
     return;
   }
   try {
-    getWebPush().setVapidDetails("mailto:support@pickapartner.app", pub, priv);
+    getWebPush().setVapidDetails("mailto:support@lawnbowl.app", pub, priv);
     vapidConfigured = true;
   } catch (err) {
     console.error("VAPID configuration failed:", err);

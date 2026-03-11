@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     "lawn bowling kiosk",
     "lawn bowling league",
     "round robin lawn bowling",
-    "pick a partner lawn bowls",
+    "lawn bowls app",
   ],
   authors: [{ name: "Lawnbowling", url: BASE_URL }],
   creator: "Lawnbowling",

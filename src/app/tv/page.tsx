@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 import type { TournamentScore } from "@/lib/types";
+import WeatherWidget from "./WeatherWidget";
 
 interface TournamentData {
   id: string;

@@ -11,15 +11,13 @@ import {
   ChevronRight,
   ExternalLink,
   Building2,
-  Award,
   Calendar,
   Map,
 } from "lucide-react";
 import {
   CLUBS,
-  US_STATES,
+  AU_STATES,
   SURFACE_LABELS,
-  DIVISION_LABELS,
   getClubById,
   getClubsByState,
   type ClubData,
@@ -48,10 +46,10 @@ export async function generateMetadata({
   const club = getClubById(slug);
   if (!club) return { title: "Club Not Found" };
 
-  const title = `${club.name} — Lawn Bowling in ${club.city}, ${club.stateCode}`;
+  const title = `${club.name} — Lawn Bowls in ${club.city}, ${club.stateCode}`;
   const description =
     club.description ??
-    `${club.name} is a lawn bowling club in ${club.city}, ${club.state}. Find address, contact info, surface type, and more.`;
+    `${club.name} is a lawn bowls club in ${club.city}, ${club.state}. Find address, contact info, surface type, and more.`;
 
   return {
     title,
@@ -81,7 +79,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
     notFound();
   }
 
-  const stateInfo = US_STATES[club.stateCode];
+  const stateInfo = AU_STATES[club.stateCode];
 
   // Nearby clubs: same state, excluding current club
   const nearbyClubs = getClubsByState(club.stateCode).filter(
@@ -219,20 +217,6 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                     value={`${club.memberCount} members`}
                   />
                 )}
-                {/* Division */}
-                {club.division !== "none" && (
-                  <DetailItem
-                    icon={<Award className="h-4 w-4" />}
-                    label="Division"
-                    value={DIVISION_LABELS[club.division]}
-                  />
-                )}
-                {/* Region */}
-                <DetailItem
-                  icon={<Building2 className="h-4 w-4" />}
-                  label="Region"
-                  value={`${stateInfo.region.charAt(0).toUpperCase()}${stateInfo.region.slice(1)} US`}
-                />
                 {/* Founded */}
                 {club.founded && (
                   <DetailItem

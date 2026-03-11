@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
@@ -16,7 +16,19 @@ interface RinkScoreEntry {
   teamBPlayers: { player_id: string; display_name: string }[];
   isFinalized: boolean;
   id?: string;
+  updatedAt?: string;
+  dirty?: boolean;
 }
+
+type ToastType = "success" | "error" | "info";
+
+interface Toast {
+  id: number;
+  message: string;
+  type: ToastType;
+}
+
+let toastId = 0;
 
 export default function ScoreEntryPage() {
   const params = useParams();
@@ -31,6 +43,20 @@ export default function ScoreEntryPage() {
   const [saving, setSaving] = useState(false);
   const [finalizing, setFinalizing] = useState(false);
   const [allFinalized, setAllFinalized] = useState(false);
+  const [realtimeConnected, setRealtimeConnected] = useState(false);
+  const [toasts, setToasts] = useState<Toast[]>([]);
+  const [confirmFinalize, setConfirmFinalize] = useState(false);
+
+  const autoSaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastSavedRef = useRef<string>(""); // JSON of last saved state
+
+  function addToast(message: string, type: ToastType = "info") {
+    const id = ++toastId;
+    setToasts((prev) => [...prev.slice(-2), { id, message, type }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 4000);
+  }
 
   const loadTournament = useCallback(async () => {
     const supabase = createClient();
@@ -58,30 +84,31 @@ export default function ScoreEntryPage() {
             teamBPlayers: s.team_b_players,
             isFinalized: s.is_finalized,
             id: s.id,
+            updatedAt: s.updated_at,
+            dirty: false,
           }));
           setRinkScores(entries);
           setAllFinalized(entries.every((e) => e.isFinalized));
+          lastSavedRef.current = JSON.stringify(
+            entries.map((e) => ({ a: e.teamAScores, b: e.teamBScores }))
+          );
         } else {
-          // Initialize empty rinks from draw data if no scores yet
           await initializeFromDraw();
         }
       }
     } catch {
-      // Will retry
+      addToast("Failed to load scores", "error");
     }
     setLoading(false);
   }, [tournamentId, round]);
 
   const initializeFromDraw = useCallback(async () => {
-    // Try to get draw info from the bowls_checkins / draw
-    // For now, create placeholder rinks that can be populated
     const supabase = createClient();
     const { count } = await supabase
       .from("bowls_checkins")
       .select("id", { count: "exact", head: true })
       .eq("tournament_id", tournamentId);
 
-    // Estimate rink count from checked-in players (assume fours by default)
     const playerCount = count ?? 0;
     const estimatedRinks = Math.max(1, Math.floor(playerCount / 8));
 
@@ -94,6 +121,7 @@ export default function ScoreEntryPage() {
         teamAPlayers: [],
         teamBPlayers: [],
         isFinalized: false,
+        dirty: false,
       });
     }
     setRinkScores(entries);
@@ -112,22 +140,68 @@ export default function ScoreEntryPage() {
           table: "tournament_scores",
           filter: `tournament_id=eq.${tournamentId}`,
         },
-        () => {
-          // Reload scores when changes detected
-          loadScores();
+        (payload) => {
+          // Only reload if changes came from another session
+          const changed = payload.new as TournamentScore | undefined;
+          if (changed) {
+            setRinkScores((prev) => {
+              const idx = prev.findIndex(
+                (r) => r.rink === changed.rink && !r.dirty
+              );
+              if (idx >= 0) {
+                const updated = [...prev];
+                updated[idx] = {
+                  ...updated[idx],
+                  teamAScores: changed.team_a_scores,
+                  teamBScores: changed.team_b_scores,
+                  teamAPlayers: changed.team_a_players,
+                  teamBPlayers: changed.team_b_players,
+                  isFinalized: changed.is_finalized,
+                  id: changed.id,
+                  updatedAt: changed.updated_at,
+                  dirty: false,
+                };
+                setAllFinalized(updated.every((e) => e.isFinalized));
+                return updated;
+              }
+              return prev;
+            });
+          }
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        setRealtimeConnected(status === "SUBSCRIBED");
+      });
 
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [tournamentId, round, loadScores]);
+  }, [tournamentId, round]);
 
   useEffect(() => {
     loadTournament();
     loadScores();
   }, [loadTournament, loadScores]);
+
+  // Auto-save: debounce 1.5s after last change
+  useEffect(() => {
+    const dirtyRinks = rinkScores.filter((r) => r.dirty && !r.isFinalized);
+    if (dirtyRinks.length === 0) return;
+
+    if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current);
+    autoSaveTimerRef.current = setTimeout(async () => {
+      for (const entry of dirtyRinks) {
+        const idx = rinkScores.findIndex((r) => r.rink === entry.rink);
+        if (idx >= 0 && entry.teamAScores.length > 0) {
+          await saveRinkScore(idx, true);
+        }
+      }
+    }, 1500);
+
+    return () => {
+      if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current);
+    };
+  }, [rinkScores]);
 
   function addEnd(rinkIndex: number) {
     setRinkScores((prev) => {
@@ -135,6 +209,7 @@ export default function ScoreEntryPage() {
       const entry = { ...updated[rinkIndex] };
       entry.teamAScores = [...entry.teamAScores, 0];
       entry.teamBScores = [...entry.teamBScores, 0];
+      entry.dirty = true;
       updated[rinkIndex] = entry;
       return updated;
     });
@@ -147,6 +222,7 @@ export default function ScoreEntryPage() {
       if (entry.teamAScores.length === 0) return prev;
       entry.teamAScores = entry.teamAScores.slice(0, -1);
       entry.teamBScores = entry.teamBScores.slice(0, -1);
+      entry.dirty = true;
       updated[rinkIndex] = entry;
       return updated;
     });
@@ -166,7 +242,6 @@ export default function ScoreEntryPage() {
         scores[endIndex] = value;
         entry.teamAScores = scores;
         // In lawn bowls, only one team scores per end
-        // If team A scores, team B gets 0 for that end
         if (value > 0) {
           const bScores = [...entry.teamBScores];
           bScores[endIndex] = 0;
@@ -182,17 +257,18 @@ export default function ScoreEntryPage() {
           entry.teamAScores = aScores;
         }
       }
+      entry.dirty = true;
       updated[rinkIndex] = entry;
       return updated;
     });
   }
 
-  async function saveRinkScore(rinkIndex: number) {
+  async function saveRinkScore(rinkIndex: number, isAutoSave = false) {
     const entry = rinkScores[rinkIndex];
-    setSaving(true);
+    if (!isAutoSave) setSaving(true);
 
     try {
-      await fetch("/api/bowls/scores", {
+      const res = await fetch("/api/bowls/scores", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -203,26 +279,55 @@ export default function ScoreEntryPage() {
           team_b_players: entry.teamBPlayers,
           team_a_scores: entry.teamAScores,
           team_b_scores: entry.teamBScores,
+          expected_updated_at: entry.updatedAt,
         }),
       });
+
+      if (res.status === 409) {
+        addToast("Score conflict detected. Refreshing...", "error");
+        await loadScores();
+        return;
+      }
+
+      if (!res.ok) {
+        const err = await res.json();
+        addToast(err.error || "Failed to save score", "error");
+        return;
+      }
+
+      const saved = await res.json();
+      setRinkScores((prev) => {
+        const updated = [...prev];
+        if (updated[rinkIndex]) {
+          updated[rinkIndex] = {
+            ...updated[rinkIndex],
+            id: saved.id,
+            updatedAt: saved.updated_at,
+            dirty: false,
+          };
+        }
+        return updated;
+      });
+
+      if (!isAutoSave) addToast("Score saved", "success");
     } catch {
-      // Handle error
+      addToast("Network error saving score", "error");
     }
-    setSaving(false);
+    if (!isAutoSave) setSaving(false);
   }
 
   async function finalizeRound() {
     setFinalizing(true);
+    setConfirmFinalize(false);
     try {
       // Save all unsaved scores first
       for (let i = 0; i < rinkScores.length; i++) {
-        if (!rinkScores[i].isFinalized) {
-          await saveRinkScore(i);
+        if (!rinkScores[i].isFinalized && rinkScores[i].teamAScores.length > 0) {
+          await saveRinkScore(i, true);
         }
       }
 
-      // Then finalize the round
-      await fetch("/api/bowls/scores", {
+      const res = await fetch("/api/bowls/scores", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -231,9 +336,15 @@ export default function ScoreEntryPage() {
         }),
       });
 
-      await loadScores();
+      if (!res.ok) {
+        const err = await res.json();
+        addToast(err.error || "Failed to finalize round", "error");
+      } else {
+        addToast(`Round ${round} finalized`, "success");
+        await loadScores();
+      }
     } catch {
-      // Handle error
+      addToast("Network error finalizing round", "error");
     }
     setFinalizing(false);
   }
@@ -249,6 +360,7 @@ export default function ScoreEntryPage() {
         teamAPlayers: [],
         teamBPlayers: [],
         isFinalized: false,
+        dirty: false,
       },
     ]);
   }
@@ -268,24 +380,63 @@ export default function ScoreEntryPage() {
     return [wonA, wonB];
   }
 
+  const dirtyCount = rinkScores.filter((r) => r.dirty).length;
+
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
+      {/* Toast notifications */}
+      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
+        <AnimatePresence>
+          {toasts.map((toast) => (
+            <motion.div
+              key={toast.id}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 40 }}
+              className={cn(
+                "rounded-xl px-4 py-3 text-sm font-semibold shadow-lg",
+                toast.type === "success" && "bg-emerald-600 text-white",
+                toast.type === "error" && "bg-red-600 text-white",
+                toast.type === "info" && "bg-zinc-800 text-white"
+              )}
+            >
+              {toast.message}
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-5xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900">
-                Score Entry
-              </h1>
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+                  Score Entry
+                </h1>
+                {/* Realtime connection indicator */}
+                <span
+                  className={cn(
+                    "inline-block h-2.5 w-2.5 rounded-full",
+                    realtimeConnected ? "bg-emerald-400" : "bg-zinc-300"
+                  )}
+                  title={realtimeConnected ? "Live updates active" : "Connecting..."}
+                />
+                {dirtyCount > 0 && (
+                  <span className="text-xs font-medium text-amber-600">
+                    Unsaved
+                  </span>
+                )}
+              </div>
               <p className="text-sm text-zinc-500">
                 {tournamentName} &middot; Round {round}
               </p>
@@ -296,6 +447,12 @@ export default function ScoreEntryPage() {
                 className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
               >
                 Back
+              </button>
+              <button
+                onClick={() => router.push(`/bowls/${tournamentId}/live`)}
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-emerald-50 min-h-[44px] touch-manipulation"
+              >
+                Live View
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/results`)}
@@ -320,7 +477,7 @@ export default function ScoreEntryPage() {
                 className={cn(
                   "flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-colors touch-manipulation",
                   round === r
-                    ? "bg-blue-500 text-white"
+                    ? "bg-[#1B5E20] text-white"
                     : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
                 )}
               >
@@ -350,7 +507,7 @@ export default function ScoreEntryPage() {
                   entry.isFinalized
                     ? "bg-emerald-50 border-2 border-emerald-200"
                     : isActive
-                      ? "bg-blue-50 border-2 border-blue-400 shadow-lg"
+                      ? "bg-[#1B5E20]/5 border-2 border-[#1B5E20] shadow-lg"
                       : "bg-white border border-zinc-200 hover:border-zinc-300 hover:shadow-sm"
                 )}
               >
@@ -358,11 +515,16 @@ export default function ScoreEntryPage() {
                   <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">
                     Rink {entry.rink}
                   </span>
-                  {entry.isFinalized && (
-                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
-                      Final
-                    </span>
-                  )}
+                  <div className="flex items-center gap-1">
+                    {entry.dirty && !entry.isFinalized && (
+                      <span className="h-2 w-2 rounded-full bg-amber-400" title="Unsaved changes" />
+                    )}
+                    {entry.isFinalized && (
+                      <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
+                        Final
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {hasScores ? (
@@ -438,9 +600,16 @@ export default function ScoreEntryPage() {
             >
               <div className="bg-zinc-50 border-b border-zinc-200 px-6 py-4">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-black text-zinc-900">
-                    Rink {rinkScores[activeRink].rink} - End by End
-                  </h2>
+                  <div>
+                    <h2 className="text-lg font-black text-zinc-900">
+                      Rink {rinkScores[activeRink].rink} &mdash; End by End
+                    </h2>
+                    {rinkScores[activeRink].teamAScores.length > 0 && (
+                      <p className="text-xs text-zinc-400 mt-0.5">
+                        Currently on End {rinkScores[activeRink].teamAScores.length}
+                      </p>
+                    )}
+                  </div>
                   <div className="flex items-center gap-2">
                     {!rinkScores[activeRink].isFinalized && (
                       <>
@@ -455,7 +624,7 @@ export default function ScoreEntryPage() {
                         </button>
                         <button
                           onClick={() => addEnd(activeRink)}
-                          className="rounded-xl bg-blue-500 px-3 py-2 text-sm font-bold text-white hover:bg-blue-600 min-h-[44px] touch-manipulation"
+                          className="rounded-xl bg-[#1B5E20] px-3 py-2 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
                         >
                           + End
                         </button>
@@ -492,7 +661,12 @@ export default function ScoreEntryPage() {
                           {rinkScores[activeRink].teamAScores.map((_, i) => (
                             <th
                               key={i}
-                              className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-400 min-w-[56px]"
+                              className={cn(
+                                "px-2 py-2 text-center text-xs font-bold uppercase tracking-wider min-w-[56px]",
+                                i === rinkScores[activeRink].teamAScores.length - 1
+                                  ? "text-[#1B5E20]"
+                                  : "text-zinc-400"
+                              )}
                             >
                               E{i + 1}
                             </th>
@@ -525,6 +699,9 @@ export default function ScoreEntryPage() {
                                   isWinning={
                                     score >
                                     rinkScores[activeRink].teamBScores[endIdx]
+                                  }
+                                  isCurrent={
+                                    endIdx === rinkScores[activeRink].teamAScores.length - 1
                                   }
                                 />
                               </td>
@@ -567,6 +744,9 @@ export default function ScoreEntryPage() {
                                     score >
                                     rinkScores[activeRink].teamAScores[endIdx]
                                   }
+                                  isCurrent={
+                                    endIdx === rinkScores[activeRink].teamBScores.length - 1
+                                  }
                                 />
                               </td>
                             )
@@ -595,13 +775,16 @@ export default function ScoreEntryPage() {
                 {/* Save button for this rink */}
                 {!rinkScores[activeRink].isFinalized &&
                   rinkScores[activeRink].teamAScores.length > 0 && (
-                    <div className="mt-6 flex justify-end">
+                    <div className="mt-6 flex items-center justify-between">
+                      <p className="text-xs text-zinc-400">
+                        Auto-saves after changes
+                      </p>
                       <button
                         onClick={() => saveRinkScore(activeRink)}
                         disabled={saving}
-                        className="rounded-xl bg-blue-500 px-6 py-3 text-sm font-bold text-white hover:bg-blue-600 disabled:opacity-50 min-h-[48px] touch-manipulation"
+                        className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] disabled:opacity-50 min-h-[48px] touch-manipulation"
                       >
-                        {saving ? "Saving..." : "Save Rink Score"}
+                        {saving ? "Saving..." : "Save Now"}
                       </button>
                     </div>
                   )}
@@ -623,7 +806,7 @@ export default function ScoreEntryPage() {
                 </p>
               </div>
               <button
-                onClick={finalizeRound}
+                onClick={() => setConfirmFinalize(true)}
                 disabled={finalizing}
                 className="rounded-xl bg-amber-500 px-6 py-3 text-sm font-bold text-white hover:bg-amber-600 disabled:opacity-50 min-h-[48px] touch-manipulation"
               >
@@ -633,6 +816,48 @@ export default function ScoreEntryPage() {
           </div>
         )}
 
+        {/* Finalize confirmation dialog */}
+        <AnimatePresence>
+          {confirmFinalize && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+              onClick={() => setConfirmFinalize(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.95 }}
+                onClick={(e) => e.stopPropagation()}
+                className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
+              >
+                <h3 className="text-lg font-black text-zinc-900">
+                  Finalize Round {round}?
+                </h3>
+                <p className="mt-2 text-sm text-zinc-500">
+                  All scores for {rinkScores.length} rink{rinkScores.length !== 1 ? "s" : ""} will be locked permanently. This cannot be undone.
+                </p>
+                <div className="mt-6 flex items-center gap-3 justify-end">
+                  <button
+                    onClick={() => setConfirmFinalize(false)}
+                    className="rounded-xl border border-zinc-200 px-5 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={finalizeRound}
+                    className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-600 min-h-[44px] touch-manipulation"
+                  >
+                    Finalize
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {allFinalized && (
           <div className="mt-8 rounded-2xl bg-emerald-50 border border-emerald-200 p-6 text-center">
             <p className="text-lg font-bold text-emerald-800">
@@ -641,12 +866,24 @@ export default function ScoreEntryPage() {
             <p className="text-sm text-emerald-600 mt-1">
               All scores have been locked.
             </p>
-            <button
-              onClick={() => router.push(`/bowls/${tournamentId}/results`)}
-              className="mt-4 rounded-xl bg-emerald-500 px-6 py-3 text-sm font-bold text-white hover:bg-emerald-600 min-h-[48px] touch-manipulation"
-            >
-              View Results
-            </button>
+            <div className="mt-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <button
+                onClick={() => router.push(`/bowls/${tournamentId}/results`)}
+                className="rounded-xl bg-emerald-500 px-6 py-3 text-sm font-bold text-white hover:bg-emerald-600 min-h-[48px] touch-manipulation"
+              >
+                View Results
+              </button>
+              <button
+                onClick={() => {
+                  setRound(round + 1);
+                  setActiveRink(null);
+                  setLoading(true);
+                }}
+                className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[48px] touch-manipulation"
+              >
+                {"Enter Round " + (round + 1) + " Scores"}
+              </button>
+            </div>
           </div>
         )}
       </main>
@@ -665,11 +902,13 @@ function ScoreInput({
   onChange,
   disabled,
   isWinning,
+  isCurrent,
 }: {
   value: number;
   onChange: (v: number) => void;
   disabled: boolean;
   isWinning: boolean;
+  isCurrent: boolean;
 }) {
   return (
     <div className="flex flex-col items-center gap-1">
@@ -702,7 +941,8 @@ function ScoreInput({
               ? "bg-emerald-100 text-emerald-700 ring-2 ring-emerald-300"
               : value === 0
                 ? "bg-zinc-50 text-zinc-300"
-                : "bg-blue-50 text-blue-700"
+                : "bg-blue-50 text-blue-700",
+          isCurrent && !disabled && "ring-2 ring-[#1B5E20]/30"
         )}
       >
         {value}

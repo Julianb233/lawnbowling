@@ -21,7 +21,7 @@ export function welcomeEmail(playerName: string) {
         <li><strong style="color:#fafafa">Pick</strong> a partner and send a request</li>
         <li><strong style="color:#fafafa">Play!</strong> Get matched to a court</li>
       </ol>
-      <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://pickapartner.app'}/board"
+      <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://lawnbowl.app'}/board"
          style="display:inline-block;background:#22c55e;color:#fff;text-decoration:none;padding:14px 28px;border-radius:10px;font-weight:600;font-size:16px">
         Find a Partner Now
       </a>

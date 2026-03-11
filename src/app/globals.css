@@ -466,3 +466,59 @@ a,
     @apply font-sans;
   }
 }
+/* === PRINT-FRIENDLY DRAW SHEET === */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 12pt !important;
+  }
+
+  nav,
+  [data-print-hide],
+  .no-print,
+  footer {
+    display: none !important;
+  }
+
+  header {
+    position: static !important;
+    background: white !important;
+    border-bottom: 2px solid #1B5E20 !important;
+    padding: 8pt 0 !important;
+    backdrop-filter: none !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .rounded-2xl {
+    border-radius: 4pt !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .min-h-screen {
+    min-height: auto !important;
+  }
+
+  .pb-20 {
+    padding-bottom: 0 !important;
+  }
+
+  table {
+    border-collapse: collapse !important;
+  }
+
+  @page {
+    margin: 0.5in;
+    size: A4;
+  }
+}

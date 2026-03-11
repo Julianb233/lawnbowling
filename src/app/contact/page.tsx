@@ -53,7 +53,7 @@ export default function ContactPage() {
 
         <form
           className="space-y-4"
-          action="mailto:hello@pickapartner.app"
+          action="mailto:hello@lawnbowl.app"
           method="GET"
         >
           <div>
