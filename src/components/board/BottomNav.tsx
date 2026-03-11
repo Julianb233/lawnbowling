@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Home, Trophy, CircleDot, Calendar, User, type LucideIcon } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const NAV_ITEMS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/board", label: "Home", icon: Home },
@@ -19,7 +20,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-50 glass border-t border-zinc-200 lg:hidden"
+      className="fixed bottom-0 left-0 right-0 z-50 glass dark:glass-dark-nav border-t border-zinc-200 dark:border-white/10 lg:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       aria-label="Main navigation"
     >
@@ -32,7 +33,7 @@ export function BottomNav() {
               href={item.href}
               className={cn(
                 "relative flex flex-col items-center justify-center gap-0.5 px-4 py-2 text-xs transition-colors min-h-[44px]",
-                active ? "text-[#1B5E20] font-semibold" : "text-zinc-500"
+                active ? "text-[#1B5E20] dark:text-emerald-400 font-semibold" : "text-zinc-500 dark:text-zinc-400"
               )}
             >
               <item.icon className="w-5 h-5" strokeWidth={1.5} />
@@ -40,13 +41,14 @@ export function BottomNav() {
               {active && (
                 <motion.div
                   layoutId="nav-indicator"
-                  className="absolute -top-0.5 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-[#1B5E20]"
+                  className="absolute -top-0.5 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-[#1B5E20] dark:bg-emerald-400"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
             </Link>
           );
         })}
+        <ThemeToggle />
       </div>
     </nav>
   );

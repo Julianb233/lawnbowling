@@ -276,7 +276,7 @@ export interface ActivityItem {
   id: string;
   venue_id: string | null;
   player_id: string | null;
-  type: "check_in" | "match_complete" | "new_player" | "scheduled_game";
+  type: "check_in" | "match_complete" | "new_player" | "scheduled_game" | "noticeboard_post";
   metadata: Record<string, unknown>;
   created_at: string;
   player?: Player; // joined
@@ -381,7 +381,8 @@ export type NotificationType =
   | "court_assigned"
   | "friend_checked_in"
   | "game_reminder"
-  | "match_completed";
+  | "match_completed"
+  | "noticeboard_announcement";
 
 export interface AppNotification {
   id: string;
@@ -462,6 +463,139 @@ export interface TournamentScore {
   created_at: string;
   updated_at: string;
 }
+
+// ===== Bowls Position Ratings =====
+
+export type BowlsRatingPosition = "skip" | "vice" | "second" | "lead" | "singles";
+
+export interface BowlsPositionRating {
+  id: string;
+  player_id: string;
+  position: BowlsRatingPosition;
+  season: string;
+  elo_rating: number;
+  games_played: number;
+  wins: number;
+  losses: number;
+  draws: number;
+  shot_differential: number;
+  ends_won: number;
+  ends_played: number;
+  ends_won_pct: number;
+  updated_at: string;
+  player?: Player;
+}
+
+export interface BowlsRatingHistory {
+  id: string;
+  player_id: string;
+  position: BowlsRatingPosition;
+  season: string;
+  elo_rating: number;
+  tournament_id: string | null;
+  created_at: string;
+}
+
+export type BowlsLeaderboardCategory = "overall" | "skip" | "lead" | "ends_pct";
+
+// ===== Noticeboard =====
+
+export type NoticeboardPostType = "announcement" | "tournament_result" | "member_post";
+
+export const NOTICEBOARD_EMOJIS = ["👍", "👏", "🔥", "🎉", "❤️"] as const;
+export type NoticeboardEmoji = (typeof NOTICEBOARD_EMOJIS)[number];
+
+export interface NoticeboardPost {
+  id: string;
+  venue_id: string;
+  club_id: string | null;
+  author_id: string;
+  type: NoticeboardPostType;
+  title: string | null;
+  body: string;
+  tournament_id: string | null;
+  is_pinned: boolean;
+  is_deleted: boolean;
+  created_at: string;
+  updated_at: string;
+  author?: Player;
+  reactions?: NoticeboardReaction[];
+  reaction_counts?: Record<NoticeboardEmoji, number>;
+  comment_count?: number;
+}
+
+export interface NoticeboardReaction {
+  id: string;
+  post_id: string;
+  player_id: string;
+  emoji: NoticeboardEmoji;
+  created_at: string;
+}
+
+export interface NoticeboardComment {
+  id: string;
+  post_id: string;
+  author_id: string;
+  body: string;
+  is_deleted: boolean;
+  created_at: string;
+  author?: Player;
+}
+
+// ===== Green Conditions =====
+
+export type GreenSpeed = "fast" | "medium" | "slow";
+export type SurfaceCondition = "dry" | "damp" | "wet";
+export type WindDirection = "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW" | "calm";
+export type WindStrength = "calm" | "light" | "moderate" | "strong";
+
+export interface GreenConditions {
+  id: string;
+  tournament_id: string;
+  venue_id: string | null;
+  recorded_by: string | null;
+  green_speed: GreenSpeed;
+  surface_condition: SurfaceCondition;
+  wind_direction: WindDirection;
+  wind_strength: WindStrength;
+  notes: string | null;
+  temperature_c: number | null;
+  recorded_at: string;
+  created_at: string;
+  updated_at: string;
+  recorder?: Player;
+}
+
+export const GREEN_SPEED_LABELS: Record<GreenSpeed, string> = {
+  fast: "Fast",
+  medium: "Medium",
+  slow: "Slow",
+};
+
+export const SURFACE_CONDITION_LABELS: Record<SurfaceCondition, string> = {
+  dry: "Dry",
+  damp: "Damp",
+  wet: "Wet",
+};
+
+export const WIND_DIRECTION_LABELS: Record<WindDirection, string> = {
+  N: "North",
+  NE: "North-East",
+  E: "East",
+  SE: "South-East",
+  S: "South",
+  SW: "South-West",
+  W: "West",
+  NW: "North-West",
+  calm: "Calm",
+};
+
+export const WIND_STRENGTH_LABELS: Record<WindStrength, string> = {
+  calm: "Calm",
+  light: "Light",
+  moderate: "Moderate",
+  strong: "Strong",
+};
 
 // ===== Club Claims & Management =====
 

@@ -419,8 +419,8 @@ export default function ScoreEntryPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0f2518]">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] dark:border-emerald-400 border-t-transparent" />
       </div>
     );
   }
@@ -472,7 +472,7 @@ export default function ScoreEntryPage() {
                   </span>
                 )}
               </div>
-              <p className="text-sm text-zinc-500">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 {tournamentName} &middot; Round {round}
               </p>
             </div>
@@ -500,7 +500,7 @@ export default function ScoreEntryPage() {
 
           {/* Round selector */}
           <div className="mt-3 flex items-center gap-2">
-            <span className="text-sm font-medium text-zinc-500">Round:</span>
+            <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Round:</span>
             {[1, 2, 3, 4, 5].map((r) => (
               <button
                 key={r}
@@ -890,12 +890,12 @@ export default function ScoreEntryPage() {
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.95 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
+                className="w-full max-w-sm rounded-2xl bg-white dark:bg-[#1a3d28] p-6 shadow-2xl"
               >
                 <h3 className="text-lg font-black text-zinc-900 dark:text-zinc-100">
                   Finalize Round {round}?
                 </h3>
-                <p className="mt-2 text-sm text-zinc-500">
+                <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
                   All scores for {rinkScores.length} rink{rinkScores.length !== 1 ? "s" : ""} will be locked permanently. This cannot be undone.
                 </p>
                 <div className="mt-6 flex items-center gap-3 justify-end">
