@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
-import { getStatesWithClubs } from "@/lib/clubs-data";
+import { CLUBS, getStatesWithClubs } from "@/lib/clubs-data";
+import { getAllBlogPosts } from "@/lib/blog-posts";
+import { PRODUCTS } from "@/lib/shop/products";
 
 const BASE_URL = "https://lawnbowl.app";
 
@@ -69,7 +71,61 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
+      url: `${BASE_URL}/learn/rules`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/learn/positions`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/learn/formats`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/learn/glossary`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/learn/equipment`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/shop`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/shop/equipment`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
+    {
       url: `${BASE_URL}/insurance`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/insurance/lawn-bowls`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
