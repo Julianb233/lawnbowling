@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bell, Check, CheckCheck, Users, Trophy, MapPin, Calendar, UserCheck, X } from "lucide-react";
+import { Bell, Check, CheckCheck, Users, Trophy, MapPin, Calendar, UserCheck, X, Megaphone } from "lucide-react";
 import { useNotifications } from "@/lib/hooks/useNotifications";
 import { cn } from "@/lib/utils";
 import type { AppNotification, NotificationType } from "@/lib/types";
@@ -17,6 +17,7 @@ const NOTIFICATION_ICONS: Record<NotificationType, typeof Bell> = {
   friend_checked_in: UserCheck,
   game_reminder: Calendar,
   match_completed: Trophy,
+  noticeboard_announcement: Megaphone,
 };
 
 const NOTIFICATION_COLORS: Record<NotificationType, string> = {
@@ -29,6 +30,7 @@ const NOTIFICATION_COLORS: Record<NotificationType, string> = {
   friend_checked_in: "bg-[#1B5E20]/20 text-[#1B5E20]",
   game_reminder: "bg-amber-500/20 text-amber-600",
   match_completed: "bg-[#1B5E20]/20 text-[#1B5E20]",
+  noticeboard_announcement: "bg-amber-500/20 text-amber-600",
 };
 
 function formatTimeAgo(dateStr: string): string {

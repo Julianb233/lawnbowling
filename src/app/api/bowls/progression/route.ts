@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createTournamentResultPost } from "@/lib/db/noticeboard";
 
 /**
  * Tournament Progression State Machine
@@ -141,6 +142,13 @@ export async function POST(req: NextRequest) {
 
       if (updateErr) {
         return NextResponse.json({ error: updateErr.message }, { status: 500 });
+      }
+
+      // Auto-post tournament results to noticeboard when completed (REQ-13-10)
+      if (newStatus === "completed") {
+        createTournamentResultPost(tournament_id).catch((err) => {
+          console.error("Failed to auto-post tournament results:", err);
+        });
       }
     }
 
