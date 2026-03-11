@@ -18,6 +18,15 @@ export const metadata: Metadata = {
   description:
     "Learn about lawn bowling game formats: Singles, Pairs, Triples, and Fours. Understand how many players, bowls per player, standard ends, and social variations for each format.",
   alternates: { canonical: "/learn/formats" },
+  keywords: [
+    "lawn bowling formats",
+    "lawn bowls singles",
+    "lawn bowls pairs",
+    "lawn bowls triples",
+    "lawn bowls fours",
+    "lawn bowling game types",
+    "social bowls formats",
+  ],
   openGraph: {
     title: "Lawn Bowling Game Formats | Singles, Pairs, Triples, Fours",
     description:

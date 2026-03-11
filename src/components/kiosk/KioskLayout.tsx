@@ -157,7 +157,7 @@ export function KioskButton({
       border: "2px solid #CCCCCC",
     },
     danger: {
-      backgroundColor: "#C62828",
+      backgroundColor: "#991B1B",
       color: "#FFFFFF",
     },
     outline: {
@@ -193,8 +193,8 @@ interface KioskHeadingProps {
 export function KioskHeading({ level = 1, children, className = "", align = "center" }: KioskHeadingProps) {
   const sizes: Record<number, string> = {
     1: "36px",
-    2: "28px",
-    3: "24px",
+    2: "32px",
+    3: "32px",
   };
 
   const Tag = `h${level}` as "h1" | "h2" | "h3";

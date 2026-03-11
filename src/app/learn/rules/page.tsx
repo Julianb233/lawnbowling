@@ -20,6 +20,16 @@ export const metadata: Metadata = {
   description:
     "Complete guide to lawn bowling rules. Learn about the green, the jack, bias, delivery, scoring, and the sequence of play in each end. Perfect for beginners.",
   alternates: { canonical: "/learn/rules" },
+  keywords: [
+    "lawn bowling rules",
+    "lawn bowls rules",
+    "how to play lawn bowls",
+    "lawn bowling scoring",
+    "lawn bowling bias",
+    "lawn bowling green",
+    "lawn bowling jack",
+    "lawn bowling delivery",
+  ],
   openGraph: {
     title: "Lawn Bowling Rules | Complete Guide",
     description:

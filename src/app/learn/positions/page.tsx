@@ -18,6 +18,15 @@ export const metadata: Metadata = {
   description:
     "Learn about the four lawn bowling team positions: Lead, Second, Third (Vice-Skip), and Skip. Understand each role's responsibilities, shot types, and tactical importance.",
   alternates: { canonical: "/learn/positions" },
+  keywords: [
+    "lawn bowling positions",
+    "lawn bowls skip",
+    "lawn bowls lead",
+    "lawn bowls third",
+    "lawn bowls vice skip",
+    "lawn bowling team roles",
+    "lawn bowls second",
+  ],
   openGraph: {
     title: "Lawn Bowling Positions | Lead, Second, Third, Skip",
     description:
