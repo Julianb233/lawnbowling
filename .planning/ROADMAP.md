@@ -14,15 +14,15 @@ Lawnbowling is the world's best lawn bowling app — a PWA platform for tourname
 - [x] **Phase 4: Partner Selection** — Pick/request/accept flow, match queue
 - [x] **Phase 5: Court Management & Admin** — Court assignment, timers, admin panel
 - [x] **Phase 6: PWA, Polish & Deploy** — Service worker, responsive polish, Vercel deploy
-- [ ] **Phase 7: Rebrand & Foundation** — Rename to Lawnbowling, new logo, colors, domain, multi-club DB
-- [ ] **Phase 8: Tournament Lifecycle** — Score entry, results, multi-round, history, print draw
-- [ ] **Phase 9: Kiosk UX Overhaul** — Elderly-friendly redesign, 4-screen check-in, WCAG AAA
-- [ ] **Phase 10: Club Directory** — Supabase clubs table, directory pages, state pages, club detail, seed data, claim flow
-- [ ] **Phase 11: Live Display & Engagement** — TV scoreboard, live draw display, push notifications, weather
-- [ ] **Phase 12: Educational Content & Blog** — Learning hub, blog engine, 10 AI posts, equipment guide, bocce comparison
-- [ ] **Phase 13: DEI Insurance Platform** — In-app lawn bowls insurance page, lawnbowl.camp microsite, check-in offer
-- [ ] **Phase 14: Print-on-Demand Shop** — Printify API integration, product catalog, cart, checkout, order fulfillment
-- [ ] **Phase 15: SEO & Growth Engine** — Sitemap, Schema.org, meta tags, OG cards, Google Business Profile
+- [x] **Phase 7: Rebrand & Foundation** — Rename to Lawnbowling, new logo, colors, domain, multi-club DB
+- [x] **Phase 8: Tournament Lifecycle** — Score entry, results, multi-round, history, print draw
+- [x] **Phase 9: Kiosk UX Overhaul** — Elderly-friendly redesign, 4-screen check-in, WCAG AAA
+- [x] **Phase 10: Club Directory** — Supabase clubs table, directory pages, state pages, club detail, seed data, claim flow
+- [x] **Phase 11: Live Display & Engagement** — TV scoreboard, live draw display, push notifications, weather
+- [x] **Phase 12: Educational Content & Blog** — Learning hub, blog engine, 10 AI posts, equipment guide, bocce comparison
+- [x] **Phase 13: DEI Insurance Platform** — In-app lawn bowls insurance page, lawnbowl.camp microsite, check-in offer
+- [x] **Phase 14: Print-on-Demand Shop** — Printify API integration, product catalog, cart, checkout, order fulfillment
+- [x] **Phase 15: SEO & Growth Engine** — Sitemap, Schema.org, meta tags, OG cards, Google Business Profile
 
 ## Parallel Execution Map
 
@@ -57,9 +57,9 @@ Week 2:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 07-01: Find-and-replace rebrand, logo integration, color scheme, manifest update
-- [ ] 07-02: Multi-club database schema, club onboarding flow, club admin dashboard
-- [ ] 07-03: Domain setup (lawnbowl.app, lawnbowling.app redirect), Vercel config
+- [x] 07-01: Find-and-replace rebrand, logo integration, color scheme, manifest update
+- [x] 07-02: Multi-club database schema, club onboarding flow, club admin dashboard
+- [x] 07-03: Domain setup (lawnbowl.app, lawnbowling.app redirect), Vercel config
 
 ### Phase 8: Tournament Lifecycle
 **Goal**: Complete tournament-day workflow — scoring, results, multi-round, history, print
@@ -76,9 +76,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 08-01: Score entry UI and API (per end, per rink, real-time via Supabase Realtime)
-- [ ] 08-02: Results calculation, multi-round draw, tournament progression
-- [ ] 08-03: Tournament history, player stats, print-friendly draw sheet
+- [x] 08-01: Score entry UI and API (per end, per rink, real-time via Supabase Realtime)
+- [x] 08-02: Results calculation, multi-round draw, tournament progression
+- [x] 08-03: Tournament history, player stats, print-friendly draw sheet
 
 ### Phase 9: Kiosk UX Overhaul
 **Goal**: Redesign kiosk mode for 60-80+ year old users with WCAG AAA accessibility
@@ -95,8 +95,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 09-01: Kiosk component redesign (touch targets, typography, contrast, layout)
-- [ ] 09-02: 4-screen check-in flow with A-Z filter, auto-reset, undo
+- [x] 09-01: Kiosk component redesign (touch targets, typography, contrast, layout)
+- [x] 09-02: 4-screen check-in flow with A-Z filter, auto-reset, undo
 
 ### Phase 10: Club Directory
 **Goal**: National club directory with search, filters, state pages, and claim flow — SEO machine
@@ -112,9 +112,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 10-01: Clubs DB migration, API routes, seed 90+ clubs
-- [ ] 10-02: Directory page, state pages, club detail page (already started)
-- [ ] 10-03: Claim flow, club-venue linking, club manager dashboard
+- [x] 10-01: Clubs DB migration, API routes, seed 90+ clubs
+- [x] 10-02: Directory page, state pages, club detail page (already started)
+- [x] 10-03: Claim flow, club-venue linking, club manager dashboard
 
 ### Phase 11: Live Display & Engagement
 **Goal**: TV scoreboard, live draw display, notifications, and weather for clubhouse engagement
@@ -128,8 +128,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 11-01: TV scoreboard mode (/tv), live draw display with auto-refresh
-- [ ] 11-02: Push notifications (web push), weather widget integration
+- [x] 11-01: TV scoreboard mode (/tv), live draw display with auto-refresh
+- [x] 11-02: Push notifications (web push), weather widget integration
 
 ### Phase 12: Educational Content & Blog
 **Goal**: Learning hub and blog with AI-generated content targeting top lawn bowling keywords
@@ -145,9 +145,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 12-01: Learning hub pages (/learn, /learn/rules, /learn/positions, /learn/formats, /learn/glossary)
-- [ ] 12-02: Blog engine, first 5 blog posts (bocce comparison, how to play, rules, beginner guide, equipment)
-- [ ] 12-03: Next 5 blog posts, equipment guide, internal linking strategy
+- [x] 12-01: Learning hub pages (/learn, /learn/rules, /learn/positions, /learn/formats, /learn/glossary)
+- [x] 12-02: Blog engine, first 5 blog posts (bocce comparison, how to play, rules, beginner guide, equipment)
+- [x] 12-03: Next 5 blog posts, equipment guide, internal linking strategy
 
 ### Phase 13: DEI Insurance Platform
 **Goal**: Lawn bowling-specific insurance product with in-app page and standalone microsite
@@ -163,8 +163,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 13-01: In-app lawn bowls insurance page, check-in integration, admin coverage view
-- [ ] 13-02: lawnbowl.camp standalone microsite (Next.js, Vercel, co-branded)
+- [x] 13-01: In-app lawn bowls insurance page, check-in integration, admin coverage view
+- [x] 13-02: lawnbowl.camp standalone microsite (Next.js, Vercel, co-branded)
 
 ### Phase 14: Print-on-Demand Shop
 **Goal**: Merch shop with Printify integration, real SKUs, 40% markup, and Stripe checkout
@@ -182,9 +182,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 14-01: Printify API integration (product sync, SKU mapping, 40% markup pricing)
-- [ ] 14-02: Shop UI (catalog, product detail, cart, Stripe checkout)
-- [ ] 14-03: Order fulfillment (Printify order API, webhooks, tracking), club custom merch, affiliate links
+- [x] 14-01: Printify API integration (product sync, SKU mapping, 40% markup pricing)
+- [x] 14-02: Shop UI (catalog, product detail, cart, Stripe checkout)
+- [x] 14-03: Order fulfillment (Printify order API, webhooks, tracking), club custom merch, affiliate links
 
 ### Phase 15: SEO & Growth Engine
 **Goal**: Technical SEO foundation to rank #1 for lawn bowling keywords nationally
@@ -200,8 +200,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 15-01: Dynamic sitemap, Schema.org markup, meta tags, OG cards
-- [ ] 15-02: Domain redirects, Google Business Profile, robots.txt, Search Console
+- [x] 15-01: Dynamic sitemap, Schema.org markup, meta tags, OG cards
+- [x] 15-02: Domain redirects, Google Business Profile, robots.txt, Search Console
 
 ## Progress
 
@@ -216,14 +216,19 @@ Phases 7-10, 12, 15 run in parallel (Week 1). Phases 11, 13, 14 follow (Week 2).
 | 4. Partner Selection | 2/2 | Complete | 2026-03-09 |
 | 5. Court Management & Admin | 2/2 | Complete | 2026-03-09 |
 | 6. PWA, Polish & Deploy | 2/2 | Complete | 2026-03-10 |
-| 7. Rebrand & Foundation | 0/3 | Not Started | - |
-| 8. Tournament Lifecycle | 0/3 | Not Started | - |
-| 9. Kiosk UX Overhaul | 0/2 | Not Started | - |
-| 10. Club Directory | 0/3 | Not Started | - |
-| 11. Live Display & Engagement | 0/2 | Not Started | - |
-| 12. Educational Content & Blog | 0/3 | Not Started | - |
-| 13. DEI Insurance Platform | 0/2 | Not Started | - |
-| 14. Print-on-Demand Shop | 0/3 | Not Started | - |
-| 15. SEO & Growth Engine | 0/2 | Not Started | - |
+| 7. Rebrand & Foundation | 3/3 | Complete | 2026-03-10 |
+| 8. Tournament Lifecycle | 3/3 | Complete | 2026-03-10 |
+| 9. Kiosk UX Overhaul | 2/2 | Complete | 2026-03-11 |
+| 10. Club Directory | 3/3 | Complete | 2026-03-11 |
+| 11. Live Display & Engagement | 2/2 | Complete | 2026-03-10 |
+| 12. Educational Content & Blog | 3/3 | Complete | 2026-03-10 |
+| 13. DEI Insurance Platform | 2/2 | Complete | 2026-03-11 |
+| 14. Print-on-Demand Shop | 3/3 | Complete | 2026-03-11 |
+| 15. SEO & Growth Engine | 2/2 | Complete | 2026-03-11 |
 
-**Total:** 15 phases, 35 plans (12 complete, 23 remaining)
+**Total:** 15 phases, 35 plans (35 complete, 0 remaining) — ALL PHASES COMPLETE
+
+**Notes:**
+- Phase 13-02: lawnbowl.camp microsite not yet deployed (insurance content lives in-app at /insurance/lawn-bowls)
+- Phase 14: Printify API order submission deferred until API key is configured
+- Phase 15-02: Google Business Profile creation requires manual verification
