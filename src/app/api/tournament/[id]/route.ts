@@ -7,6 +7,7 @@ import {
   getParticipants,
   generateRoundRobinBracket,
   generateSingleEliminationBracket,
+  generateDoubleEliminationBracket,
 } from "@/lib/db/tournaments";
 
 export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -86,6 +87,8 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
       if (tournament.format === "round_robin") {
         await generateRoundRobinBracket(id);
+      } else if (tournament.format === "double_elimination") {
+        await generateDoubleEliminationBracket(id);
       } else {
         await generateSingleEliminationBracket(id);
       }

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import type { TournamentFormat } from "@/lib/types";
+import type { TournamentFormat, TournamentBracketType } from "@/lib/types";
 
 interface MatchData {
   id: string;
@@ -14,6 +14,7 @@ interface MatchData {
   winner_id: string | null;
   score: string | null;
   status: string;
+  bracket?: TournamentBracketType;
   player1?: { id: string; display_name: string; avatar_url: string | null } | null;
   player2?: { id: string; display_name: string; avatar_url: string | null } | null;
 }
@@ -265,6 +266,31 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
   );
 }
 
+function DoubleEliminationBracket({ matches, onReportResult, currentPlayerId }: Omit<TournamentBracketProps, "format">) {
+  const [activeBracket, setActiveBracket] = useState<"winners" | "losers" | "grand_final">("winners");
+  const winnerMatches = matches.filter((m) => m.bracket === "winners");
+  const loserMatches = matches.filter((m) => m.bracket === "losers");
+  const grandFinal = matches.filter((m) => m.bracket === "grand_final");
+  const bracketTabs: { key: typeof activeBracket; label: string; count: number }[] = [
+    { key: "winners", label: "Winners", count: winnerMatches.length },
+    { key: "losers", label: "Losers", count: loserMatches.length },
+    { key: "grand_final", label: "Grand Final", count: grandFinal.length },
+  ];
+  const activeMatches = activeBracket === "winners" ? winnerMatches : activeBracket === "losers" ? loserMatches : grandFinal;
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        {bracketTabs.map((tab) => (
+          <button key={tab.key} onClick={() => setActiveBracket(tab.key)} className={cn("rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors", activeBracket === tab.key ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200")}>
+            {tab.label} ({tab.count})
+          </button>
+        ))}
+      </div>
+      <EliminationBracket matches={activeMatches} onReportResult={onReportResult} currentPlayerId={currentPlayerId} />
+    </div>
+  );
+}
+
 export function TournamentBracket({ matches, format, onReportResult, currentPlayerId }: TournamentBracketProps) {
   if (matches.length === 0) {
     return (
@@ -276,6 +302,10 @@ export function TournamentBracket({ matches, format, onReportResult, currentPlay
 
   if (format === "round_robin") {
     return <RoundRobinBracket matches={matches} onReportResult={onReportResult} currentPlayerId={currentPlayerId} />;
+  }
+
+  if (format === "double_elimination") {
+    return <DoubleEliminationBracket matches={matches} onReportResult={onReportResult} currentPlayerId={currentPlayerId} />;
   }
 
   return <EliminationBracket matches={matches} onReportResult={onReportResult} currentPlayerId={currentPlayerId} />;

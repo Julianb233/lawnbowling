@@ -346,6 +346,8 @@ export interface TournamentParticipant {
   player?: Player; // joined
 }
 
+export type TournamentBracketType = "winners" | "losers" | "grand_final";
+
 export interface TournamentMatch {
   id: string;
   tournament_id: string;
@@ -359,6 +361,7 @@ export interface TournamentMatch {
   status: TournamentMatchStatus;
   scheduled_at: string | null;
   completed_at: string | null;
+  bracket?: TournamentBracketType; // for double elimination
   player1?: Player; // joined
   player2?: Player; // joined
   winner?: Player; // joined
