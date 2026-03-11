@@ -522,6 +522,18 @@ a,
     border-collapse: collapse !important;
   }
 
+  /* Print draw sheet layout */
+  .pds-rinks-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10pt !important;
+  }
+
+  /* Hide the screen-only draw view when printing */
+  .screen-draw-view {
+    display: none !important;
+  }
+
   @page {
     margin: 0.5in;
     size: A4;

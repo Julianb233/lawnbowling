@@ -18,6 +18,7 @@ import type {
   BowlsTeamAssignment,
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { PrintDrawSheet } from "@/components/bowls/PrintDrawSheet";
 import Link from "next/link";
 
 type PageView = "checkin" | "board" | "draw";
@@ -511,6 +512,12 @@ export default function BowlsTournamentPage() {
               </div>
             ) : (
               <div>
+                <PrintDrawSheet
+                  drawResult={drawResult}
+                  tournamentName={tournamentName}
+                  round={drawRound}
+                />
+                <div className="screen-draw-view">
                 <div className="mb-6 flex items-center justify-between">
                   <div>
                     <h2 className="text-xl font-black text-zinc-900">
@@ -656,6 +663,7 @@ export default function BowlsTournamentPage() {
                     </div>
                   </div>
                 )}
+                </div>
               </div>
             )}
           </div>
