@@ -1,251 +1,156 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
-import { motion } from "framer-motion";
-import { CheckCircle2, MapPin, Loader2, AlertCircle, LogIn, Shield, X } from "lucide-react";
-import Link from "next/link";
-import { createClient } from "@/lib/supabase/client";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle2, MapPin, AlertCircle, Loader2 } from "lucide-react";
 
-interface VenueInfo {
-  id: string;
-  name: string;
-  address: string | null;
-}
+type CheckInState = "loading" | "success" | "already" | "error" | "no-auth";
 
-type CheckInState = "loading" | "checking_in" | "success" | "error" | "no_auth" | "not_found";
+export default function VenueCheckInPage() {
+  const params = useParams();
+  const router = useRouter();
+  const venueId = params.venueId as string;
 
-export default function VenueCheckInPage({
-  params,
-}: {
-  params: Promise<{ venueId: string }>;
-}) {
-  const { venueId } = use(params);
   const [state, setState] = useState<CheckInState>("loading");
-  const [venue, setVenue] = useState<VenueInfo | null>(null);
-  const [playerName, setPlayerName] = useState<string | null>(null);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [showInsuranceOffer, setShowInsuranceOffer] = useState(true);
+  const [playerName, setPlayerName] = useState("");
+  const [venueName, setVenueName] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
-    async function checkIn() {
-      const supabase = createClient();
-
-      // Check if user is logged in
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        setState("no_auth");
-        return;
-      }
-
-      // Get venue info
-      const { data: venueData, error: venueError } = await supabase
-        .from("venues")
-        .select("id, name, address")
-        .eq("id", venueId)
-        .single();
-
-      if (venueError || !venueData) {
-        setState("not_found");
-        return;
-      }
-
-      setVenue(venueData);
-      setState("checking_in");
-
-      // Get player profile
-      const { data: player } = await supabase
-        .from("players")
-        .select("id, display_name")
-        .eq("user_id", user.id)
-        .single();
-
-      if (!player) {
-        setErrorMsg("No player profile found. Complete your profile first.");
-        setState("error");
-        return;
-      }
-
-      // Check in via API
+    async function doCheckIn() {
       try {
-        const res = await fetch("/api/qr/checkin", {
+        const res = await fetch("/api/qr/venue-checkin", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            player_id: player.id,
-            venue_id: venueId,
-          }),
+          body: JSON.stringify({ venue_id: venueId }),
         });
 
-        const result = await res.json();
-
-        if (result.success) {
-          setPlayerName(player.display_name);
-          setState("success");
-        } else {
-          setErrorMsg(result.error || "Check-in failed");
-          setState("error");
+        if (res.status === 401) {
+          // Not logged in — redirect to login with return URL
+          setState("no-auth");
+          setTimeout(() => {
+            router.push(`/login?redirect=/checkin/${venueId}`);
+          }, 1500);
+          return;
         }
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          setState("error");
+          setErrorMsg(data.error || "Check-in failed");
+          return;
+        }
+
+        setPlayerName(data.player_name);
+        setVenueName(data.venue_name);
+        setState(data.already_checked_in ? "already" : "success");
       } catch {
-        setErrorMsg("Network error. Please try again.");
         setState("error");
+        setErrorMsg("Network error. Please try again.");
       }
     }
 
-    checkIn();
-  }, [venueId]);
+    doCheckIn();
+  }, [venueId, router]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-zinc-50 to-white px-4">
-      <div className="w-full max-w-sm">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 p-4">
+      <AnimatePresence mode="wait">
         {state === "loading" && (
           <motion.div
+            key="loading"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center gap-4 py-16"
+            exit={{ opacity: 0 }}
+            className="flex flex-col items-center gap-4 text-center"
           >
-            <Loader2 className="h-12 w-12 animate-spin text-[#1B5E20]" />
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Loading venue...</p>
+            <Loader2 className="h-16 w-16 animate-spin text-emerald-500" />
+            <p className="text-lg text-zinc-300">Checking you in...</p>
           </motion.div>
         )}
 
-        {state === "checking_in" && venue && (
+        {(state === "success" || state === "already") && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center gap-4 py-16"
-          >
-            <Loader2 className="h-12 w-12 animate-spin text-[#1B5E20]" />
-            <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Checking in...</h2>
-            <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
-              <MapPin className="h-4 w-4" />
-              {venue.name}
-            </div>
-          </motion.div>
-        )}
-
-        {state === "success" && venue && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            key="success"
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center gap-6 rounded-2xl border border-[#1B5E20]/15 bg-[#1B5E20]/5 p-8 text-center"
+            transition={{ type: "spring", stiffness: 200 }}
+            className="flex flex-col items-center gap-6 text-center"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 300, delay: 0.1 }}
             >
-              <CheckCircle2 className="h-16 w-16 text-[#1B5E20]" />
+              <CheckCircle2 className="h-24 w-24 text-emerald-500" />
             </motion.div>
-            <div>
-              <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">You're Checked In!</h2>
-              <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                Welcome, <span className="font-semibold">{playerName}</span>
-              </p>
-            </div>
-            <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400">
-              <MapPin className="h-4 w-4 text-[#1B5E20]" />
-              {venue.name}
-            </div>
-            <Link
-              href="/board"
-              className="mt-2 w-full rounded-xl bg-[#1B5E20] py-3 text-center text-sm font-bold text-white hover:bg-[#1B5E20] transition-colors"
-            >
-              Go to Board
-            </Link>
-          </motion.div>
-        )}
 
-        {state === "success" && showInsuranceOffer && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="relative mt-4 rounded-xl border border-emerald-200 bg-emerald-50/50 p-4"
-          >
-            <button
-              onClick={() => setShowInsuranceOffer(false)}
-              className="absolute right-2 top-2 rounded-full p-1 text-zinc-400 hover:text-zinc-600"
-              aria-label="Dismiss"
-            >
-              <X className="h-4 w-4" />
-            </button>
-            <div className="flex items-start gap-3 pr-6">
-              <Shield className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
-              <div>
-                <p className="text-sm font-semibold text-zinc-900">Protect Your Game</p>
-                <p className="mt-0.5 text-xs text-zinc-600">Per-session coverage from $3/player</p>
-                <Link
-                  href="/insurance/lawn-bowls"
-                  className="mt-2 inline-block rounded-lg bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-emerald-500 transition-colors"
-                >
-                  Learn More
-                </Link>
+            <div>
+              <h1 className="text-3xl font-bold text-white">
+                {state === "already" ? "Already Checked In!" : "You're In!"}
+              </h1>
+              <p className="mt-2 text-xl text-emerald-400 font-semibold">
+                Welcome, {playerName}
+              </p>
+              <div className="mt-3 flex items-center justify-center gap-2 text-zinc-400">
+                <MapPin className="h-4 w-4" />
+                <span>{venueName}</span>
               </div>
             </div>
+
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => router.push("/board")}
+              className="mt-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 px-8 py-4 text-lg font-bold text-white shadow-lg"
+            >
+              Go to Board
+            </motion.button>
           </motion.div>
         )}
 
-        {state === "no_auth" && (
+        {state === "no-auth" && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center gap-6 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center"
+            key="no-auth"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex flex-col items-center gap-4 text-center"
           >
-            <LogIn className="h-12 w-12 text-zinc-400" />
-            <div>
-              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Sign In to Check In</h2>
-              <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-                You need an account to check in at this venue
-              </p>
-            </div>
-            <Link
-              href={`/login?redirect=/checkin/${venueId}`}
-              className="w-full rounded-xl bg-[#1B5E20] py-3 text-center text-sm font-bold text-white hover:bg-[#1B5E20] transition-colors"
-            >
-              Sign In
-            </Link>
-            <Link
-              href={`/signup?redirect=/checkin/${venueId}`}
-              className="text-sm text-[#1B5E20] hover:text-[#2E7D32]"
-            >
-              Create an Account
-            </Link>
-          </motion.div>
-        )}
-
-        {state === "not_found" && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center gap-4 rounded-2xl border border-red-200 bg-red-50 p-8 text-center"
-          >
-            <AlertCircle className="h-12 w-12 text-red-400" />
-            <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Venue Not Found</h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">This QR code may be outdated or invalid.</p>
+            <AlertCircle className="h-16 w-16 text-amber-500" />
+            <p className="text-lg text-zinc-300">
+              Please log in to check in
+            </p>
+            <p className="text-sm text-zinc-500">Redirecting to login...</p>
           </motion.div>
         )}
 
         {state === "error" && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center gap-4 rounded-2xl border border-red-200 bg-red-50 p-8 text-center"
+            key="error"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex flex-col items-center gap-6 text-center"
           >
-            <AlertCircle className="h-12 w-12 text-red-400" />
-            <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Check-In Failed</h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">{errorMsg}</p>
+            <AlertCircle className="h-20 w-20 text-red-500" />
+            <div>
+              <h1 className="text-2xl font-bold text-white">Check-in Failed</h1>
+              <p className="mt-2 text-zinc-400">{errorMsg}</p>
+            </div>
             <button
-              onClick={() => window.location.reload()}
-              className="rounded-xl bg-zinc-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-zinc-800"
+              onClick={() => {
+                setState("loading");
+                window.location.reload();
+              }}
+              className="rounded-xl bg-zinc-700 px-6 py-3 text-white hover:bg-zinc-600 transition-colors"
             >
               Try Again
             </button>
           </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 }
