@@ -1,5 +1,5 @@
 {
-  "project": "Pick-a-Partner",
+  "project": "Lawnbowling",
   "branchName": "ralph/phase-07-bowls-tournament-ux",
   "description": "End-to-end user experience testing for the bowls tournament feature — tournament listing, creation, check-in, board, draw generation, kiosk mode, and navigation",
   "userStories": [
