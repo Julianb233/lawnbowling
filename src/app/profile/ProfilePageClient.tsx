@@ -10,6 +10,7 @@ import { MatchHistory } from "@/components/profile/MatchHistory";
 import { AvailabilitySchedule } from "@/components/profile/AvailabilitySchedule";
 import { ClubAffiliations } from "@/components/profile/ClubAffiliations";
 import { PhotoGallery } from "@/components/profile/PhotoGallery";
+import { CompletenessBarWithData } from "@/components/profile/CompletenessBar";
 import type { PlayerProfile, SkillLevel, Sport, BowlingPosition, PreferredHand } from "@/lib/db/players";
 import type { Waiver } from "@/lib/db/waivers";
 import type { PlayerPhoto } from "@/lib/db/gallery";
@@ -113,6 +114,8 @@ export function ProfilePageClient({ player, waiver, stats, favoritePartners, pho
           </div>
         ) : (
           <div className="space-y-4">
+            <CompletenessBarWithData player={player} waiver={waiver} />
+
             <ProfileCard player={player} />
 
             <ProfileStatsSection stats={stats} favoritePartners={favoritePartners} />
