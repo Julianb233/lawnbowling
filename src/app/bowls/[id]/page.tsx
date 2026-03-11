@@ -71,6 +71,7 @@ export default function BowlsTournamentPage() {
   const [greenConditions, setGreenConditions] = useState<GreenConditions | null>(null);
   const [showConditionsForm, setShowConditionsForm] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [playerTopRatings, setPlayerTopRatings] = useState<Map<string, { position: string; elo: number }>>(new Map());
 
   // Load current user's player ID for draw highlighting + admin check
   useEffect(() => {
@@ -190,6 +191,31 @@ export default function BowlsTournamentPage() {
       supabase.removeChannel(conditionsChannel);
     };
   }, [loadPlayers, loadCheckins, loadTournament, loadGreenConditions, tournamentId]);
+
+  // Fetch top position rating for all players (for check-in badge REQ-11-11)
+  useEffect(() => {
+    async function loadTopRatings() {
+      const supabase = createClient();
+      const season = new Date().getFullYear().toString();
+      const { data } = await supabase
+        .from("bowls_position_ratings")
+        .select("player_id, position, elo_rating")
+        .eq("season", season)
+        .gte("games_played", 1)
+        .order("elo_rating", { ascending: false });
+
+      if (data) {
+        const topMap = new Map<string, { position: string; elo: number }>();
+        for (const row of data) {
+          if (!topMap.has(row.player_id)) {
+            topMap.set(row.player_id, { position: row.position, elo: Math.round(row.elo_rating) });
+          }
+        }
+        setPlayerTopRatings(topMap);
+      }
+    }
+    loadTopRatings();
+  }, []);
 
   function handlePlayerTap(player: Player) {
     const existing = checkins.find((c) => c.player_id === player.id);
@@ -470,7 +496,7 @@ export default function BowlsTournamentPage() {
                       "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left",
                       drawStyle === style
                         ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                        : "border-zinc-200 dark:border-white/10 bg-white dark:bg-card text-zinc-500 hover:border-zinc-400"
+                        : "border-zinc-200 dark:border-white/10 bg-white dark:bg-card text-zinc-500 dark:text-muted-foreground hover:border-zinc-400"
                     )}
                   >
                     {DRAW_STYLE_LABELS[style]}
@@ -675,7 +701,9 @@ export default function BowlsTournamentPage() {
 
                 <DrawSheet
                   draw={drawResult}
+                  revealMode={true}
                   currentUserId={currentUserId ?? undefined}
+                  revealMode={true}
                   tournamentName={tournamentName}
                   roundNumber={multiRoundDraw ? selectedRound + 1 : drawRound}
                 />
