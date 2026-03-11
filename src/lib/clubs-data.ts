@@ -1,11 +1,23 @@
-// Club directory data — US lawn bowling clubs
-// Seeded from research across all four Bowls USA divisions
+// Club directory data — Global lawn bowling clubs
+// USA clubs seeded from Bowls USA divisions, UK from Bowls England/Scotland, Canada from Bowls Canada
 
 export type USState = string;
 export type ClubStatus = "active" | "seasonal" | "inactive" | "unverified" | "claimed";
 export type SurfaceType = "natural_grass" | "synthetic" | "hybrid" | "unknown";
 export type USRegion = "west" | "east" | "south" | "midwest";
 export type BowlsUSADivision = string;
+export type CountryCode = "US" | "GB" | "CA" | "AU" | "NZ" | "ZA";
+
+export interface ClubContact {
+  name: string;
+  role: string;
+  email?: string;
+  phone?: string;
+  linkedinUrl?: string;
+  instagramUrl?: string;
+  facebookUrl?: string;
+  twitterUrl?: string;
+}
 
 export interface ClubData {
   id: string;
@@ -13,6 +25,9 @@ export interface ClubData {
   city: string;
   stateCode: string;
   state: string;
+  country?: CountryCode;
+  countryCode?: CountryCode;
+  province?: string;
   region?: string;
   address?: string;
   lat?: number;
@@ -31,9 +46,11 @@ export interface ClubData {
   description?: string;
   status: ClubStatus;
   hasOnlinePresence: boolean;
+  contacts?: ClubContact[];
   facebookUrl?: string;
   instagramUrl?: string;
   youtubeUrl?: string;
+  twitterUrl?: string;
   logoUrl?: string;
   coverImageUrl?: string;
   tags: string[];
@@ -44,6 +61,15 @@ export interface ClubData {
   metaTitle?: string;
   metaDescription?: string;
 }
+
+export const COUNTRIES: Record<CountryCode, { name: string; code: CountryCode; flag: string }> = {
+  US: { name: "United States", code: "US", flag: "🇺🇸" },
+  GB: { name: "United Kingdom", code: "GB", flag: "🇬🇧" },
+  CA: { name: "Canada", code: "CA", flag: "🇨🇦" },
+  AU: { name: "Australia", code: "AU", flag: "🇦🇺" },
+  NZ: { name: "New Zealand", code: "NZ", flag: "🇳🇿" },
+  ZA: { name: "South Africa", code: "ZA", flag: "🇿🇦" },
+};
 
 export const US_STATES: Record<string, { name: string; code: string; region: USRegion }> = {
   AL: { name: "Alabama", code: "AL", region: "south" },
@@ -99,11 +125,11 @@ export const US_STATES: Record<string, { name: string; code: string; region: USR
   DC: { name: "Washington DC", code: "DC", region: "east" },
 };
 
-export const REGION_LABELS: Record<string, { label: string; emoji: string }> = {
-  west:    { label: "West",    emoji: "\u{1F3D4}\u{FE0F}" },
-  east:    { label: "East",    emoji: "\u{1F30A}" },
-  south:   { label: "South",   emoji: "\u{2600}\u{FE0F}" },
-  midwest: { label: "Midwest", emoji: "\u{1F33E}" },
+export const REGION_LABELS: Record<string, { label: string }> = {
+  west:    { label: "West" },
+  east:    { label: "East" },
+  south:   { label: "South" },
+  midwest: { label: "Midwest" },
 };
 
 export const SURFACE_LABELS: Record<SurfaceType, string> = {
@@ -2114,45 +2140,112 @@ export const CLUBS: ClubData[] = [
   },
 ];
 
+// Lazy-loaded global clubs — import these files when available
+let _allClubs: ClubData[] | null = null;
+
+export function getAllClubs(): ClubData[] {
+  if (_allClubs) return _allClubs;
+  // Start with US clubs, enrich with contacts, add global
+  const usClubs = CLUBS.map((c) => ({ ...c, country: "US" as CountryCode, countryCode: "US" as CountryCode }));
+
+  // Enrich US clubs with contact data
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const contacts = require("./clubs-contacts-usa");
+    if (contacts?.USA_CLUB_CONTACTS) {
+      for (const club of usClubs) {
+        const clubContacts = contacts.USA_CLUB_CONTACTS[club.id];
+        if (clubContacts?.length) club.contacts = clubContacts;
+      }
+    }
+    if (contacts?.USA_CLUB_SOCIALS) {
+      for (const club of usClubs) {
+        const socials = contacts.USA_CLUB_SOCIALS[club.id];
+        if (socials) {
+          if (socials.facebookUrl && !club.facebookUrl) club.facebookUrl = socials.facebookUrl;
+          if (socials.instagramUrl && !club.instagramUrl) club.instagramUrl = socials.instagramUrl;
+          if (socials.twitterUrl && !club.twitterUrl) club.twitterUrl = socials.twitterUrl;
+        }
+      }
+    }
+  } catch { /* USA contacts not yet available */ }
+
+  const all: ClubData[] = [...usClubs];
+
+  // Add UK clubs
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const uk = require("./clubs-data-uk");
+    if (uk?.UK_CLUBS) all.push(...uk.UK_CLUBS);
+  } catch { /* UK data not yet available */ }
+
+  // Add Canada clubs
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const ca = require("./clubs-data-canada");
+    if (ca?.CANADA_CLUBS) all.push(...ca.CANADA_CLUBS);
+  } catch { /* Canada data not yet available */ }
+
+  _allClubs = all;
+  return all;
+}
+
 export function getClubById(id: string): ClubData | undefined {
-  return CLUBS.find((c) => c.id === id);
+  return getAllClubs().find((c) => c.id === id);
 }
 
 export function getClubsByState(stateCode: string): ClubData[] {
-  return CLUBS.filter((c) => c.stateCode === stateCode);
+  return getAllClubs().filter((c) => c.stateCode === stateCode);
+}
+
+export function getClubsByCountry(countryCode: CountryCode): ClubData[] {
+  return getAllClubs().filter((c) => (c.country ?? c.countryCode ?? "US") === countryCode);
 }
 
 export function getClubsByRegion(region: string): ClubData[] {
-  return CLUBS.filter((c) => c.region === region);
+  return getAllClubs().filter((c) => c.region === region);
 }
 
 export function getStatesWithClubs(): string[] {
-  return [...new Set(CLUBS.map((c) => c.stateCode))].sort();
+  return [...new Set(getAllClubs().map((c) => c.stateCode))].sort();
+}
+
+export function getCountriesWithClubs(): CountryCode[] {
+  return [...new Set(getAllClubs().map((c) => (c.country ?? c.countryCode ?? "US") as CountryCode))].sort();
+}
+
+export function getClubsWithCoordinates(): ClubData[] {
+  return getAllClubs().filter((c) => c.lat != null && c.lng != null);
 }
 
 export function searchClubs(query: string): ClubData[] {
   const q = query.toLowerCase();
-  return CLUBS.filter(
+  return getAllClubs().filter(
     (c) =>
       c.name.toLowerCase().includes(q) ||
       c.city.toLowerCase().includes(q) ||
       c.state.toLowerCase().includes(q) ||
       c.description?.toLowerCase().includes(q) ||
       c.tags.some((t) => t.includes(q)) ||
-      c.region?.toLowerCase().includes(q)
+      c.region?.toLowerCase().includes(q) ||
+      c.province?.toLowerCase().includes(q) ||
+      c.contacts?.some((ct) => ct.name.toLowerCase().includes(q))
   );
 }
 
 export function getClubStats() {
-  const states = getStatesWithClubs();
-  const regions = [...new Set(CLUBS.filter((c) => c.region).map((c) => c.region))];
-  const totalMembers = CLUBS.reduce((sum, c) => sum + (c.memberCount ?? 0), 0);
+  const all = getAllClubs();
+  const states = [...new Set(all.map((c) => c.stateCode))];
+  const countries = getCountriesWithClubs();
+  const regions = [...new Set(all.filter((c) => c.region).map((c) => c.region))];
+  const totalMembers = all.reduce((sum, c) => sum + (c.memberCount ?? 0), 0);
   return {
-    totalClubs: CLUBS.length,
+    totalClubs: all.length,
     totalStates: states.length,
+    totalCountries: countries.length,
     totalRegions: regions.length,
     totalMembers,
-    activeClubs: CLUBS.filter((c) => c.status === "active").length,
-    seasonalClubs: CLUBS.filter((c) => c.status === "seasonal").length,
+    activeClubs: all.filter((c) => c.status === "active").length,
+    seasonalClubs: all.filter((c) => c.status === "seasonal").length,
   };
 }

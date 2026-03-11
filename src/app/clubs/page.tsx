@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, lazy, Suspense } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Search, MapPin, Users, ChevronRight, Globe, Leaf } from "lucide-react";
+import { Search, MapPin, Users, ChevronRight, Globe, Leaf, Map as MapIcon, List } from "lucide-react";
 import { BottomNav } from "@/components/board/BottomNav";
 import {
-  CLUBS,
+  getAllClubs,
+  COUNTRIES,
   US_STATES,
   REGION_LABELS,
   SURFACE_LABELS,
@@ -14,7 +15,10 @@ import {
   searchClubs,
   type ClubData,
   type USRegion,
+  type CountryCode,
 } from "@/lib/clubs-data";
+
+const ClubMapLazy = lazy(() => import("@/components/clubs/ClubMap").then((m) => ({ default: m.ClubMap })));
 
 const STATE_ORDER: string[] = Object.keys(US_STATES);
 
@@ -23,10 +27,13 @@ export default function ClubDirectoryPage() {
   const [activeRegion, setActiveRegion] = useState<USRegion | "all">("all");
   const [activeState, setActiveState] = useState<string | "all">("all");
   const [activeActivity, setActiveActivity] = useState<string | "all">("all");
+  const [viewMode, setViewMode] = useState<"list" | "map">("list");
   const stats = getClubStats();
 
+  const allClubs = useMemo(() => getAllClubs(), []);
+
   const filteredClubs = useMemo(() => {
-    let clubs = query.length > 1 ? searchClubs(query) : [...CLUBS];
+    let clubs = query.length > 1 ? searchClubs(query) : [...allClubs];
     if (activeRegion !== "all") {
       clubs = clubs.filter((c) => c.region === activeRegion);
     }
@@ -37,7 +44,7 @@ export default function ClubDirectoryPage() {
       clubs = clubs.filter((c) => c.activities.includes(activeActivity));
     }
     return clubs;
-  }, [query, activeRegion, activeState, activeActivity]);
+  }, [allClubs, query, activeRegion, activeState, activeActivity]);
 
   const availableStates = useMemo(() => {
     if (activeRegion === "all") return STATE_ORDER;
@@ -59,9 +66,9 @@ export default function ClubDirectoryPage() {
 
   const activities = useMemo(() => {
     const set = new Set<string>();
-    CLUBS.forEach((c) => c.activities.forEach((a) => set.add(a)));
+    allClubs.forEach((c) => c.activities.forEach((a) => set.add(a)));
     return [...set].sort();
-  }, []);
+  }, [allClubs]);
 
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
@@ -70,9 +77,17 @@ export default function ClubDirectoryPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-black tracking-tight text-zinc-900">Club Directory</h1>
-              <p className="text-sm text-zinc-500">{stats.totalClubs} clubs across the USA</p>
+              <p className="text-sm text-zinc-500">{stats.totalClubs} clubs{stats.totalCountries > 1 ? ` across ${stats.totalCountries} countries` : " across the USA"}</p>
             </div>
             <div className="flex items-center gap-2">
+              <div className="flex items-center rounded-xl border border-zinc-200 bg-zinc-50 p-0.5">
+                <button onClick={() => setViewMode("list")} className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${viewMode === "list" ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500"}`}>
+                  <List className="h-3.5 w-3.5" />List
+                </button>
+                <button onClick={() => setViewMode("map")} className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${viewMode === "map" ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500"}`}>
+                  <MapIcon className="h-3.5 w-3.5" />Map
+                </button>
+              </div>
               <Link href="/clubs/manage" className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 min-h-[44px] touch-manipulation hidden sm:block">Manage Club</Link>
               <Link href="/clubs/claim" className="rounded-xl bg-[#1B5E20] px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#1B5E20] min-h-[44px] touch-manipulation hidden sm:block">+ Add Your Club</Link>
             </div>
@@ -114,7 +129,11 @@ export default function ClubDirectoryPage() {
           ))}
         </div>
 
-        {clubsByState.length === 0 ? (
+        {viewMode === "map" ? (
+          <Suspense fallback={<div className="aspect-video rounded-2xl bg-zinc-100 animate-pulse" />}>
+            <ClubMapLazy fullScreen={false} />
+          </Suspense>
+        ) : clubsByState.length === 0 ? (
           <div className="rounded-2xl border border-zinc-200 bg-white p-12 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100">
               <MapPin className="h-8 w-8 text-zinc-400" />
@@ -132,7 +151,7 @@ export default function ClubDirectoryPage() {
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-12 rounded-2xl border border-dashed border-zinc-300 bg-white p-8 text-center">
           <h3 className="text-lg font-bold text-zinc-900">Don&apos;t see your club?</h3>
-          <p className="mt-1 text-sm text-zinc-500">Help us build the most complete lawn bowls directory in the USA</p>
+          <p className="mt-1 text-sm text-zinc-500">Help us build the most complete lawn bowls directory in the world</p>
           <Link href="/clubs/claim" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#1B5E20] transition-colors">
             <MapPin className="h-4 w-4" />
             Add Your Club

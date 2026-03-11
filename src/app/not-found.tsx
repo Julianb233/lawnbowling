@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { CircleDot } from "lucide-react";
 
 export default function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#FEFCF9] px-4">
       <div className="text-center">
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#1B5E20]/10">
-          <span className="text-4xl">{"\uD83C\uDFB3"}</span>
+          <CircleDot className="w-10 h-10 text-[#1B5E20]" strokeWidth={1.5} />
         </div>
         <h1 className="text-6xl font-black text-[#0A2E12] mb-2" style={{ fontFamily: "var(--font-display)" }}>404</h1>
         <h2 className="text-xl font-semibold text-[#3D5A3E] mb-4">

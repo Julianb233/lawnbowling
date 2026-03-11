@@ -123,13 +123,13 @@ export interface WaitlistEntry {
 // Board constants
 export type Sport = "pickleball" | "lawn_bowling" | "tennis" | "badminton" | "racquetball" | "flag_football";
 
-export const SPORT_LABELS: Record<Sport, { emoji: string; label: string; short: string }> = {
-  pickleball: { emoji: "\u{1F3D3}", label: "Pickleball", short: "Pickle" },
-  lawn_bowling: { emoji: "\u{1F3B3}", label: "Lawn Bowling", short: "Bowl" },
-  tennis: { emoji: "\u{1F3BE}", label: "Tennis", short: "Tennis" },
-  badminton: { emoji: "\u{1F3F8}", label: "Badminton", short: "Badminton" },
-  racquetball: { emoji: "\u{1F3BE}", label: "Racquetball", short: "Racquet" },
-  flag_football: { emoji: "\u{1F3C8}", label: "Flag Football", short: "Flag" },
+export const SPORT_LABELS: Record<Sport, { label: string; short: string }> = {
+  pickleball: { label: "Pickleball", short: "Pickle" },
+  lawn_bowling: { label: "Lawn Bowling", short: "Bowl" },
+  tennis: { label: "Tennis", short: "Tennis" },
+  badminton: { label: "Badminton", short: "Badminton" },
+  racquetball: { label: "Racquetball", short: "Racquet" },
+  flag_football: { label: "Flag Football", short: "Flag" },
 };
 
 export const SKILL_LABELS: Record<SkillLevel, { stars: number; label: string }> = {
