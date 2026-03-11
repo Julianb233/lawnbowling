@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
 import { createClient } from "@/lib/supabase/server";
 import Stripe from "stripe";
+import { fulfillOrder, parseOrderItemsFromMetadata } from "@/lib/shop/fulfillment";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -22,6 +23,35 @@ export async function POST(req: NextRequest) {
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
+
+      // Handle shop orders (one-time payments)
+      if (session.metadata?.source === "lawnbowl-shop") {
+        const shippingDetails = session.collected_information?.shipping_details;
+        if (shippingDetails?.address) {
+          const items = parseOrderItemsFromMetadata(session.metadata?.itemIds);
+          if (items.length > 0) {
+            const result = await fulfillOrder({
+              externalId: session.id,
+              shippingAddress: {
+                name: shippingDetails.name || "Customer",
+                email: session.customer_details?.email || "",
+                phone: session.customer_details?.phone || undefined,
+                line1: shippingDetails.address.line1 || "",
+                line2: shippingDetails.address.line2 || undefined,
+                city: shippingDetails.address.city || "",
+                state: shippingDetails.address.state || "",
+                postalCode: shippingDetails.address.postal_code || "",
+                country: shippingDetails.address.country || "US",
+              },
+              items,
+            });
+            console.log("[stripe-webhook] Shop order fulfillment result:", result);
+          }
+        }
+        break;
+      }
+
+      // Handle subscription payments
       const playerId = session.metadata?.player_id;
       const plan = session.metadata?.plan;
       if (!playerId || !plan) break;

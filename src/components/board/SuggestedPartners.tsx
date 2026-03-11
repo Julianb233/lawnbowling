@@ -2,9 +2,11 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
 import { getSportColor } from "@/lib/design";
+import { SportIcon } from "@/components/icons/SportIcon";
 import type { Player, Sport } from "@/lib/types";
 
 interface SuggestionData {
@@ -106,7 +108,7 @@ function SuggestionCard({
       {/* Info */}
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <h4 className="truncate text-sm font-semibold text-zinc-900">
+          <h4 className="truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             {player.display_name}
           </h4>
           <ScoreBadge score={score} />
@@ -123,17 +125,17 @@ function SuggestionCard({
                   "text-zinc-400"
                 )}
               >
-                {info.emoji} {info.short}
+                <SportIcon sport={sport as Sport} className="w-3 h-3" /> {info.short}
               </span>
             ) : null;
           })}
           {eloDiff !== null && (
-            <span className="text-[10px] text-zinc-500">
+            <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
               {eloDiff <= 50 ? "~same level" : `${eloDiff} ELO diff`}
             </span>
           )}
         </div>
-        <p className="mt-0.5 truncate text-[10px] text-zinc-500">
+        <p className="mt-0.5 truncate text-[10px] text-zinc-500 dark:text-zinc-400">
           {reasons.slice(0, 2).join(" · ")}
         </p>
       </div>
@@ -217,8 +219,8 @@ export function SuggestedPartners({
       className="mb-6"
     >
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
-          {"\u2728"} Suggested Partners
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+          <span className="inline-flex items-center gap-1.5"><Sparkles className="w-4 h-4" strokeWidth={1.5} /> Suggested Partners</span>
         </h2>
         <button
           onClick={() => {
@@ -246,13 +248,13 @@ export function SuggestedPartners({
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="h-16 animate-pulse rounded-xl bg-zinc-50"
+              className="h-16 animate-pulse rounded-xl bg-zinc-50 dark:bg-white/5"
             />
           ))}
         </div>
       ) : suggestions.length === 0 ? (
         <div className="rounded-xl border border-dashed border-zinc-300 px-4 py-6 text-center glass">
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             No suggestions yet. Check in and wait for other players!
           </p>
         </div>

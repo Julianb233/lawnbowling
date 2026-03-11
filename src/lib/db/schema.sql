@@ -496,3 +496,125 @@ create index idx_tournaments_status on tournaments(status) where status != 'comp
 create index idx_tournament_participants_tournament on tournament_participants(tournament_id);
 create index idx_tournament_matches_tournament on tournament_matches(tournament_id);
 create index idx_tournament_matches_round on tournament_matches(tournament_id, round);
+
+-- ===== PROFILE ENHANCEMENTS: BIO & PREFERENCES =====
+alter table players add column if not exists bio text;
+alter table players add column if not exists preferred_position text check (preferred_position in ('lead', 'second', 'third', 'skip'));
+alter table players add column if not exists preferred_hand text check (preferred_hand in ('left', 'right', 'ambidextrous'));
+alter table players add column if not exists years_experience integer;
+
+-- ===== PROFILE ENHANCEMENTS: PHOTO GALLERY =====
+
+create table player_photos (
+  id uuid primary key default uuid_generate_v4(),
+  player_id uuid not null references players(id) on delete cascade,
+  url text not null,
+  caption text,
+  sort_order integer default 0,
+  created_at timestamptz default now()
+);
+
+alter table player_photos enable row level security;
+
+create policy "Photos viewable by all" on player_photos for select using (true);
+create policy "Players can manage own photos" on player_photos for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
+
+create index idx_player_photos_player on player_photos(player_id);
+create index idx_player_photos_sort on player_photos(player_id, sort_order);
+
+-- ===== PROFILE ENHANCEMENTS: AVAILABILITY SCHEDULE =====
+
+create table player_availability (
+  id uuid primary key default uuid_generate_v4(),
+  player_id uuid not null references players(id) on delete cascade,
+  day_of_week smallint not null check (day_of_week between 0 and 6),
+  start_time time not null,
+  end_time time not null,
+  is_active boolean default true,
+  created_at timestamptz default now(),
+  unique(player_id, day_of_week, start_time)
+);
+
+alter table player_availability enable row level security;
+
+create policy "Availability viewable by all" on player_availability for select using (true);
+create policy "Players can manage own availability" on player_availability for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
+
+create index idx_player_availability_player on player_availability(player_id);
+create index idx_player_availability_day on player_availability(player_id, day_of_week);
+
+-- ===== PROFILE ENHANCEMENTS: ACHIEVEMENT BADGES =====
+
+create table player_achievements (
+  id uuid primary key default uuid_generate_v4(),
+  player_id uuid not null references players(id) on delete cascade,
+  achievement_id text not null,
+  unlocked_at timestamptz default now(),
+  unique(player_id, achievement_id)
+);
+
+alter table player_achievements enable row level security;
+
+create policy "Achievements viewable by all" on player_achievements for select using (true);
+create policy "System can grant achievements" on player_achievements for insert with check (public.is_own_player(player_id));
+
+create index idx_player_achievements_player on player_achievements(player_id);
+create index idx_player_achievements_achievement on player_achievements(achievement_id);
+
+-- ===== PROFILE ENHANCEMENTS: CONTACT PREFERENCES =====
+
+create table contact_preferences (
+  player_id uuid primary key references players(id) on delete cascade,
+  show_email boolean default false,
+  show_phone boolean default false,
+  preferred_contact text check (preferred_contact in ('in_app', 'email', 'phone', 'none')) default 'in_app',
+  email text,
+  phone text,
+  allow_messages_from text check (allow_messages_from in ('everyone', 'friends', 'none')) default 'everyone',
+  updated_at timestamptz default now()
+);
+
+alter table contact_preferences enable row level security;
+
+create policy "Contact prefs: public fields viewable by all" on contact_preferences for select using (true);
+create policy "Contact prefs: own" on contact_preferences for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
+
+-- ===== PROFILE ENHANCEMENTS: ENDORSEMENTS =====
+
+create table player_endorsements (
+  id uuid primary key default uuid_generate_v4(),
+  endorser_id uuid not null references players(id) on delete cascade,
+  endorsed_id uuid not null references players(id) on delete cascade,
+  skill text not null check (skill in ('great_skip', 'reliable_lead', 'strong_second', 'accurate_draw', 'powerful_drive', 'good_sportsmanship', 'team_player', 'tactical_mind')),
+  created_at timestamptz default now(),
+  unique(endorser_id, endorsed_id, skill),
+  check (endorser_id != endorsed_id)
+);
+
+alter table player_endorsements enable row level security;
+
+create policy "Endorsements viewable by all" on player_endorsements for select using (true);
+create policy "Players can endorse others" on player_endorsements for insert with check (public.is_own_player(endorser_id));
+create policy "Players can remove own endorsements" on player_endorsements for delete using (public.is_own_player(endorser_id));
+
+create index idx_endorsements_endorsed on player_endorsements(endorsed_id);
+create index idx_endorsements_endorser on player_endorsements(endorser_id);
+
+-- ===== PROFILE ENHANCEMENTS: CLUB AFFILIATIONS =====
+
+create table player_clubs (
+  id uuid primary key default uuid_generate_v4(),
+  player_id uuid not null references players(id) on delete cascade,
+  club_slug text not null,
+  role text check (role in ('member', 'officer', 'president')) default 'member',
+  joined_at timestamptz default now(),
+  unique(player_id, club_slug)
+);
+
+alter table player_clubs enable row level security;
+
+create policy "Club affiliations viewable by all" on player_clubs for select using (true);
+create policy "Players can manage own clubs" on player_clubs for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
+
+create index idx_player_clubs_player on player_clubs(player_id);
+create index idx_player_clubs_slug on player_clubs(club_slug);

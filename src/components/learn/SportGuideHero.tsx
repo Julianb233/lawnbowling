@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Clock, Users } from "lucide-react";
 import type { SportGuide } from "@/lib/sport-guides";
 import { getSportColor } from "@/lib/design";
+import { SportIcon } from "@/components/icons/SportIcon";
+import type { Sport } from "@/lib/types";
 
 export function SportGuideHero({ guide }: { guide: SportGuide }) {
   const colors = getSportColor(guide.sport);
@@ -20,9 +22,9 @@ export function SportGuideHero({ guide }: { guide: SportGuide }) {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="mb-4 text-6xl"
+          className="mb-4"
         >
-          {guide.emoji}
+          <SportIcon sport={guide.sport as Sport} className="w-12 h-12" />
         </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 10 }}
@@ -55,11 +57,11 @@ export function SportGuideHero({ guide }: { guide: SportGuide }) {
           >
             {guide.difficulty}
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400">
             <Clock className="h-3.5 w-3.5" />
             {guide.typicalDuration}
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400">
             <Users className="h-3.5 w-3.5" />
             {guide.playersNeeded}
           </span>

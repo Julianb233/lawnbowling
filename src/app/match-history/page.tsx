@@ -17,7 +17,9 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { SPORT_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor, ANIMATIONS } from "@/lib/design";
+import type { Sport } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface MatchPlayer {
@@ -155,17 +157,17 @@ export default function MatchHistoryPage() {
   }).length;
 
   return (
-    <div className="min-h-screen bg-white pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518] pb-20 lg:pb-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-3">
           <div className="flex items-center gap-3">
             <Link href="/stats" className="rounded-lg p-1.5 hover:bg-zinc-100">
-              <ArrowLeft className="h-5 w-5 text-zinc-600" />
+              <ArrowLeft className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
             </Link>
             <div>
-              <h1 className="text-lg font-bold text-zinc-900">Match History</h1>
-              <p className="text-xs text-zinc-500">
+              <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Match History</h1>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">
                 {totalMatches} match{totalMatches !== 1 ? "es" : ""} loaded
                 {totalMatches > 0 && ` -- ${wins}W / ${totalMatches - wins}L`}
               </p>
@@ -206,7 +208,7 @@ export default function MatchHistoryPage() {
         ) : matches.length === 0 ? (
           <div className="py-16 text-center">
             <Trophy className="mx-auto mb-3 h-10 w-10 text-zinc-300" />
-            <p className="text-sm font-medium text-zinc-600">No matches found</p>
+            <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">No matches found</p>
             <p className="text-xs text-zinc-400">
               {sportFilter
                 ? "Try a different sport filter"
@@ -289,10 +291,10 @@ function MatchCard({
       className={cn(
         "overflow-hidden rounded-xl border transition-colors",
         isWin
-          ? "border-emerald-200 bg-emerald-50/50"
+          ? "border-[#1B5E20]/15 bg-[#1B5E20]/5"
           : isLoss
             ? "border-red-200 bg-red-50/30"
-            : "border-zinc-200 bg-zinc-50"
+            : "border-zinc-200 bg-zinc-50 dark:bg-white/5"
       )}
     >
       {/* Main row - always visible */}
@@ -304,7 +306,7 @@ function MatchCard({
         <div
           className={cn(
             "h-12 w-1 shrink-0 rounded-full",
-            isWin ? "bg-emerald-500" : isLoss ? "bg-red-400" : "bg-zinc-300"
+            isWin ? "bg-[#1B5E20]" : isLoss ? "bg-red-400" : "bg-zinc-300"
           )}
         />
 
@@ -318,10 +320,10 @@ function MatchCard({
                 color: sportColor.primary,
               }}
             >
-              {sportLabel?.emoji} {sportLabel?.short ?? match.sport}
+              <SportIcon sport={match.sport as Sport} className="w-3 h-3 inline-block" /> {sportLabel?.short ?? match.sport}
             </span>
             {isWin && (
-              <span className="flex items-center gap-0.5 text-xs font-bold text-emerald-600">
+              <span className="flex items-center gap-0.5 text-xs font-bold text-[#1B5E20]">
                 <Trophy className="h-3 w-3" /> WIN
               </span>
             )}
@@ -332,7 +334,7 @@ function MatchCard({
             )}
           </div>
 
-          <div className="mt-1 flex items-center gap-3 text-xs text-zinc-500">
+          <div className="mt-1 flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
             {match.ended_at && (
               <span className="flex items-center gap-1">
                 <Calendar className="h-3 w-3" />
@@ -355,7 +357,7 @@ function MatchCard({
 
           {/* Partner name */}
           {partner && (
-            <p className="mt-1 text-xs text-zinc-600">
+            <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-400">
               with <span className="font-medium">{partner.players.display_name}</span>
             </p>
           )}
@@ -365,11 +367,11 @@ function MatchCard({
         <div className="shrink-0 text-right">
           {result && result.team1_score !== null ? (
             <div className="text-lg font-bold tabular-nums text-zinc-800">
-              <span className={myTeam === 1 ? (isWin ? "text-emerald-600" : "text-red-500") : "text-zinc-400"}>
+              <span className={myTeam === 1 ? (isWin ? "text-[#1B5E20]" : "text-red-500") : "text-zinc-400"}>
                 {result.team1_score}
               </span>
               <span className="mx-1 text-zinc-300">-</span>
-              <span className={myTeam === 2 ? (isWin ? "text-emerald-600" : "text-red-500") : "text-zinc-400"}>
+              <span className={myTeam === 2 ? (isWin ? "text-[#1B5E20]" : "text-red-500") : "text-zinc-400"}>
                 {result.team2_score}
               </span>
             </div>
@@ -431,7 +433,7 @@ function MatchCard({
               </div>
 
               {/* Match details grid */}
-              <div className="grid grid-cols-3 gap-2 rounded-lg bg-white p-2.5">
+              <div className="grid grid-cols-3 gap-2 rounded-lg bg-white dark:bg-[#1a3d28] p-2.5">
                 <DetailCell
                   label="Date"
                   value={
@@ -488,13 +490,13 @@ function PlayerRow({
       <div
         className={cn(
           "h-6 w-6 shrink-0 overflow-hidden rounded-full border-2",
-          isYou ? "border-emerald-500" : "border-zinc-200"
+          isYou ? "border-[#1B5E20]" : "border-zinc-200"
         )}
       >
         {player.avatar_url ? (
           <img src={player.avatar_url} alt="" className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-[10px] font-medium text-zinc-500">
+          <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-[10px] font-medium text-zinc-500 dark:text-zinc-400">
             {player.display_name?.charAt(0)?.toUpperCase()}
           </div>
         )}

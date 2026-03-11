@@ -10,7 +10,7 @@ export function ProductCard({ product }: { product: Product }) {
       className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition hover:shadow-lg hover:-translate-y-0.5"
     >
       {/* Image */}
-      <div className="relative aspect-square overflow-hidden bg-gray-100">
+      <div className="relative aspect-square overflow-hidden bg-[#0A2E12]/5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={product.image}
@@ -37,10 +37,10 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="text-xs font-medium uppercase tracking-wider text-[#1B5E20]">
           {product.category.replace("-", " ")}
         </p>
-        <h3 className="font-semibold leading-snug text-gray-900 group-hover:text-[#1B5E20]">
+        <h3 className="font-semibold leading-snug text-[#0A2E12] group-hover:text-[#1B5E20]">
           {product.name}
         </h3>
-        <p className="mt-auto pt-2 text-lg font-bold text-gray-900">
+        <p className="mt-auto pt-2 text-lg font-bold text-[#0A2E12]">
           ${product.price.toFixed(2)}
         </p>
       </div>

@@ -16,10 +16,10 @@ function getIntensity(value: number, max: number): string {
   if (max === 0) return "bg-zinc-100";
   const ratio = value / max;
   if (ratio === 0) return "bg-zinc-100";
-  if (ratio < 0.25) return "bg-emerald-100";
-  if (ratio < 0.5) return "bg-emerald-200";
-  if (ratio < 0.75) return "bg-emerald-300";
-  return "bg-emerald-400";
+  if (ratio < 0.25) return "bg-[#1B5E20]/10";
+  if (ratio < 0.5) return "bg-[#1B5E20]/15";
+  if (ratio < 0.75) return "bg-[#1B5E20]";
+  return "bg-[#1B5E20]";
 }
 
 export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {
@@ -43,7 +43,7 @@ export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {
                 title={`${HOURS[hour]}: ${count} check-ins`}
               />
               {hour % 4 === 0 && (
-                <span className="text-[10px] text-zinc-600">{HOURS[hour]}</span>
+                <span className="text-[10px] text-zinc-600 dark:text-zinc-400">{HOURS[hour]}</span>
               )}
             </div>
           ))}
@@ -64,7 +64,7 @@ export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {
                 )}
                 title={`${DAYS[day]}: ${count} check-ins`}
               />
-              <span className="text-[10px] text-zinc-500">{DAYS[day]}</span>
+              <span className="text-[10px] text-zinc-500 dark:text-zinc-400">{DAYS[day]}</span>
             </div>
           ))}
         </div>

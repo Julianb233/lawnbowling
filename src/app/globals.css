@@ -51,9 +51,15 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-/* Smooth scrolling */
+/* Display font for headings */
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+/* Smooth scrolling & theme transition */
 html {
   scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Hide scrollbar on mobile for a cleaner app feel */
@@ -118,7 +124,7 @@ textarea,
 
   /* Kiosk typography */
   --kiosk-text-heading: 32px;
-  --kiosk-text-subheading: 24px;
+  --kiosk-text-subheading: 32px;
   --kiosk-text-body: 20px;
   --kiosk-text-label: 18px;
   --kiosk-text-caption: 16px;
@@ -134,7 +140,7 @@ textarea,
   --kiosk-text-secondary: #4A4A4A;
   --kiosk-accent: #B8860B;
   --kiosk-success: #2E7D32;
-  --kiosk-error: #C62828;
+  --kiosk-error: #991B1B;
   --kiosk-on-primary: #FFFFFF;
 
   /* Kiosk spacing */
@@ -422,37 +428,136 @@ a,
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Brand deep green dark mode palette */
+  --background: #0f2518;
+  --foreground: #e8f0eb;
+  --card: #1a3d28;
+  --card-foreground: #e8f0eb;
+  --popover: #1a3d28;
+  --popover-foreground: #e8f0eb;
+  --primary: #4ade80;
+  --primary-foreground: #0f2518;
+  --secondary: #1e4d30;
+  --secondary-foreground: #d1e7d8;
+  --muted: #1e4d30;
+  --muted-foreground: #94b8a0;
+  --accent: #1e4d30;
+  --accent-foreground: #d1e7d8;
+  --destructive: #f87171;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #4ade80;
+  --chart-1: #4ade80;
+  --chart-2: #34d399;
+  --chart-3: #2dd4bf;
+  --chart-4: #22d3ee;
+  --chart-5: #38bdf8;
+  --radius: 0.625rem;
+  --sidebar: #1a3d28;
+  --sidebar-foreground: #e8f0eb;
+  --sidebar-primary: #4ade80;
+  --sidebar-primary-foreground: #0f2518;
+  --sidebar-accent: #1e4d30;
+  --sidebar-accent-foreground: #d1e7d8;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #4ade80;
+}
+
+/* === DARK MODE: Glass & Surface overrides === */
+.dark .glass {
+  background: rgba(26, 61, 40, 0.75);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark .glass-light {
+  background: rgba(26, 61, 40, 0.5);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.glass-dark-nav {
+  background: rgba(15, 37, 24, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark .glass-card-light {
+  background: rgba(26, 61, 40, 0.8);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.dark .landing-gradient {
+  background: linear-gradient(135deg, #0f2518 0%, #122a1e 50%, #0f2518 100%);
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .orb {
+  opacity: 0.06;
+}
+
+.dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+.dark ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+.dark .bg-animated-gradient {
+  background: linear-gradient(-45deg, #0f2518, #1a3d28, #0f2518, #122a1e);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* Dark mode: focus ring */
+.dark :focus-visible {
+  outline-color: #4ade80;
+}
+
+/* Dark mode: kiosk overrides */
+.dark {
+  --kiosk-bg: #0f2518;
+  --kiosk-surface: #1a3d28;
+  --kiosk-text: #e8f0eb;
+  --kiosk-text-secondary: #94b8a0;
+  --kiosk-primary: #4ade80;
+  --kiosk-on-primary: #0f2518;
+}
+
+/* === SCORE ANIMATION KEYFRAMES === */
+@keyframes numberFlipOut {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100%); opacity: 0; }
+}
+
+@keyframes numberFlipIn {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes endPulseRing {
+  0% { opacity: 0.8; transform: scale(0.98); }
+  50% { opacity: 0.4; transform: scale(1.01); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+@keyframes matchPointPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.6); }
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes matchWonBanner {
+  0% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 @layer base {
@@ -540,6 +645,18 @@ a,
 
   table thead tr {
     background: #f4f4f5 !important;
+  }
+
+  /* Print draw sheet layout */
+  .pds-rinks-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10pt !important;
+  }
+
+  /* Hide the screen-only draw view when printing */
+  .screen-draw-view {
+    display: none !important;
   }
 
   @page {

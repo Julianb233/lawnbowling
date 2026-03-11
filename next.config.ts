@@ -1,15 +1,40 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  distDir: process.env.NEXT_BUILD_DIR || ".next",
+  experimental: {
+    // Limit static generation workers to prevent ENOENT race conditions
+    // on machines with many CPUs (default = nproc, e.g. 48).
+    workerThreads: false,
+    cpus: 1,
+  },
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**.supabase.co",
-        pathname: "/storage/v1/object/public/**",
+        hostname: "lawnbowl.app",
+      },
+      {
+        protocol: "https",
+        hostname: "*.supabase.co",
       },
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(self)",
+          },
+        ],
+      },
+    ];
   },
 };
 

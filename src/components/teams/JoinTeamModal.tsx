@@ -66,9 +66,9 @@ export function JoinTeamModal({ open, onOpenChange, onJoined }: JoinTeamModalPro
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-300 bg-white p-6 shadow-2xl">
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-300 bg-white dark:bg-[#1a3d28] p-6 shadow-2xl">
           <div className="mb-4 flex items-center justify-between">
-            <Dialog.Title className="text-lg font-bold text-zinc-900">
+            <Dialog.Title className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
               Join a Team
             </Dialog.Title>
             <Dialog.Close className="rounded-full p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
@@ -85,7 +85,7 @@ export function JoinTeamModal({ open, onOpenChange, onJoined }: JoinTeamModalPro
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="Enter invite code..."
-                  className="flex-1 rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="flex-1 rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 />
                 <button
                   onClick={handleLookup}
@@ -100,10 +100,10 @@ export function JoinTeamModal({ open, onOpenChange, onJoined }: JoinTeamModalPro
             {preview && (
               <div className="rounded-xl border border-zinc-200 bg-zinc-100 p-4">
                 <div className="flex items-center gap-3">
-                  <Users className="h-8 w-8 text-emerald-400" />
+                  <Users className="h-8 w-8 text-[#1B5E20]" />
                   <div>
-                    <h3 className="font-bold text-zinc-900">{preview.name}</h3>
-                    <p className="text-sm text-zinc-500">
+                    <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{preview.name}</h3>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
                       {preview.sport} &middot; Captain: {preview.captain?.name}
                     </p>
                   </div>
@@ -111,7 +111,7 @@ export function JoinTeamModal({ open, onOpenChange, onJoined }: JoinTeamModalPro
                 <button
                   onClick={handleJoin}
                   disabled={loading}
-                  className="mt-4 w-full rounded-xl bg-emerald-600 py-3 font-semibold text-white transition-colors hover:bg-emerald-500 disabled:opacity-50"
+                  className="mt-4 w-full rounded-xl bg-[#1B5E20] py-3 font-semibold text-white transition-colors hover:bg-[#1B5E20] disabled:opacity-50"
                 >
                   {loading ? "Joining..." : "Join Team"}
                 </button>

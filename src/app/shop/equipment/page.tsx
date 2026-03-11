@@ -254,10 +254,10 @@ export default function EquipmentPage() {
     <>
       {/* Hero */}
       <section className="mb-10 text-center">
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold text-[#0A2E12] sm:text-4xl">
           Equipment & Gear Guide
         </h1>
-        <p className="mx-auto mt-2 max-w-2xl text-gray-600">
+        <p className="mx-auto mt-2 max-w-2xl text-[#3D5A3E]">
           Everything you need to get started or upgrade your lawn bowling kit.
           Expert buying tips plus links to trusted retailers.
         </p>
@@ -269,7 +269,7 @@ export default function EquipmentPage() {
           <a
             key={cat.key}
             href={`#${cat.key}`}
-            className="flex items-center gap-1.5 rounded-full border bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-[#1B5E20] hover:text-[#1B5E20]"
+            className="flex items-center gap-1.5 rounded-full border bg-white px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:border-[#1B5E20] hover:text-[#1B5E20]"
           >
             {cat.icon}
             {cat.label}
@@ -287,10 +287,10 @@ export default function EquipmentPage() {
                 {cat.icon}
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-[#0A2E12]">
                   {cat.label}
                 </h2>
-                <p className="mt-1 text-sm text-gray-600">
+                <p className="mt-1 text-sm text-[#3D5A3E]">
                   {cat.description}
                 </p>
               </div>
@@ -302,7 +302,7 @@ export default function EquipmentPage() {
                 <Info className="size-4" />
                 Buying Tips
               </div>
-              <ul className="space-y-1 text-sm text-gray-700">
+              <ul className="space-y-1 text-sm text-[#3D5A3E]">
                 {cat.buyingTips.map((tip, i) => (
                   <li key={i} className="flex gap-2">
                     <ChevronRight className="mt-0.5 size-3.5 flex-shrink-0 text-[#1B5E20]" />
@@ -320,23 +320,23 @@ export default function EquipmentPage() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col rounded-xl border bg-white p-4 transition hover:shadow-md hover:-translate-y-0.5"
+                  className="group flex flex-col rounded-xl border bg-white dark:bg-[#1a3d28] p-4 transition hover:shadow-md hover:-translate-y-0.5"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-semibold text-gray-900 group-hover:text-[#1B5E20]">
+                    <h3 className="font-semibold text-[#0A2E12] group-hover:text-[#1B5E20]">
                       {link.name}
                     </h3>
-                    <ExternalLink className="size-4 flex-shrink-0 text-gray-400 group-hover:text-[#1B5E20]" />
+                    <ExternalLink className="size-4 flex-shrink-0 text-[#3D5A3E]/70 group-hover:text-[#1B5E20]" />
                   </div>
-                  <p className="mt-1 flex-1 text-sm text-gray-600">
+                  <p className="mt-1 flex-1 text-sm text-[#3D5A3E]">
                     {link.description}
                   </p>
                   <div className="mt-3 flex items-center justify-between">
-                    <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">
+                    <span className="rounded-full bg-[#0A2E12]/5 px-2.5 py-0.5 text-xs font-medium text-[#3D5A3E]">
                       {link.retailer}
                     </span>
                     {link.priceRange && (
-                      <span className="flex items-center gap-1 text-sm font-semibold text-gray-900">
+                      <span className="flex items-center gap-1 text-sm font-semibold text-[#0A2E12]">
                         {link.priceRange}
                       </span>
                     )}
@@ -350,7 +350,7 @@ export default function EquipmentPage() {
 
       {/* Authorized dealers */}
       <section className="mt-16">
-        <h2 className="mb-6 text-center text-xl font-bold text-gray-900">
+        <h2 className="mb-6 text-center text-xl font-bold text-[#0A2E12]">
           Authorized Dealers & Retailers
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -385,18 +385,18 @@ export default function EquipmentPage() {
               href={dealer.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col rounded-xl border bg-white p-4 text-center transition hover:shadow-md"
+              className="group flex flex-col rounded-xl border bg-white dark:bg-[#1a3d28] p-4 text-center transition hover:shadow-md"
             >
               <div className="mb-2 flex items-center justify-center gap-1">
                 <Star className="size-4 text-[#B8860B]" />
-                <span className="text-xs font-medium uppercase tracking-wider text-gray-500">
+                <span className="text-xs font-medium uppercase tracking-wider text-[#3D5A3E]">
                   {dealer.type}
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#1B5E20]">
+              <h3 className="text-lg font-bold text-[#0A2E12] group-hover:text-[#1B5E20]">
                 {dealer.name}
               </h3>
-              <p className="mt-1 flex-1 text-sm text-gray-600">
+              <p className="mt-1 flex-1 text-sm text-[#3D5A3E]">
                 {dealer.description}
               </p>
               <span className="mt-3 inline-flex items-center justify-center gap-1 text-sm font-medium text-[#1B5E20]">
@@ -408,7 +408,7 @@ export default function EquipmentPage() {
       </section>
 
       {/* Disclaimer */}
-      <div className="mt-12 rounded-lg border bg-gray-50 p-4 text-center text-xs text-gray-500">
+      <div className="mt-12 rounded-lg border bg-[#FEFCF9] p-4 text-center text-xs text-[#3D5A3E]">
         <p>
           Links on this page may be affiliate links. We may earn a small
           commission at no extra cost to you when you purchase through these

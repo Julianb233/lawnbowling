@@ -99,7 +99,7 @@ export function GlobalSearch() {
             >
               {/* Search input */}
               <div className="flex items-center gap-3 border-b border-zinc-200 px-4 py-3">
-                <Search className="h-5 w-5 text-zinc-500" />
+                <Search className="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -111,7 +111,7 @@ export function GlobalSearch() {
                 />
                 {query && (
                   <button onClick={() => setQuery("")}>
-                    <X className="h-4 w-4 text-zinc-500" />
+                    <X className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
                   </button>
                 )}
               </div>
@@ -124,7 +124,7 @@ export function GlobalSearch() {
               ) : query.length >= 2 ? (
                 <SearchResults {...results} onSelect={handleSelect} />
               ) : (
-                <div className="px-4 py-6 text-center text-sm text-zinc-600">
+                <div className="px-4 py-6 text-center text-sm text-zinc-600 dark:text-zinc-400">
                   Type at least 2 characters to search
                 </div>
               )}

@@ -11,7 +11,7 @@ interface PlayerRatingProps {
 export function PlayerRating({ average, count, className }: PlayerRatingProps) {
   if (count === 0) {
     return (
-      <span className={cn("text-xs text-zinc-500", className)}>No ratings yet</span>
+      <span className={cn("text-xs text-zinc-500 dark:text-zinc-400", className)}>No ratings yet</span>
     );
   }
 
@@ -37,7 +37,7 @@ export function PlayerRating({ average, count, className }: PlayerRatingProps) {
           </svg>
         ))}
       </div>
-      <span className="text-xs text-zinc-500">
+      <span className="text-xs text-zinc-500 dark:text-zinc-400">
         {average.toFixed(1)} ({count})
       </span>
     </div>

@@ -69,8 +69,8 @@ export function PricingTable({ currentPlan = "free" }: PricingTableProps) {
                 {PLAN_ICONS[tier.plan]}
               </div>
               <div>
-                <h3 className="text-lg font-bold text-zinc-900">{tier.name}</h3>
-                <p className="text-sm text-zinc-500">
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{tier.name}</h3>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">
                   {tier.price === 0 ? "Free forever" : `$${(tier.price / 100).toFixed(2)}/mo`}
                 </p>
               </div>
@@ -95,7 +95,7 @@ export function PricingTable({ currentPlan = "free" }: PricingTableProps) {
                 isCurrentPlan
                   ? "bg-zinc-100 text-zinc-500 cursor-default"
                   : isPopular
-                    ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-green-500/25"
+                    ? "bg-gradient-to-r from-green-500 to-[#1B5E20] text-white hover:shadow-lg hover:shadow-green-500/25"
                     : "bg-zinc-100 text-zinc-700 hover:bg-zinc-100"
               )}
             >

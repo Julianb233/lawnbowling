@@ -23,7 +23,7 @@ import {
 
 export function InsurancePage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       {/* Floating glowing orbs */}
       <div
         className="orb orb-blue"
@@ -44,13 +44,13 @@ export function InsurancePage() {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 dark:bg-[#1a3d28]/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/15">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-[#1B5E20] shadow-lg shadow-[#1B5E20]/15">
               <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-zinc-900">
+            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
               Lawnbowling
             </span>
           </Link>
@@ -63,7 +63,7 @@ export function InsurancePage() {
             </Link>
             <Link
               href="/signup"
-              className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/15 transition hover:bg-emerald-500 hover:shadow-emerald-500/25"
+              className="rounded-xl bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/15 transition hover:bg-[#1B5E20] hover:shadow-[#1B5E20]/25"
             >
               Get Started
             </Link>
@@ -74,12 +74,12 @@ export function InsurancePage() {
       {/* Hero Section */}
       <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-20 md:pt-28 md:pb-24">
         <div className="flex flex-col items-center text-center">
-          <div className="mb-8 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500 to-blue-500 shadow-2xl shadow-teal-500/20">
+          <div className="mb-8 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500 to-[#1B5E20] shadow-2xl shadow-teal-500/20">
             <Shield className="h-10 w-10 text-white" />
           </div>
           <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
             Injuries{" "}
-            <span className="bg-gradient-to-r from-teal-500 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-500 to-[#1B5E20] bg-clip-text text-transparent">
               Happen.
             </span>
             {" "}Lawsuits Don&apos;t Have To.
@@ -90,18 +90,18 @@ export function InsurancePage() {
             the moment they check in. No paperwork. No monthly fees. No cost to
             your venue at all.
           </p>
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2">
-            <DollarSign className="h-5 w-5 text-emerald-600" />
-            <span className="text-sm font-semibold text-emerald-700">
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#1B5E20]/30 bg-[#1B5E20]/10 px-5 py-2">
+            <DollarSign className="h-5 w-5 text-[#1B5E20]" />
+            <span className="text-sm font-semibold text-[#2E7D32]">
               FREE for venues — you actually earn $2 to $10 per participant
             </span>
           </div>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-teal-600 to-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-teal-500/20 transition-all hover:shadow-teal-500/35 hover:scale-[1.02] active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-teal-600 to-[#1B5E20] px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-teal-500/20 transition-all hover:shadow-teal-500/35 hover:scale-[1.02] active:scale-[0.98]"
             >
               Get Free Coverage
               <ExternalLink className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
@@ -120,24 +120,24 @@ export function InsurancePage() {
       <section className="relative mx-auto max-w-6xl px-6 pb-16">
         <Link
           href="/insurance/lawn-bowls"
-          className="group block rounded-2xl border-2 border-emerald-500/30 bg-gradient-to-r from-emerald-50 to-emerald-100/50 p-6 shadow-sm transition-all hover:border-emerald-500/50 hover:shadow-md md:p-8"
+          className="group block rounded-2xl border-2 border-[#1B5E20]/30 bg-gradient-to-r from-[#1B5E20]/5 to-[#1B5E20]/10 p-6 shadow-sm transition-all hover:border-[#1B5E20]/50 hover:shadow-md md:p-8"
         >
           <div className="flex flex-col items-center gap-6 md:flex-row">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-700 shadow-lg shadow-emerald-600/15">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1B5E20] to-[#2E7D32] shadow-lg shadow-[#1B5E20]/15">
               <Shield className="h-8 w-8 text-white" />
             </div>
             <div className="flex-1 text-center md:text-left">
               <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
                 Lawn Bowls Coverage
               </h2>
-              <p className="mt-2 text-zinc-600">
+              <p className="mt-2 text-zinc-600 dark:text-zinc-400">
                 Per-session insurance designed specifically for lawn bowlers.
                 Coverage from $3/player covers falls, sprains, bowl-strike
                 injuries, and more. 54% of lawn bowls injuries are from falls
                 -- don&apos;t play unprotected.
               </p>
             </div>
-            <div className="flex shrink-0 items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/15 transition group-hover:bg-emerald-500">
+            <div className="flex shrink-0 items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/15 transition group-hover:bg-[#1B5E20]">
               View Lawn Bowls Coverage
               <ExternalLink className="h-4 w-4" />
             </div>
@@ -154,7 +154,7 @@ export function InsurancePage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             Coverage in Three Taps
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
             No phone calls. No forms. No waiting on hold with an insurance rep.
           </p>
         </div>
@@ -181,19 +181,19 @@ export function InsurancePage() {
             },
           ].map((item) => (
             <div key={item.step} className="relative">
-              <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md">
+              <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md">
                 <span className="text-5xl font-black text-teal-500/20">
                   {item.step}
                 </span>
                 <div className="mt-4 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 shadow-lg shadow-teal-500/15">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-[#1B5E20] shadow-lg shadow-teal-500/15">
                     <item.icon className="h-5 w-5 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-zinc-900">
+                  <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
                     {item.title}
                   </h3>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                   {item.desc}
                 </p>
               </div>
@@ -208,7 +208,7 @@ export function InsurancePage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             What&apos;s Actually Covered
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
             The stuff your general liability policy quietly excludes
           </p>
         </div>
@@ -233,30 +233,30 @@ export function InsurancePage() {
               icon: Ambulance,
               title: "Emergency Transport",
               desc: "If someone needs an ambulance from the court, that ride alone can cost $2,500+. This covers emergency transport so nobody panics about the bill.",
-              gradient: "from-blue-500 to-indigo-500",
-              glow: "shadow-blue-500/15",
+              gradient: "from-[#1B5E20] to-indigo-500",
+              glow: "shadow-[#1B5E20]/15",
             },
             {
               icon: ShieldCheck,
               title: "ActiveGuard\u2122 AD&D",
               desc: "Accidental Death and Dismemberment coverage through the ActiveGuard\u2122 program. The serious stuff nobody wants to think about, handled.",
-              gradient: "from-emerald-500 to-teal-500",
-              glow: "shadow-emerald-500/15",
+              gradient: "from-[#1B5E20] to-teal-500",
+              glow: "shadow-[#1B5E20]/15",
             },
           ].map((item) => (
             <div
               key={item.title}
-              className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
+              className="group rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
             >
               <div
                 className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} shadow-lg ${item.glow}`}
               >
                 <item.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-zinc-900">
+              <h3 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
                 {item.title}
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-600">
+              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                 {item.desc}
               </p>
             </div>
@@ -272,7 +272,7 @@ export function InsurancePage() {
               <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
                 Your GL Policy Has a Blind Spot
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+              <p className="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
                 Most venue operators assume their general liability covers
                 everything. It doesn&apos;t. GL protects your staff. The 40
                 pickleball players on your courts right now? They&apos;re in a
@@ -309,7 +309,7 @@ export function InsurancePage() {
               ].map((item) => (
                 <div
                   key={item.text}
-                  className="flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
+                  className="flex items-center gap-4 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 shadow-sm"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-teal-500/10">
                     <item.icon className="h-5 w-5 text-teal-600" />
@@ -360,7 +360,7 @@ export function InsurancePage() {
             <Accordion.Item
               key={i}
               value={`faq-${i}`}
-              className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
+              className="overflow-hidden rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm"
             >
               <Accordion.Trigger className="flex w-full items-center justify-between px-6 py-4 text-left text-zinc-900 hover:bg-zinc-50 transition-colors min-h-[44px] group">
                 <span className="pr-4 font-semibold">{item.q}</span>
@@ -368,7 +368,7 @@ export function InsurancePage() {
               </Accordion.Trigger>
               <Accordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
                 <div className="border-t border-zinc-100 px-6 py-4">
-                  <p className="text-sm leading-relaxed text-zinc-600">
+                  <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                     {item.a}
                   </p>
                 </div>
@@ -380,7 +380,7 @@ export function InsurancePage() {
 
       {/* CTA Section */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
-        <div className="rounded-3xl bg-gradient-to-r from-teal-600 to-blue-600 p-8 text-center shadow-2xl shadow-teal-500/15 md:p-16">
+        <div className="rounded-3xl bg-gradient-to-r from-teal-600 to-[#1B5E20] p-8 text-center shadow-2xl shadow-teal-500/15 md:p-16">
           <Shield className="mx-auto mb-6 h-14 w-14 text-white/90" />
           <h2 className="text-3xl font-bold text-white md:text-4xl">
             Stop Hoping Nobody Gets Hurt
@@ -392,7 +392,7 @@ export function InsurancePage() {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-teal-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
@@ -401,7 +401,7 @@ export function InsurancePage() {
               <ExternalLink className="h-5 w-5" />
             </a>
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner"
+              href="https://dailyeventinsurance.com/m/lawnbowling"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/50 hover:bg-white/10 active:scale-[0.98]"
@@ -422,7 +422,7 @@ export function InsurancePage() {
           ].map((badge) => (
             <div
               key={badge.label}
-              className="flex items-center gap-3 text-zinc-500"
+              className="flex items-center gap-3 text-zinc-500 dark:text-zinc-400"
             >
               <badge.icon className="h-6 w-6 text-teal-500" />
               <span className="text-sm font-semibold uppercase tracking-wider">
@@ -434,15 +434,15 @@ export function InsurancePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-zinc-50">
+      <footer className="border-t border-zinc-200 bg-zinc-50 dark:bg-white/5">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#1B5E20] to-[#1B5E20]">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Lawnbowling</span>
+            <span className="font-semibold text-zinc-900 dark:text-zinc-100">Lawnbowling</span>
           </Link>
-          <div className="flex items-center gap-6 text-sm text-zinc-500">
+          <div className="flex items-center gap-6 text-sm text-zinc-500 dark:text-zinc-400">
             <Link
               href="/insurance"
               className="hover:text-zinc-700 transition"

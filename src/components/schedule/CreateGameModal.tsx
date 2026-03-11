@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
 import { ALL_SPORTS, SPORT_LABELS, type Sport } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 
 interface CreateGameModalProps {
   open: boolean;
@@ -65,7 +66,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Friday Night Pickleball"
-              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
             />
           </div>
 
@@ -81,11 +82,11 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                     className={cn(
                       "rounded-xl px-3 py-2 text-sm border transition-all",
                       sport === s
-                        ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
+                        ? "border-[#1B5E20]/50 bg-[#1B5E20]/10 text-[#1B5E20]"
                         : "border-zinc-200 text-zinc-400 hover:bg-zinc-100"
                     )}
                   >
-                    {info?.emoji} {info?.label || s}
+                    <SportIcon sport={s} className="w-4 h-4 inline-block" /> {info?.label || s}
                   </button>
                 );
               })}
@@ -99,7 +100,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
               />
             </div>
             <div>
@@ -108,7 +109,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
               />
             </div>
           </div>
@@ -123,7 +124,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               max={20}
               value={maxPlayers}
               onChange={(e) => setMaxPlayers(Number(e.target.value))}
-              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
             />
           </div>
 
@@ -135,7 +136,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="All skill levels welcome!"
-              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-500 resize-none h-16 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-500 resize-none h-16 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
             />
           </div>
 
@@ -144,7 +145,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               onClick={() => setIsRecurring(!isRecurring)}
               className={cn(
                 "relative h-6 w-11 rounded-full transition-colors",
-                isRecurring ? "bg-emerald-500" : "bg-zinc-700"
+                isRecurring ? "bg-[#1B5E20]" : "bg-zinc-700"
               )}
             >
               <span
@@ -154,7 +155,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                 )}
               />
             </button>
-            <span className="text-sm text-zinc-600">Recurring</span>
+            <span className="text-sm text-zinc-600 dark:text-zinc-400">Recurring</span>
           </div>
 
           {isRecurring && (
@@ -165,7 +166,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               <select
                 value={recurrenceRule}
                 onChange={(e) => setRecurrenceRule(e.target.value)}
-                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
               >
                 <option value="">Select...</option>
                 <option value="weekly:monday">Weekly - Monday</option>
@@ -195,7 +196,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
             className={cn(
               "flex-1 rounded-xl px-4 py-2.5 text-sm font-bold text-white transition-all",
               title && date && time
-                ? "bg-gradient-to-r from-emerald-500 to-green-600 hover:shadow-lg"
+                ? "bg-gradient-to-r from-[#1B5E20] to-green-600 hover:shadow-lg"
                 : "bg-zinc-700 text-zinc-500 cursor-not-allowed"
             )}
           >

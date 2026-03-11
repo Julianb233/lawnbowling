@@ -1,21 +1,22 @@
 "use client";
 
 import { SPORT_LABELS, type Sport } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 
 interface SportBreakdownProps {
   breakdown: Record<string, number>;
 }
 
 const COLORS: Record<string, string> = {
-  pickleball: "bg-emerald-500",
-  lawn_bowling: "bg-blue-500",
+  pickleball: "bg-[#1B5E20]",
+  lawn_bowling: "bg-[#1B5E20]",
   tennis: "bg-amber-500",
 };
 
 export function SportBreakdown({ breakdown }: SportBreakdownProps) {
   const total = Object.values(breakdown).reduce((a, b) => a + b, 0);
   if (total === 0) {
-    return <p className="text-sm text-zinc-500">No match data yet</p>;
+    return <p className="text-sm text-zinc-500 dark:text-zinc-400">No match data yet</p>;
   }
 
   const entries = Object.entries(breakdown).sort((a, b) => b[1] - a[1]);
@@ -43,8 +44,8 @@ export function SportBreakdown({ breakdown }: SportBreakdownProps) {
               <div
                 className={`h-3 w-3 rounded-full ${COLORS[sport] || "bg-zinc-600"}`}
               />
-              <span className="text-xs text-zinc-600">
-                {info?.emoji} {info?.label || sport} ({pct}%)
+              <span className="text-xs text-zinc-600 dark:text-zinc-400">
+                <SportIcon sport={sport as Sport} className="w-3 h-3 inline-block" /> {info?.label || sport} ({pct}%)
               </span>
             </div>
           );

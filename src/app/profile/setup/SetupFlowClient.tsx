@@ -96,8 +96,8 @@ export function SetupFlowClient({ userId }: { userId: string }) {
       <div className="flex min-h-screen items-center justify-center bg-animated-gradient px-4">
         <div className="text-center">
           <CheckCircle2 className="mx-auto mb-4 h-16 w-16 text-green-600" />
-          <h1 className="text-2xl font-bold text-zinc-900">You&apos;re All Set!</h1>
-          <p className="mt-2 text-zinc-500">Redirecting to the board...</p>
+          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">You&apos;re All Set!</h1>
+          <p className="mt-2 text-zinc-500 dark:text-zinc-400">Redirecting to the board...</p>
         </div>
       </div>
     );
@@ -114,8 +114,8 @@ export function SetupFlowClient({ userId }: { userId: string }) {
   return (
     <div className="min-h-screen bg-animated-gradient px-4 py-8">
       <div className="mx-auto max-w-md">
-        <h1 className="mb-2 text-2xl font-bold text-zinc-900">Welcome!</h1>
-        <p className="mb-6 text-zinc-500">Let&apos;s get you set up to play.</p>
+        <h1 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Welcome!</h1>
+        <p className="mb-6 text-zinc-500 dark:text-zinc-400">Let&apos;s get you set up to play.</p>
 
         {/* Step indicator */}
         <div className="mb-8 flex items-center gap-2">
@@ -124,7 +124,7 @@ export function SetupFlowClient({ userId }: { userId: string }) {
               <div
                 className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                   i <= currentIndex
-                    ? "bg-emerald-600 text-white"
+                    ? "bg-[#1B5E20] text-white"
                     : "bg-zinc-200 text-zinc-400"
                 }`}
               >
@@ -134,7 +134,7 @@ export function SetupFlowClient({ userId }: { userId: string }) {
                 {s.label}
               </span>
               {i < steps.length - 1 && (
-                <div className={`h-px flex-1 ${i < currentIndex ? "bg-emerald-600" : "bg-zinc-200"}`} />
+                <div className={`h-px flex-1 ${i < currentIndex ? "bg-[#1B5E20]" : "bg-zinc-200"}`} />
               )}
             </div>
           ))}

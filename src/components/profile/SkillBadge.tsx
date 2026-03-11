@@ -1,5 +1,6 @@
 "use client";
 
+import { Star } from "lucide-react";
 import type { SkillLevel } from "@/lib/db/players";
 
 const config: Record<SkillLevel, { label: string; color: string; stars: number }> = {
@@ -13,7 +14,10 @@ export function SkillBadge({ level }: { level: SkillLevel }) {
 
   return (
     <span className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-medium ${color}`}>
-      {"★".repeat(stars)}{"☆".repeat(3 - stars)} {label}
+      {Array.from({ length: 3 }, (_, i) => (
+        <Star key={i} className={`h-3 w-3 ${i < stars ? "fill-current" : "text-current opacity-30"}`} strokeWidth={1.5} />
+      ))}
+      {label}
     </span>
   );
 }

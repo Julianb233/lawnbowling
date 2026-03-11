@@ -6,8 +6,14 @@ import { ProfileForm } from "@/components/profile/ProfileForm";
 import { WaiverStatus } from "@/components/waiver/WaiverStatus";
 import { ProfileCard } from "@/components/profile/ProfileCard";
 import { ProfileStatsSection } from "@/components/stats/ProfileStatsSection";
-import type { PlayerProfile, SkillLevel, Sport } from "@/lib/db/players";
+import { MatchHistory } from "@/components/profile/MatchHistory";
+import { AvailabilitySchedule } from "@/components/profile/AvailabilitySchedule";
+import { ClubAffiliations } from "@/components/profile/ClubAffiliations";
+import { PhotoGallery } from "@/components/profile/PhotoGallery";
+import { CompletenessBarWithData } from "@/components/profile/CompletenessBar";
+import type { PlayerProfile, SkillLevel, Sport, BowlingPosition, PreferredHand } from "@/lib/db/players";
 import type { Waiver } from "@/lib/db/waivers";
+import type { PlayerPhoto } from "@/lib/db/gallery";
 import type { PlayerStats, FavoritePartner } from "@/lib/types";
 import { ArrowLeft, LogOut, Pencil } from "lucide-react";
 
@@ -16,17 +22,35 @@ interface ProfilePageClientProps {
   waiver: Waiver | null;
   stats: PlayerStats | null;
   favoritePartners: FavoritePartner[];
+  photos: PlayerPhoto[];
 }
 
-export function ProfilePageClient({ player, waiver, stats, favoritePartners }: ProfilePageClientProps) {
+export function ProfilePageClient({ player, waiver, stats, favoritePartners, photos: initialPhotos }: ProfilePageClientProps) {
   const [editing, setEditing] = useState(false);
+  const [photos, setPhotos] = useState<PlayerPhoto[]>(initialPhotos);
   const router = useRouter();
+
+  async function refreshPhotos() {
+    try {
+      const res = await fetch("/api/profile/gallery");
+      if (res.ok) {
+        const data = await res.json();
+        setPhotos(data);
+      }
+    } catch {
+      // silent fail
+    }
+  }
 
   async function handleSubmit(data: {
     display_name: string;
     skill_level: SkillLevel;
     sports: Sport[];
     avatar_url: string | null;
+    bio: string | null;
+    preferred_position: BowlingPosition | null;
+    preferred_hand: PreferredHand | null;
+    years_experience: number | null;
   }) {
     const res = await fetch("/api/profile", {
       method: "PATCH",
@@ -62,12 +86,12 @@ export function ProfilePageClient({ player, waiver, stats, favoritePartners }: P
       <div className="mx-auto max-w-md">
         <button
           onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h1 className="mb-6 text-2xl font-bold text-zinc-900">My Profile</h1>
+        <h1 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-zinc-100">My Profile</h1>
 
         <div className="mb-6">
           <WaiverStatus waiver={waiver} />
@@ -90,9 +114,19 @@ export function ProfilePageClient({ player, waiver, stats, favoritePartners }: P
           </div>
         ) : (
           <div className="space-y-4">
+            <CompletenessBarWithData player={player} waiver={waiver} />
+
             <ProfileCard player={player} />
 
             <ProfileStatsSection stats={stats} favoritePartners={favoritePartners} />
+
+            <MatchHistory playerId={player.id} />
+
+            <AvailabilitySchedule playerId={player.id} editable />
+
+            <ClubAffiliations playerId={player.id} editable />
+
+            <PhotoGallery photos={photos} editable onPhotosChange={refreshPhotos} />
 
             <button
               onClick={() => setEditing(true)}

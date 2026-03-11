@@ -17,5 +17,5 @@ export default function TVLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return <div className="dark">{children}</div>;
 }

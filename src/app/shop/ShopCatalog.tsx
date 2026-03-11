@@ -26,10 +26,10 @@ export function ShopCatalog() {
     <>
       {/* Hero */}
       <section className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold text-[#0A2E12] sm:text-4xl">
           Lawn Bowling Merch
         </h1>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-[#3D5A3E]">
           Unique apparel and gifts for bowlers. Printed on demand, shipped
           worldwide.
         </p>
@@ -42,7 +42,7 @@ export function ShopCatalog() {
           className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition ${
             activeCategory === "all"
               ? "bg-[#1B5E20] text-white"
-              : "bg-white text-gray-700 hover:bg-gray-100"
+              : "bg-white text-[#3D5A3E] hover:bg-[#0A2E12]/5"
           }`}
         >
           All
@@ -54,7 +54,7 @@ export function ShopCatalog() {
             className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition ${
               activeCategory === cat.key
                 ? "bg-[#1B5E20] text-white"
-                : "bg-white text-gray-700 hover:bg-gray-100"
+                : "bg-white text-[#3D5A3E] hover:bg-[#0A2E12]/5"
             }`}
           >
             {iconMap[cat.icon]}
@@ -71,7 +71,7 @@ export function ShopCatalog() {
       </div>
 
       {filtered.length === 0 && (
-        <p className="py-16 text-center text-gray-400">
+        <p className="py-16 text-center text-[#3D5A3E]/70">
           No products in this category yet.
         </p>
       )}

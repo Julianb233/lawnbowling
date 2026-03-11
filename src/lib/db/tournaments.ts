@@ -419,11 +419,9 @@ export async function getTournamentStandings(tournamentId: string) {
 
 export async function generateDoubleEliminationBracket(tournamentId: string) {
   const supabase = await createClient();
-
   const participants = await getParticipants(tournamentId);
   if (participants.length < 2) throw new Error("Need at least 2 participants");
 
-  // Seed participants
   const seeded = [...participants];
   for (let i = 0; i < seeded.length; i++) {
     await supabase
@@ -480,7 +478,6 @@ export async function forfeitMatch(matchId: string, forfeitingPlayerId: string) 
     forfeitingPlayerId
   );
 
-  // Update match
   const { error } = await supabase
     .from("tournament_matches")
     .update({
@@ -493,7 +490,6 @@ export async function forfeitMatch(matchId: string, forfeitingPlayerId: string) 
 
   if (error) throw error;
 
-  // Update participant stats
   if (winnerId) {
     const { data: wp } = await supabase
       .from("tournament_participants")

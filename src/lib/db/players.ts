@@ -4,6 +4,10 @@ export type SkillLevel = "beginner" | "intermediate" | "advanced";
 
 export type Sport = "pickleball" | "lawn_bowling" | "tennis" | "badminton" | "table_tennis";
 
+export type BowlingPosition = "lead" | "second" | "third" | "skip";
+
+export type PreferredHand = "left" | "right" | "ambidextrous";
+
 export interface PlayerProfile {
   id: string;
   user_id: string;
@@ -12,6 +16,11 @@ export interface PlayerProfile {
   skill_level: SkillLevel;
   sports: Sport[];
   insurance_status: "none" | "active" | "expired";
+  bio: string | null;
+  preferred_position: BowlingPosition | null;
+  preferred_hand: PreferredHand | null;
+  years_experience: number | null;
+  home_club_id: string | null;
   created_at: string;
   updated_at: string;
 }

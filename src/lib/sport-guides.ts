@@ -2,7 +2,6 @@ import type { Sport } from "./types";
 
 export interface SportGuide {
   sport: Sport;
-  emoji: string;
   name: string;
   tagline: string;
   overview: string;
@@ -27,7 +26,6 @@ export interface SportGuide {
 export const SPORT_GUIDES: Record<Sport, SportGuide> = {
   pickleball: {
     sport: "pickleball",
-    emoji: "\u{1F3D3}",
     name: "Pickleball",
     tagline: "America's fastest-growing sport — easy to learn, hard to put down",
     overview:
@@ -187,7 +185,6 @@ export const SPORT_GUIDES: Record<Sport, SportGuide> = {
 
   lawn_bowling: {
     sport: "lawn_bowling",
-    emoji: "\u{1F3B3}",
     name: "Lawn Bowling",
     tagline: "An ancient game of precision, strategy, and bias",
     overview:
@@ -337,7 +334,6 @@ export const SPORT_GUIDES: Record<Sport, SportGuide> = {
 
   tennis: {
     sport: "tennis",
-    emoji: "\u{1F3BE}",
     name: "Tennis",
     tagline: "The classic racket sport — power, finesse, and fierce competition",
     overview:
@@ -495,7 +491,6 @@ export const SPORT_GUIDES: Record<Sport, SportGuide> = {
   },
   badminton: {
     sport: "badminton",
-    emoji: "\u{1F3F8}",
     name: "Badminton",
     tagline: "The fastest racket sport in the world",
     overview:
@@ -681,7 +676,6 @@ export const SPORT_GUIDES: Record<Sport, SportGuide> = {
 
   racquetball: {
     sport: "racquetball",
-    emoji: "\u{1F3BE}",
     name: "Racquetball",
     tagline: "Fast-paced, high-energy indoor racket sport",
     overview:
@@ -872,7 +866,6 @@ export const SPORT_GUIDES: Record<Sport, SportGuide> = {
 
   flag_football: {
     sport: "flag_football",
-    emoji: "\u{1F3C8}",
     name: "Flag Football",
     tagline: "All the strategy, none of the tackles",
     overview:

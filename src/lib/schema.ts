@@ -2,8 +2,9 @@
 // See https://schema.org for full specification
 
 import type { ClubData } from "./clubs-data";
+import { SITE_URL } from "./site-config";
 
-const BASE_URL = "https://lawnbowl.app";
+const BASE_URL = SITE_URL;
 
 /**
  * SportsOrganization schema for the Lawnbowling app itself.
@@ -31,7 +32,7 @@ export function getSportsOrganizationSchema() {
     },
     areaServed: {
       "@type": "Country",
-      name: "Australia",
+      name: "United States",
     },
   };
 }
@@ -53,14 +54,14 @@ export function getSoftwareApplicationSchema() {
     offers: {
       "@type": "Offer",
       price: "0",
-      priceCurrency: "AUD",
+      priceCurrency: "USD",
       description: "Free for players. Premium plans available for clubs.",
     },
     screenshot: `${BASE_URL}/og-image.png`,
     featureList: [
       "Tournament draw generator",
       "Round-robin bracket maker",
-      "Club directory with 90+ Australian clubs",
+      "Club directory with 90+ USA clubs",
       "QR code venue check-in",
       "Live scoring",
       "Player matchmaking",
@@ -137,7 +138,7 @@ export function getLocalBusinessSchema(club: ClubData) {
       streetAddress: club.address ?? undefined,
       addressLocality: club.city,
       addressRegion: club.stateCode,
-      addressCountry: "AU",
+      addressCountry: "US",
     },
     geo:
       club.lat && club.lng
@@ -159,9 +160,9 @@ export function getLocalBusinessSchema(club: ClubData) {
     foundingDate: club.founded ? String(club.founded) : undefined,
     sameAs: [
       club.website,
-      club.socialMedia?.facebook,
-      club.socialMedia?.instagram,
-      club.socialMedia?.youtube,
+      club.facebookUrl,
+      club.instagramUrl,
+      club.youtubeUrl,
     ].filter(Boolean),
   };
 }
@@ -220,6 +221,73 @@ export function getFAQSchema(
         "@type": "Answer",
         text: faq.answer,
       },
+    })),
+  };
+}
+
+/**
+ * Article schema for blog posts and educational content.
+ */
+export function getArticleSchema(article: {
+  title: string;
+  description: string;
+  url: string;
+  datePublished?: string;
+  dateModified?: string;
+  author?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.description,
+    url: article.url.startsWith("http")
+      ? article.url
+      : `${BASE_URL}${article.url}`,
+    datePublished: article.datePublished ?? new Date().toISOString(),
+    dateModified:
+      article.dateModified ?? article.datePublished ?? new Date().toISOString(),
+    author: {
+      "@type": "Organization",
+      name: article.author ?? "Lawnbowling",
+      url: BASE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Lawnbowling",
+      url: BASE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/icons/icon-512.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": article.url.startsWith("http")
+        ? article.url
+        : `${BASE_URL}${article.url}`,
+    },
+  };
+}
+
+/**
+ * HowTo schema for instructional learn pages.
+ */
+export function getHowToSchema(howTo: {
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: howTo.name,
+    description: howTo.description,
+    step: howTo.steps.map((step, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: step.name,
+      text: step.text,
     })),
   };
 }

@@ -11,19 +11,19 @@ export default async function ReportsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-zinc-800">Player Reports</h1>
-        <p className="text-sm text-zinc-500">{reports.length} reports total</p>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">{reports.length} reports total</p>
       </div>
 
       {reports.length === 0 ? (
-        <div className="rounded-xl border border-zinc-200 bg-white p-8 text-center">
-          <p className="text-zinc-500">No reports filed yet.</p>
+        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
+          <p className="text-zinc-500 dark:text-zinc-400">No reports filed yet.</p>
         </div>
       ) : (
         <div className="space-y-3">
           {reports.map((report) => (
             <div
               key={report.id}
-              className="rounded-xl border border-zinc-200 bg-white p-4"
+              className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4"
             >
               <div className="flex items-start justify-between">
                 <div>
@@ -50,10 +50,10 @@ export default async function ReportsPage() {
                     report.status === "pending"
                       ? "bg-amber-50 text-amber-700"
                       : report.status === "resolved"
-                      ? "bg-emerald-50 text-emerald-600"
+                      ? "bg-[#1B5E20]/5 text-[#1B5E20]"
                       : report.status === "dismissed"
-                      ? "bg-zinc-100 text-zinc-500"
-                      : "bg-blue-50 text-blue-600"
+                      ? "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                      : "bg-blue-50 text-[#1B5E20]"
                   }`}
                 >
                   {report.status}

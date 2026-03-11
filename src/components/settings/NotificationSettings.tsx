@@ -24,7 +24,7 @@ function Toggle({
       disabled={disabled}
       className={cn(
         "relative h-6 w-11 rounded-full transition-colors",
-        checked ? "bg-emerald-500" : "bg-zinc-300"
+        checked ? "bg-[#1B5E20]" : "bg-zinc-300"
       )}
     >
       <span
@@ -117,7 +117,7 @@ export function NotificationSettings({ preferences }: NotificationSettingsProps)
         </div>
       ))}
       {saved && (
-        <p className="text-xs text-emerald-400 text-center">Settings saved</p>
+        <p className="text-xs text-[#1B5E20] text-center">Settings saved</p>
       )}
     </div>
   );

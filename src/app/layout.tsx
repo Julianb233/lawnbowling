@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { IOSInstallGuide } from "@/components/pwa/IOSInstallGuide";
 import { PushNotificationPrompt } from "@/components/push/PushNotificationPrompt";
@@ -9,7 +9,15 @@ import {
   getWebSiteSchema,
   jsonLd,
 } from "@/lib/schema";
+import { SITE_URL } from "@/lib/site-config";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { DesktopThemeToggle } from "@/components/DesktopThemeToggle";
+import { PlayerOnboarding } from "@/components/onboarding/PlayerOnboarding";
+import { DrawmasterTour } from "@/components/onboarding/DrawmasterTour";
 import "./globals.css";
+
+// Inline script to set dark class before first paint (prevents FOIT)
+const themeInitScript = `(function(){try{var s=localStorage.getItem('lb-color-scheme');if(s==='dark'||(s!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,7 +29,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const BASE_URL = "https://lawnbowl.app";
+const playfair = Playfair_Display({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const BASE_URL = SITE_URL;
 
 export const metadata: Metadata = {
   title: {
@@ -119,8 +139,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <link rel="apple-touch-icon" href="/icons/icon-180.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png" />
@@ -154,18 +175,23 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${jakarta.variable} antialiased bg-background text-foreground`}
       >
-        {/* Floating orbs background */}
-        <div className="orb orb-emerald" style={{ width: 400, height: 400, top: '10%', left: '5%' }} />
-        <div className="orb orb-blue" style={{ width: 350, height: 350, top: '60%', right: '10%' }} />
-        <div className="orb orb-amber" style={{ width: 300, height: 300, bottom: '15%', left: '30%' }} />
-        <div className="orb orb-coral" style={{ width: 250, height: 250, top: '30%', right: '25%' }} />
-        <div className="orb orb-purple" style={{ width: 200, height: 200, bottom: '40%', left: '60%' }} />
-        {children}
-        <InstallPrompt />
-        <IOSInstallGuide />
-        <PushNotificationPrompt />
+        <ThemeProvider>
+          {/* Floating orbs background */}
+          <div className="orb orb-emerald" style={{ width: 400, height: 400, top: '10%', left: '5%' }} />
+          <div className="orb orb-blue" style={{ width: 350, height: 350, top: '60%', right: '10%' }} />
+          <div className="orb orb-amber" style={{ width: 300, height: 300, bottom: '15%', left: '30%' }} />
+          <div className="orb orb-coral" style={{ width: 250, height: 250, top: '30%', right: '25%' }} />
+          <div className="orb orb-purple" style={{ width: 200, height: 200, bottom: '40%', left: '60%' }} />
+          <DesktopThemeToggle />
+          {children}
+          <PlayerOnboarding />
+          <DrawmasterTour />
+          <InstallPrompt />
+          <IOSInstallGuide />
+          <PushNotificationPrompt />
+        </ThemeProvider>
       </body>
     </html>
   );

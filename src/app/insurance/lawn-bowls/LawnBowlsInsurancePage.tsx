@@ -56,8 +56,8 @@ const TIERS = [
       "Coverage at any participating venue",
     ],
     notIncluded: ["Equipment protection"],
-    gradient: "from-emerald-600 to-emerald-700",
-    borderColor: "border-emerald-500",
+    gradient: "from-[#1B5E20] to-[#2E7D32]",
+    borderColor: "border-[#1B5E20]",
     badge: "Most Popular",
   },
   {
@@ -73,8 +73,8 @@ const TIERS = [
       "Away match and tournament coverage",
     ],
     notIncluded: [],
-    gradient: "from-blue-600 to-indigo-600",
-    borderColor: "border-blue-500",
+    gradient: "from-[#1B5E20] to-indigo-600",
+    borderColor: "border-[#1B5E20]",
     badge: "Best Value",
   },
 ];
@@ -84,8 +84,8 @@ const COVERAGE_ITEMS = [
     icon: Shield,
     title: "Per-Participant Liability",
     desc: "Your club's GL policy covers the club. It does not cover you when a bowl strikes another player's foot and causes a fracture. This does. Every player, every session.",
-    gradient: "from-emerald-600 to-emerald-700",
-    glow: "shadow-emerald-600/15",
+    gradient: "from-[#1B5E20] to-[#2E7D32]",
+    glow: "shadow-[#1B5E20]/15",
   },
   {
     icon: Heart,
@@ -98,14 +98,14 @@ const COVERAGE_ITEMS = [
     icon: Ambulance,
     title: "Emergency Transport",
     desc: "Need an ambulance from the green? That ride alone costs $2,500 or more. For bowlers aged 65 and older, cardiac events and serious falls are a real risk. Transport is covered.",
-    gradient: "from-blue-500 to-indigo-500",
-    glow: "shadow-blue-500/15",
+    gradient: "from-[#1B5E20] to-indigo-500",
+    glow: "shadow-[#1B5E20]/15",
   },
   {
     icon: ShieldCheck,
     title: "ActiveGuard AD&D",
     desc: "Accidental Death and Dismemberment coverage through the ActiveGuard program. The coverage nobody wants to need, but it provides peace of mind for you and your family.",
-    gradient: "from-teal-500 to-emerald-600",
+    gradient: "from-teal-500 to-[#1B5E20]",
     glow: "shadow-teal-500/15",
   },
 ];
@@ -154,7 +154,7 @@ const FAQ_ITEMS = [
 
 export function LawnBowlsInsurancePage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       {/* Floating glowing orbs */}
       <div
         className="orb orb-emerald"
@@ -171,13 +171,13 @@ export function LawnBowlsInsurancePage() {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 dark:bg-[#1a3d28]/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/15">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-[#1B5E20] shadow-lg shadow-[#1B5E20]/15">
               <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-zinc-900">
+            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
               Lawnbowling
             </span>
           </Link>
@@ -189,10 +189,10 @@ export function LawnBowlsInsurancePage() {
               All Insurance
             </Link>
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/15 transition hover:bg-emerald-500 hover:shadow-emerald-500/25"
+              className="rounded-xl bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/15 transition hover:bg-[#1B5E20] hover:shadow-[#1B5E20]/25"
             >
               Get a Quote
             </a>
@@ -203,15 +203,15 @@ export function LawnBowlsInsurancePage() {
       {/* Hero Section */}
       <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-20 md:pt-28 md:pb-24">
         <div className="flex flex-col items-center text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5">
-            <Target className="h-4 w-4 text-emerald-600" />
-            <span className="text-sm font-semibold text-emerald-700">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#1B5E20]/30 bg-[#1B5E20]/10 px-4 py-1.5">
+            <Target className="h-4 w-4 text-[#1B5E20]" />
+            <span className="text-sm font-semibold text-[#2E7D32]">
               Designed for Lawn Bowlers
             </span>
           </div>
           <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
             Play Protected.{" "}
-            <span className="bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#1B5E20] to-[#1B5E20] bg-clip-text text-transparent">
               Every Bowl, Every Session.
             </span>
           </h1>
@@ -221,18 +221,18 @@ export function LawnBowlsInsurancePage() {
             mean a $12,000 medical bill. Per-session coverage starts at $3 and
             activates the moment you check in.
           </p>
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2">
-            <DollarSign className="h-5 w-5 text-emerald-600" />
-            <span className="text-sm font-semibold text-emerald-700">
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#1B5E20]/30 bg-[#1B5E20]/10 px-5 py-2">
+            <DollarSign className="h-5 w-5 text-[#1B5E20]" />
+            <span className="text-sm font-semibold text-[#2E7D32]">
               From $3 per session -- less than a post-game cuppa
             </span>
           </div>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-700 to-emerald-600 px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-emerald-600/20 transition-all hover:shadow-emerald-500/35 hover:scale-[1.02] active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#2E7D32] to-[#1B5E20] px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-[#1B5E20]/20 transition-all hover:shadow-[#1B5E20]/35 hover:scale-[1.02] active:scale-[0.98]"
             >
               Get a Quote
               <ExternalLink className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
@@ -253,7 +253,7 @@ export function LawnBowlsInsurancePage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             Why Lawn Bowlers Need Per-Session Coverage
           </h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-zinc-600">
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-zinc-600 dark:text-zinc-400">
             Lawn bowls has a documented injury profile that puts players at real
             financial risk. Your club&apos;s insurance covers the club. It does
             not cover you.
@@ -264,15 +264,15 @@ export function LawnBowlsInsurancePage() {
           {INJURY_STATS.map((stat) => (
             <div
               key={stat.label}
-              className="rounded-2xl border border-zinc-200 bg-white p-6 text-center shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
+              className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 text-center shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
             >
-              <div className="text-4xl font-extrabold text-emerald-600">
+              <div className="text-4xl font-extrabold text-[#1B5E20]">
                 {stat.value}
               </div>
-              <div className="mt-2 text-lg font-semibold text-zinc-900">
+              <div className="mt-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
                 {stat.label}
               </div>
-              <div className="mt-1 text-sm text-zinc-500">{stat.detail}</div>
+              <div className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{stat.detail}</div>
             </div>
           ))}
         </div>
@@ -281,7 +281,7 @@ export function LawnBowlsInsurancePage() {
           <div className="flex gap-4">
             <AlertTriangle className="h-8 w-8 shrink-0 text-amber-600 mt-0.5" />
             <div>
-              <h3 className="text-lg font-bold text-zinc-900">
+              <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
                 The Coverage Gap Most Bowlers Don&apos;t Know About
               </h3>
               <p className="mt-2 text-zinc-700 leading-relaxed">
@@ -303,7 +303,7 @@ export function LawnBowlsInsurancePage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             What&apos;s Covered on the Green
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
             Coverage designed specifically for the risks lawn bowlers face
           </p>
         </div>
@@ -312,17 +312,17 @@ export function LawnBowlsInsurancePage() {
           {COVERAGE_ITEMS.map((item) => (
             <div
               key={item.title}
-              className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
+              className="group rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
             >
               <div
                 className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} shadow-lg ${item.glow}`}
               >
                 <item.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-zinc-900">
+              <h3 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
                 {item.title}
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-600">
+              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                 {item.desc}
               </p>
             </div>
@@ -339,7 +339,7 @@ export function LawnBowlsInsurancePage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             Choose Your Coverage Tier
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
             Per-session pricing. No annual commitment. Cancel anytime.
           </p>
         </div>
@@ -348,8 +348,8 @@ export function LawnBowlsInsurancePage() {
           {TIERS.map((tier) => (
             <div
               key={tier.name}
-              className={`relative rounded-2xl border-2 ${tier.borderColor} bg-white p-8 shadow-sm transition-all hover:shadow-lg ${
-                tier.badge === "Most Popular" ? "ring-2 ring-emerald-500/20" : ""
+              className={`relative rounded-2xl border-2 ${tier.borderColor} bg-white dark:bg-[#1a3d28] p-8 shadow-sm transition-all hover:shadow-lg ${
+                tier.badge === "Most Popular" ? "ring-2 ring-[#1B5E20]/20" : ""
               }`}
             >
               {tier.badge && (
@@ -357,8 +357,8 @@ export function LawnBowlsInsurancePage() {
                   <span
                     className={`inline-flex items-center gap-1 rounded-full px-4 py-1 text-xs font-bold text-white ${
                       tier.badge === "Most Popular"
-                        ? "bg-emerald-600"
-                        : "bg-blue-600"
+                        ? "bg-[#1B5E20]"
+                        : "bg-[#1B5E20]"
                     }`}
                   >
                     <Star className="h-3 w-3" />
@@ -367,22 +367,22 @@ export function LawnBowlsInsurancePage() {
                 </div>
               )}
               <div className="text-center">
-                <h3 className="text-xl font-bold text-zinc-900">{tier.name}</h3>
+                <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">{tier.name}</h3>
                 <div className="mt-4">
-                  <span className="text-5xl font-extrabold text-zinc-900">
+                  <span className="text-5xl font-extrabold text-zinc-900 dark:text-zinc-100">
                     {tier.price}
                   </span>
-                  <span className="ml-1 text-sm text-zinc-500">
+                  <span className="ml-1 text-sm text-zinc-500 dark:text-zinc-400">
                     {tier.period}
                   </span>
                 </div>
-                <p className="mt-3 text-sm text-zinc-500">{tier.description}</p>
+                <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">{tier.description}</p>
               </div>
 
               <ul className="mt-8 space-y-3">
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 shrink-0 text-emerald-500 mt-0.5" />
+                    <CheckCircle className="h-5 w-5 shrink-0 text-[#1B5E20] mt-0.5" />
                     <span className="text-sm text-zinc-700">{feature}</span>
                   </li>
                 ))}
@@ -390,13 +390,13 @@ export function LawnBowlsInsurancePage() {
 
               <div className="mt-8">
                 <a
-                  href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+                  href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-semibold transition-all active:scale-[0.98] ${
                     tier.badge === "Most Popular"
-                      ? "bg-gradient-to-r from-emerald-700 to-emerald-600 text-white shadow-lg shadow-emerald-600/15 hover:shadow-emerald-500/30"
-                      : "border border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400 hover:bg-zinc-50"
+                      ? "bg-gradient-to-r from-[#2E7D32] to-[#1B5E20] text-white shadow-lg shadow-[#1B5E20]/15 hover:shadow-[#1B5E20]/30"
+                      : "border border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400 hover:bg-zinc-50 dark:bg-white/5"
                   }`}
                 >
                   Get a Quote
@@ -407,7 +407,7 @@ export function LawnBowlsInsurancePage() {
           ))}
         </div>
 
-        <p className="mt-8 text-center text-sm text-zinc-500">
+        <p className="mt-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
           All tiers are backed by AIG, Lloyd&apos;s of London, and Great
           American Insurance Group. Licensed in all 50 states.
         </p>
@@ -421,13 +421,13 @@ export function LawnBowlsInsurancePage() {
               <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
                 Built Into Tournament Check-In
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+              <p className="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
                 When your players check in for a tournament through the app,
                 insurance coverage is offered automatically. No separate forms,
                 no phone calls, no hunting around. One tap and every player on
                 the green is protected.
               </p>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+              <p className="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
                 Club secretaries can purchase coverage for the entire field in
                 one transaction. A 32-player tournament? That&apos;s $256 at the
                 Standard tier for complete peace of mind.
@@ -458,10 +458,10 @@ export function LawnBowlsInsurancePage() {
               ].map((item) => (
                 <div
                   key={item.text}
-                  className="flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
+                  className="flex items-center gap-4 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 shadow-sm"
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                    <item.icon className="h-5 w-5 text-emerald-600" />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#1B5E20]/10">
+                    <item.icon className="h-5 w-5 text-[#1B5E20]" />
                   </div>
                   <span className="font-medium text-zinc-800">{item.text}</span>
                 </div>
@@ -473,7 +473,7 @@ export function LawnBowlsInsurancePage() {
 
       {/* Testimonial */}
       <section className="relative mx-auto max-w-3xl px-6 pb-24">
-        <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm text-center">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm text-center">
           <div className="flex justify-center gap-1 mb-4">
             {[1, 2, 3, 4, 5].map((s) => (
               <Star
@@ -490,10 +490,10 @@ export function LawnBowlsInsurancePage() {
             out of pocket. Every club should have this.&rdquo;
           </blockquote>
           <div className="mt-4">
-            <div className="font-semibold text-zinc-900">
+            <div className="font-semibold text-zinc-900 dark:text-zinc-100">
               Tournament Director
             </div>
-            <div className="text-sm text-zinc-500">
+            <div className="text-sm text-zinc-500 dark:text-zinc-400">
               Southern California Lawn Bowling Club
             </div>
           </div>
@@ -506,7 +506,7 @@ export function LawnBowlsInsurancePage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             Frequently Asked Questions
           </h2>
-          <p className="mt-4 text-zinc-600">
+          <p className="mt-4 text-zinc-600 dark:text-zinc-400">
             Common questions from lawn bowling clubs and players
           </p>
         </div>
@@ -516,7 +516,7 @@ export function LawnBowlsInsurancePage() {
             <Accordion.Item
               key={i}
               value={`faq-${i}`}
-              className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
+              className="overflow-hidden rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm"
             >
               <Accordion.Trigger className="flex w-full items-center justify-between px-6 py-4 text-left text-zinc-900 hover:bg-zinc-50 transition-colors min-h-[44px] group">
                 <span className="pr-4 font-semibold">{item.q}</span>
@@ -524,7 +524,7 @@ export function LawnBowlsInsurancePage() {
               </Accordion.Trigger>
               <Accordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
                 <div className="border-t border-zinc-100 px-6 py-4">
-                  <p className="text-sm leading-relaxed text-zinc-600">
+                  <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                     {item.a}
                   </p>
                 </div>
@@ -533,7 +533,7 @@ export function LawnBowlsInsurancePage() {
           ))}
         </Accordion.Root>
 
-        <div className="mt-8 flex items-center justify-center gap-2 text-sm text-zinc-500">
+        <div className="mt-8 flex items-center justify-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
           <Phone className="h-4 w-4" />
           <span>
             Prefer to talk to someone?{" "}
@@ -541,7 +541,7 @@ export function LawnBowlsInsurancePage() {
               href="https://dailyeventinsurance.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-emerald-600 hover:text-emerald-500 underline"
+              className="font-medium text-[#1B5E20] hover:text-[#1B5E20] underline"
             >
               Contact Daily Event Insurance
             </a>
@@ -551,28 +551,28 @@ export function LawnBowlsInsurancePage() {
 
       {/* CTA Section */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
-        <div className="rounded-3xl bg-gradient-to-r from-emerald-700 to-emerald-600 p-8 text-center shadow-2xl shadow-emerald-600/15 md:p-16">
+        <div className="rounded-3xl bg-gradient-to-r from-[#2E7D32] to-[#1B5E20] p-8 text-center shadow-2xl shadow-[#1B5E20]/15 md:p-16">
           <Shield className="mx-auto mb-6 h-14 w-14 text-white/90" />
           <h2 className="text-3xl font-bold text-white md:text-4xl">
             Don&apos;t Wait for the First Fall
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-emerald-100/80">
+          <p className="mx-auto mt-4 max-w-xl text-lg text-[#1B5E20]/10">
             35% of lawn bowls injuries are fractures. 54% are caused by falls.
             Per-session coverage from $3 means every player on your green is
             protected. Set it up in minutes.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-emerald-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-[#2E7D32] shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
             >
               Get a Quote
               <ExternalLink className="h-5 w-5" />
             </a>
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner"
+              href="https://dailyeventinsurance.com/m/lawnbowling"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/50 hover:bg-white/10 active:scale-[0.98]"
@@ -593,9 +593,9 @@ export function LawnBowlsInsurancePage() {
           ].map((badge) => (
             <div
               key={badge.label}
-              className="flex items-center gap-3 text-zinc-500"
+              className="flex items-center gap-3 text-zinc-500 dark:text-zinc-400"
             >
-              <badge.icon className="h-6 w-6 text-emerald-500" />
+              <badge.icon className="h-6 w-6 text-[#1B5E20]" />
               <span className="text-sm font-semibold uppercase tracking-wider">
                 {badge.label}
               </span>
@@ -605,15 +605,15 @@ export function LawnBowlsInsurancePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-zinc-50">
+      <footer className="border-t border-zinc-200 bg-zinc-50 dark:bg-white/5">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#1B5E20] to-[#1B5E20]">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Lawnbowling</span>
+            <span className="font-semibold text-zinc-900 dark:text-zinc-100">Lawnbowling</span>
           </Link>
-          <div className="flex items-center gap-6 text-sm text-zinc-500">
+          <div className="flex items-center gap-6 text-sm text-zinc-500 dark:text-zinc-400">
             <Link
               href="/insurance"
               className="hover:text-zinc-700 transition"
@@ -622,7 +622,7 @@ export function LawnBowlsInsurancePage() {
             </Link>
             <Link
               href="/insurance/lawn-bowls"
-              className="hover:text-zinc-700 transition font-medium text-emerald-600"
+              className="hover:text-zinc-700 transition font-medium text-[#1B5E20]"
             >
               Lawn Bowls Coverage
             </Link>

@@ -29,7 +29,7 @@ export default function KioskSettingsPage() {
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h1 className="mb-8 text-2xl font-bold text-zinc-900">Kiosk Settings</h1>
+        <h1 className="mb-8 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Kiosk Settings</h1>
 
         {saved && (
           <div className="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
@@ -103,7 +103,7 @@ export default function KioskSettingsPage() {
                 target="_blank"
                 className="flex items-center gap-3 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm text-zinc-900 hover:bg-zinc-50 min-h-[44px]"
               >
-                <QrCode className="h-5 w-5 text-blue-600" />
+                <QrCode className="h-5 w-5 text-[#1B5E20]" />
                 <div>
                   <p className="font-medium">QR Scanner Kiosk</p>
                   <p className="text-xs text-zinc-900/40">Camera-based QR code check-in</p>

@@ -23,7 +23,7 @@ function Toggle({
       disabled={disabled}
       className={cn(
         "relative h-6 w-11 rounded-full transition-colors",
-        checked ? "bg-emerald-500" : "bg-zinc-300"
+        checked ? "bg-[#1B5E20]" : "bg-zinc-300"
       )}
     >
       <span
@@ -61,7 +61,7 @@ export function PrivacySettings({ preferences }: PrivacySettingsProps) {
         <div className="flex items-center justify-between rounded-xl glass px-4 py-3">
           <div>
             <p className="text-sm text-zinc-700">Public Profile</p>
-            <p className="text-xs text-zinc-500">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
               Other players can see your profile
             </p>
           </div>
@@ -74,7 +74,7 @@ export function PrivacySettings({ preferences }: PrivacySettingsProps) {
         <div className="flex items-center justify-between rounded-xl glass px-4 py-3">
           <div>
             <p className="text-sm text-zinc-700">Public Stats</p>
-            <p className="text-xs text-zinc-500">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
               Show your win/loss record to others
             </p>
           </div>

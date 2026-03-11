@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import type { TournamentFormat } from "@/lib/types";
+import type { TournamentFormat, TournamentBracketType } from "@/lib/types";
 
 interface MatchData {
   id: string;
@@ -14,6 +14,7 @@ interface MatchData {
   winner_id: string | null;
   score: string | null;
   status: string;
+  bracket?: TournamentBracketType;
   player1?: { id: string; display_name: string; avatar_url: string | null } | null;
   player2?: { id: string; display_name: string; avatar_url: string | null } | null;
 }
@@ -41,13 +42,13 @@ function PlayerSlot({
         isWinner
           ? "border-green-500/30 bg-green-500/10 text-green-400"
           : isEmpty
-            ? "border-zinc-200 bg-zinc-50 text-zinc-600"
-            : "border-zinc-200 bg-zinc-100 text-zinc-600"
+            ? "border-zinc-200 bg-zinc-50 text-zinc-600 dark:text-zinc-400"
+            : "border-zinc-200 bg-zinc-100 text-zinc-600 dark:text-zinc-400"
       )}
     >
       {player ? (
         <>
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-700 text-[10px] font-bold text-zinc-600">
+          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-700 text-[10px] font-bold text-zinc-600 dark:text-zinc-400">
             {player.display_name?.[0]?.toUpperCase() ?? "?"}
           </div>
           <span className="truncate">{player.display_name}</span>
@@ -83,7 +84,7 @@ function EliminationBracket({ matches, onReportResult, currentPlayerId }: Omit<T
 
         return (
           <div key={round} className="flex flex-col gap-2">
-            <h4 className="mb-2 text-center text-xs font-semibold uppercase text-zinc-500">
+            <h4 className="mb-2 text-center text-xs font-semibold uppercase text-zinc-500 dark:text-zinc-400">
               {label}
             </h4>
             <div
@@ -110,7 +111,7 @@ function EliminationBracket({ matches, onReportResult, currentPlayerId }: Omit<T
                       isWinner={match.winner_id === match.player1_id && !!match.winner_id}
                       isEmpty={!match.player1_id}
                     />
-                    <div className="px-2 text-center text-[10px] text-zinc-600">
+                    <div className="px-2 text-center text-[10px] text-zinc-600 dark:text-zinc-400">
                       {match.score ?? "vs"}
                     </div>
                     <PlayerSlot
@@ -121,7 +122,7 @@ function EliminationBracket({ matches, onReportResult, currentPlayerId }: Omit<T
                     {canReport && onReportResult && (
                       <button
                         onClick={() => onReportResult(match.id)}
-                        className="mt-1 rounded-lg bg-emerald-600/20 px-2 py-1 text-xs font-medium text-emerald-400 hover:bg-emerald-600/30"
+                        className="mt-1 rounded-lg bg-[#1B5E20]/20 px-2 py-1 text-xs font-medium text-[#1B5E20] hover:bg-[#1B5E20]/30"
                       >
                         Report Result
                       </button>
@@ -158,11 +159,11 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
       <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
         <div className="mb-2 flex items-center justify-between text-sm">
           <span className="font-medium text-zinc-700">Tournament Progress</span>
-          <span className="text-zinc-500">{completed}/{total} matches played</span>
+          <span className="text-zinc-500 dark:text-zinc-400">{completed}/{total} matches played</span>
         </div>
         <div className="h-2 overflow-hidden rounded-full bg-zinc-200">
           <motion.div
-            className="h-full rounded-full bg-emerald-500"
+            className="h-full rounded-full bg-[#1B5E20]"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -202,7 +203,7 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
                     className={cn(
                       "rounded-xl border p-3 transition-colors",
                       match.status === "completed"
-                        ? "border-zinc-200 bg-zinc-50"
+                        ? "border-zinc-200 bg-zinc-50 dark:bg-white/5"
                         : "border-zinc-200 bg-white"
                     )}
                   >
@@ -210,33 +211,33 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
                       <div className="flex-1 space-y-1.5">
                         <div className={cn(
                           "flex items-center gap-2 text-sm font-medium",
-                          p1Won ? "text-emerald-600" : "text-zinc-700"
+                          p1Won ? "text-[#1B5E20]" : "text-zinc-700"
                         )}>
-                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-500">
+                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-500 dark:text-zinc-400">
                             {match.player1?.display_name?.[0]?.toUpperCase() ?? "?"}
                           </div>
                           <span className="truncate">{match.player1?.display_name ?? "TBD"}</span>
-                          {p1Won && <span className="text-emerald-500">W</span>}
+                          {p1Won && <span className="text-[#1B5E20]">W</span>}
                         </div>
                         <div className={cn(
                           "flex items-center gap-2 text-sm font-medium",
-                          p2Won ? "text-emerald-600" : "text-zinc-700"
+                          p2Won ? "text-[#1B5E20]" : "text-zinc-700"
                         )}>
-                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-500">
+                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-500 dark:text-zinc-400">
                             {match.player2?.display_name?.[0]?.toUpperCase() ?? "?"}
                           </div>
                           <span className="truncate">{match.player2?.display_name ?? "TBD"}</span>
-                          {p2Won && <span className="text-emerald-500">W</span>}
+                          {p2Won && <span className="text-[#1B5E20]">W</span>}
                         </div>
                       </div>
                       <div className="flex flex-col items-end gap-1">
                         {match.score && (
-                          <span className="text-xs font-medium text-zinc-500">{match.score}</span>
+                          <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">{match.score}</span>
                         )}
                         {canReport && onReportResult ? (
                           <button
                             onClick={() => onReportResult(match.id)}
-                            className="rounded-lg bg-emerald-600/20 px-2.5 py-1 text-xs font-medium text-emerald-500 hover:bg-emerald-600/30"
+                            className="rounded-lg bg-[#1B5E20]/20 px-2.5 py-1 text-xs font-medium text-[#1B5E20] hover:bg-[#1B5E20]/30"
                           >
                             Report
                           </button>
@@ -265,10 +266,35 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
   );
 }
 
+function DoubleEliminationBracket({ matches, onReportResult, currentPlayerId }: Omit<TournamentBracketProps, "format">) {
+  const [activeBracket, setActiveBracket] = useState<"winners" | "losers" | "grand_final">("winners");
+  const winnerMatches = matches.filter((m) => m.bracket === "winners");
+  const loserMatches = matches.filter((m) => m.bracket === "losers");
+  const grandFinal = matches.filter((m) => m.bracket === "grand_final");
+  const bracketTabs: { key: typeof activeBracket; label: string; count: number }[] = [
+    { key: "winners", label: "Winners", count: winnerMatches.length },
+    { key: "losers", label: "Losers", count: loserMatches.length },
+    { key: "grand_final", label: "Grand Final", count: grandFinal.length },
+  ];
+  const activeMatches = activeBracket === "winners" ? winnerMatches : activeBracket === "losers" ? loserMatches : grandFinal;
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        {bracketTabs.map((tab) => (
+          <button key={tab.key} onClick={() => setActiveBracket(tab.key)} className={cn("rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors", activeBracket === tab.key ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200")}>
+            {tab.label} ({tab.count})
+          </button>
+        ))}
+      </div>
+      <EliminationBracket matches={activeMatches} onReportResult={onReportResult} currentPlayerId={currentPlayerId} />
+    </div>
+  );
+}
+
 export function TournamentBracket({ matches, format, onReportResult, currentPlayerId }: TournamentBracketProps) {
   if (matches.length === 0) {
     return (
-      <div className="py-8 text-center text-sm text-zinc-500">
+      <div className="py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
         Bracket has not been generated yet
       </div>
     );
@@ -276,6 +302,10 @@ export function TournamentBracket({ matches, format, onReportResult, currentPlay
 
   if (format === "round_robin") {
     return <RoundRobinBracket matches={matches} onReportResult={onReportResult} currentPlayerId={currentPlayerId} />;
+  }
+
+  if (format === "double_elimination") {
+    return <DoubleEliminationBracket matches={matches} onReportResult={onReportResult} currentPlayerId={currentPlayerId} />;
   }
 
   return <EliminationBracket matches={matches} onReportResult={onReportResult} currentPlayerId={currentPlayerId} />;

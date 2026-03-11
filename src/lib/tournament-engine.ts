@@ -89,7 +89,6 @@ export function calculateMatchResult(
     winnerId = player2Id;
     loserId = player1Id;
   } else if (format === "single" && games.length > 0) {
-    // Single game with equal scores = draw
     isDraw = p1Total === p2Total;
     if (p1Total > p2Total) {
       winnerId = player1Id;
@@ -111,7 +110,6 @@ export function calculateMatchResult(
 
 /**
  * Calculate lawn bowls result from end-by-end scores.
- * Returns winner, totals, and ends-won counts.
  */
 export function calculateBowlsResult(
   teamAScores: number[],
@@ -145,41 +143,25 @@ export function calculateBowlsResult(
     else winner = "draw";
   }
 
-  return {
-    totalA,
-    totalB,
-    endsWonA,
-    endsWonB,
-    winner,
-    margin: Math.abs(totalA - totalB),
-  };
+  return { totalA, totalB, endsWonA, endsWonB, winner, margin: Math.abs(totalA - totalB) };
 }
 
 // ─── Standings / Tiebreakers ─────────────────────────────────────────
 
 /**
- * Sort standings using standard lawn bowls tiebreakers:
- * 1. Wins (desc)
- * 2. Shot difference (desc)
- * 3. Ends won (desc)
- * 4. Points for (desc)
+ * Sort standings: wins → shot difference → ends won → points for.
  */
 export function sortStandings(standings: Standing[]): Standing[] {
   return [...standings].sort((a, b) => {
-    // 1. Wins
     if (b.wins !== a.wins) return b.wins - a.wins;
-    // 2. Shot difference
-    if (b.shotDifference !== a.shotDifference)
-      return b.shotDifference - a.shotDifference;
-    // 3. Ends won
+    if (b.shotDifference !== a.shotDifference) return b.shotDifference - a.shotDifference;
     if (b.endsWon !== a.endsWon) return b.endsWon - a.endsWon;
-    // 4. Points for
     return b.pointsFor - a.pointsFor;
   });
 }
 
 /**
- * Build standings from a list of rink results across rounds.
+ * Build standings from rink results across rounds.
  */
 export function buildStandings(
   results: Array<{
@@ -198,17 +180,7 @@ export function buildStandings(
   function getOrCreate(playerId: string): Standing {
     let s = map.get(playerId);
     if (!s) {
-      s = {
-        playerId,
-        wins: 0,
-        losses: 0,
-        draws: 0,
-        pointsFor: 0,
-        pointsAgainst: 0,
-        shotDifference: 0,
-        endsWon: 0,
-        gamesPlayed: 0,
-      };
+      s = { playerId, wins: 0, losses: 0, draws: 0, pointsFor: 0, pointsAgainst: 0, shotDifference: 0, endsWon: 0, gamesPlayed: 0 };
       map.set(playerId, s);
     }
     return s;
@@ -248,11 +220,7 @@ export function buildStandings(
 // ─── Draw Generation ─────────────────────────────────────────────────
 
 /**
- * Generate a seeded draw for a round, avoiding repeat matchups.
- *
- * @param playerIds - Ordered by seed (best first)
- * @param previousOpponents - Map of playerId → set of recent opponent IDs
- * @returns Array of pairings. If odd count, last player gets a bye.
+ * Generate a seeded draw, avoiding repeat matchups from previous round.
  */
 export function generateSeededDraw(
   playerIds: string[],
@@ -263,69 +231,38 @@ export function generateSeededDraw(
 
   const pairings: DrawPairing[] = [];
   const paired = new Set<string>();
-
-  // Snake seeding: #1 vs #N, #2 vs #N-1, etc.
-  // Then try to avoid recent opponents by swapping if possible.
   const ordered = [...playerIds];
 
   if (previousOpponents && previousOpponents.size > 0) {
-    // Greedy pairing: top seed picks least-recently-matched opponent
     for (let i = 0; i < ordered.length; i++) {
       if (paired.has(ordered[i])) continue;
-
       const pid = ordered[i];
       paired.add(pid);
-
       const prevOpps = previousOpponents.get(pid) ?? new Set();
 
-      // Find best opponent: lowest seed not yet paired, not a recent opponent
       let bestIdx = -1;
       let fallbackIdx = -1;
-
       for (let j = ordered.length - 1; j > i; j--) {
         if (paired.has(ordered[j])) continue;
         if (fallbackIdx === -1) fallbackIdx = j;
-        if (!prevOpps.has(ordered[j])) {
-          bestIdx = j;
-          break;
-        }
+        if (!prevOpps.has(ordered[j])) { bestIdx = j; break; }
       }
 
       const oppIdx = bestIdx !== -1 ? bestIdx : fallbackIdx;
       if (oppIdx !== -1) {
         paired.add(ordered[oppIdx]);
-        pairings.push({
-          player1Id: pid,
-          player2Id: ordered[oppIdx],
-          matchNumber: pairings.length + 1,
-        });
+        pairings.push({ player1Id: pid, player2Id: ordered[oppIdx], matchNumber: pairings.length + 1 });
       } else {
-        // Odd player out - bye
-        pairings.push({
-          player1Id: pid,
-          player2Id: null,
-          matchNumber: pairings.length + 1,
-        });
+        pairings.push({ player1Id: pid, player2Id: null, matchNumber: pairings.length + 1 });
       }
     }
   } else {
-    // Standard snake seeding: #1 vs #N, #2 vs #N-1, etc.
     const half = Math.floor(n / 2);
     for (let i = 0; i < half; i++) {
-      pairings.push({
-        player1Id: ordered[i],
-        player2Id: ordered[n - 1 - i],
-        matchNumber: i + 1,
-      });
+      pairings.push({ player1Id: ordered[i], player2Id: ordered[n - 1 - i], matchNumber: i + 1 });
     }
-
-    // Bye for odd count
     if (n % 2 !== 0) {
-      pairings.push({
-        player1Id: ordered[half],
-        player2Id: null,
-        matchNumber: half + 1,
-      });
+      pairings.push({ player1Id: ordered[half], player2Id: null, matchNumber: half + 1 });
     }
   }
 
@@ -333,24 +270,17 @@ export function generateSeededDraw(
 }
 
 /**
- * Handle bye: the player with the bye automatically wins with a default score.
- * Returns the player ID who should advance.
+ * Handle bye: returns the advancing player ID.
  */
 export function handleBye(pairing: DrawPairing): string | null {
   if (pairing.player2Id === null) return pairing.player1Id;
   if (pairing.player1Id === null) return pairing.player2Id;
-  return null; // Not a bye
+  return null;
 }
 
 // ─── Single Elimination Bracket ──────────────────────────────────────
 
-/**
- * Generate a single-elimination bracket.
- * Handles byes by auto-advancing players without opponents.
- */
-export function generateSingleEliminationBracket(
-  seededPlayerIds: string[]
-): BracketMatch[] {
+export function generateSingleEliminationBracket(seededPlayerIds: string[]): BracketMatch[] {
   const n = seededPlayerIds.length;
   if (n < 2) return [];
 
@@ -358,39 +288,24 @@ export function generateSingleEliminationBracket(
   const bracketSize = Math.pow(2, totalRounds);
   const matches: BracketMatch[] = [];
 
-  // First round: standard seeding (#1 vs #N, #2 vs #N-1)
   let matchNumber = 1;
   for (let i = 0; i < bracketSize / 2; i++) {
     const p1 = seededPlayerIds[i] ?? null;
     const p2 = seededPlayerIds[bracketSize - 1 - i] ?? null;
-
     const isBye = (p1 && !p2) || (!p1 && p2);
-
     matches.push({
-      round: 1,
-      matchNumber: matchNumber++,
-      player1Id: p1,
-      player2Id: p2,
-      winnerId: isBye ? (p1 ?? p2) : null,
-      loserId: null,
-      status: isBye ? "completed" : "pending",
-      bracket: "winners",
+      round: 1, matchNumber: matchNumber++, player1Id: p1, player2Id: p2,
+      winnerId: isBye ? (p1 ?? p2) : null, loserId: null,
+      status: isBye ? "completed" : "pending", bracket: "winners",
     });
   }
 
-  // Subsequent rounds (empty placeholders)
   for (let round = 2; round <= totalRounds; round++) {
     const matchesInRound = Math.pow(2, totalRounds - round);
     for (let m = 0; m < matchesInRound; m++) {
       matches.push({
-        round,
-        matchNumber: m + 1,
-        player1Id: null,
-        player2Id: null,
-        winnerId: null,
-        loserId: null,
-        status: "pending",
-        bracket: "winners",
+        round, matchNumber: m + 1, player1Id: null, player2Id: null,
+        winnerId: null, loserId: null, status: "pending", bracket: "winners",
       });
     }
   }
@@ -402,8 +317,7 @@ export function generateSingleEliminationBracket(
     if (m.winnerId && round2.length > 0) {
       const nextMatchIdx = Math.ceil(m.matchNumber / 2) - 1;
       if (nextMatchIdx < round2.length) {
-        const slot =
-          m.matchNumber % 2 === 1 ? "player1Id" : "player2Id";
+        const slot = m.matchNumber % 2 === 1 ? "player1Id" : "player2Id";
         round2[nextMatchIdx][slot] = m.winnerId;
       }
     }
@@ -414,14 +328,7 @@ export function generateSingleEliminationBracket(
 
 // ─── Double Elimination Bracket ──────────────────────────────────────
 
-/**
- * Generate a double-elimination bracket.
- * Players must lose twice to be eliminated.
- * Produces winners bracket, losers bracket, and grand final.
- */
-export function generateDoubleEliminationBracket(
-  seededPlayerIds: string[]
-): BracketMatch[] {
+export function generateDoubleEliminationBracket(seededPlayerIds: string[]): BracketMatch[] {
   const n = seededPlayerIds.length;
   if (n < 2) return [];
 
@@ -429,22 +336,16 @@ export function generateDoubleEliminationBracket(
   const bracketSize = Math.pow(2, totalWinnersRounds);
   const matches: BracketMatch[] = [];
 
-  // ── Winners bracket (same as single elimination) ──
+  // Winners bracket
   let matchNumber = 1;
   for (let i = 0; i < bracketSize / 2; i++) {
     const p1 = seededPlayerIds[i] ?? null;
     const p2 = seededPlayerIds[bracketSize - 1 - i] ?? null;
     const isBye = (p1 && !p2) || (!p1 && p2);
-
     matches.push({
-      round: 1,
-      matchNumber: matchNumber++,
-      player1Id: p1,
-      player2Id: p2,
-      winnerId: isBye ? (p1 ?? p2) : null,
-      loserId: null,
-      status: isBye ? "completed" : "pending",
-      bracket: "winners",
+      round: 1, matchNumber: matchNumber++, player1Id: p1, player2Id: p2,
+      winnerId: isBye ? (p1 ?? p2) : null, loserId: null,
+      status: isBye ? "completed" : "pending", bracket: "winners",
     });
   }
 
@@ -452,62 +353,33 @@ export function generateDoubleEliminationBracket(
     const matchesInRound = Math.pow(2, totalWinnersRounds - round);
     for (let m = 0; m < matchesInRound; m++) {
       matches.push({
-        round,
-        matchNumber: m + 1,
-        player1Id: null,
-        player2Id: null,
-        winnerId: null,
-        loserId: null,
-        status: "pending",
-        bracket: "winners",
+        round, matchNumber: m + 1, player1Id: null, player2Id: null,
+        winnerId: null, loserId: null, status: "pending", bracket: "winners",
       });
     }
   }
 
-  // ── Losers bracket ──
-  // Losers bracket has (2 * (totalWinnersRounds - 1)) rounds.
-  // Odd rounds: losers from winners bracket drop in.
-  // Even rounds: within-losers matchups.
+  // Losers bracket
   const losersRounds = 2 * (totalWinnersRounds - 1);
   for (let lr = 1; lr <= losersRounds; lr++) {
-    // Number of matches decreases as losers are eliminated
-    const matchesInRound = Math.pow(
-      2,
-      totalWinnersRounds - 1 - Math.ceil(lr / 2)
-    );
+    const matchesInRound = Math.pow(2, totalWinnersRounds - 1 - Math.ceil(lr / 2));
     for (let m = 0; m < Math.max(matchesInRound, 1); m++) {
       matches.push({
-        round: lr,
-        matchNumber: m + 1,
-        player1Id: null,
-        player2Id: null,
-        winnerId: null,
-        loserId: null,
-        status: "pending",
-        bracket: "losers",
+        round: lr, matchNumber: m + 1, player1Id: null, player2Id: null,
+        winnerId: null, loserId: null, status: "pending", bracket: "losers",
       });
     }
   }
 
-  // ── Grand Final ──
+  // Grand Final
   matches.push({
-    round: 1,
-    matchNumber: 1,
-    player1Id: null, // Winners bracket champion
-    player2Id: null, // Losers bracket champion
-    winnerId: null,
-    loserId: null,
-    status: "pending",
-    bracket: "grand_final",
+    round: 1, matchNumber: 1, player1Id: null, player2Id: null,
+    winnerId: null, loserId: null, status: "pending", bracket: "grand_final",
   });
 
   // Auto-advance bye winners
-  const winnersR1 = matches.filter(
-    (m) => m.bracket === "winners" && m.round === 1
-  );
-  const winnersR2 = matches.filter(
-    (m) => m.bracket === "winners" && m.round === 2
-  );
+  const winnersR1 = matches.filter((m) => m.bracket === "winners" && m.round === 1);
+  const winnersR2 = matches.filter((m) => m.bracket === "winners" && m.round === 2);
   for (const m of winnersR1) {
     if (m.winnerId && winnersR2.length > 0) {
       const nextMatchIdx = Math.ceil(m.matchNumber / 2) - 1;
@@ -523,14 +395,7 @@ export function generateDoubleEliminationBracket(
 
 // ─── Tournament Progression ──────────────────────────────────────────
 
-/**
- * Given a completed match in single elimination, determine where
- * the winner should be placed in the next round.
- */
-export function getNextMatchSlot(
-  matchNumber: number,
-  currentRound: number
-): {
+export function getNextMatchSlot(matchNumber: number, currentRound: number): {
   nextRound: number;
   nextMatchNumber: number;
   slot: "player1Id" | "player2Id";
@@ -542,12 +407,6 @@ export function getNextMatchSlot(
   };
 }
 
-/**
- * Check if a tournament is complete.
- * For single elimination: final match is completed.
- * For round robin: all matches are completed.
- * For double elimination: grand final is completed.
- */
 export function isTournamentComplete(
   matches: Array<{ status: string; bracket?: string }>
 ): boolean {
@@ -555,62 +414,35 @@ export function isTournamentComplete(
   return matches.every((m) => m.status === "completed");
 }
 
-/**
- * Determine the tournament champion from completed matches.
- * Single elimination: winner of the final match.
- * Round robin: player with most wins (using tiebreakers).
- * Double elimination: winner of grand final.
- */
 export function determineTournamentWinner(
-  matches: Array<{
-    round: number;
-    winnerId: string | null;
-    bracket?: string;
-  }>,
+  matches: Array<{ round: number; winnerId: string | null; bracket?: string }>,
   format: "single_elimination" | "double_elimination" | "round_robin",
   standings?: Standing[]
 ): string | null {
   if (format === "round_robin") {
     if (!standings || standings.length === 0) return null;
-    const sorted = sortStandings(standings);
-    return sorted[0].playerId;
+    return sortStandings(standings)[0].playerId;
   }
-
   if (format === "double_elimination") {
     const grandFinal = matches.find((m) => m.bracket === "grand_final");
     return grandFinal?.winnerId ?? null;
   }
-
-  // Single elimination: find the final (highest round) match winner
   const maxRound = Math.max(...matches.map((m) => m.round));
   const finalMatch = matches.find((m) => m.round === maxRound);
   return finalMatch?.winnerId ?? null;
 }
 
-/**
- * Handle a forfeit: the non-forfeiting player wins.
- */
 export function handleForfeit(
   matchPlayer1Id: string | null,
   matchPlayer2Id: string | null,
   forfeitingPlayerId: string
 ): { winnerId: string | null; loserId: string } {
   const winnerId =
-    forfeitingPlayerId === matchPlayer1Id
-      ? matchPlayer2Id
-      : forfeitingPlayerId === matchPlayer2Id
-        ? matchPlayer1Id
-        : null;
-
+    forfeitingPlayerId === matchPlayer1Id ? matchPlayer2Id :
+    forfeitingPlayerId === matchPlayer2Id ? matchPlayer1Id : null;
   return { winnerId, loserId: forfeitingPlayerId };
 }
 
-/**
- * Determine player seeding for the next round based on current standings.
- * Players are ordered by wins (desc), then shot difference (desc).
- */
-export function seedPlayersForNextRound(
-  standings: Standing[]
-): string[] {
+export function seedPlayersForNextRound(standings: Standing[]): string[] {
   return sortStandings(standings).map((s) => s.playerId);
 }

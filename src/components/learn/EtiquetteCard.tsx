@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export function EtiquetteCard({ items }: { items: string[] }) {
   return (
     <section id="etiquette">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900">Etiquette</h2>
+      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Etiquette</h2>
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -20,9 +20,9 @@ export function EtiquetteCard({ items }: { items: string[] }) {
           {items.map((item, i) => (
             <li
               key={i}
-              className="flex items-start gap-3 text-sm text-zinc-600"
+              className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-400"
             >
-              <span className="mt-0.5 shrink-0 text-emerald-500">
+              <span className="mt-0.5 shrink-0 text-[#1B5E20]">
                 {"\u2713"}
               </span>
               {item}

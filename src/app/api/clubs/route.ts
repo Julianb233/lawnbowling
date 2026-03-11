@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
  *
  * Query params:
  *   q        - search term (matches name, city, state, description)
+ *   country  - filter by country_code (e.g. "US", "GB", "CA")
  *   region   - filter by region (west, east, south, midwest)
  *   state    - filter by 2-letter state code
  *   activity - filter by activity (e.g. "Tournaments")
@@ -22,6 +23,7 @@ import { createClient } from "@/lib/supabase/server";
  */
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
+  const country = searchParams.get("country");
   const region = searchParams.get("region");
   const stateCode = searchParams.get("state");
   const activity = searchParams.get("activity");
@@ -45,6 +47,7 @@ export async function GET(req: NextRequest) {
     .order("name", { ascending: true })
     .range(offset, offset + limit - 1);
 
+  if (country) query = query.eq("country_code", country.toUpperCase());
   if (region) query = query.eq("region", region);
   if (stateCode) query = query.eq("state_code", stateCode.toUpperCase());
   if (activity) query = query.contains("activities", [activity]);

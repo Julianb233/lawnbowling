@@ -1,0 +1,490 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import {
+  ArrowLeft,
+  Building2,
+  MapPin,
+  Phone,
+  Mail,
+  Globe,
+  Save,
+  Image,
+  CreditCard,
+  AlertTriangle,
+  CheckCircle,
+  ExternalLink,
+  Loader2,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface ClubSettings {
+  id: string;
+  name: string;
+  city: string;
+  stateCode: string;
+  slug: string;
+  address: string;
+  phone: string;
+  email: string;
+  website: string;
+  rinks: number;
+  plan: string;
+  logoUrl: string | null;
+}
+
+export default function ClubSettingsPage() {
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
+  const [club, setClub] = useState<ClubSettings | null>(null);
+
+  // Form state
+  const [name, setName] = useState("");
+  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
+  const [rinks, setRinks] = useState("2");
+
+  // Danger zone
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [cancellingSubscription, setCancellingSubscription] = useState(false);
+
+  useEffect(() => {
+    async function loadClub() {
+      try {
+        const [clubsRes, profileRes] = await Promise.all([
+          fetch("/api/clubs/managed"),
+          fetch("/api/profile"),
+        ]);
+
+        const clubsData = await clubsRes.json();
+        const profileData = profileRes.ok ? await profileRes.json() : null;
+
+        const c = clubsData.clubs?.[0];
+        if (c) {
+          const settings: ClubSettings = {
+            id: c.id,
+            name: c.name,
+            city: c.city,
+            stateCode: c.state_code,
+            slug: c.slug,
+            address: c.address || "",
+            phone: c.phone || "",
+            email: c.email || "",
+            website: c.website || "",
+            rinks: c.rinks || 2,
+            plan: profileData?.subscription?.plan || "free",
+            logoUrl: null,
+          };
+          setClub(settings);
+          setName(settings.name);
+          setCity(settings.city);
+          setAddress(settings.address);
+          setPhone(settings.phone);
+          setEmail(settings.email);
+          setWebsite(settings.website);
+          setRinks(settings.rinks.toString());
+        }
+      } catch {
+        setError("Failed to load club settings");
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadClub();
+  }, []);
+
+  async function handleSave(e: React.FormEvent) {
+    e.preventDefault();
+    if (!club) return;
+    setSaving(true);
+    setSaved(false);
+    setError("");
+
+    try {
+      const res = await fetch("/api/clubs/managed", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: club.id,
+          name,
+          address: address || null,
+          phone: phone || null,
+          email: email || null,
+          website: website || null,
+          rinks: rinks ? parseInt(rinks) : 2,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Failed to save");
+        return;
+      }
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleManageBilling() {
+    try {
+      const res = await fetch("/api/stripe/portal", { method: "POST" });
+      const { url } = await res.json();
+      if (url) window.location.href = url;
+    } catch {
+      setError("Failed to open billing portal");
+    }
+  }
+
+  async function handleCancelSubscription() {
+    setCancellingSubscription(true);
+    try {
+      // Redirect to Stripe portal for cancellation
+      const res = await fetch("/api/stripe/portal", { method: "POST" });
+      const { url } = await res.json();
+      if (url) window.location.href = url;
+    } catch {
+      setError("Failed to process cancellation");
+    } finally {
+      setCancellingSubscription(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-[#1B5E20]" />
+      </div>
+    );
+  }
+
+  if (!club) {
+    return (
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
+        <div className="max-w-md w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
+          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">No Club Found</h1>
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+            Register or claim a club first.
+          </p>
+          <Link
+            href="/clubs/onboard"
+            className="mt-4 inline-flex rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#2E7D32] transition-colors"
+          >
+            Register Club
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-8">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
+        <div className="mx-auto max-w-3xl px-4 py-4">
+          <Link
+            href="/clubs/dashboard"
+            className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-700 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Dashboard
+          </Link>
+          <h1 className="mt-2 text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
+            Club Settings
+          </h1>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            Manage your club profile and billing
+          </p>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-3xl px-4 py-8">
+        <form onSubmit={handleSave} className="space-y-6">
+          {/* Club Info */}
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+            <h2 className="text-lg font-bold text-zinc-900 mb-4">
+              Club Information
+            </h2>
+            <div className="space-y-4">
+              <FieldGroup
+                label="Club Name"
+                icon={<Building2 className="h-4 w-4" />}
+              >
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                />
+              </FieldGroup>
+
+              <FieldGroup
+                label="Location"
+                icon={<MapPin className="h-4 w-4" />}
+              >
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="City"
+                  className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                />
+              </FieldGroup>
+
+              <FieldGroup label="Street Address">
+                <input
+                  type="text"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="123 Green Lane"
+                  className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                />
+              </FieldGroup>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FieldGroup
+                  label="Phone"
+                  icon={<Phone className="h-4 w-4" />}
+                >
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="(555) 123-4567"
+                    className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                  />
+                </FieldGroup>
+                <FieldGroup
+                  label="Email"
+                  icon={<Mail className="h-4 w-4" />}
+                >
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="info@yourclub.com"
+                    className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                  />
+                </FieldGroup>
+              </div>
+
+              <FieldGroup
+                label="Website"
+                icon={<Globe className="h-4 w-4" />}
+              >
+                <input
+                  type="url"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  placeholder="https://yourclub.com"
+                  className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                />
+              </FieldGroup>
+            </div>
+          </section>
+
+          {/* Facilities */}
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+            <h2 className="text-lg font-bold text-zinc-900 mb-4">
+              Facilities
+            </h2>
+            <FieldGroup label="Number of Rinks">
+              <select
+                value={rinks}
+                onChange={(e) => setRinks(e.target.value)}
+                className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+              >
+                <option value="2">2 rinks</option>
+                <option value="3">3 rinks</option>
+                <option value="4">4 rinks</option>
+              </select>
+            </FieldGroup>
+          </section>
+
+          {/* Logo Upload Placeholder */}
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+            <h2 className="text-lg font-bold text-zinc-900 mb-4">Club Logo</h2>
+            <div className="flex items-center gap-4">
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 bg-zinc-50 dark:bg-white/5">
+                {club.logoUrl ? (
+                  <img
+                    src={club.logoUrl}
+                    alt="Club logo"
+                    className="h-full w-full rounded-2xl object-cover"
+                  />
+                ) : (
+                  <Image className="h-8 w-8 text-zinc-300" />
+                )}
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="rounded-xl border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
+                  onClick={() =>
+                    alert("Logo upload coming soon! Contact support for help.")
+                  }
+                >
+                  Upload Logo
+                </button>
+                <p className="mt-1 text-xs text-zinc-400">
+                  PNG or JPG, max 2MB. Recommended: 200x200px
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Billing Management */}
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Billing</h2>
+              <CreditCard className="h-5 w-5 text-zinc-400" />
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                    Current Plan:{" "}
+                    <span className="text-[#1B5E20]">
+                      {club.plan === "pro"
+                        ? "Pro"
+                        : club.plan === "club"
+                          ? "Club"
+                          : "Free"}
+                    </span>
+                  </p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                    {club.plan === "free"
+                      ? "Upgrade for full features"
+                      : "Manage your payment method and invoices"}
+                  </p>
+                </div>
+                {club.plan !== "free" ? (
+                  <button
+                    type="button"
+                    onClick={handleManageBilling}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[#1B5E20] hover:text-[#2E7D32]"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                    Stripe Portal
+                  </button>
+                ) : (
+                  <Link
+                    href="/pricing"
+                    className="text-sm font-medium text-[#1B5E20] hover:text-[#2E7D32]"
+                  >
+                    Upgrade
+                  </Link>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {error && (
+            <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+              {error}
+            </div>
+          )}
+
+          {saved && (
+            <div className="rounded-xl border border-[#1B5E20]/15 bg-[#1B5E20]/5 p-4 text-sm text-[#2E7D32] flex items-center gap-2">
+              <CheckCircle className="h-4 w-4" />
+              Changes saved successfully!
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={saving}
+            className="w-full rounded-xl bg-[#1B5E20] py-3.5 text-sm font-bold text-white hover:bg-[#2E7D32] disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+          >
+            <Save className="h-4 w-4" />
+            {saving ? "Saving..." : "Save Changes"}
+          </button>
+        </form>
+
+        {/* Danger Zone */}
+        {club.plan !== "free" && (
+          <section className="mt-8 rounded-2xl border border-red-200 bg-white dark:bg-[#1a3d28] p-6">
+            <h2 className="text-lg font-bold text-red-700 mb-2 flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5" />
+              Danger Zone
+            </h2>
+            <p className="text-sm text-zinc-500 mb-4">
+              Cancelling your subscription will downgrade your club to the Free
+              plan. Your data will be preserved for 90 days.
+            </p>
+
+            {!showCancelConfirm ? (
+              <button
+                type="button"
+                onClick={() => setShowCancelConfirm(true)}
+                className="rounded-xl border border-red-200 px-4 py-2.5 text-sm font-medium text-red-700 hover:bg-red-50 transition-colors"
+              >
+                Cancel Subscription
+              </button>
+            ) : (
+              <div className="rounded-xl border border-red-200 bg-red-50 p-4">
+                <p className="text-sm font-medium text-red-700 mb-3">
+                  Are you sure? You will be redirected to Stripe to confirm
+                  cancellation.
+                </p>
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={handleCancelSubscription}
+                    disabled={cancellingSubscription}
+                    className={cn(
+                      "rounded-xl bg-red-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-red-700 transition-colors",
+                      cancellingSubscription && "opacity-50"
+                    )}
+                  >
+                    {cancellingSubscription
+                      ? "Processing..."
+                      : "Yes, Cancel Subscription"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowCancelConfirm(false)}
+                    className="rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
+                  >
+                    Never Mind
+                  </button>
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+      </main>
+    </div>
+  );
+}
+
+function FieldGroup({
+  label,
+  icon,
+  children,
+}: {
+  label: string;
+  icon?: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label className="flex items-center gap-1.5 text-sm font-medium text-zinc-700 mb-1.5">
+        {icon && <span className="text-zinc-400">{icon}</span>}
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+}

@@ -2,40 +2,15 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, X } from "lucide-react";
+import { ChevronRight, ChevronLeft, X, CircleDot, Smartphone, Handshake, Target, Trophy, type LucideIcon } from "lucide-react";
 import { OnboardingStep } from "./OnboardingStep";
 
-const STEPS = [
-  {
-    icon: "\u{1F3D3}",
-    title: "Welcome to Lawnbowling!",
-    description: "The easiest way to find your perfect sports partner at any venue. Let's show you around.",
-    color: "text-green-400",
-  },
-  {
-    icon: "\u{1F4F2}",
-    title: "Check In",
-    description: "When you arrive at a venue, tap the check-in button to let others know you're available to play.",
-    color: "text-blue-400",
-  },
-  {
-    icon: "\u{1F91D}",
-    title: "Lawnbowling",
-    description: "Browse available players and tap their card to send a partner request. They'll get an instant notification!",
-    color: "text-amber-400",
-  },
-  {
-    icon: "\u{1F3AF}",
-    title: "Get Matched",
-    description: "Once your request is accepted, you'll be matched and assigned to an available court automatically.",
-    color: "text-purple-400",
-  },
-  {
-    icon: "\u{1F3C6}",
-    title: "Play & Track Stats!",
-    description: "Play your match, report scores, and climb the leaderboard. Your stats and ELO rating update automatically!",
-    color: "text-green-400",
-  },
+const STEPS: { icon: LucideIcon; title: string; description: string; color: string }[] = [
+  { icon: CircleDot, title: "Welcome to Lawnbowling!", description: "The easiest way to find your perfect sports partner at any venue. Let's show you around.", color: "text-green-400" },
+  { icon: Smartphone, title: "Check In", description: "When you arrive at a venue, tap the check-in button to let others know you're available to play.", color: "text-blue-400" },
+  { icon: Handshake, title: "Lawnbowling", description: "Browse available players and tap their card to send a partner request. They'll get an instant notification!", color: "text-amber-400" },
+  { icon: Target, title: "Get Matched", description: "Once your request is accepted, you'll be matched and assigned to an available court automatically.", color: "text-purple-400" },
+  { icon: Trophy, title: "Play & Track Stats!", description: "Play your match, report scores, and climb the leaderboard. Your stats and ELO rating update automatically!", color: "text-green-400" },
 ];
 
 interface OnboardingWizardProps {
@@ -103,7 +78,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
 
           <button
             onClick={() => isLast ? handleComplete() : setStep(step + 1)}
-            className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-3 text-sm font-bold text-white hover:shadow-lg hover:shadow-green-500/25 min-h-[48px]"
+            className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-green-500 to-[#1B5E20] px-8 py-3 text-sm font-bold text-white hover:shadow-lg hover:shadow-green-500/25 min-h-[48px]"
           >
             {isLast ? "Get Started" : "Next"} <ChevronRight className="h-4 w-4" />
           </button>

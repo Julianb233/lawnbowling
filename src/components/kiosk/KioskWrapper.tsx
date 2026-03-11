@@ -35,13 +35,9 @@ export function KioskWrapper({
 
   const resetTimer = useCallback(() => {
     dismissWarning();
-
-    // Set the inactivity timer; when it fires, show a warning overlay
     timerRef.current = setTimeout(() => {
       setShowWarning(true);
       setWarningCountdown(WARNING_SECONDS);
-
-      // Start countdown
       let remaining = WARNING_SECONDS;
       warningIntervalRef.current = setInterval(() => {
         remaining -= 1;
@@ -56,18 +52,9 @@ export function KioskWrapper({
   }, [inactivityTimeout, onInactivityReset, dismissWarning, clearAllTimers]);
 
   useEffect(() => {
-    const events = [
-      "touchstart",
-      "mousedown",
-      "mousemove",
-      "keydown",
-      "scroll",
-    ];
-    events.forEach((e) =>
-      document.addEventListener(e, resetTimer, { passive: true })
-    );
+    const events = ["touchstart", "mousedown", "mousemove", "keydown", "scroll"];
+    events.forEach((e) => document.addEventListener(e, resetTimer, { passive: true }));
     resetTimer();
-
     return () => {
       events.forEach((e) => document.removeEventListener(e, resetTimer));
       clearAllTimers();
@@ -108,15 +95,12 @@ export function KioskWrapper({
       />
       {children}
 
-      {/* "Are you still there?" inactivity warning overlay */}
+      {/* "Are you still there?" inactivity warning overlay — WCAG AAA */}
       {showWarning && (
         <div
           className="fixed inset-0 z-[90] flex items-center justify-center"
           style={{ backgroundColor: "rgba(0, 0, 0, 0.75)" }}
-          onClick={() => {
-            dismissWarning();
-            resetTimer();
-          }}
+          onClick={() => { dismissWarning(); resetTimer(); }}
           role="alertdialog"
           aria-label="Inactivity warning"
           aria-describedby="inactivity-message"
@@ -124,39 +108,39 @@ export function KioskWrapper({
           <div
             className="rounded-3xl p-12 text-center"
             style={{
-              backgroundColor: "#FFFFFF",
-              maxWidth: "500px",
+              backgroundColor: "var(--kiosk-surface, #FFFFFF)",
+              maxWidth: "560px",
               width: "90%",
             }}
           >
             <h2
               className="mb-4 font-bold"
-              style={{ fontSize: "32px", color: "#1A1A1A" }}
+              style={{ fontSize: "var(--kiosk-text-heading, 32px)", color: "var(--kiosk-text, #1A1A1A)" }}
             >
               Are you still there?
             </h2>
             <p
               id="inactivity-message"
               className="mb-8"
-              style={{ fontSize: "20px", color: "#4A4A4A", lineHeight: "1.5" }}
+              style={{
+                fontSize: "var(--kiosk-text-body, 20px)",
+                color: "var(--kiosk-text-secondary, #4A4A4A)",
+                lineHeight: "var(--kiosk-line-height, 1.5)",
+              }}
             >
               Tap anywhere to continue. This screen will reset in{" "}
               {warningCountdown} seconds.
             </p>
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                dismissWarning();
-                resetTimer();
-              }}
-              className="rounded-2xl touch-manipulation active:scale-[0.97]"
+              onClick={(e) => { e.stopPropagation(); dismissWarning(); resetTimer(); }}
+              className="rounded-2xl touch-manipulation active:scale-[0.97] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#0D47A1] focus-visible:outline-offset-2"
               style={{
-                minHeight: "72px",
+                minHeight: "var(--kiosk-touch-target-primary, 72px)",
                 padding: "16px 48px",
                 fontSize: "22px",
                 fontWeight: 700,
-                backgroundColor: "#1B5E20",
-                color: "#FFFFFF",
+                backgroundColor: "var(--kiosk-primary, #1B5E20)",
+                color: "var(--kiosk-on-primary, #FFFFFF)",
                 border: "none",
                 cursor: "pointer",
               }}

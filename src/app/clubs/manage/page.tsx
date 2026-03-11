@@ -210,7 +210,7 @@ export default function ClubManagerDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
-        <p className="text-zinc-500">Loading your clubs...</p>
+        <p className="text-zinc-500 dark:text-zinc-400">Loading your clubs...</p>
       </div>
     );
   }
@@ -218,17 +218,17 @@ export default function ClubManagerDashboard() {
   if (clubs.length === 0) {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full rounded-2xl border border-zinc-200 bg-white p-8 text-center">
+        <div className="max-w-md w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100">
             <Building2 className="h-8 w-8 text-zinc-400" />
           </div>
-          <h1 className="text-xl font-bold text-zinc-900">No Clubs to Manage</h1>
-          <p className="mt-2 text-sm text-zinc-500">
+          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">No Clubs to Manage</h1>
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
             You haven&apos;t claimed any clubs yet. Claim your club to manage its listing.
           </p>
           <Link
             href="/clubs/claim"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-6 py-3 text-sm font-bold text-white hover:bg-emerald-600 transition-colors"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#1B5E20] transition-colors"
           >
             Claim a Club
           </Link>
@@ -238,8 +238,8 @@ export default function ClubManagerDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-zinc-50 dark:bg-white/5">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <Link
             href="/clubs"
@@ -249,13 +249,13 @@ export default function ClubManagerDashboard() {
             Club Directory
           </Link>
           <div className="mt-2 flex items-center justify-between">
-            <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+            <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
               Club Dashboard
             </h1>
             {selectedClub && (
               <Link
                 href={`/clubs/${selectedClub.state_code.toLowerCase()}/${selectedClub.slug}`}
-                className="text-sm text-blue-500 hover:text-blue-600 inline-flex items-center gap-1"
+                className="text-sm text-[#1B5E20] hover:text-[#1B5E20] inline-flex items-center gap-1"
               >
                 View Public Page <ExternalLink className="h-3.5 w-3.5" />
               </Link>
@@ -270,7 +270,7 @@ export default function ClubManagerDashboard() {
                   onClick={() => selectClub(club)}
                   className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
                     selectedClub?.id === club.id
-                      ? "bg-emerald-500 text-white"
+                      ? "bg-[#1B5E20] text-white"
                       : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
                   }`}
                 >
@@ -285,7 +285,7 @@ export default function ClubManagerDashboard() {
       <main className="mx-auto max-w-3xl px-4 py-8">
         <form onSubmit={handleSave} className="space-y-6">
           {/* Basic Info */}
-          <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <h2 className="text-lg font-bold text-zinc-900 mb-4">
               Club Information
             </h2>
@@ -350,7 +350,7 @@ export default function ClubManagerDashboard() {
           </section>
 
           {/* Facilities */}
-          <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <h2 className="text-lg font-bold text-zinc-900 mb-4">
               Facilities
             </h2>
@@ -389,7 +389,7 @@ export default function ClubManagerDashboard() {
           </section>
 
           {/* Social Media */}
-          <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <h2 className="text-lg font-bold text-zinc-900 mb-4">
               Social Media
             </h2>
@@ -416,9 +416,9 @@ export default function ClubManagerDashboard() {
           </section>
 
           {/* Venue Linking */}
-          <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-zinc-900">
+              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
                 Linked Venues
               </h2>
               <button
@@ -440,11 +440,11 @@ export default function ClubManagerDashboard() {
                     value={venueSearch}
                     onChange={(e) => setVenueSearch(e.target.value)}
                     placeholder="Search venues..."
-                    className="w-full rounded-lg border border-zinc-200 py-2.5 pl-10 pr-4 text-sm focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full rounded-lg border border-zinc-200 py-2.5 pl-10 pr-4 text-sm focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   />
                 </div>
                 {venueOptions.length > 0 && (
-                  <div className="mt-2 rounded-lg border border-zinc-200 bg-white divide-y divide-zinc-100 max-h-40 overflow-y-auto">
+                  <div className="mt-2 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 divide-y divide-zinc-100 max-h-40 overflow-y-auto">
                     {venueOptions
                       .filter(
                         (v) => !linkedVenues.some((lv) => lv.venue_id === v.id)
@@ -483,17 +483,17 @@ export default function ClubManagerDashboard() {
                     <div className="flex items-center gap-2">
                       <MapPin className="h-4 w-4 text-zinc-400" />
                       <div>
-                        <p className="text-sm font-medium text-zinc-900">
+                        <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
                           {lv.venue?.name ?? "Unknown Venue"}
                         </p>
                         {lv.venue?.address && (
-                          <p className="text-xs text-zinc-500">
+                          <p className="text-xs text-zinc-500 dark:text-zinc-400">
                             {lv.venue.address}
                           </p>
                         )}
                       </div>
                       {lv.is_primary && (
-                        <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
+                        <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-[10px] font-bold text-[#2E7D32]">
                           PRIMARY
                         </span>
                       )}
@@ -518,7 +518,7 @@ export default function ClubManagerDashboard() {
           )}
 
           {saved && (
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700 flex items-center gap-2">
+            <div className="rounded-xl border border-[#1B5E20]/15 bg-[#1B5E20]/5 p-4 text-sm text-[#2E7D32] flex items-center gap-2">
               <CheckCircle className="h-4 w-4" />
               Changes saved successfully!
             </div>
@@ -527,7 +527,7 @@ export default function ClubManagerDashboard() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full rounded-xl bg-emerald-500 py-3.5 text-sm font-bold text-white hover:bg-emerald-600 disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+            className="w-full rounded-xl bg-[#1B5E20] py-3.5 text-sm font-bold text-white hover:bg-[#1B5E20] disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
           >
             <Save className="h-4 w-4" />
             {saving ? "Saving..." : "Save Changes"}

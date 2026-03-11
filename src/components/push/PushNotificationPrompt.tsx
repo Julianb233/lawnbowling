@@ -57,21 +57,21 @@ export function PushNotificationPrompt() {
     >
       <button
         onClick={handleDismiss}
-        className="absolute top-2 right-2 text-zinc-400 hover:text-zinc-600"
+        className="absolute top-2 right-2 text-zinc-400 hover:text-zinc-600 dark:text-zinc-400"
         aria-label="Dismiss"
       >
         <X className="h-4 w-4" />
       </button>
 
       <div className="flex items-start gap-3">
-        <div className="flex-shrink-0 rounded-full bg-emerald-100 p-2">
-          <Bell className="h-5 w-5 text-emerald-600" />
+        <div className="flex-shrink-0 rounded-full bg-[#1B5E20]/10 p-2">
+          <Bell className="h-5 w-5 text-[#1B5E20]" />
         </div>
         <div className="flex-1">
-          <p className="text-sm font-medium text-zinc-900">
+          <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
             Stay in the game
           </p>
-          <p className="mt-0.5 text-xs text-zinc-500">
+          <p className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">
             Get notified when someone wants to partner up or a court opens.
           </p>
           <button
@@ -79,7 +79,7 @@ export function PushNotificationPrompt() {
             disabled={subscribing}
             className={cn(
               "mt-3 w-full rounded-xl px-4 py-2 text-sm font-medium text-white",
-              "bg-emerald-500 hover:bg-emerald-600 transition-colors",
+              "bg-[#1B5E20] hover:bg-[#1B5E20] transition-colors",
               subscribing && "opacity-50 cursor-not-allowed"
             )}
           >

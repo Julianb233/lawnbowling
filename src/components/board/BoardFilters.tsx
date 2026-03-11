@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ALL_SPORTS, ALL_SKILLS, SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
 import { getSportColor } from "@/lib/design";
+import { SportIcon } from "@/components/icons/SportIcon";
 import type { Sport, SkillLevel } from "@/lib/types";
 
 interface BoardFiltersProps {
@@ -48,7 +49,7 @@ export function BoardFilters({
                 boxShadow: `0 0 20px ${sportColor.glow}`,
               } : undefined}
             >
-              <span>{info.emoji}</span>
+              <SportIcon sport={sport} className="w-4 h-4" />
               <span className="hidden sm:inline">{info.label}</span>
               <span className="sm:hidden">{info.short}</span>
             </motion.button>
@@ -63,8 +64,8 @@ export function BoardFilters({
           onChange={(e) => onSkillChange((e.target.value || null) as SkillLevel | null)}
           aria-label="Filter by skill level"
           className={cn(
-            "rounded-full border border-zinc-300 bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-600",
-            "focus:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20",
+            "rounded-full border border-zinc-300 bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400",
+            "focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20",
             "cursor-pointer backdrop-blur"
           )}
         >

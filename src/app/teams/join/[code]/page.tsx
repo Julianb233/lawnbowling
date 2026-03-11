@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 import { Users, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { SPORT_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor } from "@/lib/design";
+import type { Sport } from "@/lib/types";
 import { BottomNav } from "@/components/board/BottomNav";
 
 export default function JoinTeamPage({ params }: { params: Promise<{ code: string }> }) {
@@ -60,7 +62,7 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
@@ -69,14 +71,14 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
   const sportColor = team ? getSportColor(team.sport) : null;
 
   return (
-    <div className="min-h-screen bg-white pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-3">
             <Link href="/teams" className="rounded-lg p-1 text-zinc-400 hover:text-zinc-700">
               <ArrowLeft className="h-5 w-5" />
             </Link>
-            <h1 className="text-lg font-bold text-zinc-900">Join Team</h1>
+            <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Join Team</h1>
           </div>
         </div>
       </header>
@@ -88,20 +90,20 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
               className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl text-3xl"
               style={{ backgroundColor: sportColor ? `${sportColor.primary}15` : undefined }}
             >
-              {sportLabel?.emoji ?? "?"}
+              <SportIcon sport={team.sport as Sport} className="w-8 h-8" />
             </div>
-            <h2 className="mb-1 text-xl font-bold text-zinc-900">{team.name}</h2>
+            <h2 className="mb-1 text-xl font-bold text-zinc-900 dark:text-zinc-100">{team.name}</h2>
             {team.description && (
               <p className="mb-3 text-sm text-zinc-400">{team.description}</p>
             )}
-            <p className="mb-6 text-sm text-zinc-500">
+            <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
               {sportLabel?.label ?? team.sport} &middot; Captain: {team.captain?.name}
             </p>
 
             <button
               onClick={handleJoin}
               disabled={joining}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 font-semibold text-white transition-colors hover:bg-emerald-500 disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#1B5E20] py-3 font-semibold text-white transition-colors hover:bg-[#1B5E20] disabled:opacity-50"
             >
               <Users className="h-4 w-4" />
               {joining ? "Joining..." : "Join This Team"}
@@ -113,8 +115,8 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
           </div>
         ) : (
           <div className="rounded-2xl border border-zinc-200 bg-white/80 p-6 text-center">
-            <p className="text-zinc-500">{error || "Team not found"}</p>
-            <Link href="/teams" className="mt-4 inline-block text-sm text-emerald-400 hover:underline">
+            <p className="text-zinc-500 dark:text-zinc-400">{error || "Team not found"}</p>
+            <Link href="/teams" className="mt-4 inline-block text-sm text-[#1B5E20] hover:underline">
               Back to Teams
             </Link>
           </div>

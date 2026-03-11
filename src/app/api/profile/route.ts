@@ -57,6 +57,11 @@ export async function POST(request: NextRequest) {
       sports: sports || [],
       avatar_url: avatar_url || null,
       insurance_status: "none",
+      home_club_id: null,
+      preferred_position: null,
+      bio: null,
+      preferred_hand: null,
+      years_experience: null,
     });
 
     return NextResponse.json(player, { status: 201 });
@@ -76,7 +81,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { display_name, skill_level, sports, avatar_url } = body;
+    const { display_name, skill_level, sports, avatar_url, bio, preferred_position, preferred_hand, years_experience, home_club_id } = body;
 
     const updates: Record<string, unknown> = {};
     if (display_name !== undefined) {
@@ -89,6 +94,12 @@ export async function PATCH(request: NextRequest) {
     if (skill_level !== undefined) updates.skill_level = skill_level;
     if (sports !== undefined) updates.sports = sports;
     if (avatar_url !== undefined) updates.avatar_url = avatar_url;
+    if (bio !== undefined) updates.bio = bio ? String(bio).slice(0, 500) : null;
+    if (preferred_position !== undefined) updates.preferred_position = preferred_position;
+    if (preferred_hand !== undefined) updates.preferred_hand = preferred_hand;
+    if (years_experience !== undefined) updates.years_experience = years_experience;
+    if (home_club_id !== undefined) updates.home_club_id = home_club_id;
+    if (body.onboarding_state !== undefined) updates.onboarding_state = body.onboarding_state;
 
     const player = await updatePlayer(user.id, updates);
     return NextResponse.json(player);

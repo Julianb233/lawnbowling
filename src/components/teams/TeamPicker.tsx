@@ -106,7 +106,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
             className={cn(
               "flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-medium transition-all",
               mode === m.value
-                ? "bg-emerald-600 text-white"
+                ? "bg-[#1B5E20] text-white"
                 : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
             )}
           >
@@ -120,7 +120,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
       {mode !== "captain" && pool.length > 0 && (
         <button
           onClick={mode === "random" ? handleRandom : handleBalanced}
-          className="w-full rounded-xl bg-emerald-600/10 py-3 text-sm font-semibold text-emerald-400 transition-colors hover:bg-emerald-600/20"
+          className="w-full rounded-xl bg-[#1B5E20]/10 py-3 text-sm font-semibold text-[#1B5E20] transition-colors hover:bg-[#1B5E20]/20"
         >
           {mode === "random" ? "Shuffle Teams" : "Auto-Balance"}
         </button>
@@ -129,7 +129,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
       {/* Draft pool */}
       {mode === "captain" && pool.length > 0 && (
         <div>
-          <p className="mb-2 text-sm text-zinc-500">
+          <p className="mb-2 text-sm text-zinc-500 dark:text-zinc-400">
             Team {pickingTeam} picks:
           </p>
           <div className="flex flex-wrap gap-2">
@@ -143,7 +143,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
                   className={cn(
                     "flex items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all",
                     pickingTeam === 1
-                      ? "border-blue-500/30 hover:bg-blue-500/10"
+                      ? "border-[#1B5E20]/30 hover:bg-[#1B5E20]/10"
                       : "border-red-500/30 hover:bg-red-500/10"
                   )}
                 >
@@ -166,16 +166,16 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
 
       {/* Teams display */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-3">
+        <div className="rounded-xl border border-[#1B5E20]/20 bg-[#1B5E20]/5 p-3">
           <h4 className="mb-2 text-sm font-bold text-blue-400">Team 1</h4>
           <div className="space-y-1.5">
             {team1.map((p) => (
-              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600">
+              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                 <div className="h-5 w-5 overflow-hidden rounded-full bg-zinc-700">
                   {p.avatar_url ? (
                     <img src={p.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500">
+                    <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500 dark:text-zinc-400">
                       {p.name?.charAt(0)}
                     </div>
                   )}
@@ -183,7 +183,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
                 {p.name}
               </div>
             ))}
-            {team1.length === 0 && <p className="text-xs text-zinc-600">No players</p>}
+            {team1.length === 0 && <p className="text-xs text-zinc-600 dark:text-zinc-400">No players</p>}
           </div>
         </div>
 
@@ -191,12 +191,12 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
           <h4 className="mb-2 text-sm font-bold text-red-400">Team 2</h4>
           <div className="space-y-1.5">
             {team2.map((p) => (
-              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600">
+              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                 <div className="h-5 w-5 overflow-hidden rounded-full bg-zinc-700">
                   {p.avatar_url ? (
                     <img src={p.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500">
+                    <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500 dark:text-zinc-400">
                       {p.name?.charAt(0)}
                     </div>
                   )}
@@ -204,7 +204,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
                 {p.name}
               </div>
             ))}
-            {team2.length === 0 && <p className="text-xs text-zinc-600">No players</p>}
+            {team2.length === 0 && <p className="text-xs text-zinc-600 dark:text-zinc-400">No players</p>}
           </div>
         </div>
       </div>
@@ -221,7 +221,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
           <button
             onClick={handleConfirm}
             disabled={team1.length === 0 || team2.length === 0}
-            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 text-sm font-semibold text-white hover:bg-emerald-500 disabled:opacity-50"
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#1B5E20] py-2.5 text-sm font-semibold text-white hover:bg-[#1B5E20] disabled:opacity-50"
           >
             Confirm <ArrowRight className="h-4 w-4" />
           </button>

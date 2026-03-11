@@ -102,7 +102,7 @@ function renderMarkdown(content: string): string {
   });
 
   // Bold and italic
-  html = html.replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-zinc-900">$1</strong>');
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-zinc-900 dark:text-zinc-100">$1</strong>');
   html = html.replace(/\*(.+?)\*/g, "<em>$1</em>");
 
   // Links - internal and external
@@ -133,7 +133,7 @@ function renderMarkdown(content: string): string {
         '<div class="my-8 overflow-x-auto rounded-xl border border-zinc-200"><table class="w-full text-left text-sm">';
       tableHtml += "<thead><tr>";
       headerCells.forEach((cell) => {
-        tableHtml += `<th class="border-b border-zinc-200 bg-zinc-50 px-4 py-3 font-semibold text-zinc-900">${cell}</th>`;
+        tableHtml += `<th class="border-b border-zinc-200 bg-zinc-50 px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">${cell}</th>`;
       });
       tableHtml += "</tr></thead><tbody>";
 
@@ -147,7 +147,7 @@ function renderMarkdown(content: string): string {
         cells.forEach((cell) => {
           // Process bold/links within table cells
           let cellHtml = cell;
-          cellHtml = cellHtml.replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-zinc-900">$1</strong>');
+          cellHtml = cellHtml.replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-zinc-900 dark:text-zinc-100">$1</strong>');
           tableHtml += `<td class="border-b border-zinc-100 px-4 py-3 text-zinc-700">${cellHtml}</td>`;
         });
         tableHtml += "</tr>";
@@ -291,7 +291,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#FEFCF9]">
       <LearnNav />
 
       {/* Schema.org JSON-LD */}
@@ -310,7 +310,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* Breadcrumb */}
       <div className="mx-auto max-w-3xl px-6 pt-8">
-        <nav className="flex items-center gap-2 text-sm text-zinc-500">
+        <nav className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
           <Link href="/" className="hover:text-[#1B5E20] transition">
             Home
           </Link>
@@ -331,11 +331,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <span className="rounded-full bg-[#1B5E20]/10 px-3 py-1 text-xs font-semibold text-[#1B5E20]">
             {post.category}
           </span>
-          <span className="flex items-center gap-1 text-xs text-zinc-500">
+          <span className="flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
             <Clock className="h-3 w-3" />
             {post.readTime} min read
           </span>
-          <span className="text-xs text-zinc-500">
+          <span className="text-xs text-zinc-500 dark:text-zinc-400">
             {new Date(post.date).toLocaleDateString("en-US", {
               month: "long",
               day: "numeric",
@@ -346,7 +346,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-zinc-900 md:text-5xl md:leading-[1.15]">
           {post.title}
         </h1>
-        <p className="mt-5 text-lg leading-relaxed text-zinc-600">
+        <p className="mt-5 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
           {post.excerpt}
         </p>
 
@@ -356,8 +356,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <Users className="h-6 w-6 text-white" />
           </div>
           <div>
-            <p className="font-semibold text-zinc-900">{post.author}</p>
-            <p className="text-sm text-zinc-500">
+            <p className="font-semibold text-zinc-900 dark:text-zinc-100">{post.author}</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">
               Expert lawn bowling guides and resources
             </p>
           </div>
@@ -397,7 +397,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Mobile Table of Contents */}
             {headings.length > 3 && (
               <div className="mb-10 rounded-xl border border-zinc-200 bg-zinc-50 p-5 lg:hidden">
-                <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-zinc-900">
+                <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-zinc-900 dark:text-zinc-100">
                   <BookOpen className="h-4 w-4" />
                   Table of Contents
                 </h4>
@@ -427,7 +427,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600"
+                  className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:text-zinc-400"
                 >
                   {tag}
                 </span>
@@ -436,7 +436,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Share Buttons */}
             <div className="mt-8 flex items-center gap-4">
-              <span className="flex items-center gap-2 text-sm font-medium text-zinc-500">
+              <span className="flex items-center gap-2 text-sm font-medium text-zinc-500 dark:text-zinc-400">
                 <Share2 className="h-4 w-4" />
                 Share:
               </span>
@@ -473,10 +473,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <Users className="h-7 w-7 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-zinc-900">
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
                     {post.author}
                   </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+                  <p className="mt-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                     We are passionate about making lawn bowling accessible to
                     everyone. Our guides are researched using official World
                     Bowls laws, club resources, and input from experienced
@@ -515,13 +515,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <Link
                   key={related.slug}
                   href={`/blog/${related.slug}`}
-                  className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:shadow-md hover:border-[#1B5E20]/30"
+                  className="group flex flex-col rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm transition-all hover:shadow-md hover:border-[#1B5E20]/30"
                 >
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600">
+                    <span className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600 dark:text-zinc-400">
                       {related.category}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-zinc-500">
+                    <span className="flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
                       <Clock className="h-3 w-3" />
                       {related.readTime} min
                     </span>

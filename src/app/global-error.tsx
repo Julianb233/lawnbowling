@@ -1,5 +1,7 @@
 "use client";
 
+import { ShieldAlert } from "lucide-react";
+
 export default function GlobalError({
   error,
   reset,
@@ -9,21 +11,25 @@ export default function GlobalError({
 }) {
   return (
     <html lang="en">
-      <body className="bg-white text-zinc-900">
+      <body style={{ backgroundColor: "#FEFCF9", color: "#0A2E12" }}>
         <div className="flex min-h-screen items-center justify-center px-4">
           <div className="text-center max-w-sm">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-rose-500/10">
-              <span className="text-4xl">{"\uD83D\uDEA8"}</span>
+            <div
+              className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl"
+              style={{ backgroundColor: "rgba(27, 94, 32, 0.1)" }}
+            >
+              <ShieldAlert className="w-10 h-10 text-[#1B5E20]" strokeWidth={1.5} />
             </div>
-            <h2 className="text-2xl font-bold text-zinc-900 mb-2">
+            <h2 className="text-2xl font-bold mb-2" style={{ color: "#0A2E12" }}>
               Critical Error
             </h2>
-            <p className="text-zinc-600 mb-6">
+            <p className="mb-6" style={{ color: "#3D5A3E" }}>
               Something unexpected happened. Please try refreshing the page.
             </p>
             <button
               onClick={() => reset()}
-              className="rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-500/15 hover:bg-emerald-500 transition-colors"
+              className="rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
+              style={{ backgroundColor: "#1B5E20" }}
             >
               Refresh
             </button>

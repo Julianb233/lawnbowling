@@ -66,7 +66,7 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
             className="w-full max-w-md rounded-2xl glass p-6"
           >
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-zinc-900">Book {court.name}</h2>
+              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Book {court.name}</h2>
               <button onClick={onClose} className="rounded-full p-1 hover:bg-zinc-100">
                 <X className="h-5 w-5 text-zinc-400" />
               </button>
@@ -111,7 +111,7 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
                         className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium min-h-[44px] ${
                           duration === d
                             ? "border-green-500 bg-green-500/20 text-green-400"
-                            : "border-zinc-200 bg-zinc-50 text-zinc-500"
+                            : "border-zinc-200 bg-zinc-50 text-zinc-500 dark:text-zinc-400"
                         }`}
                       >
                         {d}m
@@ -122,7 +122,7 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
                 <button
                   onClick={handleBook}
                   disabled={loading || !date || !time}
-                  className="w-full rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-3 font-bold text-white hover:shadow-lg disabled:opacity-50 min-h-[48px]"
+                  className="w-full rounded-xl bg-gradient-to-r from-green-500 to-[#1B5E20] px-4 py-3 font-bold text-white hover:shadow-lg disabled:opacity-50 min-h-[48px]"
                 >
                   {loading ? <Loader2 className="mx-auto h-5 w-5 animate-spin" /> : "Book Court"}
                 </button>

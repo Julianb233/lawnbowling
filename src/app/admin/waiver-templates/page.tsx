@@ -114,14 +114,14 @@ export default function AdminWaiverTemplatesPage() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-zinc-800">Waiver Templates</h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Configure the waiver text shown to players during sign-up.
           </p>
         </div>
         {!creating && !editing && (
           <button
             onClick={startCreate}
-            className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-emerald-500 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#1B5E20] px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-[#1B5E20] transition-colors"
           >
             <Plus className="h-4 w-4" /> New Template
           </button>
@@ -132,7 +132,7 @@ export default function AdminWaiverTemplatesPage() {
         <div
           className={`mb-4 rounded-lg px-4 py-2 text-sm ${
             message.includes("success")
-              ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
+              ? "bg-[#1B5E20]/5 text-[#1B5E20] border border-[#1B5E20]/20"
               : "bg-red-50 text-red-600 border border-red-200"
           }`}
         >
@@ -141,7 +141,7 @@ export default function AdminWaiverTemplatesPage() {
       )}
 
       {(creating || editing) && (
-        <div className="mb-6 rounded-xl border border-zinc-200 bg-white p-6 space-y-4">
+        <div className="mb-6 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 space-y-4">
           <h2 className="text-lg font-semibold text-zinc-800">
             {creating ? "Create Template" : "Edit Template"}
           </h2>
@@ -152,7 +152,7 @@ export default function AdminWaiverTemplatesPage() {
               type="text"
               value={formTitle}
               onChange={(e) => setFormTitle(e.target.value)}
-              className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none"
+              className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
             />
           </div>
 
@@ -164,7 +164,7 @@ export default function AdminWaiverTemplatesPage() {
               value={formBody}
               onChange={(e) => setFormBody(e.target.value)}
               rows={12}
-              className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none font-mono text-sm"
+              className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none font-mono text-sm"
               placeholder="Enter the full waiver text that players will read and accept..."
             />
           </div>
@@ -175,9 +175,9 @@ export default function AdminWaiverTemplatesPage() {
               id="is_active"
               checked={formActive}
               onChange={(e) => setFormActive(e.target.checked)}
-              className="h-4 w-4 rounded border-zinc-300 bg-white text-emerald-500 focus:ring-emerald-500"
+              className="h-4 w-4 rounded border-zinc-300 bg-white text-[#1B5E20] focus:ring-[#1B5E20]"
             />
-            <label htmlFor="is_active" className="text-sm text-zinc-500">
+            <label htmlFor="is_active" className="text-sm text-zinc-500 dark:text-zinc-400">
               Set as active template (shown to new players)
             </label>
           </div>
@@ -186,7 +186,7 @@ export default function AdminWaiverTemplatesPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-emerald-500 disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#1B5E20] px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-[#1B5E20] disabled:opacity-50 transition-colors"
             >
               {saving ? "Saving..." : "Save Template"}
             </button>
@@ -205,9 +205,9 @@ export default function AdminWaiverTemplatesPage() {
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-600" />
         </div>
       ) : templates.length === 0 ? (
-        <div className="rounded-xl border border-zinc-200 bg-white py-12 text-center">
-          <p className="text-zinc-500">No waiver templates yet.</p>
-          <p className="mt-1 text-sm text-zinc-500">
+        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 py-12 text-center">
+          <p className="text-zinc-500 dark:text-zinc-400">No waiver templates yet.</p>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
             The default waiver text will be used until you create a custom template.
           </p>
         </div>
@@ -218,7 +218,7 @@ export default function AdminWaiverTemplatesPage() {
               key={t.id}
               className={`rounded-xl border p-4 ${
                 t.is_active
-                  ? "border-emerald-200 bg-emerald-50"
+                  ? "border-[#1B5E20]/20 bg-[#1B5E20]/5"
                   : "border-zinc-200 bg-white"
               }`}
             >
@@ -227,15 +227,15 @@ export default function AdminWaiverTemplatesPage() {
                   <div className="flex items-center gap-2">
                     <h3 className="font-medium text-zinc-800">{t.title}</h3>
                     {t.is_active && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-600">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[#1B5E20]/5 px-2 py-0.5 text-xs font-medium text-[#1B5E20]">
                         <Check className="h-3 w-3" /> Active
                       </span>
                     )}
                   </div>
-                  <p className="mt-1 line-clamp-2 text-sm text-zinc-500">
+                  <p className="mt-1 line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">
                     {t.body.slice(0, 200)}...
                   </p>
-                  <p className="mt-2 text-xs text-zinc-500">
+                  <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
                     Updated {new Date(t.updated_at).toLocaleDateString("en-US", {
                       dateStyle: "medium",
                     })}

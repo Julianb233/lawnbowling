@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { SPORT_LABELS, type Sport, type ScheduledGame } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { RSVPButton } from "./RSVPButton";
 
 interface GameDetailProps {
@@ -22,10 +23,10 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-zinc-900">{game.title}</h1>
+        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">{game.title}</h1>
         <div className="flex items-center gap-3 mt-2">
           <span className="text-lg">
-            {sportInfo?.emoji} {sportInfo?.label || game.sport}
+            <SportIcon sport={game.sport as Sport} className="w-5 h-5 inline-block mr-1" /> {sportInfo?.label || game.sport}
           </span>
           {game.is_recurring && (
             <span className="text-xs text-blue-400 bg-blue-400/10 rounded-full px-2 py-0.5">
@@ -37,7 +38,7 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
 
       <div className="grid grid-cols-2 gap-3">
         <div className="rounded-xl glass p-4">
-          <p className="text-xs text-zinc-500">Date</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Date</p>
           <p className="text-sm font-medium text-zinc-900 mt-1">
             {gameDate.toLocaleDateString("en-US", {
               weekday: "long",
@@ -47,7 +48,7 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
           </p>
         </div>
         <div className="rounded-xl glass p-4">
-          <p className="text-xs text-zinc-500">Time</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Time</p>
           <p className="text-sm font-medium text-zinc-900 mt-1">
             {gameDate.toLocaleTimeString("en-US", {
               hour: "numeric",
@@ -56,13 +57,13 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
           </p>
         </div>
         <div className="rounded-xl glass p-4">
-          <p className="text-xs text-zinc-500">Duration</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Duration</p>
           <p className="text-sm font-medium text-zinc-900 mt-1">
             {game.duration_minutes} min
           </p>
         </div>
         <div className="rounded-xl glass p-4">
-          <p className="text-xs text-zinc-500">Spots</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Spots</p>
           <p className="text-sm font-medium text-zinc-900 mt-1">
             {goingRSVPs.length}/{game.max_players}
           </p>
@@ -72,7 +73,7 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
       {game.description && (
         <div className="rounded-xl glass p-4">
           <p className="text-xs text-zinc-500 mb-1">Description</p>
-          <p className="text-sm text-zinc-600">{game.description}</p>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">{game.description}</p>
         </div>
       )}
 
@@ -81,7 +82,7 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
           <p className="text-xs text-zinc-500 mb-1">Organized by</p>
           <Link
             href={`/profile/${game.organizer.id}`}
-            className="text-sm font-medium text-emerald-400 hover:underline"
+            className="text-sm font-medium text-[#1B5E20] hover:underline"
           >
             {game.organizer.display_name}
           </Link>
@@ -101,7 +102,7 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
           Going ({goingRSVPs.length})
         </h3>
         {goingRSVPs.length === 0 ? (
-          <p className="text-sm text-zinc-500">No one yet - be the first!</p>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">No one yet - be the first!</p>
         ) : (
           <div className="space-y-2">
             {goingRSVPs.map((rsvp) => (
@@ -110,7 +111,7 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
                 href={`/profile/${rsvp.player_id}`}
                 className="flex items-center gap-3 rounded-xl glass p-3 hover:bg-zinc-50 transition-colors"
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/20 text-xs font-bold text-emerald-400">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1B5E20]/20 text-xs font-bold text-[#1B5E20]">
                   {rsvp.player?.display_name?.charAt(0)?.toUpperCase() || "?"}
                 </div>
                 <span className="text-sm text-zinc-700">
@@ -137,7 +138,7 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500/20 text-xs font-bold text-amber-400">
                   {rsvp.player?.display_name?.charAt(0)?.toUpperCase() || "?"}
                 </div>
-                <span className="text-sm text-zinc-600">
+                <span className="text-sm text-zinc-600 dark:text-zinc-400">
                   {rsvp.player?.display_name || "Unknown"}
                 </span>
               </div>

@@ -6,7 +6,9 @@ import * as Dialog from "@radix-ui/react-dialog";
 import * as Select from "@radix-ui/react-select";
 import { X, ChevronDown, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Star } from "lucide-react";
 import { SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor } from "@/lib/design";
 import type { Player, Sport } from "@/lib/types";
 
@@ -91,11 +93,11 @@ export function RequestModal({
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 300 }}
-                    className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20"
+                    className="flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/20"
                   >
-                    <Check className="h-8 w-8 text-emerald-400" />
+                    <Check className="h-8 w-8 text-[#1B5E20]" />
                   </motion.div>
-                  <p className="mt-4 text-lg font-semibold text-zinc-900">Request Sent!</p>
+                  <p className="mt-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">Request Sent!</p>
                 </motion.div>
               ) : (
                 <motion.div key="form">
@@ -130,10 +132,12 @@ export function RequestModal({
                         style={{ backgroundColor: sportColor.primary }}
                       />
                     </div>
-                    <h3 className="text-base font-semibold text-zinc-900">{target.display_name}</h3>
+                    <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">{target.display_name}</h3>
                     {skillInfo && (
                       <span className="inline-flex items-center gap-1 text-sm text-amber-400">
-                        {"\u2605".repeat(skillInfo.stars)}{"\u2606".repeat(3 - skillInfo.stars)}{" "}
+                        {Array.from({ length: 3 }, (_, i) => (
+                          <Star key={i} className={cn("h-3 w-3 inline-block", i < skillInfo.stars ? "fill-amber-400 text-amber-400" : "text-zinc-300")} strokeWidth={1.5} />
+                        ))}{" "}
                         <span className="text-zinc-400">{skillInfo.label}</span>
                       </span>
                     )}
@@ -143,10 +147,10 @@ export function RequestModal({
                   <div className="mb-6">
                     <label className="mb-2 block text-sm font-medium text-zinc-400">Sport</label>
                     <Select.Root value={selectedSport} onValueChange={setSelectedSport}>
-                      <Select.Trigger className="inline-flex h-11 w-full items-center justify-between rounded-xl border border-zinc-300 bg-zinc-100 px-4 text-sm text-zinc-700 hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]">
+                      <Select.Trigger className="inline-flex h-11 w-full items-center justify-between rounded-xl border border-zinc-300 bg-zinc-100 px-4 text-sm text-zinc-700 hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/30 min-h-[44px]">
                         <Select.Value />
                         <Select.Icon>
-                          <ChevronDown className="h-4 w-4 text-zinc-500" />
+                          <ChevronDown className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
                         </Select.Icon>
                       </Select.Trigger>
                       <Select.Portal>
@@ -161,10 +165,10 @@ export function RequestModal({
                                   className="flex h-10 cursor-pointer items-center gap-2 rounded-lg px-3 text-sm text-zinc-700 outline-none data-[highlighted]:bg-zinc-700/60 min-h-[44px]"
                                 >
                                   <Select.ItemText>
-                                    {info?.emoji || ""} {info?.label || sport}
+                                    <SportIcon sport={sport as Sport} className="w-4 h-4 inline-block" /> {info?.label || sport}
                                   </Select.ItemText>
                                   <Select.ItemIndicator className="ml-auto">
-                                    <Check className="h-4 w-4 text-emerald-400" />
+                                    <Check className="h-4 w-4 text-[#1B5E20]" />
                                   </Select.ItemIndicator>
                                 </Select.Item>
                               );
@@ -189,7 +193,7 @@ export function RequestModal({
                       )}
                       style={{ boxShadow: `0 0 20px ${sportColor.glow}` }}
                     >
-                      {submitting ? "Sending..." : "\u{1F91D} PICK EM"}
+                      {submitting ? "Sending..." : "PICK EM"}
                     </motion.button>
                     <button
                       onClick={() => onOpenChange(false)}

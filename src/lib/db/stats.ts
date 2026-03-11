@@ -15,11 +15,11 @@ export async function getPlayerStats(playerId: string) {
   return data as (PlayerStats & { player: { id: string; display_name: string; avatar_url: string | null; skill_level: string; sports: string[] } }) | null;
 }
 
-export async function getLeaderboard(options?: { sport?: string; limit?: number }) {
+export async function getLeaderboard(options?: { sport?: string; limit?: number; clubId?: string }) {
   const supabase = await createClient();
   let query = supabase
     .from("player_stats")
-    .select("*, player:players!player_stats_player_id_fkey(id, display_name, avatar_url, skill_level, sports)")
+    .select("*, player:players!player_stats_player_id_fkey(id, display_name, avatar_url, skill_level, sports, home_club_id)")
     .gte("games_played", 5)
     .order("win_rate", { ascending: false })
     .order("wins", { ascending: false })
@@ -29,9 +29,19 @@ export async function getLeaderboard(options?: { sport?: string; limit?: number 
     query = query.eq("favorite_sport", options.sport);
   }
 
+  if (options?.clubId) {
+    query = query.eq("player.home_club_id", options.clubId);
+  }
+
   const { data, error } = await query;
   if (error) throw error;
-  return data as (PlayerStats & { player: { id: string; display_name: string; avatar_url: string | null; skill_level: string; sports: string[] } })[];
+
+  // Filter out null players when club filter is applied (Supabase returns nulls for non-matching joins)
+  const results = options?.clubId
+    ? (data ?? []).filter((entry: Record<string, unknown>) => entry.player != null)
+    : (data ?? []);
+
+  return results as (PlayerStats & { player: { id: string; display_name: string; avatar_url: string | null; skill_level: string; sports: string[] } })[];
 }
 
 export async function reportMatchResult(result: {

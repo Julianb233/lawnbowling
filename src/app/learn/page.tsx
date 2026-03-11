@@ -13,12 +13,63 @@ import {
 } from "lucide-react";
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
+import { getBreadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Learn Lawn Bowling | Lawnbowling",
   description:
     "Your complete guide to lawn bowling. Learn the rules, player positions, game formats, and over 80 terms in our glossary. Perfect for beginners and experienced bowlers alike.",
+  alternates: { canonical: "/learn" },
+  keywords: [
+    "learn lawn bowling",
+    "lawn bowling guide",
+    "how to play lawn bowls",
+    "lawn bowling for beginners",
+    "lawn bowls rules",
+    "lawn bowling positions",
+    "lawn bowling formats",
+    "lawn bowling glossary",
+  ],
+  openGraph: {
+    title: "Learn Lawn Bowling | Lawnbowling",
+    description:
+      "Your complete guide to lawn bowling. Rules, positions, formats, glossary, equipment guide, and more.",
+    url: "https://lawnbowl.app/learn",
+    type: "website",
+  },
 };
+
+const learnHubSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Learn Lawn Bowling",
+  description:
+    "Your complete guide to lawn bowling. Learn the rules, player positions, game formats, and over 80 terms in our glossary.",
+  url: "https://lawnbowl.app/learn",
+  isPartOf: {
+    "@type": "WebSite",
+    name: "Lawnbowling",
+    url: "https://lawnbowl.app",
+  },
+  about: {
+    "@type": "Thing",
+    name: "Lawn Bowling",
+    alternateName: "Lawn Bowls",
+  },
+  hasPart: [
+    { "@type": "Article", name: "Rules of Lawn Bowling", url: "https://lawnbowl.app/learn/rules" },
+    { "@type": "Article", name: "Player Positions", url: "https://lawnbowl.app/learn/positions" },
+    { "@type": "Article", name: "Game Formats", url: "https://lawnbowl.app/learn/formats" },
+    { "@type": "Article", name: "Glossary", url: "https://lawnbowl.app/learn/glossary" },
+    { "@type": "Article", name: "Equipment Buying Guide", url: "https://lawnbowl.app/learn/equipment" },
+    { "@type": "Article", name: "Lawn Bowling vs Bocce", url: "https://lawnbowl.app/learn/lawn-bowling-vs-bocce" },
+  ],
+};
+
+const learnBreadcrumbs = getBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Learn", url: "/learn" },
+]);
 
 const topics = [
   {
@@ -36,7 +87,7 @@ const topics = [
       "Understand the four team positions -- Lead, Second, Third (Vice-Skip), and Skip -- their roles, responsibilities, and shot types.",
     href: "/learn/positions",
     icon: Users,
-    color: "bg-blue-500/10 text-blue-700",
+    color: "bg-[#1B5E20]/10 text-[#2E7D32]",
     borderColor: "border-blue-200 hover:border-blue-400",
   },
   {
@@ -69,7 +120,7 @@ const topics = [
   {
     title: "Lawn Bowling vs Bocce",
     description:
-      "They look similar but play very differently. Compare rules, equipment, scoring, surfaces, and culture side by side.",
+      "How does lawn bowling compare to bocce ball? A detailed side-by-side comparison of equipment, rules, surfaces, and strategy.",
     href: "/learn/lawn-bowling-vs-bocce",
     icon: Scale,
     color: "bg-teal-500/10 text-teal-700",
@@ -98,8 +149,16 @@ const quickFacts = [
 
 export default function LearnHubPage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <LearnNav />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(learnHubSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(learnBreadcrumbs) }}
+      />
 
       {/* Hero Section */}
       <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28 md:pb-20">
@@ -147,7 +206,7 @@ export default function LearnHubPage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             Choose a Topic
           </h2>
-          <p className="mt-3 text-lg text-zinc-600">
+          <p className="mt-3 text-lg text-zinc-600 dark:text-zinc-400">
             Dive deep into any aspect of lawn bowling
           </p>
         </div>
@@ -157,7 +216,7 @@ export default function LearnHubPage() {
             <Link
               key={topic.href}
               href={topic.href}
-              className={`group flex flex-col rounded-2xl border bg-white p-8 shadow-sm transition-all hover:shadow-md ${topic.borderColor}`}
+              className={`group flex flex-col rounded-2xl border bg-white dark:bg-[#1a3d28] p-8 shadow-sm transition-all hover:shadow-md ${topic.borderColor}`}
             >
               <div className="mb-5 flex items-center gap-4">
                 <div
@@ -169,7 +228,7 @@ export default function LearnHubPage() {
                   {topic.title}
                 </h3>
               </div>
-              <p className="flex-1 text-[16px] leading-relaxed text-zinc-600">
+              <p className="flex-1 text-[16px] leading-relaxed text-zinc-600 dark:text-zinc-400">
                 {topic.description}
               </p>
               <div className="mt-6 flex items-center gap-1 text-sm font-semibold text-[#1B5E20] group-hover:gap-2 transition-all">

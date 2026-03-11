@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
 import { CLUBS, getStatesWithClubs } from "@/lib/clubs-data";
 import { getAllBlogPosts } from "@/lib/blog-posts";
+import { PRODUCTS } from "@/lib/shop/products";
+import { SITE_URL } from "@/lib/site-config";
 
-const BASE_URL = "https://lawnbowl.app";
+const BASE_URL = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -37,61 +39,43 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/learn/lawn_bowling`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/learn/pickleball`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/learn/tennis`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/learn/badminton`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${BASE_URL}/learn/racquetball`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${BASE_URL}/learn/flag_football`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
+      priority: 0.9,
     },
     {
       url: `${BASE_URL}/learn/rules`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/learn/positions`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/learn/formats`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/learn/glossary`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/learn/equipment`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/learn/lawn-bowling-vs-bocce`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/blog`,
@@ -184,7 +168,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  // Individual club detail pages
   const clubDetailPages: MetadataRoute.Sitemap = CLUBS.map((club) => ({
     url: `${BASE_URL}/clubs/${club.stateCode.toLowerCase()}/${club.id}`,
     lastModified: now,
@@ -192,7 +175,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // Blog post pages
   const blogPosts = getAllBlogPosts();
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
@@ -201,5 +183,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...clubStatePages, ...clubDetailPages, ...blogPages];
+  const shopProductPages: MetadataRoute.Sitemap = PRODUCTS.map((product) => ({
+    url: `${BASE_URL}/shop/${product.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.5,
+  }));
+
+  return [
+    ...staticPages,
+    ...clubStatePages,
+    ...clubDetailPages,
+    ...blogPages,
+    ...shopProductPages,
+  ];
 }

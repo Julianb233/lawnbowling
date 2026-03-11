@@ -10,7 +10,7 @@ import type { TournamentScore, ScoreWinner } from "@/lib/types";
 export default function LiveScoresPage() {
   const params = useParams();
   const router = useRouter();
-  const tournamentId = params.id as string;
+  const tournamentId = (params?.id ?? "") as string;
 
   const [tournamentName, setTournamentName] = useState("Tournament");
   const [scores, setScores] = useState<TournamentScore[]>([]);
@@ -96,7 +96,7 @@ export default function LiveScoresPage() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-950">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-emerald-400 border-t-transparent" />
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
@@ -116,7 +116,7 @@ export default function LiveScoresPage() {
                   <span
                     className={cn(
                       "inline-block h-2.5 w-2.5 rounded-full",
-                      connected ? "bg-emerald-400 animate-pulse" : "bg-zinc-600"
+                      connected ? "bg-[#1B5E20] animate-pulse" : "bg-zinc-600"
                     )}
                   />
                   <span className="text-xs font-medium text-zinc-400">
@@ -152,7 +152,7 @@ export default function LiveScoresPage() {
                   className={cn(
                     "flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold transition-colors touch-manipulation",
                     round === r
-                      ? "bg-emerald-500 text-white"
+                      ? "bg-[#1B5E20] text-white"
                       : "bg-white/10 text-zinc-400 hover:bg-white/20"
                   )}
                 >
@@ -167,10 +167,10 @@ export default function LiveScoresPage() {
       <main className="mx-auto max-w-6xl px-4 py-6">
         {roundScores.length === 0 ? (
           <div className="rounded-2xl border border-white/10 p-12 text-center">
-            <p className="text-lg font-semibold text-zinc-500">
+            <p className="text-lg font-semibold text-zinc-500 dark:text-zinc-400">
               No scores for this round yet
             </p>
-            <p className="mt-1 text-sm text-zinc-600">
+            <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
               Scores will appear here in real-time as they are entered
             </p>
           </div>
@@ -186,23 +186,23 @@ export default function LiveScoresPage() {
                   className={cn(
                     "rounded-2xl border overflow-hidden",
                     score.is_finalized
-                      ? "border-emerald-500/30 bg-emerald-500/5"
+                      ? "border-[#1B5E20]/30 bg-[#1B5E20]/5"
                       : "border-white/10 bg-white/[0.03]"
                   )}
                 >
                   {/* Rink header */}
                   <div className="flex items-center justify-between px-5 py-3 border-b border-white/5">
-                    <span className="text-xs font-bold uppercase tracking-widest text-zinc-500">
+                    <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
                       Rink {score.rink}
                     </span>
                     <div className="flex items-center gap-2">
                       {!score.is_finalized && score.team_a_scores.length > 0 && (
-                        <span className="text-xs font-medium text-zinc-500">
+                        <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
                           End {score.team_a_scores.length}
                         </span>
                       )}
                       {score.is_finalized ? (
-                        <span className="rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-[10px] font-bold text-emerald-400">
+                        <span className="rounded-full bg-[#1B5E20]/20 px-2.5 py-0.5 text-[10px] font-bold text-[#1B5E20]">
                           Final
                         </span>
                       ) : (
@@ -220,7 +220,7 @@ export default function LiveScoresPage() {
                         className={cn(
                           "text-center p-3 rounded-xl",
                           score.winner === "team_a"
-                            ? "bg-blue-500/10 ring-1 ring-blue-500/30"
+                            ? "bg-[#1B5E20]/10 ring-1 ring-[#1B5E20]/30"
                             : "bg-white/5"
                         )}
                       >
@@ -254,7 +254,7 @@ export default function LiveScoresPage() {
                           score.winner === "team_a" ? "text-blue-400" :
                           score.winner === "team_b" ? "text-purple-400" :
                           score.winner === "draw" ? "text-amber-400" :
-                          "text-zinc-600"
+                          "text-zinc-600 dark:text-zinc-400"
                         )}>
                           {getWinnerLabel(score.winner)}
                         </p>
@@ -296,7 +296,7 @@ export default function LiveScoresPage() {
                         <table className="w-full text-xs">
                           <thead>
                             <tr className="border-b border-white/5">
-                              <th className="px-2.5 py-1.5 text-left font-bold text-zinc-600">
+                              <th className="px-2.5 py-1.5 text-left font-bold text-zinc-600 dark:text-zinc-400">
                                 &nbsp;
                               </th>
                               {score.team_a_scores.map((_, i) => (
@@ -306,7 +306,7 @@ export default function LiveScoresPage() {
                                     "px-1.5 py-1.5 text-center font-bold",
                                     i === score.team_a_scores.length - 1
                                       ? "text-zinc-300"
-                                      : "text-zinc-600"
+                                      : "text-zinc-600 dark:text-zinc-400"
                                   )}
                                 >
                                   {i + 1}
@@ -328,7 +328,7 @@ export default function LiveScoresPage() {
                                   className={cn(
                                     "px-1.5 py-1.5 text-center font-bold tabular-nums",
                                     s > score.team_b_scores[i]
-                                      ? "text-emerald-400"
+                                      ? "text-[#1B5E20]"
                                       : s === 0
                                         ? "text-zinc-700"
                                         : "text-zinc-400"
@@ -351,7 +351,7 @@ export default function LiveScoresPage() {
                                   className={cn(
                                     "px-1.5 py-1.5 text-center font-bold tabular-nums",
                                     s > score.team_a_scores[i]
-                                      ? "text-emerald-400"
+                                      ? "text-[#1B5E20]"
                                       : s === 0
                                         ? "text-zinc-700"
                                         : "text-zinc-400"
@@ -372,7 +372,7 @@ export default function LiveScoresPage() {
                     {/* Player names */}
                     {(score.team_a_players?.length > 0 ||
                       score.team_b_players?.length > 0) && (
-                      <div className="mt-3 grid grid-cols-2 gap-3 text-[11px] text-zinc-600">
+                      <div className="mt-3 grid grid-cols-2 gap-3 text-[11px] text-zinc-600 dark:text-zinc-400">
                         <div>
                           {score.team_a_players.map((p) => (
                             <p key={p.player_id}>{p.display_name}</p>

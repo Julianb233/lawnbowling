@@ -16,7 +16,7 @@ export function ScoringGuide({
 
   return (
     <section id="scoring">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900">Scoring</h2>
+      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Scoring</h2>
 
       {/* Quick reference box */}
       <motion.div
@@ -32,7 +32,7 @@ export function ScoringGuide({
         <div className="mb-1 text-xs font-semibold uppercase tracking-wider" style={{ color: colors.primary }}>
           Quick Reference
         </div>
-        <p className="text-lg font-bold text-zinc-900">{scoring.system}</p>
+        <p className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{scoring.system}</p>
       </motion.div>
 
       <motion.div
@@ -41,7 +41,7 @@ export function ScoringGuide({
         viewport={{ once: true }}
         className="mb-4 rounded-xl border border-zinc-200 bg-zinc-50 p-4"
       >
-        <p className="leading-relaxed text-zinc-600">{scoring.explanation}</p>
+        <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">{scoring.explanation}</p>
       </motion.div>
 
       {/* Examples */}
@@ -66,7 +66,7 @@ export function ScoringGuide({
       {/* Tips */}
       {scoring.tips.length > 0 && (
         <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
-          <h3 className="mb-2 text-sm font-semibold text-zinc-600">
+          <h3 className="mb-2 text-sm font-semibold text-zinc-600 dark:text-zinc-400">
             Scoring Tips
           </h3>
           <ul className="space-y-1.5">

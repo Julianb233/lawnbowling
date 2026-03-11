@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { Friendship, Player } from "@/lib/types";
+import { Users } from "lucide-react";
 
 interface FriendsListProps {
   friends: Friendship[];
@@ -12,8 +13,8 @@ export function FriendsList({ friends, currentPlayerId }: FriendsListProps) {
   if (friends.length === 0) {
     return (
       <div className="rounded-2xl glass p-8 text-center">
-        <p className="text-3xl mb-2">{"\\uD83D\\uDC65"}</p>
-        <p className="text-zinc-500">No friends yet. Start connecting!</p>
+        <Users className="w-8 h-8 mx-auto mb-2 text-zinc-400" strokeWidth={1.5} />
+        <p className="text-zinc-500 dark:text-zinc-400">No friends yet. Start connecting!</p>
       </div>
     );
   }
@@ -39,7 +40,7 @@ export function FriendsList({ friends, currentPlayerId }: FriendsListProps) {
                   className="h-10 w-10 rounded-full object-cover"
                 />
               ) : (
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-green-600 text-sm font-bold text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#1B5E20] to-green-600 text-sm font-bold text-white">
                   {friendPlayer.display_name.charAt(0).toUpperCase()}
                 </div>
               )}

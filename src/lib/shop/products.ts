@@ -20,6 +20,14 @@ export interface ProductVariant {
   /** Hex code for swatch */
   colorHex?: string;
   inStock: boolean;
+  /** SKU from Printify (when synced) */
+  sku?: string;
+  /** Printify variant ID (when synced) */
+  printifyVariantId?: number;
+  /** Cost in cents from Printify (when synced) */
+  costCents?: number;
+  /** Per-variant retail price with markup (when synced) */
+  retailPrice?: number;
 }
 
 export interface Product {
@@ -36,6 +44,12 @@ export interface Product {
   variants: ProductVariant[];
   featured?: boolean;
   tags?: string[];
+  /** Printify product ID (when synced from Printify) */
+  printifyProductId?: string;
+  /** Printify blueprint ID (product template) */
+  printifyBlueprintId?: number;
+  /** Printify print provider ID */
+  printifyProviderId?: number;
 }
 
 // ---------------------------------------------------------------------------

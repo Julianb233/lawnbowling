@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { CircleDot } from "lucide-react";
 import { PlayerCard } from "./PlayerCard";
 import { CardSkeleton } from "@/components/ui/Skeleton";
 import type { Player } from "@/lib/types";
@@ -37,15 +38,14 @@ export function AvailabilityBoard({ players, loading, onPickMe, pendingTargetIds
         animate={{ opacity: 1, scale: 1 }}
         className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 py-16 text-center glass"
       >
-        <motion.p
-          className="text-5xl"
+        <motion.div
           animate={{ y: [0, -8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
         >
-          {"\u{1F3D3}"}
-        </motion.p>
-        <p className="mt-4 text-lg font-semibold text-zinc-600">No players available</p>
-        <p className="mt-1 text-sm text-zinc-500">
+          <CircleDot className="w-12 h-12 text-[#1B5E20]" strokeWidth={1.5} />
+        </motion.div>
+        <p className="mt-4 text-lg font-semibold text-zinc-600 dark:text-zinc-400">No players available</p>
+        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
           Check in to be the first on the board!
         </p>
       </motion.div>

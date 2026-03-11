@@ -1,10 +1,26 @@
 {
   "tasks": [
-    {"id": "phase-1", "phase": 1, "title": "Foundation & Auth", "status": "completed"},
-    {"id": "phase-2", "phase": 2, "title": "Player Profiles & Waivers", "status": "completed", "depends": ["phase-1"]},
-    {"id": "phase-3", "phase": 3, "title": "Live Availability Board", "status": "completed", "depends": ["phase-2"]},
-    {"id": "phase-4", "phase": 4, "title": "Partner Selection", "status": "completed", "depends": ["phase-3"]},
-    {"id": "phase-5", "phase": 5, "title": "Court Management & Admin", "status": "completed", "depends": ["phase-4"]},
-    {"id": "phase-6", "phase": 6, "title": "PWA, Polish & Deploy", "status": "completed", "depends": ["phase-5"]}
-  ]
+    {"id": "v2-01", "title": "Unified Check-In Flow", "prd": ".planning/v2-improvements/01-unified-checkin.md", "status": "pending", "type": "build", "priority": 1, "retries": 0, "worker": null},
+    {"id": "v2-02", "title": "Mead Draw & Gavel Draw Formats", "prd": ".planning/v2-improvements/02-mead-gavel-draws.md", "status": "completed", "type": "build", "priority": 2, "retries": 0, "worker": null, "commit": "8ff6d8a"},
+    {"id": "v2-03", "title": "Tournament Day Wizard", "prd": ".planning/v2-improvements/03-tournament-wizard.md", "status": "completed", "type": "build", "priority": 3, "retries": 0, "worker": null, "commit": "0a3a220"},
+    {"id": "v2-04", "title": "Club-Scoped Experience", "prd": ".planning/v2-improvements/04-club-scoped-experience.md", "status": "completed", "type": "build", "priority": 4, "retries": 0, "worker": null, "commit": "cd902d3"},
+    {"id": "v2-05", "title": "Post-Tournament Social Sharing", "prd": ".planning/v2-improvements/05-social-sharing.md", "status": "completed", "type": "build", "priority": 5, "retries": 0, "worker": null, "commit": "cd902d3"},
+    {"id": "v2-06", "title": "Dark Mode Clubhouse Theme", "prd": ".planning/v2-improvements/06-dark-mode.md", "status": "pending", "type": "build", "priority": 6, "retries": 0, "worker": null},
+    {"id": "v2-07", "title": "Animated Score Entry", "prd": ".planning/v2-improvements/07-animated-scores.md", "status": "pending", "type": "build", "priority": 7, "retries": 0, "worker": null},
+    {"id": "v2-08", "title": "Live Tournament Dashboard", "prd": ".planning/v2-improvements/08-live-dashboard.md", "status": "pending", "type": "build", "priority": 8, "retries": 0, "worker": null},
+    {"id": "v2-09", "title": "Visual Draw Sheet Redesign", "prd": ".planning/v2-improvements/09-visual-draw-sheet.md", "status": "pending", "type": "build", "priority": 9, "retries": 0, "worker": null},
+    {"id": "v2-10", "title": "Onboarding Experience", "prd": ".planning/v2-improvements/10-onboarding.md", "status": "pending", "type": "build", "priority": 10, "retries": 0, "worker": null},
+    {"id": "v2-11", "title": "Bowls-Specific Player Ratings", "prd": ".planning/v2-improvements/11-player-ratings.md", "status": "pending", "type": "build", "priority": 11, "retries": 0, "worker": null},
+    {"id": "v2-12", "title": "Visiting Player Flow", "prd": ".planning/v2-improvements/12-visiting-player.md", "status": "pending", "type": "build", "priority": 12, "retries": 0, "worker": null},
+    {"id": "v2-13", "title": "Club Noticeboard & Social Feed", "prd": ".planning/v2-improvements/13-club-noticeboard.md", "status": "pending", "type": "build", "priority": 13, "retries": 0, "worker": null},
+    {"id": "v2-14", "title": "Season & Pennant Tracking", "prd": ".planning/v2-improvements/14-season-pennant.md", "status": "pending", "type": "build", "priority": 14, "retries": 0, "worker": null},
+    {"id": "v2-15", "title": "Green Conditions Widget", "prd": ".planning/v2-improvements/15-green-conditions.md", "status": "pending", "type": "build", "priority": 15, "retries": 0, "worker": null}
+  ],
+  "metadata": {
+    "source": "v2-improvements",
+    "total": 15,
+    "completed": 4,
+    "pending": 11,
+    "created_at": "2026-03-11T03:12:00Z"
+  }
 }

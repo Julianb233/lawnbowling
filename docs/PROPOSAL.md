@@ -1,4 +1,4 @@
-# Pick a Partner — MVP Delivery Report & Proposal
+# Lawnbowling — MVP Delivery Report & Proposal
 
 **Prepared by:** AI Acrobatics
 **Date:** March 10, 2026
@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-**Pick a Partner** is a Progressive Web App (PWA) built for recreational sports venues where players check in, find partners, and get matched to courts for Pickleball, Lawn Bowling, Tennis, and other partner sports.
+**Lawnbowling** is a Progressive Web App (PWA) built for recreational sports venues where players check in, find partners, and get matched to courts for Pickleball, Lawn Bowling, Tennis, and other partner sports.
 
 The app runs on **iPad (venue kiosk mode)** and **iPhone (personal device)** — no app store download required. Players simply visit the URL or "Add to Home Screen."
 

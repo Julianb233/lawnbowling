@@ -79,12 +79,12 @@ export default function ClaimClubPage() {
   if (submitted) {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full rounded-2xl border border-zinc-200 bg-white p-8 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
-            <CheckCircle className="h-8 w-8 text-emerald-600" />
+        <div className="max-w-md w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
+            <CheckCircle className="h-8 w-8 text-[#1B5E20]" />
           </div>
-          <h1 className="text-xl font-bold text-zinc-900">Claim Submitted!</h1>
-          <p className="mt-2 text-sm text-zinc-500">
+          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">Claim Submitted!</h1>
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
             Your claim for <strong>{selectedClub?.name}</strong> has been submitted.
             An admin will review it shortly.
           </p>
@@ -100,8 +100,8 @@ export default function ClaimClubPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-zinc-50 dark:bg-white/5">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-2xl px-4 py-4">
           <Link
             href="/clubs"
@@ -110,10 +110,10 @@ export default function ClaimClubPage() {
             <ArrowLeft className="h-4 w-4" />
             Club Directory
           </Link>
-          <h1 className="mt-2 text-2xl font-black tracking-tight text-zinc-900">
+          <h1 className="mt-2 text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
             Claim Your Club
           </h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Verify that you&apos;re an official of a lawn bowling club to manage its listing
           </p>
         </div>
@@ -136,17 +136,17 @@ export default function ClaimClubPage() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Club search */}
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <label className="block text-sm font-bold text-zinc-900 mb-3">
               1. Find Your Club
             </label>
             {selectedClub ? (
-              <div className="flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+              <div className="flex items-center justify-between rounded-xl border border-[#1B5E20]/15 bg-[#1B5E20]/5 p-4">
                 <div className="flex items-center gap-3">
-                  <Building2 className="h-5 w-5 text-emerald-600" />
+                  <Building2 className="h-5 w-5 text-[#1B5E20]" />
                   <div>
-                    <p className="font-bold text-zinc-900">{selectedClub.name}</p>
-                    <p className="text-sm text-zinc-500">
+                    <p className="font-bold text-zinc-900 dark:text-zinc-100">{selectedClub.name}</p>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
                       {selectedClub.city}, {selectedClub.state_code}
                     </p>
                   </div>
@@ -168,11 +168,11 @@ export default function ClaimClubPage() {
                     placeholder="Search by club name or city..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full rounded-xl border border-zinc-200 py-3 pl-10 pr-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full rounded-xl border border-zinc-200 py-3 pl-10 pr-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   />
                 </div>
                 {clubs.length > 0 && (
-                  <div className="mt-2 rounded-xl border border-zinc-200 bg-white divide-y divide-zinc-100 max-h-60 overflow-y-auto">
+                  <div className="mt-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 divide-y divide-zinc-100 max-h-60 overflow-y-auto">
                     {clubs.map((club) => (
                       <button
                         key={club.id}
@@ -190,7 +190,7 @@ export default function ClaimClubPage() {
                         }`}
                       >
                         <span className="font-medium">{club.name}</span>
-                        <span className="text-zinc-500">
+                        <span className="text-zinc-500 dark:text-zinc-400">
                           {" "}&mdash; {club.city}, {club.state_code}
                         </span>
                         {club.claimed_by && (
@@ -207,7 +207,7 @@ export default function ClaimClubPage() {
           </div>
 
           {/* Role */}
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <label
               htmlFor="role"
               className="block text-sm font-bold text-zinc-900 mb-3"
@@ -218,7 +218,7 @@ export default function ClaimClubPage() {
               id="role"
               value={roleAtClub}
               onChange={(e) => setRoleAtClub(e.target.value)}
-              className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+              className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
             >
               <option value="">Select your role...</option>
               <option value="President">President</option>
@@ -233,7 +233,7 @@ export default function ClaimClubPage() {
           </div>
 
           {/* Message */}
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <label
               htmlFor="message"
               className="block text-sm font-bold text-zinc-900 mb-3"
@@ -246,7 +246,7 @@ export default function ClaimClubPage() {
               onChange={(e) => setMessage(e.target.value)}
               rows={4}
               placeholder="How are you connected to this club? Any links to verify your role..."
-              className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 resize-none"
+              className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20 resize-none"
             />
           </div>
 
@@ -259,7 +259,7 @@ export default function ClaimClubPage() {
           <button
             type="submit"
             disabled={!selectedClub || submitting || isLoggedIn === false}
-            className="w-full rounded-xl bg-emerald-500 py-3.5 text-sm font-bold text-white hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+            className="w-full rounded-xl bg-[#1B5E20] py-3.5 text-sm font-bold text-white hover:bg-[#1B5E20] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
           >
             {submitting ? (
               <>

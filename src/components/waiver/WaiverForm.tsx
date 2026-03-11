@@ -51,7 +51,7 @@ export function WaiverForm({ waiverText = DEFAULT_WAIVER_TEXT, onSubmit, venueNa
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="flex items-center gap-2 text-zinc-500">
+      <div className="flex items-center gap-2 text-zinc-500 dark:text-zinc-400">
         <FileText className="h-5 w-5" />
         <h3 className="text-sm font-medium uppercase tracking-wide">Liability Waiver</h3>
       </div>
@@ -67,7 +67,7 @@ export function WaiverForm({ waiverText = DEFAULT_WAIVER_TEXT, onSubmit, venueNa
         <Checkbox.Root
           checked={accepted}
           onCheckedChange={(checked) => setAccepted(checked === true)}
-          className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded border border-white/30 bg-zinc-50 transition-colors data-[state=checked]:border-blue-500 data-[state=checked]:bg-blue-600 min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0"
+          className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded border border-white/30 bg-zinc-50 transition-colors data-[state=checked]:border-[#1B5E20] data-[state=checked]:bg-[#1B5E20] min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0"
           id="waiver-accept"
         >
           <Checkbox.Indicator>
@@ -85,7 +85,7 @@ export function WaiverForm({ waiverText = DEFAULT_WAIVER_TEXT, onSubmit, venueNa
       <button
         type="submit"
         disabled={!accepted || submitting}
-        className="w-full rounded-lg bg-blue-600 px-4 py-3 font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 min-h-[44px]"
+        className="w-full rounded-lg bg-[#1B5E20] px-4 py-3 font-medium text-white transition-colors hover:bg-[#1B5E20] disabled:cursor-not-allowed disabled:opacity-50 min-h-[44px]"
       >
         {submitting ? "Submitting..." : "Sign Waiver"}
       </button>

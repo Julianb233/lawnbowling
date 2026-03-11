@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { cn } from "@/lib/utils";
+import { ShareSheet } from "@/components/bowls/ShareSheet";
+import { Share2 } from "lucide-react";
 import type { TournamentScore, ScoreWinner } from "@/lib/types";
 
 interface RoundSummary {
@@ -44,7 +46,7 @@ interface ProgressionInfo {
 export default function ResultsPage() {
   const params = useParams();
   const router = useRouter();
-  const tournamentId = params.id as string;
+  const tournamentId = (params?.id ?? "") as string;
 
   const [tournamentName, setTournamentName] = useState("Tournament");
   const [rounds, setRounds] = useState<RoundSummary[]>([]);
@@ -60,6 +62,7 @@ export default function ResultsPage() {
   const [loading, setLoading] = useState(true);
   const [advancing, setAdvancing] = useState(false);
   const [showStandings, setShowStandings] = useState(false);
+  const [showShareSheet, setShowShareSheet] = useState(false);
 
   const loadTournament = useCallback(async () => {
     const supabase = createClient();
@@ -267,7 +270,7 @@ export default function ResultsPage() {
   }
 
   function getWinnerColor(winner: ScoreWinner): string {
-    if (winner === "team_a") return "text-blue-600";
+    if (winner === "team_a") return "text-[#1B5E20]";
     if (winner === "team_b") return "text-purple-600";
     if (winner === "draw") return "text-amber-600";
     return "text-zinc-400";
@@ -284,19 +287,28 @@ export default function ResultsPage() {
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur print:static print:border-0">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur print:static print:border-0">
         <div className="mx-auto max-w-5xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+              <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
                 Results
               </h1>
-              <p className="text-sm text-zinc-500">{tournamentName}</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">{tournamentName}</p>
             </div>
             <div className="flex items-center gap-2 print:hidden">
+              {progression?.current_state === "complete" && (
+                <button
+                  onClick={() => setShowShareSheet(true)}
+                  className="flex items-center gap-2 rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/10 min-h-[44px] touch-manipulation"
+                >
+                  <Share2 className="h-4 w-4" />
+                  Share Results
+                </button>
+              )}
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}`)}
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
               >
                 Back
               </button>
@@ -338,7 +350,7 @@ export default function ResultsPage() {
             {/* Stats overview */}
             <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
               <div className="rounded-2xl bg-white border border-zinc-200 p-4 text-center">
-                <p className="text-3xl font-black text-zinc-900">
+                <p className="text-3xl font-black text-zinc-900 dark:text-zinc-100">
                   {rounds.length}
                 </p>
                 <p className="text-xs text-zinc-500 mt-1">
@@ -358,7 +370,7 @@ export default function ResultsPage() {
                 <p className="text-xs text-zinc-500 mt-1">Total Ends</p>
               </div>
               <div className="rounded-2xl bg-white border border-zinc-200 p-4 text-center">
-                <p className="text-3xl font-black text-emerald-600">
+                <p className="text-3xl font-black text-[#1B5E20]">
                   {stats.highestRinkScore?.score ?? 0}
                 </p>
                 <p className="text-xs text-zinc-500 mt-1">Highest Score</p>
@@ -380,7 +392,7 @@ export default function ResultsPage() {
                   "rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors min-h-[44px] touch-manipulation",
                   !showStandings
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50"
+                    : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
                 )}
               >
                 Round Results
@@ -391,7 +403,7 @@ export default function ResultsPage() {
                   "rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors min-h-[44px] touch-manipulation",
                   showStandings
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50"
+                    : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
                 )}
               >
                 Player Standings
@@ -429,14 +441,14 @@ export default function ResultsPage() {
                             {p.display_name}
                           </td>
                           <td className="px-3 py-3 text-center font-medium text-zinc-700">{p.games_played}</td>
-                          <td className="px-3 py-3 text-center font-bold text-emerald-600">{p.wins}</td>
+                          <td className="px-3 py-3 text-center font-bold text-[#1B5E20]">{p.wins}</td>
                           <td className="px-3 py-3 text-center font-medium text-red-500">{p.losses}</td>
                           <td className="px-3 py-3 text-center font-medium text-amber-600">{p.draws}</td>
                           <td className="px-3 py-3 text-center font-medium text-zinc-600 tabular-nums">{p.total_shots_for}</td>
                           <td className="px-3 py-3 text-center font-medium text-zinc-600 tabular-nums">{p.total_shots_against}</td>
                           <td className={cn(
                             "px-3 py-3 text-center font-bold tabular-nums",
-                            p.total_shots_for - p.total_shots_against > 0 ? "text-emerald-600" :
+                            p.total_shots_for - p.total_shots_against > 0 ? "text-[#1B5E20]" :
                             p.total_shots_for - p.total_shots_against < 0 ? "text-red-500" : "text-zinc-400"
                           )}>
                             {p.total_shots_for - p.total_shots_against > 0 ? "+" : ""}
@@ -462,7 +474,7 @@ export default function ResultsPage() {
                         "flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors whitespace-nowrap min-h-[44px] touch-manipulation",
                         selectedRound === r.round
                           ? "bg-[#1B5E20] text-white"
-                          : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50"
+                          : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
                       )}
                     >
                       Round {r.round}
@@ -472,7 +484,7 @@ export default function ResultsPage() {
                             "rounded-full px-1.5 py-0.5 text-[10px] font-bold",
                             selectedRound === r.round
                               ? "bg-white/20 text-white"
-                              : "bg-emerald-100 text-emerald-700"
+                              : "bg-[#1B5E20]/10 text-[#2E7D32]"
                           )}
                         >
                           Final
@@ -508,7 +520,7 @@ export default function ResultsPage() {
                               {getWinnerLabel(score.winner)}
                             </span>
                             {score.is_finalized && (
-                              <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
+                              <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-[10px] font-bold text-[#2E7D32]">
                                 Final
                               </span>
                             )}
@@ -523,7 +535,7 @@ export default function ResultsPage() {
                                 "text-center p-3 rounded-xl",
                                 score.winner === "team_a"
                                   ? "bg-blue-50 ring-2 ring-blue-200"
-                                  : "bg-zinc-50"
+                                  : "bg-zinc-50 dark:bg-white/5"
                               )}
                             >
                               <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
@@ -533,7 +545,7 @@ export default function ResultsPage() {
                                 className={cn(
                                   "text-3xl font-black tabular-nums",
                                   score.winner === "team_a"
-                                    ? "text-blue-600"
+                                    ? "text-[#1B5E20]"
                                     : "text-zinc-700"
                                 )}
                               >
@@ -556,7 +568,7 @@ export default function ResultsPage() {
                                 "text-center p-3 rounded-xl",
                                 score.winner === "team_b"
                                   ? "bg-purple-50 ring-2 ring-purple-200"
-                                  : "bg-zinc-50"
+                                  : "bg-zinc-50 dark:bg-white/5"
                               )}
                             >
                               <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
@@ -584,7 +596,7 @@ export default function ResultsPage() {
                             <div className="overflow-x-auto rounded-xl bg-zinc-50 border border-zinc-100">
                               <table className="w-full text-sm">
                                 <thead>
-                                  <tr className="border-b border-zinc-200">
+                                  <tr className="border-b border-zinc-200 dark:border-white/10">
                                     <th className="px-3 py-2 text-left text-xs font-bold text-zinc-400">
                                       &nbsp;
                                     </th>
@@ -603,7 +615,7 @@ export default function ResultsPage() {
                                 </thead>
                                 <tbody>
                                   <tr className="border-b border-zinc-100">
-                                    <td className="px-3 py-2 font-semibold text-blue-600">
+                                    <td className="px-3 py-2 font-semibold text-[#1B5E20]">
                                       A
                                     </td>
                                     {score.team_a_scores.map((s, i) => (
@@ -612,10 +624,10 @@ export default function ResultsPage() {
                                         className={cn(
                                           "px-2 py-2 text-center font-bold tabular-nums",
                                           s > score.team_b_scores[i]
-                                            ? "text-emerald-600"
+                                            ? "text-[#1B5E20]"
                                             : s === 0
                                               ? "text-zinc-300"
-                                              : "text-zinc-500"
+                                              : "text-zinc-500 dark:text-zinc-400"
                                         )}
                                       >
                                         {s}
@@ -635,10 +647,10 @@ export default function ResultsPage() {
                                         className={cn(
                                           "px-2 py-2 text-center font-bold tabular-nums",
                                           s > score.team_a_scores[i]
-                                            ? "text-emerald-600"
+                                            ? "text-[#1B5E20]"
                                             : s === 0
                                               ? "text-zinc-300"
-                                              : "text-zinc-500"
+                                              : "text-zinc-500 dark:text-zinc-400"
                                         )}
                                       >
                                         {s}
@@ -656,7 +668,7 @@ export default function ResultsPage() {
                           {/* Player names if available */}
                           {(score.team_a_players?.length > 0 ||
                             score.team_b_players?.length > 0) && (
-                            <div className="mt-4 grid grid-cols-2 gap-4 text-xs text-zinc-500">
+                            <div className="mt-4 grid grid-cols-2 gap-4 text-xs text-zinc-500 dark:text-zinc-400">
                               <div>
                                 <p className="font-bold text-zinc-400 mb-1">
                                   Team A Players
@@ -736,18 +748,37 @@ export default function ResultsPage() {
 
             {/* Tournament completed banner */}
             {progression?.current_state === "complete" && (
-              <div className="mt-8 rounded-2xl bg-emerald-50 border border-emerald-200 p-6 text-center print:hidden">
-                <p className="text-lg font-bold text-emerald-800">
+              <div className="mt-8 rounded-2xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-6 text-center print:hidden">
+                <p className="text-lg font-bold text-[#2E7D32]">
                   Tournament Complete
                 </p>
-                <p className="text-sm text-emerald-600 mt-1">
+                <p className="text-sm text-[#1B5E20] mt-1">
                   {progression.total_rounds_played} round{progression.total_rounds_played !== 1 ? "s" : ""} played
                 </p>
+                <button
+                  onClick={() => setShowShareSheet(true)}
+                  className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[48px] touch-manipulation"
+                >
+                  <Share2 className="h-4 w-4" />
+                  Share Results
+                </button>
               </div>
             )}
           </>
         )}
       </main>
+
+      <ShareSheet
+        open={showShareSheet}
+        onClose={() => setShowShareSheet(false)}
+        tournamentName={tournamentName}
+        tournamentId={tournamentId}
+        topPlayers={playerStandings.slice(0, 3).map((p) => ({
+          display_name: p.display_name,
+          wins: p.wins,
+          shot_diff: p.total_shots_for - p.total_shots_against,
+        }))}
+      />
 
       <BottomNav />
     </div>

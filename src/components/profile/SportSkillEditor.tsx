@@ -90,7 +90,7 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
               <span className="text-sm font-medium text-zinc-700 capitalize">
                 {sport.replace("_", " ")}
               </span>
-              <span className="text-xs text-zinc-500">ELO: {Math.round(rating)}</span>
+              <span className="text-xs text-zinc-500 dark:text-zinc-400">ELO: {Math.round(rating)}</span>
             </div>
             <div className="flex gap-2">
               {SKILL_LEVELS.map((level) => (

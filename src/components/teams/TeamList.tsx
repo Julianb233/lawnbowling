@@ -57,7 +57,7 @@ export function TeamList() {
       <div className="mb-6 flex gap-3">
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-500"
+          className="flex items-center gap-2 rounded-xl bg-[#1B5E20] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1B5E20]"
         >
           <Plus className="h-4 w-4" />
           Create Team
@@ -76,7 +76,7 @@ export function TeamList() {
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <Users className="mb-3 h-12 w-12 text-zinc-700" />
           <h3 className="mb-1 text-lg font-semibold text-zinc-400">No teams yet</h3>
-          <p className="text-sm text-zinc-600">Create a team or join one with an invite code</p>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">Create a team or join one with an invite code</p>
         </div>
       ) : (
         <motion.div

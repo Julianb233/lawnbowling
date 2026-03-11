@@ -52,7 +52,7 @@ export function InviteLink({ inviteCode }: InviteLinkProps) {
           className={cn(
             "flex h-9 w-9 items-center justify-center rounded-lg transition-colors",
             copied
-              ? "bg-emerald-500/10 text-emerald-400"
+              ? "bg-[#1B5E20]/10 text-[#1B5E20]"
               : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
           )}
         >

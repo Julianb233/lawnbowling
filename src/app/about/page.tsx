@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/90 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6">
@@ -103,7 +103,7 @@ export default function AboutPage() {
                 {["Rink 1: ???", "Rink 2: ???", "Rink 3: (illegible)", "Rink 4: ???"].map((text, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-3 rounded-lg border border-zinc-200 bg-white p-3"
+                    className="flex items-center gap-3 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-3"
                   >
                     <div className="h-3 w-3 rounded border-2 border-zinc-300" />
                     <span className="text-sm text-zinc-400 italic">{text}</span>
@@ -165,13 +165,13 @@ export default function AboutPage() {
             ].map((feature) => (
               <div
                 key={feature.title}
-                className="rounded-xl border border-zinc-100 bg-white p-5 sm:p-6"
+                className="rounded-xl border border-zinc-100 bg-white dark:bg-[#1a3d28] p-5 sm:p-6"
               >
                 <feature.icon className="h-6 w-6 text-[#1B5E20] mb-3" />
                 <h3 className="text-base font-semibold text-zinc-900 sm:text-lg">
                   {feature.title}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-500">
+                <p className="mt-1.5 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
                   {feature.desc}
                 </p>
               </div>
@@ -226,10 +226,10 @@ export default function AboutPage() {
               icon: BarChart3,
             },
           ].map((role) => (
-            <div key={role.title} className="rounded-xl border border-zinc-100 bg-white p-5 sm:p-6">
+            <div key={role.title} className="rounded-xl border border-zinc-100 bg-white dark:bg-[#1a3d28] p-5 sm:p-6">
               <role.icon className="h-6 w-6 text-[#1B5E20] mb-3" />
               <h3 className="text-lg font-bold text-zinc-900 mb-2">{role.title}</h3>
-              <p className="text-sm leading-relaxed text-zinc-500">{role.desc}</p>
+              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">{role.desc}</p>
             </div>
           ))}
         </div>
@@ -268,9 +268,9 @@ export default function AboutPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1B5E20]">
               <CircleDot className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Lawnbowling</span>
+            <span className="font-semibold text-zinc-900 dark:text-zinc-100">Lawnbowling</span>
           </Link>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-zinc-500">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-zinc-500 dark:text-zinc-400">
             <Link href="/clubs" className="hover:text-zinc-700 transition">Clubs</Link>
             <Link href="/learn" className="hover:text-zinc-700 transition">Learn</Link>
             <Link href="/insurance" className="hover:text-zinc-700 transition">Insurance</Link>

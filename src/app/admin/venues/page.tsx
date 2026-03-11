@@ -49,7 +49,7 @@ export default function VenuesAdminPage() {
       <h1 className="text-2xl font-bold text-zinc-900 mb-6">Venue Management</h1>
 
       {/* Create venue */}
-      <div className="rounded-xl border border-zinc-200 bg-white p-4 mb-6">
+      <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 mb-6">
         <h2 className="text-sm font-semibold text-zinc-600 mb-3">Add New Venue</h2>
         <div className="flex flex-col sm:flex-row gap-2">
           <input
@@ -57,7 +57,7 @@ export default function VenuesAdminPage() {
             placeholder="Venue name"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
-            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-emerald-500 focus:outline-none flex-1"
+            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-[#1B5E20] focus:outline-none flex-1"
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
           />
           <input
@@ -65,7 +65,7 @@ export default function VenuesAdminPage() {
             placeholder="Address (optional)"
             value={newAddress}
             onChange={(e) => setNewAddress(e.target.value)}
-            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-emerald-500 focus:outline-none flex-1"
+            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-[#1B5E20] focus:outline-none flex-1"
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
           />
           <Button onClick={handleCreate} disabled={creating || !newName.trim()}>
@@ -81,22 +81,22 @@ export default function VenuesAdminPage() {
             key={venue.id}
             className={`flex items-center justify-between rounded-lg border px-4 py-3 transition-colors ${
               venue.id === selectedVenueId
-                ? "border-emerald-600 bg-emerald-950/30"
+                ? "border-[#1B5E20] bg-[#1B5E20]/10"
                 : "border-zinc-200 bg-white"
             }`}
           >
             <div>
-              <span className="font-medium text-zinc-900">{venue.name}</span>
+              <span className="font-medium text-zinc-900 dark:text-zinc-100">{venue.name}</span>
               {venue.address && (
-                <span className="ml-2 text-xs text-zinc-500">{venue.address}</span>
+                <span className="ml-2 text-xs text-zinc-500 dark:text-zinc-400">{venue.address}</span>
               )}
               {venue.sports?.length > 0 && (
-                <span className="ml-2 text-xs text-zinc-600">
+                <span className="ml-2 text-xs text-zinc-600 dark:text-zinc-400">
                   {venue.sports.map((s) => s.replace("_", " ")).join(", ")}
                 </span>
               )}
               {venue.id === selectedVenueId && (
-                <span className="ml-2 inline-block rounded-full bg-emerald-600/20 px-2 py-0.5 text-xs font-medium text-emerald-400">
+                <span className="ml-2 inline-block rounded-full bg-[#1B5E20]/20 px-2 py-0.5 text-xs font-medium text-[#1B5E20]">
                   Active
                 </span>
               )}
@@ -107,7 +107,7 @@ export default function VenuesAdminPage() {
                   Select
                 </Button>
               )}
-              <a href="/admin/venue" className="inline-flex items-center justify-center rounded-md text-sm font-medium text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 h-8 px-3 transition-colors">
+              <a href="/admin/venue" className="inline-flex items-center justify-center rounded-md text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 h-8 px-3 transition-colors">
                 Settings
               </a>
             </div>

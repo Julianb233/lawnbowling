@@ -82,15 +82,15 @@ export function WeeklyActivity({ playerId }: WeeklyActivityProps) {
           const height = d.count > 0 ? Math.max((d.count / maxCount) * 100, 12) : 4;
           return (
             <div key={d.label} className="flex flex-1 flex-col items-center gap-1">
-              <span className="text-xs font-bold text-zinc-600">{d.count > 0 ? d.count : ""}</span>
+              <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400">{d.count > 0 ? d.count : ""}</span>
               <div
                 className={cn(
                   "w-full rounded-t-md transition-all",
-                  d.count > 0 ? "bg-emerald-500" : "bg-zinc-100"
+                  d.count > 0 ? "bg-[#1B5E20]" : "bg-zinc-100"
                 )}
                 style={{ height: `${height}%`, minHeight: 3 }}
               />
-              <span className="text-[10px] text-zinc-600">{d.day}</span>
+              <span className="text-[10px] text-zinc-600 dark:text-zinc-400">{d.day}</span>
             </div>
           );
         })}

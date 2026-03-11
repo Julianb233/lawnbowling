@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { SPORT_LABELS, type Sport, type ScheduledGame } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { RSVPButton } from "./RSVPButton";
 
 interface GameCardProps {
@@ -47,13 +48,13 @@ export function GameCard({ game, currentPlayerId }: GameCardProps) {
         <div>
           <Link
             href={`/schedule/${game.id}`}
-            className="text-base font-semibold text-zinc-900 hover:text-emerald-400 transition-colors"
+            className="text-base font-semibold text-zinc-900 hover:text-[#1B5E20] transition-colors"
           >
             {game.title}
           </Link>
           <div className="flex items-center gap-2 mt-1">
             <span className="text-sm">
-              {sportInfo?.emoji || ""} {sportInfo?.label || game.sport}
+              <SportIcon sport={game.sport as Sport} className="w-4 h-4 inline-block mr-1" /> {sportInfo?.label || game.sport}
             </span>
             {game.is_recurring && (
               <span className="text-xs text-blue-400 bg-blue-400/10 rounded-full px-2 py-0.5">
@@ -63,7 +64,7 @@ export function GameCard({ game, currentPlayerId }: GameCardProps) {
           </div>
         </div>
         <div className="text-right">
-          <p className="text-sm font-medium text-emerald-400">
+          <p className="text-sm font-medium text-[#1B5E20]">
             {formatDate(game.scheduled_at)}
           </p>
           <p className="text-xs text-zinc-400">{formatTime(game.scheduled_at)}</p>
@@ -76,7 +77,7 @@ export function GameCard({ game, currentPlayerId }: GameCardProps) {
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-zinc-500">
+          <span className="text-xs text-zinc-500 dark:text-zinc-400">
             {goingCount}/{game.max_players} players
           </span>
           {spotsLeft <= 2 && spotsLeft > 0 && (

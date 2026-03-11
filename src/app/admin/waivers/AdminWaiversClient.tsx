@@ -68,7 +68,7 @@ export function AdminWaiversClient() {
 
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-zinc-900">Signed Waivers</h1>
+            <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Signed Waivers</h1>
             <p className="text-sm text-zinc-900/60">{total} total waivers</p>
           </div>
           <FileText className="h-8 w-8 text-zinc-900/20" />
@@ -81,7 +81,7 @@ export function AdminWaiversClient() {
             placeholder="Search by player name..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-zinc-200 bg-zinc-50 pl-10 pr-4 py-3 text-zinc-900 placeholder:text-zinc-900/40 focus:border-blue-500 focus:outline-none min-h-[44px]"
+            className="w-full rounded-lg border border-zinc-200 bg-zinc-50 pl-10 pr-4 py-3 text-zinc-900 placeholder:text-zinc-900/40 focus:border-[#1B5E20] focus:outline-none min-h-[44px]"
           />
         </div>
 
@@ -98,7 +98,7 @@ export function AdminWaiversClient() {
             <div className="overflow-hidden rounded-xl border border-zinc-200">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-zinc-200 bg-zinc-50">
+                  <tr className="border-b border-zinc-200 bg-zinc-50 dark:bg-white/5">
                     <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-zinc-900/60">
                       Player
                     </th>
@@ -115,11 +115,11 @@ export function AdminWaiversClient() {
                 </thead>
                 <tbody className="divide-y divide-zinc-100">
                   {filtered.map((waiver) => (
-                    <tr key={waiver.id} className="hover:bg-zinc-50">
+                    <tr key={waiver.id} className="hover:bg-zinc-50 dark:bg-white/5">
                       <td className="px-4 py-3">
                         <Link
                           href={`/profile/${waiver.player_id}`}
-                          className="font-medium text-blue-600 hover:underline"
+                          className="font-medium text-[#1B5E20] hover:underline"
                         >
                           {waiver.players?.display_name ?? "Unknown"}
                         </Link>

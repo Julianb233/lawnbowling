@@ -23,7 +23,7 @@ export default async function AdminLayout({
   await requireAdmin();
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-50">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-50 dark:bg-white/5">
       {/* Mobile: horizontal scrollable nav */}
       <nav
         className="flex lg:hidden overflow-x-auto gap-1 p-2 border-b border-zinc-200 bg-white scrollbar-hide"
@@ -48,8 +48,8 @@ export default async function AdminLayout({
 
       {/* Desktop: sidebar */}
       <aside className="hidden lg:block w-56 shrink-0 border-r border-zinc-200 bg-white">
-        <div className="p-4 border-b border-zinc-200">
-          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-wider">
+        <div className="p-4 border-b border-zinc-200 dark:border-white/10">
+          <h2 className="text-sm font-bold text-[#1B5E20] uppercase tracking-wider">
             Admin Panel
           </h2>
         </div>
