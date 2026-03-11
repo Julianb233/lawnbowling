@@ -8,7 +8,7 @@ import { BOWLS_POSITION_LABELS } from "@/lib/types";
 
 // ─── Types ───────────────────────────────────────────────────────
 
-type CheckInStep = "welcome" | "list" | "position" | "confirmation";
+type CheckInStep = "welcome" | "list" | "position" | "insurance" | "confirmation";
 
 interface KioskCheckInProps {
   venueId: string;
@@ -139,18 +139,24 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
 
   // ─── Handle position selection ─────────────────────────────────
 
-  async function handlePositionSelect(position: BowlsPosition | "any") {
+  function handlePositionSelect(position: BowlsPosition | "any") {
     if (!selectedPlayer) return;
     setSelectedPosition(position);
+    setStep("insurance");
+  }
 
-    // Perform check-in
+  // ─── Perform check-in (called after insurance step) ──────────
+
+  async function performCheckIn() {
+    if (!selectedPlayer) return;
+
     await fetch("/api/qr/checkin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         player_id: selectedPlayer.id,
         venue_id: venueId,
-        position: position === "any" ? null : position,
+        position: selectedPosition === "any" ? null : selectedPosition,
       }),
     });
 
@@ -527,7 +533,101 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
     );
   }
 
-  // ─── STEP 4: Confirmation ──────────────────────────────────────
+  // ─── STEP 4: Insurance Offer ──────────────────────────────────
+
+  if (step === "insurance" && selectedPlayer) {
+    const firstName = selectedPlayer.display_name.split(" ")[0];
+
+    const COVERAGE_TIERS = [
+      { price: "$3", label: "Basic", description: "Accidental injury coverage" },
+      { price: "$8", label: "Standard", description: "Injury + equipment protection" },
+      { price: "$15", label: "Premium", description: "Full coverage + liability" },
+    ];
+
+    return (
+      <section
+        aria-label="Insurance offer"
+        className="mx-auto max-w-2xl"
+      >
+        <KioskHeading level={1} align="center" className="mb-3">
+          Get covered for today&apos;s game
+        </KioskHeading>
+
+        <KioskText size="body" color="secondary" align="center" className="mb-8">
+          Optional game-day insurance for peace of mind, {firstName}.
+        </KioskText>
+
+        <div className="flex flex-col gap-4 mb-8">
+          {COVERAGE_TIERS.map((tier) => (
+            <div
+              key={tier.price}
+              className="w-full rounded-2xl"
+              style={{
+                padding: "20px 32px",
+                backgroundColor: "#FFFFFF",
+                border: "2px solid #E0E0E0",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <div>
+                <span
+                  className="font-bold"
+                  style={{ fontSize: "22px", color: "#1B5E20", lineHeight: "1.3" }}
+                >
+                  {tier.label}
+                </span>
+                <p style={{ fontSize: "16px", color: "#4A4A4A", lineHeight: "1.4" }}>
+                  {tier.description}
+                </p>
+              </div>
+              <span
+                className="font-bold"
+                style={{ fontSize: "26px", color: "#1A1A1A", flexShrink: 0, marginLeft: "16px" }}
+              >
+                {tier.price}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <KioskButton
+            variant="secondary"
+            fullWidth
+            onClick={() => {
+              window.open("/insurance/lawn-bowls", "_blank");
+            }}
+            ariaLabel="Learn more about insurance coverage"
+          >
+            Learn More
+          </KioskButton>
+
+          <KioskButton
+            fullWidth
+            onClick={performCheckIn}
+            ariaLabel="Skip insurance and complete check-in"
+          >
+            Skip
+          </KioskButton>
+        </div>
+
+        {/* Back button */}
+        <div className="mt-6 flex justify-center">
+          <KioskButton
+            variant="secondary"
+            onClick={() => setStep("position")}
+            ariaLabel="Go back to position selection"
+          >
+            Back
+          </KioskButton>
+        </div>
+      </section>
+    );
+  }
+
+  // ─── STEP 5: Confirmation ──────────────────────────────────────
 
   if (step === "confirmation" && selectedPlayer) {
     const firstName = selectedPlayer.display_name.split(" ")[0];
