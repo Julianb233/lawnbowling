@@ -322,7 +322,7 @@ export default function BowlsTournamentPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-card">
         <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
@@ -331,7 +331,7 @@ export default function BowlsTournamentPage() {
   // Render functions for the wizard's Advanced escape hatch (TWZ-15)
   function renderCheckinView() {
     return (
-          <div>
+          <div data-onboarding-target="add-players">
             <div className="mb-6">
               <input
                 type="text"
@@ -502,6 +502,7 @@ export default function BowlsTournamentPage() {
                 <button
                   onClick={() => handleGenerateDraw()}
                   disabled={possibleRinks < 1 || generatingDraw}
+                  data-onboarding-target="generate-draw"
                   className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] disabled:opacity-40 min-h-[48px] touch-manipulation"
                 >
                   {generatingDraw ? "Generating..." : "Generate Draw"}
@@ -628,7 +629,7 @@ export default function BowlsTournamentPage() {
                     <span className="text-xs font-bold text-[#1B5E20]">
                       {DRAW_STYLE_LABELS[multiRoundDraw.style as DrawStyle]}
                     </span>
-                    <span className="text-xs text-[#1B5E20]/70">
+                    <span className="text-xs text-[#1B5E20]/60">
                       {multiRoundDraw.totalRounds} rounds &middot; {multiRoundDraw.playerCount} players
                     </span>
                   </div>
@@ -654,7 +655,7 @@ export default function BowlsTournamentPage() {
                   </div>
                 )}
 
-                <div className="mb-6 flex items-center justify-between">
+                <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div>
                     <h2 className="text-xl font-black text-zinc-900 dark:text-zinc-100">
                       Tournament Draw &mdash; Round {multiRoundDraw ? selectedRound + 1 : drawRound}
@@ -666,12 +667,6 @@ export default function BowlsTournamentPage() {
                     </p>
                   </div>
                   <div className="flex items-center gap-2 no-print">
-                    <button
-                      onClick={() => window.print()}
-                      className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
-                    >
-                      Print Draw Sheet
-                    </button>
                     {!multiRoundDraw && (
                       <button
                         onClick={() => {
@@ -692,115 +687,12 @@ export default function BowlsTournamentPage() {
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  {drawResult.rinks.map((rink, idx) => {
-                    const team1 = rink.filter((a) => a.team === 1);
-                    const team2 = rink.filter((a) => a.team === 2);
-
-                    return (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                        className="rounded-2xl bg-white border border-zinc-200 overflow-hidden"
-                      >
-                        <div className="bg-zinc-50 border-b border-zinc-200 px-5 py-3">
-                          <h3 className="text-sm font-bold text-zinc-700">
-                            Rink {idx + 1}
-                          </h3>
-                        </div>
-                        <div className="grid grid-cols-2 divide-x divide-zinc-100">
-                          <div className="p-4">
-                            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
-                              Team 1
-                            </p>
-                            <div className="space-y-2">
-                              {team1
-                                .sort(
-                                  (a, b) =>
-                                    BOWLS_POSITION_LABELS[b.position].order -
-                                    BOWLS_POSITION_LABELS[a.position].order
-                                )
-                                .map((a) => (
-                                  <div
-                                    key={a.player_id}
-                                    className="flex items-center gap-3"
-                                  >
-                                    <span
-                                      className={cn(
-                                        "inline-flex h-7 items-center rounded-full px-2 text-[11px] font-bold text-white",
-                                        POSITION_COLORS[a.position]
-                                      )}
-                                    >
-                                      {BOWLS_POSITION_LABELS[a.position].label}
-                                    </span>
-                                    <span className="text-sm font-medium text-zinc-700 truncate">
-                                      {a.player?.display_name ?? "TBD"}
-                                    </span>
-                                  </div>
-                                ))}
-                            </div>
-                          </div>
-
-                          <div className="p-4">
-                            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
-                              Team 2
-                            </p>
-                            <div className="space-y-2">
-                              {team2
-                                .sort(
-                                  (a, b) =>
-                                    BOWLS_POSITION_LABELS[b.position].order -
-                                    BOWLS_POSITION_LABELS[a.position].order
-                                )
-                                .map((a) => (
-                                  <div
-                                    key={a.player_id}
-                                    className="flex items-center gap-3"
-                                  >
-                                    <span
-                                      className={cn(
-                                        "inline-flex h-7 items-center rounded-full px-2 text-[11px] font-bold text-white",
-                                        POSITION_COLORS[a.position]
-                                      )}
-                                    >
-                                      {BOWLS_POSITION_LABELS[a.position].label}
-                                    </span>
-                                    <span className="text-sm font-medium text-zinc-700 truncate">
-                                      {a.player?.display_name ?? "TBD"}
-                                    </span>
-                                  </div>
-                                ))}
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-
-                {drawResult.unassigned.length > 0 && (
-                  <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-200 p-5">
-                    <h3 className="mb-2 text-sm font-bold text-amber-800">
-                      Unassigned Players ({drawResult.unassigned.length})
-                    </h3>
-                    <p className="mb-3 text-xs text-amber-600">
-                      Not enough players for a full rink. These players can be
-                      added as substitutes or wait for more check-ins.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {drawResult.unassigned.map((u) => (
-                        <span
-                          key={u.player_id}
-                          className="rounded-full bg-amber-200/60 px-3 py-1 text-xs font-medium text-amber-800"
-                        >
-                          {u.player?.display_name ?? "Unknown"}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                <DrawSheet
+                  draw={drawResult}
+                  currentUserId={currentUserId ?? undefined}
+                  tournamentName={tournamentName}
+                  roundNumber={multiRoundDraw ? selectedRound + 1 : drawRound}
+                />
                 </div>
               </div>
             )}
@@ -826,7 +718,7 @@ export default function BowlsTournamentPage() {
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2" data-onboarding-target="publish-scores">
               <Link
                 href={`/bowls/${tournamentId}/scores`}
                 className="rounded-lg px-4 py-2 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 transition-colors"
@@ -845,6 +737,38 @@ export default function BowlsTournamentPage() {
       </header>
 
       <main className="mx-auto max-w-5xl px-4 py-6">
+        {/* Green Conditions Widget (REQ-15-06) */}
+        <div className="mb-4">
+          <GreenConditionsWidget
+            conditions={greenConditions}
+            onEdit={isAdmin ? () => setShowConditionsForm(true) : undefined}
+          />
+        </div>
+
+        {/* Green Conditions Form Modal */}
+        <AnimatePresence>
+          {showConditionsForm && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="mx-4 w-full max-w-md rounded-3xl bg-white dark:bg-zinc-900 p-6 shadow-2xl"
+              >
+                <GreenConditionsForm
+                  tournamentId={tournamentId}
+                  existing={greenConditions}
+                  onSaved={(saved) => {
+                    setGreenConditions(saved);
+                    setShowConditionsForm(false);
+                  }}
+                  onCancel={() => setShowConditionsForm(false)}
+                />
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+
         <TournamentWizard
           tournamentId={tournamentId}
           tournamentName={tournamentName}
