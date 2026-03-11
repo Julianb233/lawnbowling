@@ -560,3 +560,21 @@ create policy "System can grant achievements" on player_achievements for insert 
 
 create index idx_player_achievements_player on player_achievements(player_id);
 create index idx_player_achievements_achievement on player_achievements(achievement_id);
+
+-- ===== PROFILE ENHANCEMENTS: CONTACT PREFERENCES =====
+
+create table contact_preferences (
+  player_id uuid primary key references players(id) on delete cascade,
+  show_email boolean default false,
+  show_phone boolean default false,
+  preferred_contact text check (preferred_contact in ('in_app', 'email', 'phone', 'none')) default 'in_app',
+  email text,
+  phone text,
+  allow_messages_from text check (allow_messages_from in ('everyone', 'friends', 'none')) default 'everyone',
+  updated_at timestamptz default now()
+);
+
+alter table contact_preferences enable row level security;
+
+create policy "Contact prefs: public fields viewable by all" on contact_preferences for select using (true);
+create policy "Contact prefs: own" on contact_preferences for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));

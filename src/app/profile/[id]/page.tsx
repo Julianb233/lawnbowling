@@ -13,8 +13,11 @@ import { FavoriteButton } from "@/components/social/FavoriteButton";
 import { AddFriendButton } from "@/components/social/AddFriendButton";
 import { ProfileStatsSection } from "@/components/stats/ProfileStatsSection";
 import { MatchHistory } from "@/components/profile/MatchHistory";
+import { AvailabilitySchedule } from "@/components/profile/AvailabilitySchedule";
 import { PhotoGalleryReadonly } from "@/components/profile/PhotoGallery";
 import { getPlayerPhotos } from "@/lib/db/gallery";
+import { getPlayerAchievements } from "@/lib/db/achievements";
+import { AchievementBadges } from "@/components/profile/AchievementBadges";
 import * as Avatar from "@radix-ui/react-avatar";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Shield } from "lucide-react";
@@ -50,7 +53,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
   const currentPlayer = user ? await getPlayerByUserId(user.id) : null;
   const isOwnProfile = currentPlayer?.id === player.id;
 
-  const [waiver, favorited, friendStatus, stats, favoritePartners, photos] = await Promise.all([
+  const [waiver, favorited, friendStatus, stats, favoritePartners, photos, achievements] = await Promise.all([
     getWaiverByPlayerId(player.id),
     currentPlayer && !isOwnProfile
       ? isFavorite(currentPlayer.id, player.id)
@@ -61,6 +64,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
     getPlayerStats(player.id),
     getFavoritePartners(player.id, { limit: 5 }),
     getPlayerPhotos(player.id),
+    getPlayerAchievements(player.id),
   ]);
 
   const initials = player.display_name
@@ -160,9 +164,13 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
 
           <ProfileStatsSection stats={stats} favoritePartners={favoritePartners} />
 
+          <AchievementBadges achievements={achievements} />
+
           <PhotoGalleryReadonly photos={photos} />
 
           <MatchHistory playerId={player.id} />
+
+          <AvailabilitySchedule playerId={player.id} />
 
           <div>
             <h2 className="mb-2 text-sm font-medium text-zinc-600">Waiver Status</h2>
