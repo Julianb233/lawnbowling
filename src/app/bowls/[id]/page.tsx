@@ -824,6 +824,50 @@ export default function BowlsTournamentPage() {
         )}
       </AnimatePresence>
 
+      {/* Insurance offer after check-in */}
+      <AnimatePresence>
+        {showInsuranceOffer && (
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
+            className="fixed bottom-20 left-4 right-4 z-40 lg:bottom-4 lg:left-auto lg:right-4 lg:max-w-sm"
+          >
+            <div className="rounded-2xl border border-emerald-200 bg-white p-4 shadow-xl">
+              <div className="flex items-start gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-zinc-900">
+                    Get covered for today&apos;s session
+                  </p>
+                  <p className="mt-0.5 text-xs text-zinc-500">
+                    {insuranceOfferPlayer} doesn&apos;t have active coverage. Per-session insurance from $3.
+                  </p>
+                  <div className="mt-3 flex items-center gap-2">
+                    <a
+                      href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-500 transition-colors"
+                    >
+                      Get a Quote
+                    </a>
+                    <button
+                      onClick={() => setShowInsuranceOffer(false)}
+                      className="rounded-lg px-3 py-1.5 text-xs font-medium text-zinc-500 hover:text-zinc-700 transition-colors"
+                    >
+                      Dismiss
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <BottomNav />
     </div>
   );
