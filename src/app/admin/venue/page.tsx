@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { VenueQRCode } from "@/components/venue/VenueQRCode";
 
 interface VenueData {
   id: string;
@@ -381,6 +382,18 @@ export default function VenueSettingsPage() {
               </div>
             </div>
           )}
+        </section>
+
+        {/* QR Code Check-in (VENUE-02) */}
+        <section>
+          <h2 className="text-lg font-semibold text-zinc-700 mb-3">
+            Check-in QR Code
+          </h2>
+          <p className="text-sm text-zinc-500 mb-4">
+            Print or display this QR code at your venue. Players scan it to
+            check in automatically.
+          </p>
+          <VenueQRCode venueId={venue.id} venueName={venue.name} />
         </section>
 
         {/* Save */}
