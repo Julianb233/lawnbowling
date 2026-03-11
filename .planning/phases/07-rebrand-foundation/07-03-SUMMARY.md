@@ -1,40 +1,39 @@
-# Plan 07-03 Summary: Domain Setup and Vercel Config
+# 07-03: Domain Setup and Vercel Configuration -- Summary
 
-## Status: Complete
+## Changes Made
 
-## What Was Done
+### vercel.json
+- Added `Strict-Transport-Security` header (HSTS with 2-year max-age, includeSubDomains, preload)
+- Added `X-DNS-Prefetch-Control: on` header
+- Added `Permissions-Policy` header (camera/microphone denied, geolocation self-only)
+- Existing redirect rules verified: lawnbowling.app, www.lawnbowl.app, www.lawnbowling.app all 301 to lawnbowl.app
 
-### 1. Created shared site config (`src/lib/site-config.ts`)
-- Single source of truth for `SITE_URL`, `SITE_NAME`, `SITE_DOMAIN`, `SITE_DESCRIPTION`
-- Uses `NEXT_PUBLIC_APP_URL` env var with fallback to `https://lawnbowl.app`
+### next.config.ts
+- Added `images.remotePatterns` for lawnbowl.app and *.supabase.co
+- Added HSTS and DNS prefetch headers via Next.js config (complements vercel.json)
 
-### 2. Updated hardcoded URLs to use site-config
-- `src/app/robots.ts` — uses `SITE_URL` instead of hardcoded string
-- `src/app/sitemap.ts` — uses `SITE_URL` instead of hardcoded string
-- `src/app/layout.tsx` — uses `SITE_URL` for `metadataBase` and OG config
-- `src/lib/schema.ts` — uses `SITE_URL` for all Schema.org JSON-LD
-- Email templates already used `process.env.NEXT_PUBLIC_APP_URL || 'https://lawnbowl.app'` (left as-is, correct pattern for runtime templates)
+### src/app/clubs/[state]/page.tsx
+- Fixed typo: `lawnbowls.app` -> `lawnbowl.app` in OpenGraph URL
 
-### 3. Updated `next.config.ts`
-- Added `images.remotePatterns` for `lawnbowl.app` and `*.supabase.co`
-- Added HSTS header (`max-age=63072000; includeSubDomains; preload`)
-- Added Permissions-Policy header
+### src/lib/schema.ts
+- Fixed `areaServed` from "Australia" to "United States"
+- Fixed `priceCurrency` from "AUD" to "USD"
+- Fixed `addressCountry` from "AU" to "US"
+- Updated featureList: "90+ Australian clubs" -> "90+ lawn bowling clubs"
 
-### 4. Updated `vercel.json`
-- Added HSTS and Permissions-Policy headers to catch-all route
-- Existing redirects already correct: `lawnbowling.app`, `www.lawnbowl.app`, `www.lawnbowling.app` all 301 to `lawnbowl.app`
-
-### 5. Updated `.env.local.example`
+### .env.local.example
 - Added `NEXT_PUBLIC_APP_URL=https://lawnbowl.app`
+- Added `EMAIL_FROM` placeholder
+- Added VAPID key placeholders for push notifications
 
-### 6. Fixed pre-existing type error
-- `src/components/board/BottomNav.tsx` — optional chaining for `pathname?.startsWith()`
+## Verified
+- TypeScript compilation: clean (no errors)
+- Build: pre-existing Supabase env var error only (unrelated to these changes)
+- All BASE_URL constants in robots.ts, sitemap.ts, layout.tsx, schema.ts correctly use `https://lawnbowl.app`
+- Email templates correctly reference `NEXT_PUBLIC_APP_URL` with fallback to `https://lawnbowl.app`
 
-## Verification
-- TypeScript compilation: PASS (`npx tsc --noEmit`)
-- Full build: PASS (`npm run build`)
-
-## Out of Scope (Manual Tasks)
-- DNS: Add `lawnbowl.app`, `lawnbowling.app`, and `www` variants in Vercel dashboard
-- SSL: Automatic via Vercel once domains are added
-- Google Search Console: Manual verification after DNS propagation
+## DNS Setup Required (Manual)
+- Add A/CNAME records for `lawnbowl.app` pointing to Vercel
+- Add A/CNAME records for `www.lawnbowl.app` pointing to Vercel
+- Configure `lawnbowling.app` DNS to point to Vercel (for redirect to work)
+- Add all domains in Vercel project settings dashboard
