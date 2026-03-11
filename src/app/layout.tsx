@@ -21,13 +21,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pick a Partner",
-  description: "Find your sports partner at the venue",
+  title: "Lawnbowling",
+  description: "The world's best lawn bowling app — tournament management, club directory, and more",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Pick a Partner",
+    title: "Lawnbowling",
   },
 };
 

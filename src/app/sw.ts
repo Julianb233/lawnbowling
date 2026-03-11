@@ -54,7 +54,7 @@ self.addEventListener("push", (event) => {
   if (!event.data) return;
 
   const data = event.data.json() as { title?: string; body?: string; url?: string };
-  const title = data.title || "Pick a Partner";
+  const title = data.title || "Lawnbowling";
   const options: NotificationOptions = {
     body: data.body || "",
     icon: "/icons/icon-192x192.png",

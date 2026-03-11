@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Users, Zap, MapPin, Trophy, Mail, Lock } from "lucide-react";
+import { CircleDot, Zap, MapPin, Trophy, Mail, Lock } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -133,10 +133,10 @@ export default function LoginPage() {
           <div className="mx-auto w-full max-w-lg">
             {/* Brand */}
             <div className="mb-8 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-blue-600 shadow-lg shadow-emerald-500/20">
-                <Users className="h-5 w-5 text-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg">
+                <CircleDot className="h-5 w-5 text-[#1B5E20]" />
               </div>
-              <span className="text-xl font-bold text-gray-900">Pick a Partner</span>
+              <span className="text-xl font-bold text-gray-900">Lawnbowling</span>
             </div>
 
             {/* Headline */}

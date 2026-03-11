@@ -174,8 +174,15 @@ export const SPORT_GUIDES: Partial<Record<Sport, SportGuide>> = {
   },
 };
 
-export function getGuide(sport: string): SportGuide | undefined {
-  return SPORT_GUIDES[sport as Sport];
+/** Map URL-friendly slugs (hyphenated) to Sport enum keys (underscored) */
+const SLUG_TO_SPORT: Record<string, Sport> = {
+  "lawn-bowling": "lawn_bowling",
+  "lawn_bowling": "lawn_bowling",
+};
+
+export function getGuide(slug: string): SportGuide | undefined {
+  const sport = SLUG_TO_SPORT[slug] ?? (slug as Sport);
+  return SPORT_GUIDES[sport];
 }
 
 export function getAllGuides(): SportGuide[] {
