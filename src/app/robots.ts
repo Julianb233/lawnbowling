@@ -8,9 +8,31 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/admin/", "/auth/", "/kiosk/", "/settings/"],
+        disallow: [
+          "/api/",
+          "/admin/",
+          "/auth/",
+          "/kiosk/",
+          "/settings/",
+          "/login",
+          "/signup",
+          "/reset-password",
+          "/clubs/manage",
+          "/clubs/claim",
+          "/shop/checkout",
+          "/shop/cart",
+        ],
+      },
+      {
+        userAgent: "GPTBot",
+        disallow: ["/"],
+      },
+      {
+        userAgent: "CCBot",
+        disallow: ["/"],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   };
 }
