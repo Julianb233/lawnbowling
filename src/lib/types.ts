@@ -466,7 +466,7 @@ export interface BowlsTeamAssignment {
   player?: Player;
 }
 
-export type BowlsRatingPosition = "skip" | "vice" | "lead" | "second";
+export type BowlsRatingPosition = "skip" | "vice" | "second" | "lead" | "singles";
 
 export interface BowlsPositionRating {
   id?: string;
@@ -481,9 +481,21 @@ export interface BowlsPositionRating {
   shot_differential: number;
   ends_won: number;
   ends_played: number;
+  ends_won_pct: number;
   created_at?: string;
   updated_at?: string;
 }
+
+export interface BowlsRatingHistory {
+  id?: string;
+  player_id: string;
+  position: BowlsRatingPosition;
+  season: string;
+  elo_rating: number;
+  created_at: string;
+}
+
+export type BowlsLeaderboardCategory = "overall" | "skip" | "lead" | "ends_pct";
 
 export type ScoreWinner = "team_a" | "team_b" | "draw" | null;
 
