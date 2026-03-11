@@ -1,1 +1,1 @@
-{"id": "08-01-b", "ty": "b", "ti": "Score entry UI and API (per end, per rink, real-time via Supabase Realtime)", "pl": ".planning/phases/08-tournament-lifecycle/08-01-PLAN.md", "ph": 8, "pn": 1, "pr": 801, "dp": ["07-02-b"], "src": "gsd", "st": "IN_PROGRESS"}
+{"id":"08-01-b","ty":"b","ti":"Score entry UI and API (per end, per rink, real-time via Supabase Realtime)","pl":".planning/phases/08-tournament-lifecycle/08-01-PLAN.md","ph":8,"pn":1,"pr":801,"dp":["07-02-b"],"src":"gsd","st":"COMPLETED"}
