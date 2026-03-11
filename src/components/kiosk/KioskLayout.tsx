@@ -157,7 +157,7 @@ export function KioskButton({
       border: "2px solid #CCCCCC",
     },
     danger: {
-      backgroundColor: "#C62828",
+      backgroundColor: "#9B1B1B",
       color: "#FFFFFF",
     },
     outline: {
