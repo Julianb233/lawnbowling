@@ -711,3 +711,101 @@ export const PRICING_TIERS = [
     ],
   },
 ];
+
+// ===== Pennant / Season Tracking =====
+
+export type PennantSeasonStatus = "draft" | "registration" | "in_progress" | "completed" | "cancelled";
+export type PennantSeasonFormat = "round_robin" | "home_away";
+export type PennantFixtureStatus = "scheduled" | "in_progress" | "completed" | "postponed";
+export type PennantTeamRole = "captain" | "player";
+
+export interface PennantSeason {
+  id: string;
+  venue_id: string;
+  name: string;
+  sport: string;
+  season_year: number;
+  status: PennantSeasonStatus;
+  starts_at: string;
+  ends_at: string;
+  rounds_total: number;
+  format: PennantSeasonFormat;
+  description: string | null;
+  created_by: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PennantDivision {
+  id: string;
+  season_id: string;
+  name: string;
+  grade: number;
+  created_at: string;
+}
+
+export interface PennantTeam {
+  id: string;
+  division_id: string;
+  season_id: string;
+  name: string;
+  club_id: string | null;
+  venue_id: string | null;
+  captain_id: string | null;
+  created_at: string;
+}
+
+export interface PennantTeamMember {
+  id: string;
+  team_id: string;
+  player_id: string;
+  role: PennantTeamRole;
+  joined_at: string;
+}
+
+export interface PennantFixture {
+  id: string;
+  season_id: string;
+  division_id: string;
+  round: number;
+  home_team_id: string;
+  away_team_id: string;
+  scheduled_at: string | null;
+  venue: string | null;
+  tournament_id: string | null;
+  status: PennantFixtureStatus;
+  created_at: string;
+  updated_at: string;
+  home_team?: PennantTeam;
+  away_team?: PennantTeam;
+  result?: PennantFixtureResult;
+}
+
+export interface PennantFixtureResult {
+  id: string;
+  fixture_id: string;
+  home_rink_wins: number;
+  away_rink_wins: number;
+  home_shot_total: number;
+  away_shot_total: number;
+  winner_team_id: string | null;
+  points_home: number;
+  points_away: number;
+  notes: string | null;
+  recorded_by: string;
+  created_at: string;
+}
+
+export interface PennantStanding {
+  teamId: string;
+  teamName: string;
+  clubId: string | null;
+  played: number;
+  wins: number;
+  draws: number;
+  losses: number;
+  shotsFor: number;
+  shotsAgainst: number;
+  shotDifference: number;
+  points: number;
+}

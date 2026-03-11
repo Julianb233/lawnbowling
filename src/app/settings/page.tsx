@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, LogOut, Save, Loader2, Sun, Moon, Monitor, RotateCcw } from "lucide-react";
 import { ContactPreferencesEditor } from "@/components/profile/ContactPreferences";
 import { HomeClubSelector } from "@/components/clubs/HomeClubSelector";
+import { MyVisitRequests } from "@/components/bowls/MyVisitRequests";
 import { useTheme } from "@/components/ThemeProvider";
 import type { SkillLevel, Sport } from "@/lib/db/players";
 
@@ -271,6 +272,17 @@ export default function SettingsPage() {
             )}
             {saving ? "Saving..." : "Save Changes"}
           </button>
+
+          {/* Divider */}
+          <div className="border-t border-zinc-200 dark:border-white/10" />
+
+          {/* My Visit Requests */}
+          <div>
+            <label className="mb-2 block text-sm font-medium text-zinc-600 dark:text-zinc-400">
+              My Visit Requests
+            </label>
+            <MyVisitRequests />
+          </div>
 
           {/* Divider */}
           <div className="border-t border-zinc-200 dark:border-white/10" />
