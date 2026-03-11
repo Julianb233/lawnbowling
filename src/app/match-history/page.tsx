@@ -17,7 +17,9 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { SPORT_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor, ANIMATIONS } from "@/lib/design";
+import type { Sport } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface MatchPlayer {
@@ -318,7 +320,7 @@ function MatchCard({
                 color: sportColor.primary,
               }}
             >
-              {sportLabel?.emoji} {sportLabel?.short ?? match.sport}
+              <SportIcon sport={match.sport as Sport} className="w-3 h-3 inline-block" /> {sportLabel?.short ?? match.sport}
             </span>
             {isWin && (
               <span className="flex items-center gap-0.5 text-xs font-bold text-[#1B5E20]">

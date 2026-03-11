@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { Trophy, Target, TrendingUp, Flame } from "lucide-react";
 import { SPORT_LABELS } from "@/lib/types";
-import type { PlayerStats } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
+import type { PlayerStats, Sport } from "@/lib/types";
 
 interface PlayerStatsCardProps {
   stats: PlayerStats | null;
@@ -79,7 +80,7 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
       {sportLabel && (
         <div className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-zinc-50 py-2 text-sm text-zinc-400">
           <Flame className="h-4 w-4 text-amber-400" />
-          Favorite: {sportLabel.emoji} {sportLabel.label}
+          Favorite: <SportIcon sport={stats.favorite_sport as Sport} className="w-4 h-4 inline-block" /> {sportLabel.label}
         </div>
       )}
     </div>

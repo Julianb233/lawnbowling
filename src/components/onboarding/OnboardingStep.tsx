@@ -1,15 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { LucideIcon } from "lucide-react";
 
 interface OnboardingStepProps {
-  icon: string;
+  icon: LucideIcon;
   title: string;
   description: string;
   color?: string;
 }
 
-export function OnboardingStep({ icon, title, description, color = "text-green-400" }: OnboardingStepProps) {
+export function OnboardingStep({ icon: Icon, title, description, color = "text-green-400" }: OnboardingStepProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -22,9 +23,9 @@ export function OnboardingStep({ icon, title, description, color = "text-green-4
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 300, delay: 0.2 }}
-        className="mb-8 text-8xl"
+        className="mb-8"
       >
-        {icon}
+        <Icon className="w-20 h-20" strokeWidth={1.5} />
       </motion.div>
       <motion.h2
         initial={{ opacity: 0 }}

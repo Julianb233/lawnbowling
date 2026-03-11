@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ALL_SPORTS, ALL_SKILLS, SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
 import { getSportColor } from "@/lib/design";
+import { SportIcon } from "@/components/icons/SportIcon";
 import type { Sport, SkillLevel } from "@/lib/types";
 
 interface BoardFiltersProps {
@@ -48,7 +49,7 @@ export function BoardFilters({
                 boxShadow: `0 0 20px ${sportColor.glow}`,
               } : undefined}
             >
-              <span>{info.emoji}</span>
+              <SportIcon sport={sport} className="w-4 h-4" />
               <span className="hidden sm:inline">{info.label}</span>
               <span className="sm:hidden">{info.short}</span>
             </motion.button>

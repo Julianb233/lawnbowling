@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { SPORT_LABELS, type Sport, type ScheduledGame } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { RSVPButton } from "./RSVPButton";
 
 interface GameCardProps {
@@ -53,7 +54,7 @@ export function GameCard({ game, currentPlayerId }: GameCardProps) {
           </Link>
           <div className="flex items-center gap-2 mt-1">
             <span className="text-sm">
-              {sportInfo?.emoji || ""} {sportInfo?.label || game.sport}
+              <SportIcon sport={game.sport as Sport} className="w-4 h-4 inline-block mr-1" /> {sportInfo?.label || game.sport}
             </span>
             {game.is_recurring && (
               <span className="text-xs text-blue-400 bg-blue-400/10 rounded-full px-2 py-0.5">

@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Trophy, Medal } from "lucide-react";
 import { ALL_SPORTS, SPORT_LABELS } from "@/lib/types";
-import type { PlayerStats } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
+import type { PlayerStats, Sport } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { ANIMATIONS } from "@/lib/design";
 
@@ -14,9 +15,10 @@ type LeaderboardEntry = PlayerStats & {
 
 interface LeaderboardProps {
   currentUserId?: string | null;
+  clubId?: string | null;
 }
 
-export function Leaderboard({ currentUserId }: LeaderboardProps) {
+export function Leaderboard({ currentUserId, clubId }: LeaderboardProps) {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [sportFilter, setSportFilter] = useState<string | "all">("all");
@@ -26,6 +28,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
     try {
       const params = new URLSearchParams();
       if (sportFilter !== "all") params.set("sport", sportFilter);
+      if (clubId) params.set("club_id", clubId);
       const res = await fetch(`/api/stats/leaderboard?${params}`);
       if (res.ok) {
         const data = await res.json();
@@ -35,7 +38,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
       // ignore
     }
     setLoading(false);
-  }, [sportFilter]);
+  }, [sportFilter, clubId]);
 
   useEffect(() => {
     fetchLeaderboard();
@@ -76,7 +79,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                   : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
               )}
             >
-              {label.emoji} {label.short}
+              <SportIcon sport={s} className="w-3.5 h-3.5 inline-block" /> {label.short}
             </button>
           );
         })}

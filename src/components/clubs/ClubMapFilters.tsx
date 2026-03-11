@@ -37,7 +37,7 @@ export function ClubMapFilters({
               key={r}
               active={activeRegion === r}
               onClick={() => onRegionChange(r)}
-              label={`${REGION_LABELS[r].emoji} ${REGION_LABELS[r].label}`}
+              label={REGION_LABELS[r].label}
             />
           ))}
         </div>

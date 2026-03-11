@@ -10,6 +10,8 @@ import { TournamentBracket } from "@/components/tournament/TournamentBracket";
 import { TournamentStandings } from "@/components/tournament/TournamentStandings";
 import { JoinTournamentButton } from "@/components/tournament/JoinTournamentButton";
 import { SPORT_LABELS, TOURNAMENT_FORMAT_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
+import type { Sport } from "@/lib/types";
 import type { TournamentFormat, TournamentStatus } from "@/lib/types";
 import { getSportColor } from "@/lib/design";
 import { cn } from "@/lib/utils";
@@ -145,7 +147,7 @@ export default function TournamentDetailPage() {
               <h1 className="text-xl font-bold text-zinc-900">{tournament.name}</h1>
               <div className="mt-1 flex items-center gap-3 text-sm text-zinc-500">
                 <span style={{ color: sportColor.primary }}>
-                  {sportLabel?.emoji} {sportLabel?.label ?? tournament.sport}
+                  <SportIcon sport={tournament.sport as Sport} className="w-4 h-4 inline-block" /> {sportLabel?.label ?? tournament.sport}
                 </span>
                 <span>{TOURNAMENT_FORMAT_LABELS[tournament.format]}</span>
                 <span className="flex items-center gap-1">

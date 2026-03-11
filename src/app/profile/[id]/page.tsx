@@ -22,6 +22,7 @@ import { ContactInfo } from "@/components/profile/ContactPreferences";
 import { getPlayerAchievements } from "@/lib/db/achievements";
 import { AchievementBadges } from "@/components/profile/AchievementBadges";
 import { Endorsements } from "@/components/profile/Endorsements";
+import { ProfileClubBadge } from "@/components/clubs/ProfileClubBadge";
 import * as Avatar from "@radix-ui/react-avatar";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Shield } from "lucide-react";
@@ -114,6 +115,11 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
             <div className="mt-2">
               <SkillBadge level={player.skill_level} />
             </div>
+
+            <ProfileClubBadge
+              clubId={player.home_club_id ?? null}
+              isOwnProfile={isOwnProfile}
+            />
 
             {currentPlayer && !isOwnProfile && (
               <div className="mt-4 flex items-center gap-3">

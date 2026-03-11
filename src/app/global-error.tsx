@@ -1,5 +1,7 @@
 "use client";
 
+import { ShieldAlert } from "lucide-react";
+
 export default function GlobalError({
   error,
   reset,
@@ -16,7 +18,7 @@ export default function GlobalError({
               className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl"
               style={{ backgroundColor: "rgba(27, 94, 32, 0.1)" }}
             >
-              <span className="text-4xl">{"\uD83D\uDEA8"}</span>
+              <ShieldAlert className="w-10 h-10 text-[#1B5E20]" strokeWidth={1.5} />
             </div>
             <h2 className="text-2xl font-bold mb-2" style={{ color: "#0A2E12" }}>
               Critical Error

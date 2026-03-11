@@ -4,7 +4,8 @@ import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X, Plus } from "lucide-react";
 import { ALL_SPORTS, SPORT_LABELS, TOURNAMENT_FORMAT_LABELS } from "@/lib/types";
-import type { TournamentFormat } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
+import type { TournamentFormat, Sport } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 const ALL_FORMATS: TournamentFormat[] = ["round_robin", "single_elimination", "double_elimination"];
@@ -107,7 +108,7 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
                           : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
                       )}
                     >
-                      {label.emoji} {label.short}
+                      <SportIcon sport={s} className="w-4 h-4 inline-block" /> {label.short}
                     </button>
                   );
                 })}

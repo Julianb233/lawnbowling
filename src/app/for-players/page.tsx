@@ -16,6 +16,9 @@ import {
   Heart,
   Search,
   Clock,
+  Circle,
+  Dribbble,
+  Wind,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -132,18 +135,18 @@ export default function ForPlayersPage() {
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
           {[
-            { name: "Pickleball", emoji: "🏓", color: "bg-[#1B5E20]/5 border-[#1B5E20]/15 text-[#2E7D32]" },
-            { name: "Tennis", emoji: "🎾", color: "bg-amber-50 border-amber-200 text-amber-700" },
-            { name: "Basketball", emoji: "🏀", color: "bg-orange-50 border-orange-200 text-orange-700" },
-            { name: "Badminton", emoji: "🏸", color: "bg-blue-50 border-blue-200 text-[#2E7D32]" },
-            { name: "Volleyball", emoji: "🏐", color: "bg-purple-50 border-purple-200 text-purple-700" },
-            { name: "Racquetball", emoji: "🎯", color: "bg-rose-50 border-rose-200 text-rose-700" },
+            { name: "Pickleball", icon: Zap, color: "bg-[#1B5E20]/5 border-[#1B5E20]/15 text-[#2E7D32]" },
+            { name: "Tennis", icon: Circle, color: "bg-amber-50 border-amber-200 text-amber-700" },
+            { name: "Basketball", icon: Dribbble, color: "bg-orange-50 border-orange-200 text-orange-700" },
+            { name: "Badminton", icon: Wind, color: "bg-blue-50 border-blue-200 text-[#2E7D32]" },
+            { name: "Volleyball", icon: Target, color: "bg-purple-50 border-purple-200 text-purple-700" },
+            { name: "Racquetball", icon: Target, color: "bg-rose-50 border-rose-200 text-rose-700" },
           ].map((sport) => (
             <div
               key={sport.name}
               className={`flex flex-col items-center gap-2 rounded-2xl border p-6 transition-all hover:shadow-md ${sport.color}`}
             >
-              <span className="text-3xl">{sport.emoji}</span>
+              <sport.icon className="w-8 h-8" strokeWidth={1.5} />
               <span className="text-sm font-semibold">{sport.name}</span>
             </div>
           ))}

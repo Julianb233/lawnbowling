@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     // Limit static generation workers to prevent ENOENT race conditions
     // on machines with many CPUs (default = nproc, e.g. 48).
     workerThreads: false,
-    cpus: 4,
+    cpus: 1,
   },
   images: {
     remotePatterns: [

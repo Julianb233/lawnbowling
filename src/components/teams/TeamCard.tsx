@@ -4,7 +4,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Users, Crown } from "lucide-react";
 import { SPORT_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor } from "@/lib/design";
+import type { Sport } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface TeamCardProps {
@@ -38,7 +40,7 @@ export function TeamCard({ team, memberCount, role }: TeamCardProps) {
             className="flex h-10 w-10 items-center justify-center rounded-xl text-xl"
             style={{ backgroundColor: `${sportColor.primary}15` }}
           >
-            {sportLabel?.emoji ?? "?"}
+            <SportIcon sport={team.sport as Sport} className="w-6 h-6" />
           </div>
           {role === "captain" && (
             <span className="flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-400">

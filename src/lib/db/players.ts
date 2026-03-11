@@ -20,6 +20,7 @@ export interface PlayerProfile {
   preferred_position: BowlingPosition | null;
   preferred_hand: PreferredHand | null;
   years_experience: number | null;
+  home_club_id: string | null;
   created_at: string;
   updated_at: string;
 }

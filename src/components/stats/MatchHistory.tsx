@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Trophy, X as XIcon } from "lucide-react";
-import { SPORT_LABELS } from "@/lib/types";
+import { SPORT_LABELS, type Sport } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor, ANIMATIONS } from "@/lib/design";
 import { cn } from "@/lib/utils";
 
@@ -93,7 +94,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                     color: sportColor.primary,
                   }}
                 >
-                  {sportLabel?.emoji} {sportLabel?.short ?? match.sport}
+                  <SportIcon sport={match.sport as Sport} className="w-3 h-3 inline-block" /> {sportLabel?.short ?? match.sport}
                 </span>
                 {isWin && (
                   <span className="flex items-center gap-1 text-xs font-semibold text-[#1B5E20]">

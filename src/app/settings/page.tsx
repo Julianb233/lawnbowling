@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, LogOut, Save, Loader2 } from "lucide-react";
 import { ContactPreferencesEditor } from "@/components/profile/ContactPreferences";
+import { HomeClubSelector } from "@/components/clubs/HomeClubSelector";
 import type { SkillLevel, Sport } from "@/lib/db/players";
 
 const SKILL_LEVELS: { value: SkillLevel; label: string }[] = [
@@ -24,6 +25,7 @@ interface PlayerData {
   display_name: string;
   skill_level: SkillLevel;
   sports: Sport[];
+  home_club_id: string | null;
 }
 
 export default function SettingsPage() {
@@ -37,6 +39,7 @@ export default function SettingsPage() {
   const [displayName, setDisplayName] = useState("");
   const [skillLevel, setSkillLevel] = useState<SkillLevel>("beginner");
   const [sports, setSports] = useState<Sport[]>([]);
+  const [homeClubId, setHomeClubId] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadProfile() {
@@ -51,6 +54,7 @@ export default function SettingsPage() {
         setDisplayName(player.display_name);
         setSkillLevel(player.skill_level);
         setSports(player.sports || []);
+        setHomeClubId(player.home_club_id ?? null);
       } catch {
         setError("Failed to load profile");
       } finally {
@@ -78,6 +82,7 @@ export default function SettingsPage() {
           display_name: displayName,
           skill_level: skillLevel,
           sports,
+          home_club_id: homeClubId,
         }),
       });
       if (!res.ok) {
@@ -197,6 +202,12 @@ export default function SettingsPage() {
               })}
             </div>
           </div>
+
+          {/* Home Club */}
+          <HomeClubSelector
+            currentClubId={homeClubId}
+            onSelect={setHomeClubId}
+          />
 
           {/* Save Button */}
           <button

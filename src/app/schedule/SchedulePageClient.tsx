@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { Calendar } from "lucide-react";
 import { UpcomingGames } from "@/components/schedule/UpcomingGames";
 import { CreateGameModal } from "@/components/schedule/CreateGameModal";
 import { BottomNav } from "@/components/board/BottomNav";
@@ -30,7 +31,7 @@ export function SchedulePageClient({ games, currentPlayerId }: SchedulePageClien
             animate={{ opacity: 1, x: 0 }}
           >
             <h1 className="text-xl font-black text-zinc-900 lg:text-2xl">
-              {"\uD83D\uDCC5"} <span className="text-gradient">Schedule</span>
+              <span className="flex items-center gap-2"><Calendar className="w-5 h-5 text-[#1B5E20]" strokeWidth={1.5} /><span className="text-gradient">Schedule</span></span>
             </h1>
             <p className="text-sm text-zinc-500">Upcoming games</p>
           </motion.div>

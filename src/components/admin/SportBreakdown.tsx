@@ -1,6 +1,7 @@
 "use client";
 
 import { SPORT_LABELS, type Sport } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 
 interface SportBreakdownProps {
   breakdown: Record<string, number>;
@@ -44,7 +45,7 @@ export function SportBreakdown({ breakdown }: SportBreakdownProps) {
                 className={`h-3 w-3 rounded-full ${COLORS[sport] || "bg-zinc-600"}`}
               />
               <span className="text-xs text-zinc-600">
-                {info?.emoji} {info?.label || sport} ({pct}%)
+                <SportIcon sport={sport as Sport} className="w-3 h-3 inline-block" /> {info?.label || sport} ({pct}%)
               </span>
             </div>
           );

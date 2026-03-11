@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { CreateBowlsTournamentModal } from "@/components/bowls/CreateBowlsTournamentModal";
+import { ClubScopeToggle } from "@/components/clubs/ClubScopeToggle";
+import { CircleDot } from "lucide-react";
 import { BOWLS_FORMAT_LABELS } from "@/lib/types";
 import type { BowlsGameFormat } from "@/lib/types";
 
@@ -16,6 +18,7 @@ interface BowlsTournament {
   format: string;
   status: string;
   max_players: number;
+  club_id: string | null;
   starts_at: string | null;
   created_at: string;
   creator?: { display_name: string } | null;
@@ -26,14 +29,48 @@ export default function BowlsPage() {
   const [tournaments, setTournaments] = useState<BowlsTournament[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
+  const [scope, setScope] = useState<"club" | "all">("club");
+  const [homeClubId, setHomeClubId] = useState<string | null>(null);
+  const [clubName, setClubName] = useState<string>("");
+
+  useEffect(() => {
+    async function loadPlayer() {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data: player } = await supabase
+        .from("players")
+        .select("home_club_id")
+        .eq("user_id", user.id)
+        .single();
+      if (player?.home_club_id) {
+        setHomeClubId(player.home_club_id);
+        const { data: club } = await supabase
+          .from("clubs")
+          .select("name")
+          .eq("id", player.home_club_id)
+          .single();
+        if (club) setClubName(club.name);
+      } else {
+        setScope("all");
+      }
+    }
+    loadPlayer();
+  }, []);
 
   const loadTournaments = useCallback(async () => {
     const supabase = createClient();
-    const { data } = await supabase
+    let query = supabase
       .from("tournaments")
       .select("*, creator:players!tournaments_created_by_fkey(display_name)")
       .eq("sport", "lawn_bowling")
       .order("created_at", { ascending: false });
+
+    if (scope === "club" && homeClubId) {
+      query = query.eq("club_id", homeClubId);
+    }
+
+    const { data } = await query;
 
     if (data) {
       const enriched = await Promise.all(
@@ -48,7 +85,7 @@ export default function BowlsPage() {
       setTournaments(enriched);
     }
     setLoading(false);
-  }, []);
+  }, [scope, homeClubId]);
 
   useEffect(() => {
     loadTournaments();
@@ -95,6 +132,15 @@ export default function BowlsPage() {
               + New Tournament
             </button>
           </div>
+          {homeClubId && (
+            <div className="mt-3">
+              <ClubScopeToggle
+                scope={scope}
+                onScopeChange={setScope}
+                clubName={clubName}
+              />
+            </div>
+          )}
         </div>
       </header>
 
@@ -128,13 +174,15 @@ export default function BowlsPage() {
         {tournaments.length === 0 && (
           <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
-              <span className="text-3xl">{"\u{1F3B3}"}</span>
+              <CircleDot className="w-8 h-8 text-[#1B5E20]" strokeWidth={1.5} />
             </div>
             <h3 className="text-lg font-bold text-zinc-900">
-              No bowls tournaments yet
+              {scope === "club" ? "No club tournaments yet" : "No bowls tournaments yet"}
             </h3>
             <p className="mt-1 text-sm text-zinc-500">
-              Create your first lawn bowling tournament to get started
+              {scope === "club"
+                ? "Create a tournament for your club or switch to All Clubs"
+                : "Create your first lawn bowling tournament to get started"}
             </p>
             <button
               onClick={() => setShowCreate(true)}

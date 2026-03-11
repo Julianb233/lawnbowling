@@ -2,7 +2,8 @@
 
 import { Trophy, Target, TrendingUp, Flame, Users } from "lucide-react";
 import { SPORT_LABELS } from "@/lib/types";
-import type { PlayerStats, FavoritePartner } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
+import type { PlayerStats, FavoritePartner, Sport } from "@/lib/types";
 import * as Avatar from "@radix-ui/react-avatar";
 import Link from "next/link";
 
@@ -46,7 +47,7 @@ export function ProfileStatsSection({ stats, favoritePartners }: ProfileStatsSec
                   <span className="text-zinc-300">|</span>
                   <span className="flex items-center gap-1 text-sm text-zinc-500">
                     <Flame className="h-3 w-3 text-amber-400" />
-                    {SPORT_LABELS[stats.favorite_sport as keyof typeof SPORT_LABELS]?.emoji}{" "}
+                    <SportIcon sport={stats.favorite_sport as Sport} className="w-3.5 h-3.5 inline-block" />{" "}
                     {SPORT_LABELS[stats.favorite_sport as keyof typeof SPORT_LABELS]?.label ?? stats.favorite_sport}
                   </span>
                 </>

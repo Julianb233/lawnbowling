@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { CircleDot, Target, Circle, Ruler, Footprints, ScrollText } from "lucide-react";
 import { BottomNav } from "@/components/board/BottomNav";
 
 const POSITIONS = [
@@ -48,6 +49,13 @@ const HISTORY_FACTS = [
 ];
 
 export default function BowlsAboutPage() {
+  const equipIcons: Record<string, React.ReactNode> = {
+    bowls: <Circle className="w-6 h-6 text-zinc-700" strokeWidth={1.5} />,
+    jack: <CircleDot className="w-6 h-6 text-zinc-400" strokeWidth={1.5} />,
+    mat: <Ruler className="w-6 h-6 text-zinc-600" strokeWidth={1.5} />,
+    shoes: <Footprints className="w-6 h-6 text-zinc-600" strokeWidth={1.5} />,
+  };
+
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
       {/* Hero */}
@@ -59,7 +67,7 @@ export default function BowlsAboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-6xl">🎳</span>
+            <CircleDot className="w-16 h-16 text-white" strokeWidth={1.5} />
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white">
               Lawn Bowls
             </h1>
@@ -99,7 +107,7 @@ export default function BowlsAboutPage() {
           <div className="mt-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#1B5E20]/10 to-green-50 border border-[#1B5E20]/20">
             <div className="flex items-center justify-center py-16">
               <div className="text-center">
-                <span className="text-5xl">🟢</span>
+                <Target className="w-12 h-12 text-[#1B5E20]" strokeWidth={1.5} />
                 <p className="mt-2 text-sm text-[#1B5E20] font-medium">
                   The Bowling Green
                 </p>
@@ -121,22 +129,22 @@ export default function BowlsAboutPage() {
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {[
               {
-                icon: "⚫",
+                icon: "bowls",
                 name: "Bowls",
                 desc: "Weighted, asymmetric balls that curve as they slow. Each player uses a set of 4 (or 2 in singles/pairs).",
               },
               {
-                icon: "⚪",
+                icon: "jack",
                 name: "Jack (Kitty)",
                 desc: "The small white target ball. The Lead places it at the start of each end.",
               },
               {
-                icon: "📏",
+                icon: "mat",
                 name: "Mat",
                 desc: "The delivery mat — players must have one foot on it when bowling.",
               },
               {
-                icon: "👟",
+                icon: "shoes",
                 name: "Flat-soled Shoes",
                 desc: "Required to protect the green. No heels, studs, or treaded soles.",
               },
@@ -145,7 +153,7 @@ export default function BowlsAboutPage() {
                 key={item.name}
                 className="rounded-xl bg-white border border-zinc-200 p-4"
               >
-                <span className="text-2xl">{item.icon}</span>
+                {equipIcons[item.icon]}
                 <h3 className="mt-2 font-bold text-zinc-900">{item.name}</h3>
                 <p className="mt-1 text-sm text-zinc-500">{item.desc}</p>
               </div>
@@ -272,7 +280,7 @@ export default function BowlsAboutPage() {
                 key={i}
                 className="flex gap-3 rounded-xl bg-white border border-zinc-200 p-4"
               >
-                <span className="shrink-0 text-lg">📜</span>
+                <ScrollText className="w-5 h-5 shrink-0 text-zinc-400 mt-0.5" strokeWidth={1.5} />
                 <p className="text-sm text-zinc-600">{fact}</p>
               </div>
             ))}

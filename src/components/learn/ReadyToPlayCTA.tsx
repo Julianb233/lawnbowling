@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { getSportColor } from "@/lib/design";
 import type { Sport } from "@/lib/types";
 import { SPORT_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 
 export function ReadyToPlayCTA({ sport }: { sport: Sport }) {
   const colors = getSportColor(sport);
@@ -22,7 +23,7 @@ export function ReadyToPlayCTA({ sport }: { sport: Sport }) {
           borderColor: `${colors.primary}30`,
         }}
       >
-        <div className="mb-3 text-4xl">{label.emoji}</div>
+        <div className="mb-3 flex justify-center"><SportIcon sport={sport} className="w-10 h-10" /></div>
         <h2 className="mb-2 text-2xl font-bold text-zinc-900">
           Ready to Play {label.label}?
         </h2>

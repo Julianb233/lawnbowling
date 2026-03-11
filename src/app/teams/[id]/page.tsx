@@ -10,6 +10,8 @@ import { TeamRoster } from "@/components/teams/TeamRoster";
 import { TeamChat } from "@/components/teams/TeamChat";
 import { InviteLink } from "@/components/teams/InviteLink";
 import { SPORT_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
+import type { Sport } from "@/lib/types";
 import { getSportColor } from "@/lib/design";
 import type { Team } from "@/lib/types";
 
@@ -76,7 +78,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
                     color: sportColor.primary,
                   }}
                 >
-                  {sportLabel?.emoji} {sportLabel?.label ?? team.sport}
+                  <SportIcon sport={team.sport as Sport} className="w-3.5 h-3.5 inline-block" /> {sportLabel?.label ?? team.sport}
                 </span>
               </p>
             </div>

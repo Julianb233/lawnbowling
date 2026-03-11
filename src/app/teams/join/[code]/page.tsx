@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 import { Users, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { SPORT_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor } from "@/lib/design";
+import type { Sport } from "@/lib/types";
 import { BottomNav } from "@/components/board/BottomNav";
 
 export default function JoinTeamPage({ params }: { params: Promise<{ code: string }> }) {
@@ -88,7 +90,7 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
               className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl text-3xl"
               style={{ backgroundColor: sportColor ? `${sportColor.primary}15` : undefined }}
             >
-              {sportLabel?.emoji ?? "?"}
+              <SportIcon sport={team.sport as Sport} className="w-8 h-8" />
             </div>
             <h2 className="mb-1 text-xl font-bold text-zinc-900">{team.name}</h2>
             {team.description && (

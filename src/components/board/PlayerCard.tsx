@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
 import { getSportColor } from "@/lib/design";
+import { SportIcon } from "@/components/icons/SportIcon";
 import type { Player, Sport } from "@/lib/types";
 
 interface PlayerCardProps {
@@ -155,7 +156,7 @@ export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: P
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.08 + i * 0.05 + 0.2 }}
                 >
-                  <span>{info.emoji}</span>
+                  <SportIcon sport={sport as Sport} className="w-3 h-3" />
                   <span className="hidden sm:inline">{info.short}</span>
                 </motion.span>
               ) : null;

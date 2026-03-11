@@ -2,9 +2,11 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
 import { getSportColor } from "@/lib/design";
+import { SportIcon } from "@/components/icons/SportIcon";
 import type { Player, Sport } from "@/lib/types";
 
 interface SuggestionData {
@@ -123,7 +125,7 @@ function SuggestionCard({
                   "text-zinc-400"
                 )}
               >
-                {info.emoji} {info.short}
+                <SportIcon sport={sport as Sport} className="w-3 h-3" /> {info.short}
               </span>
             ) : null;
           })}
@@ -218,7 +220,7 @@ export function SuggestedPartners({
     >
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
-          {"\u2728"} Suggested Partners
+          <span className="inline-flex items-center gap-1.5"><Sparkles className="w-4 h-4" strokeWidth={1.5} /> Suggested Partners</span>
         </h2>
         <button
           onClick={() => {

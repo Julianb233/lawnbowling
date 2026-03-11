@@ -9,10 +9,12 @@ import { PlayerStatsCard } from "@/components/stats/PlayerStatsCard";
 import { MatchHistory } from "@/components/stats/MatchHistory";
 import { WeeklyActivity } from "@/components/stats/WeeklyActivity";
 import { FavoritePartnersList } from "@/components/stats/FavoritePartnersList";
+import { ClubStats } from "@/components/stats/ClubStats";
 import { usePlayerStats } from "@/lib/hooks/usePlayerStats";
 
 export default function StatsPage() {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [homeClubId, setHomeClubId] = useState<string | null>(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
   const { stats, loading: loadingStats } = usePlayerStats(currentUserId);
 
@@ -22,7 +24,17 @@ export default function StatsPage() {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (user) setCurrentUserId(user.id);
+      if (user) {
+        setCurrentUserId(user.id);
+        const { data: player } = await supabase
+          .from("players")
+          .select("home_club_id")
+          .eq("user_id", user.id)
+          .single();
+        if (player?.home_club_id) {
+          setHomeClubId(player.home_club_id);
+        }
+      }
       setLoadingAuth(false);
     }
     loadUser();
@@ -48,6 +60,8 @@ export default function StatsPage() {
         ) : (
           <>
             <PlayerStatsCard stats={stats} />
+
+            {homeClubId && <ClubStats clubId={homeClubId} />}
 
             {currentUserId && <WeeklyActivity playerId={currentUserId} />}
 

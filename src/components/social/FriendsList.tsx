@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { Friendship, Player } from "@/lib/types";
+import { Users } from "lucide-react";
 
 interface FriendsListProps {
   friends: Friendship[];
@@ -12,7 +13,7 @@ export function FriendsList({ friends, currentPlayerId }: FriendsListProps) {
   if (friends.length === 0) {
     return (
       <div className="rounded-2xl glass p-8 text-center">
-        <p className="text-3xl mb-2">{"\\uD83D\\uDC65"}</p>
+        <Users className="w-8 h-8 mx-auto mb-2 text-zinc-400" strokeWidth={1.5} />
         <p className="text-zinc-500">No friends yet. Start connecting!</p>
       </div>
     );

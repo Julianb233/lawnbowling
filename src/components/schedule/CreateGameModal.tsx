@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
 import { ALL_SPORTS, SPORT_LABELS, type Sport } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 
 interface CreateGameModalProps {
   open: boolean;
@@ -85,7 +86,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                         : "border-zinc-200 text-zinc-400 hover:bg-zinc-100"
                     )}
                   >
-                    {info?.emoji} {info?.label || s}
+                    <SportIcon sport={s} className="w-4 h-4 inline-block" /> {info?.label || s}
                   </button>
                 );
               })}

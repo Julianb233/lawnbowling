@@ -25,6 +25,7 @@ const STATE_ORDER: string[] = Object.keys(US_STATES);
 
 export default function ClubDirectoryPage() {
   const [query, setQuery] = useState("");
+  const [activeCountry, setActiveCountry] = useState<CountryCode | "all">("all");
   const [activeRegion, setActiveRegion] = useState<USRegion | "all">("all");
   const [activeState, setActiveState] = useState<string | "all">("all");
   const [activeActivity, setActiveActivity] = useState<string | "all">("all");
@@ -71,6 +72,9 @@ export default function ClubDirectoryPage() {
 
   const filteredClubs = useMemo(() => {
     let clubs = query.length > 1 ? searchClubs(query) : [...allClubs];
+    if (activeCountry !== "all") {
+      clubs = clubs.filter((c) => (c.country ?? c.countryCode ?? "US") === activeCountry);
+    }
     if (activeRegion !== "all") {
       clubs = clubs.filter((c) => c.region === activeRegion);
     }
@@ -86,7 +90,7 @@ export default function ClubDirectoryPage() {
         .sort((a, b) => (distanceMap.get(a.id) ?? Infinity) - (distanceMap.get(b.id) ?? Infinity));
     }
     return clubs;
-  }, [allClubs, query, activeRegion, activeState, activeActivity, nearMeActive, userLocation, distanceMap]);
+  }, [allClubs, query, activeCountry, activeRegion, activeState, activeActivity, nearMeActive, userLocation, distanceMap]);
 
   const availableStates = useMemo(() => {
     if (activeRegion === "all") return STATE_ORDER;
@@ -140,7 +144,7 @@ export default function ClubDirectoryPage() {
       <main className="mx-auto max-w-4xl px-4 py-6">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           <StatCard value={stats.totalClubs} label="Clubs Listed" icon={<CircleDot className="w-6 h-6 text-[#1B5E20]" strokeWidth={1.5} />} />
-          <StatCard value={stats.totalStates} label="States" icon={<Globe className="w-6 h-6 text-[#1B5E20]" strokeWidth={1.5} />} />
+          <StatCard value={stats.totalCountries > 1 ? stats.totalCountries : stats.totalStates} label={stats.totalCountries > 1 ? "Countries" : "States"} icon={<Globe className="w-6 h-6 text-[#1B5E20]" strokeWidth={1.5} />} />
           <StatCard value={stats.totalMembers.toLocaleString()} label="Total Members" icon={<Users className="w-6 h-6 text-[#1B5E20]" strokeWidth={1.5} />} />
           <StatCard value={stats.activeClubs} label="Active Clubs" icon={<CheckCircle className="w-6 h-6 text-[#1B5E20]" strokeWidth={1.5} />} />
         </motion.div>
@@ -164,19 +168,36 @@ export default function ClubDirectoryPage() {
           </button>
         </div>
 
-        <div className="mb-3 flex gap-2 overflow-x-auto scrollbar-hide">
-          <FilterPill active={activeRegion === "all"} onClick={() => { setActiveRegion("all"); setActiveState("all"); }} label="All Regions" />
-          {(Object.keys(REGION_LABELS) as USRegion[]).map((r) => (
-            <FilterPill key={r} active={activeRegion === r} onClick={() => { setActiveRegion(r); setActiveState("all"); }} label={REGION_LABELS[r].label} />
-          ))}
-        </div>
+        {/* Country tabs */}
+        {stats.totalCountries > 1 && (
+          <div className="mb-3 flex gap-2 overflow-x-auto scrollbar-hide">
+            <FilterPill active={activeCountry === "all"} onClick={() => { setActiveCountry("all"); setActiveRegion("all"); setActiveState("all"); }} label={`All (${stats.totalClubs})`} />
+            {(Object.keys(COUNTRIES) as CountryCode[]).filter((c) => allClubs.some((cl) => (cl.country ?? cl.countryCode ?? "US") === c)).map((c) => {
+              const count = allClubs.filter((cl) => (cl.country ?? cl.countryCode ?? "US") === c).length;
+              return <FilterPill key={c} active={activeCountry === c} onClick={() => { setActiveCountry(c); setActiveRegion("all"); setActiveState("all"); }} label={`${COUNTRIES[c].flag} ${COUNTRIES[c].name} (${count})`} />;
+            })}
+          </div>
+        )}
 
-        <div className="mb-4 flex gap-2 overflow-x-auto scrollbar-hide">
-          <FilterPill active={activeState === "all"} onClick={() => setActiveState("all")} label="All States" />
-          {availableStates.map((s) => (
-            <FilterPill key={s} active={activeState === s} onClick={() => setActiveState(s)} label={s} />
-          ))}
-        </div>
+        {/* Region filters (US-only) */}
+        {(activeCountry === "all" || activeCountry === "US") && (
+          <div className="mb-3 flex gap-2 overflow-x-auto scrollbar-hide">
+            <FilterPill active={activeRegion === "all"} onClick={() => { setActiveRegion("all"); setActiveState("all"); }} label="All Regions" />
+            {(Object.keys(REGION_LABELS) as USRegion[]).map((r) => (
+              <FilterPill key={r} active={activeRegion === r} onClick={() => { setActiveRegion(r); setActiveState("all"); }} label={REGION_LABELS[r].label} />
+            ))}
+          </div>
+        )}
+
+        {/* State/Province filter */}
+        {(activeCountry === "all" || activeCountry === "US") && (
+          <div className="mb-4 flex gap-2 overflow-x-auto scrollbar-hide">
+            <FilterPill active={activeState === "all"} onClick={() => setActiveState("all")} label="All States" />
+            {availableStates.map((s) => (
+              <FilterPill key={s} active={activeState === s} onClick={() => setActiveState(s)} label={s} />
+            ))}
+          </div>
+        )}
 
         <div className="mb-6 flex gap-2 overflow-x-auto scrollbar-hide">
           <FilterPill active={activeActivity === "all"} onClick={() => setActiveActivity("all")} label="All Activities" small />
@@ -290,7 +311,12 @@ function ClubCard({ club, index, distanceMi }: { club: ClubData; index: number; 
               </div>
               <div className="mt-1 flex items-center gap-1.5 text-sm text-zinc-500">
                 <MapPin className="h-3.5 w-3.5 shrink-0" />
-                <span>{club.city}, {club.stateCode}</span>
+                <span>
+                  {club.city}, {club.stateCode}
+                  {(club.country ?? club.countryCode) && (club.country ?? club.countryCode) !== "US" && (
+                    <> {COUNTRIES[(club.country ?? club.countryCode) as CountryCode]?.flag}</>
+                  )}
+                </span>
                 {club.founded && <span className="text-zinc-300">·</span>}
                 {club.founded && <span>Est. {club.founded}</span>}
               </div>
@@ -312,6 +338,11 @@ function ClubCard({ club, index, distanceMi }: { club: ClubData; index: number; 
                 <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${club.status === "claimed" ? "bg-blue-50 text-[#2E7D32]" : club.status === "active" ? "bg-[#1B5E20]/5 text-[#2E7D32]" : club.status === "seasonal" ? "bg-amber-50 text-amber-700" : "bg-zinc-100 text-zinc-500"}`}>
                   {club.status === "claimed" ? "Verified" : club.status === "active" ? "Active" : club.status === "seasonal" ? "Seasonal" : club.status}
                 </span>
+                {club.contacts && club.contacts.length > 0 && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700">
+                    <Users className="h-3 w-3" />{club.contacts.length} contact{club.contacts.length !== 1 ? "s" : ""}
+                  </span>
+                )}
                 {club.website && (
                   <span className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-600">
                     <Globe className="h-3 w-3" />Website

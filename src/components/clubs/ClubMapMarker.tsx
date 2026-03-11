@@ -7,7 +7,7 @@ import {
   useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps";
 import Link from "next/link";
-import { MapPin, Users, Leaf } from "lucide-react";
+import { MapPin, Users, Leaf, CircleDot } from "lucide-react";
 import { SURFACE_LABELS, type ClubData } from "@/lib/clubs-data";
 
 interface ClubMapMarkerProps {
@@ -40,7 +40,7 @@ export function ClubMapMarker({ club, isSelected, onSelect }: ClubMapMarkerProps
               : "border-white bg-[#1B5E20] hover:scale-110"
           }`}
         >
-          <span className="text-sm">🎳</span>
+          <CircleDot className="w-3.5 h-3.5 text-white" strokeWidth={2} />
         </div>
       </AdvancedMarker>
 

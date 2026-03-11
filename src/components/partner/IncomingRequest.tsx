@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import * as Toast from "@radix-ui/react-toast";
+import { Star } from "lucide-react";
 import { SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor } from "@/lib/design";
 import { cn } from "@/lib/utils";
 import type { SkillLevel, Sport } from "@/lib/types";
@@ -109,13 +111,15 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
             <span className="font-medium text-zinc-700">{requesterName}</span>{" "}
             wants to play{" "}
             <span className="font-medium text-zinc-700">
-              {sportInfo?.emoji || ""} {sportInfo?.label || request.sport}
+              <SportIcon sport={request.sport as Sport} className="w-4 h-4 inline-block" /> {sportInfo?.label || request.sport}
             </span>
           </Toast.Description>
 
           {skillInfo && (
             <div className="mt-1 text-xs text-amber-400">
-              {"\u2605".repeat(skillInfo.stars)}{"\u2606".repeat(3 - skillInfo.stars)}{" "}
+              {Array.from({ length: 3 }, (_, i) => (
+                <Star key={i} className={cn("h-3 w-3 inline-block", i < skillInfo.stars ? "fill-amber-400 text-amber-400" : "text-zinc-300")} strokeWidth={1.5} />
+              ))}{" "}
               <span className="text-zinc-500">{skillInfo.label}</span>
             </div>
           )}

@@ -4,6 +4,8 @@ import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X, Plus } from "lucide-react";
 import { ALL_SPORTS, SPORT_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
+import type { Sport } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface CreateTeamModalProps {
@@ -105,7 +107,7 @@ export function CreateTeamModal({ open, onOpenChange, onCreated }: CreateTeamMod
                           : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
                       )}
                     >
-                      {label.emoji} {label.short}
+                      <SportIcon sport={s} className="w-4 h-4 inline-block" /> {label.short}
                     </button>
                   );
                 })}

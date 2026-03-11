@@ -1,5 +1,7 @@
 "use client";
 
+import { AlertTriangle } from "lucide-react";
+
 export default function Error({
   error,
   reset,
@@ -11,7 +13,7 @@ export default function Error({
     <div className="flex min-h-screen items-center justify-center bg-[#FEFCF9] px-4">
       <div className="text-center max-w-sm">
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#B8860B]/10">
-          <span className="text-4xl">{"\uD83D\uDE35"}</span>
+          <AlertTriangle className="w-10 h-10 text-[#B8860B]" strokeWidth={1.5} />
         </div>
         <h2 className="text-2xl font-bold text-[#0A2E12] mb-2" style={{ fontFamily: "var(--font-display)" }}>
           Something went wrong

@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
 
     const { data: player } = await supabase
       .from("players")
-      .select("id, venue_id")
+      .select("id, venue_id, home_club_id")
       .eq("user_id", user.id)
       .single();
 
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, bowls_format, max_players, starts_at } = body;
+    const { name, bowls_format, max_players, starts_at, is_inter_club, visiting_club_id } = body;
 
     if (!name || !bowls_format) {
       return NextResponse.json({ error: "Name and bowls_format are required" }, { status: 400 });
@@ -59,19 +59,29 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const supabaseAdmin = await createClient();
     const insertData: Record<string, unknown> = {
       name,
       sport: "lawn_bowling",
-      format: bowls_format,
+      format: is_inter_club ? "inter_club" : bowls_format,
       status: "registration",
       max_players: max_players || 32,
       created_by: player.id,
     };
+
+    // Pre-populate club_id with creator's home club
+    if (player.home_club_id) {
+      insertData.club_id = player.home_club_id;
+    }
+
     if (player.venue_id) insertData.venue_id = player.venue_id;
     if (starts_at) insertData.starts_at = starts_at;
 
-    const { data: tournament, error: insertError } = await supabaseAdmin
+    // Inter-club specific fields
+    if (is_inter_club && visiting_club_id) {
+      insertData.visiting_club_id = visiting_club_id;
+    }
+
+    const { data: tournament, error: insertError } = await supabase
       .from("tournaments")
       .insert(insertData)
       .select()

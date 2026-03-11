@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { Sun, CloudSun, Cloud, CloudFog, CloudDrizzle, CloudRain, Snowflake, CloudLightning, CloudSnow, Thermometer, type LucideIcon } from "lucide-react";
 
 interface WeatherData {
   temperature: number;
   condition: string;
-  icon: string;
+  Icon: LucideIcon;
   windSpeed: number;
 }
 
@@ -13,21 +14,21 @@ const FALLBACK_LAT = 33.77;
 const FALLBACK_LNG = -118.19;
 const REFRESH_INTERVAL = 30 * 60 * 1000; // 30 minutes
 
-function weatherCodeToCondition(code: number): { condition: string; icon: string } {
-  if (code === 0) return { condition: "Clear", icon: "☀" };
-  if (code === 1) return { condition: "Mostly Clear", icon: "🌤" };
-  if (code === 2) return { condition: "Partly Cloudy", icon: "⛅" };
-  if (code === 3) return { condition: "Overcast", icon: "☁" };
-  if (code >= 45 && code <= 48) return { condition: "Foggy", icon: "🌫" };
-  if (code >= 51 && code <= 55) return { condition: "Drizzle", icon: "🌦" };
-  if (code >= 56 && code <= 57) return { condition: "Freezing Drizzle", icon: "🌧" };
-  if (code >= 61 && code <= 65) return { condition: "Rain", icon: "🌧" };
-  if (code >= 66 && code <= 67) return { condition: "Freezing Rain", icon: "🌧" };
-  if (code >= 71 && code <= 77) return { condition: "Snow", icon: "❄" };
-  if (code >= 80 && code <= 82) return { condition: "Showers", icon: "🌧" };
-  if (code >= 85 && code <= 86) return { condition: "Snow Showers", icon: "🌨" };
-  if (code >= 95 && code <= 99) return { condition: "Thunderstorm", icon: "⛈" };
-  return { condition: "Unknown", icon: "🌡" };
+function weatherCodeToCondition(code: number): { condition: string; Icon: LucideIcon } {
+  if (code === 0) return { condition: "Clear", Icon: Sun };
+  if (code === 1) return { condition: "Mostly Clear", Icon: CloudSun };
+  if (code === 2) return { condition: "Partly Cloudy", Icon: CloudSun };
+  if (code === 3) return { condition: "Overcast", Icon: Cloud };
+  if (code >= 45 && code <= 48) return { condition: "Foggy", Icon: CloudFog };
+  if (code >= 51 && code <= 55) return { condition: "Drizzle", Icon: CloudDrizzle };
+  if (code >= 56 && code <= 57) return { condition: "Freezing Drizzle", Icon: CloudRain };
+  if (code >= 61 && code <= 65) return { condition: "Rain", Icon: CloudRain };
+  if (code >= 66 && code <= 67) return { condition: "Freezing Rain", Icon: CloudRain };
+  if (code >= 71 && code <= 77) return { condition: "Snow", Icon: Snowflake };
+  if (code >= 80 && code <= 82) return { condition: "Showers", Icon: CloudRain };
+  if (code >= 85 && code <= 86) return { condition: "Snow Showers", Icon: CloudSnow };
+  if (code >= 95 && code <= 99) return { condition: "Thunderstorm", Icon: CloudLightning };
+  return { condition: "Unknown", Icon: Thermometer };
 }
 
 export default function WeatherWidget() {
@@ -42,11 +43,11 @@ export default function WeatherWidget() {
       if (!res.ok) throw new Error("API error");
       const data = await res.json();
       const current = data.current;
-      const { condition, icon } = weatherCodeToCondition(current.weather_code);
+      const { condition, Icon } = weatherCodeToCondition(current.weather_code);
       setWeather({
         temperature: Math.round(current.temperature_2m),
         condition,
-        icon,
+        Icon,
         windSpeed: Math.round(current.wind_speed_10m),
       });
       setError(false);
@@ -80,7 +81,7 @@ export default function WeatherWidget() {
 
   return (
     <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-zinc-800/50 px-4 py-2">
-      <span className="text-2xl leading-none">{weather.icon}</span>
+      {weather.Icon && <weather.Icon className="w-6 h-6 text-white" strokeWidth={1.5} />}
       <div className="text-right">
         <p className="text-lg font-black tabular-nums leading-tight">
           {weather.temperature}°F

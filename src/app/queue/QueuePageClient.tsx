@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ClipboardList } from "lucide-react";
 import { MatchQueue } from "@/components/partner/MatchQueue";
 import { BottomNav } from "@/components/board/BottomNav";
 import { SPORT_LABELS } from "@/lib/types";
@@ -34,7 +35,7 @@ export function QueuePageClient({
             animate={{ opacity: 1, x: 0 }}
           >
             <h1 className="text-xl font-black text-zinc-900">
-              {"\u{1F4CB}"} <span className="text-gradient">Match Queue</span>
+              <span className="flex items-center gap-2"><ClipboardList className="w-5 h-5 text-[#1B5E20]" strokeWidth={1.5} /><span className="text-gradient">Match Queue</span></span>
             </h1>
             <p className="text-sm text-zinc-500">Waiting to play</p>
           </motion.div>
@@ -59,7 +60,6 @@ export function QueuePageClient({
             </div>
             <p className="mt-1 text-sm text-zinc-400">
               {displayName} &mdash;{" "}
-              {SPORT_LABELS[activeMatch.sport as Sport]?.emoji}{" "}
               {SPORT_LABELS[activeMatch.sport as Sport]?.label || activeMatch.sport}
               {activeMatch.courts
                 ? ` \u2022 Court: ${Array.isArray(activeMatch.courts) ? activeMatch.courts[0]?.name : activeMatch.courts.name}`

@@ -2,8 +2,10 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ClipboardList } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { SPORT_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor } from "@/lib/design";
 import type { Sport } from "@/lib/types";
 
@@ -120,13 +122,12 @@ export function MatchQueue() {
 
       {matches.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-8 text-center">
-          <motion.p
-            className="text-3xl"
+          <motion.div
             animate={{ y: [0, -4, 0] }}
             transition={{ repeat: Infinity, duration: 2 }}
           >
-            {"\u{1F4CB}"}
-          </motion.p>
+            <ClipboardList className="w-8 h-8 text-zinc-400" strokeWidth={1.5} />
+          </motion.div>
           <p className="mt-2 text-sm text-zinc-500">
             No pairs waiting yet
           </p>
@@ -159,7 +160,7 @@ export function MatchQueue() {
                       #{index + 1} in queue
                     </span>
                     <span className="text-xs text-zinc-500">
-                      {sportInfo?.emoji || ""} {sportInfo?.label || match.sport}
+                      <SportIcon sport={match.sport as Sport} className="w-3.5 h-3.5 inline-block" /> {sportInfo?.label || match.sport}
                     </span>
                   </div>
 

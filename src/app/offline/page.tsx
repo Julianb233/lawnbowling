@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { PartyPopper, WifiOff } from "lucide-react";
 
 export default function OfflinePage() {
   const [isOnline, setIsOnline] = useState(false);
@@ -19,9 +20,7 @@ export default function OfflinePage() {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6">
         <div className="text-center max-w-md">
-          <div className="text-6xl mb-6" role="img" aria-label="Connected">
-            🎉
-          </div>
+          <div className="mb-6 flex justify-center" role="img" aria-label="Connected"><PartyPopper className="w-16 h-16 text-green-400" strokeWidth={1.5} /></div>
           <h1 className="text-3xl font-bold text-white mb-3">
             You&apos;re Back Online!
           </h1>
@@ -34,9 +33,7 @@ export default function OfflinePage() {
   return (
     <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6">
       <div className="text-center max-w-md">
-        <div className="text-6xl mb-6" role="img" aria-label="No connection">
-          🏐
-        </div>
+        <div className="mb-6 flex justify-center" role="img" aria-label="No connection"><WifiOff className="w-16 h-16 text-slate-500" strokeWidth={1.5} /></div>
         <h1 className="text-3xl font-bold text-white mb-3">
           You&apos;re Offline
         </h1>

@@ -6,7 +6,9 @@ import * as Dialog from "@radix-ui/react-dialog";
 import * as Select from "@radix-ui/react-select";
 import { X, ChevronDown, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Star } from "lucide-react";
 import { SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor } from "@/lib/design";
 import type { Player, Sport } from "@/lib/types";
 
@@ -133,7 +135,9 @@ export function RequestModal({
                     <h3 className="text-base font-semibold text-zinc-900">{target.display_name}</h3>
                     {skillInfo && (
                       <span className="inline-flex items-center gap-1 text-sm text-amber-400">
-                        {"\u2605".repeat(skillInfo.stars)}{"\u2606".repeat(3 - skillInfo.stars)}{" "}
+                        {Array.from({ length: 3 }, (_, i) => (
+                          <Star key={i} className={cn("h-3 w-3 inline-block", i < skillInfo.stars ? "fill-amber-400 text-amber-400" : "text-zinc-300")} strokeWidth={1.5} />
+                        ))}{" "}
                         <span className="text-zinc-400">{skillInfo.label}</span>
                       </span>
                     )}
@@ -161,7 +165,7 @@ export function RequestModal({
                                   className="flex h-10 cursor-pointer items-center gap-2 rounded-lg px-3 text-sm text-zinc-700 outline-none data-[highlighted]:bg-zinc-700/60 min-h-[44px]"
                                 >
                                   <Select.ItemText>
-                                    {info?.emoji || ""} {info?.label || sport}
+                                    <SportIcon sport={sport as Sport} className="w-4 h-4 inline-block" /> {info?.label || sport}
                                   </Select.ItemText>
                                   <Select.ItemIndicator className="ml-auto">
                                     <Check className="h-4 w-4 text-[#1B5E20]" />
@@ -189,7 +193,7 @@ export function RequestModal({
                       )}
                       style={{ boxShadow: `0 0 20px ${sportColor.glow}` }}
                     >
-                      {submitting ? "Sending..." : "\u{1F91D} PICK EM"}
+                      {submitting ? "Sending..." : "PICK EM"}
                     </motion.button>
                     <button
                       onClick={() => onOpenChange(false)}

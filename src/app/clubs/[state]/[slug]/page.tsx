@@ -14,14 +14,22 @@ import {
   Building2,
   Calendar,
   Map,
+  Linkedin,
+  Instagram,
+  Facebook,
+  Twitter,
+  UserCircle,
 } from "lucide-react";
 import {
   CLUBS,
   US_STATES,
+  COUNTRIES,
   SURFACE_LABELS,
   getClubById,
   getNearestClubs,
   type ClubData,
+  type ClubContact,
+  type CountryCode,
 } from "@/lib/clubs-data";
 import {
   getLocalBusinessSchema,
@@ -35,7 +43,8 @@ interface ClubPageProps {
 }
 
 export async function generateStaticParams() {
-  return CLUBS.map((club) => ({
+  const { getAllClubs } = await import("@/lib/clubs-data");
+  return getAllClubs().map((club) => ({
     state: club.stateCode.toLowerCase(),
     slug: club.id,
   }));
@@ -83,7 +92,9 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
     notFound();
   }
 
-  const stateInfo = US_STATES[club.stateCode];
+  const stateInfo = US_STATES[club.stateCode] ?? { name: club.province ?? club.state ?? club.stateCode, code: club.stateCode, region: "" as const };
+  const countryCode = (club.country ?? club.countryCode ?? "US") as CountryCode;
+  const countryInfo = COUNTRIES[countryCode];
 
   // Nearby clubs: 6 nearest by distance, regardless of state
   const nearbyClubs = club.lat != null && club.lng != null
@@ -379,6 +390,43 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
               </div>
             </section>
 
+            {/* Club Contacts / Leadership */}
+            {club.contacts && club.contacts.length > 0 && (
+              <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+                <h2 className="mb-4 text-lg font-bold text-zinc-900">
+                  Leadership
+                </h2>
+                <div className="space-y-4">
+                  {club.contacts.map((contact, i) => (
+                    <ContactCard key={i} contact={contact} />
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Social Links */}
+            {(club.facebookUrl || club.instagramUrl || club.youtubeUrl || club.twitterUrl) && (
+              <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+                <h2 className="mb-4 text-lg font-bold text-zinc-900">
+                  Social Media
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {club.facebookUrl && (
+                    <SocialLink href={club.facebookUrl} icon={<Facebook className="h-4 w-4" />} label="Facebook" color="#1877F2" />
+                  )}
+                  {club.instagramUrl && (
+                    <SocialLink href={club.instagramUrl} icon={<Instagram className="h-4 w-4" />} label="Instagram" color="#E4405F" />
+                  )}
+                  {club.twitterUrl && (
+                    <SocialLink href={club.twitterUrl} icon={<Twitter className="h-4 w-4" />} label="Twitter" color="#1DA1F2" />
+                  )}
+                  {club.youtubeUrl && (
+                    <SocialLink href={club.youtubeUrl} icon={<ExternalLink className="h-4 w-4" />} label="YouTube" color="#FF0000" />
+                  )}
+                </div>
+              </section>
+            )}
+
             {/* Claim CTA */}
             <section className="rounded-2xl border-2 border-dashed border-zinc-300 bg-white p-6 text-center">
               <Building2 className="mx-auto h-8 w-8 text-zinc-400" />
@@ -533,5 +581,72 @@ function ContactRow({
         {children}
       </div>
     </div>
+  );
+}
+
+function ContactCard({ contact }: { contact: ClubContact }) {
+  const hasSocials = contact.linkedinUrl || contact.instagramUrl || contact.facebookUrl || contact.twitterUrl;
+
+  return (
+    <div className="rounded-xl border border-zinc-100 bg-zinc-50 p-4">
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1B5E20]/10 text-[#1B5E20]">
+          <UserCircle className="h-5 w-5" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-bold text-zinc-900">{contact.name}</p>
+          <p className="text-xs text-zinc-500">{contact.role}</p>
+          {contact.email && (
+            <a href={`mailto:${contact.email}`} className="mt-1 block text-xs text-[#1B5E20] hover:underline break-all">
+              {contact.email}
+            </a>
+          )}
+          {contact.phone && (
+            <a href={`tel:${contact.phone}`} className="mt-0.5 block text-xs text-zinc-500 hover:text-zinc-700">
+              {contact.phone}
+            </a>
+          )}
+          {hasSocials && (
+            <div className="mt-2 flex gap-2">
+              {contact.linkedinUrl && (
+                <a href={contact.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#0A66C2] transition-colors" title="LinkedIn">
+                  <Linkedin className="h-4 w-4" />
+                </a>
+              )}
+              {contact.instagramUrl && (
+                <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#E4405F] transition-colors" title="Instagram">
+                  <Instagram className="h-4 w-4" />
+                </a>
+              )}
+              {contact.facebookUrl && (
+                <a href={contact.facebookUrl} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#1877F2] transition-colors" title="Facebook">
+                  <Facebook className="h-4 w-4" />
+                </a>
+              )}
+              {contact.twitterUrl && (
+                <a href={contact.twitterUrl} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#1DA1F2] transition-colors" title="Twitter">
+                  <Twitter className="h-4 w-4" />
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SocialLink({ href, icon, label, color }: { href: string; icon: React.ReactNode; label: string; color: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 transition-all hover:border-zinc-300 hover:shadow-sm"
+      style={{ color }}
+    >
+      {icon}
+      {label}
+    </a>
   );
 }

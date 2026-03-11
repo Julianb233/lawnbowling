@@ -95,15 +95,12 @@ export function generateBowlsDraw(
   const positions = getPositionsForFormat(format);
   const playersPerRink = formatInfo.playersPerTeam * formatInfo.teams;
 
-  // Singles is just 1v1 pairing
   if (format === "singles") {
     return generateSinglesDraw(checkins);
   }
 
-  // Shuffle for fairness
   const shuffled = shuffle(checkins);
 
-  // Group by preferred position
   const pools: Record<string, BowlsCheckin[]> = {};
   for (const pos of positions) {
     pools[pos] = [];
@@ -114,13 +111,10 @@ export function generateBowlsDraw(
     if (positions.includes(checkin.preferred_position)) {
       pools[checkin.preferred_position].push(checkin);
     } else {
-      // Position not valid for this format — put in flexible pool
       pools["flexible"].push(checkin);
     }
   }
 
-  // Calculate how many rinks we can fill
-  // Each rink needs `playersPerRink` players total
   const totalPlayers = checkins.length;
   const rinkCount = Math.floor(totalPlayers / playersPerRink);
 
@@ -128,22 +122,18 @@ export function generateBowlsDraw(
     return { rinks: [], unassigned: checkins, rinkCount: 0, format };
   }
 
-  // Each position needs (rinkCount * 2) players (2 teams per rink)
   const slotsPerPosition = rinkCount * 2;
 
-  // Build assignment pools — fill positions, overflow to flexible
   const assignmentPools: Record<string, BowlsCheckin[]> = {};
   for (const pos of positions) {
     const needed = slotsPerPosition;
     const available = pools[pos];
     assignmentPools[pos] = available.slice(0, needed);
-    // Overflow goes to flexible
     if (available.length > needed) {
       pools["flexible"].push(...available.slice(needed));
     }
   }
 
-  // Fill any under-staffed positions from flexible pool
   const flexible = shuffle(pools["flexible"]);
   let flexIdx = 0;
   for (const pos of positions) {
@@ -153,7 +143,6 @@ export function generateBowlsDraw(
     }
   }
 
-  // Build rinks
   const rinks: BowlsTeamAssignment[][] = [];
   const assignedIds = new Set<string>();
 
@@ -161,9 +150,7 @@ export function generateBowlsDraw(
     const rink: BowlsTeamAssignment[] = [];
 
     for (const pos of positions) {
-      // Team 1 player
       const t1Player = assignmentPools[pos][r * 2];
-      // Team 2 player
       const t2Player = assignmentPools[pos][r * 2 + 1];
 
       if (t1Player) {
@@ -192,7 +179,6 @@ export function generateBowlsDraw(
     rinks.push(rink);
   }
 
-  // Unassigned = anyone not placed
   const unassigned = checkins.filter((c) => !assignedIds.has(c.player_id));
 
   return { rinks, unassigned, rinkCount, format };
@@ -229,14 +215,12 @@ function generateSinglesDraw(checkins: BowlsCheckin[]): DrawResult {
 
 /**
  * Map a rotation table round to BowlsTeamAssignment arrays.
- * Table entries use 1-based player indices; `players` is the shuffled array.
  */
 function mapTableRound(
   tableRound: [number[], number[]][],
   players: BowlsCheckin[],
   allCheckins: BowlsCheckin[],
   format: BowlsGameFormat,
-  roundNum: number
 ): { rinks: BowlsTeamAssignment[][]; unassigned: BowlsCheckin[] } {
   const positions = getPositionsForFormat(format);
   const rinks: BowlsTeamAssignment[][] = [];
@@ -247,7 +231,7 @@ function mapTableRound(
     const rink: BowlsTeamAssignment[] = [];
 
     for (let posIdx = 0; posIdx < team1Indices.length; posIdx++) {
-      const playerIdx = team1Indices[posIdx] - 1; // Convert 1-based to 0-based
+      const playerIdx = team1Indices[posIdx] - 1;
       const player = players[playerIdx];
       if (player) {
         const position = positions[posIdx] ?? "skip";
@@ -282,7 +266,6 @@ function mapTableRound(
   }
 
   const unassigned = allCheckins.filter((c) => !assignedIds.has(c.player_id));
-
   return { rinks, unassigned };
 }
 
@@ -305,16 +288,11 @@ export function generateMeadDraw(
     throw new DrawCompatibilityError(checkins.length, supportedCounts);
   }
 
-  // Shuffle players for fairness — table indices map to shuffled positions
   const players = shuffle(checkins);
 
   const rounds = table.map((tableRound, idx) => {
-    const { rinks, unassigned } = mapTableRound(tableRound, players, checkins, format, idx + 1);
-    return {
-      round: idx + 1,
-      rinks,
-      unassigned,
-    };
+    const { rinks, unassigned } = mapTableRound(tableRound, players, checkins, format);
+    return { round: idx + 1, rinks, unassigned };
   });
 
   return {
@@ -347,12 +325,8 @@ export function generateGavelDraw(
   const players = shuffle(checkins);
 
   const rounds = table.map((tableRound, idx) => {
-    const { rinks, unassigned } = mapTableRound(tableRound, players, checkins, format, idx + 1);
-    return {
-      round: idx + 1,
-      rinks,
-      unassigned,
-    };
+    const { rinks, unassigned } = mapTableRound(tableRound, players, checkins, format);
+    return { round: idx + 1, rinks, unassigned };
   });
 
   return {
@@ -366,32 +340,19 @@ export function generateGavelDraw(
 
 /**
  * Generate a multi-round draw using the specified style.
- * For "random" and "seeded" styles, wraps the single-round result.
  */
 export function generateMultiRoundDraw(
   checkins: BowlsCheckin[],
   format: BowlsGameFormat,
   style: DrawStyle = "random"
 ): MultiRoundDrawResult {
-  if (style === "mead") {
-    return generateMeadDraw(checkins, format);
-  }
+  if (style === "mead") return generateMeadDraw(checkins, format);
+  if (style === "gavel") return generateGavelDraw(checkins, format);
 
-  if (style === "gavel") {
-    return generateGavelDraw(checkins, format);
-  }
-
-  // For random/seeded, wrap the single-round draw
   const singleDraw = generateBowlsDraw(checkins, format);
   return {
     style,
-    rounds: [
-      {
-        round: 1,
-        rinks: singleDraw.rinks,
-        unassigned: singleDraw.unassigned,
-      },
-    ],
+    rounds: [{ round: 1, rinks: singleDraw.rinks, unassigned: singleDraw.unassigned }],
     totalRounds: 1,
     playerCount: checkins.length,
     format,

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { getGuide } from "@/lib/sport-guides";
 import type { Sport } from "@/lib/types";
+import { SportIcon } from "@/components/icons/SportIcon";
 import { SportGuideHero } from "@/components/learn/SportGuideHero";
 import { EquipmentList } from "@/components/learn/EquipmentList";
 import { CourtDiagram } from "@/components/learn/CourtDiagram";
@@ -49,7 +50,7 @@ export default function SportGuidePage() {
           </Link>
           <div>
             <h1 className="text-lg font-bold text-zinc-900">
-              {guide.emoji} {guide.name} Guide
+              <span className="inline-flex items-center gap-2"><SportIcon sport={sport as Sport} className="w-5 h-5" />{guide.name} Guide</span>
             </h1>
           </div>
         </div>
@@ -150,9 +151,7 @@ export default function SportGuidePage() {
                   transition={{ delay: i * 0.08 }}
                   className="flex items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-4"
                 >
-                  <span className="mt-0.5 text-lg shrink-0">
-                    {"\u{1F4A0}"}
-                  </span>
+                  <span className="mt-0.5 text-zinc-400 shrink-0">&bull;</span>
                   <p className="text-sm leading-relaxed text-zinc-600">
                     {fact}
                   </p>
