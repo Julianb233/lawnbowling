@@ -834,6 +834,7 @@ export default function BowlsTournamentPage() {
                                         <span className="text-sm font-medium text-zinc-700 truncate print:text-xs print:text-black">
                                           {a.player?.display_name ?? "TBD"}
                                         </span>
+                                        {guestPlayerIds.has(a.player_id) && <GuestPlayerBadge />}
                                       </div>
                                     ))}
                                 </div>
@@ -866,6 +867,7 @@ export default function BowlsTournamentPage() {
                                         <span className="text-sm font-medium text-zinc-700 truncate print:text-xs print:text-black">
                                           {a.player?.display_name ?? "TBD"}
                                         </span>
+                                        {guestPlayerIds.has(a.player_id) && <GuestPlayerBadge />}
                                       </div>
                                     ))}
                                 </div>

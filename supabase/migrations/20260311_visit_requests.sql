@@ -73,3 +73,7 @@ CREATE TRIGGER visit_requests_updated_at
   BEFORE UPDATE ON visit_requests
   FOR EACH ROW
   EXECUTE FUNCTION update_visit_requests_updated_at();
+
+-- REQ-12-07: Add is_guest column to bowls_checkins for marking visiting players
+ALTER TABLE bowls_checkins
+  ADD COLUMN IF NOT EXISTS is_guest boolean NOT NULL DEFAULT false;

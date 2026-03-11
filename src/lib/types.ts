@@ -311,6 +311,7 @@ export type ReportReason = "unsportsmanlike" | "harassment" | "no_show" | "cheat
 
 // ===== Tournaments =====
 
+export type TournamentBracketType = "winners" | "losers" | "final";
 export type TournamentFormat = "round_robin" | "single_elimination" | "double_elimination";
 export type TournamentStatus = "registration" | "in_progress" | "completed" | "cancelled";
 export type TournamentMatchStatus = "pending" | "in_progress" | "completed";
@@ -393,7 +394,7 @@ export interface AppNotification {
 export type NoticeboardEmoji = "👍" | "❤️" | "😂" | "🎳" | "🏆";
 export const NOTICEBOARD_EMOJIS: NoticeboardEmoji[] = ["👍", "❤️", "😂", "🎳", "🏆"];
 
-export type NoticeboardPostType = "announcement" | "event" | "general" | "question";
+export type NoticeboardPostType = "announcement" | "event" | "general" | "question" | "tournament_result" | "member_post";
 
 export interface NoticeboardPost {
   id: string;
@@ -819,3 +820,40 @@ export const WIND_STRENGTH_LABELS: Record<WindStrength, string> = {
   moderate: "Moderate",
   strong: "Strong",
 };
+
+export { type GreenConditions, type GreenSpeed, type SurfaceCondition, type WindDirection, type WindStrength, GREEN_SPEED_LABELS, SURFACE_CONDITION_LABELS, WIND_DIRECTION_LABELS, WIND_STRENGTH_LABELS } from "./green-conditions-types";
+
+// ─── Club Memberships (Multi-Tenant Roles) ─────────────────────────
+
+export type ClubRole = "owner" | "admin" | "manager" | "member" | "visitor";
+export type ClubMembershipStatus = "active" | "pending" | "suspended";
+
+export const CLUB_ROLE_HIERARCHY: Record<ClubRole, number> = {
+  owner: 5,
+  admin: 4,
+  manager: 3,
+  member: 2,
+  visitor: 1,
+};
+
+export const CLUB_ROLE_LABELS: Record<ClubRole, { label: string; description: string }> = {
+  owner: { label: "Owner", description: "Full control over club settings, billing, and members" },
+  admin: { label: "Admin", description: "Manage events, tournaments, and members" },
+  manager: { label: "Manager", description: "Create events and tournaments" },
+  member: { label: "Member", description: "View and participate in club activities" },
+  visitor: { label: "Visitor", description: "Limited access to club information" },
+};
+
+export interface ClubMembership {
+  id: string;
+  club_id: string;
+  player_id: string;
+  role: ClubRole;
+  status: ClubMembershipStatus;
+  invited_by: string | null;
+  invite_code: string | null;
+  joined_at: string | null;
+  created_at: string;
+  updated_at: string;
+  player?: Pick<Player, "id" | "display_name" | "avatar_url">;
+}

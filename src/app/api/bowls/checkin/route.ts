@@ -5,16 +5,18 @@ import type { BowlsPosition, CheckinSource } from "@/lib/types";
 /**
  * POST /api/bowls/checkin
  * Check in a player for a bowls tournament with position preference.
- * Body: { player_id, tournament_id, preferred_position, checkin_source? }
+ * Body: { player_id, tournament_id, preferred_position, checkin_source?, visit_token? }
  * Idempotent: upserts on (player_id, tournament_id) — no duplicate rows (UCI-13).
+ * REQ-12-07: When visit_token is provided, validates and marks the player as a guest.
  */
 export async function POST(req: NextRequest) {
   try {
-    const { player_id, tournament_id, preferred_position, checkin_source } = (await req.json()) as {
+    const { player_id, tournament_id, preferred_position, checkin_source, visit_token } = (await req.json()) as {
       player_id: string;
       tournament_id: string;
       preferred_position: BowlsPosition;
       checkin_source?: CheckinSource;
+      visit_token?: string;
     };
 
     if (!player_id || !tournament_id || !preferred_position) {
@@ -25,6 +27,34 @@ export async function POST(req: NextRequest) {
     }
 
     const supabase = await createClient();
+    let isGuest = false;
+
+    // REQ-12-07: Validate visit token if provided
+    if (visit_token) {
+      const { data: visitReq, error: visitErr } = await supabase
+        .from("visit_requests")
+        .select("id, status, requested_date, player_id, expires_at")
+        .eq("visit_token", visit_token)
+        .single();
+
+      if (visitErr || !visitReq) {
+        return NextResponse.json({ error: "Invalid visit token" }, { status: 400 });
+      }
+
+      if (visitReq.status !== "accepted") {
+        return NextResponse.json({ error: "Visit token is not valid" }, { status: 400 });
+      }
+
+      if (visitReq.player_id !== player_id) {
+        return NextResponse.json({ error: "Visit token does not match player" }, { status: 403 });
+      }
+
+      if (visitReq.expires_at && new Date(visitReq.expires_at) < new Date()) {
+        return NextResponse.json({ error: "Visit token has expired" }, { status: 410 });
+      }
+
+      isGuest = true;
+    }
 
     // Upsert — if they check in again, update their position choice (UCI-13)
     const { data, error } = await supabase
@@ -36,6 +66,7 @@ export async function POST(req: NextRequest) {
           preferred_position,
           checkin_source: checkin_source ?? "manual",
           checked_in_at: new Date().toISOString(),
+          is_guest: isGuest,
         },
         { onConflict: "player_id,tournament_id" }
       )
