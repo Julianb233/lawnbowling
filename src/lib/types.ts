@@ -387,6 +387,37 @@ export interface AppNotification {
   created_at: string;
 }
 
+// ===== Noticeboard =====
+
+export type NoticeboardEmoji = "👍" | "❤️" | "😂" | "🎳" | "🏆";
+export const NOTICEBOARD_EMOJIS: NoticeboardEmoji[] = ["👍", "❤️", "😂", "🎳", "🏆"];
+
+export type NoticeboardPostType = "announcement" | "event" | "general" | "question";
+
+export interface NoticeboardPost {
+  id: string;
+  venue_id: string | null;
+  author_id: string;
+  title: string;
+  body: string;
+  pinned: boolean;
+  is_pinned: boolean;
+  created_at: string;
+  updated_at: string;
+  author?: Player;
+  comments?: NoticeboardComment[];
+  reaction_counts?: Record<NoticeboardEmoji, number>;
+}
+
+export interface NoticeboardComment {
+  id: string;
+  post_id: string;
+  author_id: string;
+  body: string;
+  created_at: string;
+  author?: Player;
+}
+
 // ===== Lawn Bowling =====
 
 export type BowlsPosition = "skip" | "vice" | "lead" | "second";
@@ -433,6 +464,25 @@ export interface BowlsTeamAssignment {
   player_id: string;
   position: BowlsPosition;
   player?: Player;
+}
+
+export type BowlsRatingPosition = "skip" | "vice" | "lead" | "second";
+
+export interface BowlsPositionRating {
+  id?: string;
+  player_id: string;
+  position: BowlsRatingPosition;
+  season: string;
+  elo_rating: number;
+  games_played: number;
+  wins: number;
+  losses: number;
+  draws: number;
+  shot_differential: number;
+  ends_won: number;
+  ends_played: number;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export type ScoreWinner = "team_a" | "team_b" | "draw" | null;
