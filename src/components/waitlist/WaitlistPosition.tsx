@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Timer, X } from "lucide-react";
+import { Clock, X, Timer } from "lucide-react";
 
 interface WaitlistPositionProps {
   position: number;
@@ -9,6 +9,16 @@ interface WaitlistPositionProps {
   waitlistId: string;
   estimatedWaitMinutes?: number | null;
   onLeave?: () => void;
+}
+
+function formatWaitTime(minutes: number): string {
+  if (minutes <= 0) return "Any moment now";
+  if (minutes < 2) return "~1 min";
+  if (minutes < 60) return "~" + minutes + " min";
+  const hours = Math.floor(minutes / 60);
+  const remaining = minutes % 60;
+  if (remaining === 0) return "~" + hours + "h";
+  return "~" + hours + "h " + remaining + "m";
 }
 
 export function WaitlistPosition({
@@ -19,7 +29,7 @@ export function WaitlistPosition({
   onLeave,
 }: WaitlistPositionProps) {
   async function handleLeave() {
-    await fetch(`/api/waitlist?id=${waitlistId}`, { method: "DELETE" });
+    await fetch("/api/waitlist?id=" + waitlistId, { method: "DELETE" });
     onLeave?.();
   }
 
@@ -30,19 +40,20 @@ export function WaitlistPosition({
       className="flex items-center justify-between rounded-xl bg-amber-500/10 border border-amber-500/20 px-4 py-3"
     >
       <div className="flex items-center gap-3">
-        <Timer className="h-5 w-5 text-amber-400" />
+        <Clock className="h-5 w-5 text-amber-400" />
         <div>
           <p className="text-sm font-semibold text-amber-400">
             You are #{position} in line
           </p>
-          <p className="text-xs text-zinc-500">
-            for {sport}
-            {estimatedWaitMinutes != null && estimatedWaitMinutes > 0 && (
-              <span className="ml-1 text-amber-500">
-                \u00b7 ~{estimatedWaitMinutes} min wait
-              </span>
-            )}
-          </p>
+          <p className="text-xs text-zinc-500">for {sport}</p>
+          {estimatedWaitMinutes != null && (
+            <div className="mt-1 flex items-center gap-1">
+              <Timer className="h-3 w-3 text-zinc-400" />
+              <p className="text-xs text-zinc-400">
+                Est. wait: {formatWaitTime(estimatedWaitMinutes)}
+              </p>
+            </div>
+          )}
         </div>
       </div>
       <button

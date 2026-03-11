@@ -36,21 +36,15 @@ export function JoinWaitlistButton({
         }),
       });
       const data = await res.json();
-
       if (!res.ok) {
-        if (res.status === 409) {
-          setError("You are already on the waitlist");
-        } else {
-          setError(data.error || "Failed to join waitlist");
-        }
+        setError(data.error || "Failed to join waitlist");
         return;
       }
-
       if (data.position) {
         onJoined?.(data.position, data.estimated_wait_minutes);
       }
     } catch {
-      setError("Network error, please try again");
+      setError("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -71,10 +65,10 @@ export function JoinWaitlistButton({
         Join Waitlist
       </button>
       {error && (
-        <p className="mt-1.5 flex items-center gap-1 text-xs text-red-500">
+        <div className="mt-2 flex items-center gap-1.5 text-xs text-red-400">
           <AlertCircle className="h-3 w-3" />
-          {error}
-        </p>
+          <span>{error}</span>
+        </div>
       )}
     </div>
   );

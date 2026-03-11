@@ -56,73 +56,85 @@ describe("Waitlist Logic", () => {
     expect(canJoin("p2")).toBe(true);
   });
 
-  it("should recompact positions after removal", () => {
+  it("should recompact positions after player leaves", () => {
     const waitlist = [
       { player_id: "p1", position: 1, status: "waiting" as string },
       { player_id: "p2", position: 2, status: "waiting" as string },
       { player_id: "p3", position: 3, status: "waiting" as string },
-      { player_id: "p4", position: 4, status: "waiting" as string },
     ];
 
-    waitlist[1].status = "expired";
+    waitlist[0].status = "expired";
 
     const active = waitlist
       .filter((w) => w.status === "waiting")
-      .sort((a, b) => a.position - b.position);
+      .map((w, i) => ({ ...w, position: i + 1 }));
 
-    active.forEach((entry, i) => {
-      entry.position = i + 1;
-    });
-
-    expect(active[0]).toMatchObject({ player_id: "p1", position: 1 });
-    expect(active[1]).toMatchObject({ player_id: "p3", position: 2 });
-    expect(active[2]).toMatchObject({ player_id: "p4", position: 3 });
+    expect(active[0].player_id).toBe("p2");
+    expect(active[0].position).toBe(1);
+    expect(active[1].player_id).toBe("p3");
+    expect(active[1].position).toBe(2);
   });
 
-  it("should promote next entry from waitlist when court frees up", () => {
+  it("should promote first waiting entry when court frees", () => {
     const waitlist = [
-      { player_id: "p1", position: 1, status: "waiting" as string },
-      { player_id: "p2", position: 2, status: "waiting" as string },
+      { player_id: "p1", partner_id: "p4", position: 1, status: "waiting" as string, assigned_match_id: null as string | null },
+      { player_id: "p2", partner_id: null, position: 2, status: "waiting" as string, assigned_match_id: null as string | null },
+      { player_id: "p3", partner_id: null, position: 3, status: "waiting" as string, assigned_match_id: null as string | null },
     ];
 
-    const promoted = waitlist.find((w) => w.status === "waiting");
+    function promoteNext(): { player_id: string; partner_id: string | null } | null {
+      const next = waitlist.find((w) => w.status === "waiting");
+      if (!next) return null;
+      next.status = "assigned";
+      next.assigned_match_id = "match-123";
+      return { player_id: next.player_id, partner_id: next.partner_id };
+    }
+
+    const promoted = promoteNext();
     expect(promoted?.player_id).toBe("p1");
-    if (promoted) promoted.status = "assigned";
+    expect(promoted?.partner_id).toBe("p4");
+
+    const promoted2 = promoteNext();
+    expect(promoted2?.player_id).toBe("p2");
+    expect(promoted2?.partner_id).toBeNull();
 
     const remaining = waitlist.filter((w) => w.status === "waiting");
     expect(remaining).toHaveLength(1);
-    expect(remaining[0].player_id).toBe("p2");
-    remaining[0].position = 1;
-    expect(remaining[0].position).toBe(1);
+    expect(remaining[0].player_id).toBe("p3");
   });
 
-  it("should estimate wait time based on position and court count", () => {
-    const avgMatchDuration = 20;
+  it("should calculate estimated wait time based on position and courts", () => {
+    const avgDuration = 20;
+    const totalCourts = 3;
 
-    function estimateWait(position: number, courtCount: number): number {
-      return Math.ceil((position / courtCount) * avgMatchDuration);
+    function estimateWait(position: number): number {
+      const groupsAhead = position - 1;
+      const roundsAhead = Math.floor(groupsAhead / totalCourts);
+      return roundsAhead * avgDuration;
     }
 
-    expect(estimateWait(1, 1)).toBe(20);
-    expect(estimateWait(1, 2)).toBe(10);
-    expect(estimateWait(3, 2)).toBe(30);
-    expect(estimateWait(4, 4)).toBe(20);
+    expect(estimateWait(1)).toBe(0);
+    expect(estimateWait(2)).toBe(0);
+    expect(estimateWait(3)).toBe(0);
+    expect(estimateWait(4)).toBe(20);
+    expect(estimateWait(7)).toBe(40);
   });
 
-  it("should format estimated wait time for display", () => {
-    function formatWait(minutes: number | null): string {
-      if (minutes == null || minutes <= 0) return "Next up";
-      if (minutes < 60) return `~${minutes} min`;
+  it("should format wait time display correctly", () => {
+    function formatWaitTime(minutes: number): string {
+      if (minutes <= 0) return "Next up";
+      if (minutes < 2) return "~1 min";
+      if (minutes < 60) return "~" + minutes + " min";
       const hours = Math.floor(minutes / 60);
       const remaining = minutes % 60;
-      return remaining > 0 ? `~${hours}h ${remaining}m` : `~${hours}h`;
+      if (remaining === 0) return "~" + hours + "h";
+      return "~" + hours + "h " + remaining + "m";
     }
 
-    expect(formatWait(null)).toBe("Next up");
-    expect(formatWait(0)).toBe("Next up");
-    expect(formatWait(15)).toBe("~15 min");
-    expect(formatWait(45)).toBe("~45 min");
-    expect(formatWait(60)).toBe("~1h");
-    expect(formatWait(75)).toBe("~1h 15m");
+    expect(formatWaitTime(0)).toBe("Next up");
+    expect(formatWaitTime(1)).toBe("~1 min");
+    expect(formatWaitTime(15)).toBe("~15 min");
+    expect(formatWaitTime(60)).toBe("~1h");
+    expect(formatWaitTime(90)).toBe("~1h 30m");
   });
 });

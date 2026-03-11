@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { CourtCard } from "./CourtCard";
 import { WaitlistBoard } from "@/components/waitlist/WaitlistBoard";
@@ -28,12 +28,12 @@ interface ActiveMatch {
   match_players: MatchPlayer[];
 }
 
-export function CourtStatusBoard() {
+export function CourtStatusBoard({ venueId }: { venueId?: string }) {
   const [courts, setCourts] = useState<CourtWithMatch[]>([]);
   const [matches, setMatches] = useState<ActiveMatch[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     const supabase = createClient();
 
     const [courtsRes, matchesRes] = await Promise.all([
@@ -50,14 +50,14 @@ export function CourtStatusBoard() {
     if (courtsRes.data) setCourts(courtsRes.data);
     if (matchesRes.data) setMatches(matchesRes.data as ActiveMatch[]);
     setLoading(false);
-  }, []);
+  };
 
   useEffect(() => {
     fetchData();
 
     const supabase = createClient();
 
-    const channel = supabase
+    const courtsChannel = supabase
       .channel("courts-realtime")
       .on(
         "postgres_changes",
@@ -77,9 +77,9 @@ export function CourtStatusBoard() {
       .subscribe();
 
     return () => {
-      supabase.removeChannel(channel);
+      supabase.removeChannel(courtsChannel);
     };
-  }, [fetchData]);
+  }, []);
 
   const handleComplete = async (matchId: string) => {
     const res = await fetch("/api/matches/complete", {
@@ -120,24 +120,20 @@ export function CourtStatusBoard() {
     );
   }
 
-  const sportCourts = new Map<
-    string,
-    { total: number; busy: number; venueId: string }
-  >();
-  for (const court of courts) {
-    const entry = sportCourts.get(court.sport) ?? {
-      total: 0,
-      busy: 0,
-      venueId: court.venue_id,
-    };
-    entry.total++;
-    if (!court.is_available) entry.busy++;
-    sportCourts.set(court.sport, entry);
-  }
+  const sportGroups = courts.reduce<
+    Record<string, { total: number; occupied: number }>
+  >((acc, court) => {
+    if (!acc[court.sport]) acc[court.sport] = { total: 0, occupied: 0 };
+    acc[court.sport].total++;
+    if (!court.is_available) acc[court.sport].occupied++;
+    return acc;
+  }, {});
 
-  const fullSports = Array.from(sportCourts.entries())
-    .filter(([, info]) => info.total > 0 && info.busy >= info.total)
-    .map(([sport, info]) => ({ sport, venueId: info.venueId }));
+  const allFullSports = Object.entries(sportGroups)
+    .filter(([, { total, occupied }]) => total > 0 && occupied >= total)
+    .map(([sport]) => sport);
+
+  const effectiveVenueId = venueId ?? courts[0]?.venue_id;
 
   return (
     <div className="space-y-4">
@@ -165,9 +161,17 @@ export function CourtStatusBoard() {
         })}
       </div>
 
-      {fullSports.map(({ sport, venueId }) => (
-        <WaitlistBoard key={sport} venueId={venueId} sport={sport} />
-      ))}
+      {effectiveVenueId && allFullSports.length > 0 && (
+        <div className="space-y-3">
+          {allFullSports.map((sport) => (
+            <WaitlistBoard
+              key={sport}
+              venueId={effectiveVenueId}
+              sport={sport}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

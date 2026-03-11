@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
   try {
     if (playerId) {
       const position = await getPlayerPosition(venueId, playerId);
-      return NextResponse.json(position || { position: null });
+      return NextResponse.json(position ?? null);
     }
 
     const data = await getWaitlist(venueId, sport);
@@ -61,11 +61,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(entry, { status: 201 });
   } catch (e) {
     const message = (e as Error).message;
-    if (message === "DUPLICATE_ENTRY") {
-      return NextResponse.json(
-        { error: "You are already on the waitlist for this sport" },
-        { status: 409 },
-      );
+    if (message === "You are already on the waitlist") {
+      return NextResponse.json({ error: message }, { status: 409 });
     }
     return NextResponse.json({ error: message }, { status: 500 });
   }

@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
-import { promoteNextFromWaitlist } from "@/lib/db/waitlist";
 import type { Court, Match } from "@/lib/types";
+import { promoteNextFromWaitlist } from "@/lib/db/waitlist";
 
 export async function listCourts(venueId?: string) {
   const supabase = await createClient();
@@ -60,7 +60,6 @@ export async function deleteCourt(id: string) {
 
 export async function assignCourtToMatch(matchId: string, courtId: string) {
   const supabase = await createClient();
-
   const { data: match, error: matchError } = await supabase
     .from("matches")
     .update({
@@ -72,22 +71,17 @@ export async function assignCourtToMatch(matchId: string, courtId: string) {
     .eq("status", "queued")
     .select()
     .single();
-
   if (matchError) throw matchError;
-
   const { error: courtError } = await supabase
     .from("courts")
     .update({ is_available: false })
     .eq("id", courtId);
-
   if (courtError) throw courtError;
-
   return match as Match;
 }
 
 export async function autoAssignCourt(matchId: string, sport: string) {
   const supabase = await createClient();
-
   const { data: court } = await supabase
     .from("courts")
     .select("*")
@@ -95,9 +89,7 @@ export async function autoAssignCourt(matchId: string, sport: string) {
     .eq("is_available", true)
     .limit(1)
     .single();
-
   if (!court) return null;
-
   return assignCourtToMatch(matchId, court.id);
 }
 
@@ -109,7 +101,6 @@ export async function completeMatch(matchId: string) {
     .select("*")
     .eq("id", matchId)
     .single();
-
   if (fetchError) throw fetchError;
 
   const { error: matchError } = await supabase
@@ -119,7 +110,6 @@ export async function completeMatch(matchId: string) {
       ended_at: new Date().toISOString(),
     })
     .eq("id", matchId);
-
   if (matchError) throw matchError;
 
   const { data: matchPlayers } = await supabase
@@ -163,7 +153,6 @@ export async function completeMatch(matchId: string) {
       .from("courts")
       .update({ is_available: true })
       .eq("id", match.court_id);
-
     if (courtError) throw courtError;
 
     const { data: court } = await supabase
@@ -190,7 +179,7 @@ export async function completeMatch(matchId: string) {
           await promoteNextFromWaitlist(
             match.venue_id ?? "",
             court.sport,
-            match.court_id!,
+            match.court_id,
           );
         } catch {
           // Waitlist promotion is best-effort
