@@ -12,7 +12,6 @@ import {
   Shield,
   Building2,
   UserCircle,
-  Users,
   Wrench,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
