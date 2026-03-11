@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { cn } from "@/lib/utils";
+import { ShareSheet } from "@/components/bowls/ShareSheet";
+import { Share2 } from "lucide-react";
 import type { TournamentScore, ScoreWinner } from "@/lib/types";
 
 interface RoundSummary {
@@ -60,6 +62,7 @@ export default function ResultsPage() {
   const [loading, setLoading] = useState(true);
   const [advancing, setAdvancing] = useState(false);
   const [showStandings, setShowStandings] = useState(false);
+  const [showShareSheet, setShowShareSheet] = useState(false);
 
   const loadTournament = useCallback(async () => {
     const supabase = createClient();
@@ -284,7 +287,7 @@ export default function ResultsPage() {
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur print:static print:border-0">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur print:static print:border-0">
         <div className="mx-auto max-w-5xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
@@ -294,6 +297,15 @@ export default function ResultsPage() {
               <p className="text-sm text-zinc-500">{tournamentName}</p>
             </div>
             <div className="flex items-center gap-2 print:hidden">
+              {progression?.current_state === "complete" && (
+                <button
+                  onClick={() => setShowShareSheet(true)}
+                  className="flex items-center gap-2 rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/10 min-h-[44px] touch-manipulation"
+                >
+                  <Share2 className="h-4 w-4" />
+                  Share Results
+                </button>
+              )}
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}`)}
                 className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
@@ -737,11 +749,30 @@ export default function ResultsPage() {
                 <p className="text-sm text-[#1B5E20] mt-1">
                   {progression.total_rounds_played} round{progression.total_rounds_played !== 1 ? "s" : ""} played
                 </p>
+                <button
+                  onClick={() => setShowShareSheet(true)}
+                  className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[48px] touch-manipulation"
+                >
+                  <Share2 className="h-4 w-4" />
+                  Share Results
+                </button>
               </div>
             )}
           </>
         )}
       </main>
+
+      <ShareSheet
+        open={showShareSheet}
+        onClose={() => setShowShareSheet(false)}
+        tournamentName={tournamentName}
+        tournamentId={tournamentId}
+        topPlayers={playerStandings.slice(0, 3).map((p) => ({
+          display_name: p.display_name,
+          wins: p.wins,
+          shot_diff: p.total_shots_for - p.total_shots_against,
+        }))}
+      />
 
       <BottomNav />
     </div>
