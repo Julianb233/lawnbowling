@@ -96,31 +96,31 @@ export default function BowlsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0f2518]">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] dark:border-emerald-400 border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#0f2518] pb-20 lg:pb-0">
       <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <h1 className="text-xl font-black tracking-tight text-zinc-900 sm:text-2xl">
+              <h1 className="text-xl font-black tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-2xl">
                 Lawn Bowls
               </h1>
               <div className="flex items-center gap-2 sm:gap-3">
-                <Link href="/bowls/about" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1">
+                <Link href="/bowls/about" className="text-sm text-[#1B5E20] dark:text-emerald-400 hover:text-[#145218] dark:hover:text-emerald-300 py-1">
                   About
                 </Link>
-                <span className="text-zinc-300">|</span>
-                <Link href="/bowls/history" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1">
+                <span className="text-zinc-300 dark:text-zinc-600">|</span>
+                <Link href="/bowls/history" className="text-sm text-[#1B5E20] dark:text-emerald-400 hover:text-[#145218] dark:hover:text-emerald-300 py-1">
                   History
                 </Link>
-                <span className="text-zinc-300">|</span>
-                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1">
+                <span className="text-zinc-300 dark:text-zinc-600">|</span>
+                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] dark:text-emerald-400 hover:text-[#145218] dark:hover:text-emerald-300 py-1">
                   Stats
                 </Link>
               </div>
@@ -174,9 +174,9 @@ export default function BowlsPage() {
         )}
 
         {tournaments.length === 0 && (
-          <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
-              <CircleDot className="w-8 h-8 text-[#1B5E20]" strokeWidth={1.5} />
+          <div className="rounded-2xl bg-white dark:bg-[#1a3d28] border border-zinc-200 dark:border-white/10 p-12 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10 dark:bg-emerald-400/10">
+              <CircleDot className="w-8 h-8 text-[#1B5E20] dark:text-emerald-400" strokeWidth={1.5} />
             </div>
             <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
               {scope === "club" ? "No club tournaments yet" : "No bowls tournaments yet"}

@@ -513,7 +513,7 @@ export default function ScoreEntryPage() {
                   "flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-colors touch-manipulation",
                   round === r
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                    : "bg-zinc-100 dark:bg-white/10 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-white/15"
                 )}
               >
                 {r}
@@ -543,7 +543,7 @@ export default function ScoreEntryPage() {
                     ? "bg-[#1B5E20]/5 border-2 border-[#1B5E20]/20"
                     : isActive
                       ? "bg-[#1B5E20]/5 border-2 border-[#1B5E20] shadow-lg"
-                      : "bg-white border border-zinc-200 hover:border-zinc-300 hover:shadow-sm"
+                      : "bg-white dark:bg-[#1a3d28] border border-zinc-200 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-sm"
                 )}
               >
                 <div className="flex items-center justify-between mb-2">
@@ -635,9 +635,9 @@ export default function ScoreEntryPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="rounded-3xl bg-white border border-zinc-200 shadow-xl overflow-hidden"
+              className="rounded-3xl bg-white dark:bg-[#1a3d28] border border-zinc-200 dark:border-white/10 shadow-xl overflow-hidden"
             >
-              <div className="bg-zinc-50 border-b border-zinc-200 px-6 py-4">
+              <div className="bg-zinc-50 dark:bg-[#0f2518] border-b border-zinc-200 dark:border-white/10 px-6 py-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <h2 className="text-lg font-black text-zinc-900 dark:text-zinc-100">
@@ -710,17 +710,17 @@ export default function ScoreEntryPage() {
                               E{i + 1}
                             </th>
                           ))}
-                          <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-700 border-l border-zinc-200">
+                          <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 border-l border-zinc-200 dark:border-white/10">
                             Total
                           </th>
-                          <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-700">
+                          <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                             Ends
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         {/* Team A row */}
-                        <tr className="border-t border-zinc-100">
+                        <tr className="border-t border-zinc-100 dark:border-white/5">
                           <td className="px-3 py-3 text-sm font-bold text-[#1B5E20] whitespace-nowrap">
                             Team A
                           </td>
@@ -754,15 +754,15 @@ export default function ScoreEntryPage() {
                               </td>
                             )
                           )}
-                          <td className="px-3 py-3 text-center border-l border-zinc-200">
+                          <td className="px-3 py-3 text-center border-l border-zinc-200 dark:border-white/10">
                             <MatchPoint isMatchPoint={isMatchPoint(rinkScores[activeRink].teamAScores, rinkScores[activeRink].teamBScores) === "a"}>
-                              <span className="text-xl font-black text-zinc-900 tabular-nums">
+                              <span className="text-xl font-black text-zinc-900 dark:text-zinc-100 tabular-nums">
                                 <NumberFlip value={getTotal(rinkScores[activeRink].teamAScores)} />
                               </span>
                             </MatchPoint>
                           </td>
                           <td className="px-3 py-3 text-center">
-                            <span className="text-lg font-bold text-zinc-600 tabular-nums">
+                            <span className="text-lg font-bold text-zinc-600 dark:text-zinc-400 tabular-nums">
                               {
                                 getEndsWon(
                                   rinkScores[activeRink].teamAScores,
@@ -774,7 +774,7 @@ export default function ScoreEntryPage() {
                         </tr>
 
                         {/* Team B row */}
-                        <tr className="border-t border-zinc-100">
+                        <tr className="border-t border-zinc-100 dark:border-white/5">
                           <td className="px-3 py-3 text-sm font-bold text-purple-600 whitespace-nowrap">
                             Team B
                           </td>
@@ -808,15 +808,15 @@ export default function ScoreEntryPage() {
                               </td>
                             )
                           )}
-                          <td className="px-3 py-3 text-center border-l border-zinc-200">
+                          <td className="px-3 py-3 text-center border-l border-zinc-200 dark:border-white/10">
                             <MatchPoint isMatchPoint={isMatchPoint(rinkScores[activeRink].teamAScores, rinkScores[activeRink].teamBScores) === "b"}>
-                              <span className="text-xl font-black text-zinc-900 tabular-nums">
+                              <span className="text-xl font-black text-zinc-900 dark:text-zinc-100 tabular-nums">
                                 <NumberFlip value={getTotal(rinkScores[activeRink].teamBScores)} />
                               </span>
                             </MatchPoint>
                           </td>
                           <td className="px-3 py-3 text-center">
-                            <span className="text-lg font-bold text-zinc-600 tabular-nums">
+                            <span className="text-lg font-bold text-zinc-600 dark:text-zinc-400 tabular-nums">
                               {
                                 getEndsWon(
                                   rinkScores[activeRink].teamAScores,
