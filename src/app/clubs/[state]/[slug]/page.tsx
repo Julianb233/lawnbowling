@@ -20,7 +20,7 @@ import {
   US_STATES,
   SURFACE_LABELS,
   getClubById,
-  getClubsByState,
+  getNearestClubs,
   type ClubData,
 } from "@/lib/clubs-data";
 import {
@@ -85,10 +85,10 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
 
   const stateInfo = US_STATES[club.stateCode];
 
-  // Nearby clubs: same state, excluding current club
-  const nearbyClubs = getClubsByState(club.stateCode).filter(
-    (c) => c.id !== club.id
-  );
+  // Nearby clubs: 6 nearest by distance, regardless of state
+  const nearbyClubs = club.lat != null && club.lng != null
+    ? getNearestClubs(club.lat, club.lng, 6, club.id)
+    : [];
 
   const breadcrumbs = getBreadcrumbSchema([
     { name: "Home", url: "/" },
@@ -422,28 +422,35 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
           <section className="mt-10">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-bold text-zinc-900">
-                More Clubs in {stateInfo.name}
+                Nearby Clubs
               </h2>
               <Link
-                href={`/clubs/${club.stateCode.toLowerCase()}`}
+                href="/clubs"
                 className="text-sm font-medium text-[#1B5E20] hover:underline"
               >
                 View all &rarr;
               </Link>
             </div>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {nearbyClubs.slice(0, 6).map((nearby) => (
+              {nearbyClubs.map((nearby) => (
                 <Link
                   key={nearby.id}
                   href={`/clubs/${nearby.stateCode.toLowerCase()}/${nearby.id}`}
                 >
                   <div className="group rounded-2xl border border-zinc-200 bg-white p-4 transition-all hover:border-zinc-300 hover:shadow-sm">
-                    <h3 className="text-sm font-bold text-zinc-900 group-hover:text-[#1B5E20] transition-colors truncate">
-                      {nearby.name}
-                    </h3>
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="text-sm font-bold text-zinc-900 group-hover:text-[#1B5E20] transition-colors truncate">
+                        {nearby.name}
+                      </h3>
+                      {"distance" in nearby && (
+                        <span className="shrink-0 rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-700 tabular-nums">
+                          {(nearby as ClubData & { distance: number }).distance < 1 ? "<1" : Math.round((nearby as ClubData & { distance: number }).distance)} mi
+                        </span>
+                      )}
+                    </div>
                     <div className="mt-1 flex items-center gap-1 text-xs text-zinc-500">
                       <MapPin className="h-3 w-3 shrink-0" />
-                      <span>{nearby.city}</span>
+                      <span>{nearby.city}, {nearby.stateCode}</span>
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1">
                       {nearby.surfaceType !== "unknown" && (
