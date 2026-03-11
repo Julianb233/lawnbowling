@@ -116,12 +116,14 @@ export interface WaitlistEntry {
   player_id: string;
   sport: string;
   position: number;
+  estimated_wait_minutes?: number | null;
   created_at: string;
   player?: { display_name: string; avatar_url?: string | null };
+  partner?: { display_name: string; avatar_url?: string | null };
 }
 
 // Board constants
-export type Sport = "lawn_bowling";
+export type Sport = "pickleball" | "lawn_bowling" | "tennis" | "badminton" | "racquetball" | "flag_football";
 
 export const SPORT_LABELS: Record<Sport, { emoji: string; label: string; short: string }> = {
   lawn_bowling: { emoji: "\u{1F3B3}", label: "Lawn Bowling", short: "Bowl" },
@@ -394,18 +396,20 @@ export type NoticeboardPostType = "announcement" | "event" | "general" | "questi
 export interface NoticeboardPost {
   id: string;
   venue_id: string | null;
+  club_id: string | null;
   author_id: string;
-  title: string;
+  type: NoticeboardPostType;
+  title: string | null;
   body: string;
-  type?: NoticeboardPostType;
-  pinned: boolean;
+  tournament_id: string | null;
   is_pinned: boolean;
+  is_deleted: boolean;
   created_at: string;
   updated_at: string;
   author?: Player;
   comments?: NoticeboardComment[];
   reaction_counts?: Record<NoticeboardEmoji, number>;
-  reactions?: Array<{ player_id: string; emoji: NoticeboardEmoji }>;
+  reactions?: Array<{ id?: string; player_id: string; emoji: NoticeboardEmoji }>;
   comment_count?: number;
 }
 
