@@ -148,7 +148,7 @@ export default function BoardPage() {
               animate={{ opacity: 1, x: 0 }}
             >
               <h1 className="text-xl font-black text-zinc-900 lg:text-2xl">
-                {"\u{1F3D3}"} <span className="text-gradient">Pick a Partner</span>
+                {"\u{1F3D3}"} <span className="text-gradient">Lawnbowling</span>
               </h1>
               <div className="flex items-center gap-2">
                 <p className="text-sm text-zinc-500">{venue?.name ?? "Loading venue..."}</p>

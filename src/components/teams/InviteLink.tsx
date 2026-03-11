@@ -29,7 +29,7 @@ export function InviteLink({ inviteCode }: InviteLinkProps) {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Join my team on Pick a Partner!",
+          title: "Join my team on Lawnbowling!",
           url: inviteUrl,
         });
       } catch {

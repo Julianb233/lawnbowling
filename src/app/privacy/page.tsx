@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { Users } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Pick a Partner",
+  title: "Privacy Policy | Lawnbowling",
   description:
-    "Privacy Policy for Pick a Partner. Learn how we collect, use, and protect your data.",
+    "Privacy Policy for Lawnbowling. Learn how we collect, use, and protect your data.",
 };
 
 export default function PrivacyPage() {
@@ -18,7 +18,7 @@ export default function PrivacyPage() {
               <Users className="h-5 w-5 text-white" />
             </div>
             <span className="text-lg font-bold text-zinc-900">
-              Pick a Partner
+              Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -126,7 +126,7 @@ export default function PrivacyPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Lawnbowling</span>
           </Link>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <Link href="/about" className="hover:text-zinc-700 transition">
@@ -143,7 +143,7 @@ export default function PrivacyPage() {
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Pick a Partner
+            &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>
       </footer>

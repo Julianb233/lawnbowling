@@ -20,9 +20,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "For Venues | Pick a Partner",
+  title: "For Venues | Lawnbowling",
   description:
-    "Turn empty courts into revenue. Pick a Partner fills your facility with matched players, handles waivers and insurance, and gives you real-time analytics. Free to list.",
+    "Turn empty courts into revenue. Lawnbowling fills your facility with matched players, handles waivers and insurance, and gives you real-time analytics. Free to list.",
 };
 
 export default function ForVenuesPage() {
@@ -55,7 +55,7 @@ export default function ForVenuesPage() {
               <Users className="h-5 w-5 text-white" />
             </div>
             <span className="text-lg font-bold text-zinc-900">
-              Pick a Partner
+              Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -96,7 +96,7 @@ export default function ForVenuesPage() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
             Empty courts during off-peak hours. Paper waivers getting lost.
-            No idea who played last Tuesday. Sound familiar? Pick a Partner
+            No idea who played last Tuesday. Sound familiar? Lawnbowling
             fills your courts with skill-matched players, handles liability
             waivers and insurance automatically, and shows you exactly how
             your facility performs.
@@ -396,7 +396,7 @@ export default function ForVenuesPage() {
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
         <div className="rounded-3xl bg-gradient-to-r from-emerald-600 to-emerald-500 p-8 text-center shadow-2xl shadow-emerald-500/15 md:p-16">
           <h2 className="text-3xl font-bold text-white md:text-4xl">Your Courts Are Sitting Empty Right Now</h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-emerald-100/80">Every hour without players is revenue you won&apos;t get back. List your venue for free and let Pick a Partner fill those courts with matched, insured players.</p>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-emerald-100/80">Every hour without players is revenue you won&apos;t get back. List your venue for free and let Lawnbowling fill those courts with matched, insured players.</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-emerald-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]">
               Get Free Coverage
@@ -412,7 +412,7 @@ export default function ForVenuesPage() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600"><Users className="h-4 w-4 text-white" /></div>
-            <span className="font-semibold text-zinc-900">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Lawnbowling</span>
           </Link>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <Link href="/for-players" className="hover:text-zinc-700 transition">For Players</Link>
@@ -422,7 +422,7 @@ export default function ForVenuesPage() {
             <Link href="/terms" className="hover:text-zinc-700 transition">Terms</Link>
             <Link href="/privacy" className="hover:text-zinc-700 transition">Privacy</Link>
           </div>
-          <span className="text-sm text-zinc-400">&copy; {new Date().getFullYear()} Pick a Partner</span>
+          <span className="text-sm text-zinc-400">&copy; {new Date().getFullYear()} Lawnbowling</span>
         </div>
       </footer>
     </div>

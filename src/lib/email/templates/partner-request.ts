@@ -8,7 +8,7 @@ export function partnerRequestEmail(playerName: string, requesterName: string, s
 <body style="margin:0;padding:0;background:#0a0a0a;font-family:system-ui,-apple-system,sans-serif">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px">
     <div style="text-align:center;margin-bottom:32px">
-      <h1 style="color:#22c55e;font-size:28px;margin:0">Pick a Partner</h1>
+      <h1 style="color:#22c55e;font-size:28px;margin:0">Lawnbowling</h1>
     </div>
     <div style="background:#18181b;border-radius:16px;padding:32px;border:1px solid #27272a">
       <h2 style="color:#fafafa;font-size:22px;margin:0 0 16px">New Partner Request!</h2>

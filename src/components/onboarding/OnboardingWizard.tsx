@@ -8,7 +8,7 @@ import { OnboardingStep } from "./OnboardingStep";
 const STEPS = [
   {
     icon: "\u{1F3D3}",
-    title: "Welcome to Pick a Partner!",
+    title: "Welcome to Lawnbowling!",
     description: "The easiest way to find your perfect sports partner at any venue. Let's show you around.",
     color: "text-green-400",
   },
@@ -20,7 +20,7 @@ const STEPS = [
   },
   {
     icon: "\u{1F91D}",
-    title: "Pick a Partner",
+    title: "Lawnbowling",
     description: "Browse available players and tap their card to send a partner request. They'll get an instant notification!",
     color: "text-amber-400",
   },

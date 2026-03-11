@@ -24,7 +24,7 @@ export default function HomePage() {
               <Users className="h-5 w-5 text-white" />
             </div>
             <span className="text-base font-bold text-white sm:text-lg">
-              Pick a Partner
+              Lawnbowling
             </span>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
@@ -359,7 +359,7 @@ export default function HomePage() {
             },
             {
               step: "02",
-              title: "Pick a Partner",
+              title: "Lawnbowling",
               desc: "Browse available players filtered by sport and skill level. Tap someone to send a partner request.",
               icon: Users,
             },
@@ -435,7 +435,7 @@ export default function HomePage() {
                   <div className="flex h-full flex-col rounded-xl bg-white">
                     <div className="flex items-center gap-2 border-b border-zinc-100 px-3 py-1.5 sm:px-4 sm:py-2">
                       <span className="text-xs font-bold text-emerald-600">
-                        Pick a Partner
+                        Lawnbowling
                       </span>
                       <span className="ml-auto flex items-center gap-1">
                         <span className="live-dot" />
@@ -491,7 +491,7 @@ export default function HomePage() {
             Ready to modernize your venue?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-base text-emerald-100/80 sm:mt-4 sm:text-lg">
-            Pick a Partner replaces the clipboard sign-up sheet. No more
+            Lawnbowling replaces the clipboard sign-up sheet. No more
             confusion about who&apos;s next or who&apos;s available.
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
@@ -518,7 +518,7 @@ export default function HomePage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Lawnbowling</span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-zinc-500 sm:gap-x-6">
             <Link href="/about" className="hover:text-zinc-700 transition">
@@ -547,7 +547,7 @@ export default function HomePage() {
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Pick a Partner
+            &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>
       </footer>

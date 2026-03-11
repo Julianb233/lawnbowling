@@ -60,7 +60,7 @@ export function InstallPrompt() {
             Add to Home Screen
           </p>
           <p className="text-slate-400 text-xs mt-1">
-            Install Pick a Partner for quick access and offline support.
+            Install Lawnbowling for quick access and offline support.
           </p>
         </div>
         <button
@@ -74,7 +74,7 @@ export function InstallPrompt() {
       <button
         onClick={handleInstall}
         className="mt-3 w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2.5 rounded-lg transition-colors min-h-[44px] focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-slate-800"
-        aria-label="Install Pick a Partner app"
+        aria-label="Install Lawnbowling app"
       >
         Install
       </button>

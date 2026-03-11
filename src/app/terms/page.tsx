@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { Users } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Pick a Partner",
+  title: "Terms of Service | Lawnbowling",
   description:
-    "Terms of Service for Pick a Partner, the real-time player board for recreational sports.",
+    "Terms of Service for Lawnbowling, the real-time player board for recreational sports.",
 };
 
 export default function TermsPage() {
@@ -18,7 +18,7 @@ export default function TermsPage() {
               <Users className="h-5 w-5 text-white" />
             </div>
             <span className="text-lg font-bold text-zinc-900">
-              Pick a Partner
+              Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -49,7 +49,7 @@ export default function TermsPage() {
             1. Acceptance of Terms
           </h2>
           <p>
-            By accessing and using Pick a Partner (&ldquo;the Service&rdquo;),
+            By accessing and using Lawnbowling (&ldquo;the Service&rdquo;),
             you agree to be bound by these Terms of Service. If you do not
             agree, do not use the Service.
           </p>
@@ -58,7 +58,7 @@ export default function TermsPage() {
             2. Description of Service
           </h2>
           <p>
-            Pick a Partner is a real-time sports partner matching platform for
+            Lawnbowling is a real-time sports partner matching platform for
             recreational venues. The Service allows players to check in, find
             partners, schedule games, and track match statistics.
           </p>
@@ -96,7 +96,7 @@ export default function TermsPage() {
             6. Venue Partnerships
           </h2>
           <p>
-            Venues using Pick a Partner are responsible for their own operations,
+            Venues using Lawnbowling are responsible for their own operations,
             safety procedures, and compliance with local regulations. The Service
             does not replace venue-specific waivers or safety protocols.
           </p>
@@ -105,7 +105,7 @@ export default function TermsPage() {
             7. Limitation of Liability
           </h2>
           <p>
-            Pick a Partner is provided &ldquo;as is&rdquo; without warranties of
+            Lawnbowling is provided &ldquo;as is&rdquo; without warranties of
             any kind. We are not liable for any injuries, damages, or losses
             resulting from use of the Service or participation in sports
             activities.
@@ -147,7 +147,7 @@ export default function TermsPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Lawnbowling</span>
           </Link>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <Link href="/about" className="hover:text-zinc-700 transition">
@@ -164,7 +164,7 @@ export default function TermsPage() {
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Pick a Partner
+            &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>
       </footer>

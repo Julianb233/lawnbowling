@@ -51,7 +51,7 @@ export function InsurancePage() {
               <Users className="h-5 w-5 text-white" />
             </div>
             <span className="text-lg font-bold text-zinc-900">
-              Pick a Partner
+              Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -86,7 +86,7 @@ export function InsurancePage() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
             Your pickleball player rolls an ankle. Without coverage, that&apos;s
-            a $15K problem. With Pick a Partner, every participant is covered
+            a $15K problem. With Lawnbowling, every participant is covered
             the moment they check in. No paperwork. No monthly fees. No cost to
             your venue at all.
           </p>
@@ -142,7 +142,7 @@ export function InsurancePage() {
               step: "02",
               icon: UserCircle,
               title: "Insurance Offer Pops Up",
-              desc: "Right after your waiver, you see the coverage offer. No separate app, no hunting around. It shows up automatically in your Pick a Partner profile.",
+              desc: "Right after your waiver, you see the coverage offer. No separate app, no hunting around. It shows up automatically in your Lawnbowling profile.",
             },
             {
               step: "03",
@@ -309,7 +309,7 @@ export function InsurancePage() {
             },
             {
               q: "What sports does this cover?",
-              a: "Everything Pick a Partner supports: pickleball, tennis, lawn bowling, badminton, racquetball, flag football, and more. Doesn't matter if it's a league night or casual open play. If it's happening at a participating venue, it's coverable.",
+              a: "Everything Lawnbowling supports: pickleball, tennis, lawn bowling, badminton, racquetball, flag football, and more. Doesn't matter if it's a league night or casual open play. If it's happening at a participating venue, it's coverable.",
             },
             {
               q: "How does the coverage actually work?",
@@ -411,7 +411,7 @@ export function InsurancePage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Lawnbowling</span>
           </Link>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <Link
@@ -440,7 +440,7 @@ export function InsurancePage() {
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Pick a Partner
+            &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>
       </footer>

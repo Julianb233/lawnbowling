@@ -12,9 +12,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About | Pick a Partner",
+  title: "About | Lawnbowling",
   description:
-    "Pick a Partner replaces the clipboard sign-up sheet at rec centers with a real-time digital player board for pickleball, tennis, lawn bowling, and more.",
+    "Lawnbowling replaces the clipboard sign-up sheet at rec centers with a real-time digital player board for pickleball, tennis, lawn bowling, and more.",
 };
 
 const sports = [
@@ -80,7 +80,7 @@ export default function AboutPage() {
               <Users className="h-5 w-5 text-white" />
             </div>
             <span className="text-lg font-bold text-zinc-900">
-              Pick a Partner
+              Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -120,7 +120,7 @@ export default function AboutPage() {
             <span className="text-gradient">Actually Play</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
-            Pick a Partner is the real-time player board that replaces the
+            Lawnbowling is the real-time player board that replaces the
             clipboard sign-up sheet at recreation centers, community courts, and
             sports facilities everywhere.
           </p>
@@ -241,7 +241,7 @@ export default function AboutPage() {
               A Real-Time Digital Player Board
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-zinc-600">
-              Pick a Partner gives every player a live view of who&apos;s
+              Lawnbowling gives every player a live view of who&apos;s
               available, what sport they play, and their skill level. Check in
               from your phone or the venue kiosk. Tap a name to send a partner
               request. Get matched to a court automatically.
@@ -335,7 +335,7 @@ export default function AboutPage() {
             Ready to Get Started?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-emerald-100/80">
-            Join the players and venues already using Pick a Partner to make rec
+            Join the players and venues already using Lawnbowling to make rec
             sports better for everyone.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -363,7 +363,7 @@ export default function AboutPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Lawnbowling</span>
           </Link>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <Link
@@ -392,7 +392,7 @@ export default function AboutPage() {
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Pick a Partner
+            &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>
       </footer>

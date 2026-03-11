@@ -1,5 +1,5 @@
 /**
- * Production seed script for Pick a Partner demo data.
+ * Production seed script for Lawnbowling demo data.
  *
  * Creates:
  *   - 1 demo venue (Sunset Recreation Center)
@@ -123,7 +123,7 @@ function daysAgo(d: number): string {
 // ── Main ────────────────────────────────────────────────────────────
 
 async function main() {
-  console.log("Seeding demo data for Pick a Partner...\n");
+  console.log("Seeding demo data for Lawnbowling...\n");
 
   // 0. Clean mode: wipe previous demo data if --clean flag is passed
   if (process.argv.includes("--clean")) {

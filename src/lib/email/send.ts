@@ -19,7 +19,7 @@ export async function sendEmail({ to, subject, html }: SendEmailOptions) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: process.env.EMAIL_FROM || "Pick a Partner <noreply@pickapartner.app>",
+      from: process.env.EMAIL_FROM || "Lawnbowling <noreply@pickapartner.app>",
       to,
       subject,
       html,

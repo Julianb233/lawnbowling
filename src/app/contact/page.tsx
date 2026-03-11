@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { Users, Mail } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact | Pick a Partner",
+  title: "Contact | Lawnbowling",
   description:
-    "Get in touch with the Pick a Partner team. Questions about the platform, venue setup, or partnerships — we'd love to hear from you.",
+    "Get in touch with the Lawnbowling team. Questions about the platform, venue setup, or partnerships — we'd love to hear from you.",
 };
 
 export default function ContactPage() {
@@ -18,7 +18,7 @@ export default function ContactPage() {
               <Users className="h-5 w-5 text-white" />
             </div>
             <span className="text-lg font-bold text-zinc-900">
-              Pick a Partner
+              Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -46,7 +46,7 @@ export default function ContactPage() {
           <div>
             <h1 className="text-3xl font-bold text-zinc-900">Contact Us</h1>
             <p className="text-zinc-600">
-              Have a question or want to bring Pick a Partner to your venue?
+              Have a question or want to bring Lawnbowling to your venue?
             </p>
           </div>
         </div>
@@ -115,7 +115,7 @@ export default function ContactPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Lawnbowling</span>
           </Link>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <Link href="/about" className="hover:text-zinc-700 transition">
@@ -132,7 +132,7 @@ export default function ContactPage() {
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Pick a Partner
+            &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>
       </footer>

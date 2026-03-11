@@ -16,13 +16,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pick a Partner",
-  description: "Find your sports partner at the venue",
+  title: "Lawnbowling — The World's Best Lawn Bowling App",
+  description: "Tournament management, club directory, and everything lawn bowling. Check in, draw, score, and manage your club.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Pick a Partner",
+    title: "Lawnbowling",
   },
 };
 
@@ -30,7 +30,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#22c55e",
+  themeColor: "#1B5E20",
 };
 
 export default function RootLayout({

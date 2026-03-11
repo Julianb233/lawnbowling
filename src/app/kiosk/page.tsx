@@ -38,7 +38,7 @@ export default function KioskPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-black text-zinc-900">
-                {venue?.name || "Pick a Partner"}
+                {venue?.name || "Lawnbowling"}
               </h1>
               <p className="text-sm text-zinc-500">Kiosk Mode</p>
             </div>

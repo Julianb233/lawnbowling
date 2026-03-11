@@ -21,7 +21,7 @@ export default function KioskScanPage() {
       <div className="flex min-h-screen flex-col bg-white">
         <header className="border-b border-zinc-200 px-6 py-4 text-center">
           <h1 className="text-2xl font-black text-zinc-900">
-            {venue?.name || "Pick a Partner"}
+            {venue?.name || "Lawnbowling"}
           </h1>
           <p className="text-sm text-zinc-500">Scan your QR code to check in</p>
         </header>

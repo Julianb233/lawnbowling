@@ -136,7 +136,7 @@ export default function LoginPage() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-blue-600 shadow-lg shadow-emerald-500/20">
                 <Users className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-gray-900">Pick a Partner</span>
+              <span className="text-xl font-bold text-gray-900">Lawnbowling</span>
             </div>
 
             {/* Headline */}

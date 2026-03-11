@@ -62,7 +62,7 @@ export function IOSInstallGuide() {
             Get the full app experience
           </p>
           <p className="text-slate-400 text-xs mt-1">
-            Add Pick a Partner to your home screen for instant access, faster loading, and a full-screen experience.
+            Add Lawnbowling to your home screen for instant access, faster loading, and a full-screen experience.
           </p>
           <div className="mt-3 space-y-2.5">
             <div className="flex items-start gap-3">

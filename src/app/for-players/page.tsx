@@ -19,9 +19,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "For Players | Pick a Partner",
+  title: "For Players | Lawnbowling",
   description:
-    "Never play alone again. Pick a Partner matches you with players at your skill level, finds nearby courts, and handles scheduling. Pickleball, tennis, basketball, badminton, volleyball, and more.",
+    "Never play alone again. Lawnbowling matches you with players at your skill level, finds nearby courts, and handles scheduling. Pickleball, tennis, basketball, badminton, volleyball, and more.",
 };
 
 export default function ForPlayersPage() {
@@ -54,7 +54,7 @@ export default function ForPlayersPage() {
               <Users className="h-5 w-5 text-white" />
             </div>
             <span className="text-lg font-bold text-zinc-900">
-              Pick a Partner
+              Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -96,7 +96,7 @@ export default function ForPlayersPage() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
             You want to play, but your usual partner bailed. The courts near
-            you might be packed, or empty, and you have no idea. Pick a Partner
+            you might be packed, or empty, and you have no idea. Lawnbowling
             matches you with players at your skill level, shows you open courts
             nearby, and gets you playing in minutes -- not hours of texting
             group chats.
@@ -349,7 +349,7 @@ export default function ForPlayersPage() {
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-zinc-600">
                 Rolled ankles. Strained shoulders. A bad collision at the net.
-                It happens in every sport. With Pick a Partner, per-participant
+                It happens in every sport. With Lawnbowling, per-participant
                 liability coverage activates the moment you check in and
                 deactivates when you leave. No paperwork, no separate app,
                 no extra cost to stress about.
@@ -503,7 +503,7 @@ export default function ForPlayersPage() {
                 <span className="text-zinc-400">Without the App Store.</span>
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-zinc-600">
-                Pick a Partner is a PWA -- a progressive web app that installs
+                Lawnbowling is a PWA -- a progressive web app that installs
                 directly to your home screen. No downloads, no updates, no
                 storage eaten up. Works on iPhone, Android, and iPad. Open it
                 and you&apos;re playing in seconds.
@@ -532,7 +532,7 @@ export default function ForPlayersPage() {
                   <div className="flex h-full flex-col rounded-2xl bg-white">
                     <div className="flex items-center justify-between border-b border-zinc-100 px-3 py-2">
                       <span className="text-xs font-bold text-emerald-600">
-                        Pick a Partner
+                        Lawnbowling
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="live-dot" />
@@ -602,7 +602,7 @@ export default function ForPlayersPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Lawnbowling</span>
           </Link>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <Link href="/for-venues" className="hover:text-zinc-700 transition">
@@ -625,7 +625,7 @@ export default function ForPlayersPage() {
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Pick a Partner
+            &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>
       </footer>

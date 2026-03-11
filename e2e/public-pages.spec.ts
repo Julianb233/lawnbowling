@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test.describe("Public Pages", () => {
   test("homepage loads with hero section", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle(/Pick a Partner/i);
+    await expect(page).toHaveTitle(/Lawnbowling/i);
     // Hero CTA should be visible
     await expect(page.getByRole("link", { name: /get started|sign up/i }).first()).toBeVisible();
   });
