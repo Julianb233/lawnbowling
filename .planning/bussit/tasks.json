@@ -1,10 +1,19 @@
 {
   "tasks": [
     {"id": "phase-1", "phase": 1, "title": "Foundation & Auth", "status": "completed"},
-    {"id": "phase-2", "phase": 2, "title": "Player Profiles & Waivers", "status": "completed", "depends": ["phase-1"]},
-    {"id": "phase-3", "phase": 3, "title": "Live Availability Board", "status": "completed", "depends": ["phase-2"]},
-    {"id": "phase-4", "phase": 4, "title": "Partner Selection", "status": "completed", "depends": ["phase-3"]},
-    {"id": "phase-5", "phase": 5, "title": "Court Management & Admin", "status": "completed", "depends": ["phase-4"]},
-    {"id": "phase-6", "phase": 6, "title": "PWA, Polish & Deploy", "status": "completed", "depends": ["phase-5"]}
+    {"id": "phase-2", "phase": 2, "title": "Player Profiles & Waivers", "status": "completed"},
+    {"id": "phase-3", "phase": 3, "title": "Live Availability Board", "status": "completed"},
+    {"id": "phase-4", "phase": 4, "title": "Partner Selection", "status": "completed"},
+    {"id": "phase-5", "phase": 5, "title": "Court Management & Admin", "status": "completed"},
+    {"id": "phase-6", "phase": 6, "title": "PWA, Polish & Deploy", "status": "completed"},
+    {"id": "phase-7", "phase": 7, "title": "Rebrand & Foundation", "status": "completed", "verified": "2026-03-11"},
+    {"id": "phase-8", "phase": 8, "title": "Tournament Lifecycle", "status": "completed", "verified": "2026-03-11"},
+    {"id": "phase-9", "phase": 9, "title": "Kiosk UX Overhaul", "status": "completed", "verified": "2026-03-11"},
+    {"id": "phase-10", "phase": 10, "title": "Club Directory", "status": "completed", "verified": "2026-03-11", "notes": "85 clubs seeded (target 90+)"},
+    {"id": "phase-11", "phase": 11, "title": "Live Display & Engagement", "status": "completed", "verified": "2026-03-11"},
+    {"id": "phase-12", "phase": 12, "title": "Educational Content & Blog", "status": "completed", "verified": "2026-03-11"},
+    {"id": "phase-13", "phase": 13, "title": "DEI Insurance Platform", "status": "completed", "verified": "2026-03-11", "notes": "Kiosk check-in integration partial"},
+    {"id": "phase-14", "phase": 14, "title": "Print-on-Demand Shop", "status": "completed", "verified": "2026-03-11", "notes": "Printify API deferred until key available"},
+    {"id": "phase-15", "phase": 15, "title": "SEO & Growth Engine", "status": "completed", "verified": "2026-03-11"}
   ]
 }
