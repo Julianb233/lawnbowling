@@ -620,7 +620,7 @@ export default function ScoreEntryPage() {
           {!allFinalized && (
             <button
               onClick={addRink}
-              className="flex min-h-[120px] items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 text-zinc-400 hover:border-zinc-300 hover:text-zinc-500 transition-colors touch-manipulation"
+              className="flex min-h-[120px] items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 dark:border-white/10 text-zinc-400 dark:text-zinc-500 hover:border-zinc-300 dark:hover:border-white/20 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors touch-manipulation"
             >
               <span className="text-3xl font-light">+</span>
             </button>
@@ -854,7 +854,7 @@ export default function ScoreEntryPage() {
 
         {/* Finalize Round */}
         {rinkScores.length > 0 && !allFinalized && (
-          <div className="mt-8 rounded-2xl bg-amber-50 border border-amber-200 p-6">
+          <div className="mt-8 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/30 p-6">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-amber-800">
@@ -980,7 +980,7 @@ function ScoreInput({
       {!disabled && (
         <button
           onClick={() => onChange(Math.min(value + 1, 9))}
-          className="flex h-8 w-12 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 hover:bg-zinc-200 active:bg-zinc-300 touch-manipulation"
+          className="flex h-8 w-12 items-center justify-center rounded-lg bg-zinc-100 dark:bg-white/10 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-white/15 active:bg-zinc-300 dark:active:bg-white/20 touch-manipulation"
         >
           <svg
             className="h-4 w-4"
@@ -1001,12 +1001,12 @@ function ScoreInput({
         className={cn(
           "flex h-12 w-12 items-center justify-center rounded-xl text-lg font-black tabular-nums transition-colors",
           disabled
-            ? "bg-zinc-50 text-zinc-400"
+            ? "bg-zinc-50 dark:bg-white/5 text-zinc-400"
             : isWinning
-              ? "bg-[#1B5E20]/10 text-[#2E7D32] ring-2 ring-[#1B5E20]"
+              ? "bg-[#1B5E20]/10 dark:bg-emerald-900/30 text-[#2E7D32] dark:text-emerald-400 ring-2 ring-[#1B5E20] dark:ring-emerald-500"
               : value === 0
-                ? "bg-zinc-50 text-zinc-300"
-                : "bg-blue-50 text-[#2E7D32]",
+                ? "bg-zinc-50 dark:bg-white/5 text-zinc-300 dark:text-zinc-500 dark:text-muted-foreground"
+                : "bg-blue-50 dark:bg-emerald-900/20 text-[#2E7D32] dark:text-emerald-400",
           isCurrent && !disabled && "ring-2 ring-[#1B5E20]/30"
         )}
       >
@@ -1015,7 +1015,7 @@ function ScoreInput({
       {!disabled && (
         <button
           onClick={() => onChange(Math.max(value - 1, 0))}
-          className="flex h-8 w-12 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 hover:bg-zinc-200 active:bg-zinc-300 touch-manipulation"
+          className="flex h-8 w-12 items-center justify-center rounded-lg bg-zinc-100 dark:bg-white/10 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-white/15 active:bg-zinc-300 dark:active:bg-white/20 touch-manipulation"
         >
           <svg
             className="h-4 w-4"
