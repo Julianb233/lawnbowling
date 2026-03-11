@@ -31,7 +31,7 @@ export function getSportsOrganizationSchema() {
     },
     areaServed: {
       "@type": "Country",
-      name: "Australia",
+      name: "United States",
     },
   };
 }
@@ -53,14 +53,14 @@ export function getSoftwareApplicationSchema() {
     offers: {
       "@type": "Offer",
       price: "0",
-      priceCurrency: "AUD",
+      priceCurrency: "USD",
       description: "Free for players. Premium plans available for clubs.",
     },
     screenshot: `${BASE_URL}/og-image.png`,
     featureList: [
       "Tournament draw generator",
       "Round-robin bracket maker",
-      "Club directory with 90+ Australian clubs",
+      "Club directory with 90+ USA clubs",
       "QR code venue check-in",
       "Live scoring",
       "Player matchmaking",
@@ -137,7 +137,7 @@ export function getLocalBusinessSchema(club: ClubData) {
       streetAddress: club.address ?? undefined,
       addressLocality: club.city,
       addressRegion: club.stateCode,
-      addressCountry: "AU",
+      addressCountry: "US",
     },
     geo:
       club.lat && club.lng

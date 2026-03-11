@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin, Users, ChevronRight, Leaf, Globe } from "lucide-react";
 import {
-  CLUBS,
   US_STATES,
   SURFACE_LABELS,
   getClubsByState,
@@ -52,7 +51,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://lawnbowls.app/clubs/${stateCode.toLowerCase()}`,
+      url: `https://lawnbowl.app/clubs/${stateCode.toLowerCase()}`,
       type: "website",
     },
     twitter: {

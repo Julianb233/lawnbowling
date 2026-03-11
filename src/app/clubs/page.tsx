@@ -8,22 +8,28 @@ import { BottomNav } from "@/components/board/BottomNav";
 import {
   CLUBS,
   US_STATES,
+  REGION_LABELS,
   SURFACE_LABELS,
   getClubStats,
   searchClubs,
   type ClubData,
+  type USRegion,
 } from "@/lib/clubs-data";
 
 const STATE_ORDER: string[] = Object.keys(US_STATES);
 
 export default function ClubDirectoryPage() {
   const [query, setQuery] = useState("");
+  const [activeRegion, setActiveRegion] = useState<USRegion | "all">("all");
   const [activeState, setActiveState] = useState<string | "all">("all");
   const [activeActivity, setActiveActivity] = useState<string | "all">("all");
   const stats = getClubStats();
 
   const filteredClubs = useMemo(() => {
     let clubs = query.length > 1 ? searchClubs(query) : [...CLUBS];
+    if (activeRegion !== "all") {
+      clubs = clubs.filter((c) => c.region === activeRegion);
+    }
     if (activeState !== "all") {
       clubs = clubs.filter((c) => c.stateCode === activeState);
     }
@@ -31,7 +37,12 @@ export default function ClubDirectoryPage() {
       clubs = clubs.filter((c) => c.activities.includes(activeActivity));
     }
     return clubs;
-  }, [query, activeState, activeActivity]);
+  }, [query, activeRegion, activeState, activeActivity]);
+
+  const availableStates = useMemo(() => {
+    if (activeRegion === "all") return STATE_ORDER;
+    return STATE_ORDER.filter((s) => US_STATES[s]?.region === activeRegion);
+  }, [activeRegion]);
 
   const clubsByState = useMemo(() => {
     const grouped: Record<string, ClubData[]> = {};
@@ -59,7 +70,7 @@ export default function ClubDirectoryPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-black tracking-tight text-zinc-900">Club Directory</h1>
-              <p className="text-sm text-zinc-500">{stats.totalClubs} clubs across Australia</p>
+              <p className="text-sm text-zinc-500">{stats.totalClubs} clubs across the USA</p>
             </div>
             <div className="flex items-center gap-2">
               <Link href="/clubs/manage" className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 min-h-[44px] touch-manipulation hidden sm:block">Manage Club</Link>
@@ -72,7 +83,7 @@ export default function ClubDirectoryPage() {
       <main className="mx-auto max-w-4xl px-4 py-6">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           <StatCard value={stats.totalClubs} label="Clubs Listed" icon="🎳" />
-          <StatCard value={stats.totalStates} label="States & Territories" icon="🗺️" />
+          <StatCard value={stats.totalStates} label="States" icon="🗺️" />
           <StatCard value={stats.totalMembers.toLocaleString()} label="Total Members" icon="👥" />
           <StatCard value={stats.activeClubs} label="Active Clubs" icon="✅" />
         </motion.div>
@@ -82,9 +93,16 @@ export default function ClubDirectoryPage() {
           <input type="text" placeholder="Search clubs by name, city, or state..." value={query} onChange={(e) => setQuery(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white py-3.5 pl-12 pr-4 text-base text-zinc-900 placeholder:text-zinc-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
         </div>
 
+        <div className="mb-3 flex gap-2 overflow-x-auto scrollbar-hide">
+          <FilterPill active={activeRegion === "all"} onClick={() => { setActiveRegion("all"); setActiveState("all"); }} label="All Regions" />
+          {(Object.keys(REGION_LABELS) as USRegion[]).map((r) => (
+            <FilterPill key={r} active={activeRegion === r} onClick={() => { setActiveRegion(r); setActiveState("all"); }} label={`${REGION_LABELS[r].emoji} ${REGION_LABELS[r].label}`} />
+          ))}
+        </div>
+
         <div className="mb-4 flex gap-2 overflow-x-auto scrollbar-hide">
           <FilterPill active={activeState === "all"} onClick={() => setActiveState("all")} label="All States" />
-          {STATE_ORDER.map((s) => (
+          {availableStates.map((s) => (
             <FilterPill key={s} active={activeState === s} onClick={() => setActiveState(s)} label={s} />
           ))}
         </div>
@@ -114,7 +132,7 @@ export default function ClubDirectoryPage() {
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-12 rounded-2xl border border-dashed border-zinc-300 bg-white p-8 text-center">
           <h3 className="text-lg font-bold text-zinc-900">Don&apos;t see your club?</h3>
-          <p className="mt-1 text-sm text-zinc-500">Help us build the most complete lawn bowls directory in Australia</p>
+          <p className="mt-1 text-sm text-zinc-500">Help us build the most complete lawn bowls directory in the USA</p>
           <Link href="/clubs/claim" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-500 px-6 py-3 text-sm font-bold text-white hover:bg-blue-600 transition-colors">
             <MapPin className="h-4 w-4" />
             Add Your Club
