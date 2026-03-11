@@ -216,7 +216,57 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
     );
   }
 
-  // ─── STEP 1: Player List ───────────────────────────────────────
+  // ─── STEP 1: Welcome ────────────────────────────────────────────
+
+  if (step === "welcome") {
+    const checkedInCount = checkedInIds.size;
+    const totalCount = players.length;
+
+    return (
+      <section
+        aria-label="Welcome screen"
+        className="mx-auto flex max-w-2xl flex-col items-center py-12"
+      >
+        <div
+          className="mb-8 flex items-center justify-center rounded-full"
+          style={{ width: "120px", height: "120px", backgroundColor: "#1B5E20" }}
+          aria-hidden="true"
+        >
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="10" r="1" fill="#FFFFFF" />
+            <circle cx="9" cy="13" r="1" fill="#FFFFFF" />
+            <circle cx="15" cy="13" r="1" fill="#FFFFFF" />
+          </svg>
+        </div>
+
+        <KioskHeading level={1} align="center" className="mb-4">
+          Welcome to Check-In
+        </KioskHeading>
+
+        <KioskText size="body" color="secondary" align="center" className="mb-4">
+          Tap the button below to find your name and check in for today&apos;s game.
+        </KioskText>
+
+        {checkedInCount > 0 && (
+          <KioskText size="label" color="secondary" align="center" className="mb-8">
+            {checkedInCount} of {totalCount} players checked in so far
+          </KioskText>
+        )}
+
+        <div className="mt-4">
+          <KioskButton
+            onClick={() => setStep("list")}
+            ariaLabel="Begin check-in process"
+          >
+            Begin Check-In
+          </KioskButton>
+        </div>
+      </section>
+    );
+  }
+
+  // ─── STEP 2: Name Search (Player List) ──────────────────────────
 
   if (step === "list") {
     const checkedInCount = checkedInIds.size;
@@ -402,11 +452,22 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
             </KioskText>
           </div>
         )}
+
+        {/* Back to welcome */}
+        <div className="mt-8 flex justify-center">
+          <KioskButton
+            variant="secondary"
+            onClick={() => setStep("welcome")}
+            ariaLabel="Go back to welcome screen"
+          >
+            Back
+          </KioskButton>
+        </div>
       </section>
     );
   }
 
-  // ─── STEP 2: Position Selection ────────────────────────────────
+  // ─── STEP 3: Position Selection ────────────────────────────────
 
   if (step === "position" && selectedPlayer) {
     const firstName = selectedPlayer.display_name.split(" ")[0];
@@ -463,7 +524,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
         <div className="mt-8 flex justify-center">
           <KioskButton
             variant="secondary"
-            onClick={resetFlow}
+            onClick={() => { setSelectedPlayer(null); setStep("list"); }}
             ariaLabel="Go back to player list"
           >
             Back to Player List
@@ -473,7 +534,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
     );
   }
 
-  // ─── STEP 3: Confirmation ──────────────────────────────────────
+  // ─── STEP 4: Confirmation ──────────────────────────────────────
 
   if (step === "confirmation" && selectedPlayer) {
     const firstName = selectedPlayer.display_name.split(" ")[0];
