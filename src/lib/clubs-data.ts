@@ -89,7 +89,7 @@ export const DIVISION_LABELS: Record<string, string> = {
   none: "Unaffiliated",
 };
 
-// 102 Australian lawn bowls clubs
+// 101 Australian lawn bowls clubs
 export const CLUBS: ClubData[] = [
   // === NEW SOUTH WALES (25 clubs) ===
   { id: "nsw-city-of-sydney", name: "City of Sydney RSL Bowling Club", city: "Sydney", state: "New South Wales", stateCode: "NSW", address: "169 Castlereagh St, Sydney NSW 2000", memberCount: 200, greens: 2, rinks: 12, surfaceType: "synthetic", activities: ["Social Bowls", "Pennant/Competition", "Tournaments", "Corporate Events", "Barefoot Bowls"], facilities: ["Clubhouse", "Parking", "Bar/Bistro", "Function Rooms"], description: "Inner-city bowling club in the heart of Sydney, offering social and competitive bowls with modern synthetic greens.", status: "active", hasOnlinePresence: true, socialMedia: { facebook: "CityOfSydneyBowls" }, tags: ["city-centre", "corporate-events", "beginner-friendly", "year-round"] },
