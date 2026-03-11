@@ -1,0 +1,16 @@
+{
+  "project": "Lawnbowling",
+  "version": "2.0",
+  "mode": "yolo",
+  "depth": "comprehensive",
+  "parallelization": true,
+  "created": "2026-03-11",
+  "milestone": "v2.0 — Lawn Bowl National Launch",
+  "settings": {
+    "auto_commit": true,
+    "plan_approval": false,
+    "max_parallel_agents": 4,
+    "linear_sync": true,
+    "model_profile": "quality"
+  }
+}
