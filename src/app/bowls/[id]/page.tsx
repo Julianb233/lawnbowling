@@ -19,9 +19,10 @@ import type {
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { PrintDrawSheet } from "@/components/bowls/PrintDrawSheet";
+import { TournamentWizard } from "@/components/bowls/TournamentWizard";
 import Link from "next/link";
-
-type PageView = "checkin" | "board" | "draw";
+import type { DrawStyle, MultiRoundDrawResult } from "@/lib/bowls-draw";
+import { DRAW_STYLE_LABELS } from "@/lib/bowls-draw";
 
 interface DrawResult {
   rinks: BowlsTeamAssignment[][];
@@ -48,11 +49,14 @@ export default function BowlsTournamentPage() {
   const params = useParams();
   const tournamentId = (params?.id ?? "") as string;
 
-  const [view, setView] = useState<PageView>("checkin");
   const [players, setPlayers] = useState<Player[]>([]);
   const [checkins, setCheckins] = useState<BowlsCheckin[]>([]);
   const [format, setFormat] = useState<BowlsGameFormat>("fours");
   const [drawResult, setDrawResult] = useState<DrawResult | null>(null);
+  const [multiRoundDraw, setMultiRoundDraw] = useState<MultiRoundDrawResult | null>(null);
+  const [drawStyle, setDrawStyle] = useState<DrawStyle>("random");
+  const [selectedRound, setSelectedRound] = useState(0);
+  const [drawError, setDrawError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [justCheckedIn, setJustCheckedIn] = useState<string | null>(null);
@@ -104,9 +108,31 @@ export default function BowlsTournamentPage() {
     loadCheckins();
     loadTournament();
 
+    // UCI-04: Realtime subscription for bowls_checkins — kiosk check-ins appear within 3 seconds
+    const supabase = createClient();
+    const channel = supabase
+      .channel(`bowls_checkins_${tournamentId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "bowls_checkins",
+          filter: `tournament_id=eq.${tournamentId}`,
+        },
+        () => {
+          loadCheckins();
+        }
+      )
+      .subscribe();
+
+    // Fallback polling in case realtime is not available
     const interval = setInterval(loadCheckins, 5000);
-    return () => clearInterval(interval);
-  }, [loadPlayers, loadCheckins, loadTournament]);
+    return () => {
+      clearInterval(interval);
+      supabase.removeChannel(channel);
+    };
+  }, [loadPlayers, loadCheckins, loadTournament, tournamentId]);
 
   function handlePlayerTap(player: Player) {
     const existing = checkins.find((c) => c.player_id === player.id);
@@ -155,26 +181,64 @@ export default function BowlsTournamentPage() {
     }
   }
 
-  async function handleGenerateDraw() {
+  async function handleGenerateDraw(fmt?: BowlsGameFormat) {
     setGeneratingDraw(true);
+    setDrawError(null);
     try {
       const res = await fetch("/api/bowls/draw", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           tournament_id: tournamentId,
-          format,
+          format: fmt ?? format,
+          draw_style: drawStyle,
         }),
       });
-      if (res.ok) {
-        const data = await res.json();
+      const data = await res.json();
+      if (!res.ok) {
+        if (data.error === "incompatible_player_count") {
+          setDrawError(
+            `${checkins.length} players not supported for ${DRAW_STYLE_LABELS[drawStyle]}. ` +
+            `Supported counts: ${data.supported_counts?.join(", ") ?? "none"}`
+          );
+        } else {
+          setDrawError(data.error || "Draw generation failed");
+        }
+        setGeneratingDraw(false);
+        return;
+      }
+
+      if (drawStyle === "mead" || drawStyle === "gavel") {
+        const multiResult = data as MultiRoundDrawResult;
+        setMultiRoundDraw(multiResult);
+        setSelectedRound(0);
+        const firstRound = multiResult.rounds[0];
+        setDrawResult({
+          rinks: firstRound.rinks,
+          unassigned: firstRound.unassigned,
+          rinkCount: firstRound.rinks.length,
+          format: fmt ?? format,
+        });
+      } else {
+        setMultiRoundDraw(null);
         setDrawResult(data);
-        setView("draw");
       }
     } catch {
-      // Handle error
+      setDrawError("Draw generation failed");
     }
     setGeneratingDraw(false);
+  }
+
+  function handleRoundChange(roundIdx: number) {
+    if (!multiRoundDraw) return;
+    setSelectedRound(roundIdx);
+    const round = multiRoundDraw.rounds[roundIdx];
+    setDrawResult({
+      rinks: round.rinks,
+      unassigned: round.unassigned,
+      rinkCount: round.rinks.length,
+      format,
+    });
   }
 
   const isCheckedIn = (playerId: string) =>
@@ -206,80 +270,9 @@ export default function BowlsTournamentPage() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
-        <div className="mx-auto max-w-5xl px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900">
-                {tournamentName}
-              </h1>
-              <p className="text-sm text-zinc-500">
-                Tournament Check-in &middot; {checkins.length} players registered
-              </p>
-            </div>
-
-            {/* Format selector */}
-            <div className="flex items-center gap-2">
-              <select
-                value={format}
-                onChange={(e) => setFormat(e.target.value as BowlsGameFormat)}
-                className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-700 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
-              >
-                {(Object.entries(BOWLS_FORMAT_LABELS) as [BowlsGameFormat, typeof BOWLS_FORMAT_LABELS[BowlsGameFormat]][]).map(
-                  ([key, val]) => (
-                    <option key={key} value={key}>
-                      {val.label}
-                    </option>
-                  )
-                )}
-              </select>
-            </div>
-          </div>
-
-          {/* View tabs */}
-          <div className="mt-3 flex gap-1 no-print">
-            {(
-              [
-                { key: "checkin" as PageView, label: "Check In" },
-                { key: "board" as PageView, label: `Board (${checkins.length})` },
-                { key: "draw" as PageView, label: "Draw" },
-              ] as const
-            ).map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => setView(tab.key)}
-                className={cn(
-                  "rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
-                  view === tab.key
-                    ? "bg-[#1B5E20] text-white"
-                    : "text-zinc-500 hover:bg-zinc-100"
-                )}
-              >
-                {tab.label}
-              </button>
-            ))}
-            <Link
-              href={`/bowls/${tournamentId}/scores`}
-              className="rounded-lg px-4 py-2 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 transition-colors"
-            >
-              Scores
-            </Link>
-            <Link
-              href={`/bowls/${tournamentId}/results`}
-              className="rounded-lg px-4 py-2 text-sm font-semibold text-purple-600 hover:bg-purple-50 transition-colors"
-            >
-              Results
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-5xl px-4 py-6">
-        {/* ===== CHECK-IN VIEW ===== */}
-        {view === "checkin" && (
+  // Render functions for the wizard's Advanced escape hatch (TWZ-15)
+  function renderCheckinView() {
+    return (
           <div>
             <div className="mb-6">
               <input
@@ -377,10 +370,11 @@ export default function BowlsTournamentPage() {
               })}
             </div>
           </div>
-        )}
+    );
+  }
 
-        {/* ===== BOARD VIEW ===== */}
-        {view === "board" && (
+  function renderBoardView() {
+    return (
           <div>
             <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {positionsNeeded.map((pos) => (
@@ -406,6 +400,31 @@ export default function BowlsTournamentPage() {
               ))}
             </div>
 
+            {/* Draw Style Selector */}
+            <div className="mb-4">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-zinc-400">Draw Style</label>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                {(["random", "seeded", "mead", "gavel"] as DrawStyle[]).map((style) => (
+                  <button
+                    key={style}
+                    type="button"
+                    onClick={() => setDrawStyle(style)}
+                    className={cn(
+                      "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left",
+                      drawStyle === style
+                        ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
+                        : "border-zinc-200 bg-white text-zinc-500 hover:border-zinc-400"
+                    )}
+                  >
+                    {DRAW_STYLE_LABELS[style]}
+                  </button>
+                ))}
+              </div>
+              {drawStyle === "gavel" && format !== "fours" && (
+                <p className="mt-2 text-xs text-amber-600">Gavel Draw is only available for Fours format.</p>
+              )}
+            </div>
+
             <div className="mb-6 rounded-2xl bg-white border border-zinc-200 p-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -423,13 +442,16 @@ export default function BowlsTournamentPage() {
                   </p>
                 </div>
                 <button
-                  onClick={handleGenerateDraw}
+                  onClick={() => handleGenerateDraw()}
                   disabled={possibleRinks < 1 || generatingDraw}
                   className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] disabled:opacity-40 min-h-[48px] touch-manipulation"
                 >
                   {generatingDraw ? "Generating..." : "Generate Draw"}
                 </button>
               </div>
+              {drawError && (
+                <p className="mt-3 rounded-lg bg-red-50 border border-red-200 px-3 py-2 text-sm text-red-600">{drawError}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -466,6 +488,18 @@ export default function BowlsTournamentPage() {
                         {BOWLS_POSITION_LABELS[checkin.preferred_position as BowlsPosition]?.label}
                       </p>
                     </div>
+                    {checkin.checkin_source && (
+                      <span className={cn(
+                        "rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
+                        checkin.checkin_source === "kiosk"
+                          ? "bg-blue-100 text-blue-700"
+                          : checkin.checkin_source === "app"
+                            ? "bg-purple-100 text-purple-700"
+                            : "bg-zinc-100 text-zinc-500"
+                      )}>
+                        {checkin.checkin_source}
+                      </span>
+                    )}
                     <span
                       className={cn(
                         "rounded-full px-3 py-1 text-xs font-semibold text-white",
@@ -474,6 +508,16 @@ export default function BowlsTournamentPage() {
                     >
                       {BOWLS_POSITION_LABELS[checkin.preferred_position as BowlsPosition]?.label}
                     </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleUndoCheckin(checkin.player_id);
+                      }}
+                      className="ml-1 rounded-lg border border-zinc-200 px-2 py-1 text-xs font-medium text-zinc-400 hover:border-red-300 hover:text-red-500 hover:bg-red-50 transition-colors min-h-[32px] touch-manipulation"
+                      title="Remove player from check-in list"
+                    >
+                      Remove
+                    </button>
                   </motion.div>
                 );
               })}
@@ -490,38 +534,72 @@ export default function BowlsTournamentPage() {
               )}
             </div>
           </div>
-        )}
+    );
+  }
 
-        {/* ===== DRAW VIEW ===== */}
-        {view === "draw" && (
-          <div>
-            {!drawResult ? (
+  function renderDrawView() {
+    return (
+      <div>
+        {!drawResult ? (
               <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
                 <p className="text-lg font-semibold text-zinc-400">
                   No draw generated yet
                 </p>
                 <p className="mt-1 text-sm text-zinc-400">
-                  Check in players and generate a draw from the Board tab
+                  Check in players and generate a draw using the wizard above
                 </p>
-                <button
-                  onClick={() => setView("board")}
-                  className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218]"
-                >
-                  Go to Board
-                </button>
               </div>
             ) : (
               <div>
-                <PrintDrawSheet
-                  drawResult={drawResult}
-                  tournamentName={tournamentName}
-                  round={drawRound}
-                />
+                {multiRoundDraw ? (
+                  <PrintDrawSheet
+                    multiRoundDraw={multiRoundDraw}
+                    tournamentName={tournamentName}
+                  />
+                ) : (
+                  <PrintDrawSheet
+                    drawResult={drawResult}
+                    tournamentName={tournamentName}
+                    round={drawRound}
+                  />
+                )}
                 <div className="screen-draw-view">
+                {/* Draw style label */}
+                {multiRoundDraw && (
+                  <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#1B5E20]/10 px-3 py-1">
+                    <span className="text-xs font-bold text-[#1B5E20]">
+                      {DRAW_STYLE_LABELS[multiRoundDraw.style as DrawStyle]}
+                    </span>
+                    <span className="text-xs text-[#1B5E20]/70">
+                      {multiRoundDraw.totalRounds} rounds &middot; {multiRoundDraw.playerCount} players
+                    </span>
+                  </div>
+                )}
+
+                {/* Multi-round selector */}
+                {multiRoundDraw && multiRoundDraw.totalRounds > 1 && (
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    {multiRoundDraw.rounds.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleRoundChange(idx)}
+                        className={cn(
+                          "rounded-lg px-4 py-2 text-sm font-semibold transition-colors min-h-[40px] touch-manipulation",
+                          selectedRound === idx
+                            ? "bg-[#1B5E20] text-white"
+                            : "bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-400"
+                        )}
+                      >
+                        Round {idx + 1}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
                 <div className="mb-6 flex items-center justify-between">
                   <div>
                     <h2 className="text-xl font-black text-zinc-900">
-                      Tournament Draw &mdash; Round {drawRound}
+                      Tournament Draw &mdash; Round {multiRoundDraw ? selectedRound + 1 : drawRound}
                     </h2>
                     <p className="text-sm text-zinc-500">
                       {tournamentName} &middot; {BOWLS_FORMAT_LABELS[drawResult.format].label} &middot;{" "}
@@ -536,17 +614,19 @@ export default function BowlsTournamentPage() {
                     >
                       Print Draw Sheet
                     </button>
+                    {!multiRoundDraw && (
+                      <button
+                        onClick={() => {
+                          setDrawRound((prev) => prev + 1);
+                          handleGenerateDraw();
+                        }}
+                        className="rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 px-4 py-2 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/10 min-h-[44px] touch-manipulation"
+                      >
+                        Next Round Draw
+                      </button>
+                    )}
                     <button
-                      onClick={() => {
-                        setDrawRound((prev) => prev + 1);
-                        handleGenerateDraw();
-                      }}
-                      className="rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 px-4 py-2 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/10 min-h-[44px] touch-manipulation"
-                    >
-                      Next Round Draw
-                    </button>
-                    <button
-                      onClick={handleGenerateDraw}
+                      onClick={() => handleGenerateDraw()}
                       className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
                     >
                       Re-Draw
@@ -667,7 +747,58 @@ export default function BowlsTournamentPage() {
               </div>
             )}
           </div>
-        )}
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
+      {/* Header */}
+      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+        <div className="mx-auto max-w-5xl px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <Link href="/bowls" className="text-sm text-zinc-400 hover:text-zinc-600 mb-1 block">
+                &larr; Tournaments
+              </Link>
+              <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+                {tournamentName}
+              </h1>
+              <p className="text-sm text-zinc-500">
+                {checkins.length} players checked in
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Link
+                href={`/bowls/${tournamentId}/scores`}
+                className="rounded-lg px-4 py-2 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 transition-colors"
+              >
+                Scores
+              </Link>
+              <Link
+                href={`/bowls/${tournamentId}/results`}
+                className="rounded-lg px-4 py-2 text-sm font-semibold text-purple-600 hover:bg-purple-50 transition-colors"
+              >
+                Results
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-5xl px-4 py-6">
+        <TournamentWizard
+          tournamentId={tournamentId}
+          tournamentName={tournamentName}
+          format={format}
+          checkins={checkins}
+          drawResult={drawResult}
+          onGenerateDraw={handleGenerateDraw}
+          onFormatChange={setFormat}
+          renderCheckinView={renderCheckinView}
+          renderBoardView={renderBoardView}
+          renderDrawView={renderDrawView}
+        />
       </main>
 
       {/* Position Selection Modal */}

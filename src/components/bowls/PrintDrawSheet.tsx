@@ -10,6 +10,9 @@ import type {
   BowlsGameFormat,
   BowlsPosition,
 } from "@/lib/types";
+import type { MultiRoundDrawResult } from "@/lib/bowls-draw";
+import { DRAW_STYLE_LABELS } from "@/lib/bowls-draw";
+import type { DrawStyle } from "@/lib/bowls-draw";
 
 interface DrawResult {
   rinks: BowlsTeamAssignment[][];
@@ -19,16 +22,29 @@ interface DrawResult {
 }
 
 interface PrintDrawSheetProps {
-  drawResult: DrawResult;
+  drawResult?: DrawResult;
+  multiRoundDraw?: MultiRoundDrawResult;
   tournamentName: string;
-  round: number;
+  round?: number;
 }
 
-export function PrintDrawSheet({
-  drawResult,
+function RoundSection({
+  rinks,
+  unassigned,
+  format,
   tournamentName,
-  round,
-}: PrintDrawSheetProps) {
+  roundNum,
+  totalRounds,
+  drawStyleLabel,
+}: {
+  rinks: BowlsTeamAssignment[][];
+  unassigned: BowlsCheckin[];
+  format: BowlsGameFormat;
+  tournamentName: string;
+  roundNum: number;
+  totalRounds: number;
+  drawStyleLabel?: string;
+}) {
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
@@ -37,19 +53,22 @@ export function PrintDrawSheet({
   });
 
   return (
-    <div className="print-draw-sheet hidden print:block">
+    <div className="break-after-page">
       {/* Header */}
       <div className="text-center border-b-2 border-black pb-2 mb-4">
         <h1 className="text-2xl font-black m-0">{tournamentName}</h1>
         <p className="text-base font-semibold mt-1">
-          {BOWLS_FORMAT_LABELS[drawResult.format].label} &mdash; Round {round}
+          {BOWLS_FORMAT_LABELS[format].label}
+          {drawStyleLabel && <> &mdash; {drawStyleLabel}</>}
+          {" "}&mdash; Round {roundNum}
+          {totalRounds > 1 && <> of {totalRounds}</>}
         </p>
         <p className="text-sm text-[#3D5A3E] mt-0.5">{today}</p>
       </div>
 
       {/* Rinks grid */}
       <div className="pds-rinks-grid">
-        {drawResult.rinks.map((rink, idx) => {
+        {rinks.map((rink, idx) => {
           const team1 = rink
             .filter((a) => a.team === 1)
             .sort(
@@ -112,14 +131,58 @@ export function PrintDrawSheet({
       </div>
 
       {/* Unassigned players */}
-      {drawResult.unassigned.length > 0 && (
+      {unassigned.length > 0 && (
         <div className="mt-3 text-[9pt] p-1.5 border border-dashed border-gray-500">
-          <strong>Unassigned:</strong>{" "}
-          {drawResult.unassigned
+          <strong>Bye:</strong>{" "}
+          {unassigned
             .map((u) => u.player?.display_name ?? "Unknown")
             .join(", ")}
         </div>
       )}
+    </div>
+  );
+}
+
+export function PrintDrawSheet({
+  drawResult,
+  multiRoundDraw,
+  tournamentName,
+  round,
+}: PrintDrawSheetProps) {
+  // Multi-round mode: print all rounds
+  if (multiRoundDraw) {
+    const styleLabel = DRAW_STYLE_LABELS[multiRoundDraw.style as DrawStyle];
+    return (
+      <div className="print-draw-sheet hidden print:block">
+        {multiRoundDraw.rounds.map((r) => (
+          <RoundSection
+            key={r.round}
+            rinks={r.rinks}
+            unassigned={r.unassigned}
+            format={multiRoundDraw.format}
+            tournamentName={tournamentName}
+            roundNum={r.round}
+            totalRounds={multiRoundDraw.totalRounds}
+            drawStyleLabel={styleLabel}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  // Single-round mode (backward compatible)
+  if (!drawResult) return null;
+
+  return (
+    <div className="print-draw-sheet hidden print:block">
+      <RoundSection
+        rinks={drawResult.rinks}
+        unassigned={drawResult.unassigned}
+        format={drawResult.format}
+        tournamentName={tournamentName}
+        roundNum={round ?? 1}
+        totalRounds={1}
+      />
     </div>
   );
 }

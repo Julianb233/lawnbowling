@@ -30,6 +30,7 @@ export interface Player {
   is_available: boolean;
   checked_in_at: string | null;
   venue_id: string | null;
+  home_club_id: string | null;
   role: PlayerRole;
   insurance_status: InsuranceStatus;
   created_at: string;
@@ -311,7 +312,7 @@ export type ReportReason = "unsportsmanlike" | "harassment" | "no_show" | "cheat
 
 // ===== Tournaments =====
 
-export type TournamentFormat = "round_robin" | "single_elimination" | "double_elimination";
+export type TournamentFormat = "round_robin" | "single_elimination" | "double_elimination" | "inter_club";
 export type TournamentStatus = "registration" | "in_progress" | "completed" | "cancelled";
 export type TournamentMatchStatus = "pending" | "in_progress" | "completed";
 
@@ -319,12 +320,14 @@ export const TOURNAMENT_FORMAT_LABELS: Record<TournamentFormat, string> = {
   round_robin: "Round Robin",
   single_elimination: "Single Elimination",
   double_elimination: "Double Elimination",
+  inter_club: "Inter-Club",
 };
 
 export interface Tournament {
   id: string;
   venue_id: string | null;
   club_id: string | null;
+  visiting_club_id: string | null;
   name: string;
   sport: string;
   format: TournamentFormat;
@@ -419,11 +422,14 @@ export function getPositionsForFormat(format: BowlsGameFormat): BowlsPosition[] 
   }
 }
 
+export type CheckinSource = "kiosk" | "manual" | "app";
+
 export interface BowlsCheckin {
   id: string;
   player_id: string;
   tournament_id: string;
   preferred_position: BowlsPosition;
+  checkin_source: CheckinSource;
   checked_in_at: string;
   player?: Player;
 }
