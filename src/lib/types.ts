@@ -121,15 +121,10 @@ export interface WaitlistEntry {
 }
 
 // Board constants
-export type Sport = "pickleball" | "lawn_bowling" | "tennis" | "badminton" | "racquetball" | "flag_football";
+export type Sport = "lawn_bowling";
 
 export const SPORT_LABELS: Record<Sport, { emoji: string; label: string; short: string }> = {
-  pickleball: { emoji: "\u{1F3D3}", label: "Pickleball", short: "Pickle" },
   lawn_bowling: { emoji: "\u{1F3B3}", label: "Lawn Bowling", short: "Bowl" },
-  tennis: { emoji: "\u{1F3BE}", label: "Tennis", short: "Tennis" },
-  badminton: { emoji: "\u{1F3F8}", label: "Badminton", short: "Badminton" },
-  racquetball: { emoji: "\u{1F3BE}", label: "Racquetball", short: "Racquet" },
-  flag_football: { emoji: "\u{1F3C8}", label: "Flag Football", short: "Flag" },
 };
 
 export const SKILL_LABELS: Record<SkillLevel, { stars: number; label: string }> = {
@@ -138,7 +133,7 @@ export const SKILL_LABELS: Record<SkillLevel, { stars: number; label: string }> 
   advanced: { stars: 3, label: "Advanced" },
 };
 
-export const ALL_SPORTS: Sport[] = ["pickleball", "lawn_bowling", "tennis", "badminton", "racquetball", "flag_football"];
+export const ALL_SPORTS: Sport[] = ["lawn_bowling"];
 export const ALL_SKILLS: SkillLevel[] = ["beginner", "intermediate", "advanced"];
 
 // Teams
@@ -414,11 +409,20 @@ export interface NoticeboardPost {
   comment_count?: number;
 }
 
+export interface NoticeboardReaction {
+  id: string;
+  post_id: string;
+  player_id: string;
+  emoji: NoticeboardEmoji;
+  created_at: string;
+}
+
 export interface NoticeboardComment {
   id: string;
   post_id: string;
   author_id: string;
   body: string;
+  is_deleted: boolean;
   created_at: string;
   author?: Player;
 }

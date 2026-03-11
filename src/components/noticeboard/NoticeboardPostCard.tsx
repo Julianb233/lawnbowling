@@ -134,7 +134,8 @@ export default function NoticeboardPostCard({
     post.comment_count ?? 0
   );
 
-  const typeConfig = POST_TYPE_CONFIG[post.type];
+  const postType = post.type ?? "member_post";
+  const typeConfig = POST_TYPE_CONFIG[postType as keyof typeof POST_TYPE_CONFIG] ?? POST_TYPE_CONFIG.member_post;
   const TypeIcon = typeConfig.icon;
   const author = post.author as Player | undefined;
 
