@@ -11,11 +11,20 @@ import {
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
 import { LearnBreadcrumb } from "@/components/learn/LearnBreadcrumb";
+import { getArticleSchema, getBreadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Lawn Bowling Game Formats | Singles, Pairs, Triples, Fours | Lawnbowling",
   description:
     "Learn about lawn bowling game formats: Singles, Pairs, Triples, and Fours. Understand how many players, bowls per player, standard ends, and social variations for each format.",
+  alternates: { canonical: "/learn/formats" },
+  openGraph: {
+    title: "Lawn Bowling Game Formats | Singles, Pairs, Triples, Fours",
+    description:
+      "Learn about lawn bowling game formats and how many players, bowls, and ends each format uses.",
+    url: "https://lawnbowl.app/learn/formats",
+    type: "article",
+  },
 };
 
 const formats = [
@@ -129,10 +138,31 @@ const socialFormats = [
   },
 ];
 
+const formatsSchema = getArticleSchema({
+  title: "Lawn Bowling Game Formats: Singles, Pairs, Triples, Fours",
+  description:
+    "Learn about lawn bowling game formats and how many players, bowls, and ends each format uses.",
+  url: "/learn/formats",
+});
+
+const formatsBreadcrumbs = getBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Learn", url: "/learn" },
+  { name: "Formats", url: "/learn/formats" },
+]);
+
 export default function FormatsPage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       <LearnNav />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(formatsSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(formatsBreadcrumbs) }}
+      />
 
       <div className="mx-auto max-w-4xl px-6 pt-10 pb-24">
         <LearnBreadcrumb items={[{ label: "Formats" }]} />

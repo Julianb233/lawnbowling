@@ -15,6 +15,7 @@ import {
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
 import { LearnBreadcrumb } from "@/components/learn/LearnBreadcrumb";
+import { getArticleSchema, getBreadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title:
@@ -33,10 +34,31 @@ export const metadata: Metadata = {
   },
 };
 
+const equipmentSchema = getArticleSchema({
+  title: "Lawn Bowling Equipment Buying Guide",
+  description:
+    "Complete lawn bowling equipment guide. Bowls, shoes, bags, and accessories with expert buying tips.",
+  url: "/learn/equipment",
+});
+
+const equipmentBreadcrumbs = getBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Learn", url: "/learn" },
+  { name: "Equipment", url: "/learn/equipment" },
+]);
+
 export default function EquipmentGuidePage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       <LearnNav />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(equipmentSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(equipmentBreadcrumbs) }}
+      />
 
       <div className="mx-auto max-w-4xl px-6 pt-10 pb-24">
         <LearnBreadcrumb items={[{ label: "Equipment Guide" }]} />

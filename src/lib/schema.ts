@@ -225,6 +225,73 @@ export function getFAQSchema(
 }
 
 /**
+ * Article schema for blog posts and educational content.
+ */
+export function getArticleSchema(article: {
+  title: string;
+  description: string;
+  url: string;
+  datePublished?: string;
+  dateModified?: string;
+  author?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.description,
+    url: article.url.startsWith("http")
+      ? article.url
+      : `${BASE_URL}${article.url}`,
+    datePublished: article.datePublished ?? new Date().toISOString(),
+    dateModified:
+      article.dateModified ?? article.datePublished ?? new Date().toISOString(),
+    author: {
+      "@type": "Organization",
+      name: article.author ?? "Lawnbowling",
+      url: BASE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Lawnbowling",
+      url: BASE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/icons/icon-512.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": article.url.startsWith("http")
+        ? article.url
+        : `${BASE_URL}${article.url}`,
+    },
+  };
+}
+
+/**
+ * HowTo schema for instructional learn pages.
+ */
+export function getHowToSchema(howTo: {
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: howTo.name,
+    description: howTo.description,
+    step: howTo.steps.map((step, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: step.name,
+      text: step.text,
+    })),
+  };
+}
+
+/**
  * Helper to render JSON-LD script tag content.
  * Use in a <script type="application/ld+json"> tag.
  */

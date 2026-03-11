@@ -13,17 +13,47 @@ import {
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
 import { LearnBreadcrumb } from "@/components/learn/LearnBreadcrumb";
+import { getArticleSchema, getBreadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Lawn Bowling Rules | Complete Guide | Lawnbowling",
   description:
     "Complete guide to lawn bowling rules. Learn about the green, the jack, bias, delivery, scoring, and the sequence of play in each end. Perfect for beginners.",
+  alternates: { canonical: "/learn/rules" },
+  openGraph: {
+    title: "Lawn Bowling Rules | Complete Guide",
+    description:
+      "Complete guide to lawn bowling rules. Learn about the green, the jack, bias, delivery, scoring, and the sequence of play.",
+    url: "https://lawnbowl.app/learn/rules",
+    type: "article",
+  },
 };
+
+const rulesArticleSchema = getArticleSchema({
+  title: "Lawn Bowling Rules: Complete Guide",
+  description:
+    "Complete guide to lawn bowling rules. Learn about the green, the jack, bias, delivery, scoring, and the sequence of play in each end.",
+  url: "/learn/rules",
+});
+
+const rulesBreadcrumbs = getBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Learn", url: "/learn" },
+  { name: "Rules", url: "/learn/rules" },
+]);
 
 export default function RulesPage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       <LearnNav />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(rulesArticleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(rulesBreadcrumbs) }}
+      />
 
       <div className="mx-auto max-w-4xl px-6 pt-10 pb-24">
         <LearnBreadcrumb items={[{ label: "Rules" }]} />
