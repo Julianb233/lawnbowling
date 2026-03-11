@@ -1,0 +1,201 @@
+{
+  "project": "Pick-a-Partner",
+  "branchName": "ralph/phase-07-bowls-tournament-ux",
+  "description": "End-to-end user experience testing for the bowls tournament feature — tournament listing, creation, check-in, board, draw generation, kiosk mode, and navigation",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Tournament list page displays active and past bowls tournaments",
+      "description": "As a bowler arriving at the club, I need to see all available lawn bowling tournaments on /bowls so I can pick the one I want to check into today.",
+      "acceptanceCriteria": [
+        "GET /bowls returns 200 and renders the tournament list page",
+        "Page header shows 'Lawn Bowls' title and 'Tournament check-in & draw management' subtitle",
+        "'+ New Tournament' button is visible in the header",
+        "Active tournaments section shows tournaments with status != 'completed' with Active badge",
+        "Past tournaments section shows completed tournaments with Done badge",
+        "Each tournament card displays: name, format label, checked-in count, creator name",
+        "Tapping a tournament card navigates to /bowls/[id]",
+        "Empty state shows bowling emoji, 'No bowls tournaments yet' message, and create button",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": "Files: src/app/bowls/page.tsx. Test with and without existing tournaments. Verify the Supabase query filters by sport='lawn_bowling'."
+    },
+    {
+      "id": "US-002",
+      "title": "Create new bowls tournament via modal",
+      "description": "As a tournament organizer, I need to create a new lawn bowling tournament with a name, format, max players, and start date so players can check in for today's social bowls.",
+      "acceptanceCriteria": [
+        "Clicking '+ New Tournament' opens the CreateBowlsTournamentModal",
+        "Modal contains fields: Tournament Name (text), Format (4 buttons: Fours/Triples/Pairs/Singles), Max Players (number, default 32), Start Date (datetime-local)",
+        "Format buttons use blue highlight when selected, default selection is 'Fours'",
+        "Submitting with a name POSTs to /api/bowls/tournament with correct payload",
+        "API creates tournament with sport='lawn_bowling' and format matching selected bowls format",
+        "After creation, modal closes and tournament list refreshes showing the new tournament",
+        "Empty name shows validation — submit button is disabled",
+        "Error state displays red error message in the modal",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "Files: src/components/bowls/CreateBowlsTournamentModal.tsx, src/app/api/bowls/tournament/route.ts. Verify Radix Dialog accessibility (escape to close, focus trap)."
+    },
+    {
+      "id": "US-003",
+      "title": "Tournament check-in flow — search player and select position",
+      "description": "As a lawn bowler arriving for a tournament, I need to find my name in the player list, tap it, and choose my preferred position (Skip/Vice/Second/Lead) to register for today's draw.",
+      "acceptanceCriteria": [
+        "GET /bowls/[id] loads the check-in view by default with search bar and player grid",
+        "Search bar filters players by display_name as user types",
+        "Player grid shows 2 columns on mobile, up to 5 on desktop",
+        "Unchecked players show gradient avatar with initials",
+        "Tapping an unchecked player opens the position selection modal",
+        "Position modal shows player name, format label, and position buttons with descriptions",
+        "Each position button shows: colored circle with order number, position name, description",
+        "Position colors are consistent: Skip=blue, Vice=purple, Second=amber, Lead=emerald",
+        "Selecting a position POSTs to /api/bowls/checkin with player_id, tournament_id, preferred_position",
+        "After check-in, player card shows position badge with ring effect and green checkmark animation",
+        "Tapping a checked-in player calls DELETE /api/bowls/checkin to undo",
+        "Header shows tournament name and live count of registered players",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "Files: src/app/bowls/[id]/page.tsx, src/app/api/bowls/checkin/route.ts. Touch targets must be min 44px. Position modal buttons are min 72px. Test the 5-second polling for real-time updates."
+    },
+    {
+      "id": "US-004",
+      "title": "Board view shows position summary, stats, and checked-in players",
+      "description": "As a drawmaster managing the tournament, I need to see how many players are checked in at each position so I can decide when to generate the draw.",
+      "acceptanceCriteria": [
+        "Switching to 'Board' tab shows position summary cards, stats bar, and player list",
+        "Position summary shows 4 cards (for fours format): Skip, Vice, Second, Lead with counts",
+        "Each card has the correct position color and description text",
+        "Stats bar shows total players checked in (left), possible rinks count (right), and Generate Draw button",
+        "Generate Draw button is disabled when possibleRinks < 1",
+        "Checked-in player list shows each player with position-colored avatar, name, and position badge",
+        "Format selector in header changes position cards shown (e.g. Pairs shows only Skip and Lead)",
+        "Rink count calculation is correct: floor(checkins / (playersPerTeam * 2))",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "Files: src/app/bowls/[id]/page.tsx (board view section). Verify math: 8 players in fours = 1 rink, 7 players = 0 rinks."
+    },
+    {
+      "id": "US-005",
+      "title": "Draw generation produces correct rink assignments",
+      "description": "As a drawmaster, I need to generate a fair draw that assigns checked-in players to rinks based on their preferred positions, with two balanced teams per rink.",
+      "acceptanceCriteria": [
+        "Clicking 'Generate Draw' POSTs to /api/bowls/draw with tournament_id and format",
+        "View switches to Draw tab showing rink cards",
+        "Each rink card has a header with rink number and two columns: Team 1 and Team 2",
+        "Players in each team are sorted by position order (Skip first, Lead last)",
+        "Each player row shows a position badge (colored) and player name",
+        "Position badges use consistent colors (Skip=blue, Vice=purple, Second=amber, Lead=emerald)",
+        "Unassigned players section appears in amber when players don't fit into complete rinks",
+        "Re-Draw button generates a fresh draw with new shuffle",
+        "Draw header shows format label and rink count",
+        "The draw engine respects position preferences — players get their preferred position when possible",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Files: src/app/bowls/[id]/page.tsx (draw view), src/lib/bowls-draw.ts, src/app/api/bowls/draw/route.ts. Test with exactly 8 players (1 full rink in fours), 9 players (1 rink + 1 unassigned), and edge cases."
+    },
+    {
+      "id": "US-006",
+      "title": "Kiosk mode wraps bowls pages for iPad fullscreen",
+      "description": "As a club volunteer setting up the iPad kiosk, I need the bowls pages to work in fullscreen kiosk mode with inactivity timeout and admin access.",
+      "acceptanceCriteria": [
+        "GET /kiosk/bowls returns 200 and shows the tournament list in KioskWrapper",
+        "GET /kiosk/bowls/[id] returns 200 and shows the check-in page in KioskWrapper",
+        "KioskWrapper provides 60-second inactivity timeout that resets the view",
+        "Triple-tap top-right corner opens admin PIN modal",
+        "Both kiosk routes are touch-optimized with large tap targets",
+        "Pages render correctly in iPad landscape dimensions (1024x768)",
+        "Typecheck passes"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "Files: src/app/kiosk/bowls/page.tsx, src/app/kiosk/bowls/[id]/page.tsx, src/components/kiosk/KioskWrapper.tsx. Test on iPad viewport."
+    },
+    {
+      "id": "US-007",
+      "title": "BottomNav includes Bowls link and navigates correctly",
+      "description": "As a player using the app on my phone, I need to see a Bowls icon in the bottom navigation bar so I can quickly get to the lawn bowls section.",
+      "acceptanceCriteria": [
+        "BottomNav shows 5 items: Home, Bowls, Schedule, Stats, Me",
+        "Bowls nav item uses the bowling emoji icon",
+        "Tapping Bowls navigates to /bowls",
+        "Active indicator (green bar) shows on Bowls when on /bowls route",
+        "Nav is hidden on desktop (lg breakpoint)",
+        "Each nav item has minimum 44px touch target",
+        "Typecheck passes"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "Files: src/components/board/BottomNav.tsx. Verify the active state detection works for both /bowls and /bowls/[id] routes."
+    },
+    {
+      "id": "US-008",
+      "title": "Bowls tournament API handles CRUD operations correctly",
+      "description": "As the system, the bowls tournament API needs to correctly create and list lawn bowling tournaments with proper authentication and validation.",
+      "acceptanceCriteria": [
+        "GET /api/bowls/tournament returns tournaments filtered by sport='lawn_bowling'",
+        "GET response includes creator display_name and participant count",
+        "POST /api/bowls/tournament creates tournament with sport='lawn_bowling'",
+        "POST validates required fields: name and bowls_format",
+        "POST validates bowls_format is one of: fours, triples, pairs, singles",
+        "POST returns 400 for invalid bowls_format",
+        "POST returns 401 for unauthenticated requests",
+        "POST returns 404 if player record not found",
+        "Successful POST returns 201 with tournament data",
+        "Typecheck passes"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": "Files: src/app/api/bowls/tournament/route.ts. Test both success and error paths."
+    },
+    {
+      "id": "US-009",
+      "title": "Seed script creates demo bowls tournament with check-ins",
+      "description": "As a developer setting up a demo environment, I need the seed script to create a bowls tournament and sample check-ins so the bowls pages aren't empty on first load.",
+      "acceptanceCriteria": [
+        "Running npx tsx scripts/seed-demo.ts creates a 'Saturday Social Bowls' tournament",
+        "Tournament has sport='lawn_bowling', format='fours', max_players=32",
+        "6 demo players are checked in with varied positions (2 skips, 2 vices, 1 second, 1 lead)",
+        "Seed is idempotent — running twice doesn't create duplicates",
+        "--clean flag removes bowls tournament and check-ins",
+        "Step counters show 9 total steps",
+        "Typecheck passes"
+      ],
+      "priority": 9,
+      "passes": false,
+      "notes": "Files: scripts/seed-demo.ts. Bowls seeding is wrapped in try/catch for resilience if bowls_checkins table doesn't exist."
+    },
+    {
+      "id": "US-010",
+      "title": "Migration script for bowls_checkins table",
+      "description": "As a developer deploying to production, I need a migration script that creates the bowls_checkins table with proper schema, indexes, and RLS policies.",
+      "acceptanceCriteria": [
+        "Script reads SQL from src/lib/db/migrations/006_bowls_checkins.sql",
+        "Script uses Supabase service role client from .env.local",
+        "bowls_checkins table has columns: id (uuid PK), player_id (FK), tournament_id (FK), preferred_position (check constraint), checked_in_at",
+        "Unique constraint on (player_id, tournament_id)",
+        "RLS policies allow: select for all, insert/update/delete for all",
+        "Realtime publishing enabled",
+        "Script verifies table exists after migration",
+        "Typecheck passes"
+      ],
+      "priority": 10,
+      "passes": false,
+      "notes": "Files: scripts/migration-bowls-checkins.ts, src/lib/db/migrations/006_bowls_checkins.sql. Note: exec_sql RPC may not be available, script includes fallback."
+    }
+  ]
+}

@@ -75,9 +75,9 @@ export default function BowlsPage() {
               <h1 className="text-2xl font-black tracking-tight text-zinc-900">
                 Lawn Bowls
               </h1>
-              <p className="text-sm text-zinc-500">
-                Tournament check-in &amp; draw management
-              </p>
+              <Link href="/bowls/about" className="text-sm text-blue-500 hover:text-blue-600">
+                About Lawn Bowls →
+              </Link>
             </div>
             <button
               onClick={() => setShowCreate(true)}

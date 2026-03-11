@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { createTournament } from "@/lib/db/tournaments";
 
 const VALID_BOWLS_FORMATS = ["fours", "triples", "pairs", "singles"] as const;
 type BowlsFormat = (typeof VALID_BOWLS_FORMATS)[number];
@@ -60,19 +59,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const tournament = await createTournament({
+    const supabaseAdmin = await createClient();
+    const insertData: Record<string, unknown> = {
       name,
       sport: "lawn_bowling",
       format: bowls_format,
-      max_players: max_players || 16,
+      status: "registration",
+      max_players: max_players || 32,
       created_by: player.id,
-      venue_id: player.venue_id ?? undefined,
-      starts_at: starts_at || undefined,
-    });
+    };
+    if (player.venue_id) insertData.venue_id = player.venue_id;
+    if (starts_at) insertData.starts_at = starts_at;
+
+    const { data: tournament, error: insertError } = await supabaseAdmin
+      .from("tournaments")
+      .insert(insertData)
+      .select()
+      .single();
+
+    if (insertError) {
+      console.error("Supabase insert error:", insertError);
+      return NextResponse.json({ error: insertError.message }, { status: 500 });
+    }
 
     return NextResponse.json({ tournament }, { status: 201 });
   } catch (error) {
     console.error("Create bowls tournament error:", error);
-    return NextResponse.json({ error: "Failed to create bowls tournament" }, { status: 500 });
+    return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }
