@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { CircleDot, Mail, Lock, User } from "lucide-react";
+import { CircleDot, Mail, Lock, User, ArrowRight } from "lucide-react";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
@@ -81,77 +82,106 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen bg-[#FEFCF9]">
-      {/* Subtle brand background */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-[#1B5E20]/5 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 h-[500px] w-[500px] rounded-full bg-[#B8860B]/5 blur-3xl" />
-      </div>
+      <div className="relative flex min-h-screen flex-col lg:flex-row">
+        {/* Left: Photo panel */}
+        <div className="relative hidden lg:flex lg:flex-1 items-end overflow-hidden">
+          <Image
+            src="/images/community-group-laughter.jpg"
+            alt="Lawn bowlers enjoying a game together"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A2E12]/90 via-[#0A2E12]/40 to-[#0A2E12]/20" />
 
-      <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md">
-          {/* Logo */}
-          <Link href="/" className="mb-8 flex items-center justify-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B5E20]">
+          <div className="relative z-10 w-full p-10 pb-14">
+            <Link href="/" className="mb-8 flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15 backdrop-blur-sm">
+                <CircleDot className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-lg font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-display)" }}>
+                Lawnbowling
+              </span>
+            </Link>
+
+            <h1 className="max-w-md text-4xl font-bold leading-tight tracking-tight text-white" style={{ fontFamily: "var(--font-display)" }}>
+              Join the{" "}
+              <span className="italic text-[#A8D5BA]">green.</span>
+            </h1>
+
+            <p className="mt-3 max-w-sm text-base leading-relaxed text-white/70">
+              Set up your free account and start managing tournaments, tracking scores, and connecting with your club.
+            </p>
+          </div>
+        </div>
+
+        {/* Mobile header */}
+        <div className="flex items-center justify-between border-b border-[#1B5E20]/5 bg-[#FEFCF9] px-6 py-4 lg:hidden">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#1B5E20]">
               <CircleDot className="h-5 w-5 text-white" />
             </div>
-            <span className="text-xl font-bold tracking-tight text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>
+            <span className="text-lg font-bold tracking-tight text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>
               Lawnbowling
             </span>
           </Link>
+        </div>
 
-          <div className="rounded-2xl border border-[#0A2E12]/5 bg-white p-8 shadow-lg shadow-[#1B5E20]/5">
-            <div className="mb-8 text-center">
-              <h1 className="text-2xl font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>
+        {/* Right: Signup Form */}
+        <div className="flex flex-1 items-center justify-center px-6 py-12 lg:max-w-xl lg:px-16">
+          <div className="w-full max-w-sm">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold tracking-tight text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>
                 Create your account
-              </h1>
+              </h2>
               <p className="mt-2 text-sm text-[#3D5A3E]">
                 Join the green in seconds
               </p>
             </div>
 
-            <form onSubmit={handleSignup} className="space-y-5">
+            <form onSubmit={handleSignup} className="space-y-4">
               <div>
-                <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-[#0A2E12]">
+                <label htmlFor="name" className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]/70">
                   Display Name
                 </label>
                 <div className="relative">
-                  <User className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3D5A3E]/50" />
+                  <User className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3D5A3E]/40" />
                   <input
                     id="name"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="block w-full rounded-xl border border-[#0A2E12]/10 bg-[#FEFCF9] py-3 pl-10 pr-3 text-[#0A2E12] placeholder-[#3D5A3E]/40 shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    className="block w-full rounded-xl border border-[#0A2E12]/10 bg-white py-3 pl-10 pr-3 text-[#0A2E12] placeholder-[#3D5A3E]/30 transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                     placeholder="Your name"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-[#0A2E12]">
+                <label htmlFor="email" className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]/70">
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3D5A3E]/50" />
+                  <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3D5A3E]/40" />
                   <input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="block w-full rounded-xl border border-[#0A2E12]/10 bg-[#FEFCF9] py-3 pl-10 pr-3 text-[#0A2E12] placeholder-[#3D5A3E]/40 shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    className="block w-full rounded-xl border border-[#0A2E12]/10 bg-white py-3 pl-10 pr-3 text-[#0A2E12] placeholder-[#3D5A3E]/30 transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                     placeholder="you@example.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-[#0A2E12]">
+                <label htmlFor="password" className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]/70">
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3D5A3E]/50" />
+                  <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3D5A3E]/40" />
                   <input
                     id="password"
                     type="password"
@@ -159,7 +189,7 @@ export default function SignupPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="block w-full rounded-xl border border-[#0A2E12]/10 bg-[#FEFCF9] py-3 pl-10 pr-3 text-[#0A2E12] placeholder-[#3D5A3E]/40 shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    className="block w-full rounded-xl border border-[#0A2E12]/10 bg-white py-3 pl-10 pr-3 text-[#0A2E12] placeholder-[#3D5A3E]/30 transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                     placeholder="At least 6 characters"
                   />
                 </div>
@@ -174,15 +204,16 @@ export default function SignupPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-[#1B5E20] py-3 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/20 transition-all hover:bg-[#2E7D32] hover:shadow-xl hover:shadow-[#1B5E20]/25 disabled:opacity-50 active:scale-[0.97]"
+                className="group flex w-full items-center justify-center gap-2 rounded-full bg-[#1B5E20] py-3 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/20 transition-all hover:bg-[#2E7D32] hover:shadow-xl hover:shadow-[#1B5E20]/25 disabled:opacity-50 active:scale-[0.97]"
               >
                 {loading ? "Creating account..." : "Create Account"}
+                {!loading && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
               </button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-[#3D5A3E]">
+            <p className="mt-8 text-center text-sm text-[#3D5A3E]">
               Already have an account?{" "}
-              <Link href={returnTo !== "/" ? `/login?returnTo=${encodeURIComponent(returnTo)}` : "/login"} className="font-medium text-[#1B5E20] hover:text-[#2E7D32]">
+              <Link href={returnTo !== "/" ? `/login?returnTo=${encodeURIComponent(returnTo)}` : "/login"} className="font-semibold text-[#1B5E20] hover:text-[#2E7D32]">
                 Sign in
               </Link>
             </p>
