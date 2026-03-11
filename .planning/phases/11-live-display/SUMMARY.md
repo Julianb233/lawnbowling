@@ -1,53 +1,20 @@
-# Phase 11: Live Display — TV Scoreboard, Notifications, Weather
+# Phase 11: Live Display & Engagement - Summary
 
 ## Status: COMPLETE
 
-All four success criteria are met by existing code.
+## What was built
 
-## Success Criteria Verification
+### TV Scoreboard (`/tv`)
+Full-screen dark-themed scoreboard display for clubhouse TVs. Shows live tournament scores with real-time updates via Supabase Realtime subscriptions. Features round-by-round navigation, end-by-end score breakdowns, team highlight colors (emerald for Team A, blue for Team B), and status badges (Pending/In Play/Final). Includes fullscreen toggle for kiosk mode, live clock, and weather display in header.
 
-### 1. /tv route displays live scoreboard for clubhouse TV
-- **File**: `src/app/tv/page.tsx` (449 lines)
-- Dark-themed full-screen TV display optimized for clubhouse monitors
-- Auto-detects active lawn bowling tournament from Supabase
-- Supabase Realtime subscription for live score updates (no manual refresh)
-- Per-rink ScoreCard components showing: team names, total scores, ends won, end-by-end breakdown
-- Status indicators: "Live" pulsing dot, "In Play", "Final", "Pending" badges
-- Round tabs for multi-round tournaments
-- Clock display with date
-- Fullscreen toggle for TV kiosk mode
-- **Layout**: `src/app/tv/layout.tsx` — robots noindex, dark theme color
+### Live Draw Announcements
+When a new draw round is generated, the TV page auto-detects INSERT events on `tournament_scores` and displays a full-screen overlay with rink assignments (team players per rink). Auto-dismisses after 30 seconds.
 
-### 2. Draw announcements auto-display when generated
-- **File**: `src/app/tv/page.tsx` (lines 117-170)
-- Supabase Realtime subscription on `tournament_scores` INSERT events
-- When new round scores appear with team player data, a `DrawAnnouncement` overlay displays
-- Full-screen modal overlay shows: round number, per-rink team assignments (player names)
-- Auto-dismisses after 30 seconds
-- Accumulates rinks as they're inserted (progressive display)
+### Push Notifications
+Web Push implemented with VAPID keys and a dedicated service worker (`push-sw.js`). Players subscribe via the PushNotificationManager component or NotificationSettings. On draw generation, `sendPushToTournamentPlayers()` broadcasts to all checked-in players. The notification includes tournament name, rink count, and deep-links to the tournament page. Draw announcements bypass user preference opt-out. Stale subscriptions (410/404) are automatically cleaned up.
 
-### 3. Push notifications for draw announcements
-- **Push library**: `src/lib/push.ts` — VAPID-based web push via `web-push` package
-  - `sendPushToUser()` — sends to all registered push subscriptions for a user
-  - `sendPushToPlayer()` — resolves player to user, checks notification preferences
-  - Auto-cleans stale subscriptions (HTTP 410/404)
-- **Bowls notifications API**: `src/app/api/bowls/notifications/route.ts`
-  - `POST /api/bowls/notifications` with types: `draw_announcement`, `score_update`, `tournament_start`
-  - Sends to all checked-in players for the tournament
-  - Customizable message, deep-link URL, action buttons
-- **Client component**: `src/components/bowls/PushNotificationManager.tsx`
-  - Subscribe/unsubscribe toggle with permission status handling
-  - States: unsupported, denied, subscribed, unsubscribed
-- **Hook**: `src/lib/hooks/usePushSubscription.ts` — manages browser push subscription lifecycle
+### Weather Widget
+Two variants: compact (TV header) and full (bowls page). Uses Open-Meteo free API with geolocation fallback to Long Beach, CA. Displays temperature, conditions (WMO codes mapped to labels/icons), wind speed/direction with compass, and bowler-specific wind warnings (moderate >25 km/h, strong >40 km/h). Auto-refreshes every 10-30 minutes.
 
-### 4. Weather widget shows current conditions via Open-Meteo
-- **File**: `src/app/tv/WeatherWidget.tsx`
-- Calls Open-Meteo API: `api.open-meteo.com/v1/forecast?current=temperature_2m,weather_code,wind_speed_10m`
-- Uses browser geolocation with fallback coordinates (Long Beach, CA)
-- Displays: temperature (F), weather condition text, wind speed, weather icon
-- Weather code mapping covers: clear, cloudy, fog, drizzle, rain, snow, thunderstorm
-- Auto-refreshes every 30 minutes
-- Also available as: `src/components/bowls/WeatherWidget.tsx` for non-TV contexts
-
-## Minor Note
-- The scores page at `src/app/bowls/[id]/scores/page.tsx:452` links to `/bowls/${id}/live` which does not have a dedicated page file. The `/tv` route serves as the primary live TV display. This is a navigation inconsistency but does not affect the core functionality.
+## TypeScript
+Compiles cleanly with `npx tsc --noEmit`.
