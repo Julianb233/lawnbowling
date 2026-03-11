@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { cn } from "@/lib/utils";
+import { NumberFlip, EndPulse, MatchWon, MatchPoint } from "@/components/animations";
 import type { TournamentScore } from "@/lib/types";
 
 interface RinkScoreEntry {
@@ -46,6 +47,8 @@ export default function ScoreEntryPage() {
   const [realtimeConnected, setRealtimeConnected] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [confirmFinalize, setConfirmFinalize] = useState(false);
+  const [matchWonRink, setMatchWonRink] = useState<{ show: boolean; teamName: string } | null>(null);
+  const [lastSavedEnd, setLastSavedEnd] = useState<{ rink: number; endIdx: number } | null>(null);
 
   const autoSaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastSavedRef = useRef<string>(""); // JSON of last saved state
@@ -309,6 +312,13 @@ export default function ScoreEntryPage() {
         return updated;
       });
 
+      // Trigger end pulse on save
+      const endCount = entry.teamAScores.length;
+      if (endCount > 0) {
+        setLastSavedEnd({ rink: entry.rink, endIdx: endCount - 1 });
+        setTimeout(() => setLastSavedEnd(null), 500);
+      }
+
       if (!isAutoSave) addToast("Score saved", "success");
     } catch {
       addToast("Network error saving score", "error");
@@ -342,6 +352,20 @@ export default function ScoreEntryPage() {
       } else {
         addToast(`Round ${round} finalized`, "success");
         await loadScores();
+        // Show celebration for the first finalized rink with a winner
+        const winningRink = rinkScores.find((r) => {
+          const tA = getTotal(r.teamAScores);
+          const tB = getTotal(r.teamBScores);
+          return tA !== tB;
+        });
+        if (winningRink) {
+          const tA = getTotal(winningRink.teamAScores);
+          const tB = getTotal(winningRink.teamBScores);
+          setMatchWonRink({
+            show: true,
+            teamName: tA > tB ? `Rink ${winningRink.rink} Team A` : `Rink ${winningRink.rink} Team B`,
+          });
+        }
       }
     } catch {
       addToast("Network error finalizing round", "error");
@@ -380,6 +404,17 @@ export default function ScoreEntryPage() {
     return [wonA, wonB];
   }
 
+  // Match point: a team is 1 point away from a typical winning score (21 for bowls)
+  // or leads by enough in ends that one more end would clinch it
+  function isMatchPoint(scoresA: number[], scoresB: number[]): "a" | "b" | null {
+    const totalA = getTotal(scoresA);
+    const totalB = getTotal(scoresB);
+    const TARGET = 21; // standard bowls target score
+    if (totalA >= TARGET - 1 && totalA > totalB) return "a";
+    if (totalB >= TARGET - 1 && totalB > totalA) return "b";
+    return null;
+  }
+
   const dirtyCount = rinkScores.filter((r) => r.dirty).length;
 
   if (loading) {
@@ -415,12 +450,12 @@ export default function ScoreEntryPage() {
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-5xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+                <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
                   Score Entry
                 </h1>
                 {/* Realtime connection indicator */}
@@ -444,19 +479,19 @@ export default function ScoreEntryPage() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}`)}
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
               >
                 Back
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/live`)}
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 min-h-[44px] touch-manipulation"
               >
                 Live View
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/results`)}
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-blue-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-blue-50 min-h-[44px] touch-manipulation"
               >
                 Results
               </button>
@@ -530,38 +565,42 @@ export default function ScoreEntryPage() {
                 {hasScores ? (
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-zinc-600">
+                      <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-400">
                         Team A
                       </span>
-                      <span
-                        className={cn(
-                          "text-2xl font-black tabular-nums",
-                          totalA > totalB
-                            ? "text-[#1B5E20]"
-                            : totalA < totalB
-                              ? "text-zinc-400"
-                              : "text-zinc-700"
-                        )}
-                      >
-                        {totalA}
-                      </span>
+                      <MatchPoint isMatchPoint={isMatchPoint(entry.teamAScores, entry.teamBScores) === "a"}>
+                        <span
+                          className={cn(
+                            "text-2xl font-black tabular-nums",
+                            totalA > totalB
+                              ? "text-[#1B5E20]"
+                              : totalA < totalB
+                                ? "text-zinc-400"
+                                : "text-zinc-700"
+                          )}
+                        >
+                          <NumberFlip value={totalA} />
+                        </span>
+                      </MatchPoint>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-zinc-600">
+                      <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-400">
                         Team B
                       </span>
-                      <span
-                        className={cn(
-                          "text-2xl font-black tabular-nums",
-                          totalB > totalA
-                            ? "text-[#1B5E20]"
-                            : totalB < totalA
-                              ? "text-zinc-400"
-                              : "text-zinc-700"
-                        )}
-                      >
-                        {totalB}
-                      </span>
+                      <MatchPoint isMatchPoint={isMatchPoint(entry.teamAScores, entry.teamBScores) === "b"}>
+                        <span
+                          className={cn(
+                            "text-2xl font-black tabular-nums",
+                            totalB > totalA
+                              ? "text-[#1B5E20]"
+                              : totalB < totalA
+                                ? "text-zinc-400"
+                                : "text-zinc-700"
+                          )}
+                        >
+                          <NumberFlip value={totalB} />
+                        </span>
+                      </MatchPoint>
                     </div>
                     <p className="text-[11px] text-zinc-400 mt-1">
                       {entry.teamAScores.length} end
@@ -601,7 +640,7 @@ export default function ScoreEntryPage() {
               <div className="bg-zinc-50 border-b border-zinc-200 px-6 py-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-lg font-black text-zinc-900">
+                    <h2 className="text-lg font-black text-zinc-900 dark:text-zinc-100">
                       Rink {rinkScores[activeRink].rink} &mdash; End by End
                     </h2>
                     {rinkScores[activeRink].teamAScores.length > 0 && (
@@ -618,7 +657,7 @@ export default function ScoreEntryPage() {
                           disabled={
                             rinkScores[activeRink].teamAScores.length === 0
                           }
-                          className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 disabled:opacity-30 min-h-[44px] touch-manipulation"
+                          className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 disabled:opacity-30 min-h-[44px] touch-manipulation"
                         >
                           - End
                         </button>
@@ -632,7 +671,7 @@ export default function ScoreEntryPage() {
                     )}
                     <button
                       onClick={() => setActiveRink(null)}
-                      className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                      className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
                     >
                       Close
                     </button>
@@ -688,29 +727,39 @@ export default function ScoreEntryPage() {
                           {rinkScores[activeRink].teamAScores.map(
                             (score, endIdx) => (
                               <td key={endIdx} className="px-1 py-2">
-                                <ScoreInput
-                                  value={score}
-                                  onChange={(v) =>
-                                    updateEndScore(activeRink, "a", endIdx, v)
+                                <EndPulse
+                                  active={
+                                    lastSavedEnd !== null &&
+                                    lastSavedEnd.rink === rinkScores[activeRink].rink &&
+                                    lastSavedEnd.endIdx === endIdx
                                   }
-                                  disabled={
-                                    rinkScores[activeRink].isFinalized
-                                  }
-                                  isWinning={
-                                    score >
-                                    rinkScores[activeRink].teamBScores[endIdx]
-                                  }
-                                  isCurrent={
-                                    endIdx === rinkScores[activeRink].teamAScores.length - 1
-                                  }
-                                />
+                                >
+                                  <ScoreInput
+                                    value={score}
+                                    onChange={(v) =>
+                                      updateEndScore(activeRink, "a", endIdx, v)
+                                    }
+                                    disabled={
+                                      rinkScores[activeRink].isFinalized
+                                    }
+                                    isWinning={
+                                      score >
+                                      rinkScores[activeRink].teamBScores[endIdx]
+                                    }
+                                    isCurrent={
+                                      endIdx === rinkScores[activeRink].teamAScores.length - 1
+                                    }
+                                  />
+                                </EndPulse>
                               </td>
                             )
                           )}
                           <td className="px-3 py-3 text-center border-l border-zinc-200">
-                            <span className="text-xl font-black text-zinc-900 tabular-nums">
-                              {getTotal(rinkScores[activeRink].teamAScores)}
-                            </span>
+                            <MatchPoint isMatchPoint={isMatchPoint(rinkScores[activeRink].teamAScores, rinkScores[activeRink].teamBScores) === "a"}>
+                              <span className="text-xl font-black text-zinc-900 tabular-nums">
+                                <NumberFlip value={getTotal(rinkScores[activeRink].teamAScores)} />
+                              </span>
+                            </MatchPoint>
                           </td>
                           <td className="px-3 py-3 text-center">
                             <span className="text-lg font-bold text-zinc-600 tabular-nums">
@@ -732,29 +781,39 @@ export default function ScoreEntryPage() {
                           {rinkScores[activeRink].teamBScores.map(
                             (score, endIdx) => (
                               <td key={endIdx} className="px-1 py-2">
-                                <ScoreInput
-                                  value={score}
-                                  onChange={(v) =>
-                                    updateEndScore(activeRink, "b", endIdx, v)
+                                <EndPulse
+                                  active={
+                                    lastSavedEnd !== null &&
+                                    lastSavedEnd.rink === rinkScores[activeRink].rink &&
+                                    lastSavedEnd.endIdx === endIdx
                                   }
-                                  disabled={
-                                    rinkScores[activeRink].isFinalized
-                                  }
-                                  isWinning={
-                                    score >
-                                    rinkScores[activeRink].teamAScores[endIdx]
-                                  }
-                                  isCurrent={
-                                    endIdx === rinkScores[activeRink].teamBScores.length - 1
-                                  }
-                                />
+                                >
+                                  <ScoreInput
+                                    value={score}
+                                    onChange={(v) =>
+                                      updateEndScore(activeRink, "b", endIdx, v)
+                                    }
+                                    disabled={
+                                      rinkScores[activeRink].isFinalized
+                                    }
+                                    isWinning={
+                                      score >
+                                      rinkScores[activeRink].teamAScores[endIdx]
+                                    }
+                                    isCurrent={
+                                      endIdx === rinkScores[activeRink].teamBScores.length - 1
+                                    }
+                                  />
+                                </EndPulse>
                               </td>
                             )
                           )}
                           <td className="px-3 py-3 text-center border-l border-zinc-200">
-                            <span className="text-xl font-black text-zinc-900 tabular-nums">
-                              {getTotal(rinkScores[activeRink].teamBScores)}
-                            </span>
+                            <MatchPoint isMatchPoint={isMatchPoint(rinkScores[activeRink].teamAScores, rinkScores[activeRink].teamBScores) === "b"}>
+                              <span className="text-xl font-black text-zinc-900 tabular-nums">
+                                <NumberFlip value={getTotal(rinkScores[activeRink].teamBScores)} />
+                              </span>
+                            </MatchPoint>
                           </td>
                           <td className="px-3 py-3 text-center">
                             <span className="text-lg font-bold text-zinc-600 tabular-nums">
@@ -833,7 +892,7 @@ export default function ScoreEntryPage() {
                 onClick={(e) => e.stopPropagation()}
                 className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
               >
-                <h3 className="text-lg font-black text-zinc-900">
+                <h3 className="text-lg font-black text-zinc-900 dark:text-zinc-100">
                   Finalize Round {round}?
                 </h3>
                 <p className="mt-2 text-sm text-zinc-500">
@@ -886,6 +945,12 @@ export default function ScoreEntryPage() {
             </div>
           </div>
         )}
+        {/* Match won celebration overlay */}
+        <MatchWon
+          show={matchWonRink?.show ?? false}
+          teamName={matchWonRink?.teamName ?? "Winner"}
+          onDismiss={() => setMatchWonRink(null)}
+        />
       </main>
 
       <BottomNav />
@@ -945,7 +1010,7 @@ function ScoreInput({
           isCurrent && !disabled && "ring-2 ring-[#1B5E20]/30"
         )}
       >
-        {value}
+        <NumberFlip value={value} />
       </div>
       {!disabled && (
         <button
