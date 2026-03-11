@@ -1230,6 +1230,823 @@ New to the sport entirely? Read our [complete beginner's guide](/blog/how-to-pla
 Already playing and want to track your games? [Sign up](/signup) and start recording your results, connecting with other players, and managing your club's tournaments.
 `,
   },
+
+  // ─────────────────────────────────────────────────
+  // Post 6: Lawn Bowling Etiquette
+  // Target keyword: "lawn bowling etiquette" (500-800 mo.)
+  // ─────────────────────────────────────────────────
+  {
+    title: "Lawn Bowling Etiquette: The Unwritten Rules Every Bowler Should Know",
+    slug: "lawn-bowling-etiquette",
+    excerpt:
+      "Lawn bowling has a proud tradition of sportsmanship and courtesy. Master the unwritten rules of the green -- from stepping onto the mat to congratulating your opponent -- and earn respect from day one.",
+    author: "Lawnbowling Team",
+    date: "2026-03-08",
+    category: "Guides",
+    tags: ["etiquette", "beginners", "lawn bowling", "sportsmanship", "green"],
+    readTime: 8,
+    metaTitle: "Lawn Bowling Etiquette: 15 Unwritten Rules of the Green (2026)",
+    metaDescription:
+      "Learn the essential etiquette of lawn bowling. From dress code and green care to sportsmanship traditions, here are the unwritten rules every bowler needs to know.",
+    content: `
+## Why Etiquette Matters in Lawn Bowling
+
+Lawn bowling is one of the few sports where opponents shake hands before and after every match. The culture of the green is built on mutual respect, fair play, and a shared love of the game. Understanding etiquette is not about being stuffy -- it is about showing respect for your fellow bowlers, the green, and the traditions that have sustained the sport for centuries.
+
+Whether you are stepping onto a green for the first time or joining a new club, knowing these conventions will help you feel confident and welcome.
+
+## Before the Game
+
+### Dress Code
+
+Most clubs have a dress code, and it varies by country and formality:
+
+- **Formal competitions:** All-white clothing is traditional in many countries, especially Australia and the UK. Some US clubs are more relaxed.
+- **Club days and social games:** Smart casual is usually fine. Check with your club.
+- **Flat-soled shoes are mandatory.** Heels, treaded soles, and bare feet are never permitted on the green. The playing surface is delicate and easily damaged.
+- **Hats and sun protection** are encouraged -- matches can last 2-3 hours in the sun.
+
+### Arriving at the Green
+
+- **Arrive on time.** Being late holds up the entire rink. Aim to arrive 15-20 minutes before the scheduled start.
+- **Sign in** at the clubhouse or scoreboard before play begins.
+- **Warm up** on a designated rink if available. Do not practice on a rink that is set up for a match.
+
+## On the Green
+
+### Stepping On and Off
+
+- **Only step on the green with approved flat-soled shoes.** Never step on with street shoes, even briefly.
+- **Use the mat or step** to get on and off the green. Walking across the banks and ditches damages the edge of the green.
+
+### While Play Is in Progress
+
+- **Stand still and stay quiet** while a bowler is on the mat delivering. Movement and noise in the bowler's line of sight are distracting and disrespectful.
+- **Stay behind the mat or behind the head.** Do not stand at the side of the rink in the bowler's peripheral vision.
+- **Do not walk across another rink** while play is in progress. Wait for a pause, then cross quickly.
+- **Keep your shadow off the jack and head.** On sunny days, be aware of where your shadow falls.
+
+### Possession of the Rink
+
+- **The team whose bowl is being delivered has possession of the rink.** The opposing team must stand behind the mat or behind the head, remaining still and quiet.
+- **After delivering your bowl, step off the mat** and stand to one side so the next bowler has clear access.
+
+### Acknowledging Good Shots
+
+- **Acknowledge good shots** by your opponents with a nod, "good bowl," or a tap of the hand. This is one of the sport's finest traditions.
+- **Do not celebrate excessively** when your opponent makes a bad shot. Keep your reactions measured and sporting.
+
+## Scoring and Measuring
+
+- **Do not touch any bowls** until the result of the end has been agreed or measured. Moving a bowl prematurely can void the end.
+- **The thirds (vice-skips) are responsible for agreeing the score** at the end of each end. If it is too close to call, use a measure.
+- **Accept the measure result gracefully.** If you disagree, ask for an umpire. Do not argue with your opponent.
+- **Mark the scoreboard promptly** after each end.
+
+## After the Game
+
+### Shaking Hands
+
+- **Shake hands with every player** on both teams at the end of the match. This is not optional -- it is a core tradition of the sport.
+- **Thank the greenkeeper** if they are present. The quality of the green depends on their hard work.
+
+### Socializing
+
+- **Stay for a drink** (or a cup of tea) after the match if you can. The post-game social is an important part of bowling culture.
+- **Buy your opponent a drink** if you won, especially in social games. This tradition varies by club but is common in many countries.
+
+### Leaving the Green
+
+- **Return any borrowed equipment** to its proper place.
+- **Report any damage** to the green or equipment to the greenkeeper or club secretary.
+
+## Common Mistakes New Bowlers Make
+
+1. **Wearing the wrong shoes** -- this is the number one etiquette error. Always bring flat-soled shoes.
+2. **Standing in the bowler's line of sight** -- stay behind the mat or behind the head.
+3. **Talking during delivery** -- silence while someone is bowling is non-negotiable.
+4. **Touching bowls before the end is agreed** -- wait until the thirds have decided the count.
+5. **Not shaking hands** -- always shake hands before and after the match, win or lose.
+
+## Etiquette by Country
+
+Etiquette norms vary slightly around the world:
+
+| Rule | USA | Australia | UK |
+|------|-----|-----------|-----|
+| Dress code (competition) | Varies by club | Whites required | Whites required |
+| Dress code (social) | Casual | Smart casual | Smart casual |
+| Post-game drinks | Common | Very common | Traditional |
+| Handshake | Before & after | Before & after | Before & after |
+| Silence during delivery | Expected | Strictly enforced | Strictly enforced |
+
+## The Golden Rule
+
+When in doubt, follow this simple principle: **treat others as you would like to be treated on the green.** Be patient with beginners, generous with praise, and graceful in both victory and defeat. The green is a place of fellowship, competition, and joy -- etiquette ensures it stays that way.
+
+Ready to find a club and put these tips into practice? Use our [club finder](/clubs) to locate a lawn bowling club near you, or read up on the [rules of the game](/learn/rules) before your first visit.
+`,
+  },
+
+  // ─────────────────────────────────────────────────
+  // Post 7: Lawn Bowling Techniques for Beginners
+  // Target keyword: "lawn bowling techniques" (400-700 mo.)
+  // ─────────────────────────────────────────────────
+  {
+    title: "Lawn Bowling Techniques: A Beginner's Guide to Delivery and Shot-Making",
+    slug: "lawn-bowling-techniques",
+    excerpt:
+      "Master the fundamentals of lawn bowling delivery -- grip, stance, step, and release. Plus learn the essential shot types every beginner needs: the draw, the yard-on, and the drive.",
+    author: "Lawnbowling Team",
+    date: "2026-03-07",
+    category: "Technique",
+    tags: ["technique", "beginners", "delivery", "draw shot", "lawn bowling"],
+    readTime: 12,
+    metaTitle: "Lawn Bowling Techniques: Beginner's Guide to Delivery & Shots (2026)",
+    metaDescription:
+      "Learn lawn bowling techniques from grip to delivery. Master the draw shot, yard-on, and drive with our step-by-step guide for beginners. Improve your game today.",
+    content: `
+## The Foundations of a Good Delivery
+
+Every successful lawn bowler builds their game on a solid, repeatable delivery. Unlike many sports, lawn bowling rewards consistency over raw power. The goal is to develop a smooth, natural action that you can repeat end after end, game after game.
+
+This guide breaks down the delivery into its component parts, then covers the essential shot types you will need as a beginner.
+
+## Grip
+
+The grip is where it all starts. A good grip gives you control over the bowl's direction, weight (speed), and release.
+
+### The Cradle Grip (Recommended for Beginners)
+
+1. **Place the bowl in your open palm** with the running surface (the widest part of the bias track) sitting on your middle finger.
+2. **Wrap your fingers around the bowl** naturally. Your thumb rests on top, your little finger and index finger sit comfortably on the sides.
+3. **Keep your grip relaxed.** You are cradling the bowl, not squeezing it. Tension in your hand transfers to your arm and disrupts your delivery.
+4. **The bowl should feel secure but not clamped.** If your knuckles are white, you are gripping too hard.
+
+### The Claw Grip (Advanced)
+
+Some experienced bowlers prefer the claw grip, where the fingers are more spread and the bowl rests on the fingertips. This gives more feel but requires greater hand strength. Beginners should start with the cradle grip and experiment later.
+
+### Which Way Does the Bias Go?
+
+- **The small disc (or dimple) on one side indicates the bias side** -- this is the side the bowl will curve toward as it slows down.
+- **For a forehand shot** (curving right to left for a right-hander), hold the bowl with the bias on the left.
+- **For a backhand shot** (curving left to right for a right-hander), hold the bowl with the bias on the right.
+
+## Stance on the Mat
+
+Your starting position on the mat sets up everything that follows.
+
+### Feet
+
+- **Stand with your feet close together**, roughly hip-width apart. Your weight should be evenly distributed.
+- **Your leading foot** (left foot for right-handers) should point toward your aiming point -- not the jack, but the point on the green where you want the bowl to start its path.
+- **Stay on the mat.** At least one foot must remain on or over the mat at the moment of delivery.
+
+### Body Position
+
+- **Stand upright but relaxed.** Slight forward lean is natural.
+- **Square your shoulders** toward your aiming point.
+- **Look at your target line**, not down at the bowl.
+
+## The Delivery Step-by-Step
+
+### 1. Backswing
+
+- **Bring the bowl back smoothly** in a straight line behind you, like a pendulum.
+- **Keep your arm close to your body.** The swing should be straight back and straight through, not out to the side.
+- **The height of your backswing determines weight (speed).** Higher backswing = more speed.
+
+### 2. Step Forward
+
+- **Step forward with your leading foot** (left for right-handers) as you bring the bowl forward.
+- **The step and the forward swing should be synchronized** -- they happen together in one fluid motion.
+- **Keep the step smooth and controlled.** Do not lunge.
+
+### 3. Release
+
+- **Release the bowl as your hand passes your leading ankle**, close to ground level.
+- **Your hand should follow through** toward your aiming point, like pointing where you want the bowl to go.
+- **The bowl should leave your hand smoothly**, rolling off your fingers without spinning or wobbling.
+
+### 4. Follow-Through
+
+- **Continue your arm's forward motion** after release, finishing with your hand pointing toward your target.
+- **Stay balanced.** Do not fall forward or to the side.
+- **Watch your bowl** and observe how it behaves. This feedback helps you adjust your next delivery.
+
+## The Essential Shot Types
+
+### The Draw Shot
+
+The draw is the most fundamental shot in lawn bowling. The goal is to deliver your bowl so that it comes to rest as close to the jack as possible.
+
+- **Weight:** Enough to reach the jack with the bowl stopping naturally -- no more, no less.
+- **Line:** Aim wide of the jack to allow for the bias curve. How wide depends on the green speed and the bias of your bowls.
+- **When to use it:** Constantly. The draw is the bread and butter of every position, especially leads.
+
+**Tip:** Practice the draw obsessively. A consistent draw shot will win you more games than any other skill.
+
+### The Yard-On (Firm Shot)
+
+The yard-on is a draw shot delivered with extra weight -- enough to push past the head by about one yard (one meter).
+
+- **Weight:** About 1-2 meters past the jack.
+- **Line:** Slightly narrower than a draw shot because the extra speed means the bowl will not curve as much.
+- **When to use it:** To push an opponent's bowl out of the count, to trail the jack to your back bowls, or to add weight to the head.
+
+### The Drive (Firing Shot)
+
+The drive is a full-speed delivery aimed directly at the head. It is the most dramatic shot in lawn bowling.
+
+- **Weight:** Maximum. The bowl is delivered fast and straight.
+- **Line:** Almost straight at the target because at high speed, the bias has minimal effect.
+- **When to use it:** As a last resort when the head is heavily against you. Skips use this most often.
+- **Caution:** Drives can send bowls off the rink and into the ditch. Only use when necessary.
+
+## Reading the Green
+
+Understanding the green's speed and conditions is crucial for accurate bowling.
+
+### Green Speed
+
+- **Fast greens** (14-17 seconds) require less weight and more line (wider aim).
+- **Slow greens** (10-13 seconds) require more weight and less line (narrower aim).
+- **Green speed is measured** by timing how long a bowl takes to travel from mat to ditch at standard weight.
+
+### Conditions That Affect Play
+
+- **Morning dew** slows the green and reduces bias.
+- **Afternoon sun** speeds up the green and increases bias.
+- **Rain** slows the green significantly.
+- **Wind** can push the bowl off line, especially on fast greens.
+- **The draw changes throughout the day** as the green dries or moistens. Keep adjusting.
+
+## Practice Drills for Beginners
+
+### Drill 1: The Target Circle
+
+Place a small target (a disc or chalk circle) on the green. Deliver 4 bowls, trying to stop them all within arm's reach of the target. Move the target to different distances.
+
+### Drill 2: Straight Delivery
+
+Set up a line on the green (or use the edge of a rink boundary). Practice delivering your bowl along the line, focusing on a straight, consistent arm swing.
+
+### Drill 3: Weight Control
+
+Place markers at 3 different distances. Deliver to each distance in turn, focusing on adjusting your backswing height to control speed.
+
+### Drill 4: Forehand and Backhand
+
+Alternate between forehand and backhand deliveries. Being comfortable on both hands doubles your tactical options.
+
+## Common Beginner Mistakes
+
+1. **Gripping too tight** -- relax your hand and let the bowl roll naturally.
+2. **Looking at the jack instead of the aim point** -- your aim point is wider than the jack to account for bias.
+3. **Standing up too quickly** -- stay low through the delivery and follow-through.
+4. **Inconsistent step length** -- keep your step the same every time.
+5. **Not watching your bowl** -- observe how it behaves so you can adjust.
+
+## Ready to Practice?
+
+The best way to improve is to get on the green. Find a [lawn bowling club near you](/clubs) with practice sessions for beginners, or read about the [different player positions](/learn/positions) to understand where these techniques fit in a team game.
+
+Want to understand the full rules before your first session? Check out our [rules guide](/learn/rules) or [complete beginner's guide](/blog/how-to-play-lawn-bowls).
+`,
+  },
+
+  // ─────────────────────────────────────────────────
+  // Post 8: History of Lawn Bowling
+  // Target keyword: "lawn bowling history" (300-600 mo.)
+  // ─────────────────────────────────────────────────
+  {
+    title: "The History of Lawn Bowling: From Medieval England to Modern Greens",
+    slug: "lawn-bowling-history",
+    excerpt:
+      "Lawn bowling has a history stretching back over 800 years. From King Henry VIII's bowling alleys to the Commonwealth Games, discover how this ancient sport has evolved into the modern game we play today.",
+    author: "Lawnbowling Team",
+    date: "2026-03-06",
+    category: "Culture",
+    tags: ["history", "lawn bowling", "culture", "traditions", "sport history"],
+    readTime: 10,
+    metaTitle: "History of Lawn Bowling: 800 Years from Medieval Times to Today (2026)",
+    metaDescription:
+      "Explore the rich history of lawn bowling from medieval England to the modern game. Learn how Sir Francis Drake, King Henry VIII, and Commonwealth Games shaped the sport.",
+    content: `
+## Ancient Origins
+
+The urge to roll a ball toward a target is one of humanity's oldest sporting instincts. Archaeological evidence suggests that ancient Egyptians played a form of bowls as early as 5,000 BCE, using polished stones rolled toward a fixed target. Similar games have been found in ancient Greece, Rome, and throughout the Mediterranean.
+
+The game we recognize as lawn bowling, however, has its roots firmly in medieval England.
+
+## Medieval England: The Birth of Bowls
+
+### The Oldest Bowling Green
+
+The oldest known bowling green still in use is the **Southampton Old Bowling Green** in England, which has been in continuous use since **1299**. That makes it over 725 years old -- predating the printing press, the discovery of the Americas, and the English Reformation.
+
+### Royal Connections
+
+Bowling was so popular in medieval England that it attracted the attention of the monarchy -- not always positively:
+
+- **King Edward III** banned bowling in 1366, concerned that his soldiers were spending too much time playing bowls and not enough time practicing archery. The ban was routinely ignored.
+- **King Henry VIII** was a passionate bowler. He owned bowling alleys at Whitehall Palace but also passed laws restricting the game to the wealthy, concerned that laborers and artisans were neglecting their work.
+- **King James I** relaxed the restrictions and published the "Book of Sports" in 1618, which explicitly permitted bowling on Sundays after church.
+
+### Sir Francis Drake and the Spanish Armada
+
+The most famous story in bowling history involves **Sir Francis Drake** in 1588. According to legend, Drake was playing bowls on Plymouth Hoe when news arrived that the Spanish Armada had been sighted in the English Channel. Drake reportedly said, "There is plenty of time to win this game and thrash the Spaniards too," and calmly finished his game before sailing out to defeat the Armada.
+
+Whether the story is true or embellished, it captures the bowler's spirit: calm under pressure, confident in the outcome.
+
+## The Development of Modern Rules
+
+### The Scottish Influence
+
+While bowling thrived informally across Britain for centuries, it was **Scotland** that formalized the modern game:
+
+- In **1848/1849**, a Glasgow solicitor named **W.W. Mitchell** wrote the first standardized set of lawn bowls rules. Mitchell's rules established the framework that still governs the game today, including specifications for the green, the jack, and the method of scoring.
+- The **flat green** (as opposed to the crown green popular in northern England) became the standard format in Scotland and was exported worldwide through British colonialism.
+
+### The Bias Bowl
+
+The introduction of **biased bowls** -- bowls that curve as they slow down -- transformed the sport from a simple rolling game into one of strategic complexity. The exact origin of the bias is debated, but it likely emerged in the 16th or 17th century when bowlers discovered that loading one side of the bowl with lead caused it to curve.
+
+Modern bowls achieve their bias through asymmetric shaping of the running surface rather than internal weights. The bias is precisely engineered and tested by World Bowls-approved manufacturers.
+
+## Global Spread Through the British Empire
+
+Lawn bowling spread across the world wherever the British Empire established colonies:
+
+### Australia
+
+Bowling arrived in Australia with the First Fleet in 1788. The first bowling club, the **Sandy Bay Bowls Club** in Tasmania, was established in **1845**. Today, Australia has over **1,800 bowling clubs** and is one of the strongest lawn bowling nations in the world.
+
+### New Zealand
+
+Lawn bowls became enormously popular in New Zealand from the 1860s onward. The country consistently punches above its weight in international competitions and has one of the highest per-capita participation rates in the world.
+
+### South Africa
+
+Bowling arrived in South Africa in the mid-19th century and became deeply embedded in the country's sporting culture. South Africa has produced numerous world champions.
+
+### Canada
+
+Scottish and English immigrants brought bowling to Canada in the 1800s. The sport established itself particularly in Ontario, British Columbia, and the Maritime provinces.
+
+### United States
+
+Lawn bowling came to the USA primarily through British and Scottish immigrants. The first recorded bowling green in America was established in **New York City's Bowling Green Park** in **1733** -- the park retains its name to this day. Today, **Bowls USA** oversees the sport with approximately 2,800 active members across 58 clubs.
+
+## The Commonwealth Games and International Competition
+
+### Commonwealth Games
+
+Lawn bowls has been a fixture of the **Commonwealth Games** since **1930** (Hamilton, Canada). It is one of the most-watched sports at the Games and has produced some of the most memorable moments in Commonwealth sporting history.
+
+### World Bowls
+
+**World Bowls** is the international governing body, overseeing the sport in over 50 member nations. The **World Bowls Championships** have been held every four years since 1966.
+
+### International Formats
+
+International competition includes:
+
+- **Singles** -- one-on-one battles of skill and nerve
+- **Pairs, Triples, and Fours** -- team events requiring coordination and communication
+- **Mixed events** -- increasingly popular as the sport embraces gender equality
+
+## The Modern Era
+
+### Professionalization
+
+The late 20th century saw lawn bowling become increasingly professional:
+
+- Prize money at major events has grown significantly.
+- Television coverage has brought the sport to wider audiences, particularly in Australia and the UK.
+- Training and coaching have become more scientific, with video analysis, biomechanics, and sports psychology now part of elite preparation.
+
+### Inclusivity and Growth
+
+Modern lawn bowling has made significant strides in inclusivity:
+
+- **Para-bowls** is a thriving discipline, with wheelchair and standing classifications.
+- **Women's bowls** has grown enormously, with women now competing on equal footing with men in many countries.
+- **Junior development** programs aim to attract younger players, combating the perception that bowls is only for retirees.
+- **Social bowls** events -- often called "barefoot bowls" in Australia -- have become hugely popular as casual entertainment, introducing thousands of young people to the sport.
+
+### Technology
+
+Technology has transformed how the sport is managed:
+
+- **Digital scoring** apps (like [Lawnbowling](/)) have replaced paper scorecards.
+- **Tournament management software** automates draws, scheduling, and results.
+- **Bowl tracking technology** is emerging for coaching and performance analysis.
+- **Social media** connects bowlers worldwide, sharing tips, highlights, and tournament coverage.
+
+## Looking Forward
+
+Lawn bowling faces the same challenges as many traditional sports -- aging demographics, competition for leisure time, and the need to attract younger participants. But the sport's inherent qualities -- strategic depth, social connection, accessibility across ages and abilities, and the sheer pleasure of rolling a bowl on a perfect green -- ensure it will endure.
+
+The story of lawn bowling is the story of a simple, beautiful game that has captivated people across cultures, continents, and centuries. That story continues on every green, every day, around the world.
+
+Want to be part of the story? Find a [lawn bowling club near you](/clubs) and start playing, or learn the [rules](/learn/rules) to understand the game before your first visit.
+`,
+  },
+
+  // ─────────────────────────────────────────────────
+  // Post 9: How to Start a Lawn Bowling Club
+  // Target keyword: "start a lawn bowling club" (100-300 mo.)
+  // ─────────────────────────────────────────────────
+  {
+    title: "How to Start a Lawn Bowling Club: A Step-by-Step Guide",
+    slug: "how-to-start-a-lawn-bowling-club",
+    excerpt:
+      "Everything you need to know about starting a lawn bowling club from scratch -- from finding a green and recruiting members to organizing your first tournament and registering with Bowls USA.",
+    author: "Lawnbowling Team",
+    date: "2026-03-05",
+    category: "Club Management",
+    tags: ["club management", "lawn bowling", "starting a club", "organization", "community"],
+    readTime: 11,
+    metaTitle: "How to Start a Lawn Bowling Club: Complete Step-by-Step Guide (2026)",
+    metaDescription:
+      "Want to start a lawn bowling club? Our step-by-step guide covers finding a green, recruiting members, organizing tournaments, and registering with Bowls USA.",
+    content: `
+## Why Start a Lawn Bowling Club?
+
+Starting a lawn bowling club is one of the most rewarding things you can do for your community. Lawn bowling brings people together across ages, abilities, and backgrounds. A well-run club becomes a social hub, a source of healthy exercise, and a gateway to competitive sport.
+
+If you are passionate about lawn bowling and there is no club near you, or you want to grow the sport in your area, this guide will walk you through every step of the process.
+
+## Step 1: Assess Your Community
+
+Before you start, answer these fundamental questions:
+
+### Is There Demand?
+
+- **Talk to people.** Gauge interest among friends, neighbors, and community groups. You need at least 15-20 committed founding members to make a club viable.
+- **Check for existing clubs.** Use our [club finder](/clubs) to see if there is already a club nearby. If the nearest club is more than 30 minutes away, there is likely room for a new one.
+- **Survey local interest.** Post on community boards, social media groups, and local newspapers. The response will tell you whether the demand exists.
+
+### Who Is Your Target Audience?
+
+- **Retirees** are the traditional core of most bowling clubs, but do not limit yourself.
+- **Corporate groups** looking for team-building activities.
+- **Young professionals** attracted by the social "barefoot bowls" trend.
+- **Schools and youth groups** who need organized sport options.
+- **People with disabilities** who benefit from the sport's accessibility.
+
+## Step 2: Find a Green
+
+The green is the single biggest requirement and the biggest expense. Here are your options:
+
+### Option A: Partner with an Existing Facility
+
+This is the easiest and cheapest route:
+
+- **Parks departments** may have existing greens that are underused or abandoned. Many cities built bowling greens decades ago that are now maintained but rarely used.
+- **Golf courses and country clubs** sometimes have greens or flat areas that could be adapted.
+- **Recreation centers** may offer space for a temporary or permanent green.
+
+### Option B: Build a New Green
+
+Building a bowling green from scratch is a significant undertaking:
+
+- **Land:** You need a flat area of at least 40x40 meters (about 130x130 feet). Add space for ditches, banks, a clubhouse, and parking.
+- **Surface:** A proper bowling green is a meticulously maintained grass or artificial surface. Natural grass greens require year-round maintenance. Synthetic greens (like TigerTurf) have higher upfront costs but lower ongoing maintenance.
+- **Cost:** Expect $50,000-$200,000+ for a natural grass green including preparation, drainage, and initial establishment. Synthetic greens can cost $200,000-$400,000 but last 10-15 years with minimal maintenance.
+- **Timeline:** A natural grass green takes 12-18 months to establish before it is playable. Synthetic greens can be installed in 2-3 months.
+
+### Option C: Temporary or Mobile Greens
+
+For getting started quickly on a budget:
+
+- **Flat park lawns** can be used for informal social bowls events to generate interest.
+- **Indoor facilities** (gyms, warehouses) can host bowling on carpet or portable synthetic surfaces.
+- These options will not replace a proper green for competitive play, but they are excellent for community outreach and recruitment.
+
+## Step 3: Organize Your Club
+
+### Legal Structure
+
+- **Incorporate as a nonprofit.** Most bowling clubs operate as 501(c)(3) or 501(c)(7) organizations in the US.
+- **Draft bylaws** covering membership, dues, elections, and rules of play.
+- **Elect officers:** President, Vice-President, Secretary, Treasurer, and Greenskeeper at minimum.
+- **Open a bank account** in the club's name.
+
+### Membership and Dues
+
+- **Set reasonable annual dues.** Most US clubs charge $100-$300 per year.
+- **Offer trial memberships** or free introductory sessions to attract new members.
+- **Include guest policies** so members can bring friends to try the sport.
+
+### Insurance
+
+- **General liability insurance** is essential. It protects the club if someone is injured on the green.
+- **Bowls USA affiliation** includes basic liability coverage for affiliated clubs.
+- **Consult with an insurance broker** who understands sports organizations.
+
+## Step 4: Register with Bowls USA
+
+[Bowls USA](https://www.bowlsusa.us) is the national governing body for lawn bowling in the United States. Affiliation provides:
+
+- **Liability insurance** coverage for your club.
+- **Access to national competitions** for your members.
+- **Official rules and regulations** for sanctioned play.
+- **Coaching resources** and development programs.
+- **Connection to the national bowling community.**
+
+Contact Bowls USA directly to learn about the affiliation process and fees.
+
+## Step 5: Get Equipment
+
+### Essential Equipment
+
+- **Bowls:** Purchase 8-12 sets (32-48 bowls) of various sizes for member use. Second-hand sets are a great starting option. Budget $1,000-$3,000.
+- **Jacks:** You need at least 4 jacks. Cost: $30-$50 total.
+- **Mats:** 4-6 delivery mats. Cost: $100-$200 total.
+- **Scoreboards:** Manual or digital. Cost: $50-$200 per rink.
+- **Measures:** String measures for close shots. Cost: $40-$80 for a set of 4.
+- **Chalk spray:** For marking touchers. Cost: $20-$40 for a supply.
+
+### Where to Buy
+
+See our [Equipment Buying Guide](/learn/equipment) for detailed recommendations and trusted retailers.
+
+## Step 6: Recruit and Train Members
+
+### Recruitment Strategies
+
+1. **Hold open days.** Invite the community to try bowling for free. Provide equipment, basic instruction, and refreshments.
+2. **Partner with local organizations.** Senior centers, community colleges, corporate groups, and service clubs (Rotary, Lions) are all potential partners.
+3. **Social media.** Create a Facebook page and Instagram account. Post photos, event announcements, and beginner tips.
+4. **Local media.** Contact your local newspaper, TV station, or community blog. A "new bowling club" story is exactly the kind of feel-good local content they love.
+5. **School programs.** Offer after-school or PE programs to introduce young people to the sport.
+
+### Training New Bowlers
+
+- **Designate experienced bowlers as coaches** for introductory sessions.
+- **Keep it fun.** New bowlers should enjoy themselves first and learn technique second.
+- **Provide equipment** so newcomers do not need to buy anything to get started.
+- **Follow up** with new participants. A personal email or phone call after their first visit dramatically increases retention.
+
+## Step 7: Organize Play
+
+### Regular Sessions
+
+- **Set a weekly schedule.** Most clubs offer morning and afternoon sessions on multiple days.
+- **Designate social days** (relaxed, open to all) and **competition days** (more structured).
+- **Evening sessions** during summer attract working-age members.
+
+### Tournaments
+
+Once your club is established, tournaments bring excitement and build community:
+
+- **Internal club tournaments** -- singles, pairs, and championship events.
+- **Interclub matches** -- visit other clubs and host visiting teams.
+- **Open tournaments** -- attract bowlers from across the region and bring revenue.
+
+Use a [tournament management tool](/signup) to handle draws, scheduling, and results efficiently.
+
+## Step 8: Build Community
+
+A successful club is more than a place to bowl -- it is a community:
+
+- **Social events.** Barbecues, potlucks, holiday parties, and awards nights.
+- **Newsletter or email updates.** Keep members informed and engaged.
+- **Volunteer opportunities.** Green maintenance, coaching, event organization -- getting members involved creates ownership and loyalty.
+- **Welcome new members warmly.** First impressions determine whether someone comes back.
+
+## Common Challenges and Solutions
+
+| Challenge | Solution |
+|-----------|----------|
+| Low initial membership | Host free open days, partner with community groups |
+| Green maintenance costs | Apply for parks department grants, organize volunteer maintenance days |
+| Aging membership | Target corporate events, schools, "barefoot bowls" nights |
+| Finding a green | Partner with parks, golf courses, or rec centers before building |
+| Competition from other sports | Emphasize lawn bowling's unique social aspect and accessibility |
+
+## Get Started Today
+
+Starting a club takes effort, but the reward is a thriving community centered on one of the world's great sports. Begin by gauging interest in your community, identifying potential green locations, and connecting with [Bowls USA](https://www.bowlsusa.us).
+
+Already part of a club? [Sign up for Lawnbowling](/signup) to manage your tournaments, track results, and connect with other clubs across the country.
+`,
+  },
+
+  // ─────────────────────────────────────────────────
+  // Post 10: Lawn Bowling Scoring Explained
+  // Target keyword: "lawn bowling scoring" (600-1,000 mo.)
+  // ─────────────────────────────────────────────────
+  {
+    title: "Lawn Bowling Scoring Explained: How Points Work in Lawn Bowls",
+    slug: "lawn-bowling-scoring",
+    excerpt:
+      "Confused about how scoring works in lawn bowling? This guide explains ends, shots, and counting with clear examples. Learn how to score in singles, pairs, triples, and fours.",
+    author: "Lawnbowling Team",
+    date: "2026-03-04",
+    category: "Rules",
+    tags: ["scoring", "rules", "lawn bowling", "beginners", "how to play"],
+    readTime: 9,
+    metaTitle: "Lawn Bowling Scoring Explained: Complete Guide to Points & Ends (2026)",
+    metaDescription:
+      "How does scoring work in lawn bowling? Learn about ends, shots, counting, and winning conditions in singles, pairs, triples, and fours with clear examples.",
+    content: `
+## The Basics of Lawn Bowling Scoring
+
+Scoring in lawn bowling is beautifully simple at its core: **the team (or player) with the bowl closest to the jack at the end of each end scores points.** But there are important details that every bowler needs to understand.
+
+This guide explains exactly how scoring works, with examples and variations across different game formats.
+
+## What Is an "End"?
+
+An **end** is a single round of play. It works like this:
+
+1. A player delivers the **jack** (the small white target ball) to set the target distance.
+2. All players deliver their **bowls** alternately, trying to get as close to the jack as possible.
+3. Once all bowls have been delivered, the end is **scored**.
+4. Players walk to the other end of the green and play the next end in the opposite direction.
+
+A typical game consists of **15-21 ends** for singles, or **14-18 ends** for team games, though this varies by competition.
+
+## How Scoring Works
+
+### The Count
+
+After all bowls have been delivered in an end, the scoring is determined by measuring which bowls are closest to the jack:
+
+1. **Identify the closest bowl to the jack.** The team that owns this bowl scores.
+2. **Count how many of that team's bowls are closer to the jack than the nearest opposing bowl.** Each of these bowls scores **one point** (called a "shot").
+3. **The opposing team scores zero** for that end.
+
+### Examples
+
+**Example 1: One-shot end**
+
+Imagine the following situation at the end of an end:
+- Team A's closest bowl is 30cm from the jack.
+- Team B's closest bowl is 25cm from the jack.
+- Team B scores **1 shot** (one bowl closer than Team A's nearest).
+
+**Example 2: Three-shot end**
+
+- Team A has 3 bowls closer to the jack than any of Team B's bowls.
+- Team A scores **3 shots**.
+
+**Example 3: A "count" of four**
+
+- In a fours game, Team A has all four of their nearest bowls closer than Team B's closest bowl.
+- Team A scores **4 shots** -- a very strong end.
+
+### The Maximum Score per End
+
+The maximum number of shots you can score in a single end equals the number of bowls you delivered:
+
+| Format | Bowls per Player | Max Shots per End |
+|--------|-----------------|-------------------|
+| Singles | 4 | 4 |
+| Pairs | 4 | 8 (4 per player x 2 players) |
+| Triples | 3 | 9 (3 per player x 3 players) |
+| Fours | 2 | 8 (2 per player x 4 players) |
+
+Scoring all your bowls in a single end is called a **"full house"** or **"maximum"** -- it is rare and exciting.
+
+## Measuring
+
+### When to Measure
+
+When the naked eye cannot determine which bowl is closer to the jack, players use a **string measure** (a retractable tape measure designed for bowls).
+
+### Who Measures?
+
+- In **team games**, the **thirds (vice-skips)** are responsible for agreeing the score and conducting measurements. The thirds from both teams should measure together.
+- In **singles**, the players themselves measure, or an umpire can be called.
+
+### Disputes
+
+If the thirds cannot agree on a measurement, they call a **qualified umpire** to make the final decision. The umpire's decision is final.
+
+### Dead Heat
+
+If a measurement shows that two opposing bowls are exactly the same distance from the jack (a **dead heat**), neither bowl counts. The remaining closer bowls (if any) still count as normal.
+
+## Keeping Score
+
+### The Scoreboard
+
+Most clubs display scores on a **scoreboard** visible to all players and spectators:
+
+- **Traditional scoreboards** use numbered cards that hang on hooks.
+- **Digital scoreboards** and apps (like [Lawnbowling](/)) are increasingly common.
+
+### The Scorecard
+
+The official record of the game is the **scorecard**, filled out by the thirds:
+
+- Each end is numbered (End 1, End 2, etc.).
+- The number of shots scored by each team is recorded for each end.
+- A running total is maintained.
+- Both thirds should sign the scorecard at the end of the match.
+
+## Winning Conditions
+
+How a game is won depends on the format and competition rules:
+
+### Set Number of Ends
+
+The most common format: play a fixed number of ends, and the team with the highest total score wins.
+
+| Format | Typical Ends |
+|--------|-------------|
+| Singles | 21 or 25 ends |
+| Pairs | 18 ends |
+| Triples | 18 ends |
+| Fours | 15 or 18 ends |
+
+### First to a Target Score
+
+In some singles competitions, the game is played until one player reaches a target score (e.g., **first to 21 shots**). This format can produce shorter or longer games depending on scoring.
+
+### Timed Games
+
+Some social and league formats use a **time limit** (e.g., 2 hours). The team ahead when the time expires wins. Often, the end in progress is completed.
+
+### Ties
+
+If scores are tied after the prescribed number of ends:
+
+- **In some competitions,** an **extra end** is played to determine the winner.
+- **In league play,** a tie may stand, with both teams receiving a share of the points.
+- **In knockout rounds,** extra ends continue until there is a winner.
+
+## Special Scoring Situations
+
+### Dead Ends
+
+An end is declared **dead** if:
+
+- The jack is knocked into the **ditch** (in most rule sets, this kills the end).
+- The jack is knocked **off the rink** (out of the side boundaries).
+
+When an end is dead, it is either **replayed** or scored as a **draw** (zero each), depending on the competition rules.
+
+### Touchers
+
+A **toucher** is a bowl that touches the jack during its initial delivery. Touchers are marked with chalk and have special status:
+
+- A toucher that ends up in the **ditch** is still "alive" and counts for scoring.
+- A non-toucher that enters the ditch is **dead** and removed from play.
+- This rule adds a fascinating tactical dimension -- a toucher in the ditch can be the closest bowl to the jack if the jack is also in the ditch.
+
+### Jack in the Ditch
+
+If the jack is knocked into the ditch (but stays within the rink boundaries), play continues:
+
+- The jack remains where it stops in the ditch.
+- **Touchers in the ditch** are measured against the jack's position.
+- Non-touchers in the ditch are dead and do not count.
+
+## Scoring Across Different Formats
+
+### Singles
+
+- Each player delivers 4 bowls alternately.
+- The game is typically first to 21 shots or played over 21-25 ends.
+- Only 2 players are involved, making measurement straightforward.
+
+### Pairs
+
+- Each player delivers 4 bowls, so 8 bowls per team.
+- Typically played over 18 ends.
+- Big scoring ends (3-4 shots) are common because there are more bowls in the head.
+
+### Triples
+
+- Each player delivers 3 bowls, so 9 bowls per team.
+- Typically played over 18 ends.
+- The thirds measure and agree the score.
+
+### Fours
+
+- Each player delivers 2 bowls, so 8 bowls per team.
+- Typically played over 15-18 ends.
+- The most common format for club pennant and interclub competition.
+
+## Tips for Scoring Accurately
+
+1. **Do not touch any bowls until the score is agreed.** Moving a bowl prematurely can make it impossible to determine the true score.
+2. **Use a measure for any close shots.** Do not guess. Even experienced bowlers misjudge distances.
+3. **Both thirds should agree** before recording the score. If in doubt, call an umpire.
+4. **Update the scoreboard promptly** after each end so spectators and skips can see the running score.
+5. **Use a scoring app** like [Lawnbowling](/) to keep accurate digital records that can be shared with your club.
+
+## Ready to Start Scoring?
+
+Now that you understand how scoring works, learn the full [rules of lawn bowling](/learn/rules) or find a [club near you](/clubs) to start playing. If you are already playing, [sign up](/signup) to track your scores digitally and see your improvement over time.
+`,
+  },
 ];
 
 /**
