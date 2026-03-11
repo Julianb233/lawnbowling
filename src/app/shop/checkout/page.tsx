@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { CheckoutPlaceholder } from "./CheckoutPlaceholder";
 
 export const metadata: Metadata = {
@@ -7,5 +8,15 @@ export const metadata: Metadata = {
 };
 
 export default function CheckoutPage() {
-  return <CheckoutPlaceholder />;
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto max-w-lg py-20 text-center text-gray-400">
+          Loading checkout...
+        </div>
+      }
+    >
+      <CheckoutPlaceholder />
+    </Suspense>
+  );
 }
