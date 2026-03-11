@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo, lazy, Suspense } from "react";
+import { useState, useMemo, useCallback, lazy, Suspense } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Search, MapPin, Users, ChevronRight, Globe, Leaf, Map as MapIcon, List } from "lucide-react";
+import { Search, MapPin, Users, ChevronRight, Globe, Leaf, Map as MapIcon, List, CircleDot, CheckCircle, Navigation } from "lucide-react";
 import { BottomNav } from "@/components/board/BottomNav";
 import {
   getAllClubs,
@@ -13,6 +13,7 @@ import {
   SURFACE_LABELS,
   getClubStats,
   searchClubs,
+  haversineDistance,
   type ClubData,
   type USRegion,
   type CountryCode,
@@ -28,9 +29,45 @@ export default function ClubDirectoryPage() {
   const [activeState, setActiveState] = useState<string | "all">("all");
   const [activeActivity, setActiveActivity] = useState<string | "all">("all");
   const [viewMode, setViewMode] = useState<"list" | "map">("list");
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [nearMeActive, setNearMeActive] = useState(false);
+  const [geoLoading, setGeoLoading] = useState(false);
   const stats = getClubStats();
 
   const allClubs = useMemo(() => getAllClubs(), []);
+
+  const handleNearMe = useCallback(() => {
+    if (nearMeActive) {
+      setNearMeActive(false);
+      return;
+    }
+    if (userLocation) {
+      setNearMeActive(true);
+      return;
+    }
+    setGeoLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setUserLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setNearMeActive(true);
+        setGeoLoading(false);
+      },
+      () => {
+        setGeoLoading(false);
+      }
+    );
+  }, [nearMeActive, userLocation]);
+
+  const distanceMap = useMemo(() => {
+    if (!userLocation) return new Map<string, number>();
+    const map = new Map<string, number>();
+    for (const club of allClubs) {
+      if (club.lat != null && club.lng != null) {
+        map.set(club.id, haversineDistance(userLocation.lat, userLocation.lng, club.lat, club.lng));
+      }
+    }
+    return map;
+  }, [allClubs, userLocation]);
 
   const filteredClubs = useMemo(() => {
     let clubs = query.length > 1 ? searchClubs(query) : [...allClubs];
@@ -43,8 +80,13 @@ export default function ClubDirectoryPage() {
     if (activeActivity !== "all") {
       clubs = clubs.filter((c) => c.activities.includes(activeActivity));
     }
+    if (nearMeActive && userLocation) {
+      clubs = clubs
+        .filter((c) => distanceMap.has(c.id))
+        .sort((a, b) => (distanceMap.get(a.id) ?? Infinity) - (distanceMap.get(b.id) ?? Infinity));
+    }
     return clubs;
-  }, [allClubs, query, activeRegion, activeState, activeActivity]);
+  }, [allClubs, query, activeRegion, activeState, activeActivity, nearMeActive, userLocation, distanceMap]);
 
   const availableStates = useMemo(() => {
     if (activeRegion === "all") return STATE_ORDER;
@@ -97,21 +139,35 @@ export default function ClubDirectoryPage() {
 
       <main className="mx-auto max-w-4xl px-4 py-6">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <StatCard value={stats.totalClubs} label="Clubs Listed" icon="🎳" />
-          <StatCard value={stats.totalStates} label="States" icon="🗺️" />
-          <StatCard value={stats.totalMembers.toLocaleString()} label="Total Members" icon="👥" />
-          <StatCard value={stats.activeClubs} label="Active Clubs" icon="✅" />
+          <StatCard value={stats.totalClubs} label="Clubs Listed" icon={<CircleDot className="w-6 h-6 text-[#1B5E20]" strokeWidth={1.5} />} />
+          <StatCard value={stats.totalStates} label="States" icon={<Globe className="w-6 h-6 text-[#1B5E20]" strokeWidth={1.5} />} />
+          <StatCard value={stats.totalMembers.toLocaleString()} label="Total Members" icon={<Users className="w-6 h-6 text-[#1B5E20]" strokeWidth={1.5} />} />
+          <StatCard value={stats.activeClubs} label="Active Clubs" icon={<CheckCircle className="w-6 h-6 text-[#1B5E20]" strokeWidth={1.5} />} />
         </motion.div>
 
-        <div className="relative mb-4">
-          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-400" />
-          <input type="text" placeholder="Search clubs by name, city, or state..." value={query} onChange={(e) => setQuery(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white py-3.5 pl-12 pr-4 text-base text-zinc-900 placeholder:text-zinc-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20" />
+        <div className="relative mb-4 flex gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-400" />
+            <input type="text" placeholder="Search clubs by name, city, or state..." value={query} onChange={(e) => setQuery(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white py-3.5 pl-12 pr-4 text-base text-zinc-900 placeholder:text-zinc-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20" />
+          </div>
+          <button
+            onClick={handleNearMe}
+            disabled={geoLoading}
+            className={`shrink-0 flex items-center gap-1.5 rounded-2xl border px-4 py-3.5 text-sm font-medium transition-colors touch-manipulation ${
+              nearMeActive
+                ? "border-[#1B5E20] bg-[#1B5E20] text-white"
+                : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50"
+            } ${geoLoading ? "opacity-60" : ""}`}
+          >
+            <Navigation className="h-4 w-4" />
+            <span className="hidden sm:inline">{geoLoading ? "Locating..." : "Near Me"}</span>
+          </button>
         </div>
 
         <div className="mb-3 flex gap-2 overflow-x-auto scrollbar-hide">
           <FilterPill active={activeRegion === "all"} onClick={() => { setActiveRegion("all"); setActiveState("all"); }} label="All Regions" />
           {(Object.keys(REGION_LABELS) as USRegion[]).map((r) => (
-            <FilterPill key={r} active={activeRegion === r} onClick={() => { setActiveRegion(r); setActiveState("all"); }} label={`${REGION_LABELS[r].emoji} ${REGION_LABELS[r].label}`} />
+            <FilterPill key={r} active={activeRegion === r} onClick={() => { setActiveRegion(r); setActiveState("all"); }} label={REGION_LABELS[r].label} />
           ))}
         </div>
 
@@ -131,9 +187,16 @@ export default function ClubDirectoryPage() {
 
         {viewMode === "map" ? (
           <Suspense fallback={<div className="aspect-video rounded-2xl bg-zinc-100 animate-pulse" />}>
-            <ClubMapLazy fullScreen={false} />
+            <ClubMapLazy
+              fullScreen={false}
+              hideFilters
+              region={activeRegion}
+              stateFilter={activeState}
+              activity={activeActivity}
+              searchQuery={query}
+            />
           </Suspense>
-        ) : clubsByState.length === 0 ? (
+        ) : filteredClubs.length === 0 ? (
           <div className="rounded-2xl border border-zinc-200 bg-white p-12 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100">
               <MapPin className="h-8 w-8 text-zinc-400" />
@@ -141,10 +204,16 @@ export default function ClubDirectoryPage() {
             <h3 className="text-lg font-bold text-zinc-900">No clubs found</h3>
             <p className="mt-1 text-sm text-zinc-500">Try adjusting your search or filters</p>
           </div>
+        ) : nearMeActive && userLocation ? (
+          <div className="space-y-3">
+            {filteredClubs.map((club, i) => (
+              <ClubCard key={club.id} club={club} index={i} distanceMi={distanceMap.get(club.id)} />
+            ))}
+          </div>
         ) : (
           <div className="space-y-8">
             {clubsByState.map(([stateCode, clubs]) => (
-              <StateSection key={stateCode} stateCode={stateCode} clubs={clubs} />
+              <StateSection key={stateCode} stateCode={stateCode} clubs={clubs} distanceMap={distanceMap} />
             ))}
           </div>
         )}
@@ -164,10 +233,10 @@ export default function ClubDirectoryPage() {
   );
 }
 
-function StatCard({ value, label, icon }: { value: string | number; label: string; icon: string }) {
+function StatCard({ value, label, icon }: { value: string | number; label: string; icon: React.ReactNode }) {
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white p-4 text-center">
-      <span className="text-2xl">{icon}</span>
+      <div className="flex justify-center mb-1">{icon}</div>
       <p className="mt-1 text-2xl font-black text-zinc-900 tabular-nums">{value}</p>
       <p className="text-xs font-medium text-zinc-500">{label}</p>
     </div>
@@ -182,7 +251,7 @@ function FilterPill({ active, onClick, label, small }: { active: boolean; onClic
   );
 }
 
-function StateSection({ stateCode, clubs }: { stateCode: string; clubs: ClubData[] }) {
+function StateSection({ stateCode, clubs, distanceMap }: { stateCode: string; clubs: ClubData[]; distanceMap?: Map<string, number> }) {
   const state = US_STATES[stateCode];
   const stateName = state?.name ?? stateCode;
 
@@ -197,21 +266,28 @@ function StateSection({ stateCode, clubs }: { stateCode: string; clubs: ClubData
       </div>
       <div className="space-y-3">
         {clubs.map((club, i) => (
-          <ClubCard key={club.id} club={club} index={i} />
+          <ClubCard key={club.id} club={club} index={i} distanceMi={distanceMap?.get(club.id)} />
         ))}
       </div>
     </section>
   );
 }
 
-function ClubCard({ club, index }: { club: ClubData; index: number }) {
+function ClubCard({ club, index, distanceMi }: { club: ClubData; index: number; distanceMi?: number }) {
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }}>
       <Link href={`/clubs/${club.stateCode.toLowerCase()}/${club.id}`}>
         <div className="group rounded-2xl border border-zinc-200 bg-white p-5 transition-all hover:border-zinc-300 hover:shadow-sm">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
-              <h3 className="text-base font-bold text-zinc-900 group-hover:text-[#1B5E20] transition-colors truncate">{club.name}</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-base font-bold text-zinc-900 group-hover:text-[#1B5E20] transition-colors truncate">{club.name}</h3>
+                {distanceMi != null && (
+                  <span className="shrink-0 rounded-full bg-blue-50 px-2 py-0.5 text-xs font-semibold text-blue-700 tabular-nums">
+                    {distanceMi < 1 ? "<1" : Math.round(distanceMi)} mi
+                  </span>
+                )}
+              </div>
               <div className="mt-1 flex items-center gap-1.5 text-sm text-zinc-500">
                 <MapPin className="h-3.5 w-3.5 shrink-0" />
                 <span>{club.city}, {club.stateCode}</span>
