@@ -33,15 +33,10 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const publicPaths = ["/login", "/signup", "/auth/callback", "/offline", "/insurance", "/terms", "/privacy", "/contact", "/about", "/faq", "/for-venues", "/for-players", "/learn", "/checkin", "/api/qr"];
+  const publicPaths = ["/login", "/signup", "/auth/callback", "/offline", "/insurance", "/terms", "/privacy", "/contact", "/about", "/faq", "/for-venues", "/learn"];
 
-  // Root path: redirect logged-in users to /board, show landing for guests
+  // Root path is public (landing page)
   if (request.nextUrl.pathname === "/") {
-    if (user) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/board";
-      return NextResponse.redirect(url);
-    }
     return supabaseResponse;
   }
   const isPublicPath = publicPaths.some((path) =>
@@ -50,11 +45,7 @@ export async function updateSession(request: NextRequest) {
 
   if (!user && !isPublicPath) {
     const url = request.nextUrl.clone();
-    const returnTo = request.nextUrl.pathname;
     url.pathname = "/login";
-    if (returnTo && returnTo !== "/login") {
-      url.searchParams.set("returnTo", returnTo);
-    }
     return NextResponse.redirect(url);
   }
 

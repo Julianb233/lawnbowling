@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { Venue } from "@/lib/types";
 
@@ -9,27 +9,31 @@ export function useVenues() {
   const [selectedVenueId, setSelectedVenueId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const supabase = createClient();
-
   useEffect(() => {
-    async function loadVenues() {
-      const { data } = await supabase.from("venues").select("*").order("name");
-      if (data) {
-        setVenues(data as Venue[]);
-        if (data.length > 0 && !selectedVenueId) {
-          setSelectedVenueId(data[0].id);
-        }
+    const supabase = createClient();
+
+    async function fetchVenues() {
+      const { data } = await supabase
+        .from("venues")
+        .select("*")
+        .order("name");
+
+      if (data && data.length > 0) {
+        setVenues(data);
+        // Auto-select first venue if none selected
+        setSelectedVenueId((prev) => prev ?? data[0].id);
       }
       setLoading(false);
     }
-    loadVenues();
-  }, [supabase, selectedVenueId]);
+
+    fetchVenues();
+  }, []);
+
+  const selectVenue = useCallback((id: string) => {
+    setSelectedVenueId(id);
+  }, []);
 
   const selectedVenue = venues.find((v) => v.id === selectedVenueId) ?? null;
-
-  function selectVenue(id: string) {
-    setSelectedVenueId(id);
-  }
 
   return { venues, selectedVenue, selectedVenueId, selectVenue, loading };
 }

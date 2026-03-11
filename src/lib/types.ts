@@ -30,7 +30,6 @@ export interface Player {
   is_available: boolean;
   checked_in_at: string | null;
   venue_id: string | null;
-  home_club_id: string | null;
   role: PlayerRole;
   insurance_status: InsuranceStatus;
   created_at: string;
@@ -102,8 +101,6 @@ export interface PlayerSportSkill {
   id: string;
   player_id: string;
   sport: string;
-  skill_level: SportSkillLevel;
-  rating: number;
   elo_rating: number;
   games_played: number;
   wins: number;
@@ -111,26 +108,66 @@ export interface PlayerSportSkill {
   updated_at: string;
 }
 
-// Waitlist
-export interface WaitlistEntry {
-  id: string;
-  player_id: string;
-  sport: string;
-  position: number;
-  created_at: string;
-  player?: { display_name: string; avatar_url?: string | null };
+// Subscription / pricing
+export type SubscriptionPlan = "free" | "premium" | "venue_owner";
+
+export interface PricingTier {
+  plan: SubscriptionPlan;
+  name: string;
+  price: number; // cents
+  features: string[];
+  cta: string;
+  popular?: boolean;
 }
 
-// Board constants
-export type Sport = "pickleball" | "lawn_bowling" | "tennis" | "badminton" | "racquetball" | "flag_football";
+export const PRICING_TIERS: PricingTier[] = [
+  {
+    plan: "free",
+    name: "Free",
+    price: 0,
+    features: [
+      "Find partners at your venue",
+      "Check in & match",
+      "Basic stats tracking",
+    ],
+    cta: "Get Started",
+  },
+  {
+    plan: "premium",
+    name: "Premium",
+    price: 999,
+    features: [
+      "Everything in Free",
+      "Advanced matchmaking",
+      "Detailed skill analytics",
+      "Priority court access",
+      "Tournament entry",
+    ],
+    cta: "Upgrade",
+    popular: true,
+  },
+  {
+    plan: "venue_owner",
+    name: "Venue Owner",
+    price: 4999,
+    features: [
+      "Everything in Premium",
+      "Venue branding & themes",
+      "Player management dashboard",
+      "Court scheduling",
+      "Revenue analytics",
+    ],
+    cta: "Contact Us",
+  },
+];
 
-export const SPORT_LABELS: Record<Sport, { label: string; short: string }> = {
-  pickleball: { label: "Pickleball", short: "Pickle" },
-  lawn_bowling: { label: "Lawn Bowling", short: "Bowl" },
-  tennis: { label: "Tennis", short: "Tennis" },
-  badminton: { label: "Badminton", short: "Badminton" },
-  racquetball: { label: "Racquetball", short: "Racquet" },
-  flag_football: { label: "Flag Football", short: "Flag" },
+// Board constants
+export type Sport = "pickleball" | "lawn_bowling" | "tennis";
+
+export const SPORT_LABELS: Record<Sport, { emoji: string; label: string; short: string }> = {
+  pickleball: { emoji: "\u{1F3D3}", label: "Pickleball", short: "Pickle" },
+  lawn_bowling: { emoji: "\u{1F3B3}", label: "Lawn Bowling", short: "Bowl" },
+  tennis: { emoji: "\u{1F3BE}", label: "Tennis", short: "Tennis" },
 };
 
 export const SKILL_LABELS: Record<SkillLevel, { stars: number; label: string }> = {
@@ -139,7 +176,7 @@ export const SKILL_LABELS: Record<SkillLevel, { stars: number; label: string }> 
   advanced: { stars: 3, label: "Advanced" },
 };
 
-export const ALL_SPORTS: Sport[] = ["pickleball", "lawn_bowling", "tennis", "badminton", "racquetball", "flag_football"];
+export const ALL_SPORTS: Sport[] = ["pickleball", "lawn_bowling", "tennis"];
 export const ALL_SKILLS: SkillLevel[] = ["beginner", "intermediate", "advanced"];
 
 // Teams
@@ -197,21 +234,6 @@ export interface PlayerStats {
   last_played_at: string | null;
   updated_at: string;
   player?: Player; // joined
-}
-
-// Favorite Partners (computed from match history)
-export interface FavoritePartner {
-  partner_id: string;
-  games_together: number;
-  wins_together: number;
-  win_rate_together: number;
-  last_played_at: string | null;
-  partner?: {
-    id: string;
-    display_name: string;
-    avatar_url: string | null;
-    skill_level: string;
-  };
 }
 
 // ===== Social & Scheduling =====
@@ -276,7 +298,7 @@ export interface ActivityItem {
   id: string;
   venue_id: string | null;
   player_id: string | null;
-  type: "check_in" | "match_complete" | "new_player" | "scheduled_game" | "noticeboard_post";
+  type: "check_in" | "match_complete" | "new_player" | "scheduled_game";
   metadata: Record<string, unknown>;
   created_at: string;
   player?: Player; // joined
@@ -312,7 +334,7 @@ export type ReportReason = "unsportsmanlike" | "harassment" | "no_show" | "cheat
 
 // ===== Tournaments =====
 
-export type TournamentFormat = "round_robin" | "single_elimination" | "double_elimination" | "inter_club";
+export type TournamentFormat = "round_robin" | "single_elimination" | "double_elimination";
 export type TournamentStatus = "registration" | "in_progress" | "completed" | "cancelled";
 export type TournamentMatchStatus = "pending" | "in_progress" | "completed";
 
@@ -320,14 +342,11 @@ export const TOURNAMENT_FORMAT_LABELS: Record<TournamentFormat, string> = {
   round_robin: "Round Robin",
   single_elimination: "Single Elimination",
   double_elimination: "Double Elimination",
-  inter_club: "Inter-Club",
 };
 
 export interface Tournament {
   id: string;
   venue_id: string | null;
-  club_id: string | null;
-  visiting_club_id: string | null;
   name: string;
   sport: string;
   format: TournamentFormat;
@@ -350,8 +369,6 @@ export interface TournamentParticipant {
   player?: Player; // joined
 }
 
-export type TournamentBracketType = "winners" | "losers" | "grand_final";
-
 export interface TournamentMatch {
   id: string;
   tournament_id: string;
@@ -365,447 +382,18 @@ export interface TournamentMatch {
   status: TournamentMatchStatus;
   scheduled_at: string | null;
   completed_at: string | null;
-  bracket?: TournamentBracketType; // for double elimination
   player1?: Player; // joined
   player2?: Player; // joined
   winner?: Player; // joined
 }
 
-// Notifications
-export type NotificationType =
-  | "partner_request_received"
-  | "partner_request_accepted"
-  | "partner_request_declined"
-  | "partner_request_expired"
-  | "match_assigned"
-  | "court_assigned"
-  | "friend_checked_in"
-  | "game_reminder"
-  | "match_completed"
-  | "noticeboard_announcement";
-
-export interface AppNotification {
-  id: string;
-  player_id: string;
-  type: NotificationType;
-  title: string;
-  body: string;
-  metadata: Record<string, unknown>;
-  is_read: boolean;
-  created_at: string;
-}
-
-// ===== Lawn Bowling =====
-
-export type BowlsPosition = "skip" | "vice" | "lead" | "second";
-export type BowlsGameFormat = "fours" | "triples" | "pairs" | "singles";
-
-export const BOWLS_POSITION_LABELS: Record<BowlsPosition, { label: string; description: string; order: number }> = {
-  skip: { label: "Skip", description: "Team captain — directs strategy, bowls last", order: 4 },
-  vice: { label: "Vice", description: "Second in command — measures, bowls third", order: 3 },
-  second: { label: "Second", description: "Supports the team — bowls second", order: 2 },
-  lead: { label: "Lead", description: "Sets the head — bowls first, places the jack", order: 1 },
-};
-
-export const BOWLS_FORMAT_LABELS: Record<BowlsGameFormat, { label: string; playersPerTeam: number; teams: number; description: string }> = {
-  fours: { label: "Fours (Rinks)", playersPerTeam: 4, teams: 2, description: "2 teams of 4 — Skip, Vice, Second, Lead" },
-  triples: { label: "Triples", playersPerTeam: 3, teams: 2, description: "2 teams of 3 — Skip, Vice, Lead" },
-  pairs: { label: "Pairs", playersPerTeam: 2, teams: 2, description: "2 teams of 2 — Skip and Lead" },
-  singles: { label: "Singles", playersPerTeam: 1, teams: 2, description: "1 vs 1" },
-};
-
-export function getPositionsForFormat(format: BowlsGameFormat): BowlsPosition[] {
-  switch (format) {
-    case "fours": return ["skip", "vice", "second", "lead"];
-    case "triples": return ["skip", "vice", "lead"];
-    case "pairs": return ["skip", "lead"];
-    case "singles": return [];
-  }
-}
-
-export type CheckinSource = "kiosk" | "manual" | "app";
-
-export interface BowlsCheckin {
-  id: string;
-  player_id: string;
-  tournament_id: string;
-  preferred_position: BowlsPosition;
-  checkin_source: CheckinSource;
-  checked_in_at: string;
-  player?: Player;
-}
-
-export interface BowlsTeamAssignment {
-  rink: number;
-  team: 1 | 2;
-  player_id: string;
-  position: BowlsPosition;
-  player?: Player;
-}
-
-export type ScoreWinner = "team_a" | "team_b" | "draw" | null;
-
-export interface TournamentScore {
-  id: string;
-  tournament_id: string;
-  round: number;
-  rink: number;
-  team_a_players: { player_id: string; display_name: string }[];
-  team_b_players: { player_id: string; display_name: string }[];
-  team_a_scores: number[];
-  team_b_scores: number[];
-  total_a: number;
-  total_b: number;
-  ends_won_a: number;
-  ends_won_b: number;
-  winner: ScoreWinner;
-  is_finalized: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
-// ===== Bowls Position Ratings =====
-
-export type BowlsRatingPosition = "skip" | "vice" | "second" | "lead" | "singles";
-
-export interface BowlsPositionRating {
-  id: string;
-  player_id: string;
-  position: BowlsRatingPosition;
-  season: string;
-  elo_rating: number;
-  games_played: number;
-  wins: number;
-  losses: number;
-  draws: number;
-  shot_differential: number;
-  ends_won: number;
-  ends_played: number;
-  ends_won_pct: number;
-  updated_at: string;
-  player?: Player;
-}
-
-export interface BowlsRatingHistory {
-  id: string;
-  player_id: string;
-  position: BowlsRatingPosition;
-  season: string;
-  elo_rating: number;
-  tournament_id: string | null;
-  created_at: string;
-}
-
-export type BowlsLeaderboardCategory = "overall" | "skip" | "lead" | "ends_pct";
-
-// ===== Noticeboard =====
-
-export type NoticeboardPostType = "announcement" | "tournament_result" | "member_post";
-
-export const NOTICEBOARD_EMOJIS = ["👍", "👏", "🔥", "🎉", "❤️"] as const;
-export type NoticeboardEmoji = (typeof NOTICEBOARD_EMOJIS)[number];
-
-export interface NoticeboardPost {
+// Waitlist
+export interface WaitlistEntry {
   id: string;
   venue_id: string;
-  club_id: string | null;
-  author_id: string;
-  type: NoticeboardPostType;
-  title: string | null;
-  body: string;
-  tournament_id: string | null;
-  is_pinned: boolean;
-  is_deleted: boolean;
-  created_at: string;
-  updated_at: string;
-  author?: Player;
-  reactions?: NoticeboardReaction[];
-  reaction_counts?: Record<NoticeboardEmoji, number>;
-  comment_count?: number;
-}
-
-export interface NoticeboardReaction {
-  id: string;
-  post_id: string;
   player_id: string;
-  emoji: NoticeboardEmoji;
-  created_at: string;
-}
-
-export interface NoticeboardComment {
-  id: string;
-  post_id: string;
-  author_id: string;
-  body: string;
-  is_deleted: boolean;
-  created_at: string;
-  author?: Player;
-}
-
-// ===== Green Conditions =====
-
-export type GreenSpeed = "fast" | "medium" | "slow";
-export type SurfaceCondition = "dry" | "damp" | "wet";
-export type WindDirection = "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW" | "calm";
-export type WindStrength = "calm" | "light" | "moderate" | "strong";
-
-export interface GreenConditions {
-  id: string;
-  tournament_id: string;
-  venue_id: string | null;
-  recorded_by: string | null;
-  green_speed: GreenSpeed;
-  surface_condition: SurfaceCondition;
-  wind_direction: WindDirection;
-  wind_strength: WindStrength;
-  notes: string | null;
-  temperature_c: number | null;
-  recorded_at: string;
-  created_at: string;
-  updated_at: string;
-  recorder?: Player;
-}
-
-export const GREEN_SPEED_LABELS: Record<GreenSpeed, string> = {
-  fast: "Fast",
-  medium: "Medium",
-  slow: "Slow",
-};
-
-export const SURFACE_CONDITION_LABELS: Record<SurfaceCondition, string> = {
-  dry: "Dry",
-  damp: "Damp",
-  wet: "Wet",
-};
-
-export const WIND_DIRECTION_LABELS: Record<WindDirection, string> = {
-  N: "North",
-  NE: "North-East",
-  E: "East",
-  SE: "South-East",
-  S: "South",
-  SW: "South-West",
-  W: "West",
-  NW: "North-West",
-  calm: "Calm",
-};
-
-export const WIND_STRENGTH_LABELS: Record<WindStrength, string> = {
-  calm: "Calm",
-  light: "Light",
-  moderate: "Moderate",
-  strong: "Strong",
-};
-
-// ===== Club Claims & Management =====
-
-export type ClaimStatus = "pending" | "approved" | "rejected";
-
-export interface ClubClaimRequest {
-  id: string;
-  club_id: string;
-  player_id: string;
-  status: ClaimStatus;
-  role_at_club: string | null;
-  message: string | null;
-  rejection_reason: string | null;
-  reviewed_by: string | null;
-  reviewed_at: string | null;
-  created_at: string;
-  updated_at: string;
-  player?: Player;
-  club?: {
-    id: string;
-    name: string;
-    slug: string;
-    city: string;
-    state_code: string;
-  };
-}
-
-export interface ClubVenue {
-  id: string;
-  club_id: string;
-  venue_id: string;
-  is_primary: boolean;
-  created_at: string;
-  venue?: Venue;
-}
-
-// ===== Visit Requests =====
-
-export type VisitRequestStatus = "pending" | "accepted" | "declined" | "expired";
-
-export interface VisitRequest {
-  id: string;
-  club_id: string;
-  player_id: string;
-  requested_date: string;
-  skill_level: SkillLevel;
-  preferred_positions: BowlsPosition[];
-  message: string | null;
-  status: VisitRequestStatus;
-  responded_by: string | null;
-  responded_at: string | null;
-  visit_token: string | null;
-  expires_at: string | null;
-  created_at: string;
-  updated_at: string;
-  player?: Player;
-  club?: {
-    id: string;
-    name: string;
-    city: string;
-    state_code: string;
-  };
-}
-
-// Subscription / Pricing
-export type SubscriptionPlan = "free" | "basic" | "premium" | "venue_owner";
-export type SportSkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
-
-export const PRICING_TIERS = [
-  {
-    plan: "free" as SubscriptionPlan,
-    name: "Free",
-    price: 0,
-    interval: "forever",
-    cta: "Get Started",
-    features: [
-      "Check in & find partners",
-      "Join matches & courts",
-      "Basic player profile",
-      "View leaderboard",
-    ],
-  },
-  {
-    plan: "premium" as SubscriptionPlan,
-    name: "Premium",
-    price: 9.99,
-    interval: "month",
-    popular: true,
-    cta: "Go Premium",
-    features: [
-      "Everything in Free",
-      "Smart skill-based matching",
-      "Detailed stats & analytics",
-      "Priority court assignment",
-      "Schedule recurring games",
-      "Ad-free experience",
-    ],
-  },
-  {
-    plan: "venue_owner" as SubscriptionPlan,
-    name: "Venue Owner",
-    price: 49.99,
-    interval: "month",
-    cta: "Contact Sales",
-    features: [
-      "Everything in Premium",
-      "Full admin dashboard",
-      "Custom branding & theming",
-      "Kiosk mode for iPads",
-      "Export data & reports",
-      "Multi-court management",
-      "Priority support",
-    ],
-  },
-];
-
-// ===== Pennant / Season Tracking =====
-
-export type PennantSeasonStatus = "draft" | "registration" | "in_progress" | "completed" | "cancelled";
-export type PennantSeasonFormat = "round_robin" | "home_away";
-export type PennantFixtureStatus = "scheduled" | "in_progress" | "completed" | "postponed";
-export type PennantTeamRole = "captain" | "player";
-
-export interface PennantSeason {
-  id: string;
-  venue_id: string;
-  name: string;
   sport: string;
-  season_year: number;
-  status: PennantSeasonStatus;
-  starts_at: string;
-  ends_at: string;
-  rounds_total: number;
-  format: PennantSeasonFormat;
-  description: string | null;
-  created_by: string;
+  position: number;
   created_at: string;
-  updated_at: string;
-}
-
-export interface PennantDivision {
-  id: string;
-  season_id: string;
-  name: string;
-  grade: number;
-  created_at: string;
-}
-
-export interface PennantTeam {
-  id: string;
-  division_id: string;
-  season_id: string;
-  name: string;
-  club_id: string | null;
-  venue_id: string | null;
-  captain_id: string | null;
-  created_at: string;
-}
-
-export interface PennantTeamMember {
-  id: string;
-  team_id: string;
-  player_id: string;
-  role: PennantTeamRole;
-  joined_at: string;
-}
-
-export interface PennantFixture {
-  id: string;
-  season_id: string;
-  division_id: string;
-  round: number;
-  home_team_id: string;
-  away_team_id: string;
-  scheduled_at: string | null;
-  venue: string | null;
-  tournament_id: string | null;
-  status: PennantFixtureStatus;
-  created_at: string;
-  updated_at: string;
-  home_team?: PennantTeam;
-  away_team?: PennantTeam;
-  result?: PennantFixtureResult;
-}
-
-export interface PennantFixtureResult {
-  id: string;
-  fixture_id: string;
-  home_rink_wins: number;
-  away_rink_wins: number;
-  home_shot_total: number;
-  away_shot_total: number;
-  winner_team_id: string | null;
-  points_home: number;
-  points_away: number;
-  notes: string | null;
-  recorded_by: string;
-  created_at: string;
-}
-
-export interface PennantStanding {
-  teamId: string;
-  teamName: string;
-  clubId: string | null;
-  played: number;
-  wins: number;
-  draws: number;
-  losses: number;
-  shotsFor: number;
-  shotsAgainst: number;
-  shotDifference: number;
-  points: number;
+  player?: Player; // joined
 }

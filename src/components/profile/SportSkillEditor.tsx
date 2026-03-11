@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Loader2, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { PlayerSportSkill, SportSkillLevel } from "@/lib/types";
+import type { PlayerSportSkill } from "@/lib/types";
+
+type SportSkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
 
 interface SportSkillEditorProps {
   playerId: string;
@@ -68,15 +70,15 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
   }
 
   if (loading) {
-    return <div className="animate-pulse rounded-xl bg-zinc-100 h-32" />;
+    return <div className="animate-pulse rounded-xl bg-zinc-800 h-32" />;
   }
 
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-semibold text-zinc-600 uppercase tracking-wider">Skill per Sport</h3>
+      <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">Skill per Sport</h3>
       {sports.map((sport) => {
         const skill = skills.find((s) => s.sport === sport);
-        const currentLevel = (skill as PlayerSportSkill & { skill_level?: string })?.skill_level || "beginner";
+        const currentLevel = (skill as unknown as { skill_level?: string })?.skill_level || "beginner";
         const rating = skill?.elo_rating || 1000;
 
         return (
@@ -87,10 +89,10 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
             className="rounded-xl glass p-4"
           >
             <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm font-medium text-zinc-700 capitalize">
+              <span className="text-sm font-medium text-zinc-200 capitalize">
                 {sport.replace("_", " ")}
               </span>
-              <span className="text-xs text-zinc-500 dark:text-zinc-400">ELO: {Math.round(rating)}</span>
+              <span className="text-xs text-zinc-500">ELO: {Math.round(rating)}</span>
             </div>
             <div className="flex gap-2">
               {SKILL_LEVELS.map((level) => (
@@ -101,8 +103,8 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
                   className={cn(
                     "flex flex-1 flex-col items-center gap-1 rounded-lg border px-2 py-2 text-xs transition-colors min-h-[60px]",
                     currentLevel === level.value
-                      ? "border-green-500 bg-green-50 text-green-700"
-                      : "border-zinc-200 bg-zinc-50 text-zinc-500 hover:border-zinc-400"
+                      ? "border-green-500 bg-green-500/20 text-green-400"
+                      : "border-zinc-700 bg-zinc-800/50 text-zinc-500 hover:border-zinc-600"
                   )}
                 >
                   {saving === sport ? (

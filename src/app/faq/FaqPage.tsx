@@ -28,20 +28,20 @@ const categories: FaqCategory[] = [
     icon: Rocket,
     questions: [
       {
-        q: "What is Lawnbowling?",
-        a: "Lawnbowling is a real-time digital player board for recreational sports at community venues. It replaces the traditional clipboard sign-up sheet, letting you check in, find partners, and get matched to courts — all from your phone or the venue kiosk.",
+        q: "What is Pick a Partner?",
+        a: "Pick a Partner is a real-time digital player board for recreational sports at community venues. It replaces the traditional clipboard sign-up sheet, letting you check in, find partners, and get matched to courts — all from your phone or the venue kiosk.",
       },
       {
         q: "How do I create an account?",
         a: "Tap 'Get Started' on the home page or visit the signup page. You can sign up with your email and a password. Once registered, you can set your preferred sports, skill levels, and profile details.",
       },
       {
-        q: "Is Lawnbowling free for players?",
-        a: "Yes. Lawnbowling is completely free for players. You can check in, browse available players, send partner requests, and get assigned to courts at no cost.",
+        q: "Is Pick a Partner free for players?",
+        a: "Yes. Pick a Partner is completely free for players. You can check in, browse available players, send partner requests, and get assigned to courts at no cost.",
       },
       {
         q: "Do I need to download an app?",
-        a: "No. Lawnbowling is a Progressive Web App (PWA). Just visit the site on your phone's browser and tap 'Add to Home Screen' for an app-like experience. It works on iPhone, Android, iPad, and desktop.",
+        a: "No. Pick a Partner is a Progressive Web App (PWA). Just visit the site on your phone's browser and tap 'Add to Home Screen' for an app-like experience. It works on iPhone, Android, iPad, and desktop.",
       },
     ],
   },
@@ -51,7 +51,7 @@ const categories: FaqCategory[] = [
     questions: [
       {
         q: "How do I check in at a venue?",
-        a: "Walk up to the venue's iPad kiosk or open Lawnbowling on your phone. Select your sport and tap 'Check In' to mark yourself as available on the live board.",
+        a: "Walk up to the venue's iPad kiosk or open Pick a Partner on your phone. Select your sport and tap 'Check In' to mark yourself as available on the live board.",
       },
       {
         q: "How does partner matching work?",
@@ -77,19 +77,19 @@ const categories: FaqCategory[] = [
     questions: [
       {
         q: "What is Daily Event Insurance?",
-        a: "Daily Event Insurance provides per-participant liability coverage for recreational sports. It fills gaps in general liability policies that protect only employees, not participants. Coverage activates instantly at the point of activity and deactivates when the event ends.",
+        a: "Daily Event Insurance is per-event liability coverage for recreational sports. Instead of an annual policy, you pay a small fee per session — typically $5-$15 — and are covered for that specific event.",
       },
       {
-        q: "How much does it cost for venues?",
-        a: "Daily Event Insurance is completely FREE for venue partners. There are zero setup fees, no monthly costs, and no hidden charges. Partners actually earn $2 to $10 for every covered participant.",
+        q: "How do I get insurance through Pick a Partner?",
+        a: "After signing your digital waiver at the venue, an insurance offer appears in your profile. Tap 'Get Coverage' to activate instantly. No forms or phone calls required.",
       },
       {
         q: "What does the insurance cover?",
-        a: "Coverage includes per-participant liability, activity injury medical expenses, emergency transport, and Accidental Death & Dismemberment (AD&D) through the ActiveGuard\u2122 program. Visit the Insurance page for full details.",
+        a: "Coverage includes general liability, personal injury protection, equipment damage, medical payments, and third-party claims. Visit the Insurance page for full details.",
       },
       {
         q: "Is the insurance real?",
-        a: "Yes. Policies are underwritten by A-rated carriers including AIG, Lloyd's of London Syndicates, and Great American Insurance Group. Daily Event Insurance is licensed in all 50 states.",
+        a: "Yes. Policies are underwritten by licensed, regulated insurance carriers and meet all state requirements. Daily Event Insurance is powered by HiQOR's InsurTech platform.",
       },
     ],
   },
@@ -98,7 +98,7 @@ const categories: FaqCategory[] = [
     icon: Building2,
     questions: [
       {
-        q: "How do I set up my venue on Lawnbowling?",
+        q: "How do I set up my venue on Pick a Partner?",
         a: "Create a venue account, enter your facility details (name, address, hours, sports), define your courts, and you're ready to go. Most venues are live within 30 minutes.",
       },
       {
@@ -111,7 +111,7 @@ const categories: FaqCategory[] = [
       },
       {
         q: "Can I earn revenue from insurance?",
-        a: "Yes. Daily Event Insurance is completely free for venues to offer, and partners earn $2 to $10 for every covered participant. Onboarding takes about 10 minutes with no credit card required, and coverage integrates within 48 hours.",
+        a: "Yes. Pro and Enterprise venues earn a commission on every Daily Event Insurance policy purchased by players at their facility.",
       },
       {
         q: "Do players need to sign waivers?",
@@ -147,11 +147,11 @@ const categories: FaqCategory[] = [
     questions: [
       {
         q: "Does it work offline?",
-        a: "Lawnbowling caches key data for offline access, but real-time features (live board, partner requests, court assignment) require an internet connection.",
+        a: "Pick a Partner caches key data for offline access, but real-time features (live board, partner requests, court assignment) require an internet connection.",
       },
       {
         q: "What browsers are supported?",
-        a: "Lawnbowling works in all modern browsers: Safari (iOS/macOS), Chrome (Android/desktop), Firefox, and Edge. We recommend the latest version for the best experience.",
+        a: "Pick a Partner works in all modern browsers: Safari (iOS/macOS), Chrome (Android/desktop), Firefox, and Edge. We recommend the latest version for the best experience.",
       },
       {
         q: "How do I install the PWA?",
@@ -180,7 +180,7 @@ export function FaqPage() {
     .filter((cat) => cat.questions.length > 0);
 
   return (
-    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
+    <div className="min-h-screen bg-white overflow-hidden">
       {/* Floating glowing orbs */}
       <div
         className="orb orb-emerald"
@@ -201,14 +201,14 @@ export function FaqPage() {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 dark:bg-[#1a3d28]/80 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-[#1B5E20] shadow-lg shadow-[#1B5E20]/15">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/15">
               <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
-              Lawnbowling
+            <span className="text-lg font-bold text-zinc-900">
+              Pick a Partner
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -226,7 +226,7 @@ export function FaqPage() {
             </Link>
             <Link
               href="/signup"
-              className="rounded-xl bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/15 transition hover:bg-[#1B5E20] hover:shadow-[#1B5E20]/25"
+              className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/15 transition hover:bg-emerald-500 hover:shadow-emerald-500/25"
             >
               Get Started
             </Link>
@@ -241,8 +241,8 @@ export function FaqPage() {
             Frequently Asked{" "}
             <span className="text-gradient">Questions</span>
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-            Everything you need to know about Lawnbowling — for players and
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-600">
+            Everything you need to know about Pick a Partner — for players and
             venues alike.
           </p>
 
@@ -254,7 +254,7 @@ export function FaqPage() {
               placeholder="Search questions..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 py-4 pl-12 pr-4 text-zinc-900 shadow-sm outline-none transition-all placeholder:text-zinc-400 focus:border-[#1B5E20] focus:ring-2 focus:ring-[#1B5E20]/20"
+              className="w-full rounded-2xl border border-zinc-200 bg-white py-4 pl-12 pr-4 text-zinc-900 shadow-sm outline-none transition-all placeholder:text-zinc-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
             />
           </div>
         </div>
@@ -264,7 +264,7 @@ export function FaqPage() {
       <section className="relative mx-auto max-w-4xl px-6 pb-24">
         {filteredCategories.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-lg text-zinc-500 dark:text-zinc-400">
+            <p className="text-lg text-zinc-500">
               No questions match &ldquo;{search}&rdquo;. Try a different search
               term.
             </p>
@@ -274,10 +274,10 @@ export function FaqPage() {
             {filteredCategories.map((category) => (
               <div key={category.name}>
                 <div className="mb-4 flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1B5E20]/10">
-                    <category.icon className="h-5 w-5 text-[#1B5E20]" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10">
+                    <category.icon className="h-5 w-5 text-emerald-600" />
                   </div>
-                  <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+                  <h2 className="text-xl font-bold text-zinc-900">
                     {category.name}
                   </h2>
                 </div>
@@ -287,7 +287,7 @@ export function FaqPage() {
                     <Accordion.Item
                       key={i}
                       value={`${category.name}-${i}`}
-                      className="overflow-hidden rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm"
+                      className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
                     >
                       <Accordion.Trigger className="flex w-full items-center justify-between px-5 py-4 text-left text-zinc-900 hover:bg-zinc-50 transition-colors min-h-[44px] group">
                         <span className="pr-4 font-medium">{item.q}</span>
@@ -295,7 +295,7 @@ export function FaqPage() {
                       </Accordion.Trigger>
                       <Accordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
                         <div className="border-t border-zinc-100 px-5 py-4">
-                          <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                          <p className="text-sm leading-relaxed text-zinc-600">
                             {item.a}
                           </p>
                         </div>
@@ -312,16 +312,16 @@ export function FaqPage() {
       {/* Still Have Questions CTA */}
       <section className="relative mx-auto max-w-4xl px-6 pb-24">
         <div className="glass rounded-2xl p-8 text-center md:p-12">
-          <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-2xl font-bold text-zinc-900">
             Still Have Questions?
           </h2>
-          <p className="mt-3 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-3 text-zinc-600">
             Our team is happy to help. Reach out and we&apos;ll get back to you
             within 24 hours.
           </p>
           <Link
             href="/(public)/contact"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/15 transition hover:bg-[#1B5E20] active:scale-[0.98]"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/15 transition hover:bg-emerald-500 active:scale-[0.98]"
           >
             Contact Us
           </Link>
@@ -329,15 +329,15 @@ export function FaqPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-zinc-50 dark:bg-white/5">
+      <footer className="border-t border-zinc-200 bg-zinc-50">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#1B5E20] to-[#1B5E20]">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900 dark:text-zinc-100">Lawnbowling</span>
+            <span className="font-semibold text-zinc-900">Pick a Partner</span>
           </Link>
-          <div className="flex items-center gap-6 text-sm text-zinc-500 dark:text-zinc-400">
+          <div className="flex items-center gap-6 text-sm text-zinc-500">
             <Link
               href="/insurance"
               className="hover:text-zinc-700 transition"
@@ -364,7 +364,7 @@ export function FaqPage() {
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Lawnbowling
+            &copy; {new Date().getFullYear()} Pick a Partner
           </span>
         </div>
       </footer>

@@ -1,4 +1,7 @@
-import { defaultCache } from "@serwist/next/worker";
+/// <reference no-default-lib="true" />
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
+import { defaultCache } from "@serwist/turbopack/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 
@@ -8,8 +11,7 @@ declare global {
   }
 }
 
-// @ts-expect-error - ServiceWorkerGlobalScope requires webworker lib
-declare const self: ServiceWorkerGlobalScope & typeof globalThis;
+declare const self: ServiceWorkerGlobalScope;
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
