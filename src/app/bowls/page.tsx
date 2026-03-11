@@ -103,7 +103,7 @@ export default function BowlsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-[#0f2518] pb-20 lg:pb-0">
+    <div className="min-h-screen bg-zinc-50 dark:bg-background dark:bg-[#0f2518] pb-20 lg:pb-0">
       <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center justify-between gap-3">

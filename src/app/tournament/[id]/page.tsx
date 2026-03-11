@@ -105,7 +105,7 @@ export default function TournamentDetailPage() {
     return (
       <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518]">
         <div className="mx-auto max-w-3xl px-4 py-8">
-          <div className="h-48 animate-pulse rounded-2xl bg-zinc-100" />
+          <div className="h-48 animate-pulse rounded-2xl bg-zinc-100 dark:bg-white/5" />
         </div>
       </div>
     );
