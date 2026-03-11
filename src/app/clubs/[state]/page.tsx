@@ -52,7 +52,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://lawnbowls.app/clubs/${stateCode.toLowerCase()}`,
+      url: `https://lawnbowl.app/clubs/${stateCode.toLowerCase()}`,
       type: "website",
     },
     twitter: {

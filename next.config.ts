@@ -1,6 +1,38 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {};
+const PRODUCTION_DOMAIN = "lawnbowl.app";
+
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: PRODUCTION_DOMAIN,
+      },
+      {
+        protocol: "https",
+        hostname: "*.supabase.co",
+      },
+    ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+        ],
+      },
+    ];
+  },
+};
 
 // Serwist PWA support — disabled for now due to Next.js 16 Turbopack incompatibility.
 // Re-enable once @serwist/next supports Turbopack builds.
