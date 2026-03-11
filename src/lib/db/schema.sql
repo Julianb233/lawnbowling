@@ -521,3 +521,42 @@ create policy "Players can manage own photos" on player_photos for all using (pu
 
 create index idx_player_photos_player on player_photos(player_id);
 create index idx_player_photos_sort on player_photos(player_id, sort_order);
+
+-- ===== PROFILE ENHANCEMENTS: AVAILABILITY SCHEDULE =====
+
+create table player_availability (
+  id uuid primary key default uuid_generate_v4(),
+  player_id uuid not null references players(id) on delete cascade,
+  day_of_week smallint not null check (day_of_week between 0 and 6),
+  start_time time not null,
+  end_time time not null,
+  is_active boolean default true,
+  created_at timestamptz default now(),
+  unique(player_id, day_of_week, start_time)
+);
+
+alter table player_availability enable row level security;
+
+create policy "Availability viewable by all" on player_availability for select using (true);
+create policy "Players can manage own availability" on player_availability for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
+
+create index idx_player_availability_player on player_availability(player_id);
+create index idx_player_availability_day on player_availability(player_id, day_of_week);
+
+-- ===== PROFILE ENHANCEMENTS: ACHIEVEMENT BADGES =====
+
+create table player_achievements (
+  id uuid primary key default uuid_generate_v4(),
+  player_id uuid not null references players(id) on delete cascade,
+  achievement_id text not null,
+  unlocked_at timestamptz default now(),
+  unique(player_id, achievement_id)
+);
+
+alter table player_achievements enable row level security;
+
+create policy "Achievements viewable by all" on player_achievements for select using (true);
+create policy "System can grant achievements" on player_achievements for insert with check (public.is_own_player(player_id));
+
+create index idx_player_achievements_player on player_achievements(player_id);
+create index idx_player_achievements_achievement on player_achievements(achievement_id);
