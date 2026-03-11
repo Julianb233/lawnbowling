@@ -74,12 +74,20 @@ export default function ClubDirectoryPage() {
                 {stats.totalClubs} clubs across {stats.totalStates} states
               </p>
             </div>
-            <Link
-              href="/clubs/claim"
-              className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-emerald-600 min-h-[44px] touch-manipulation hidden sm:block"
-            >
-              + Add Your Club
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/clubs/manage"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 min-h-[44px] touch-manipulation hidden sm:block"
+              >
+                Manage Club
+              </Link>
+              <Link
+                href="/clubs/claim"
+                className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-emerald-600 min-h-[44px] touch-manipulation hidden sm:block"
+              >
+                + Add Your Club
+              </Link>
+            </div>
           </div>
         </div>
       </header>
@@ -324,14 +332,16 @@ function ClubCard({ club, index }: { club: ClubData; index: number }) {
                 {/* Status */}
                 <span
                   className={`rounded-full px-2.5 py-1 text-xs font-medium ${
-                    club.status === "active"
+                    club.status === "claimed"
+                      ? "bg-blue-50 text-blue-700"
+                      : club.status === "active"
                       ? "bg-emerald-50 text-emerald-700"
                       : club.status === "seasonal"
                       ? "bg-amber-50 text-amber-700"
                       : "bg-zinc-100 text-zinc-500"
                   }`}
                 >
-                  {club.status === "active" ? "Year-Round" : club.status === "seasonal" ? "Seasonal" : club.status}
+                  {club.status === "claimed" ? "Verified" : club.status === "active" ? "Year-Round" : club.status === "seasonal" ? "Seasonal" : club.status}
                 </span>
                 {/* Website */}
                 {club.website && (
