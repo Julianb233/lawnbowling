@@ -34,6 +34,7 @@ export default function TVScoreboardPage() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [drawAnnouncement, setDrawAnnouncement] = useState<DrawAnnouncement | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [greenConditions, setGreenConditions] = useState<GreenConditions | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Clock update
@@ -80,6 +81,20 @@ export default function TVScoreboardPage() {
     }
   }, [tournament]);
 
+  // Load green conditions (REQ-15-07)
+  const loadConditions = useCallback(async () => {
+    if (!tournament) return;
+    try {
+      const res = await fetch(`/api/bowls/green-conditions?tournament_id=${tournament.id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setGreenConditions(data);
+      }
+    } catch {
+      // Non-critical
+    }
+  }, [tournament]);
+
   // Initial load
   useEffect(() => {
     loadTournament();
@@ -88,8 +103,9 @@ export default function TVScoreboardPage() {
   useEffect(() => {
     if (tournament) {
       loadScores();
+      loadConditions();
     }
-  }, [tournament, loadScores]);
+  }, [tournament, loadScores, loadConditions]);
 
   // Supabase Realtime subscription for live score updates
   useEffect(() => {
@@ -156,11 +172,29 @@ export default function TVScoreboardPage() {
       )
       .subscribe();
 
+    // Subscribe to green conditions changes (REQ-15-12)
+    const conditionsChannel = supabase
+      .channel(`tv-conditions-${tournament.id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "green_conditions",
+          filter: `tournament_id=eq.${tournament.id}`,
+        },
+        () => {
+          loadConditions();
+        }
+      )
+      .subscribe();
+
     return () => {
       supabase.removeChannel(scoresChannel);
       supabase.removeChannel(checkinsChannel);
+      supabase.removeChannel(conditionsChannel);
     };
-  }, [tournament, loadScores]);
+  }, [tournament, loadScores, loadConditions]);
 
   // Auto-dismiss draw announcement after 30 seconds
   useEffect(() => {
