@@ -1,41 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
+import { verifyWebhookSignature } from "@/lib/printify";
 
 /**
- * Printify webhook endpoint for order status updates.
+ * POST /api/shop/webhooks/printify
+ *
+ * Receives order status updates from Printify.
  *
  * Configure in Printify dashboard:
  *   URL: https://yourdomain.com/api/shop/webhooks/printify
  *   Events: order:created, order:updated, order:shipped, order:completed
- *
- * In production, verify the webhook signature from the
- * `X-Pfy-Signature` header using PRINTIFY_WEBHOOK_SECRET.
  */
 export async function POST(req: NextRequest) {
-  const secret = process.env.PRINTIFY_WEBHOOK_SECRET;
+  const rawBody = await req.text();
+  const signature = req.headers.get("x-pfy-signature");
 
   // Verify webhook signature in production
-  if (secret) {
-    const signature = req.headers.get("x-pfy-signature");
+  if (process.env.PRINTIFY_WEBHOOK_SECRET) {
     if (!signature) {
       return NextResponse.json(
         { error: "Missing signature" },
         { status: 401 }
       );
     }
-    // In production: verify HMAC-SHA256 signature
-    // const crypto = await import("crypto");
-    // const computed = crypto.createHmac("sha256", secret).update(body).digest("hex");
-    // if (computed !== signature) return NextResponse.json({ error: "Invalid" }, { status: 401 });
+
+    const valid = await verifyWebhookSignature(rawBody, signature);
+    if (!valid) {
+      return NextResponse.json(
+        { error: "Invalid signature" },
+        { status: 401 }
+      );
+    }
   }
 
-  const event = await req.json();
+  const event = JSON.parse(rawBody);
   const eventType = event.type as string;
 
   switch (eventType) {
     case "order:shipped": {
       const { id, carrier, tracking_number, tracking_url } =
         event.resource ?? {};
-      // Store tracking info — in production, persist to database and notify customer
+      // TODO: In production, persist to database and send customer notification email
       console.log(
         `[Printify] Order ${id} shipped via ${carrier}: ${tracking_number}`,
         tracking_url
@@ -52,6 +56,12 @@ export async function POST(req: NextRequest) {
     case "order:updated": {
       const { id, status } = event.resource ?? {};
       console.log(`[Printify] Order ${id} updated to ${status}`);
+      break;
+    }
+
+    case "order:created": {
+      const { id } = event.resource ?? {};
+      console.log(`[Printify] Order ${id} created`);
       break;
     }
 

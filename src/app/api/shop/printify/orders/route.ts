@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const PRINTIFY_API_KEY = process.env.PRINTIFY_API_KEY;
-const PRINTIFY_SHOP_ID = process.env.PRINTIFY_SHOP_ID;
-const PRINTIFY_BASE = "https://api.printify.com/v1";
+import {
+  isPrintifyConfigured,
+  createOrder,
+  PrintifyApiError,
+  type PrintifyAddress,
+} from "@/lib/printify";
 
 interface OrderItem {
   productId: string;
@@ -10,20 +12,14 @@ interface OrderItem {
   quantity: number;
 }
 
-interface ShippingAddress {
-  first_name: string;
-  last_name: string;
-  email: string;
-  address1: string;
-  address2?: string;
-  city: string;
-  region: string;
-  zip: string;
-  country: string;
-}
-
+/**
+ * POST /api/shop/printify/orders
+ *
+ * Creates a Printify order after successful Stripe payment.
+ * Called by the Stripe webhook handler or manually for order fulfillment.
+ */
 export async function POST(req: NextRequest) {
-  if (!PRINTIFY_API_KEY || !PRINTIFY_SHOP_ID) {
+  if (!isPrintifyConfigured()) {
     return NextResponse.json(
       { error: "Printify not configured" },
       { status: 503 }
@@ -32,7 +28,7 @@ export async function POST(req: NextRequest) {
 
   const { items, shipping, stripeSessionId } = (await req.json()) as {
     items: OrderItem[];
-    shipping: ShippingAddress;
+    shipping: PrintifyAddress;
     stripeSessionId: string;
   };
 
@@ -40,48 +36,31 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No items" }, { status: 400 });
   }
 
-  const printifyOrder = {
-    external_id: stripeSessionId,
-    line_items: items.map((item) => ({
-      product_id: item.productId,
-      variant_id: Number(item.variantId),
-      quantity: item.quantity,
-    })),
-    shipping_method: 1,
-    address_to: {
-      first_name: shipping.first_name,
-      last_name: shipping.last_name,
-      email: shipping.email,
-      address1: shipping.address1,
-      address2: shipping.address2 || "",
-      city: shipping.city,
-      region: shipping.region,
-      zip: shipping.zip,
-      country: shipping.country,
-    },
-    send_shipping_notification: true,
-  };
+  try {
+    const order = await createOrder({
+      externalId: stripeSessionId,
+      items: items.map((item) => ({
+        productId: item.productId,
+        variantId: Number(item.variantId),
+        quantity: item.quantity,
+      })),
+      shippingAddress: shipping,
+    });
 
-  const res = await fetch(
-    `${PRINTIFY_BASE}/shops/${PRINTIFY_SHOP_ID}/orders.json`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${PRINTIFY_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(printifyOrder),
-    }
-  );
+    return NextResponse.json({
+      orderId: order.id,
+      status: order.status,
+    });
+  } catch (err) {
+    const message =
+      err instanceof PrintifyApiError
+        ? `Printify API ${err.status}: ${err.body}`
+        : "Failed to create order";
 
-  if (!res.ok) {
-    const error = await res.text();
+    console.error("[Printify Order]", message);
     return NextResponse.json(
-      { error: "Failed to create Printify order", detail: error },
+      { error: "Failed to create Printify order", detail: message },
       { status: 502 }
     );
   }
-
-  const order = await res.json();
-  return NextResponse.json({ orderId: order.id, status: order.status });
 }

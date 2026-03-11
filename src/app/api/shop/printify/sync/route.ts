@@ -1,75 +1,40 @@
 import { NextResponse } from "next/server";
+import {
+  isPrintifyConfigured,
+  syncProducts,
+  PrintifyApiError,
+} from "@/lib/printify";
 
-const PRINTIFY_API_KEY = process.env.PRINTIFY_API_KEY;
-const PRINTIFY_SHOP_ID = process.env.PRINTIFY_SHOP_ID;
-const PRINTIFY_BASE = "https://api.printify.com/v1";
-
+/**
+ * GET /api/shop/printify/sync
+ *
+ * Fetches all visible products from Printify, normalizes them with
+ * 40% markup pricing, and returns them in our Product shape.
+ *
+ * When PRINTIFY_API_KEY is not set, returns 503 with an empty array
+ * so the frontend can gracefully fall back to mock products.
+ */
 export async function GET() {
-  if (!PRINTIFY_API_KEY || !PRINTIFY_SHOP_ID) {
+  if (!isPrintifyConfigured()) {
     return NextResponse.json(
       { error: "Printify not configured", products: [] },
       { status: 503 }
     );
   }
 
-  const res = await fetch(
-    `${PRINTIFY_BASE}/shops/${PRINTIFY_SHOP_ID}/products.json`,
-    {
-      headers: { Authorization: `Bearer ${PRINTIFY_API_KEY}` },
-      next: { revalidate: 3600 },
-    }
-  );
+  try {
+    const products = await syncProducts();
+    return NextResponse.json({ products });
+  } catch (err) {
+    const message =
+      err instanceof PrintifyApiError
+        ? `Printify API ${err.status}: ${err.body}`
+        : "Failed to sync products";
 
-  if (!res.ok) {
+    console.error("[Printify Sync]", message);
     return NextResponse.json(
-      { error: "Failed to fetch from Printify", products: [] },
+      { error: message, products: [] },
       { status: 502 }
     );
   }
-
-  const data = await res.json();
-
-  // Transform Printify products to our Product shape
-  const products = (data.data ?? []).map((p: Record<string, unknown>) => {
-    const variants = (
-      (p.variants as Array<Record<string, unknown>>) ?? []
-    )
-      .filter((v) => v.is_enabled)
-      .map((v) => ({
-        id: String(v.id),
-        label: v.title as string,
-        inStock: (v.is_available as boolean) ?? true,
-      }));
-
-    const images = (p.images as Array<Record<string, unknown>>) ?? [];
-    const firstImage =
-      images.length > 0 ? (images[0].src as string) : "";
-
-    // 40% markup on Printify base cost (cost is in cents)
-    const baseCostCents =
-      variants.length > 0
-        ? Math.min(
-            ...((p.variants as Array<Record<string, unknown>>) ?? [])
-              .filter((v) => v.is_enabled)
-              .map((v) => (v.cost as number) ?? 0)
-          )
-        : 0;
-    const baseCost = baseCostCents / 100;
-    const price = Math.ceil(baseCost * 1.4) - 0.01;
-
-    return {
-      id: String(p.id),
-      slug: String(p.id),
-      name: p.title as string,
-      description: (p.description as string) ?? "",
-      category: "t-shirts",
-      baseCost,
-      price,
-      image: firstImage,
-      variants,
-      tags: (p.tags as string[]) ?? [],
-    };
-  });
-
-  return NextResponse.json({ products });
 }
