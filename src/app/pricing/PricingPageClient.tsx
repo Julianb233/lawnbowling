@@ -12,8 +12,8 @@ export default function PricingPageClient() {
   const searchParams = useSearchParams();
   const [currentPlan, setCurrentPlan] = useState<SubscriptionPlan>("free");
   const [loading, setLoading] = useState(true);
-  const success = searchParams.get("success");
-  const cancelled = searchParams.get("cancelled");
+  const success = searchParams?.get("success");
+  const cancelled = searchParams?.get("cancelled");
 
   useEffect(() => {
     async function loadSubscription() {

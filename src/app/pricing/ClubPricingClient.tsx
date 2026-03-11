@@ -135,8 +135,8 @@ export default function ClubPricingClient() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [currentPlan, setCurrentPlan] = useState<string>("free");
   const [loading, setLoading] = useState(true);
-  const success = searchParams.get("success");
-  const cancelled = searchParams.get("cancelled");
+  const success = searchParams?.get("success");
+  const cancelled = searchParams?.get("cancelled");
 
   useEffect(() => {
     async function loadSubscription() {

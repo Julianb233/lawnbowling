@@ -45,7 +45,7 @@ const POSITION_RING_COLORS: Record<BowlsPosition, string> = {
 
 export default function BowlsTournamentPage() {
   const params = useParams();
-  const tournamentId = params.id as string;
+  const tournamentId = (params?.id ?? "") as string;
 
   const [view, setView] = useState<PageView>("checkin");
   const [players, setPlayers] = useState<Player[]>([]);

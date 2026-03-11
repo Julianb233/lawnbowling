@@ -44,7 +44,7 @@ interface ProgressionInfo {
 export default function ResultsPage() {
   const params = useParams();
   const router = useRouter();
-  const tournamentId = params.id as string;
+  const tournamentId = (params?.id ?? "") as string;
 
   const [tournamentName, setTournamentName] = useState("Tournament");
   const [rounds, setRounds] = useState<RoundSummary[]>([]);

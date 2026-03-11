@@ -19,7 +19,7 @@ import { BottomNav } from "@/components/board/BottomNav";
 
 export default function SportGuidePage() {
   const params = useParams();
-  const sport = params.sport as string;
+  const sport = (params?.sport ?? "") as string;
   const guide = getGuide(sport);
 
   if (!guide) {

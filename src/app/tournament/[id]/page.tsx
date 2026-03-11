@@ -28,7 +28,8 @@ interface TournamentDetail {
 }
 
 export default function TournamentDetailPage() {
-  const { id } = useParams<{ id: string }>();
+  const params = useParams<{ id: string }>();
+  const id = params?.id ?? "";
   const [tournament, setTournament] = useState<TournamentDetail | null>(null);
   const [matches, setMatches] = useState<Array<Record<string, unknown>>>([]);
   const [standings, setStandings] = useState<Array<Record<string, unknown>>>([]);

@@ -213,12 +213,12 @@ function ClubOnboardContent() {
 
   // Plan selection
   const [selectedPlan, setSelectedPlan] = useState(
-    searchParams.get("plan") || "club"
+    searchParams?.get("plan") || "club"
   );
 
   // Member estimate
   const [memberEstimate, setMemberEstimate] = useState(
-    Number(searchParams.get("members")) || 100
+    Number(searchParams?.get("members")) || 100
   );
 
   // Payment processing
@@ -233,7 +233,7 @@ function ClubOnboardContent() {
 
   // Handle returning from cancelled checkout
   useEffect(() => {
-    if (searchParams.get("cancelled") === "true") {
+    if (searchParams?.get("cancelled") === "true") {
       setStep("payment");
       setError("Checkout was cancelled. No charges were made. Try again when ready.");
     }

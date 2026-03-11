@@ -33,7 +33,7 @@ let toastId = 0;
 export default function ScoreEntryPage() {
   const params = useParams();
   const router = useRouter();
-  const tournamentId = params.id as string;
+  const tournamentId = (params?.id ?? "") as string;
 
   const [tournamentName, setTournamentName] = useState("Tournament");
   const [round, setRound] = useState(1);

@@ -24,7 +24,7 @@ export function BottomNav() {
     >
       <div className="flex items-center justify-around py-2">
         {NAV_ITEMS.map((item) => {
-          const active = pathname === item.href || (item.href !== "/board" && pathname?.startsWith(item.href + "/"));
+          const active = pathname === item.href || (item.href !== "/board" && (pathname?.startsWith(item.href + "/") ?? false));
           return (
             <Link
               key={item.href}

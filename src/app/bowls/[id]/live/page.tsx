@@ -10,7 +10,7 @@ import type { TournamentScore, ScoreWinner } from "@/lib/types";
 export default function LiveScoresPage() {
   const params = useParams();
   const router = useRouter();
-  const tournamentId = params.id as string;
+  const tournamentId = (params?.id ?? "") as string;
 
   const [tournamentName, setTournamentName] = useState("Tournament");
   const [scores, setScores] = useState<TournamentScore[]>([]);

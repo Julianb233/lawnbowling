@@ -13,12 +13,23 @@ import {
 } from "lucide-react";
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
+import { getBreadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Learn Lawn Bowling | Lawnbowling",
   description:
     "Your complete guide to lawn bowling. Learn the rules, player positions, game formats, and over 80 terms in our glossary. Perfect for beginners and experienced bowlers alike.",
   alternates: { canonical: "/learn" },
+  keywords: [
+    "learn lawn bowling",
+    "lawn bowling guide",
+    "how to play lawn bowls",
+    "lawn bowling for beginners",
+    "lawn bowls rules",
+    "lawn bowling positions",
+    "lawn bowling formats",
+    "lawn bowling glossary",
+  ],
   openGraph: {
     title: "Learn Lawn Bowling | Lawnbowling",
     description:
@@ -27,6 +38,38 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
+
+const learnHubSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Learn Lawn Bowling",
+  description:
+    "Your complete guide to lawn bowling. Learn the rules, player positions, game formats, and over 80 terms in our glossary.",
+  url: "https://lawnbowl.app/learn",
+  isPartOf: {
+    "@type": "WebSite",
+    name: "Lawnbowling",
+    url: "https://lawnbowl.app",
+  },
+  about: {
+    "@type": "Thing",
+    name: "Lawn Bowling",
+    alternateName: "Lawn Bowls",
+  },
+  hasPart: [
+    { "@type": "Article", name: "Rules of Lawn Bowling", url: "https://lawnbowl.app/learn/rules" },
+    { "@type": "Article", name: "Player Positions", url: "https://lawnbowl.app/learn/positions" },
+    { "@type": "Article", name: "Game Formats", url: "https://lawnbowl.app/learn/formats" },
+    { "@type": "Article", name: "Glossary", url: "https://lawnbowl.app/learn/glossary" },
+    { "@type": "Article", name: "Equipment Buying Guide", url: "https://lawnbowl.app/learn/equipment" },
+    { "@type": "Article", name: "Lawn Bowling vs Bocce", url: "https://lawnbowl.app/learn/lawn-bowling-vs-bocce" },
+  ],
+};
+
+const learnBreadcrumbs = getBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Learn", url: "/learn" },
+]);
 
 const topics = [
   {
@@ -108,6 +151,14 @@ export default function LearnHubPage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       <LearnNav />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(learnHubSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(learnBreadcrumbs) }}
+      />
 
       {/* Hero Section */}
       <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28 md:pb-20">
