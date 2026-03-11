@@ -59,11 +59,11 @@ export default function ClubDirectoryPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-black tracking-tight text-zinc-900">Club Directory</h1>
-              <p className="text-sm text-zinc-500">{stats.totalClubs} clubs across Australia</p>
+              <p className="text-sm text-zinc-500">{stats.totalClubs} clubs across the USA</p>
             </div>
             <div className="flex items-center gap-2">
               <Link href="/clubs/manage" className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 min-h-[44px] touch-manipulation hidden sm:block">Manage Club</Link>
-              <Link href="/clubs/claim" className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-emerald-600 min-h-[44px] touch-manipulation hidden sm:block">+ Add Your Club</Link>
+              <Link href="/clubs/onboard" className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-emerald-600 min-h-[44px] touch-manipulation hidden sm:block">+ Add Your Club</Link>
             </div>
           </div>
         </div>
@@ -114,8 +114,8 @@ export default function ClubDirectoryPage() {
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-12 rounded-2xl border border-dashed border-zinc-300 bg-white p-8 text-center">
           <h3 className="text-lg font-bold text-zinc-900">Don&apos;t see your club?</h3>
-          <p className="mt-1 text-sm text-zinc-500">Help us build the most complete lawn bowls directory in Australia</p>
-          <Link href="/clubs/claim" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-500 px-6 py-3 text-sm font-bold text-white hover:bg-blue-600 transition-colors">
+          <p className="mt-1 text-sm text-zinc-500">Help us build the most complete lawn bowling directory in the USA</p>
+          <Link href="/clubs/onboard" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-500 px-6 py-3 text-sm font-bold text-white hover:bg-blue-600 transition-colors">
             <MapPin className="h-4 w-4" />
             Add Your Club
           </Link>
