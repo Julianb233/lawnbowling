@@ -23,6 +23,7 @@ import { getPlayerAchievements } from "@/lib/db/achievements";
 import { AchievementBadges } from "@/components/profile/AchievementBadges";
 import { Endorsements } from "@/components/profile/Endorsements";
 import { ProfileClubBadge } from "@/components/clubs/ProfileClubBadge";
+import { BowlsRatingsCard } from "@/components/stats/BowlsRatingsCard";
 import * as Avatar from "@radix-ui/react-avatar";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Shield } from "lucide-react";
@@ -174,6 +175,10 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
           )}
 
           <ProfileStatsSection stats={stats} favoritePartners={favoritePartners} />
+
+          {player.sports.includes("lawn_bowling") && (
+            <BowlsRatingsCard playerId={player.id} />
+          )}
 
           <AchievementBadges achievements={achievements} />
 

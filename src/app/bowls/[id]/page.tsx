@@ -16,8 +16,11 @@ import type {
   BowlsGameFormat,
   BowlsCheckin,
   BowlsTeamAssignment,
+  GreenConditions,
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { GreenConditionsWidget } from "@/components/bowls/GreenConditionsWidget";
+import { GreenConditionsForm } from "@/components/bowls/GreenConditionsForm";
 import Link from "next/link";
 
 type PageView = "checkin" | "board" | "draw";
@@ -61,6 +64,10 @@ export default function BowlsTournamentPage() {
   const [tournamentName, setTournamentName] = useState("Lawn Bowls");
   const [showInsuranceOffer, setShowInsuranceOffer] = useState(false);
   const [insuranceOfferPlayer, setInsuranceOfferPlayer] = useState<string | null>(null);
+  const [playerTopRatings, setPlayerTopRatings] = useState<Map<string, { position: string; elo: number }>>(new Map());
+  const [greenConditions, setGreenConditions] = useState<GreenConditions | null>(null);
+  const [showConditionsForm, setShowConditionsForm] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [tournamentDate] = useState(() =>
     new Date().toLocaleDateString("en-AU", {
       weekday: "long",
@@ -114,10 +121,39 @@ export default function BowlsTournamentPage() {
     }
   }, [tournamentId]);
 
+  const loadConditions = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/bowls/green-conditions?tournament_id=${tournamentId}`);
+      if (res.ok) {
+        const data = await res.json();
+        setGreenConditions(data);
+      }
+    } catch {
+      // ignore
+    }
+  }, [tournamentId]);
+
+  // Check if current user is admin
+  useEffect(() => {
+    async function checkAdmin() {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data: player } = await supabase
+        .from("players")
+        .select("role")
+        .eq("user_id", user.id)
+        .single();
+      if (player?.role === "admin") setIsAdmin(true);
+    }
+    checkAdmin();
+  }, []);
+
   useEffect(() => {
     loadPlayers();
     loadCheckins();
     loadTournament();
+    loadConditions();
 
     // UCI-04: Realtime subscription for bowls_checkins -- kiosk check-ins appear within 3 seconds
     const supabase = createClient();
@@ -143,7 +179,32 @@ export default function BowlsTournamentPage() {
       clearInterval(interval);
       supabase.removeChannel(channel);
     };
-  }, [loadPlayers, loadCheckins, loadTournament, tournamentId]);
+  }, [loadPlayers, loadCheckins, loadTournament, loadConditions, tournamentId]);
+
+  // Fetch top position rating for all players (REQ-11-11 check-in badge)
+  useEffect(() => {
+    async function loadTopRatings() {
+      const supabase = createClient();
+      const season = new Date().getFullYear().toString();
+      const { data } = await supabase
+        .from("bowls_position_ratings")
+        .select("player_id, position, elo_rating")
+        .eq("season", season)
+        .gte("games_played", 1)
+        .order("elo_rating", { ascending: false });
+
+      if (data) {
+        const topMap = new Map<string, { position: string; elo: number }>();
+        for (const row of data) {
+          if (!topMap.has(row.player_id)) {
+            topMap.set(row.player_id, { position: row.position, elo: Math.round(row.elo_rating) });
+          }
+        }
+        setPlayerTopRatings(topMap);
+      }
+    }
+    loadTopRatings();
+  }, []);
 
   function handlePlayerTap(player: Player) {
     const existing = checkins.find((c) => c.player_id === player.id);
@@ -419,8 +480,16 @@ export default function BowlsTournamentPage() {
                     >
                       {player.display_name}
                     </span>
+                    {playerTopRatings.has(player.id) && (() => {
+                      const r = playerTopRatings.get(player.id)!;
+                      return (
+                        <span className="text-xs font-bold text-[#1B5E20] dark:text-emerald-400">
+                          {r.position.charAt(0).toUpperCase() + r.position.slice(1)} {r.elo}
+                        </span>
+                      );
+                    })()}
                     {checked && (
-                      <span className="text-[11px] text-zinc-400">
+                      <span className="text-sm text-zinc-500">
                         tap to undo
                       </span>
                     )}
@@ -451,7 +520,7 @@ export default function BowlsTournamentPage() {
                   <p className="text-sm font-semibold text-zinc-700">
                     {BOWLS_POSITION_LABELS[pos].label}
                   </p>
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-xs text-zinc-500">
                     {BOWLS_POSITION_LABELS[pos].description}
                   </p>
                 </div>
@@ -521,7 +590,7 @@ export default function BowlsTournamentPage() {
                     {/* UCI-10: Check-in source badge */}
                     {checkin.checkin_source && (
                       <span className={cn(
-                        "rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
+                        "rounded-full px-2 py-0.5 text-xs font-semibold uppercase tracking-wide",
                         checkin.checkin_source === "kiosk"
                           ? "bg-blue-100 text-blue-700"
                           : checkin.checkin_source === "app"
@@ -545,7 +614,7 @@ export default function BowlsTournamentPage() {
                         e.stopPropagation();
                         handleUndoCheckin(checkin.player_id);
                       }}
-                      className="ml-1 rounded-lg border border-zinc-200 px-2 py-1 text-xs font-medium text-zinc-400 hover:border-red-300 hover:text-red-500 hover:bg-red-50 transition-colors min-h-[32px] touch-manipulation"
+                      className="ml-1 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-medium text-zinc-500 hover:border-red-300 hover:text-red-500 hover:bg-red-50 transition-colors min-h-[44px] touch-manipulation"
                       title="Remove player from check-in list"
                     >
                       Remove
@@ -696,7 +765,7 @@ export default function BowlsTournamentPage() {
                                       >
                                         <span
                                           className={cn(
-                                            "inline-flex h-7 items-center rounded-full px-2 text-[11px] font-bold text-white print:bg-zinc-700 print:h-auto print:py-0.5 print:text-[10px]",
+                                            "inline-flex h-7 items-center rounded-full px-2 text-sm font-bold text-white print:bg-zinc-700 print:h-auto print:py-0.5 print:text-xs",
                                             POSITION_COLORS[a.position]
                                           )}
                                         >
@@ -728,7 +797,7 @@ export default function BowlsTournamentPage() {
                                       >
                                         <span
                                           className={cn(
-                                            "inline-flex h-7 items-center rounded-full px-2 text-[11px] font-bold text-white print:bg-zinc-700 print:h-auto print:py-0.5 print:text-[10px]",
+                                            "inline-flex h-7 items-center rounded-full px-2 text-sm font-bold text-white print:bg-zinc-700 print:h-auto print:py-0.5 print:text-xs",
                                             POSITION_COLORS[a.position]
                                           )}
                                         >
