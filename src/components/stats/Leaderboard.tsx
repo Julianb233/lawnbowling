@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Trophy, Medal, ArrowUpDown, Flame, Target, Gamepad2, Zap } from "lucide-react";
+import { Trophy, Medal, ArrowUpDown, Flame, Target, Gamepad2, Zap, ChevronDown } from "lucide-react";
 import { ALL_SPORTS, SPORT_LABELS, ALL_SKILLS, SKILL_LABELS } from "@/lib/types";
-import type { SkillLevel } from "@/lib/types";
+import type { SkillLevel, BowlsLeaderboardCategory } from "@/lib/types";
+import { getRatingTier } from "@/lib/elo";
 import { cn } from "@/lib/utils";
 import { ANIMATIONS } from "@/lib/design";
 import Link from "next/link";
@@ -35,34 +36,85 @@ const SORT_OPTIONS: { value: LeaderboardSortBy; label: string; icon: React.React
   { value: "elo_rating", label: "ELO Rating", icon: <Zap className="h-3.5 w-3.5" /> },
 ];
 
+interface BowlsLeaderboardEntry {
+  player_id: string;
+  position: string;
+  elo_rating: number;
+  games_played: number;
+  wins: number;
+  losses: number;
+  draws: number;
+  shot_differential: number;
+  ends_won_pct: number;
+  player: { id: string; display_name: string; avatar_url: string | null };
+}
+
+const BOWLS_CATEGORIES: { key: BowlsLeaderboardCategory; label: string }[] = [
+  { key: "overall", label: "Overall" },
+  { key: "skip", label: "Skip Rating" },
+  { key: "lead", label: "Lead Rating" },
+  { key: "ends_pct", label: "Ends Win %" },
+];
+
+const TIER_COLORS: Record<string, string> = {
+  expert: "text-amber-600",
+  advanced: "text-purple-600",
+  intermediate: "text-blue-600",
+  beginner: "text-zinc-500",
+};
+
 interface LeaderboardProps {
   currentUserId?: string | null;
 }
 
 export function Leaderboard({ currentUserId }: LeaderboardProps) {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
+  const [bowlsEntries, setBowlsEntries] = useState<BowlsLeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [sportFilter, setSportFilter] = useState<string | "all">("all");
   const [skillFilter, setSkillFilter] = useState<string | "all">("all");
   const [sortBy, setSortBy] = useState<LeaderboardSortBy>("win_rate");
+  const [bowlsCategory, setBowlsCategory] = useState<BowlsLeaderboardCategory>("overall");
+  const [season, setSeason] = useState(new Date().getFullYear().toString());
+  const [showSeasonPicker, setShowSeasonPicker] = useState(false);
+
+  const currentYear = new Date().getFullYear();
+  const availableSeasons = Array.from({ length: 5 }, (_, i) =>
+    (currentYear - i).toString()
+  );
+
+  const isBowls = sportFilter === "lawn_bowling";
 
   const fetchLeaderboard = useCallback(async () => {
     setLoading(true);
     try {
-      const params = new URLSearchParams();
-      if (sportFilter !== "all") params.set("sport", sportFilter);
-      if (skillFilter !== "all") params.set("skill_level", skillFilter);
-      params.set("sort_by", sortBy);
-      const res = await fetch(`/api/stats/leaderboard?${params}`);
-      if (res.ok) {
-        const data = await res.json();
-        setEntries(data.leaderboard ?? []);
+      if (isBowls && bowlsCategory !== "overall") {
+        const params = new URLSearchParams();
+        params.set("category", bowlsCategory);
+        params.set("season", season);
+        const res = await fetch(`/api/stats/leaderboard/bowls?${params}`);
+        if (res.ok) {
+          const data = await res.json();
+          setBowlsEntries(data.leaderboard ?? []);
+          setEntries([]);
+        }
+      } else {
+        const params = new URLSearchParams();
+        if (sportFilter !== "all") params.set("sport", sportFilter);
+        if (skillFilter !== "all") params.set("skill_level", skillFilter);
+        params.set("sort_by", sortBy);
+        const res = await fetch(`/api/stats/leaderboard?${params}`);
+        if (res.ok) {
+          const data = await res.json();
+          setEntries(data.leaderboard ?? []);
+          setBowlsEntries([]);
+        }
       }
     } catch {
       // ignore
     }
     setLoading(false);
-  }, [sportFilter, skillFilter, sortBy]);
+  }, [sportFilter, skillFilter, sortBy, isBowls, bowlsCategory, season]);
 
   useEffect(() => {
     fetchLeaderboard();
@@ -227,6 +279,58 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
         </div>
       </div>
 
+      {/* Bowls category tabs + season selector */}
+      {isBowls && (
+        <div className="flex items-center gap-3">
+          <div className="flex flex-1 gap-1.5 overflow-x-auto rounded-lg bg-zinc-100 p-1">
+            {BOWLS_CATEGORIES.map((cat) => (
+              <button
+                key={cat.key}
+                onClick={() => setBowlsCategory(cat.key)}
+                className={cn(
+                  "shrink-0 rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
+                  bowlsCategory === cat.key
+                    ? "bg-white text-zinc-900 shadow-sm"
+                    : "text-zinc-500 hover:text-zinc-700"
+                )}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+          <div className="relative shrink-0">
+            <button
+              onClick={() => setShowSeasonPicker(!showSeasonPicker)}
+              className="flex items-center gap-1 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs font-medium text-zinc-600 hover:bg-zinc-50"
+            >
+              {season}
+              <ChevronDown className="h-3 w-3" />
+            </button>
+            {showSeasonPicker && (
+              <div className="absolute right-0 top-full z-10 mt-1 rounded-lg border border-zinc-200 bg-white py-1 shadow-lg">
+                {availableSeasons.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => {
+                      setSeason(s);
+                      setShowSeasonPicker(false);
+                    }}
+                    className={cn(
+                      "block w-full px-4 py-1.5 text-left text-xs",
+                      s === season
+                        ? "bg-emerald-500/5 font-bold text-emerald-600"
+                        : "text-zinc-600 hover:bg-zinc-50"
+                    )}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Results */}
       {loading ? (
         <div className="space-y-3">
@@ -234,6 +338,78 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
             <div key={i} className="h-16 animate-pulse rounded-xl bg-zinc-100" />
           ))}
         </div>
+      ) : (isBowls && bowlsCategory !== "overall") ? (
+        bowlsEntries.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-zinc-200 py-16 text-center">
+            <Trophy className="mx-auto mb-3 h-10 w-10 text-zinc-300" />
+            <p className="text-sm font-medium text-zinc-500">No rated players in this category yet</p>
+          </div>
+        ) : (
+          <motion.div className="space-y-2" {...ANIMATIONS.staggerChildren} initial="initial" animate="animate">
+            {bowlsEntries.map((entry, i) => {
+              const rank = i + 1;
+              const isMe = entry.player_id === currentUserId;
+              const tier = getRatingTier(entry.elo_rating);
+              return (
+                <motion.div key={entry.player_id} {...ANIMATIONS.fadeInUp}>
+                  <Link
+                    href={`/profile/${entry.player_id}`}
+                    className={cn(
+                      "flex items-center gap-3 rounded-xl border p-3 transition-colors hover:bg-zinc-50",
+                      isMe
+                        ? "border-emerald-500/30 bg-emerald-500/5"
+                        : "border-zinc-200 bg-white"
+                    )}
+                  >
+                    {getRankDisplay(rank)}
+
+                    <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-zinc-100">
+                      {entry.player?.avatar_url ? (
+                        <img src={entry.player.avatar_url} alt="" className="h-full w-full object-cover" />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
+                          {entry.player?.display_name?.charAt(0)?.toUpperCase()}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-medium text-zinc-700">
+                        {entry.player?.display_name}
+                        {isMe && <span className="ml-1 text-xs text-emerald-500">(You)</span>}
+                      </p>
+                      <p className="text-xs text-zinc-400">
+                        {entry.games_played} games &middot; {entry.wins}W/{entry.losses}L
+                        {entry.draws > 0 ? `/${entry.draws}D` : ""}
+                        {bowlsCategory !== "ends_pct" && (
+                          <span className="ml-1">
+                            &middot; <span className={TIER_COLORS[tier]}>{tier}</span>
+                          </span>
+                        )}
+                      </p>
+                    </div>
+
+                    <div className="text-right">
+                      {bowlsCategory === "ends_pct" ? (
+                        <div>
+                          <p className="text-lg font-bold text-emerald-500">{entry.ends_won_pct}%</p>
+                          <p className="text-[10px] uppercase tracking-wide text-zinc-400">Ends</p>
+                        </div>
+                      ) : (
+                        <div>
+                          <p className="text-lg font-bold text-emerald-500 tabular-nums">
+                            {Math.round(entry.elo_rating)}
+                          </p>
+                          <p className="text-[10px] uppercase tracking-wide text-zinc-400">ELO</p>
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        )
       ) : entries.length === 0 ? (
         <div className="rounded-xl border border-dashed border-zinc-200 py-16 text-center">
           <Trophy className="mx-auto mb-3 h-10 w-10 text-zinc-300" />
