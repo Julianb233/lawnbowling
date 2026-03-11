@@ -152,6 +152,55 @@ export async function getLeaderboard(
   })) as LeaderboardEntry[];
 }
 
+export async function getFavoritePartners(playerId: string, options?: { limit?: number }) {
+  const supabase = await createClient();
+  const limit = options?.limit ?? 5;
+
+  // Get all matches this player was in
+  const { data: playerMatches } = await supabase
+    .from("match_players")
+    .select("match_id, team")
+    .eq("player_id", playerId);
+
+  if (!playerMatches?.length) return [];
+
+  const matchIds = playerMatches.map((pm) => pm.match_id);
+  const teamByMatch = new Map(playerMatches.map((pm) => [pm.match_id, pm.team]));
+
+  // Get all players in those matches on the same team
+  const { data: allMatchPlayers } = await supabase
+    .from("match_players")
+    .select("match_id, player_id, team, players:players(id, display_name, avatar_url, skill_level)")
+    .in("match_id", matchIds)
+    .neq("player_id", playerId);
+
+  if (!allMatchPlayers?.length) return [];
+
+  // Count games with each partner (same team)
+  const partnerMap = new Map<string, { games: number; wins: number; player: unknown }>();
+  for (const mp of allMatchPlayers) {
+    if (mp.team === teamByMatch.get(mp.match_id)) {
+      const existing = partnerMap.get(mp.player_id) || { games: 0, wins: 0, player: mp.players };
+      existing.games++;
+      partnerMap.set(mp.player_id, existing);
+    }
+  }
+
+  // Sort by games together, take top N
+  const sorted = [...partnerMap.entries()]
+    .sort((a, b) => b[1].games - a[1].games)
+    .slice(0, limit);
+
+  return sorted.map(([partnerId, data]) => ({
+    partner_id: partnerId,
+    games_together: data.games,
+    wins_together: data.wins,
+    win_rate_together: data.games > 0 ? Math.round((data.wins / data.games) * 100) : 0,
+    last_played_at: null,
+    partner: data.player,
+  }));
+}
+
 export async function reportMatchResult(result: {
   match_id: string;
   winner_team: 1 | 2 | null;

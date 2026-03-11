@@ -455,6 +455,7 @@ export interface BowlsCheckin {
   preferred_position: BowlsPosition;
   checkin_source: CheckinSource;
   checked_in_at: string;
+  is_guest?: boolean;
   player?: Player;
 }
 
@@ -536,6 +537,24 @@ export interface ClubRosterMember {
   notes: string | null;
   created_at: string;
   updated_at: string;
+}
+
+// ===== Club Events =====
+
+export type ClubEventType = "social" | "tournament" | "meeting" | "practice" | "other";
+
+export interface ClubEvent {
+  id: string;
+  club_id: string;
+  title: string;
+  description: string | null;
+  event_date: string;
+  start_time: string | null;
+  end_time: string | null;
+  event_type: ClubEventType;
+  location: string | null;
+  created_by: string | null;
+  created_at: string;
 }
 
 // ===== Club Claims & Management =====
@@ -624,6 +643,35 @@ export const PRICING_TIERS = [
     ],
   },
 ];
+
+// ===== Visiting Player =====
+
+export type VisitRequestStatus = "pending" | "accepted" | "declined" | "expired";
+
+export interface VisitRequest {
+  id: string;
+  club_id: string;
+  player_id: string;
+  requested_date: string;
+  skill_level: SkillLevel;
+  preferred_positions: BowlsPosition[];
+  message: string | null;
+  status: VisitRequestStatus;
+  responded_by: string | null;
+  responded_at: string | null;
+  visit_token: string | null;
+  expires_at: string | null;
+  created_at: string;
+  updated_at: string;
+  player?: Player;
+  club?: {
+    id: string;
+    name: string;
+    slug: string;
+    city: string;
+    state_code: string;
+  };
+}
 
 // ===== Pennant Season & League =====
 

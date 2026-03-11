@@ -6,6 +6,7 @@ import { ArrowLeft, LogOut, Save, Loader2 } from "lucide-react";
 import type { SkillLevel, Sport } from "@/lib/db/players";
 import type { NotificationPreferences } from "@/lib/types";
 import { NotificationSettings } from "@/components/settings/NotificationSettings";
+import { MyVisitRequests } from "@/components/clubs/MyVisitRequests";
 
 const SKILL_LEVELS: { value: SkillLevel; label: string }[] = [
   { value: "beginner", label: "Beginner" },
@@ -237,6 +238,17 @@ export default function SettingsPage() {
             )}
             {saving ? "Saving..." : "Save Changes"}
           </button>
+
+          {/* Divider */}
+          <div className="border-t border-zinc-200" />
+
+          {/* Visit Requests */}
+          <div>
+            <label className="mb-2 block text-sm font-medium text-zinc-600">
+              My Visit Requests
+            </label>
+            <MyVisitRequests />
+          </div>
 
           {/* Divider */}
           <div className="border-t border-zinc-200" />

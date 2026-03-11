@@ -37,6 +37,8 @@ import {
   jsonLd,
 } from "@/lib/schema";
 import { SingleClubMap } from "@/components/clubs/SingleClubMap";
+import { VisitClubButton } from "@/components/clubs/VisitClubButton";
+import { VisitorCount } from "@/components/clubs/VisitorCount";
 
 interface ClubPageProps {
   params: Promise<{ state: string; slug: string }>;
@@ -383,7 +385,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                   !club.phone &&
                   !club.email &&
                   !club.website && (
-                    <p className="text-sm text-zinc-400">
+                    <p className="text-sm text-zinc-500">
                       No contact information available yet.
                     </p>
                   )}
@@ -424,6 +426,14 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                     <SocialLink href={club.youtubeUrl} icon={<ExternalLink className="h-4 w-4" />} label="YouTube" color="#FF0000" />
                   )}
                 </div>
+              </section>
+            )}
+
+            {/* Visiting */}
+            {(club.status === "active" || club.status === "claimed") && (
+              <section className="space-y-3">
+                <VisitClubButton clubId={club.id} clubName={club.name} />
+                <VisitorCount clubId={club.id} />
               </section>
             )}
 
@@ -491,7 +501,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                         {nearby.name}
                       </h3>
                       {"distance" in nearby && (
-                        <span className="shrink-0 rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-700 tabular-nums">
+                        <span className="shrink-0 rounded-full bg-blue-50 px-2 py-0.5 text-sm font-semibold text-blue-700 tabular-nums">
                           {(nearby as ClubData & { distance: number }).distance < 1 ? "<1" : Math.round((nearby as ClubData & { distance: number }).distance)} mi
                         </span>
                       )}
@@ -502,12 +512,12 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1">
                       {nearby.surfaceType !== "unknown" && (
-                        <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-zinc-500 dark:text-zinc-400">
+                        <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-sm font-medium text-zinc-500 dark:text-zinc-400">
                           {SURFACE_LABELS[nearby.surfaceType]}
                         </span>
                       )}
                       {nearby.greens && (
-                        <span className="rounded-full bg-[#1B5E20]/5 px-2 py-0.5 text-[11px] font-medium text-[#1B5E20]">
+                        <span className="rounded-full bg-[#1B5E20]/5 px-2 py-0.5 text-sm font-medium text-[#1B5E20]">
                           {nearby.greens} green{nearby.greens !== 1 ? "s" : ""}
                         </span>
                       )}
@@ -555,7 +565,7 @@ function DetailItem({
         {icon}
       </div>
       <div>
-        <p className="text-xs font-medium text-zinc-400">{label}</p>
+        <p className="text-xs font-medium text-zinc-500">{label}</p>
         <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{value}</p>
       </div>
     </div>
@@ -577,7 +587,7 @@ function ContactRow({
         {icon}
       </div>
       <div>
-        <p className="text-xs font-medium text-zinc-400">{label}</p>
+        <p className="text-xs font-medium text-zinc-500">{label}</p>
         {children}
       </div>
     </div>

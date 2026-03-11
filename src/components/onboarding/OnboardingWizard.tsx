@@ -53,14 +53,17 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
 
       {/* Navigation */}
       <div className="p-6 pb-12">
-        {/* Progress dots */}
+        {/* Progress indicator */}
+        <p className="mb-3 text-center text-sm font-medium text-zinc-500">
+          Step {step + 1} of {STEPS.length}
+        </p>
         <div className="mb-6 flex justify-center gap-2">
           {STEPS.map((_, i) => (
             <button
               key={i}
               onClick={() => setStep(i)}
-              className={`h-2 rounded-full transition-all ${
-                i === step ? "w-8 bg-green-500" : "w-2 bg-zinc-700"
+              className={`h-3 rounded-full transition-all ${
+                i === step ? "w-10 bg-green-500" : "w-3 bg-zinc-300"
               }`}
             />
           ))}
@@ -71,14 +74,14 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
           <button
             onClick={() => setStep(Math.max(0, step - 1))}
             disabled={step === 0}
-            className="flex items-center gap-1 rounded-xl px-6 py-3 text-sm font-medium text-zinc-400 hover:text-zinc-700 disabled:invisible min-h-[48px]"
+            className="flex items-center gap-1 rounded-xl px-6 py-3 text-base font-medium text-zinc-500 hover:text-zinc-700 disabled:invisible min-h-[48px]"
           >
             <ChevronLeft className="h-4 w-4" /> Back
           </button>
 
           <button
             onClick={() => isLast ? handleComplete() : setStep(step + 1)}
-            className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-green-500 to-[#1B5E20] px-8 py-3 text-sm font-bold text-white hover:shadow-lg hover:shadow-green-500/25 min-h-[48px]"
+            className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-green-500 to-[#1B5E20] px-8 py-3 text-base font-bold text-white hover:shadow-lg hover:shadow-green-500/25 min-h-[48px]"
           >
             {isLast ? "Get Started" : "Next"} <ChevronRight className="h-4 w-4" />
           </button>

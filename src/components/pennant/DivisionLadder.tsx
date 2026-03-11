@@ -24,7 +24,7 @@ export function DivisionLadder({
     return (
       <div className={cn(
         "flex flex-col items-center justify-center py-16 text-center",
-        tvMode ? "text-zinc-500" : "text-zinc-400 dark:text-zinc-500"
+        tvMode ? "text-zinc-500" : "text-zinc-500 dark:text-zinc-500"
       )}>
         <Trophy className="mb-3 h-10 w-10 opacity-40" />
         <p className="text-lg font-semibold">No standings yet</p>
@@ -148,7 +148,7 @@ export function DivisionLadder({
                         </span>
                         {isUserTeam && (
                           <span className={cn(
-                            "shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase",
+                            "shrink-0 rounded-full px-1.5 py-0.5 text-xs font-bold uppercase",
                             tvMode
                               ? "bg-emerald-500/20 text-emerald-400"
                               : "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400"
@@ -252,7 +252,7 @@ export function DivisionLadder({
       {/* Legend */}
       {!tvMode && !compact && (
         <div className="border-t border-zinc-100 px-4 py-2.5 dark:border-white/5">
-          <p className="text-[11px] text-zinc-400 dark:text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-500">
             P = Played, W = Won, D = Drawn, L = Lost, SF = Shots For, SA = Shots Against, +/- = Shot Difference, Pts = Points (W=2, D=1, L=0)
           </p>
         </div>

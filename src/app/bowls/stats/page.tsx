@@ -208,10 +208,10 @@ export default function BowlsStatsPage() {
       <main className="mx-auto max-w-3xl px-4 py-6">
         {sortedPlayers.length === 0 ? (
           <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
-            <p className="text-lg font-semibold text-zinc-400">
+            <p className="text-lg font-semibold text-zinc-500">
               No player stats yet
             </p>
-            <p className="mt-1 text-sm text-zinc-400">
+            <p className="mt-1 text-sm text-zinc-500">
               Stats will appear once tournament scores are finalized
             </p>
           </div>
@@ -273,7 +273,7 @@ export default function BowlsStatsPage() {
                     {/* Key stat */}
                     <div className="text-right shrink-0">
                       <p className="text-xl font-black text-[#1B5E20]">{player.wins}</p>
-                      <p className="text-[11px] text-zinc-400">
+                      <p className="text-sm text-zinc-500">
                         {player.win_rate}% win rate
                       </p>
                     </div>
@@ -289,30 +289,30 @@ export default function BowlsStatsPage() {
                       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                         <div className="rounded-xl bg-[#1B5E20]/5 p-3 text-center">
                           <p className="text-2xl font-black text-[#1B5E20]">{player.wins}</p>
-                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400">Wins</p>
+                          <p className="text-sm text-zinc-500 dark:text-zinc-400">Wins</p>
                         </div>
                         <div className="rounded-xl bg-red-50 p-3 text-center">
                           <p className="text-2xl font-black text-red-500">{player.losses}</p>
-                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400">Losses</p>
+                          <p className="text-sm text-zinc-500 dark:text-zinc-400">Losses</p>
                         </div>
                         <div className="rounded-xl bg-amber-50 p-3 text-center">
                           <p className="text-2xl font-black text-amber-600">{player.draws}</p>
-                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400">Draws</p>
+                          <p className="text-sm text-zinc-500 dark:text-zinc-400">Draws</p>
                         </div>
                         <div className="rounded-xl bg-blue-50 p-3 text-center">
                           <p className="text-2xl font-black text-[#1B5E20]">{player.win_rate}%</p>
-                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400">Win Rate</p>
+                          <p className="text-sm text-zinc-500 dark:text-zinc-400">Win Rate</p>
                         </div>
                       </div>
 
                       <div className="mt-3 grid grid-cols-3 gap-3">
                         <div className="rounded-xl bg-zinc-50 p-3 text-center">
                           <p className="text-lg font-black text-zinc-700 tabular-nums">{player.total_shots_for}</p>
-                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400">Shots For</p>
+                          <p className="text-sm text-zinc-500 dark:text-zinc-400">Shots For</p>
                         </div>
                         <div className="rounded-xl bg-zinc-50 p-3 text-center">
                           <p className="text-lg font-black text-zinc-700 tabular-nums">{player.total_shots_against}</p>
-                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400">Shots Against</p>
+                          <p className="text-sm text-zinc-500 dark:text-zinc-400">Shots Against</p>
                         </div>
                         <div className="rounded-xl bg-zinc-50 p-3 text-center">
                           <p className={cn(
@@ -322,13 +322,13 @@ export default function BowlsStatsPage() {
                           )}>
                             {player.shot_difference > 0 ? "+" : ""}{player.shot_difference}
                           </p>
-                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400">Shot Diff</p>
+                          <p className="text-sm text-zinc-500 dark:text-zinc-400">Shot Diff</p>
                         </div>
                       </div>
 
                       <div className="mt-3 rounded-xl bg-zinc-50 p-3 text-center">
                         <p className="text-lg font-black text-purple-600 tabular-nums">{player.total_ends_won}</p>
-                        <p className="text-[11px] text-zinc-500 dark:text-zinc-400">Total Ends Won</p>
+                        <p className="text-sm text-zinc-500 dark:text-zinc-400">Total Ends Won</p>
                       </div>
                     </motion.div>
                   )}

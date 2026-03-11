@@ -21,6 +21,7 @@ import type {
 import { cn } from "@/lib/utils";
 import { GreenConditionsWidget } from "@/components/bowls/GreenConditionsWidget";
 import { GreenConditionsForm } from "@/components/bowls/GreenConditionsForm";
+import { GuestPlayerBadge } from "@/components/bowls/GuestPlayerBadge";
 import Link from "next/link";
 
 type PageView = "checkin" | "board" | "draw";
@@ -173,11 +174,29 @@ export default function BowlsTournamentPage() {
       )
       .subscribe();
 
+    // REQ-15-12: Realtime subscription for green_conditions
+    const conditionsChannel = supabase
+      .channel(`green_conditions_${tournamentId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "green_conditions",
+          filter: `tournament_id=eq.${tournamentId}`,
+        },
+        () => {
+          loadConditions();
+        }
+      )
+      .subscribe();
+
     // Fallback polling in case realtime is not available
     const interval = setInterval(loadCheckins, 5000);
     return () => {
       clearInterval(interval);
       supabase.removeChannel(channel);
+      supabase.removeChannel(conditionsChannel);
     };
   }, [loadPlayers, loadCheckins, loadTournament, loadConditions, tournamentId]);
 
@@ -303,6 +322,7 @@ export default function BowlsTournamentPage() {
   const positionsNeeded = getPositionsForFormat(format);
   const playersPerRink = BOWLS_FORMAT_LABELS[format].playersPerTeam * 2;
   const possibleRinks = Math.floor(checkins.length / playersPerRink);
+  const guestPlayerIds = new Set(checkins.filter((c) => c.is_guest).map((c) => c.player_id));
 
   const positionCounts: Record<string, number> = {};
   for (const pos of positionsNeeded) {
@@ -391,6 +411,33 @@ export default function BowlsTournamentPage() {
       </header>
 
       <main className="mx-auto max-w-5xl px-4 py-6">
+        {/* ===== GREEN CONDITIONS WIDGET (REQ-15-06) ===== */}
+        {(view === "checkin" || view === "board") && (
+          <div className="mb-4">
+            <GreenConditionsWidget
+              conditions={greenConditions}
+              onEdit={isAdmin ? () => setShowConditionsForm(true) : undefined}
+            />
+          </div>
+        )}
+
+        {/* ===== GREEN CONDITIONS FORM MODAL ===== */}
+        {showConditionsForm && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+            <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+              <GreenConditionsForm
+                tournamentId={tournamentId}
+                existing={greenConditions}
+                onSaved={(saved) => {
+                  setGreenConditions(saved);
+                  setShowConditionsForm(false);
+                }}
+                onCancel={() => setShowConditionsForm(false)}
+              />
+            </div>
+          </div>
+        )}
+
         {/* ===== CHECK-IN VIEW ===== */}
         {view === "checkin" && (
           <div>
@@ -587,6 +634,8 @@ export default function BowlsTournamentPage() {
                         {BOWLS_POSITION_LABELS[checkin.preferred_position as BowlsPosition]?.label}
                       </p>
                     </div>
+                    {/* Guest badge for visiting players */}
+                    {checkin.is_guest && <GuestPlayerBadge />}
                     {/* UCI-10: Check-in source badge */}
                     {checkin.checkin_source && (
                       <span className={cn(
@@ -625,10 +674,10 @@ export default function BowlsTournamentPage() {
 
               {checkins.length === 0 && (
                 <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
-                  <p className="text-lg font-semibold text-zinc-400">
+                  <p className="text-lg font-semibold text-zinc-500">
                     No players checked in yet
                   </p>
-                  <p className="mt-1 text-sm text-zinc-400">
+                  <p className="mt-1 text-sm text-zinc-500">
                     Switch to the Check In tab to register players
                   </p>
                 </div>
@@ -640,12 +689,23 @@ export default function BowlsTournamentPage() {
         {/* ===== DRAW VIEW ===== */}
         {view === "draw" && (
           <div>
+            {/* REQ-15-08: Log Conditions shortcut in draw view */}
+            {isAdmin && (
+              <div className="mb-4 flex justify-end">
+                <button
+                  onClick={() => setShowConditionsForm(true)}
+                  className="rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 px-4 py-2 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/10 transition-colors min-h-[44px]"
+                >
+                  Log Conditions
+                </button>
+              </div>
+            )}
             {totalRounds === 0 ? (
               <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
-                <p className="text-lg font-semibold text-zinc-400">
+                <p className="text-lg font-semibold text-zinc-500">
                   No draw generated yet
                 </p>
-                <p className="mt-1 text-sm text-zinc-400">
+                <p className="mt-1 text-sm text-zinc-500">
                   Check in players and generate a draw from the Board tab
                 </p>
                 <button
@@ -748,7 +808,7 @@ export default function BowlsTournamentPage() {
                             </div>
                             <div className="grid grid-cols-2 divide-x divide-zinc-100 print:divide-zinc-300">
                               <div className="p-4 print:p-3">
-                                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 print:text-zinc-600">
+                                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-500 print:text-zinc-600">
                                   Team 1
                                 </p>
                                 <div className="space-y-2 print:space-y-1">
@@ -780,7 +840,7 @@ export default function BowlsTournamentPage() {
                               </div>
 
                               <div className="p-4 print:p-3">
-                                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 print:text-zinc-600">
+                                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-500 print:text-zinc-600">
                                   Team 2
                                 </p>
                                 <div className="space-y-2 print:space-y-1">

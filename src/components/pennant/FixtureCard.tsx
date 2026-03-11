@@ -62,12 +62,12 @@ export function FixtureCard({
       )}>
         <div className="flex items-center gap-2">
           {showRound && (
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
               Round {fixture.round}
             </span>
           )}
           {fixtureDate && (
-            <span className="flex items-center gap-1 text-xs text-zinc-400 dark:text-zinc-500">
+            <span className="flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-500">
               <Calendar className="h-3 w-3" />
               {fixtureDate.toLocaleDateString(undefined, {
                 month: "short",
@@ -79,21 +79,21 @@ export function FixtureCard({
 
         {/* Status badge */}
         {isCompleted ? (
-          <span className="flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold uppercase text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400">
+          <span className="flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-bold uppercase text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400">
             <Trophy className="h-2.5 w-2.5" />
             Final
           </span>
         ) : isInProgress ? (
-          <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold uppercase text-amber-700 dark:bg-amber-500/20 dark:text-amber-400">
+          <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-bold uppercase text-amber-700 dark:bg-amber-500/20 dark:text-amber-400">
             <Clock className="h-2.5 w-2.5" />
             Live
           </span>
         ) : isPostponed ? (
-          <span className="rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold uppercase text-red-700 dark:bg-red-500/20 dark:text-red-400">
+          <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-bold uppercase text-red-700 dark:bg-red-500/20 dark:text-red-400">
             Postponed
           </span>
         ) : (
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-bold uppercase text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+          <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-bold uppercase text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
             Upcoming
           </span>
         )}
@@ -112,7 +112,7 @@ export function FixtureCard({
             )}>
               {fixture.home_team?.name ?? "TBD"}
             </p>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+            <p className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
               Home
             </p>
           </div>
@@ -137,7 +137,7 @@ export function FixtureCard({
               </div>
             ) : (
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
-                <span className="text-xs font-black text-zinc-400 dark:text-zinc-500">VS</span>
+                <span className="text-xs font-black text-zinc-500 dark:text-zinc-500">VS</span>
               </div>
             )}
           </div>
@@ -152,7 +152,7 @@ export function FixtureCard({
             )}>
               {fixture.away_team?.name ?? "TBD"}
             </p>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+            <p className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
               Away
             </p>
           </div>
@@ -160,7 +160,7 @@ export function FixtureCard({
 
         {/* Rink wins detail (if completed) */}
         {isCompleted && result && !compact && (
-          <div className="mt-3 flex items-center justify-center gap-4 text-[11px] text-zinc-400 dark:text-zinc-500">
+          <div className="mt-3 flex items-center justify-center gap-4 text-sm text-zinc-500 dark:text-zinc-500">
             <span>Rinks: {result.home_rink_wins} - {result.away_rink_wins}</span>
             {isDraw && <span className="font-semibold text-amber-600 dark:text-amber-400">Draw</span>}
           </div>
@@ -168,7 +168,7 @@ export function FixtureCard({
 
         {/* Venue */}
         {fixture.venue && !compact && (
-          <div className="mt-2 flex items-center justify-center gap-1 text-xs text-zinc-400 dark:text-zinc-500">
+          <div className="mt-2 flex items-center justify-center gap-1 text-xs text-zinc-500 dark:text-zinc-500">
             <MapPin className="h-3 w-3" />
             <span>{fixture.venue}</span>
           </div>

@@ -52,7 +52,7 @@ export function GuideNav({ sport }: { sport: Sport }) {
               document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
             }}
             className={cn(
-              "rounded-full px-3 py-1.5 text-xs font-medium transition-all whitespace-nowrap",
+              "rounded-full px-4 py-2.5 text-sm font-medium transition-all whitespace-nowrap min-h-[44px] flex items-center",
               activeSection === id
                 ? "text-white"
                 : "text-zinc-500 hover:text-zinc-600 hover:bg-zinc-100"

@@ -181,11 +181,11 @@ export default function RulesPage() {
                             key={rink}
                             className="flex flex-col items-center rounded border border-[#1B5E20]/30 bg-[#4CAF50]/30 py-6"
                           >
-                            <span className="text-[10px] font-bold text-[#1B5E20]">
+                            <span className="text-xs font-bold text-[#1B5E20]">
                               Rink {rink}
                             </span>
                             <div className="mt-2 h-px w-4 border-t border-dashed border-[#1B5E20]/40" />
-                            <span className="mt-1 text-[8px] text-[#1B5E20]/60">
+                            <span className="mt-1 text-xs text-[#1B5E20]/60">
                               centre line
                             </span>
                           </div>
@@ -336,7 +336,7 @@ export default function RulesPage() {
                       key={i}
                       className="flex items-start gap-3 text-[15px] leading-relaxed text-zinc-700"
                     >
-                      <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#1B5E20] text-[10px] font-bold text-white">
+                      <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#1B5E20] text-xs font-bold text-white">
                         {i + 1}
                       </span>
                       {item}

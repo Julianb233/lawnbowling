@@ -202,11 +202,11 @@ export default function LiveScoresPage() {
                         </span>
                       )}
                       {score.is_finalized ? (
-                        <span className="rounded-full bg-[#1B5E20]/20 px-2.5 py-0.5 text-[10px] font-bold text-[#1B5E20]">
+                        <span className="rounded-full bg-[#1B5E20]/20 px-2.5 py-0.5 text-xs font-bold text-[#1B5E20]">
                           Final
                         </span>
                       ) : (
-                        <span className="rounded-full bg-amber-500/20 px-2.5 py-0.5 text-[10px] font-bold text-amber-400">
+                        <span className="rounded-full bg-amber-500/20 px-2.5 py-0.5 text-xs font-bold text-amber-400">
                           Live
                         </span>
                       )}
@@ -224,7 +224,7 @@ export default function LiveScoresPage() {
                             : "bg-white/5"
                         )}
                       >
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">
+                        <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-1">
                           Team A
                         </p>
                         <motion.p
@@ -250,7 +250,7 @@ export default function LiveScoresPage() {
                           vs
                         </span>
                         <p className={cn(
-                          "text-[10px] font-bold mt-1",
+                          "text-xs font-bold mt-1",
                           score.winner === "team_a" ? "text-blue-400" :
                           score.winner === "team_b" ? "text-purple-400" :
                           score.winner === "draw" ? "text-amber-400" :
@@ -268,7 +268,7 @@ export default function LiveScoresPage() {
                             : "bg-white/5"
                         )}
                       >
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">
+                        <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-1">
                           Team B
                         </p>
                         <motion.p
@@ -372,7 +372,7 @@ export default function LiveScoresPage() {
                     {/* Player names */}
                     {(score.team_a_players?.length > 0 ||
                       score.team_b_players?.length > 0) && (
-                      <div className="mt-3 grid grid-cols-2 gap-3 text-[11px] text-zinc-600 dark:text-zinc-400">
+                      <div className="mt-3 grid grid-cols-2 gap-3 text-sm text-zinc-600 dark:text-zinc-400">
                         <div>
                           {score.team_a_players.map((p) => (
                             <p key={p.player_id}>{p.display_name}</p>

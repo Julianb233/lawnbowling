@@ -48,10 +48,10 @@ function QualityIndicator({ quality }: { quality: MatchQuality }) {
   const labels: Record<MatchQuality["overall"], { text: string; color: string }> = {
     great: { text: "Great match", color: "text-green-500" },
     good: { text: "Good match", color: "text-amber-500" },
-    fair: { text: "Fair match", color: "text-zinc-400" },
+    fair: { text: "Fair match", color: "text-zinc-500" },
   };
   const { text, color } = labels[quality.overall];
-  return <span className={cn("text-[10px] font-medium", color)}>{text}</span>;
+  return <span className={cn("text-xs font-medium", color)}>{text}</span>;
 }
 
 function SuggestionCard({ suggestion, index, onPickMe, isPending }: {
@@ -90,15 +90,15 @@ function SuggestionCard({ suggestion, index, onPickMe, isPending }: {
           {commonSports.map((sport: string) => {
             const info = SPORT_LABELS[sport as Sport];
             return info ? (
-              <span key={sport} className={cn("inline-flex items-center gap-0.5 rounded-full px-1.5 py-0 text-[10px] font-medium", getSportColor(sport).bg, "text-zinc-400")}>
+              <span key={sport} className={cn("inline-flex items-center gap-0.5 rounded-full px-1.5 py-0 text-xs font-medium", getSportColor(sport).bg, "text-zinc-500")}>
                 {info.emoji} {info.short}
               </span>
             ) : null;
           })}
-          {eloDiff !== null && <span className="text-[10px] text-zinc-500">{eloDiff <= 50 ? "~same level" : `${eloDiff} ELO diff`}</span>}
+          {eloDiff !== null && <span className="text-xs text-zinc-500">{eloDiff <= 50 ? "~same level" : `${eloDiff} ELO diff`}</span>}
           <QualityIndicator quality={matchQuality} />
         </div>
-        <p className="mt-0.5 truncate text-[10px] text-zinc-500">{reasons.slice(0, 2).join(" \u00b7 ")}</p>
+        <p className="mt-0.5 truncate text-xs text-zinc-500">{reasons.slice(0, 2).join(" \u00b7 ")}</p>
       </div>
       <motion.button
         whileHover={isPending ? {} : { scale: 1.05 }} whileTap={isPending ? {} : { scale: 0.95 }}
@@ -154,7 +154,7 @@ export function SuggestedPartners({ currentPlayerId, sportFilter, onPickMe, pend
           <div className="flex rounded-full bg-zinc-100 p-0.5">
             {MODE_OPTIONS.map((opt) => (
               <button key={opt.value} onClick={() => setMode(opt.value)} title={opt.desc}
-                className={cn("rounded-full px-2.5 py-0.5 text-[10px] font-medium transition-all",
+                className={cn("rounded-full px-2.5 py-0.5 text-xs font-medium transition-all",
                   mode === opt.value ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500 hover:text-zinc-600")}>
                 {opt.label}
               </button>

@@ -470,7 +470,7 @@ export default function ClubManagerDashboard() {
             )}
 
             {linkedVenues.length === 0 ? (
-              <p className="text-sm text-zinc-400">
+              <p className="text-sm text-zinc-500">
                 No venues linked yet. Link a venue to connect your club.
               </p>
             ) : (
@@ -493,7 +493,7 @@ export default function ClubManagerDashboard() {
                         )}
                       </div>
                       {lv.is_primary && (
-                        <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-[10px] font-bold text-[#2E7D32]">
+                        <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-xs font-bold text-[#2E7D32]">
                           PRIMARY
                         </span>
                       )}

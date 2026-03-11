@@ -59,7 +59,7 @@ export function PositionSlot({ position, playerName, isCurrentUser, playerId }: 
     >
       <span
         className={cn(
-          "shrink-0 text-[10px] font-bold uppercase tracking-wider w-12",
+          "shrink-0 text-xs font-bold uppercase tracking-wider w-12",
           colors.text,
           "print:text-black"
         )}
@@ -78,7 +78,7 @@ export function PositionSlot({ position, playerName, isCurrentUser, playerId }: 
         {playerName}
       </span>
       {isCurrentUser && (
-        <span className="shrink-0 rounded-full bg-[#1B5E20] px-1.5 py-0.5 text-[9px] font-bold text-white print:bg-black print:text-white">
+        <span className="shrink-0 rounded-full bg-[#1B5E20] px-1.5 py-0.5 text-xs font-bold text-white print:bg-black print:text-white">
           You
         </span>
       )}

@@ -145,10 +145,10 @@ export default function BowlsHistoryPage() {
       <main className="mx-auto max-w-3xl px-4 py-6">
         {filtered.length === 0 ? (
           <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
-            <p className="text-lg font-semibold text-zinc-400">
+            <p className="text-lg font-semibold text-zinc-500">
               No tournaments found
             </p>
-            <p className="mt-1 text-sm text-zinc-400">
+            <p className="mt-1 text-sm text-zinc-500">
               {filter === "completed"
                 ? "No completed tournaments yet"
                 : filter === "active"
@@ -203,7 +203,7 @@ export default function BowlsHistoryPage() {
                         </p>
                       </div>
                       <span
-                        className={`rounded-full px-2.5 py-1 text-[11px] font-bold shrink-0 ml-3 ${
+                        className={`rounded-full px-2.5 py-1 text-sm font-bold shrink-0 ml-3 ${
                           isCompleted
                             ? "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
                             : "bg-[#1B5E20]/10 text-[#2E7D32]"
@@ -234,7 +234,7 @@ export default function BowlsHistoryPage() {
                     )}
 
                     {t.creator?.display_name && (
-                      <p className="mt-2 text-xs text-zinc-400">
+                      <p className="mt-2 text-xs text-zinc-500">
                         Created by {t.creator.display_name}
                       </p>
                     )}

@@ -123,6 +123,10 @@ export default function BowlsPage() {
                 <Link href="/bowls/stats" className="text-sm text-[#1B5E20] dark:text-emerald-400 hover:text-[#145218] dark:hover:text-emerald-300 py-1">
                   Stats
                 </Link>
+                <span className="text-zinc-300 dark:text-zinc-600">|</span>
+                <Link href="/pennant" className="text-sm text-[#1B5E20] dark:text-emerald-400 hover:text-[#145218] dark:hover:text-emerald-300 py-1">
+                  Pennant
+                </Link>
               </div>
             </div>
             <button
@@ -149,7 +153,7 @@ export default function BowlsPage() {
       <main className="mx-auto max-w-3xl px-4 py-6">
         {activeTournaments.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-zinc-400">
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-zinc-500">
               Active Tournaments
             </h2>
             <div className="space-y-3">
@@ -162,7 +166,7 @@ export default function BowlsPage() {
 
         {pastTournaments.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-zinc-400">
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-zinc-500">
               Past Tournaments
             </h2>
             <div className="space-y-3">
@@ -243,10 +247,10 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
               <p className="text-lg font-black text-[#1B5E20] dark:text-emerald-400">
                 {t.checkin_count ?? 0}
               </p>
-              <p className="text-[11px] text-zinc-400">checked in</p>
+              <p className="text-sm text-zinc-500">checked in</p>
             </div>
             <span
-              className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
+              className={`rounded-full px-2.5 py-1 text-sm font-bold ${
                 isActive
                   ? "bg-[#1B5E20]/10 dark:bg-emerald-400/10 text-[#2E7D32] dark:text-emerald-400"
                   : "bg-zinc-100 dark:bg-white/5 text-zinc-500 dark:text-zinc-400"
@@ -257,7 +261,7 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
           </div>
         </div>
         {t.creator?.display_name && (
-          <p className="mt-2 text-xs text-zinc-400">
+          <p className="mt-2 text-xs text-zinc-500">
             Created by {t.creator.display_name}
           </p>
         )}

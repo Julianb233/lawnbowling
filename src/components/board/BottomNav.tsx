@@ -26,13 +26,15 @@ export function BottomNav() {
     >
       <div className="flex items-center justify-around py-2">
         {NAV_ITEMS.map((item) => {
-          const active = pathname === item.href || (item.href !== "/board" && (pathname?.startsWith(item.href + "/") ?? false));
+          const active = pathname === item.href
+            || (item.href !== "/board" && (pathname?.startsWith(item.href + "/") ?? false))
+            || (item.href === "/bowls" && (pathname?.startsWith("/pennant") ?? false));
           return (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "relative flex flex-col items-center justify-center gap-0.5 px-4 py-2 text-xs transition-colors min-h-[44px]",
+                "relative flex flex-col items-center justify-center gap-0.5 px-4 py-2 text-[13px] transition-colors min-h-[44px]",
                 active ? "text-[#1B5E20] dark:text-emerald-400 font-semibold" : "text-zinc-500 dark:text-zinc-400"
               )}
             >

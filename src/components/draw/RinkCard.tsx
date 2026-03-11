@@ -80,16 +80,16 @@ export function RinkCard({
         <span className="text-2xl font-black text-zinc-900 dark:text-foreground print:text-black">
           {rinkNumber}
         </span>
-        <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 print:text-black">
+        <span className="text-xs font-bold uppercase tracking-wider text-zinc-500 print:text-black">
           Rink
         </span>
         {rinkLocation && (
-          <span className="ml-auto text-xs text-zinc-400 print:text-black">
+          <span className="ml-auto text-xs text-zinc-500 print:text-black">
             {rinkLocation}
           </span>
         )}
         {hasCurrentUser && (
-          <span className="ml-auto rounded-full bg-[#1B5E20] px-2 py-0.5 text-[10px] font-bold text-white no-print">
+          <span className="ml-auto rounded-full bg-[#1B5E20] px-2 py-0.5 text-xs font-bold text-white no-print">
             Your Rink
           </span>
         )}
@@ -99,7 +99,7 @@ export function RinkCard({
       <div className="grid grid-cols-2 divide-x divide-zinc-100 print:divide-black">
         {/* Team 1 */}
         <div className="p-3 space-y-1.5">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 mb-2 print:text-black">
+          <p className="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-2 print:text-black">
             Team 1
           </p>
           {team1.map((a) => (
@@ -115,7 +115,7 @@ export function RinkCard({
 
         {/* Team 2 */}
         <div className="p-3 space-y-1.5">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-blue-600 mb-2 print:text-black">
+          <p className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2 print:text-black">
             Team 2
           </p>
           {team2.map((a) => (

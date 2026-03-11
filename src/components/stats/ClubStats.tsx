@@ -41,17 +41,17 @@ export function ClubStats({ clubId }: { clubId: string }) {
         <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-3 text-center">
           <Users className="mx-auto mb-1 h-4 w-4 text-[#1B5E20]" />
           <p className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{stats.total_members}</p>
-          <p className="text-[10px] text-zinc-500 dark:text-zinc-400">Members</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Members</p>
         </div>
         <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-3 text-center">
           <Trophy className="mx-auto mb-1 h-4 w-4 text-[#1B5E20]" />
           <p className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{stats.total_games}</p>
-          <p className="text-[10px] text-zinc-500 dark:text-zinc-400">Games</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Games</p>
         </div>
         <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-3 text-center">
           <TrendingUp className="mx-auto mb-1 h-4 w-4 text-[#1B5E20]" />
           <p className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{Math.round(stats.club_win_rate)}%</p>
-          <p className="text-[10px] text-zinc-500 dark:text-zinc-400">Win Rate</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Win Rate</p>
         </div>
       </div>
 
@@ -65,7 +65,7 @@ export function ClubStats({ clubId }: { clubId: string }) {
                 className="flex items-center justify-between rounded-lg bg-zinc-50 px-3 py-1.5 text-sm"
               >
                 <span className="text-zinc-700">{p.display_name}</span>
-                <span className="text-xs text-zinc-400">{p.games_played} games</span>
+                <span className="text-xs text-zinc-500">{p.games_played} games</span>
               </div>
             ))}
           </div>

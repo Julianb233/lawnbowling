@@ -547,7 +547,7 @@ export default function ScoreEntryPage() {
                 )}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">
+                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-500">
                     Rink {entry.rink}
                   </span>
                   <div className="flex items-center gap-1">
@@ -555,7 +555,7 @@ export default function ScoreEntryPage() {
                       <span className="h-2 w-2 rounded-full bg-amber-400" title="Unsaved changes" />
                     )}
                     {entry.isFinalized && (
-                      <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-[10px] font-bold text-[#2E7D32]">
+                      <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-xs font-bold text-[#2E7D32]">
                         Final
                       </span>
                     )}
@@ -602,13 +602,13 @@ export default function ScoreEntryPage() {
                         </span>
                       </MatchPoint>
                     </div>
-                    <p className="text-[11px] text-zinc-400 mt-1">
+                    <p className="text-sm text-zinc-500 mt-1">
                       {entry.teamAScores.length} end
                       {entry.teamAScores.length !== 1 ? "s" : ""} played
                     </p>
                   </div>
                 ) : (
-                  <p className="text-sm text-zinc-400 mt-2">
+                  <p className="text-sm text-zinc-500 mt-2">
                     Tap to enter scores
                   </p>
                 )}
@@ -644,7 +644,7 @@ export default function ScoreEntryPage() {
                       Rink {rinkScores[activeRink].rink} &mdash; End by End
                     </h2>
                     {rinkScores[activeRink].teamAScores.length > 0 && (
-                      <p className="text-xs text-zinc-400 mt-0.5">
+                      <p className="text-xs text-zinc-500 mt-0.5">
                         Currently on End {rinkScores[activeRink].teamAScores.length}
                       </p>
                     )}
@@ -682,10 +682,10 @@ export default function ScoreEntryPage() {
               <div className="p-6">
                 {rinkScores[activeRink].teamAScores.length === 0 ? (
                   <div className="py-8 text-center">
-                    <p className="text-lg font-semibold text-zinc-400">
+                    <p className="text-lg font-semibold text-zinc-500">
                       No ends recorded yet
                     </p>
-                    <p className="mt-1 text-sm text-zinc-400">
+                    <p className="mt-1 text-sm text-zinc-500">
                       Tap &quot;+ End&quot; to start scoring
                     </p>
                   </div>
@@ -694,7 +694,7 @@ export default function ScoreEntryPage() {
                     <table className="w-full">
                       <thead>
                         <tr>
-                          <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-zinc-400">
+                          <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">
                             &nbsp;
                           </th>
                           {rinkScores[activeRink].teamAScores.map((_, i) => (
@@ -835,7 +835,7 @@ export default function ScoreEntryPage() {
                 {!rinkScores[activeRink].isFinalized &&
                   rinkScores[activeRink].teamAScores.length > 0 && (
                     <div className="mt-6 flex items-center justify-between">
-                      <p className="text-xs text-zinc-400">
+                      <p className="text-xs text-zinc-500">
                         Auto-saves after changes
                       </p>
                       <button

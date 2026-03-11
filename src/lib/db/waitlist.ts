@@ -69,6 +69,19 @@ export async function getPlayerPosition(venueId: string, playerId: string) {
   return data;
 }
 
+export async function getPlayerWaitStatus(playerId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("court_waitlist")
+    .select("*, venue:venues(id, name)")
+    .eq("player_id", playerId)
+    .eq("status", "waiting")
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
 export async function promoteNextFromWaitlist(
   venueId: string,
   sport: string,

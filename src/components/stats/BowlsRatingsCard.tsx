@@ -61,7 +61,7 @@ function TierBadge({ rating }: { rating: number }) {
   return (
     <span
       className={cn(
-        "inline-block rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+        "inline-block rounded-full border px-2 py-0.5 text-xs font-bold uppercase tracking-wider",
         TIER_COLORS[tier] ?? TIER_COLORS.beginner
       )}
     >
@@ -86,7 +86,7 @@ function PositionCard({
   return (
     <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+        <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
           {posLabel}
         </span>
         <TierBadge rating={rating.elo_rating} />
@@ -108,7 +108,7 @@ function PositionCard({
       {/* Shot differential & ends won */}
       <div className="mt-3 flex gap-3 border-t border-zinc-100 pt-3">
         <div className="flex-1">
-          <p className="text-xs text-zinc-400">Shot Diff</p>
+          <p className="text-xs text-zinc-500">Shot Diff</p>
           <p
             className={cn(
               "text-sm font-bold tabular-nums",
@@ -124,7 +124,7 @@ function PositionCard({
           </p>
         </div>
         <div className="flex-1">
-          <p className="text-xs text-zinc-400">Ends Won</p>
+          <p className="text-xs text-zinc-500">Ends Won</p>
           <p className="text-sm font-bold tabular-nums text-zinc-700">
             {rating.ends_won_pct}%
           </p>
