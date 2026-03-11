@@ -39,6 +39,7 @@ import {
 import { SingleClubMap } from "@/components/clubs/SingleClubMap";
 import { VisitClubButton } from "@/components/clubs/VisitClubButton";
 import { VisitorCount } from "@/components/clubs/VisitorCount";
+import ClubEventCalendar from "@/components/clubs/ClubEventCalendar";
 
 interface ClubPageProps {
   params: Promise<{ state: string; slug: string }>;
@@ -289,6 +290,11 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                 </div>
               </section>
             )}
+
+            {/* Event Calendar */}
+            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+              <ClubEventCalendar clubId={club.id} />
+            </section>
 
             {/* Facilities */}
             {club.facilities.length > 0 && (
