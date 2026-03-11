@@ -245,7 +245,7 @@ export default function TVScoreboardPage() {
                 minute: "2-digit",
               })}
             </p>
-            <p className="text-xs text-zinc-500">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
               {currentTime.toLocaleDateString([], {
                 weekday: "long",
                 month: "short",
@@ -356,7 +356,7 @@ export default function TVScoreboardPage() {
                   ))}
               </div>
 
-              <p className="mt-6 text-center text-sm text-zinc-500">
+              <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
                 This announcement will dismiss automatically
               </p>
             </div>
@@ -370,7 +370,7 @@ export default function TVScoreboardPage() {
           <div className="flex min-h-[60vh] items-center justify-center">
             <div className="text-center">
               <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-zinc-800 text-5xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-600 dark:text-zinc-400">
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12 6 12 12 16 14" />
                 </svg>
@@ -378,7 +378,7 @@ export default function TVScoreboardPage() {
               <h2 className="text-3xl font-black text-zinc-400">
                 No Active Tournament
               </h2>
-              <p className="mt-2 text-lg text-zinc-600">
+              <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
                 Waiting for a tournament to begin...
               </p>
             </div>
@@ -388,7 +388,7 @@ export default function TVScoreboardPage() {
             {/* Round Tabs */}
             {maxRound > 1 && (
               <div className="mb-6 flex items-center gap-2">
-                <span className="mr-2 text-sm font-semibold uppercase tracking-wider text-zinc-500">
+                <span className="mr-2 text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   Round
                 </span>
                 {Array.from({ length: maxRound }, (_, i) => i + 1).map(
@@ -420,10 +420,10 @@ export default function TVScoreboardPage() {
             ) : (
               <div className="flex min-h-[50vh] items-center justify-center">
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold text-zinc-500">
+                  <h3 className="text-2xl font-bold text-zinc-500 dark:text-zinc-400">
                     Round {currentRound}
                   </h3>
-                  <p className="mt-2 text-lg text-zinc-600">
+                  <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
                     Waiting for scores...
                   </p>
                 </div>
@@ -436,10 +436,10 @@ export default function TVScoreboardPage() {
       {/* Footer */}
       <footer className="fixed bottom-0 left-0 right-0 border-t border-white/5 bg-zinc-950/90 backdrop-blur px-8 py-3">
         <div className="flex items-center justify-between">
-          <p className="text-xs text-zinc-600">
+          <p className="text-xs text-zinc-600 dark:text-zinc-400">
             Powered by Lawnbowling App
           </p>
-          <p className="text-xs text-zinc-600">
+          <p className="text-xs text-zinc-600 dark:text-zinc-400">
             Auto-refreshing &middot; TV Display Mode
           </p>
         </div>
@@ -512,7 +512,7 @@ function ScoreCard({ score }: { score: TournamentScore }) {
                 </p>
               ))}
               {(!score.team_a_players || score.team_a_players.length === 0) && (
-                <p className="text-sm text-zinc-500">--</p>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">--</p>
               )}
             </div>
           </div>
@@ -534,7 +534,7 @@ function ScoreCard({ score }: { score: TournamentScore }) {
         {/* Divider */}
         <div className="my-3 flex items-center gap-3">
           <div className="flex-1 border-t border-white/5" />
-          <span className="text-xs font-bold text-zinc-600">VS</span>
+          <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400">VS</span>
           <div className="flex-1 border-t border-white/5" />
         </div>
 
@@ -559,7 +559,7 @@ function ScoreCard({ score }: { score: TournamentScore }) {
                 </p>
               ))}
               {(!score.team_b_players || score.team_b_players.length === 0) && (
-                <p className="text-sm text-zinc-500">--</p>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">--</p>
               )}
             </div>
           </div>
@@ -598,7 +598,7 @@ function ScoreCard({ score }: { score: TournamentScore }) {
         {/* End-by-end scores */}
         {hasScores && (
           <div className="mt-4 border-t border-white/5 pt-4">
-            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-zinc-500">
+            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               End-by-End
             </p>
             <div className="flex gap-1 overflow-x-auto scrollbar-hide">
@@ -609,14 +609,14 @@ function ScoreCard({ score }: { score: TournamentScore }) {
                     key={i}
                     className="flex flex-col items-center rounded-lg bg-zinc-800/50 px-2 py-1.5 min-w-[36px]"
                   >
-                    <span className="text-[10px] text-zinc-600">{i + 1}</span>
+                    <span className="text-[10px] text-zinc-600 dark:text-zinc-400">{i + 1}</span>
                     <span
                       className={cn(
                         "text-xs font-bold tabular-nums",
                         sa > sb
                           ? "text-emerald-400"
                           : sa < sb
-                            ? "text-zinc-500"
+                            ? "text-zinc-500 dark:text-zinc-400"
                             : "text-white"
                       )}
                     >
@@ -628,7 +628,7 @@ function ScoreCard({ score }: { score: TournamentScore }) {
                         sb > sa
                           ? "text-blue-400"
                           : sb < sa
-                            ? "text-zinc-500"
+                            ? "text-zinc-500 dark:text-zinc-400"
                             : "text-white"
                       )}
                     >

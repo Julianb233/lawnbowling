@@ -16,10 +16,14 @@ import type {
   BowlsGameFormat,
   BowlsCheckin,
   BowlsTeamAssignment,
+  GreenConditions,
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { PrintDrawSheet } from "@/components/bowls/PrintDrawSheet";
+import { DrawSheet } from "@/components/draw/DrawSheet";
 import { TournamentWizard } from "@/components/bowls/TournamentWizard";
+import { GreenConditionsWidget } from "@/components/bowls/GreenConditionsWidget";
+import { GreenConditionsForm } from "@/components/bowls/GreenConditionsForm";
 import Link from "next/link";
 import type { DrawStyle, MultiRoundDrawResult } from "@/lib/bowls-draw";
 import { DRAW_STYLE_LABELS } from "@/lib/bowls-draw";
@@ -64,6 +68,41 @@ export default function BowlsTournamentPage() {
   const [generatingDraw, setGeneratingDraw] = useState(false);
   const [tournamentName, setTournamentName] = useState("Lawn Bowls");
   const [drawRound, setDrawRound] = useState(1);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [greenConditions, setGreenConditions] = useState<GreenConditions | null>(null);
+  const [showConditionsForm, setShowConditionsForm] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Load current user's player ID for draw highlighting + admin check
+  useEffect(() => {
+    async function loadCurrentUser() {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data: player } = await supabase
+        .from("players")
+        .select("id, role")
+        .eq("user_id", user.id)
+        .single();
+      if (player) {
+        setCurrentUserId(player.id);
+        setIsAdmin(player.role === "admin");
+      }
+    }
+    loadCurrentUser();
+  }, []);
+
+  const loadGreenConditions = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/bowls/green-conditions?tournament_id=${tournamentId}`);
+      if (res.ok) {
+        const data = await res.json();
+        setGreenConditions(data);
+      }
+    } catch {
+      // Non-critical
+    }
+  }, [tournamentId]);
 
   const loadPlayers = useCallback(async () => {
     const supabase = createClient();
@@ -107,6 +146,7 @@ export default function BowlsTournamentPage() {
     loadPlayers();
     loadCheckins();
     loadTournament();
+    loadGreenConditions();
 
     // UCI-04: Realtime subscription for bowls_checkins — kiosk check-ins appear within 3 seconds
     const supabase = createClient();
@@ -126,13 +166,31 @@ export default function BowlsTournamentPage() {
       )
       .subscribe();
 
+    // Realtime subscription for green conditions (REQ-15-12)
+    const conditionsChannel = supabase
+      .channel(`green_conditions_${tournamentId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "green_conditions",
+          filter: `tournament_id=eq.${tournamentId}`,
+        },
+        () => {
+          loadGreenConditions();
+        }
+      )
+      .subscribe();
+
     // Fallback polling in case realtime is not available
     const interval = setInterval(loadCheckins, 5000);
     return () => {
       clearInterval(interval);
       supabase.removeChannel(channel);
+      supabase.removeChannel(conditionsChannel);
     };
-  }, [loadPlayers, loadCheckins, loadTournament, tournamentId]);
+  }, [loadPlayers, loadCheckins, loadTournament, loadGreenConditions, tournamentId]);
 
   function handlePlayerTap(player: Player) {
     const existing = checkins.find((c) => c.player_id === player.id);
@@ -280,11 +338,11 @@ export default function BowlsTournamentPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for your name..."
-                className="w-full rounded-2xl border border-zinc-200 bg-white px-5 py-4 text-lg text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                className="w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-5 py-4 text-lg text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
               />
             </div>
 
-            <p className="mb-4 text-center text-sm text-zinc-500">
+            <p className="mb-4 text-center text-sm text-zinc-500 dark:text-zinc-400">
               Tap your name, then choose your preferred position
             </p>
 
@@ -355,7 +413,7 @@ export default function BowlsTournamentPage() {
                     <span
                       className={cn(
                         "text-sm font-medium truncate max-w-full",
-                        checked ? "text-[#2E7D32]" : "text-zinc-600"
+                        checked ? "text-[#2E7D32]" : "text-zinc-600 dark:text-zinc-400"
                       )}
                     >
                       {player.display_name}
@@ -428,16 +486,16 @@ export default function BowlsTournamentPage() {
             <div className="mb-6 rounded-2xl bg-white border border-zinc-200 p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-black text-zinc-900">
+                  <p className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
                     {checkins.length}
                   </p>
-                  <p className="text-xs text-zinc-500">players checked in</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">players checked in</p>
                 </div>
                 <div className="text-right">
                   <p className="text-2xl font-black text-[#1B5E20]">
                     {possibleRinks}
                   </p>
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
                     rinks possible ({BOWLS_FORMAT_LABELS[format].label})
                   </p>
                 </div>
@@ -484,7 +542,7 @@ export default function BowlsTournamentPage() {
                       <p className="text-sm font-semibold text-zinc-900 truncate">
                         {displayName}
                       </p>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400">
                         {BOWLS_POSITION_LABELS[checkin.preferred_position as BowlsPosition]?.label}
                       </p>
                     </div>
@@ -495,7 +553,7 @@ export default function BowlsTournamentPage() {
                           ? "bg-blue-100 text-blue-700"
                           : checkin.checkin_source === "app"
                             ? "bg-purple-100 text-purple-700"
-                            : "bg-zinc-100 text-zinc-500"
+                            : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
                       )}>
                         {checkin.checkin_source}
                       </span>
@@ -598,10 +656,10 @@ export default function BowlsTournamentPage() {
 
                 <div className="mb-6 flex items-center justify-between">
                   <div>
-                    <h2 className="text-xl font-black text-zinc-900">
+                    <h2 className="text-xl font-black text-zinc-900 dark:text-zinc-100">
                       Tournament Draw &mdash; Round {multiRoundDraw ? selectedRound + 1 : drawRound}
                     </h2>
-                    <p className="text-sm text-zinc-500">
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
                       {tournamentName} &middot; {BOWLS_FORMAT_LABELS[drawResult.format].label} &middot;{" "}
                       {drawResult.rinkCount} rink
                       {drawResult.rinkCount !== 1 ? "s" : ""}
@@ -610,7 +668,7 @@ export default function BowlsTournamentPage() {
                   <div className="flex items-center gap-2 no-print">
                     <button
                       onClick={() => window.print()}
-                      className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                      className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
                     >
                       Print Draw Sheet
                     </button>
@@ -627,7 +685,7 @@ export default function BowlsTournamentPage() {
                     )}
                     <button
                       onClick={() => handleGenerateDraw()}
-                      className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                      className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
                     >
                       Re-Draw
                     </button>
@@ -753,17 +811,17 @@ export default function BowlsTournamentPage() {
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-5xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
               <Link href="/bowls" className="text-sm text-zinc-400 hover:text-zinc-600 mb-1 block">
                 &larr; Tournaments
               </Link>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+              <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
                 {tournamentName}
               </h1>
-              <p className="text-sm text-zinc-500">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 {checkins.length} players checked in
               </p>
             </div>
@@ -809,12 +867,12 @@ export default function BowlsTournamentPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="mx-4 w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl"
+              className="mx-4 w-full max-w-md rounded-3xl bg-white dark:bg-[#1a3d28] p-6 shadow-2xl"
             >
-              <h3 className="mb-1 text-xl font-black text-zinc-900">
+              <h3 className="mb-1 text-xl font-black text-zinc-900 dark:text-zinc-100">
                 {selectedPlayer.display_name}
               </h3>
-              <p className="mb-6 text-sm text-zinc-500">
+              <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
                 Choose your preferred position for{" "}
                 {BOWLS_FORMAT_LABELS[format].label}
               </p>
@@ -835,10 +893,10 @@ export default function BowlsTournamentPage() {
                       {BOWLS_POSITION_LABELS[pos].order}
                     </div>
                     <div>
-                      <p className="text-base font-bold text-zinc-900">
+                      <p className="text-base font-bold text-zinc-900 dark:text-zinc-100">
                         {BOWLS_POSITION_LABELS[pos].label}
                       </p>
-                      <p className="text-sm text-zinc-500">
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400">
                         {BOWLS_POSITION_LABELS[pos].description}
                       </p>
                     </div>

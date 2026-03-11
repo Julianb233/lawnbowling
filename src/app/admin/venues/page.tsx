@@ -49,7 +49,7 @@ export default function VenuesAdminPage() {
       <h1 className="text-2xl font-bold text-zinc-900 mb-6">Venue Management</h1>
 
       {/* Create venue */}
-      <div className="rounded-xl border border-zinc-200 bg-white p-4 mb-6">
+      <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 mb-6">
         <h2 className="text-sm font-semibold text-zinc-600 mb-3">Add New Venue</h2>
         <div className="flex flex-col sm:flex-row gap-2">
           <input
@@ -86,12 +86,12 @@ export default function VenuesAdminPage() {
             }`}
           >
             <div>
-              <span className="font-medium text-zinc-900">{venue.name}</span>
+              <span className="font-medium text-zinc-900 dark:text-zinc-100">{venue.name}</span>
               {venue.address && (
-                <span className="ml-2 text-xs text-zinc-500">{venue.address}</span>
+                <span className="ml-2 text-xs text-zinc-500 dark:text-zinc-400">{venue.address}</span>
               )}
               {venue.sports?.length > 0 && (
-                <span className="ml-2 text-xs text-zinc-600">
+                <span className="ml-2 text-xs text-zinc-600 dark:text-zinc-400">
                   {venue.sports.map((s) => s.replace("_", " ")).join(", ")}
                 </span>
               )}
@@ -107,7 +107,7 @@ export default function VenuesAdminPage() {
                   Select
                 </Button>
               )}
-              <a href="/admin/venue" className="inline-flex items-center justify-center rounded-md text-sm font-medium text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 h-8 px-3 transition-colors">
+              <a href="/admin/venue" className="inline-flex items-center justify-center rounded-md text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 h-8 px-3 transition-colors">
                 Settings
               </a>
             </div>

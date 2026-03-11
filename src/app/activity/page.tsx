@@ -20,7 +20,7 @@ export default async function ActivityPage() {
 
   return (
     <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200 dark:border-white/10">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-2">
             <Link
@@ -29,7 +29,7 @@ export default async function ActivityPage() {
             >
               <ArrowLeft className="h-5 w-5" />
             </Link>
-            <h1 className="text-xl font-bold text-zinc-900">Activity</h1>
+            <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">Activity</h1>
           </div>
           <p className="text-sm text-zinc-500 ml-10">
             Recent happenings at the venue

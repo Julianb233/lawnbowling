@@ -33,14 +33,14 @@ export function ReviewsList({ reviews }: ReviewsListProps) {
         <div key={review.id} className="rounded-xl glass p-3">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-200 text-xs font-bold text-zinc-600">
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-200 text-xs font-bold text-zinc-600 dark:text-zinc-400">
                 {review.reviewer?.display_name?.charAt(0)?.toUpperCase() || "?"}
               </div>
               <span className="text-sm font-medium text-zinc-700">
                 {review.reviewer?.display_name || "Anonymous"}
               </span>
             </div>
-            <span className="text-xs text-zinc-500">
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">
               {timeAgo(review.created_at)}
             </span>
           </div>
@@ -62,7 +62,7 @@ export function ReviewsList({ reviews }: ReviewsListProps) {
             ))}
           </div>
           {review.comment && (
-            <p className="text-sm text-zinc-600">{review.comment}</p>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">{review.comment}</p>
           )}
         </div>
       ))}

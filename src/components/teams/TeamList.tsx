@@ -76,7 +76,7 @@ export function TeamList() {
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <Users className="mb-3 h-12 w-12 text-zinc-700" />
           <h3 className="mb-1 text-lg font-semibold text-zinc-400">No teams yet</h3>
-          <p className="text-sm text-zinc-600">Create a team or join one with an invite code</p>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">Create a team or join one with an invite code</p>
         </div>
       ) : (
         <motion.div

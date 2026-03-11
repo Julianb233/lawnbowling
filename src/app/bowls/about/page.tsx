@@ -52,8 +52,8 @@ export default function BowlsAboutPage() {
   const equipIcons: Record<string, React.ReactNode> = {
     bowls: <Circle className="w-6 h-6 text-zinc-700" strokeWidth={1.5} />,
     jack: <CircleDot className="w-6 h-6 text-zinc-400" strokeWidth={1.5} />,
-    mat: <Ruler className="w-6 h-6 text-zinc-600" strokeWidth={1.5} />,
-    shoes: <Footprints className="w-6 h-6 text-zinc-600" strokeWidth={1.5} />,
+    mat: <Ruler className="w-6 h-6 text-zinc-600 dark:text-zinc-400" strokeWidth={1.5} />,
+    shoes: <Footprints className="w-6 h-6 text-zinc-600 dark:text-zinc-400" strokeWidth={1.5} />,
   };
 
   return (
@@ -85,7 +85,7 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900">
+          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
             What is Lawn Bowls?
           </h2>
           <p className="mt-3 text-zinc-600 leading-relaxed">
@@ -125,7 +125,7 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900">Key Equipment</h2>
+          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">Key Equipment</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {[
               {
@@ -154,8 +154,8 @@ export default function BowlsAboutPage() {
                 className="rounded-xl bg-white border border-zinc-200 p-4"
               >
                 {equipIcons[item.icon]}
-                <h3 className="mt-2 font-bold text-zinc-900">{item.name}</h3>
-                <p className="mt-1 text-sm text-zinc-500">{item.desc}</p>
+                <h3 className="mt-2 font-bold text-zinc-900 dark:text-zinc-100">{item.name}</h3>
+                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -167,7 +167,7 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900">
+          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
             Team Positions
           </h2>
           <p className="mt-2 text-zinc-500 text-sm">
@@ -185,8 +185,8 @@ export default function BowlsAboutPage() {
                   {4 - i}
                 </div>
                 <div>
-                  <h3 className="font-bold text-zinc-900">{pos.name}</h3>
-                  <p className="mt-0.5 text-sm text-zinc-500">
+                  <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{pos.name}</h3>
+                  <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
                     {pos.description}
                   </p>
                 </div>
@@ -201,7 +201,7 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900">Game Formats</h2>
+          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">Game Formats</h2>
           <div className="mt-4 space-y-3">
             {FORMATS.map((f) => (
               <div
@@ -209,12 +209,12 @@ export default function BowlsAboutPage() {
                 className="rounded-xl bg-white border border-zinc-200 p-4"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-zinc-900">{f.name}</h3>
+                  <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{f.name}</h3>
                   <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-bold text-[#2E7D32]">
                     {f.players}
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-zinc-500">{f.desc}</p>
+                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -226,7 +226,7 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900">
+          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
             How a Game Works
           </h2>
           <div className="mt-4 space-y-4">
@@ -257,8 +257,8 @@ export default function BowlsAboutPage() {
                   {s.step}
                 </div>
                 <div>
-                  <h3 className="font-bold text-zinc-900">{s.title}</h3>
-                  <p className="mt-0.5 text-sm text-zinc-500">{s.desc}</p>
+                  <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{s.title}</h3>
+                  <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">{s.desc}</p>
                 </div>
               </div>
             ))}
@@ -271,7 +271,7 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900">
+          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
             A Brief History
           </h2>
           <div className="mt-4 space-y-3">
@@ -281,7 +281,7 @@ export default function BowlsAboutPage() {
                 className="flex gap-3 rounded-xl bg-white border border-zinc-200 p-4"
               >
                 <ScrollText className="w-5 h-5 shrink-0 text-zinc-400 mt-0.5" strokeWidth={1.5} />
-                <p className="text-sm text-zinc-600">{fact}</p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400">{fact}</p>
               </div>
             ))}
           </div>

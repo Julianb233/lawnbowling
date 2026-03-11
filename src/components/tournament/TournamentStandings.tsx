@@ -23,7 +23,7 @@ interface TournamentStandingsProps {
 export function TournamentStandings({ standings }: TournamentStandingsProps) {
   if (standings.length === 0) {
     return (
-      <div className="py-8 text-center text-sm text-zinc-500">
+      <div className="py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
         No participants yet
       </div>
     );
@@ -33,12 +33,12 @@ export function TournamentStandings({ standings }: TournamentStandingsProps) {
     <div className="overflow-hidden rounded-2xl border border-zinc-200">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-zinc-200 bg-zinc-50">
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">#</th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">Player</th>
-            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500">W</th>
-            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500">L</th>
-            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500">Status</th>
+          <tr className="border-b border-zinc-200 bg-zinc-50 dark:bg-white/5">
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">#</th>
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">Player</th>
+            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">W</th>
+            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">L</th>
+            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +46,7 @@ export function TournamentStandings({ standings }: TournamentStandingsProps) {
             <tr
               key={s.player_id}
               className={cn(
-                "border-b border-zinc-200/50 transition-colors hover:bg-zinc-50",
+                "border-b border-zinc-200/50 transition-colors hover:bg-zinc-50 dark:bg-white/5",
                 i === 0 && "bg-amber-500/5"
               )}
             >
@@ -54,11 +54,11 @@ export function TournamentStandings({ standings }: TournamentStandingsProps) {
                 {i === 0 ? (
                   <Trophy className="h-4 w-4 text-amber-400" />
                 ) : i === 1 ? (
-                  <Medal className="h-4 w-4 text-zinc-600" />
+                  <Medal className="h-4 w-4 text-zinc-600 dark:text-zinc-400" />
                 ) : i === 2 ? (
                   <Medal className="h-4 w-4 text-amber-600" />
                 ) : (
-                  <span className="text-sm text-zinc-500">{i + 1}</span>
+                  <span className="text-sm text-zinc-500 dark:text-zinc-400">{i + 1}</span>
                 )}
               </td>
               <td className="px-4 py-3">

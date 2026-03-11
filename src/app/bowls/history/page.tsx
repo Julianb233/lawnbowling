@@ -86,20 +86,20 @@ export default function BowlsHistoryPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+              <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
                 Tournament History
               </h1>
-              <p className="text-sm text-zinc-500">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 {tournaments.length} tournament{tournaments.length !== 1 ? "s" : ""} total
               </p>
             </div>
             <Link
               href="/bowls"
-              className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation inline-flex items-center"
+              className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation inline-flex items-center"
             >
               Back to Bowls
             </Link>
@@ -158,7 +158,7 @@ export default function BowlsHistoryPage() {
                         <h3 className="text-base font-bold text-zinc-900 truncate">
                           {t.name}
                         </h3>
-                        <p className="mt-0.5 text-sm text-zinc-500">
+                        <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
                           {formatLabel}
                           {t.starts_at && (
                             <>
@@ -187,7 +187,7 @@ export default function BowlsHistoryPage() {
                       <span
                         className={`rounded-full px-2.5 py-1 text-[11px] font-bold shrink-0 ml-3 ${
                           isCompleted
-                            ? "bg-zinc-100 text-zinc-500"
+                            ? "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
                             : "bg-[#1B5E20]/10 text-[#2E7D32]"
                         }`}
                       >
@@ -196,7 +196,7 @@ export default function BowlsHistoryPage() {
                     </div>
 
                     {/* Stats row */}
-                    <div className="mt-3 flex items-center gap-4 text-xs text-zinc-500">
+                    <div className="mt-3 flex items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400">
                       <span className="flex items-center gap-1">
                         <span className="font-bold text-[#1B5E20]">{t.checkin_count}</span> players
                       </span>

@@ -51,7 +51,7 @@ export function WaiverForm({ waiverText = DEFAULT_WAIVER_TEXT, onSubmit, venueNa
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="flex items-center gap-2 text-zinc-500">
+      <div className="flex items-center gap-2 text-zinc-500 dark:text-zinc-400">
         <FileText className="h-5 w-5" />
         <h3 className="text-sm font-medium uppercase tracking-wide">Liability Waiver</h3>
       </div>

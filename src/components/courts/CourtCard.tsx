@@ -56,7 +56,7 @@ function PlayerList({ players }: { players: MatchPlayer[] }) {
       {players.map((mp) => (
         <span
           key={mp.player_id}
-          className="inline-flex items-center rounded-md bg-zinc-700/50 px-2 py-0.5 text-xs text-zinc-600"
+          className="inline-flex items-center rounded-md bg-zinc-700/50 px-2 py-0.5 text-xs text-zinc-600 dark:text-zinc-400"
         >
           {mp.players.display_name}
         </span>
@@ -80,10 +80,10 @@ export function CourtCard({
       : "open";
 
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-4">
+    <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h3 className="font-semibold text-zinc-900">{court.name}</h3>
+          <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">{court.name}</h3>
           <p className="text-xs text-zinc-500 capitalize">
             {court.sport.replace("_", " ")}
           </p>
@@ -115,7 +115,7 @@ export function CourtCard({
 
       {status === "queued" && queuedMatch && (
         <div className="space-y-2">
-          <p className="text-xs text-zinc-500">Next up:</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Next up:</p>
           <PlayerList players={queuedMatch.match_players} />
           {onAssign && (
             <Button

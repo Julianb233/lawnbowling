@@ -99,7 +99,7 @@ export function Endorsements({ playerId, isOwnProfile, currentPlayerId }: Endors
 
   return (
     <div>
-      <h2 className="mb-3 text-sm font-medium text-zinc-600">Endorsements</h2>
+      <h2 className="mb-3 text-sm font-medium text-zinc-600 dark:text-zinc-400">Endorsements</h2>
 
       {counts.length > 0 ? (
         <div className="flex flex-wrap gap-2">
@@ -130,15 +130,15 @@ export function Endorsements({ playerId, isOwnProfile, currentPlayerId }: Endors
       {!isOwnProfile && currentPlayerId && !showPicker && (
         <button
           onClick={() => setShowPicker(true)}
-          className="mt-3 inline-flex items-center gap-1 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-600 hover:bg-zinc-50"
+          className="mt-3 inline-flex items-center gap-1 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
         >
           <Plus className="h-3 w-3" /> Endorse
         </button>
       )}
 
       {showPicker && (
-        <div className="mt-3 rounded-lg border border-zinc-200 bg-white p-3">
-          <p className="mb-2 text-xs font-medium text-zinc-500">Select a skill to endorse</p>
+        <div className="mt-3 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-3">
+          <p className="mb-2 text-xs font-medium text-zinc-500 dark:text-zinc-400">Select a skill to endorse</p>
           <div className="flex flex-wrap gap-1.5">
             {ENDORSEMENT_SKILLS.map((s) => {
               const alreadyEndorsed = myEndorsements.includes(s.id);
@@ -159,7 +159,7 @@ export function Endorsements({ playerId, isOwnProfile, currentPlayerId }: Endors
           </div>
           <button
             onClick={() => setShowPicker(false)}
-            className="mt-2 text-xs text-zinc-400 hover:text-zinc-600"
+            className="mt-2 text-xs text-zinc-400 hover:text-zinc-600 dark:text-zinc-400"
           >
             Close
           </button>

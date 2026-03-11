@@ -25,7 +25,7 @@ export function ProfileCard({ player, onClick, compact = false }: ProfileCardPro
   return (
     <Component
       onClick={onClick}
-      className={`flex items-start gap-4 rounded-xl border border-zinc-200 bg-white p-4 text-left transition-colors ${
+      className={`flex items-start gap-4 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 text-left transition-colors ${
         onClick ? "cursor-pointer hover:bg-zinc-50 min-h-[44px]" : ""
       } ${compact ? "p-3" : "p-4"}`}
     >
@@ -39,7 +39,7 @@ export function ProfileCard({ player, onClick, compact = false }: ProfileCardPro
           alt={player.display_name}
           className="h-full w-full object-cover"
         />
-        <Avatar.Fallback className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
+        <Avatar.Fallback className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500 dark:text-zinc-400">
           {initials}
         </Avatar.Fallback>
       </Avatar.Root>

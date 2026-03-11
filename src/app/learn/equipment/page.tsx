@@ -69,7 +69,7 @@ export default function EquipmentGuidePage() {
             Equipment{" "}
             <span className="text-[#1B5E20]">Buying Guide</span>
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600">
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
             From your first borrowed set to a fully kitted-out bag, here is
             everything you need to know about lawn bowling equipment. We cover
             bowls, shoes, bags, and accessories -- with recommendations for
@@ -79,7 +79,7 @@ export default function EquipmentGuidePage() {
 
         {/* Table of Contents */}
         <nav className="mb-12 rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-zinc-500">
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
             On This Page
           </h2>
           <ul className="space-y-2 text-[15px]">
@@ -161,12 +161,12 @@ export default function EquipmentGuidePage() {
               </p>
               <div className="overflow-hidden rounded-xl border border-zinc-200">
                 <table className="w-full text-left text-[15px]">
-                  <thead className="bg-zinc-50">
+                  <thead className="bg-zinc-50 dark:bg-white/5">
                     <tr>
-                      <th className="px-5 py-3 font-semibold text-zinc-900">
+                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                         Size
                       </th>
-                      <th className="px-5 py-3 font-semibold text-zinc-900">
+                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                         Typical User
                       </th>
                     </tr>
@@ -199,7 +199,7 @@ export default function EquipmentGuidePage() {
                 </table>
               </div>
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-3 font-bold text-zinc-900">
+                <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
                   How to Test the Size
                 </h3>
                 <p className="text-[15px] leading-relaxed text-zinc-700">
@@ -335,10 +335,10 @@ export default function EquipmentGuidePage() {
                   className="rounded-xl border border-zinc-200 bg-zinc-50 p-6"
                 >
                   <div className="flex items-baseline justify-between mb-3">
-                    <h3 className="text-lg font-bold text-zinc-900">
+                    <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
                       {b.brand}
                     </h3>
-                    <span className="text-xs font-medium text-zinc-500">
+                    <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
                       {b.origin}
                     </span>
                   </div>
@@ -394,7 +394,7 @@ export default function EquipmentGuidePage() {
             <div className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                  <h3 className="mb-3 font-bold text-zinc-900">
+                  <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
                     New Bowls
                   </h3>
                   <ul className="space-y-2 text-[15px] text-zinc-700">
@@ -417,7 +417,7 @@ export default function EquipmentGuidePage() {
                   </ul>
                 </div>
                 <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                  <h3 className="mb-3 font-bold text-zinc-900">
+                  <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
                     Second-Hand Bowls
                   </h3>
                   <ul className="space-y-2 text-[15px] text-zinc-700">
@@ -441,7 +441,7 @@ export default function EquipmentGuidePage() {
                 </div>
               </div>
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-3 font-bold text-zinc-900">
+                <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
                   Tips for Buying Second-Hand
                 </h3>
                 <ul className="space-y-2 text-[15px] text-zinc-700">
@@ -483,15 +483,15 @@ export default function EquipmentGuidePage() {
               </p>
               <div className="overflow-hidden rounded-xl border border-zinc-200">
                 <table className="w-full text-left text-[15px]">
-                  <thead className="bg-zinc-50">
+                  <thead className="bg-zinc-50 dark:bg-white/5">
                     <tr>
-                      <th className="px-5 py-3 font-semibold text-zinc-900">
+                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                         Type
                       </th>
-                      <th className="px-5 py-3 font-semibold text-zinc-900">
+                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                         Price
                       </th>
-                      <th className="px-5 py-3 font-semibold text-zinc-900">
+                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                         Best For
                       </th>
                     </tr>
@@ -515,7 +515,7 @@ export default function EquipmentGuidePage() {
                       },
                     ].map((row) => (
                       <tr key={row.type}>
-                        <td className="px-5 py-3 font-medium text-zinc-900">
+                        <td className="px-5 py-3 font-medium text-zinc-900 dark:text-zinc-100">
                           {row.type}
                         </td>
                         <td className="px-5 py-3 text-[#1B5E20] font-medium">
@@ -528,7 +528,7 @@ export default function EquipmentGuidePage() {
                 </table>
               </div>
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-3 font-bold text-zinc-900">
+                <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
                   Popular Shoe Brands
                 </h3>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -559,10 +559,10 @@ export default function EquipmentGuidePage() {
                       className="flex items-center justify-between rounded-lg border border-zinc-100 bg-white px-4 py-3"
                     >
                       <div>
-                        <p className="text-[14px] font-semibold text-zinc-900">
+                        <p className="text-[14px] font-semibold text-zinc-900 dark:text-zinc-100">
                           {s.brand}
                         </p>
-                        <p className="text-xs text-zinc-500">{s.tier}</p>
+                        <p className="text-xs text-zinc-500 dark:text-zinc-400">{s.tier}</p>
                       </div>
                       <p className="text-[14px] font-medium text-[#1B5E20]">
                         {s.range}
@@ -591,15 +591,15 @@ export default function EquipmentGuidePage() {
               </p>
               <div className="overflow-hidden rounded-xl border border-zinc-200">
                 <table className="w-full text-left text-[15px]">
-                  <thead className="bg-zinc-50">
+                  <thead className="bg-zinc-50 dark:bg-white/5">
                     <tr>
-                      <th className="px-5 py-3 font-semibold text-zinc-900">
+                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                         Type
                       </th>
-                      <th className="px-5 py-3 font-semibold text-zinc-900">
+                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                         Capacity
                       </th>
-                      <th className="px-5 py-3 font-semibold text-zinc-900">
+                      <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                         Price
                       </th>
                     </tr>
@@ -628,7 +628,7 @@ export default function EquipmentGuidePage() {
                       },
                     ].map((row) => (
                       <tr key={row.type}>
-                        <td className="px-5 py-3 font-medium text-zinc-900">
+                        <td className="px-5 py-3 font-medium text-zinc-900 dark:text-zinc-100">
                           {row.type}
                         </td>
                         <td className="px-5 py-3 text-zinc-700">{row.cap}</td>
@@ -663,7 +663,7 @@ export default function EquipmentGuidePage() {
             </div>
             <div className="space-y-4">
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-4 font-bold text-zinc-900">
+                <h3 className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
                   Must-Have Accessories
                 </h3>
                 <div className="space-y-3">
@@ -686,13 +686,13 @@ export default function EquipmentGuidePage() {
                   ].map((item) => (
                     <div
                       key={item.name}
-                      className="flex items-start justify-between gap-4 rounded-lg border border-zinc-100 bg-white p-4"
+                      className="flex items-start justify-between gap-4 rounded-lg border border-zinc-100 bg-white dark:bg-[#1a3d28] p-4"
                     >
                       <div>
                         <p className="font-semibold text-zinc-900 text-[15px]">
                           {item.name}
                         </p>
-                        <p className="mt-1 text-[13px] text-zinc-600">
+                        <p className="mt-1 text-[13px] text-zinc-600 dark:text-zinc-400">
                           {item.desc}
                         </p>
                       </div>
@@ -705,7 +705,7 @@ export default function EquipmentGuidePage() {
               </div>
 
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-4 font-bold text-zinc-900">
+                <h3 className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
                   Nice-to-Have Accessories
                 </h3>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -798,7 +798,7 @@ export default function EquipmentGuidePage() {
                   key={phase.phase}
                   className="rounded-xl border border-zinc-200 bg-zinc-50 p-6"
                 >
-                  <h3 className="mb-3 font-bold text-zinc-900">
+                  <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
                     {phase.phase}
                   </h3>
                   <div className="space-y-2">
@@ -808,7 +808,7 @@ export default function EquipmentGuidePage() {
                         className="flex items-center justify-between text-[15px]"
                       >
                         <span className="text-zinc-700">{row.item}</span>
-                        <span className="font-medium text-zinc-900">
+                        <span className="font-medium text-zinc-900 dark:text-zinc-100">
                           {row.cost}
                         </span>
                       </div>
@@ -834,7 +834,7 @@ export default function EquipmentGuidePage() {
                     $200 -- $700
                   </span>
                 </div>
-                <p className="mt-2 text-[14px] text-zinc-600">
+                <p className="mt-2 text-[14px] text-zinc-600 dark:text-zinc-400">
                   With second-hand bowls: $200 -- $500. With new bowls: $500 --
                   $900. Spread over 6+ months as your involvement grows.
                 </p>

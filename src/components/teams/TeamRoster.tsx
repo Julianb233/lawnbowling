@@ -82,7 +82,7 @@ export function TeamRoster({ teamId, currentUserId, captainId }: TeamRosterProps
             {m.player.avatar_url ? (
               <img src={m.player.avatar_url} alt="" className="h-full w-full object-cover" />
             ) : (
-              <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
+              <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500 dark:text-zinc-400">
                 {m.player.display_name?.charAt(0)?.toUpperCase()}
               </div>
             )}

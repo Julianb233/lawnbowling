@@ -43,7 +43,7 @@ export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {
                 title={`${HOURS[hour]}: ${count} check-ins`}
               />
               {hour % 4 === 0 && (
-                <span className="text-[10px] text-zinc-600">{HOURS[hour]}</span>
+                <span className="text-[10px] text-zinc-600 dark:text-zinc-400">{HOURS[hour]}</span>
               )}
             </div>
           ))}
@@ -64,7 +64,7 @@ export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {
                 )}
                 title={`${DAYS[day]}: ${count} check-ins`}
               />
-              <span className="text-[10px] text-zinc-500">{DAYS[day]}</span>
+              <span className="text-[10px] text-zinc-500 dark:text-zinc-400">{DAYS[day]}</span>
             </div>
           ))}
         </div>

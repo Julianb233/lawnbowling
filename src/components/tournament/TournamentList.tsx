@@ -55,7 +55,7 @@ export function TournamentList() {
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <Trophy className="mb-3 h-12 w-12 text-zinc-700" />
           <h3 className="mb-1 text-lg font-semibold text-zinc-400">No tournaments yet</h3>
-          <p className="text-sm text-zinc-600">Create a tournament to get started</p>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">Create a tournament to get started</p>
         </div>
       ) : (
         <motion.div

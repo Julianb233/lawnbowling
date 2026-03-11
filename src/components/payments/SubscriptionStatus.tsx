@@ -9,7 +9,7 @@ interface SubscriptionStatusProps {
 }
 
 const PLAN_CONFIG: Record<SubscriptionPlan, { icon: React.ReactNode; label: string; color: string }> = {
-  free: { icon: <Zap className="h-3.5 w-3.5" />, label: "Free", color: "bg-zinc-700 text-zinc-600" },
+  free: { icon: <Zap className="h-3.5 w-3.5" />, label: "Free", color: "bg-zinc-700 text-zinc-600 dark:text-zinc-400" },
   basic: { icon: <Zap className="h-3.5 w-3.5" />, label: "Basic", color: "bg-[#1B5E20]/20 text-blue-400" },
   premium: { icon: <Crown className="h-3.5 w-3.5" />, label: "Premium", color: "bg-amber-500/20 text-amber-400" },
   venue_owner: { icon: <Building2 className="h-3.5 w-3.5" />, label: "Venue Owner", color: "bg-green-500/20 text-green-400" },

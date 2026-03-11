@@ -63,7 +63,7 @@ function Avatar({ name, url, primarySport }: { name: string; url: string | null;
           alt={name}
           className={cn("h-12 w-12 rounded-full object-cover ring-2 shadow-lg", sportColor.ring)}
         />
-        <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-green-500 ring-2 ring-white" />
+        <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-green-500 ring-2 ring-white dark:ring-[#1a3d28]" />
       </div>
     );
   }
@@ -77,7 +77,7 @@ function Avatar({ name, url, primarySport }: { name: string; url: string | null;
       )}>
         {initials}
       </div>
-      <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-green-500 ring-2 ring-white" />
+      <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-green-500 ring-2 ring-white dark:ring-[#1a3d28]" />
     </div>
   );
 }
@@ -98,7 +98,7 @@ export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: P
       className={cn(
         "group relative flex flex-col rounded-2xl p-4 transition-all duration-200 cursor-pointer touch-manipulation",
         "glass",
-        "hover:border-zinc-300",
+        "hover:border-zinc-300 dark:hover:border-white/20",
         "lg:p-5"
       )}
       style={{
@@ -137,7 +137,7 @@ export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: P
       <div className="flex items-start gap-3">
         <Avatar name={player.display_name} url={player.avatar_url} primarySport={primarySport} />
         <div className="min-w-0 flex-1">
-          <h3 className="truncate text-base font-semibold text-zinc-900">{player.display_name}</h3>
+          <h3 className="truncate text-base font-semibold text-zinc-900 dark:text-zinc-100">{player.display_name}</h3>
           <div className="mt-0.5 flex items-center gap-2">
             <SkillStars level={player.skill_level} index={index} />
           </div>
@@ -150,7 +150,7 @@ export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: P
                   className={cn(
                     "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
                     getSportColor(sport).bg,
-                    "text-zinc-600"
+                    "text-zinc-600 dark:text-zinc-400"
                   )}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -166,7 +166,7 @@ export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: P
       </div>
 
       {/* Check-in time */}
-      <p className="mt-2 text-xs text-zinc-500">
+      <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
         Checked in {timeAgo(player.checked_in_at)}
       </p>
 

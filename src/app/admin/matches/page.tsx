@@ -63,7 +63,7 @@ export default function MatchesAdminPage() {
         <select
           value={sportFilter}
           onChange={(e) => setSportFilter(e.target.value)}
-          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800"
+          className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800"
         >
           <option value="">All Sports</option>
           <option value="pickleball">Pickleball</option>
@@ -73,7 +73,7 @@ export default function MatchesAdminPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800"
+          className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800"
         >
           <option value="">All Statuses</option>
           <option value="queued">Queued</option>
@@ -83,12 +83,12 @@ export default function MatchesAdminPage() {
       </div>
 
       {loading ? (
-        <div className="text-zinc-500">Loading matches...</div>
+        <div className="text-zinc-500 dark:text-zinc-400">Loading matches...</div>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-zinc-200 text-left text-zinc-500">
+              <tr className="border-b border-zinc-200 text-left text-zinc-500 dark:text-zinc-400">
                 <th className="pb-2 font-medium">Sport</th>
                 <th className="pb-2 font-medium">Players</th>
                 <th className="pb-2 font-medium">Court</th>
@@ -114,20 +114,20 @@ export default function MatchesAdminPage() {
                     <td className="py-3 text-zinc-800 capitalize">
                       {match.sport.replace("_", " ")}
                     </td>
-                    <td className="py-3 text-zinc-500">
+                    <td className="py-3 text-zinc-500 dark:text-zinc-400">
                       {match.match_players
                         ?.map((mp) => mp.players?.display_name)
                         .filter(Boolean)
                         .join(", ") || "-"}
                     </td>
-                    <td className="py-3 text-zinc-500">
+                    <td className="py-3 text-zinc-500 dark:text-zinc-400">
                       {match.courts?.name ?? "-"}
                     </td>
                     <td className="py-3">
                       <span
                         className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                           match.status === "completed"
-                            ? "bg-zinc-100 text-zinc-500"
+                            ? "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
                             : match.status === "playing"
                               ? "bg-red-50 text-red-600"
                               : "bg-yellow-50 text-yellow-700"
@@ -136,10 +136,10 @@ export default function MatchesAdminPage() {
                         {match.status}
                       </span>
                     </td>
-                    <td className="py-3 text-zinc-500">
+                    <td className="py-3 text-zinc-500 dark:text-zinc-400">
                       {duration !== null ? `${duration} min` : "-"}
                     </td>
-                    <td className="py-3 text-zinc-500">
+                    <td className="py-3 text-zinc-500 dark:text-zinc-400">
                       {new Date(match.created_at).toLocaleDateString()}
                     </td>
                     <td className="py-3">

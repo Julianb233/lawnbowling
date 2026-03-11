@@ -108,12 +108,12 @@ export function CreateBowlsTournamentModal({ open, onOpenChange, onCreated }: Cr
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-300 bg-white p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-300 bg-white dark:bg-[#1a3d28] p-5 shadow-2xl max-h-[85vh] overflow-y-auto sm:p-6">
           <div className="mb-4 flex items-center justify-between">
-            <Dialog.Title className="text-lg font-bold text-zinc-900">
+            <Dialog.Title className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
               Create Bowls Tournament
             </Dialog.Title>
-            <Dialog.Close className="rounded-full p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+            <Dialog.Close className="rounded-full p-2 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700 min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation">
               <X className="h-5 w-5" />
             </Dialog.Close>
           </div>
@@ -131,7 +131,7 @@ export function CreateBowlsTournamentModal({ open, onOpenChange, onCreated }: Cr
               />
             </div>
 
-            <div>
+            <div data-onboarding-target="configure-format">
               <label className="mb-2 block text-sm font-medium text-zinc-400">Bowls Format</label>
               <div className="grid grid-cols-2 gap-2">
                 {ALL_BOWLS_FORMATS.map((f) => {
@@ -179,7 +179,7 @@ export function CreateBowlsTournamentModal({ open, onOpenChange, onCreated }: Cr
                       <Building2 className="h-4 w-4 text-[#1B5E20]" />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-zinc-900 truncate">{visitingClub.name}</p>
-                        <p className="text-xs text-zinc-500">{visitingClub.city}, {visitingClub.stateCode}</p>
+                        <p className="text-xs text-zinc-500 dark:text-zinc-400">{visitingClub.city}, {visitingClub.stateCode}</p>
                       </div>
                       <button
                         type="button"
@@ -214,12 +214,12 @@ export function CreateBowlsTournamentModal({ open, onOpenChange, onCreated }: Cr
                                 setVisitingClub(club);
                                 setVisitingClubQuery("");
                               }}
-                              className="flex w-full items-center gap-2 border-b border-zinc-100 px-3 py-2 text-left text-sm last:border-0 hover:bg-zinc-50"
+                              className="flex w-full items-center gap-2 border-b border-zinc-100 px-3 py-2 text-left text-sm last:border-0 hover:bg-zinc-50 dark:bg-white/5"
                             >
                               <Building2 className="h-3.5 w-3.5 text-zinc-400" />
                               <div className="min-w-0 flex-1">
                                 <p className="font-medium text-zinc-900 truncate">{club.name}</p>
-                                <p className="text-xs text-zinc-500">{club.city}, {club.stateCode}</p>
+                                <p className="text-xs text-zinc-500 dark:text-zinc-400">{club.city}, {club.stateCode}</p>
                               </div>
                             </button>
                           ))}

@@ -86,12 +86,12 @@ export function ProfilePageClient({ player, waiver, stats, favoritePartners, pho
       <div className="mx-auto max-w-md">
         <button
           onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h1 className="mb-6 text-2xl font-bold text-zinc-900">My Profile</h1>
+        <h1 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-zinc-100">My Profile</h1>
 
         <div className="mb-6">
           <WaiverStatus waiver={waiver} />

@@ -8,7 +8,7 @@ const tipIcons: LucideIcon[] = [Lightbulb, Target, Star, Flame, Dumbbell, Brain,
 export function TipsList({ tips }: { tips: string[] }) {
   return (
     <section id="tips">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900">
+      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
         Tips for Beginners
       </h2>
       <div className="space-y-2">
@@ -23,8 +23,8 @@ export function TipsList({ tips }: { tips: string[] }) {
               transition={{ delay: i * 0.06 }}
               className="flex items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-4"
             >
-              <Icon className="w-5 h-5 mt-0.5 shrink-0 text-zinc-500" strokeWidth={1.5} />
-              <p className="text-sm leading-relaxed text-zinc-600">{tip}</p>
+              <Icon className="w-5 h-5 mt-0.5 shrink-0 text-zinc-500 dark:text-zinc-400" strokeWidth={1.5} />
+              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{tip}</p>
             </motion.div>
           );
         })}

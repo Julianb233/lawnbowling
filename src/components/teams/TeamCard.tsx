@@ -49,9 +49,9 @@ export function TeamCard({ team, memberCount, role }: TeamCardProps) {
           )}
         </div>
 
-        <h3 className="mb-1 font-bold text-zinc-900">{team.name}</h3>
+        <h3 className="mb-1 font-bold text-zinc-900 dark:text-zinc-100">{team.name}</h3>
         {team.description && (
-          <p className="mb-3 line-clamp-2 text-sm text-zinc-500">{team.description}</p>
+          <p className="mb-3 line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">{team.description}</p>
         )}
 
         <div className="flex items-center justify-between text-sm">
@@ -65,7 +65,7 @@ export function TeamCard({ team, memberCount, role }: TeamCardProps) {
             {sportLabel?.label ?? team.sport}
           </span>
           {memberCount !== undefined && (
-            <span className="flex items-center gap-1 text-zinc-500">
+            <span className="flex items-center gap-1 text-zinc-500 dark:text-zinc-400">
               <Users className="h-3.5 w-3.5" />
               {memberCount}
             </span>

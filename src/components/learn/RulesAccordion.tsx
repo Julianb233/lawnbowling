@@ -8,7 +8,7 @@ import type { SportGuide } from "@/lib/sport-guides";
 export function RulesAccordion({ rules }: { rules: SportGuide["rules"] }) {
   return (
     <section id="rules">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900">Key Rules</h2>
+      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Key Rules</h2>
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -19,7 +19,7 @@ export function RulesAccordion({ rules }: { rules: SportGuide["rules"] }) {
             <Accordion.Item
               key={i}
               value={`rule-${i}`}
-              className="overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50"
+              className="overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 dark:bg-white/5"
             >
               <Accordion.Trigger className="flex w-full items-center justify-between px-4 py-3 text-left text-zinc-900 hover:bg-zinc-100 transition-colors min-h-[44px] group">
                 <span className="font-medium">{rule.rule}</span>

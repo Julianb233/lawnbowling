@@ -128,7 +128,7 @@ export function MatchQueue() {
           >
             <ClipboardList className="w-8 h-8 text-zinc-400" strokeWidth={1.5} />
           </motion.div>
-          <p className="mt-2 text-sm text-zinc-500">
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
             No pairs waiting yet
           </p>
         </div>
@@ -159,18 +159,18 @@ export function MatchQueue() {
                     >
                       #{index + 1} in queue
                     </span>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400">
                       <SportIcon sport={match.sport as Sport} className="w-3.5 h-3.5 inline-block" /> {sportInfo?.label || match.sport}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {player1 && <PlayerPill player={player1} />}
-                    <span className="text-xs font-bold text-zinc-600">VS</span>
+                    <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400">VS</span>
                     {player2 && <PlayerPill player={player2} />}
                   </div>
 
-                  <div className="mt-2 text-xs text-zinc-500">
+                  <div className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
                     {match.courts
                       ? `Assigned to ${match.courts.name}`
                       : (

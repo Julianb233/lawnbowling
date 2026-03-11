@@ -163,7 +163,7 @@ export default function ClubPricingClient() {
       <div className="mx-auto max-w-5xl">
         <button
           onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
@@ -182,7 +182,7 @@ export default function ClubPricingClient() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm text-zinc-500"
+            className="mb-6 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm text-zinc-500 dark:text-zinc-400"
           >
             Checkout was cancelled. No charges were made.
           </motion.div>
@@ -203,7 +203,7 @@ export default function ClubPricingClient() {
               <br />
               <span className="text-[#1B5E20]">with your club</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-zinc-500">
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-zinc-500 dark:text-zinc-400">
               Pay per member, per year. No surprises. Include it in your annual
               dues and give every member a better bowling experience.
             </p>
@@ -232,7 +232,7 @@ export default function ClubPricingClient() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   className={cn(
-                    "relative flex flex-col rounded-2xl border bg-white p-6 shadow-sm",
+                    "relative flex flex-col rounded-2xl border bg-white dark:bg-[#1a3d28] p-6 shadow-sm",
                     isPopular
                       ? "border-[#1B5E20] ring-2 ring-[#1B5E20]/20 scale-[1.02]"
                       : "border-zinc-200"
@@ -250,16 +250,16 @@ export default function ClubPricingClient() {
                         "flex h-12 w-12 items-center justify-center rounded-xl",
                         isPopular
                           ? "bg-[#1B5E20]/10 text-[#1B5E20]"
-                          : "bg-zinc-100 text-zinc-500"
+                          : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
                       )}
                     >
                       {tier.icon}
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-zinc-900">
+                      <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
                         {tier.name}
                       </h3>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400">
                         {tier.description}
                       </p>
                     </div>
@@ -269,7 +269,7 @@ export default function ClubPricingClient() {
                   <div className="mb-6">
                     {tier.pricePerMember === 0 ? (
                       <div>
-                        <span className="text-3xl font-black text-zinc-900">
+                        <span className="text-3xl font-black text-zinc-900 dark:text-zinc-100">
                           $0
                         </span>
                         <span className="text-sm text-zinc-500 ml-1">
@@ -281,7 +281,7 @@ export default function ClubPricingClient() {
                       </div>
                     ) : (
                       <div>
-                        <span className="text-3xl font-black text-zinc-900">
+                        <span className="text-3xl font-black text-zinc-900 dark:text-zinc-100">
                           ${tier.pricePerMember}
                         </span>
                         <span className="text-sm text-zinc-500 ml-1">
@@ -389,14 +389,14 @@ export default function ClubPricingClient() {
             </div>
 
             <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-              <div className="rounded-xl border border-zinc-200 bg-white p-4">
+              <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
                 <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
                   Free
                 </p>
-                <p className="mt-1 text-2xl font-black text-zinc-900">$0</p>
+                <p className="mt-1 text-2xl font-black text-zinc-900 dark:text-zinc-100">$0</p>
                 <p className="text-xs text-zinc-400">up to 20 members</p>
               </div>
-              <div className="rounded-xl border-2 border-[#1B5E20] bg-white p-4 shadow-sm">
+              <div className="rounded-xl border-2 border-[#1B5E20] bg-white dark:bg-[#1a3d28] p-4 shadow-sm">
                 <p className="text-xs font-medium text-[#1B5E20] uppercase tracking-wider">
                   Club
                 </p>
@@ -405,11 +405,11 @@ export default function ClubPricingClient() {
                 </p>
                 <p className="text-xs text-zinc-400">/year</p>
               </div>
-              <div className="rounded-xl border border-zinc-200 bg-white p-4">
+              <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
                 <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
                   Pro
                 </p>
-                <p className="mt-1 text-2xl font-black text-zinc-900">
+                <p className="mt-1 text-2xl font-black text-zinc-900 dark:text-zinc-100">
                   ${proPrice.toLocaleString()}
                 </p>
                 <p className="text-xs text-zinc-400">/year</p>
@@ -471,13 +471,13 @@ export default function ClubPricingClient() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + i * 0.05 }}
-                className="rounded-2xl border border-zinc-200 bg-white p-6"
+                className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B5E20]/10 text-[#1B5E20]">
                   {feature.icon}
                 </div>
-                <h3 className="font-bold text-zinc-900">{feature.title}</h3>
-                <p className="mt-1 text-sm text-zinc-500">{feature.desc}</p>
+                <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{feature.title}</h3>
+                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{feature.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -497,7 +497,7 @@ export default function ClubPricingClient() {
             {FAQ_ITEMS.map((item, i) => (
               <div
                 key={i}
-                className="rounded-xl border border-zinc-200 bg-white overflow-hidden"
+                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
@@ -511,7 +511,7 @@ export default function ClubPricingClient() {
                   )}
                 </button>
                 {openFaq === i && (
-                  <div className="border-t border-zinc-100 px-5 py-4 text-sm text-zinc-600">
+                  <div className="border-t border-zinc-100 px-5 py-4 text-sm text-zinc-600 dark:text-zinc-400">
                     {item.a}
                   </div>
                 )}

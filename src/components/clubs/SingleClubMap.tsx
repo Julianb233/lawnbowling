@@ -75,7 +75,7 @@ export function SingleClubMap({ lat, lng, clubName, address }: SingleClubMapProp
       <div className="flex aspect-[16/9] items-center justify-center rounded-xl bg-zinc-100">
         <div className="text-center">
           <MapPin className="mx-auto h-8 w-8 text-zinc-400" />
-          <p className="mt-2 text-sm font-medium text-zinc-500">
+          <p className="mt-2 text-sm font-medium text-zinc-500 dark:text-zinc-400">
             {address ?? "Location not available"}
           </p>
         </div>

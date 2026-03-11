@@ -43,13 +43,13 @@ export default function LeaderboardPage() {
 
   return (
     <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-2">
             <Trophy className="h-5 w-5 text-amber-400" />
-            <h1 className="text-xl font-bold text-zinc-900">Leaderboard</h1>
+            <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">Leaderboard</h1>
           </div>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             {scope === "club" && clubName
               ? `${clubName} — Top players by win rate (min 5 games)`
               : "Top players by win rate (min 5 games)"}

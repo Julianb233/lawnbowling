@@ -136,10 +136,10 @@ export function CompletenessBar({
 
   if (compact) {
     return (
-      <div className="rounded-xl border border-zinc-200 bg-white p-4">
+      <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-zinc-700">Profile</span>
-          <span className="text-sm font-semibold text-zinc-900">{percentage}%</span>
+          <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{percentage}%</span>
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-100">
           <div
@@ -148,7 +148,7 @@ export function CompletenessBar({
           />
         </div>
         {incomplete.length > 0 && (
-          <p className="mt-2 text-xs text-zinc-500">
+          <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
             {incomplete[0].suggestion}
           </p>
         )}
@@ -157,7 +157,7 @@ export function CompletenessBar({
   }
 
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-4">
+    <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
       {percentage === 100 ? (
         <div className="flex items-center gap-2 text-[#1B5E20]">
           <Sparkles className="h-5 w-5" />
@@ -167,7 +167,7 @@ export function CompletenessBar({
         <>
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-zinc-700">Profile Completeness</span>
-            <span className="text-sm font-semibold text-zinc-900">{percentage}%</span>
+            <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{percentage}%</span>
           </div>
 
           <div className="h-3 w-full overflow-hidden rounded-full bg-zinc-100">

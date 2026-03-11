@@ -87,8 +87,8 @@ export function HomeClubSelector({ currentClubId, onSelect, showSkip, onSkip }: 
         <div className="flex items-center gap-3 rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 p-3">
           <Building2 className="h-5 w-5 shrink-0 text-[#1B5E20]" />
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-medium text-zinc-900">{selected.name}</p>
-            <p className="text-xs text-zinc-500">
+            <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{selected.name}</p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
               {selected.city}, {selected.stateCode}
             </p>
           </div>
@@ -123,12 +123,12 @@ export function HomeClubSelector({ currentClubId, onSelect, showSkip, onSkip }: 
                   key={club.id}
                   type="button"
                   onClick={() => handleSelect(club)}
-                  className="flex w-full items-center gap-3 border-b border-zinc-100 px-3 py-2.5 text-left last:border-0 hover:bg-zinc-50"
+                  className="flex w-full items-center gap-3 border-b border-zinc-100 px-3 py-2.5 text-left last:border-0 hover:bg-zinc-50 dark:bg-white/5"
                 >
                   <Building2 className="h-4 w-4 shrink-0 text-zinc-400" />
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-medium text-zinc-900 truncate">{club.name}</p>
-                    <p className="text-xs text-zinc-500">{club.city}, {club.stateCode}</p>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400">{club.city}, {club.stateCode}</p>
                   </div>
                 </button>
               ))}
@@ -143,7 +143,7 @@ export function HomeClubSelector({ currentClubId, onSelect, showSkip, onSkip }: 
             <button
               type="button"
               onClick={onSkip}
-              className="mt-3 w-full text-center text-sm text-zinc-400 hover:text-zinc-600"
+              className="mt-3 w-full text-center text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-400"
             >
               Skip for now
             </button>

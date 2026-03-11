@@ -37,12 +37,12 @@ export function InsuranceOffer({ onDismiss, onStatusUpdate }: InsuranceOfferProp
             <Shield className="h-6 w-6 text-[#1B5E20]" />
           </div>
           <div>
-            <h3 className="font-semibold text-zinc-900">FREE Liability Insurance</h3>
+            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">FREE Liability Insurance</h3>
             <p className="text-xs text-[#1B5E20] font-medium">Powered by Daily Event Insurance</p>
           </div>
         </div>
 
-        <p className="text-sm text-zinc-600">
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">
           Protect your players with per-participant liability coverage — completely free for your venue.
           Coverage activates instantly and is underwritten by A-rated carriers including AIG and Lloyd&apos;s of London.
         </p>

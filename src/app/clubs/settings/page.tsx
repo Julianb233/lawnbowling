@@ -170,9 +170,9 @@ export default function ClubSettingsPage() {
   if (!club) {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full rounded-2xl border border-zinc-200 bg-white p-8 text-center">
-          <h1 className="text-xl font-bold text-zinc-900">No Club Found</h1>
-          <p className="mt-2 text-sm text-zinc-500">
+        <div className="max-w-md w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
+          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">No Club Found</h1>
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
             Register or claim a club first.
           </p>
           <Link
@@ -188,7 +188,7 @@ export default function ClubSettingsPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-8">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <Link
             href="/clubs/dashboard"
@@ -197,10 +197,10 @@ export default function ClubSettingsPage() {
             <ArrowLeft className="h-4 w-4" />
             Dashboard
           </Link>
-          <h1 className="mt-2 text-2xl font-black tracking-tight text-zinc-900">
+          <h1 className="mt-2 text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
             Club Settings
           </h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Manage your club profile and billing
           </p>
         </div>
@@ -209,7 +209,7 @@ export default function ClubSettingsPage() {
       <main className="mx-auto max-w-3xl px-4 py-8">
         <form onSubmit={handleSave} className="space-y-6">
           {/* Club Info */}
-          <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <h2 className="text-lg font-bold text-zinc-900 mb-4">
               Club Information
             </h2>
@@ -293,7 +293,7 @@ export default function ClubSettingsPage() {
           </section>
 
           {/* Facilities */}
-          <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <h2 className="text-lg font-bold text-zinc-900 mb-4">
               Facilities
             </h2>
@@ -311,10 +311,10 @@ export default function ClubSettingsPage() {
           </section>
 
           {/* Logo Upload Placeholder */}
-          <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <h2 className="text-lg font-bold text-zinc-900 mb-4">Club Logo</h2>
             <div className="flex items-center gap-4">
-              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 bg-zinc-50">
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 bg-zinc-50 dark:bg-white/5">
                 {club.logoUrl ? (
                   <img
                     src={club.logoUrl}
@@ -343,16 +343,16 @@ export default function ClubSettingsPage() {
           </section>
 
           {/* Billing Management */}
-          <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-zinc-900">Billing</h2>
+              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Billing</h2>
               <CreditCard className="h-5 w-5 text-zinc-400" />
             </div>
 
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-zinc-900">
+                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
                     Current Plan:{" "}
                     <span className="text-[#1B5E20]">
                       {club.plan === "pro"
@@ -362,7 +362,7 @@ export default function ClubSettingsPage() {
                           : "Free"}
                     </span>
                   </p>
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
                     {club.plan === "free"
                       ? "Upgrade for full features"
                       : "Manage your payment method and invoices"}
@@ -414,7 +414,7 @@ export default function ClubSettingsPage() {
 
         {/* Danger Zone */}
         {club.plan !== "free" && (
-          <section className="mt-8 rounded-2xl border border-red-200 bg-white p-6">
+          <section className="mt-8 rounded-2xl border border-red-200 bg-white dark:bg-[#1a3d28] p-6">
             <h2 className="text-lg font-bold text-red-700 mb-2 flex items-center gap-2">
               <AlertTriangle className="h-5 w-5" />
               Danger Zone

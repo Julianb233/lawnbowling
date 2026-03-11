@@ -104,32 +104,34 @@ export default function BowlsPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <h1 className="text-xl font-black tracking-tight text-zinc-900 sm:text-2xl">
                 Lawn Bowls
               </h1>
-              <div className="flex items-center gap-3">
-                <Link href="/bowls/about" className="text-sm text-[#1B5E20] hover:text-[#145218]">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Link href="/bowls/about" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1">
                   About
                 </Link>
                 <span className="text-zinc-300">|</span>
-                <Link href="/bowls/history" className="text-sm text-[#1B5E20] hover:text-[#145218]">
+                <Link href="/bowls/history" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1">
                   History
                 </Link>
                 <span className="text-zinc-300">|</span>
-                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] hover:text-[#145218]">
-                  Player Stats
+                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1">
+                  Stats
                 </Link>
               </div>
             </div>
             <button
               onClick={() => setShowCreate(true)}
-              className="rounded-xl bg-[#1B5E20] px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation"
+              data-onboarding-target="create-tournament"
+              className="shrink-0 rounded-xl bg-[#1B5E20] px-3 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation sm:px-4"
             >
-              + New Tournament
+              <span className="hidden sm:inline">+ New Tournament</span>
+              <span className="sm:hidden">+ New</span>
             </button>
           </div>
           {homeClubId && (
@@ -176,17 +178,17 @@ export default function BowlsPage() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
               <CircleDot className="w-8 h-8 text-[#1B5E20]" strokeWidth={1.5} />
             </div>
-            <h3 className="text-lg font-bold text-zinc-900">
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
               {scope === "club" ? "No club tournaments yet" : "No bowls tournaments yet"}
             </h3>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
               {scope === "club"
                 ? "Create a tournament for your club or switch to All Clubs"
                 : "Create your first lawn bowling tournament to get started"}
             </p>
             <button
               onClick={() => setShowCreate(true)}
-              className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218]"
+              className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
             >
               Create Tournament
             </button>
@@ -222,7 +224,7 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
             <h3 className="text-base font-bold text-zinc-900 truncate">
               {t.name}
             </h3>
-            <p className="mt-0.5 text-sm text-zinc-500">
+            <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
               {formatLabel}
               {t.starts_at && (
                 <>
@@ -247,7 +249,7 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
               className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
                 isActive
                   ? "bg-[#1B5E20]/10 text-[#2E7D32]"
-                  : "bg-zinc-100 text-zinc-500"
+                  : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
               }`}
             >
               {isActive ? "Active" : "Done"}

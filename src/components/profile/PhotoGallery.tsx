@@ -62,7 +62,7 @@ export function PhotoGallery({ photos, editable = false, onPhotosChange }: Photo
 
   return (
     <div>
-      <h2 className="mb-3 text-sm font-medium text-zinc-600">Photos</h2>
+      <h2 className="mb-3 text-sm font-medium text-zinc-600 dark:text-zinc-400">Photos</h2>
 
       <div className="grid grid-cols-3 gap-2">
         {photos.map((photo) => (

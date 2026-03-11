@@ -72,13 +72,13 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
 
   return (
     <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-3">
             <Link href="/teams" className="rounded-lg p-1 text-zinc-400 hover:text-zinc-700">
               <ArrowLeft className="h-5 w-5" />
             </Link>
-            <h1 className="text-lg font-bold text-zinc-900">Join Team</h1>
+            <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Join Team</h1>
           </div>
         </div>
       </header>
@@ -92,11 +92,11 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
             >
               <SportIcon sport={team.sport as Sport} className="w-8 h-8" />
             </div>
-            <h2 className="mb-1 text-xl font-bold text-zinc-900">{team.name}</h2>
+            <h2 className="mb-1 text-xl font-bold text-zinc-900 dark:text-zinc-100">{team.name}</h2>
             {team.description && (
               <p className="mb-3 text-sm text-zinc-400">{team.description}</p>
             )}
-            <p className="mb-6 text-sm text-zinc-500">
+            <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
               {sportLabel?.label ?? team.sport} &middot; Captain: {team.captain?.name}
             </p>
 
@@ -115,7 +115,7 @@ export default function JoinTeamPage({ params }: { params: Promise<{ code: strin
           </div>
         ) : (
           <div className="rounded-2xl border border-zinc-200 bg-white/80 p-6 text-center">
-            <p className="text-zinc-500">{error || "Team not found"}</p>
+            <p className="text-zinc-500 dark:text-zinc-400">{error || "Team not found"}</p>
             <Link href="/teams" className="mt-4 inline-block text-sm text-[#1B5E20] hover:underline">
               Back to Teams
             </Link>

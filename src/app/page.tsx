@@ -50,14 +50,15 @@ export default function HomePage() {
             <Link href="/shop" className="hidden lg:block rounded-lg px-3.5 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12] hover:bg-[#1B5E20]/5">
               Shop
             </Link>
-            <Link href="/login" className="hidden sm:block rounded-lg px-3.5 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]">
+            <Link href="/login" className="rounded-lg px-3 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12] min-h-[44px] inline-flex items-center">
               Sign In
             </Link>
             <Link
               href="/signup"
-              className="rounded-full bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/20 transition-all hover:bg-[#2E7D32] hover:shadow-xl hover:shadow-[#1B5E20]/25 active:scale-[0.97]"
+              className="rounded-full bg-[#1B5E20] px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/20 transition-all hover:bg-[#2E7D32] hover:shadow-xl hover:shadow-[#1B5E20]/25 active:scale-[0.97] min-h-[44px] inline-flex items-center sm:px-5"
             >
-              Get Started
+              <span className="hidden sm:inline">Get Started</span>
+              <span className="sm:hidden">Sign Up</span>
             </Link>
           </div>
         </div>
@@ -518,7 +519,7 @@ export default function HomePage() {
                 {/* Illustrated devices */}
                 <div className="relative mx-auto aspect-square max-w-[280px] sm:max-w-[320px]">
                   {/* iPad */}
-                  <div className="absolute left-[5%] top-[10%] h-[60%] w-[55%] rounded-2xl border-4 border-[#0A2E12]/20 bg-white shadow-xl">
+                  <div className="absolute left-[5%] top-[10%] h-[60%] w-[55%] rounded-2xl border-4 border-[#0A2E12]/20 bg-white dark:bg-[#1a3d28] shadow-xl">
                     <div className="m-2 h-[85%] rounded-lg bg-[#1B5E20]/10 p-2">
                       <div className="h-2 w-12 rounded bg-[#1B5E20]/30" />
                       <div className="mt-2 space-y-1.5">
@@ -530,7 +531,7 @@ export default function HomePage() {
                     <div className="mx-auto mt-0.5 h-1 w-8 rounded-full bg-[#0A2E12]/15" />
                   </div>
                   {/* Phone */}
-                  <div className="absolute bottom-[8%] right-[10%] h-[50%] w-[28%] rounded-2xl border-3 border-[#0A2E12]/20 bg-white shadow-xl">
+                  <div className="absolute bottom-[8%] right-[10%] h-[50%] w-[28%] rounded-2xl border-3 border-[#0A2E12]/20 bg-white dark:bg-[#1a3d28] shadow-xl">
                     <div className="mx-auto mt-1.5 h-1 w-6 rounded-full bg-[#0A2E12]/10" />
                     <div className="m-1.5 h-[80%] rounded-lg bg-[#1B5E20]/10 p-1.5">
                       <div className="h-1.5 w-8 rounded bg-[#1B5E20]/30" />
@@ -640,8 +641,8 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t border-[#0A2E12]/5 bg-[#FEFCF9]">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-          <div className="grid gap-8 md:grid-cols-4">
-            <div>
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-4">
+            <div className="col-span-2 sm:col-span-2 md:col-span-1">
               <div className="mb-3 flex items-center gap-2.5">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1B5E20]">
                   <CircleDot className="h-4 w-4 text-white" />
@@ -658,28 +659,28 @@ export default function HomePage() {
             <div>
               <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]/40">Platform</h4>
               <div className="space-y-2">
-                <Link href="/bowls" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Tournaments</Link>
-                <Link href="/clubs" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Club Directory</Link>
-                <Link href="/shop" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Shop</Link>
-                <Link href="/insurance" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Insurance</Link>
+                <Link href="/bowls" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Tournaments</Link>
+                <Link href="/clubs" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Club Directory</Link>
+                <Link href="/shop" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Shop</Link>
+                <Link href="/insurance" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Insurance</Link>
               </div>
             </div>
             <div>
               <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]/40">Learn</h4>
               <div className="space-y-2">
-                <Link href="/learn" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Learning Hub</Link>
-                <Link href="/learn/rules" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Rules</Link>
-                <Link href="/learn/glossary" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Glossary</Link>
-                <Link href="/blog" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Blog</Link>
+                <Link href="/learn" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Learning Hub</Link>
+                <Link href="/learn/rules" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Rules</Link>
+                <Link href="/learn/glossary" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Glossary</Link>
+                <Link href="/blog" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Blog</Link>
               </div>
             </div>
             <div>
               <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]/40">Company</h4>
               <div className="space-y-2">
-                <Link href="/about" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">About</Link>
-                <Link href="/contact" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Contact</Link>
-                <Link href="/privacy" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Privacy</Link>
-                <Link href="/faq" className="block text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">FAQ</Link>
+                <Link href="/about" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">About</Link>
+                <Link href="/contact" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Contact</Link>
+                <Link href="/privacy" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">Privacy</Link>
+                <Link href="/faq" className="block py-1 text-sm text-[#3D5A3E]/60 transition hover:text-[#0A2E12]">FAQ</Link>
               </div>
             </div>
           </div>

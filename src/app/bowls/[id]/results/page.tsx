@@ -291,10 +291,10 @@ export default function ResultsPage() {
         <div className="mx-auto max-w-5xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+              <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
                 Results
               </h1>
-              <p className="text-sm text-zinc-500">{tournamentName}</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">{tournamentName}</p>
             </div>
             <div className="flex items-center gap-2 print:hidden">
               {progression?.current_state === "complete" && (
@@ -308,7 +308,7 @@ export default function ResultsPage() {
               )}
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}`)}
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
               >
                 Back
               </button>
@@ -344,7 +344,7 @@ export default function ResultsPage() {
             {/* Stats overview */}
             <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
               <div className="rounded-2xl bg-white border border-zinc-200 p-4 text-center">
-                <p className="text-3xl font-black text-zinc-900">
+                <p className="text-3xl font-black text-zinc-900 dark:text-zinc-100">
                   {rounds.length}
                 </p>
                 <p className="text-xs text-zinc-500 mt-1">
@@ -386,7 +386,7 @@ export default function ResultsPage() {
                   "rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors min-h-[44px] touch-manipulation",
                   !showStandings
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50"
+                    : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
                 )}
               >
                 Round Results
@@ -397,7 +397,7 @@ export default function ResultsPage() {
                   "rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors min-h-[44px] touch-manipulation",
                   showStandings
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50"
+                    : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
                 )}
               >
                 Player Standings
@@ -468,7 +468,7 @@ export default function ResultsPage() {
                         "flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors whitespace-nowrap min-h-[44px] touch-manipulation",
                         selectedRound === r.round
                           ? "bg-[#1B5E20] text-white"
-                          : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50"
+                          : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
                       )}
                     >
                       Round {r.round}
@@ -529,7 +529,7 @@ export default function ResultsPage() {
                                 "text-center p-3 rounded-xl",
                                 score.winner === "team_a"
                                   ? "bg-blue-50 ring-2 ring-blue-200"
-                                  : "bg-zinc-50"
+                                  : "bg-zinc-50 dark:bg-white/5"
                               )}
                             >
                               <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
@@ -562,7 +562,7 @@ export default function ResultsPage() {
                                 "text-center p-3 rounded-xl",
                                 score.winner === "team_b"
                                   ? "bg-purple-50 ring-2 ring-purple-200"
-                                  : "bg-zinc-50"
+                                  : "bg-zinc-50 dark:bg-white/5"
                               )}
                             >
                               <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
@@ -590,7 +590,7 @@ export default function ResultsPage() {
                             <div className="overflow-x-auto rounded-xl bg-zinc-50 border border-zinc-100">
                               <table className="w-full text-sm">
                                 <thead>
-                                  <tr className="border-b border-zinc-200">
+                                  <tr className="border-b border-zinc-200 dark:border-white/10">
                                     <th className="px-3 py-2 text-left text-xs font-bold text-zinc-400">
                                       &nbsp;
                                     </th>
@@ -621,7 +621,7 @@ export default function ResultsPage() {
                                             ? "text-[#1B5E20]"
                                             : s === 0
                                               ? "text-zinc-300"
-                                              : "text-zinc-500"
+                                              : "text-zinc-500 dark:text-zinc-400"
                                         )}
                                       >
                                         {s}
@@ -644,7 +644,7 @@ export default function ResultsPage() {
                                             ? "text-[#1B5E20]"
                                             : s === 0
                                               ? "text-zinc-300"
-                                              : "text-zinc-500"
+                                              : "text-zinc-500 dark:text-zinc-400"
                                         )}
                                       >
                                         {s}
@@ -662,7 +662,7 @@ export default function ResultsPage() {
                           {/* Player names if available */}
                           {(score.team_a_players?.length > 0 ||
                             score.team_b_players?.length > 0) && (
-                            <div className="mt-4 grid grid-cols-2 gap-4 text-xs text-zinc-500">
+                            <div className="mt-4 grid grid-cols-2 gap-4 text-xs text-zinc-500 dark:text-zinc-400">
                               <div>
                                 <p className="font-bold text-zinc-400 mb-1">
                                   Team A Players

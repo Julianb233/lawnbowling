@@ -73,7 +73,7 @@ export default function RulesPage() {
           <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 md:text-5xl">
             Rules of <span className="text-[#1B5E20]">Lawn Bowling</span>
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600">
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
             Lawn bowls is a sport with elegant simplicity at its core: roll your
             bowls closer to the jack than your opponent. Here is everything you
             need to know to play.
@@ -82,7 +82,7 @@ export default function RulesPage() {
 
         {/* Table of Contents */}
         <nav className="mb-12 rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-zinc-500">
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
             On This Page
           </h2>
           <ul className="space-y-2 text-[15px]">
@@ -280,7 +280,7 @@ export default function RulesPage() {
           <section id="the-bowls">
             <div className="flex items-center gap-3 mb-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-200">
-                <Circle className="h-5 w-5 text-zinc-600" />
+                <Circle className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
               </div>
               <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
                 The Bowls
@@ -317,7 +317,7 @@ export default function RulesPage() {
                     key={item.label}
                     className="rounded-xl border border-zinc-200 bg-zinc-50 p-5"
                   >
-                    <p className="text-sm font-semibold text-zinc-500">
+                    <p className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">
                       {item.label}
                     </p>
                     <p className="mt-1 text-[15px] leading-relaxed text-zinc-700">
@@ -371,7 +371,7 @@ export default function RulesPage() {
                 </ul>
               </div>
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-3 font-bold text-zinc-900">
+                <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
                   Playing with Bias
                 </h3>
                 <ul className="space-y-2 text-[15px] leading-relaxed text-zinc-700">
@@ -401,7 +401,7 @@ export default function RulesPage() {
           <section id="the-mat">
             <div className="flex items-center gap-3 mb-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-200">
-                <Footprints className="h-5 w-5 text-zinc-600" />
+                <Footprints className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
               </div>
               <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
                 The Mat
@@ -524,8 +524,8 @@ export default function RulesPage() {
                     {item.step}
                   </div>
                   <div>
-                    <h3 className="font-bold text-zinc-900">{item.title}</h3>
-                    <p className="mt-1 text-[15px] leading-relaxed text-zinc-600">
+                    <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{item.title}</h3>
+                    <p className="mt-1 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
                       {item.desc}
                     </p>
                   </div>
@@ -546,7 +546,7 @@ export default function RulesPage() {
             </div>
             <div className="space-y-4">
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
-                <h3 className="mb-3 font-bold text-zinc-900">
+                <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
                   How Scoring Works
                 </h3>
                 <ol className="space-y-2 text-[15px] leading-relaxed text-zinc-700 list-decimal list-inside">
@@ -616,12 +616,12 @@ export default function RulesPage() {
             </div>
             <div className="overflow-hidden rounded-xl border border-zinc-200">
               <table className="w-full text-left text-[15px]">
-                <thead className="bg-zinc-50">
+                <thead className="bg-zinc-50 dark:bg-white/5">
                   <tr>
-                    <th className="px-5 py-3 font-semibold text-zinc-900">
+                    <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                       Format
                     </th>
-                    <th className="px-5 py-3 font-semibold text-zinc-900">
+                    <th className="px-5 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                       How Winner Is Determined
                     </th>
                   </tr>

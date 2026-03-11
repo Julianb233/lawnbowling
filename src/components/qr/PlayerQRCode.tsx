@@ -31,7 +31,7 @@ export function PlayerQRCode({ playerId, playerName, venueId, size = 200 }: Play
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className="rounded-2xl bg-white p-4">
+      <div className="rounded-2xl bg-white dark:bg-[#1a3d28] p-4">
         <canvas ref={canvasRef} />
       </div>
       <p className="text-sm text-zinc-400">

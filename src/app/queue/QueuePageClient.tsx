@@ -28,16 +28,16 @@ export function QueuePageClient({
   return (
     <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200 dark:border-white/10">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-3">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <h1 className="text-xl font-black text-zinc-900">
+            <h1 className="text-xl font-black text-zinc-900 dark:text-zinc-100">
               <span className="flex items-center gap-2"><ClipboardList className="w-5 h-5 text-[#1B5E20]" strokeWidth={1.5} /><span className="text-gradient">Match Queue</span></span>
             </h1>
-            <p className="text-sm text-zinc-500">Waiting to play</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">Waiting to play</p>
           </motion.div>
         </div>
       </header>
@@ -72,7 +72,7 @@ export function QueuePageClient({
             animate={{ opacity: 1, y: 0 }}
             className="mb-4 rounded-2xl glass border border-zinc-200 p-4 text-center"
           >
-            <p className="text-sm text-zinc-500">
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">
               You&apos;re not in the queue. Head to the{" "}
               <a href="/board" className="text-[#1B5E20] underline underline-offset-2">
                 board

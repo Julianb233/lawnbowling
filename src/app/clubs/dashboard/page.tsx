@@ -166,12 +166,12 @@ function ClubDashboardContent() {
   if (!data?.club) {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full rounded-2xl border border-zinc-200 bg-white p-8 text-center">
+        <div className="max-w-md w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100">
             <Users className="h-8 w-8 text-zinc-400" />
           </div>
-          <h1 className="text-xl font-bold text-zinc-900">No Club Found</h1>
-          <p className="mt-2 text-sm text-zinc-500">
+          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">No Club Found</h1>
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
             You need to register or claim a club to access the dashboard.
           </p>
           <div className="mt-6 flex flex-col gap-3">
@@ -202,7 +202,7 @@ function ClubDashboardContent() {
 
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-8">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-4xl px-4 py-4">
           <Link
             href="/clubs"
@@ -213,10 +213,10 @@ function ClubDashboardContent() {
           </Link>
           <div className="mt-2 flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+              <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
                 {club.name}
               </h1>
-              <p className="text-sm text-zinc-500">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 {club.city}, {club.stateCode}
               </p>
             </div>
@@ -258,10 +258,10 @@ function ClubDashboardContent() {
         <motion.section
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl border border-zinc-200 bg-white p-6"
+          className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-zinc-900">Subscription</h2>
+            <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Subscription</h2>
             <span
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold",
@@ -278,7 +278,7 @@ function ClubDashboardContent() {
               <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
                 Plan
               </p>
-              <p className="mt-1 text-lg font-bold text-zinc-900">
+              <p className="mt-1 text-lg font-bold text-zinc-900 dark:text-zinc-100">
                 {planInfo.name}
               </p>
             </div>
@@ -286,7 +286,7 @@ function ClubDashboardContent() {
               <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
                 Members
               </p>
-              <p className="mt-1 text-lg font-bold text-zinc-900">
+              <p className="mt-1 text-lg font-bold text-zinc-900 dark:text-zinc-100">
                 {subscription.memberCount}
                 {subscription.memberLimit && (
                   <span className="text-sm font-normal text-zinc-400">
@@ -299,7 +299,7 @@ function ClubDashboardContent() {
               <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
                 Annual Cost
               </p>
-              <p className="mt-1 text-lg font-bold text-zinc-900">
+              <p className="mt-1 text-lg font-bold text-zinc-900 dark:text-zinc-100">
                 {subscription.annualTotal > 0
                   ? `$${subscription.annualTotal.toLocaleString()}`
                   : "Free"}
@@ -309,7 +309,7 @@ function ClubDashboardContent() {
               <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
                 Next Billing
               </p>
-              <p className="mt-1 text-lg font-bold text-zinc-900">
+              <p className="mt-1 text-lg font-bold text-zinc-900 dark:text-zinc-100">
                 {subscription.nextBillingDate
                   ? new Date(subscription.nextBillingDate).toLocaleDateString(
                       "en-US",
@@ -362,7 +362,7 @@ function ClubDashboardContent() {
 
           {subscription.plan !== "pro" && (
             <div className="mt-4 pt-4 border-t border-zinc-100 flex items-center justify-between">
-              <p className="text-sm text-zinc-500">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 {subscription.plan === "free"
                   ? "Upgrade for full features"
                   : "Upgrade to Pro for TV scoreboard & more"}
@@ -458,20 +458,20 @@ function ClubDashboardContent() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="rounded-2xl border border-zinc-200 bg-white p-6"
+          className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-zinc-900">Billing</h2>
+            <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Billing</h2>
             <CreditCard className="h-5 w-5 text-zinc-400" />
           </div>
 
           <div className="space-y-3">
             <div className="flex items-center justify-between py-2">
               <div>
-                <p className="text-sm font-medium text-zinc-900">
+                <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
                   Current Plan
                 </p>
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">
                   {subscription.plan === "free"
                     ? "Free forever"
                     : `$${subscription.plan === "pro" ? "10" : "5"}/member/year, billed annually`}
@@ -490,10 +490,10 @@ function ClubDashboardContent() {
                 <div className="border-t border-zinc-100" />
                 <div className="flex items-center justify-between py-2">
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">
+                    <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
                       Manage Billing
                     </p>
-                    <p className="text-xs text-zinc-500">
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400">
                       View invoices, update payment method
                     </p>
                   </div>
@@ -505,10 +505,10 @@ function ClubDashboardContent() {
             <div className="border-t border-zinc-100" />
             <div className="flex items-center justify-between py-2">
               <div>
-                <p className="text-sm font-medium text-zinc-900">
+                <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
                   View Public Page
                 </p>
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">
                   See how your club appears in the directory
                 </p>
               </div>
@@ -541,7 +541,7 @@ function StatCard({
   subtitle?: string;
 }) {
   return (
-    <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+    <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
       <div
         className={cn(
           "mb-2 inline-flex h-9 w-9 items-center justify-center rounded-xl",
@@ -551,7 +551,7 @@ function StatCard({
         {icon}
       </div>
       <p className="text-2xl font-black text-zinc-900 tabular-nums">{value}</p>
-      <p className="text-xs font-medium text-zinc-500">{label}</p>
+      <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">{label}</p>
       {subtitle && <p className="text-[10px] text-zinc-400">{subtitle}</p>}
     </div>
   );
@@ -573,7 +573,7 @@ function QuickLink({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-4 transition-all hover:border-zinc-300 hover:shadow-sm"
+      className="group flex items-center gap-4 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 transition-all hover:border-zinc-300 hover:shadow-sm"
     >
       <div
         className={cn(
@@ -587,7 +587,7 @@ function QuickLink({
         <p className="text-sm font-bold text-zinc-900 group-hover:text-[#1B5E20] transition-colors">
           {title}
         </p>
-        <p className="text-xs text-zinc-500">{description}</p>
+        <p className="text-xs text-zinc-500 dark:text-zinc-400">{description}</p>
       </div>
       <ChevronRight className="h-4 w-4 shrink-0 text-zinc-300 group-hover:text-zinc-500 transition-colors" />
     </Link>

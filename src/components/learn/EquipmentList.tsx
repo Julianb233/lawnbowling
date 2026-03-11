@@ -58,7 +58,7 @@ function getEquipmentIcon(name: string): LucideIcon {
 export function EquipmentList({ equipment }: { equipment: SportGuide["equipment"] }) {
   return (
     <section id="equipment">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900">
+      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
         What You&apos;ll Need
       </h2>
       <div className="grid gap-3 sm:grid-cols-2">
@@ -75,7 +75,7 @@ export function EquipmentList({ equipment }: { equipment: SportGuide["equipment"
             >
               <div className="mb-2 flex items-center gap-3">
                 <Icon className="w-6 h-6 text-zinc-600 shrink-0" strokeWidth={1.5} />
-                <h3 className="font-semibold text-zinc-900">{item.name}</h3>
+                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">{item.name}</h3>
               </div>
               <p className="text-sm leading-relaxed text-zinc-400">
                 {item.description}

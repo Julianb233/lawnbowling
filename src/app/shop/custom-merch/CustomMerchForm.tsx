@@ -120,7 +120,7 @@ export function CustomMerchForm() {
         ].map((feat) => (
           <div
             key={feat.label}
-            className="flex flex-col items-center rounded-xl border bg-white p-4 text-center"
+            className="flex flex-col items-center rounded-xl border bg-white dark:bg-[#1a3d28] p-4 text-center"
           >
             <feat.icon className="mb-2 size-6 text-[#1B5E20]" />
             <p className="text-sm font-semibold text-gray-900">{feat.label}</p>
@@ -132,7 +132,7 @@ export function CustomMerchForm() {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 rounded-xl border bg-white p-6 shadow-sm"
+        className="space-y-6 rounded-xl border bg-white dark:bg-[#1a3d28] p-6 shadow-sm"
       >
         {/* Club Info */}
         <div>

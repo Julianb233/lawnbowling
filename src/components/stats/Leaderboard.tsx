@@ -48,7 +48,7 @@ export function Leaderboard({ currentUserId, clubId }: LeaderboardProps) {
     if (rank === 1) return <Trophy className="h-5 w-5 text-amber-400" />;
     if (rank === 2) return <Medal className="h-5 w-5 text-zinc-400" />;
     if (rank === 3) return <Medal className="h-5 w-5 text-amber-700" />;
-    return <span className="text-sm font-bold text-zinc-600">{rank}</span>;
+    return <span className="text-sm font-bold text-zinc-600 dark:text-zinc-400">{rank}</span>;
   };
 
   return (
@@ -92,7 +92,7 @@ export function Leaderboard({ currentUserId, clubId }: LeaderboardProps) {
           ))}
         </div>
       ) : entries.length === 0 ? (
-        <div className="py-12 text-center text-sm text-zinc-600">
+        <div className="py-12 text-center text-sm text-zinc-600 dark:text-zinc-400">
           No players with 5+ games yet
         </div>
       ) : (
@@ -108,7 +108,7 @@ export function Leaderboard({ currentUserId, clubId }: LeaderboardProps) {
                   "flex items-center gap-3 rounded-xl border p-3",
                   isMe
                     ? "border-[#1B5E20]/30 bg-[#1B5E20]/5"
-                    : "border-zinc-200 bg-zinc-50"
+                    : "border-zinc-200 bg-zinc-50 dark:bg-white/5"
                 )}
               >
                 <div className="flex h-8 w-8 items-center justify-center">
@@ -119,7 +119,7 @@ export function Leaderboard({ currentUserId, clubId }: LeaderboardProps) {
                   {entry.player?.avatar_url ? (
                     <img src={entry.player.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
+                    <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500 dark:text-zinc-400">
                       {entry.player?.display_name?.charAt(0)?.toUpperCase()}
                     </div>
                   )}
@@ -130,7 +130,7 @@ export function Leaderboard({ currentUserId, clubId }: LeaderboardProps) {
                     {entry.player?.display_name}
                     {isMe && <span className="ml-1 text-xs text-[#1B5E20]">(You)</span>}
                   </p>
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
                     {entry.games_played} games &middot; {entry.wins}W/{entry.losses}L
                   </p>
                 </div>

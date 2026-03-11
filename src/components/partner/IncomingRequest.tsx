@@ -104,7 +104,7 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
         )}
 
         <div className="flex-1 min-w-0">
-          <Toast.Title className="text-sm font-semibold text-zinc-900">
+          <Toast.Title className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             Partner Request!
           </Toast.Title>
           <Toast.Description className="mt-1 text-sm text-zinc-400">
@@ -120,7 +120,7 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
               {Array.from({ length: 3 }, (_, i) => (
                 <Star key={i} className={cn("h-3 w-3 inline-block", i < skillInfo.stars ? "fill-amber-400 text-amber-400" : "text-zinc-300")} strokeWidth={1.5} />
               ))}{" "}
-              <span className="text-zinc-500">{skillInfo.label}</span>
+              <span className="text-zinc-500 dark:text-zinc-400">{skillInfo.label}</span>
             </div>
           )}
 

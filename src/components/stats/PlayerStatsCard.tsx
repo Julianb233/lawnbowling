@@ -15,7 +15,7 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
     return (
       <div className="rounded-2xl border border-zinc-200 bg-white/80 p-6 text-center">
         <Target className="mx-auto mb-2 h-10 w-10 text-zinc-700" />
-        <p className="text-sm text-zinc-500">No stats yet. Play some games!</p>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">No stats yet. Play some games!</p>
       </div>
     );
   }
@@ -59,8 +59,8 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-2xl font-bold text-zinc-900">{Math.round(stats.win_rate)}%</span>
-            <span className="text-xs text-zinc-500">Win Rate</span>
+            <span className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">{Math.round(stats.win_rate)}%</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">Win Rate</span>
           </div>
         </div>
       </div>
@@ -70,8 +70,8 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
         {statItems.map((item) => (
           <div key={item.label} className="rounded-xl bg-zinc-100 p-3 text-center">
             <item.icon className={`mx-auto mb-1 h-4 w-4 ${item.color}`} />
-            <p className="text-lg font-bold text-zinc-900">{item.value}</p>
-            <p className="text-xs text-zinc-500">{item.label}</p>
+            <p className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{item.value}</p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">{item.label}</p>
           </div>
         ))}
       </div>

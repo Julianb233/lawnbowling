@@ -369,14 +369,14 @@ function ClubOnboardContent() {
   if (step === "confirmation") {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full rounded-2xl border border-zinc-200 bg-white p-8 text-center">
+        <div className="max-w-md w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
             <CheckCircle className="h-8 w-8 text-[#1B5E20]" />
           </div>
-          <h1 className="text-xl font-bold text-zinc-900">
+          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
             Welcome to Lawnbowling!
           </h1>
-          <p className="mt-2 text-sm text-zinc-500">
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
             Your club <strong>{name}</strong> has been registered
             {selectedPlan !== "free"
               ? ` on the ${selectedPlanData.name} plan`
@@ -404,8 +404,8 @@ function ClubOnboardContent() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-zinc-50 dark:bg-white/5">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-2xl px-4 py-4">
           <Link
             href="/clubs"
@@ -414,10 +414,10 @@ function ClubOnboardContent() {
             <ArrowLeft className="h-4 w-4" />
             Club Directory
           </Link>
-          <h1 className="mt-2 text-2xl font-black tracking-tight text-zinc-900">
+          <h1 className="mt-2 text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
             Set Up Your Club
           </h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Get your club on Lawnbowling in minutes
           </p>
 
@@ -458,7 +458,7 @@ function ClubOnboardContent() {
         {/* Step 1: Club Info */}
         {step === "info" && (
           <div className="space-y-6">
-            <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
               <h2 className="text-lg font-bold text-zinc-900 mb-4">
                 Club Information
               </h2>
@@ -528,7 +528,7 @@ function ClubOnboardContent() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
               <h2 className="text-lg font-bold text-zinc-900 mb-4">
                 Contact Person
               </h2>
@@ -600,7 +600,7 @@ function ClubOnboardContent() {
                     key={plan.id}
                     onClick={() => setSelectedPlan(plan.id)}
                     className={cn(
-                      "w-full rounded-2xl border-2 bg-white p-6 text-left transition-all",
+                      "w-full rounded-2xl border-2 bg-white dark:bg-[#1a3d28] p-6 text-left transition-all",
                       isSelected
                         ? "border-[#1B5E20] shadow-md"
                         : "border-zinc-200 hover:border-zinc-300"
@@ -612,14 +612,14 @@ function ClubOnboardContent() {
                           "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl",
                           isSelected
                             ? "bg-[#1B5E20]/10 text-[#1B5E20]"
-                            : "bg-zinc-100 text-zinc-500"
+                            : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
                         )}
                       >
                         {plan.icon}
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <h3 className="text-lg font-bold text-zinc-900">
+                          <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
                             {plan.name}
                           </h3>
                           {"popular" in plan && plan.popular && (
@@ -637,7 +637,7 @@ function ClubOnboardContent() {
                           ) : (
                             <>
                               ${plan.pricePerMember}
-                              <span className="text-sm font-normal text-zinc-500">
+                              <span className="text-sm font-normal text-zinc-500 dark:text-zinc-400">
                                 /member/year
                               </span>
                             </>
@@ -647,7 +647,7 @@ function ClubOnboardContent() {
                           {plan.features.map((f) => (
                             <span
                               key={f}
-                              className="inline-flex items-center gap-1 rounded-full bg-zinc-50 px-2.5 py-1 text-xs text-zinc-600"
+                              className="inline-flex items-center gap-1 rounded-full bg-zinc-50 px-2.5 py-1 text-xs text-zinc-600 dark:text-zinc-400"
                             >
                               <CheckCircle className="h-3 w-3 text-[#1B5E20]" />
                               {f}
@@ -695,7 +695,7 @@ function ClubOnboardContent() {
         {/* Step 3: Estimate Members */}
         {step === "members" && (
           <div className="space-y-6">
-            <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
               <h2 className="text-lg font-bold text-zinc-900 mb-2">
                 How many members does your club have?
               </h2>
@@ -739,7 +739,7 @@ function ClubOnboardContent() {
                       <p className="text-sm font-medium text-zinc-700">
                         {selectedPlanData.name} Plan
                       </p>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400">
                         ${selectedPlanData.pricePerMember}/member x{" "}
                         {memberEstimate} members
                       </p>
@@ -748,7 +748,7 @@ function ClubOnboardContent() {
                       <p className="text-2xl font-black text-[#1B5E20]">
                         ${annualTotal.toLocaleString()}
                       </p>
-                      <p className="text-xs text-zinc-500">per year</p>
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400">per year</p>
                     </div>
                   </div>
                   <p className="mt-2 text-xs text-zinc-400">
@@ -800,7 +800,7 @@ function ClubOnboardContent() {
         {/* Step 4: Payment */}
         {step === "payment" && (
           <div className="space-y-6">
-            <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
               <h2 className="text-lg font-bold text-zinc-900 mb-4">
                 Review & Confirm
               </h2>
@@ -810,8 +810,8 @@ function ClubOnboardContent() {
                   <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">
                     Club
                   </p>
-                  <p className="text-sm font-bold text-zinc-900">{name}</p>
-                  <p className="text-sm text-zinc-500">
+                  <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{name}</p>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
                     {city},{" "}
                     {US_STATES.find((s) => s.code === stateCode)?.name ||
                       stateCode}{" "}
@@ -823,10 +823,10 @@ function ClubOnboardContent() {
                   <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">
                     Plan
                   </p>
-                  <p className="text-sm font-bold text-zinc-900">
+                  <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                     {selectedPlanData.name}
                   </p>
-                  <p className="text-sm text-zinc-500">
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
                     {selectedPlan === "free"
                       ? "Free forever, up to 20 members"
                       : `$${selectedPlanData.pricePerMember}/member/year`}
@@ -837,7 +837,7 @@ function ClubOnboardContent() {
                   <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">
                     Members
                   </p>
-                  <p className="text-sm font-bold text-zinc-900">
+                  <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                     {memberEstimate} estimated members
                   </p>
                 </div>
@@ -845,7 +845,7 @@ function ClubOnboardContent() {
                 {selectedPlan !== "free" && (
                   <div className="pt-4">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-bold text-zinc-900">
+                      <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                         Annual Total
                       </p>
                       <p className="text-2xl font-black text-[#1B5E20]">
@@ -858,7 +858,7 @@ function ClubOnboardContent() {
             </section>
 
             {contactName && (
-              <section className="rounded-2xl border border-zinc-200 bg-white p-6">
+              <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
                 <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">
                   Contact
                 </p>

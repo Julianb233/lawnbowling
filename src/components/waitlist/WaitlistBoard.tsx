@@ -34,7 +34,7 @@ export function WaitlistBoard({ venueId, sport }: WaitlistBoardProps) {
     return (
       <div className="rounded-xl glass p-4 text-center">
         <Clock className="mx-auto h-8 w-8 text-zinc-600 mb-2" />
-        <p className="text-sm text-zinc-500">No one in the waitlist</p>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">No one in the waitlist</p>
       </div>
     );
   }
@@ -43,7 +43,7 @@ export function WaitlistBoard({ venueId, sport }: WaitlistBoardProps) {
     <div className="rounded-xl glass p-4">
       <div className="mb-3 flex items-center gap-2">
         <Users className="h-4 w-4 text-amber-400" />
-        <h3 className="text-sm font-semibold text-zinc-600">
+        <h3 className="text-sm font-semibold text-zinc-600 dark:text-zinc-400">
           Waitlist ({entries.length})
         </h3>
       </div>
@@ -63,7 +63,7 @@ export function WaitlistBoard({ venueId, sport }: WaitlistBoardProps) {
               <p className="truncate text-sm font-medium text-zinc-700">
                 {entry.player?.display_name || "Player"}
               </p>
-              <p className="text-xs text-zinc-500">{entry.sport}</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">{entry.sport}</p>
             </div>
           </motion.div>
         ))}

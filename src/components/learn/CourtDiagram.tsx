@@ -394,7 +394,7 @@ export function CourtDiagram({ sport }: { sport: Sport }) {
 
   return (
     <section id="court">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900">{titles[sport]}</h2>
+      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{titles[sport]}</h2>
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}

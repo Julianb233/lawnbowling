@@ -206,7 +206,7 @@ export default function LearnHubPage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             Choose a Topic
           </h2>
-          <p className="mt-3 text-lg text-zinc-600">
+          <p className="mt-3 text-lg text-zinc-600 dark:text-zinc-400">
             Dive deep into any aspect of lawn bowling
           </p>
         </div>
@@ -216,7 +216,7 @@ export default function LearnHubPage() {
             <Link
               key={topic.href}
               href={topic.href}
-              className={`group flex flex-col rounded-2xl border bg-white p-8 shadow-sm transition-all hover:shadow-md ${topic.borderColor}`}
+              className={`group flex flex-col rounded-2xl border bg-white dark:bg-[#1a3d28] p-8 shadow-sm transition-all hover:shadow-md ${topic.borderColor}`}
             >
               <div className="mb-5 flex items-center gap-4">
                 <div
@@ -228,7 +228,7 @@ export default function LearnHubPage() {
                   {topic.title}
                 </h3>
               </div>
-              <p className="flex-1 text-[16px] leading-relaxed text-zinc-600">
+              <p className="flex-1 text-[16px] leading-relaxed text-zinc-600 dark:text-zinc-400">
                 {topic.description}
               </p>
               <div className="mt-6 flex items-center gap-1 text-sm font-semibold text-[#1B5E20] group-hover:gap-2 transition-all">

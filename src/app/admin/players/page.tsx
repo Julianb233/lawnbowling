@@ -62,12 +62,12 @@ export default function PlayersAdminPage() {
           placeholder="Search by name..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none flex-1 max-w-xs"
+          className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none flex-1 max-w-xs"
         />
         <select
           value={skillFilter}
           onChange={(e) => setSkillFilter(e.target.value)}
-          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800"
+          className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800"
         >
           <option value="">All Skill Levels</option>
           <option value="beginner">Beginner</option>
@@ -77,12 +77,12 @@ export default function PlayersAdminPage() {
       </div>
 
       {loading ? (
-        <div className="text-zinc-500">Loading players...</div>
+        <div className="text-zinc-500 dark:text-zinc-400">Loading players...</div>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-zinc-200 text-left text-zinc-500">
+              <tr className="border-b border-zinc-200 text-left text-zinc-500 dark:text-zinc-400">
                 <th className="pb-2 font-medium">Name</th>
                 <th className="pb-2 font-medium">Skill</th>
                 <th className="pb-2 font-medium">Sports</th>
@@ -99,14 +99,14 @@ export default function PlayersAdminPage() {
                   <td className="py-3">
                     <SkillBadge level={player.skill_level} />
                   </td>
-                  <td className="py-3 text-zinc-500">
+                  <td className="py-3 text-zinc-500 dark:text-zinc-400">
                     {player.sports
                       ?.map((s) => s.replace("_", " "))
                       .join(", ") || "-"}
                   </td>
                   <td className="py-3">
                     <span
-                      className={`inline-flex items-center gap-1 text-xs ${player.is_available ? "text-[#1B5E20]" : "text-zinc-500"}`}
+                      className={`inline-flex items-center gap-1 text-xs ${player.is_available ? "text-[#1B5E20]" : "text-zinc-500 dark:text-zinc-400"}`}
                     >
                       <span
                         className={`h-2 w-2 rounded-full ${player.is_available ? "bg-[#1B5E20]" : "bg-zinc-400"}`}
@@ -119,13 +119,13 @@ export default function PlayersAdminPage() {
                       className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                         player.role === "admin"
                           ? "bg-purple-100 text-purple-700"
-                          : "bg-zinc-100 text-zinc-500"
+                          : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
                       }`}
                     >
                       {player.role}
                     </span>
                   </td>
-                  <td className="py-3 text-zinc-500">
+                  <td className="py-3 text-zinc-500 dark:text-zinc-400">
                     {new Date(player.created_at).toLocaleDateString()}
                   </td>
                   <td className="py-3">

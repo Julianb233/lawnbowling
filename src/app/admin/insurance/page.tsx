@@ -51,7 +51,7 @@ export default function AdminInsurancePage() {
   const coverageRate = players.length > 0 ? Math.round((activeCount / players.length) * 100) : 0;
 
   if (venueLoading || loading) {
-    return <div className="text-zinc-500">Loading insurance data...</div>;
+    return <div className="text-zinc-500 dark:text-zinc-400">Loading insurance data...</div>;
   }
 
   return (
@@ -63,19 +63,19 @@ export default function AdminInsurancePage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 mb-6">
-        <div className="rounded-xl border border-zinc-200 bg-white p-5 text-center">
+        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
           <p className="text-3xl font-black text-[#1B5E20]">{activeCount}</p>
           <p className="text-xs text-zinc-500 mt-1">Active Coverage</p>
         </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-5 text-center">
+        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
           <p className="text-3xl font-black text-amber-500">{expiredCount}</p>
           <p className="text-xs text-zinc-500 mt-1">Expired</p>
         </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-5 text-center">
+        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
           <p className="text-3xl font-black text-zinc-400">{noneCount}</p>
           <p className="text-xs text-zinc-500 mt-1">No Coverage</p>
         </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-5 text-center">
+        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
           <p className="text-3xl font-black text-[#1B5E20]">{coverageRate}%</p>
           <p className="text-xs text-zinc-500 mt-1">Coverage Rate</p>
         </div>
@@ -103,10 +103,10 @@ export default function AdminInsurancePage() {
       </div>
 
       {/* Player list */}
-      <div className="rounded-xl border border-zinc-200 bg-white overflow-hidden">
+      <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-zinc-200 bg-zinc-50">
+            <tr className="border-b border-zinc-200 bg-zinc-50 dark:bg-white/5">
               <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-zinc-400">Player</th>
               <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400">Status</th>
               <th className="px-4 py-3 text-right text-xs font-bold uppercase tracking-wider text-zinc-400">Last Updated</th>
@@ -122,7 +122,7 @@ export default function AdminInsurancePage() {
             ) : (
               filtered.map((p) => (
                 <tr key={p.id} className="border-b border-zinc-100 last:border-0">
-                  <td className="px-4 py-3 font-medium text-zinc-900">{p.display_name}</td>
+                  <td className="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100">{p.display_name}</td>
                   <td className="px-4 py-3 text-center">
                     <span
                       className={cn(
@@ -131,14 +131,14 @@ export default function AdminInsurancePage() {
                           ? "bg-[#1B5E20]/10 text-[#2E7D32]"
                           : p.insurance_status === "expired"
                             ? "bg-amber-100 text-amber-700"
-                            : "bg-zinc-100 text-zinc-500"
+                            : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
                       )}
                     >
                       {p.insurance_status === "active" ? "Active" :
                        p.insurance_status === "expired" ? "Expired" : "None"}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right text-zinc-500">
+                  <td className="px-4 py-3 text-right text-zinc-500 dark:text-zinc-400">
                     {new Date(p.updated_at).toLocaleDateString()}
                   </td>
                 </tr>

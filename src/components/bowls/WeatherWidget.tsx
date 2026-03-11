@@ -315,7 +315,7 @@ export function WeatherWidget({
     return (
       <div
         className={cn(
-          "rounded-2xl border border-zinc-200 bg-white p-4",
+          "rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4",
           className
         )}
       >
@@ -334,7 +334,7 @@ export function WeatherWidget({
     return (
       <div
         className={cn(
-          "rounded-2xl border border-zinc-200 bg-white p-4",
+          "rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4",
           className
         )}
       >
@@ -356,15 +356,15 @@ export function WeatherWidget({
     return (
       <div
         className={cn(
-          "flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-4 py-3",
+          "flex items-center gap-3 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3",
           className
         )}
       >
-        <WeatherIcon type={weatherInfo.icon} className="h-5 w-5 text-zinc-600" />
+        <WeatherIcon type={weatherInfo.icon} className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
         <span className="text-lg font-bold text-zinc-900 tabular-nums">
           {weather.temperature}&deg;F
         </span>
-        <span className="text-sm text-zinc-500">
+        <span className="text-sm text-zinc-500 dark:text-zinc-400">
           Wind {weather.windSpeed} mph {windDir}
         </span>
         {windWarning && (
@@ -379,7 +379,7 @@ export function WeatherWidget({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-zinc-200 bg-white overflow-hidden",
+        "rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden",
         className
       )}
     >
@@ -396,7 +396,7 @@ export function WeatherWidget({
               <p className="text-3xl font-black text-zinc-900 tabular-nums">
                 {weather.temperature}&deg;F
               </p>
-              <p className="text-sm font-medium text-zinc-600">
+              <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
                 {weatherInfo.label}
               </p>
             </div>

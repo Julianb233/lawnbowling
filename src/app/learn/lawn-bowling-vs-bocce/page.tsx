@@ -119,7 +119,7 @@ export default function LawnBowlingVsBoccePage() {
           <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-zinc-900 md:text-5xl lg:text-6xl">
             Lawn Bowling vs Bocce Ball
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
             They look similar at first glance, but lawn bowling and bocce ball
             are fundamentally different sports. Here is everything you need to
             know about how they compare.
@@ -128,7 +128,7 @@ export default function LawnBowlingVsBoccePage() {
 
         {/* Key Difference Callout */}
         <div className="mb-12 rounded-2xl border border-[#1B5E20]/20 bg-[#1B5E20]/5 p-8 md:p-10">
-          <h2 className="mb-3 text-xl font-bold text-zinc-900">
+          <h2 className="mb-3 text-xl font-bold text-zinc-900 dark:text-zinc-100">
             The Fundamental Difference: Bias
           </h2>
           <p className="text-[16px] leading-relaxed text-zinc-700">
@@ -143,25 +143,25 @@ export default function LawnBowlingVsBoccePage() {
 
         {/* Comparison Table */}
         <section className="mb-16">
-          <h2 className="mb-8 text-center text-3xl font-bold text-zinc-900">
+          <h2 className="mb-8 text-center text-3xl font-bold text-zinc-900 dark:text-zinc-100">
             Side-by-Side Comparison
           </h2>
           <div className="space-y-4">
             {comparisonRows.map((row) => (
               <div
                 key={row.category}
-                className="rounded-2xl border border-zinc-200 bg-white overflow-hidden"
+                className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden"
               >
                 <div className="flex items-center gap-3 border-b border-zinc-100 bg-zinc-50 px-6 py-3">
                   <row.icon className="h-5 w-5 text-[#1B5E20]" />
-                  <h3 className="font-bold text-zinc-900">{row.category}</h3>
+                  <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{row.category}</h3>
                 </div>
                 <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-zinc-100">
                   <div className="p-6">
                     <span className="mb-2 inline-block text-xs font-semibold uppercase tracking-wider text-[#1B5E20]">
                       Lawn Bowling
                     </span>
-                    <p className="text-[15px] leading-relaxed text-zinc-600">
+                    <p className="text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
                       {row.lawnBowling}
                     </p>
                   </div>
@@ -169,7 +169,7 @@ export default function LawnBowlingVsBoccePage() {
                     <span className="mb-2 inline-block text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Bocce Ball
                     </span>
-                    <p className="text-[15px] leading-relaxed text-zinc-600">
+                    <p className="text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
                       {row.bocce}
                     </p>
                   </div>
@@ -181,7 +181,7 @@ export default function LawnBowlingVsBoccePage() {
 
         {/* Culture & Community */}
         <section className="mb-16">
-          <h2 className="mb-6 text-2xl font-bold text-zinc-900">
+          <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
             Culture & Community
           </h2>
           <div className="grid gap-6 md:grid-cols-2">
@@ -189,7 +189,7 @@ export default function LawnBowlingVsBoccePage() {
               <h3 className="mb-3 text-lg font-bold text-[#1B5E20]">
                 Lawn Bowling
               </h3>
-              <ul className="space-y-2 text-[15px] text-zinc-600">
+              <ul className="space-y-2 text-[15px] text-zinc-600 dark:text-zinc-400">
                 <li>
                   Organized through national federations (World Bowls, Bowls USA)
                 </li>
@@ -208,10 +208,10 @@ export default function LawnBowlingVsBoccePage() {
               </ul>
             </div>
             <div className="rounded-2xl border border-zinc-200 p-6">
-              <h3 className="mb-3 text-lg font-bold text-zinc-500">
+              <h3 className="mb-3 text-lg font-bold text-zinc-500 dark:text-zinc-400">
                 Bocce Ball
               </h3>
-              <ul className="space-y-2 text-[15px] text-zinc-600">
+              <ul className="space-y-2 text-[15px] text-zinc-600 dark:text-zinc-400">
                 <li>
                   Popular worldwide, especially in Italy, France, and South
                   America
@@ -234,7 +234,7 @@ export default function LawnBowlingVsBoccePage() {
 
         {/* Which Should You Try */}
         <section className="mb-16">
-          <h2 className="mb-6 text-2xl font-bold text-zinc-900">
+          <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
             Which Should You Try?
           </h2>
           <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 md:p-8">

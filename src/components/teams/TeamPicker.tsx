@@ -129,7 +129,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
       {/* Draft pool */}
       {mode === "captain" && pool.length > 0 && (
         <div>
-          <p className="mb-2 text-sm text-zinc-500">
+          <p className="mb-2 text-sm text-zinc-500 dark:text-zinc-400">
             Team {pickingTeam} picks:
           </p>
           <div className="flex flex-wrap gap-2">
@@ -170,12 +170,12 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
           <h4 className="mb-2 text-sm font-bold text-blue-400">Team 1</h4>
           <div className="space-y-1.5">
             {team1.map((p) => (
-              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600">
+              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                 <div className="h-5 w-5 overflow-hidden rounded-full bg-zinc-700">
                   {p.avatar_url ? (
                     <img src={p.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500">
+                    <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500 dark:text-zinc-400">
                       {p.name?.charAt(0)}
                     </div>
                   )}
@@ -183,7 +183,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
                 {p.name}
               </div>
             ))}
-            {team1.length === 0 && <p className="text-xs text-zinc-600">No players</p>}
+            {team1.length === 0 && <p className="text-xs text-zinc-600 dark:text-zinc-400">No players</p>}
           </div>
         </div>
 
@@ -191,12 +191,12 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
           <h4 className="mb-2 text-sm font-bold text-red-400">Team 2</h4>
           <div className="space-y-1.5">
             {team2.map((p) => (
-              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600">
+              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                 <div className="h-5 w-5 overflow-hidden rounded-full bg-zinc-700">
                   {p.avatar_url ? (
                     <img src={p.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500">
+                    <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500 dark:text-zinc-400">
                       {p.name?.charAt(0)}
                     </div>
                   )}
@@ -204,7 +204,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
                 {p.name}
               </div>
             ))}
-            {team2.length === 0 && <p className="text-xs text-zinc-600">No players</p>}
+            {team2.length === 0 && <p className="text-xs text-zinc-600 dark:text-zinc-400">No players</p>}
           </div>
         </div>
       </div>

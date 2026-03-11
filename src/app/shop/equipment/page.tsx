@@ -320,7 +320,7 @@ export default function EquipmentPage() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col rounded-xl border bg-white p-4 transition hover:shadow-md hover:-translate-y-0.5"
+                  className="group flex flex-col rounded-xl border bg-white dark:bg-[#1a3d28] p-4 transition hover:shadow-md hover:-translate-y-0.5"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="font-semibold text-[#0A2E12] group-hover:text-[#1B5E20]">
@@ -385,7 +385,7 @@ export default function EquipmentPage() {
               href={dealer.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col rounded-xl border bg-white p-4 text-center transition hover:shadow-md"
+              className="group flex flex-col rounded-xl border bg-white dark:bg-[#1a3d28] p-4 text-center transition hover:shadow-md"
             >
               <div className="mb-2 flex items-center justify-center gap-1">
                 <Star className="size-4 text-[#B8860B]" />

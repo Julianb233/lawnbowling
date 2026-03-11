@@ -426,7 +426,7 @@ export default function ScoreEntryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#0f2518] pb-20 lg:pb-0">
       {/* Toast notifications */}
       <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
         <AnimatePresence>

@@ -33,7 +33,7 @@ export function WizardStepRail({ steps, currentIndex }: WizardStepRailProps) {
                 <span
                   className={cn(
                     "text-xs font-medium whitespace-nowrap",
-                    isCurrent ? "text-zinc-900" : isComplete ? "text-zinc-600" : "text-zinc-400"
+                    isCurrent ? "text-zinc-900" : isComplete ? "text-zinc-600 dark:text-zinc-400" : "text-zinc-400"
                   )}
                 >
                   {step}
@@ -54,10 +54,10 @@ export function WizardStepRail({ steps, currentIndex }: WizardStepRailProps) {
 
       {/* Mobile: compact "Step N of M" */}
       <div className="flex sm:hidden items-center justify-between">
-        <span className="text-sm font-semibold text-zinc-900">
+        <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
           Step {currentIndex + 1} of {steps.length}
         </span>
-        <span className="text-sm font-medium text-zinc-500">
+        <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
           {steps[currentIndex]}
         </span>
       </div>

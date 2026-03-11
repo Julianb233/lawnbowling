@@ -142,18 +142,18 @@ export default function BoardPage() {
     <IncomingRequestProvider>
       <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
         {/* Header */}
-        <header className="sticky top-0 z-40 glass border-b border-zinc-200">
+        <header className="sticky top-0 z-40 glass border-b border-zinc-200 dark:border-white/10">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <h1 className="text-xl font-black text-zinc-900 lg:text-2xl flex items-center gap-2">
+              <h1 className="text-xl font-black text-zinc-900 dark:text-foreground lg:text-2xl flex items-center gap-2">
                 <CircleDot className="w-5 h-5 text-[#1B5E20]" strokeWidth={1.5} />
                 <span className="text-gradient">Lawnbowling</span>
               </h1>
               <div className="flex items-center gap-2">
-                <p className="text-sm text-zinc-500">{venue?.name ?? "Loading venue..."}</p>
+                <p className="text-sm text-zinc-500 dark:text-muted-foreground">{venue?.name ?? "Loading venue..."}</p>
                 <VenueSelector
                   venues={venues}
                   selectedVenueId={selectedVenueId}
@@ -216,7 +216,7 @@ export default function BoardPage() {
                 transition={{ delay: 0.15 }}
                 className="mb-3 flex items-center justify-between"
               >
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   Available Players ({players.length})
                 </h2>
               </motion.div>
@@ -244,7 +244,7 @@ export default function BoardPage() {
                 transition={{ delay: 0.3 }}
                 className="mt-4 rounded-2xl glass p-4"
               >
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   Courts Status
                 </h2>
                 <CourtStatusBoard />
@@ -256,7 +256,7 @@ export default function BoardPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mt-6 rounded-2xl glass border-amber-200 px-4 py-3 text-center text-sm text-amber-700"
+            className="mt-6 rounded-2xl glass border-amber-200 dark:border-amber-800/30 px-4 py-3 text-center text-sm text-amber-700 dark:text-amber-300"
           >
             <Lightbulb className="w-4 h-4 inline-block mr-1 -mt-0.5" strokeWidth={1.5} />
             Tap a player card to send a partner request. They&apos;ll get a ping!

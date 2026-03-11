@@ -77,7 +77,7 @@ export function GameCard({ game, currentPlayerId }: GameCardProps) {
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-zinc-500">
+          <span className="text-xs text-zinc-500 dark:text-zinc-400">
             {goingCount}/{game.max_players} players
           </span>
           {spotsLeft <= 2 && spotsLeft > 0 && (

@@ -57,11 +57,11 @@ export function SportGuideHero({ guide }: { guide: SportGuide }) {
           >
             {guide.difficulty}
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400">
             <Clock className="h-3.5 w-3.5" />
             {guide.typicalDuration}
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400">
             <Users className="h-3.5 w-3.5" />
             {guide.playersNeeded}
           </span>

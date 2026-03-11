@@ -118,13 +118,13 @@ export default function VenueSettingsPage() {
 
   if (loading) {
     return (
-      <div className="text-zinc-500">Loading venue settings...</div>
+      <div className="text-zinc-500 dark:text-zinc-400">Loading venue settings...</div>
     );
   }
 
   if (!venue) {
     return (
-      <div className="text-zinc-500">
+      <div className="text-zinc-500 dark:text-zinc-400">
         No venue configured. Create one in Supabase first.
       </div>
     );
@@ -150,7 +150,7 @@ export default function VenueSettingsPage() {
                 type="text"
                 value={venue.name}
                 onChange={(e) => setVenue({ ...venue, name: e.target.value })}
-                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
               />
             </div>
             <div>
@@ -163,7 +163,7 @@ export default function VenueSettingsPage() {
                 onChange={(e) =>
                   setVenue({ ...venue, address: e.target.value || null })
                 }
-                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
               />
             </div>
             <div>
@@ -174,7 +174,7 @@ export default function VenueSettingsPage() {
                 type="text"
                 value={venue.timezone}
                 onChange={(e) => setVenue({ ...venue, timezone: e.target.value })}
-                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
                 placeholder="America/Los_Angeles"
               />
             </div>
@@ -188,7 +188,7 @@ export default function VenueSettingsPage() {
                 onChange={(e) =>
                   setVenue({ ...venue, tagline: e.target.value || null })
                 }
-                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
                 placeholder="Find your perfect partner"
               />
             </div>
@@ -235,7 +235,7 @@ export default function VenueSettingsPage() {
             <select
               value={newSport}
               onChange={(e) => setNewSport(e.target.value)}
-              className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 flex-1"
+              className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 flex-1"
             >
               <option value="">Select a sport to add...</option>
               {unusedSports.map((s) => (
@@ -261,7 +261,7 @@ export default function VenueSettingsPage() {
               <input
                 type="text"
                 placeholder="Or type a custom sport..."
-                className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 focus:border-[#1B5E20] focus:outline-none flex-1"
+                className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm text-zinc-800 focus:border-[#1B5E20] focus:outline-none flex-1"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     const val = (e.target as HTMLInputElement).value.trim().toLowerCase().replace(/\s+/g, "_");
@@ -292,7 +292,7 @@ export default function VenueSettingsPage() {
                 onChange={(e) =>
                   setVenue({ ...venue, contact_email: e.target.value || null })
                 }
-                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
                 placeholder="info@venue.com"
               />
             </div>
@@ -306,7 +306,7 @@ export default function VenueSettingsPage() {
                 onChange={(e) =>
                   setVenue({ ...venue, contact_phone: e.target.value || null })
                 }
-                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
                 placeholder="(555) 555-5555"
               />
             </div>
@@ -320,7 +320,7 @@ export default function VenueSettingsPage() {
                 onChange={(e) =>
                   setVenue({ ...venue, website_url: e.target.value || null })
                 }
-                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
                 placeholder="https://venue.com"
               />
             </div>
@@ -337,7 +337,7 @@ export default function VenueSettingsPage() {
             playing. Leave blank to use the default waiver.
           </p>
           {waiverLoading ? (
-            <p className="text-sm text-zinc-500">Loading waiver template...</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">Loading waiver template...</p>
           ) : (
             <div className="space-y-4">
               <div>
@@ -350,7 +350,7 @@ export default function VenueSettingsPage() {
                   onChange={(e) =>
                     setWaiverTemplate({ ...waiverTemplate, title: e.target.value })
                   }
-                  className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+                  className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
                   placeholder="Liability Waiver"
                 />
               </div>
@@ -364,7 +364,7 @@ export default function VenueSettingsPage() {
                     setWaiverTemplate({ ...waiverTemplate, body: e.target.value })
                   }
                   rows={12}
-                  className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none resize-y"
+                  className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none resize-y"
                   placeholder="Enter your custom waiver text here..."
                 />
               </div>

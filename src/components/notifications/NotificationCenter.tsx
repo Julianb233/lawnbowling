@@ -22,7 +22,7 @@ const NOTIFICATION_ICONS: Record<NotificationType, typeof Bell> = {
 const NOTIFICATION_COLORS: Record<NotificationType, string> = {
   partner_request_received: "bg-[#1B5E20]/20 text-[#1B5E20]",
   partner_request_accepted: "bg-[#1B5E20]/20 text-[#1B5E20]",
-  partner_request_declined: "bg-zinc-500/20 text-zinc-600",
+  partner_request_declined: "bg-zinc-500/20 text-zinc-600 dark:text-zinc-400",
   partner_request_expired: "bg-amber-500/20 text-amber-600",
   match_assigned: "bg-[#1B5E20]/20 text-[#1B5E20]",
   court_assigned: "bg-violet-500/20 text-violet-600",
@@ -57,7 +57,7 @@ function NotificationItem({
   onRead: (id: string) => void;
 }) {
   const Icon = NOTIFICATION_ICONS[notification.type] || Bell;
-  const colorClass = NOTIFICATION_COLORS[notification.type] || "bg-zinc-500/20 text-zinc-600";
+  const colorClass = NOTIFICATION_COLORS[notification.type] || "bg-zinc-500/20 text-zinc-600 dark:text-zinc-400";
 
   return (
     <motion.button
@@ -67,7 +67,7 @@ function NotificationItem({
         "flex w-full items-start gap-3 rounded-xl px-3 py-3 text-left transition-colors",
         notification.is_read
           ? "opacity-60 hover:opacity-80"
-          : "hover:bg-zinc-50"
+          : "hover:bg-zinc-50 dark:bg-white/5"
       )}
       onClick={() => !notification.is_read && onRead(notification.id)}
     >
@@ -80,7 +80,7 @@ function NotificationItem({
         <Icon className="h-4 w-4" />
       </div>
       <div className="min-w-0 flex-1">
-        <p className={cn("text-sm", notification.is_read ? "text-zinc-500" : "font-medium text-zinc-900")}>
+        <p className={cn("text-sm", notification.is_read ? "text-zinc-500 dark:text-zinc-400" : "font-medium text-zinc-900")}>
           {notification.title}
         </p>
         <p className="mt-0.5 text-xs text-zinc-500 line-clamp-2">{notification.body}</p>
@@ -149,11 +149,11 @@ export function NotificationCenter({ playerId }: { playerId: string | null }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 top-12 z-50 w-80 overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-xl sm:w-96"
+            className="absolute right-0 top-12 z-50 w-80 overflow-hidden rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-xl sm:w-96"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-zinc-100 px-4 py-3">
-              <h3 className="text-sm font-semibold text-zinc-900">Notifications</h3>
+              <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Notifications</h3>
               {unreadCount > 0 && (
                 <button
                   onClick={markAllAsRead}

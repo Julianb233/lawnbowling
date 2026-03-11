@@ -58,8 +58,8 @@ export function TournamentCard({ tournament }: TournamentCardProps) {
           </span>
         </div>
 
-        <h3 className="mb-1 font-bold text-zinc-900">{tournament.name}</h3>
-        <p className="mb-3 text-sm text-zinc-500">
+        <h3 className="mb-1 font-bold text-zinc-900 dark:text-zinc-100">{tournament.name}</h3>
+        <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
           {TOURNAMENT_FORMAT_LABELS[tournament.format]}
         </p>
 
@@ -73,7 +73,7 @@ export function TournamentCard({ tournament }: TournamentCardProps) {
           >
             {sportLabel?.label ?? tournament.sport}
           </span>
-          <div className="flex items-center gap-3 text-zinc-500">
+          <div className="flex items-center gap-3 text-zinc-500 dark:text-zinc-400">
             <span className="flex items-center gap-1">
               <Users className="h-3.5 w-3.5" />
               {participantCount}/{tournament.max_players}

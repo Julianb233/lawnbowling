@@ -99,10 +99,10 @@ export default function AdminClaimsPage() {
       </div>
 
       {loading ? (
-        <p className="text-zinc-500">Loading claims...</p>
+        <p className="text-zinc-500 dark:text-zinc-400">Loading claims...</p>
       ) : claims.length === 0 ? (
-        <div className="rounded-2xl border border-zinc-200 bg-white p-12 text-center">
-          <p className="text-sm text-zinc-500">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-12 text-center">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             No {filter !== "all" ? filter : ""} claims found
           </p>
         </div>
@@ -111,25 +111,25 @@ export default function AdminClaimsPage() {
           {claims.map((claim) => (
             <div
               key={claim.id}
-              className="rounded-2xl border border-zinc-200 bg-white p-5"
+              className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   {/* Club info */}
                   <div className="flex items-center gap-2 mb-2">
                     <Building2 className="h-4 w-4 text-zinc-400" />
-                    <span className="font-bold text-zinc-900">
+                    <span className="font-bold text-zinc-900 dark:text-zinc-100">
                       {claim.club?.name ?? "Unknown Club"}
                     </span>
                     {claim.club && (
-                      <span className="text-sm text-zinc-500">
+                      <span className="text-sm text-zinc-500 dark:text-zinc-400">
                         {claim.club.city}, {claim.club.state_code}
                       </span>
                     )}
                   </div>
 
                   {/* Claimant info */}
-                  <div className="flex items-center gap-2 text-sm text-zinc-600">
+                  <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                     <User className="h-3.5 w-3.5 text-zinc-400" />
                     <span className="font-medium">
                       {claim.player?.display_name ?? "Unknown Player"}

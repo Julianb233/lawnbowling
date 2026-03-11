@@ -132,10 +132,10 @@ export function ShareSheet({
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 100 }}
-            className="w-full max-w-md rounded-t-3xl sm:rounded-3xl bg-white p-6 shadow-2xl"
+            className="w-full max-w-md rounded-t-3xl sm:rounded-3xl bg-white dark:bg-[#1a3d28] p-6 shadow-2xl"
           >
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-bold text-zinc-900">
+              <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
                 Share Results
               </h3>
               <button
@@ -148,11 +148,11 @@ export function ShareSheet({
 
             {/* Share card preview */}
             <div className="mb-6 rounded-xl bg-zinc-50 border border-zinc-200 p-4">
-              <p className="text-sm font-bold text-zinc-900">{tournamentName}</p>
+              <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{tournamentName}</p>
               {topPlayers.length > 0 && (
                 <div className="mt-2 space-y-1">
                   {topPlayers.slice(0, 3).map((p, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-zinc-600">
+                    <div key={idx} className="flex items-center gap-2 text-xs text-zinc-600 dark:text-zinc-400">
                       <span className={cn(
                         "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white",
                         idx === 0 ? "bg-amber-500" : idx === 1 ? "bg-zinc-400" : "bg-amber-700"

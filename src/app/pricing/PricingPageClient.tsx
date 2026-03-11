@@ -43,7 +43,7 @@ export default function PricingPageClient() {
       <div className="mx-auto max-w-4xl">
         <button
           onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
@@ -69,8 +69,8 @@ export default function PricingPageClient() {
         )}
 
         <div className="mb-8 text-center">
-          <h1 className="mb-2 text-3xl font-black text-zinc-900">Choose Your Plan</h1>
-          <p className="text-zinc-500">Unlock premium features for players and venues</p>
+          <h1 className="mb-2 text-3xl font-black text-zinc-900 dark:text-zinc-100">Choose Your Plan</h1>
+          <p className="text-zinc-500 dark:text-zinc-400">Unlock premium features for players and venues</p>
         </div>
 
         {loading ? (

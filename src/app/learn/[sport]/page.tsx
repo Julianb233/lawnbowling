@@ -40,7 +40,7 @@ export default function SportGuidePage() {
   return (
     <div className="min-h-screen bg-[#FEFCF9] pb-24 lg:pb-8">
       {/* Header */}
-      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200 dark:border-white/10">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3">
           <Link
             href="/learn"
@@ -49,7 +49,7 @@ export default function SportGuidePage() {
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div>
-            <h1 className="text-lg font-bold text-zinc-900">
+            <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
               <span className="inline-flex items-center gap-2"><SportIcon sport={sport as Sport} className="w-5 h-5" />{guide.name} Guide</span>
             </h1>
           </div>
@@ -69,7 +69,7 @@ export default function SportGuidePage() {
 
           {/* Overview */}
           <section id="overview">
-            <h2 className="mb-4 text-2xl font-bold text-zinc-900">Overview</h2>
+            <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Overview</h2>
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ export default function SportGuidePage() {
 
           {/* How to Play */}
           <section id="how-to-play">
-            <h2 className="mb-4 text-2xl font-bold text-zinc-900">
+            <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
               How to Play
             </h2>
             <div className="space-y-3">
@@ -112,7 +112,7 @@ export default function SportGuidePage() {
                     {step.step}
                   </div>
                   <div>
-                    <h3 className="mb-1 font-semibold text-zinc-900">
+                    <h3 className="mb-1 font-semibold text-zinc-900 dark:text-zinc-100">
                       {step.title}
                     </h3>
                     <p className="text-sm leading-relaxed text-zinc-400">
@@ -138,7 +138,7 @@ export default function SportGuidePage() {
 
           {/* Fun Facts */}
           <section id="fun-facts">
-            <h2 className="mb-4 text-2xl font-bold text-zinc-900">
+            <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
               Fun Facts
             </h2>
             <div className="space-y-2">
@@ -152,7 +152,7 @@ export default function SportGuidePage() {
                   className="flex items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-4"
                 >
                   <span className="mt-0.5 text-zinc-400 shrink-0">&bull;</span>
-                  <p className="text-sm leading-relaxed text-zinc-600">
+                  <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                     {fact}
                   </p>
                 </motion.div>

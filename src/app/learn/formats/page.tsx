@@ -181,7 +181,7 @@ export default function FormatsPage() {
           <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 md:text-5xl">
             Game <span className="text-[#1B5E20]">Formats</span>
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600">
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
             Lawn bowls can be played as individuals or in teams of two, three,
             or four. Each format has different numbers of bowls per player,
             different end counts, and a different tactical feel. Every game is
@@ -193,7 +193,7 @@ export default function FormatsPage() {
         <div className="space-y-10">
           {formats.map((fmt) => (
             <section key={fmt.name} id={fmt.name.toLowerCase().replace(/[^a-z]/g, "-")}>
-              <div className="rounded-2xl border border-zinc-200 bg-white shadow-sm overflow-hidden">
+              <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm overflow-hidden">
                 {/* Header */}
                 <div className={`${fmt.color} px-6 py-5 text-white`}>
                   <div className="flex items-center gap-3">
@@ -206,7 +206,7 @@ export default function FormatsPage() {
                   {/* Stats Grid */}
                   <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                     <div className={`rounded-lg border ${fmt.lightBorder} ${fmt.lightBg} p-4`}>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                         Players per Side
                       </p>
                       <p className={`mt-1 text-2xl font-bold ${fmt.textColor}`}>
@@ -214,7 +214,7 @@ export default function FormatsPage() {
                       </p>
                     </div>
                     <div className={`rounded-lg border ${fmt.lightBorder} ${fmt.lightBg} p-4`}>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                         Bowls per Player
                       </p>
                       <p className={`mt-1 text-2xl font-bold ${fmt.textColor}`}>
@@ -222,7 +222,7 @@ export default function FormatsPage() {
                       </p>
                     </div>
                     <div className={`rounded-lg border ${fmt.lightBorder} ${fmt.lightBg} p-4`}>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                         Total Bowls / End
                       </p>
                       <p className={`mt-1 text-2xl font-bold ${fmt.textColor}`}>
@@ -230,10 +230,10 @@ export default function FormatsPage() {
                       </p>
                     </div>
                     <div className={`rounded-lg border ${fmt.lightBorder} ${fmt.lightBg} p-4`}>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                         Standard Length
                       </p>
-                      <p className="mt-1 text-[14px] font-medium text-zinc-900">
+                      <p className="mt-1 text-[14px] font-medium text-zinc-900 dark:text-zinc-100">
                         {fmt.standardEnds}
                       </p>
                     </div>
@@ -241,7 +241,7 @@ export default function FormatsPage() {
 
                   {/* Positions */}
                   <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-5">
-                    <h3 className="mb-2 font-bold text-zinc-900">Positions</h3>
+                    <h3 className="mb-2 font-bold text-zinc-900 dark:text-zinc-100">Positions</h3>
                     <div className="flex flex-wrap gap-2">
                       {fmt.positions.map((pos, i) => (
                         <span
@@ -259,7 +259,7 @@ export default function FormatsPage() {
 
                   {/* Order of Play */}
                   <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-5">
-                    <h3 className="mb-2 font-bold text-zinc-900">
+                    <h3 className="mb-2 font-bold text-zinc-900 dark:text-zinc-100">
                       Order of Play
                     </h3>
                     <p className="text-[15px] leading-relaxed text-zinc-700">
@@ -270,7 +270,7 @@ export default function FormatsPage() {
                   {/* Alternative Format */}
                   {fmt.alternativeFormat && (
                     <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-5">
-                      <h3 className="mb-2 font-bold text-zinc-900">
+                      <h3 className="mb-2 font-bold text-zinc-900 dark:text-zinc-100">
                         Shorter Variations
                       </h3>
                       <p className="text-[15px] leading-relaxed text-zinc-700">
@@ -296,24 +296,24 @@ export default function FormatsPage() {
           <h2 className="mb-2 text-2xl font-bold text-zinc-900 md:text-3xl">
             Choosing a Format by Player Count
           </h2>
-          <p className="mb-6 text-[16px] leading-relaxed text-zinc-600">
+          <p className="mb-6 text-[16px] leading-relaxed text-zinc-600 dark:text-zinc-400">
             The format you play depends on how many players show up. Here are
             common configurations:
           </p>
           <div className="overflow-x-auto rounded-xl border border-zinc-200">
             <table className="w-full text-left text-[14px]">
-              <thead className="bg-zinc-50">
+              <thead className="bg-zinc-50 dark:bg-white/5">
                 <tr>
-                  <th className="px-4 py-3 font-semibold text-zinc-900">
+                  <th className="px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                     Players
                   </th>
-                  <th className="px-4 py-3 font-semibold text-zinc-900">
+                  <th className="px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                     Format
                   </th>
-                  <th className="px-4 py-3 font-semibold text-zinc-900">
+                  <th className="px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                     Teams
                   </th>
-                  <th className="px-4 py-3 font-semibold text-zinc-900">
+                  <th className="px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                     Rinks Needed
                   </th>
                 </tr>
@@ -339,7 +339,7 @@ export default function FormatsPage() {
           <h2 className="mb-2 text-2xl font-bold text-zinc-900 md:text-3xl">
             Social Bowls Variations
           </h2>
-          <p className="mb-6 text-[16px] leading-relaxed text-zinc-600">
+          <p className="mb-6 text-[16px] leading-relaxed text-zinc-600 dark:text-zinc-400">
             Beyond formal competition, clubs run a variety of social formats
             designed to mix players, keep things fun, and accommodate different
             numbers.

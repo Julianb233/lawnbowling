@@ -52,7 +52,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
   if (!team) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <p className="text-zinc-500">Team not found</p>
+        <p className="text-zinc-500 dark:text-zinc-400">Team not found</p>
       </div>
     );
   }
@@ -62,15 +62,15 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-3">
             <Link href="/teams" className="rounded-lg p-1 text-zinc-400 hover:text-zinc-700">
               <ArrowLeft className="h-5 w-5" />
             </Link>
             <div className="flex-1">
-              <h1 className="text-lg font-bold text-zinc-900">{team.name}</h1>
-              <p className="text-sm text-zinc-500">
+              <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{team.name}</h1>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 <span
                   className="inline-block rounded-full px-2 py-0.5 text-xs font-medium"
                   style={{
@@ -96,7 +96,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
         </div>
 
         <Tabs.Root defaultValue="members">
-          <Tabs.List className="mb-4 flex gap-1 rounded-xl bg-white p-1">
+          <Tabs.List className="mb-4 flex gap-1 rounded-xl bg-white dark:bg-[#1a3d28] p-1">
             <Tabs.Trigger
               value="members"
               className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-zinc-500 data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
@@ -132,7 +132,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
           <Tabs.Content value="stats">
             <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6 text-center">
               <BarChart3 className="mx-auto mb-2 h-8 w-8 text-zinc-700" />
-              <p className="text-sm text-zinc-500">Team stats coming soon</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">Team stats coming soon</p>
             </div>
           </Tabs.Content>
         </Tabs.Root>

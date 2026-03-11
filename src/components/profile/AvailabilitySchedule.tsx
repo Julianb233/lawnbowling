@@ -107,7 +107,7 @@ export function AvailabilitySchedule({ playerId, editable = false }: Availabilit
   if (loading) {
     return (
       <div>
-        <h2 className="mb-2 text-sm font-medium text-zinc-600">Availability</h2>
+        <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">Availability</h2>
         <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-center">
           <div className="h-5 w-5 mx-auto animate-spin rounded-full border-2 border-[#1B5E20] border-t-transparent" />
         </div>
@@ -120,10 +120,10 @@ export function AvailabilitySchedule({ playerId, editable = false }: Availabilit
   if (!hasSlots && !editable) {
     return (
       <div>
-        <h2 className="mb-2 text-sm font-medium text-zinc-600">Availability</h2>
+        <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">Availability</h2>
         <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-center">
           <Calendar className="mx-auto mb-1 h-8 w-8 text-zinc-300" />
-          <p className="text-sm text-zinc-500">No availability set</p>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">No availability set</p>
         </div>
       </div>
     );
@@ -134,7 +134,7 @@ export function AvailabilitySchedule({ playerId, editable = false }: Availabilit
   return (
     <div>
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-sm font-medium text-zinc-600">
+        <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
           Availability
         </h2>
         {editable && !editing && (

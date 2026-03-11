@@ -701,7 +701,7 @@ export function GlossaryClient() {
           Lawn Bowling{" "}
           <span className="text-[#1B5E20]">Glossary</span>
         </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600">
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
           Over {glossaryTerms.length} lawn bowling terms defined and explained.
           Search by keyword, browse alphabetically, or filter by category.
         </p>
@@ -723,7 +723,7 @@ export function GlossaryClient() {
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600"
+              className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 dark:text-zinc-400"
               aria-label="Clear search"
             >
               <X className="h-5 w-5" />
@@ -763,7 +763,7 @@ export function GlossaryClient() {
 
       {/* Category Filter */}
       <div className="mb-6 mt-2">
-        <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-zinc-500">
+        <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
           Filter by Category
         </p>
         <div className="flex flex-wrap gap-2">
@@ -801,7 +801,7 @@ export function GlossaryClient() {
       </div>
 
       {/* Results count */}
-      <p className="mb-6 text-sm text-zinc-500">
+      <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
         Showing {filteredTerms.length} of {glossaryTerms.length} terms
         {search && (
           <>
@@ -825,7 +825,7 @@ export function GlossaryClient() {
         <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-12 text-center">
           <Search className="mx-auto mb-4 h-10 w-10 text-zinc-300" />
           <p className="text-lg font-semibold text-zinc-700">No terms found</p>
-          <p className="mt-2 text-zinc-500">
+          <p className="mt-2 text-zinc-500 dark:text-zinc-400">
             Try a different search term or clear your filters.
           </p>
           <button
@@ -863,13 +863,13 @@ export function GlossaryClient() {
                   {terms.map((t) => (
                     <div
                       key={t.term}
-                      className="rounded-xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:border-[#1B5E20]/20 hover:shadow-md"
+                      className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 shadow-sm transition hover:border-[#1B5E20]/20 hover:shadow-md"
                     >
                       <div className="flex flex-wrap items-start justify-between gap-2">
-                        <h3 className="text-lg font-bold text-zinc-900">
+                        <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
                           {t.term}
                         </h3>
-                        <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-0.5 text-xs font-medium text-zinc-500">
+                        <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-0.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
                           {t.category}
                         </span>
                       </div>

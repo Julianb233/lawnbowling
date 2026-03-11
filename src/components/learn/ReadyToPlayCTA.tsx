@@ -24,7 +24,7 @@ export function ReadyToPlayCTA({ sport }: { sport: Sport }) {
         }}
       >
         <div className="mb-3 flex justify-center"><SportIcon sport={sport} className="w-10 h-10" /></div>
-        <h2 className="mb-2 text-2xl font-bold text-zinc-900">
+        <h2 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
           Ready to Play {label.label}?
         </h2>
         <p className="mb-5 text-zinc-400">

@@ -302,7 +302,7 @@ export function ClubMap({
       {/* Filters overlay — hidden when parent provides filters */}
       {!hideFilters && (
         <div className="absolute left-3 right-16 top-3 z-[1000] sm:left-3 sm:right-auto sm:max-w-sm">
-          <div className="rounded-xl border border-zinc-200 bg-white/95 p-2.5 shadow-lg backdrop-blur">
+          <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white/95 p-2.5 shadow-lg backdrop-blur">
             <p className="mb-1.5 text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
               {filteredClubs.length} clubs shown
             </p>
@@ -341,7 +341,7 @@ export function ClubMap({
       {/* Locate me */}
       <button
         onClick={handleLocateMe}
-        className="absolute bottom-4 right-3 z-[1000] flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white shadow-lg transition-transform hover:scale-105 active:scale-95 touch-manipulation"
+        className="absolute bottom-4 right-3 z-[1000] flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-lg transition-transform hover:scale-105 active:scale-95 touch-manipulation"
         title="Find clubs near me"
       >
         <Navigation className="h-4.5 w-4.5 text-[#1B5E20]" />
@@ -349,12 +349,12 @@ export function ClubMap({
 
       {/* Legend */}
       {countries.length > 1 && (
-        <div className="absolute bottom-4 left-3 z-[1000] rounded-lg border border-zinc-200 bg-white/95 px-3 py-2 shadow-md backdrop-blur">
+        <div className="absolute bottom-4 left-3 z-[1000] rounded-lg border border-zinc-200 dark:border-white/10 bg-white/95 px-3 py-2 shadow-md backdrop-blur">
           <div className="flex flex-wrap gap-x-3 gap-y-1">
             {countries.map((cc) => (
               <div key={cc} className="flex items-center gap-1.5">
                 <div className="h-2.5 w-2.5 rounded-full" style={{ background: COUNTRY_COLORS[cc] || "#1B5E20" }} />
-                <span className="text-[10px] font-medium text-zinc-600">{COUNTRIES[cc]?.name ?? cc}</span>
+                <span className="text-[10px] font-medium text-zinc-600 dark:text-zinc-400">{COUNTRIES[cc]?.name ?? cc}</span>
               </div>
             ))}
           </div>

@@ -36,7 +36,7 @@ export function ProfileClubBadge({ clubId, isOwnProfile }: ProfileClubBadgeProps
       return (
         <Link
           href="/settings"
-          className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-dashed border-zinc-300 px-3 py-1 text-xs text-zinc-400 hover:border-zinc-400 hover:text-zinc-500"
+          className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-dashed border-zinc-300 px-3 py-1 text-xs text-zinc-400 hover:border-zinc-400 hover:text-zinc-500 dark:text-zinc-400"
         >
           <Building2 className="h-3.5 w-3.5" />
           Set home club

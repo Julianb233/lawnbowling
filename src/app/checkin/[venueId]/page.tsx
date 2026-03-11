@@ -106,7 +106,7 @@ export default function VenueCheckInPage({
             className="flex flex-col items-center gap-4 py-16"
           >
             <Loader2 className="h-12 w-12 animate-spin text-[#1B5E20]" />
-            <p className="text-sm text-zinc-500">Loading venue...</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">Loading venue...</p>
           </motion.div>
         )}
 
@@ -117,8 +117,8 @@ export default function VenueCheckInPage({
             className="flex flex-col items-center gap-4 py-16"
           >
             <Loader2 className="h-12 w-12 animate-spin text-[#1B5E20]" />
-            <h2 className="text-lg font-bold text-zinc-900">Checking in...</h2>
-            <div className="flex items-center gap-2 text-sm text-zinc-500">
+            <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Checking in...</h2>
+            <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
               <MapPin className="h-4 w-4" />
               {venue.name}
             </div>
@@ -139,12 +139,12 @@ export default function VenueCheckInPage({
               <CheckCircle2 className="h-16 w-16 text-[#1B5E20]" />
             </motion.div>
             <div>
-              <h2 className="text-xl font-bold text-zinc-900">You're Checked In!</h2>
-              <p className="mt-1 text-sm text-zinc-600">
+              <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">You're Checked In!</h2>
+              <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
                 Welcome, <span className="font-semibold">{playerName}</span>
               </p>
             </div>
-            <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm text-zinc-600">
+            <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400">
               <MapPin className="h-4 w-4 text-[#1B5E20]" />
               {venue.name}
             </div>
@@ -161,12 +161,12 @@ export default function VenueCheckInPage({
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center gap-6 rounded-2xl border border-zinc-200 bg-white p-8 text-center"
+            className="flex flex-col items-center gap-6 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center"
           >
             <LogIn className="h-12 w-12 text-zinc-400" />
             <div>
-              <h2 className="text-lg font-bold text-zinc-900">Sign In to Check In</h2>
-              <p className="mt-1 text-sm text-zinc-500">
+              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Sign In to Check In</h2>
+              <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
                 You need an account to check in at this venue
               </p>
             </div>
@@ -192,8 +192,8 @@ export default function VenueCheckInPage({
             className="flex flex-col items-center gap-4 rounded-2xl border border-red-200 bg-red-50 p-8 text-center"
           >
             <AlertCircle className="h-12 w-12 text-red-400" />
-            <h2 className="text-lg font-bold text-zinc-900">Venue Not Found</h2>
-            <p className="text-sm text-zinc-500">This QR code may be outdated or invalid.</p>
+            <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Venue Not Found</h2>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">This QR code may be outdated or invalid.</p>
           </motion.div>
         )}
 
@@ -204,8 +204,8 @@ export default function VenueCheckInPage({
             className="flex flex-col items-center gap-4 rounded-2xl border border-red-200 bg-red-50 p-8 text-center"
           >
             <AlertCircle className="h-12 w-12 text-red-400" />
-            <h2 className="text-lg font-bold text-zinc-900">Check-In Failed</h2>
-            <p className="text-sm text-zinc-500">{errorMsg}</p>
+            <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Check-In Failed</h2>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">{errorMsg}</p>
             <button
               onClick={() => window.location.reload()}
               className="rounded-xl bg-zinc-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-zinc-800"

@@ -67,7 +67,7 @@ export default function LoginPage() {
   if (magicLinkSent) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#FEFCF9] px-4">
-        <div className="w-full max-w-sm space-y-6 rounded-2xl border border-[#1B5E20]/10 bg-white p-8 text-center shadow-lg shadow-[#1B5E20]/5">
+        <div className="w-full max-w-sm space-y-6 rounded-2xl border border-[#1B5E20]/10 bg-white dark:bg-[#1a3d28] p-8 text-center shadow-lg shadow-[#1B5E20]/5">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
             <Mail className="h-8 w-8 text-[#1B5E20]" />
           </div>

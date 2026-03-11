@@ -114,7 +114,7 @@ export default function AdminWaiverTemplatesPage() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-zinc-800">Waiver Templates</h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Configure the waiver text shown to players during sign-up.
           </p>
         </div>
@@ -141,7 +141,7 @@ export default function AdminWaiverTemplatesPage() {
       )}
 
       {(creating || editing) && (
-        <div className="mb-6 rounded-xl border border-zinc-200 bg-white p-6 space-y-4">
+        <div className="mb-6 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 space-y-4">
           <h2 className="text-lg font-semibold text-zinc-800">
             {creating ? "Create Template" : "Edit Template"}
           </h2>
@@ -152,7 +152,7 @@ export default function AdminWaiverTemplatesPage() {
               type="text"
               value={formTitle}
               onChange={(e) => setFormTitle(e.target.value)}
-              className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+              className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
             />
           </div>
 
@@ -164,7 +164,7 @@ export default function AdminWaiverTemplatesPage() {
               value={formBody}
               onChange={(e) => setFormBody(e.target.value)}
               rows={12}
-              className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none font-mono text-sm"
+              className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none font-mono text-sm"
               placeholder="Enter the full waiver text that players will read and accept..."
             />
           </div>
@@ -177,7 +177,7 @@ export default function AdminWaiverTemplatesPage() {
               onChange={(e) => setFormActive(e.target.checked)}
               className="h-4 w-4 rounded border-zinc-300 bg-white text-[#1B5E20] focus:ring-[#1B5E20]"
             />
-            <label htmlFor="is_active" className="text-sm text-zinc-500">
+            <label htmlFor="is_active" className="text-sm text-zinc-500 dark:text-zinc-400">
               Set as active template (shown to new players)
             </label>
           </div>
@@ -205,9 +205,9 @@ export default function AdminWaiverTemplatesPage() {
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-600" />
         </div>
       ) : templates.length === 0 ? (
-        <div className="rounded-xl border border-zinc-200 bg-white py-12 text-center">
-          <p className="text-zinc-500">No waiver templates yet.</p>
-          <p className="mt-1 text-sm text-zinc-500">
+        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 py-12 text-center">
+          <p className="text-zinc-500 dark:text-zinc-400">No waiver templates yet.</p>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
             The default waiver text will be used until you create a custom template.
           </p>
         </div>
@@ -232,10 +232,10 @@ export default function AdminWaiverTemplatesPage() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-1 line-clamp-2 text-sm text-zinc-500">
+                  <p className="mt-1 line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">
                     {t.body.slice(0, 200)}...
                   </p>
-                  <p className="mt-2 text-xs text-zinc-500">
+                  <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
                     Updated {new Date(t.updated_at).toLocaleDateString("en-US", {
                       dateStyle: "medium",
                     })}

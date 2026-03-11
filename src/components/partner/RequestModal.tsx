@@ -97,7 +97,7 @@ export function RequestModal({
                   >
                     <Check className="h-8 w-8 text-[#1B5E20]" />
                   </motion.div>
-                  <p className="mt-4 text-lg font-semibold text-zinc-900">Request Sent!</p>
+                  <p className="mt-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">Request Sent!</p>
                 </motion.div>
               ) : (
                 <motion.div key="form">
@@ -132,7 +132,7 @@ export function RequestModal({
                         style={{ backgroundColor: sportColor.primary }}
                       />
                     </div>
-                    <h3 className="text-base font-semibold text-zinc-900">{target.display_name}</h3>
+                    <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">{target.display_name}</h3>
                     {skillInfo && (
                       <span className="inline-flex items-center gap-1 text-sm text-amber-400">
                         {Array.from({ length: 3 }, (_, i) => (
@@ -150,7 +150,7 @@ export function RequestModal({
                       <Select.Trigger className="inline-flex h-11 w-full items-center justify-between rounded-xl border border-zinc-300 bg-zinc-100 px-4 text-sm text-zinc-700 hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/30 min-h-[44px]">
                         <Select.Value />
                         <Select.Icon>
-                          <ChevronDown className="h-4 w-4 text-zinc-500" />
+                          <ChevronDown className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
                         </Select.Icon>
                       </Select.Trigger>
                       <Select.Portal>

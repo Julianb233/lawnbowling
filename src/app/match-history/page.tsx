@@ -159,15 +159,15 @@ export default function MatchHistoryPage() {
   return (
     <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-3">
           <div className="flex items-center gap-3">
             <Link href="/stats" className="rounded-lg p-1.5 hover:bg-zinc-100">
-              <ArrowLeft className="h-5 w-5 text-zinc-600" />
+              <ArrowLeft className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
             </Link>
             <div>
-              <h1 className="text-lg font-bold text-zinc-900">Match History</h1>
-              <p className="text-xs text-zinc-500">
+              <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Match History</h1>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">
                 {totalMatches} match{totalMatches !== 1 ? "es" : ""} loaded
                 {totalMatches > 0 && ` -- ${wins}W / ${totalMatches - wins}L`}
               </p>
@@ -208,7 +208,7 @@ export default function MatchHistoryPage() {
         ) : matches.length === 0 ? (
           <div className="py-16 text-center">
             <Trophy className="mx-auto mb-3 h-10 w-10 text-zinc-300" />
-            <p className="text-sm font-medium text-zinc-600">No matches found</p>
+            <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">No matches found</p>
             <p className="text-xs text-zinc-400">
               {sportFilter
                 ? "Try a different sport filter"
@@ -294,7 +294,7 @@ function MatchCard({
           ? "border-[#1B5E20]/15 bg-[#1B5E20]/5"
           : isLoss
             ? "border-red-200 bg-red-50/30"
-            : "border-zinc-200 bg-zinc-50"
+            : "border-zinc-200 bg-zinc-50 dark:bg-white/5"
       )}
     >
       {/* Main row - always visible */}
@@ -334,7 +334,7 @@ function MatchCard({
             )}
           </div>
 
-          <div className="mt-1 flex items-center gap-3 text-xs text-zinc-500">
+          <div className="mt-1 flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
             {match.ended_at && (
               <span className="flex items-center gap-1">
                 <Calendar className="h-3 w-3" />
@@ -357,7 +357,7 @@ function MatchCard({
 
           {/* Partner name */}
           {partner && (
-            <p className="mt-1 text-xs text-zinc-600">
+            <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-400">
               with <span className="font-medium">{partner.players.display_name}</span>
             </p>
           )}
@@ -433,7 +433,7 @@ function MatchCard({
               </div>
 
               {/* Match details grid */}
-              <div className="grid grid-cols-3 gap-2 rounded-lg bg-white p-2.5">
+              <div className="grid grid-cols-3 gap-2 rounded-lg bg-white dark:bg-[#1a3d28] p-2.5">
                 <DetailCell
                   label="Date"
                   value={
@@ -496,7 +496,7 @@ function PlayerRow({
         {player.avatar_url ? (
           <img src={player.avatar_url} alt="" className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-[10px] font-medium text-zinc-500">
+          <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-[10px] font-medium text-zinc-500 dark:text-zinc-400">
             {player.display_name?.charAt(0)?.toUpperCase()}
           </div>
         )}

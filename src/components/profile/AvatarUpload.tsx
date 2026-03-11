@@ -54,7 +54,7 @@ export function AvatarUpload({ currentUrl, displayName, onUpload }: AvatarUpload
             alt={displayName}
             className="h-full w-full object-cover"
           />
-          <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-zinc-500">
+          <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-zinc-500 dark:text-zinc-400">
             {initials || "?"}
           </Avatar.Fallback>
         </Avatar.Root>

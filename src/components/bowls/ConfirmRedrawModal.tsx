@@ -26,13 +26,13 @@ export function ConfirmRedrawModal({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="mx-4 w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
+            className="mx-4 w-full max-w-sm rounded-2xl bg-white dark:bg-[#1a3d28] p-6 shadow-2xl"
           >
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
               <AlertTriangle className="h-6 w-6 text-red-600" />
             </div>
-            <h3 className="text-lg font-bold text-zinc-900">Re-Draw Round {round}?</h3>
-            <p className="mt-2 text-sm text-zinc-600">
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Re-Draw Round {round}?</h3>
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
               This will delete the current draw for Round {round} and all existing
               assignments. This cannot be undone. Are you sure?
             </p>

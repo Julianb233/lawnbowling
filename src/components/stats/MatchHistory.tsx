@@ -63,7 +63,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
 
   if (matches.length === 0) {
     return (
-      <div className="py-12 text-center text-sm text-zinc-600">
+      <div className="py-12 text-center text-sm text-zinc-600 dark:text-zinc-400">
         No match history yet
       </div>
     );
@@ -108,13 +108,13 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                 )}
               </div>
               {result && result.team1_score !== null && (
-                <span className="text-sm font-bold text-zinc-600">
+                <span className="text-sm font-bold text-zinc-600 dark:text-zinc-400">
                   {result.team1_score} - {result.team2_score}
                 </span>
               )}
             </div>
 
-            <div className="flex items-center gap-3 text-xs text-zinc-500">
+            <div className="flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
               {match.ended_at && (
                 <span className="flex items-center gap-1">
                   <Calendar className="h-3 w-3" />
@@ -142,7 +142,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                   {mp.players?.avatar_url ? (
                     <img src={mp.players.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-[10px] text-zinc-500">
+                    <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-[10px] text-zinc-500 dark:text-zinc-400">
                       {mp.players?.display_name?.charAt(0)}
                     </div>
                   )}

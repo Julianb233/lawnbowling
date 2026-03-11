@@ -21,7 +21,7 @@ export function ClubMapFilters({
 }: ClubMapFiltersProps) {
   return (
     <div className="absolute left-4 right-4 top-4 z-10 sm:left-4 sm:right-auto sm:max-w-xs">
-      <div className="rounded-2xl border border-zinc-200 bg-white/95 p-3 shadow-lg backdrop-blur">
+      <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/95 p-3 shadow-lg backdrop-blur">
         <p className="mb-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
           {clubCount} clubs shown
         </p>

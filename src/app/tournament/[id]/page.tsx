@@ -115,7 +115,7 @@ export default function TournamentDetailPage() {
     return (
       <div className="min-h-screen bg-[#FEFCF9]">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-          <p className="text-zinc-500">Tournament not found</p>
+          <p className="text-zinc-500 dark:text-zinc-400">Tournament not found</p>
           <Link href="/tournament" className="mt-4 inline-block text-sm text-[#1B5E20] hover:underline">
             Back to tournaments
           </Link>
@@ -136,16 +136,16 @@ export default function TournamentDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <Link href="/tournament" className="mb-2 flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-600">
+          <Link href="/tournament" className="mb-2 flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-600 dark:text-zinc-400">
             <ArrowLeft className="h-4 w-4" />
             Tournaments
           </Link>
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-xl font-bold text-zinc-900">{tournament.name}</h1>
-              <div className="mt-1 flex items-center gap-3 text-sm text-zinc-500">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-lg font-bold text-zinc-900 sm:text-xl truncate">{tournament.name}</h1>
+              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-zinc-500 dark:text-zinc-400">
                 <span style={{ color: sportColor.primary }}>
                   <SportIcon sport={tournament.sport as Sport} className="w-4 h-4 inline-block" /> {sportLabel?.label ?? tournament.sport}
                 </span>
@@ -156,11 +156,11 @@ export default function TournamentDetailPage() {
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               {canStart && (
                 <button
                   onClick={handleStartTournament}
-                  className="flex items-center gap-2 rounded-xl bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-amber-500"
+                  className="flex items-center gap-2 rounded-xl bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-amber-500 min-h-[44px] touch-manipulation"
                 >
                   <Play className="h-4 w-4" />
                   Start
@@ -183,14 +183,14 @@ export default function TournamentDetailPage() {
           <Tabs.List className="mb-6 flex gap-1 rounded-xl bg-white/80 p-1">
             <Tabs.Trigger
               value="bracket"
-              className="flex-1 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 transition-colors data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
+              className="flex-1 rounded-lg px-3 py-3 text-sm font-medium text-zinc-500 transition-colors data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900 min-h-[44px] touch-manipulation"
             >
               <Trophy className="mr-1.5 inline h-4 w-4" />
               Bracket
             </Tabs.Trigger>
             <Tabs.Trigger
               value="standings"
-              className="flex-1 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 transition-colors data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
+              className="flex-1 rounded-lg px-3 py-3 text-sm font-medium text-zinc-500 transition-colors data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900 min-h-[44px] touch-manipulation"
             >
               Standings
             </Tabs.Trigger>
@@ -218,9 +218,9 @@ export default function TournamentDetailPage() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-sm rounded-2xl border border-zinc-300 bg-white p-6 shadow-2xl"
+              className="w-full max-w-sm rounded-2xl border border-zinc-300 bg-white dark:bg-[#1a3d28] p-6 shadow-2xl"
             >
-              <h3 className="mb-4 text-lg font-bold text-zinc-900">Report Result</h3>
+              <h3 className="mb-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">Report Result</h3>
               <form onSubmit={handleReportResult} className="space-y-4">
                 <div>
                   <label className="mb-2 block text-sm font-medium text-zinc-400">Winner</label>

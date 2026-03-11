@@ -10,6 +10,7 @@ import { MatchHistory } from "@/components/stats/MatchHistory";
 import { WeeklyActivity } from "@/components/stats/WeeklyActivity";
 import { FavoritePartnersList } from "@/components/stats/FavoritePartnersList";
 import { ClubStats } from "@/components/stats/ClubStats";
+import { BowlsRatingsCard } from "@/components/stats/BowlsRatingsCard";
 import { usePlayerStats } from "@/lib/hooks/usePlayerStats";
 
 export default function StatsPage() {
@@ -44,10 +45,10 @@ export default function StatsPage() {
 
   return (
     <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <h1 className="text-xl font-bold text-zinc-900">My Stats</h1>
-          <p className="text-sm text-zinc-500">Your performance at a glance</p>
+          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">My Stats</h1>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">Your performance at a glance</p>
         </div>
       </header>
 
@@ -61,13 +62,15 @@ export default function StatsPage() {
           <>
             <PlayerStatsCard stats={stats} />
 
+            {currentUserId && <BowlsRatingsCard playerId={currentUserId} />}
+
             {homeClubId && <ClubStats clubId={homeClubId} />}
 
             {currentUserId && <WeeklyActivity playerId={currentUserId} />}
 
             {currentUserId && (
               <div>
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   Favorite Partners
                 </h2>
                 <FavoritePartnersList playerId={currentUserId} />
@@ -77,7 +80,7 @@ export default function StatsPage() {
             {currentUserId && (
               <div>
                 <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+                  <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                     Match History
                   </h2>
                   <Link

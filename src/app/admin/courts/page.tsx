@@ -95,7 +95,7 @@ export default function CourtsAdminPage() {
   };
 
   if (loading) {
-    return <div className="text-zinc-500">Loading courts...</div>;
+    return <div className="text-zinc-500 dark:text-zinc-400">Loading courts...</div>;
   }
 
   return (
@@ -109,13 +109,13 @@ export default function CourtsAdminPage() {
           placeholder="Court name"
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
-          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+          className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
           onKeyDown={(e) => e.key === "Enter" && handleAdd()}
         />
         <select
           value={newSport}
           onChange={(e) => setNewSport(e.target.value)}
-          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800"
+          className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800"
         >
           {sports.map((s) => (
             <option key={s} value={s}>
@@ -141,7 +141,7 @@ export default function CourtsAdminPage() {
         {courts.map((court) => (
           <div
             key={court.id}
-            className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white px-4 py-3"
+            className="flex items-center justify-between rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3"
           >
             {editing === court.id ? (
               <div className="flex items-center gap-2 flex-1">
@@ -149,12 +149,12 @@ export default function CourtsAdminPage() {
                   type="text"
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  className="rounded-lg border border-zinc-200 bg-white px-2 py-1 text-sm text-zinc-800"
+                  className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-2 py-1 text-sm text-zinc-800"
                 />
                 <select
                   value={editSport}
                   onChange={(e) => setEditSport(e.target.value)}
-                  className="rounded-lg border border-zinc-200 bg-white px-2 py-1 text-sm text-zinc-800"
+                  className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-2 py-1 text-sm text-zinc-800"
                 >
                   {sports.map((s) => (
                     <option key={s} value={s}>

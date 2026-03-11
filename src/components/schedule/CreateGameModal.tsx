@@ -155,7 +155,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                 )}
               />
             </button>
-            <span className="text-sm text-zinc-600">Recurring</span>
+            <span className="text-sm text-zinc-600 dark:text-zinc-400">Recurring</span>
           </div>
 
           {isRecurring && (

@@ -31,7 +31,7 @@ const STATUS_CONFIG = {
     message: (name: string) => `${name} declined your request`,
     containerClass: "bg-zinc-700/60 ring-1 ring-zinc-200/30",
     iconClass: "bg-zinc-600/40 text-zinc-400",
-    textClass: "text-zinc-600",
+    textClass: "text-zinc-600 dark:text-zinc-400",
   },
   expired: {
     icon: Clock,

@@ -108,11 +108,11 @@ export function VenueQRCode({ venueId, venueName, size = 256 }: VenueQRCodeProps
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm">
         <canvas ref={canvasRef} />
       </div>
 
-      <p className="text-center text-sm text-zinc-500">
+      <p className="text-center text-sm text-zinc-500 dark:text-zinc-400">
         Players scan this code to check in at <strong className="text-zinc-700">{venueName}</strong>
       </p>
 
@@ -126,7 +126,7 @@ export function VenueQRCode({ venueId, venueName, size = 256 }: VenueQRCodeProps
         </button>
         <button
           onClick={handleCopyUrl}
-          className="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
+          className="flex items-center gap-2 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
         >
           {copied ? (
             <>

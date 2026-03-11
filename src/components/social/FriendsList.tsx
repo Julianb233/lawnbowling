@@ -14,7 +14,7 @@ export function FriendsList({ friends, currentPlayerId }: FriendsListProps) {
     return (
       <div className="rounded-2xl glass p-8 text-center">
         <Users className="w-8 h-8 mx-auto mb-2 text-zinc-400" strokeWidth={1.5} />
-        <p className="text-zinc-500">No friends yet. Start connecting!</p>
+        <p className="text-zinc-500 dark:text-zinc-400">No friends yet. Start connecting!</p>
       </div>
     );
   }

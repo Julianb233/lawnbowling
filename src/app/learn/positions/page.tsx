@@ -199,7 +199,7 @@ export default function PositionsPage() {
           <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 md:text-5xl">
             Player <span className="text-[#1B5E20]">Positions</span>
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600">
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
             In team formats (Pairs, Triples, Fours), each player has a
             designated position with specific responsibilities. Positions bowl
             in order: Lead first, then Second (in Fours), then Third/Vice-Skip,
@@ -213,13 +213,13 @@ export default function PositionsPage() {
             Bowling Order on the Rink
           </h2>
           <div className="relative mx-auto max-w-lg">
-            <div className="flex items-center justify-between rounded-lg border-2 border-[#2E7D32]/30 bg-white p-4">
+            <div className="flex items-center justify-between rounded-lg border-2 border-[#2E7D32]/30 bg-white dark:bg-[#1a3d28] p-4">
               {/* Mat end */}
               <div className="text-center">
                 <div className="mb-2 rounded bg-zinc-800 px-3 py-1 text-xs font-bold text-white">
                   MAT END
                 </div>
-                <div className="space-y-2 text-xs text-zinc-600">
+                <div className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
                   <div className="rounded-full bg-blue-100 px-3 py-1 font-semibold text-[#2E7D32]">
                     Lead bowls 1st
                   </div>
@@ -249,7 +249,7 @@ export default function PositionsPage() {
                 <div className="mb-2 rounded bg-[#1B5E20] px-3 py-1 text-xs font-bold text-white">
                   HEAD END
                 </div>
-                <div className="space-y-1 text-xs text-zinc-500">
+                <div className="space-y-1 text-xs text-zinc-500 dark:text-zinc-400">
                   <p>Skip directs play</p>
                   <p>(until it is their turn</p>
                   <p>to bowl, then Third</p>
@@ -264,7 +264,7 @@ export default function PositionsPage() {
         <div className="space-y-12">
           {positions.map((pos) => (
             <section key={pos.name} id={pos.name.toLowerCase().replace(/[^a-z]/g, "-")}>
-              <div className="rounded-2xl border border-zinc-200 bg-white shadow-sm overflow-hidden">
+              <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm overflow-hidden">
                 {/* Header */}
                 <div className={`${pos.color} px-6 py-5 text-white`}>
                   <div className="flex items-center gap-3">
@@ -280,26 +280,26 @@ export default function PositionsPage() {
                   {/* Quick Stats */}
                   <div className="grid gap-3 sm:grid-cols-3">
                     <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                         Primary Focus
                       </p>
-                      <p className="mt-1 text-[15px] font-medium text-zinc-900">
+                      <p className="mt-1 text-[15px] font-medium text-zinc-900 dark:text-zinc-100">
                         {pos.focus}
                       </p>
                     </div>
                     <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                         Primary Skill
                       </p>
-                      <p className="mt-1 text-[15px] font-medium text-zinc-900">
+                      <p className="mt-1 text-[15px] font-medium text-zinc-900 dark:text-zinc-100">
                         {pos.primarySkill}
                       </p>
                     </div>
                     <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                         Bowls Per End
                       </p>
-                      <p className="mt-1 text-[15px] font-medium text-zinc-900">
+                      <p className="mt-1 text-[15px] font-medium text-zinc-900 dark:text-zinc-100">
                         {pos.bowlsFours !== null ? `Fours: ${pos.bowlsFours}` : ""}
                         {pos.bowlsTriples !== null
                           ? `${pos.bowlsFours !== null ? " | " : ""}Triples: ${pos.bowlsTriples}`
@@ -313,7 +313,7 @@ export default function PositionsPage() {
 
                   {/* Responsibilities */}
                   <div>
-                    <h3 className="mb-3 font-bold text-zinc-900">
+                    <h3 className="mb-3 font-bold text-zinc-900 dark:text-zinc-100">
                       Key Responsibilities
                     </h3>
                     <div className="space-y-2">
@@ -328,10 +328,10 @@ export default function PositionsPage() {
                             <ChevronRight className="h-3.5 w-3.5" />
                           </div>
                           <div>
-                            <p className="font-semibold text-zinc-900">
+                            <p className="font-semibold text-zinc-900 dark:text-zinc-100">
                               {resp.title}
                             </p>
-                            <p className="text-[14px] leading-relaxed text-zinc-600">
+                            <p className="text-[14px] leading-relaxed text-zinc-600 dark:text-zinc-400">
                               {resp.detail}
                             </p>
                           </div>
@@ -342,7 +342,7 @@ export default function PositionsPage() {
 
                   {/* Shot Types */}
                   <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-5">
-                    <h3 className="mb-2 font-bold text-zinc-900">
+                    <h3 className="mb-2 font-bold text-zinc-900 dark:text-zinc-100">
                       Typical Shot Types
                     </h3>
                     <p className="text-[15px] leading-relaxed text-zinc-700">
@@ -365,29 +365,29 @@ export default function PositionsPage() {
 
         {/* Summary Table */}
         <div className="mt-14">
-          <h2 className="mb-4 text-2xl font-bold text-zinc-900">
+          <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
             Position Summary
           </h2>
           <div className="overflow-x-auto rounded-xl border border-zinc-200">
             <table className="w-full text-left text-[14px]">
-              <thead className="bg-zinc-50">
+              <thead className="bg-zinc-50 dark:bg-white/5">
                 <tr>
-                  <th className="px-4 py-3 font-semibold text-zinc-900">
+                  <th className="px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                     Position
                   </th>
-                  <th className="px-4 py-3 font-semibold text-zinc-900">
+                  <th className="px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                     Order
                   </th>
-                  <th className="px-4 py-3 font-semibold text-zinc-900">
+                  <th className="px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                     Bowls (Fours)
                   </th>
-                  <th className="px-4 py-3 font-semibold text-zinc-900">
+                  <th className="px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                     Bowls (Triples)
                   </th>
-                  <th className="px-4 py-3 font-semibold text-zinc-900">
+                  <th className="px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                     Bowls (Pairs)
                   </th>
-                  <th className="px-4 py-3 font-semibold text-zinc-900">
+                  <th className="px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100">
                     Primary Skill
                   </th>
                 </tr>

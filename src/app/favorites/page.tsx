@@ -19,9 +19,9 @@ export default async function FavoritesPage() {
 
   return (
     <div className="min-h-screen bg-animated-gradient">
-      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200 dark:border-white/10">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
-          <h1 className="text-xl font-bold text-zinc-900">
+          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
             {"\u2B50"} Favorites
           </h1>
           <Link href="/board" className="text-sm text-zinc-500 hover:text-zinc-700">

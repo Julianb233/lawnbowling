@@ -44,8 +44,8 @@ export function AvailabilityBoard({ players, loading, onPickMe, pendingTargetIds
         >
           <CircleDot className="w-12 h-12 text-[#1B5E20]" strokeWidth={1.5} />
         </motion.div>
-        <p className="mt-4 text-lg font-semibold text-zinc-600">No players available</p>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-4 text-lg font-semibold text-zinc-600 dark:text-zinc-400">No players available</p>
+        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
           Check in to be the first on the board!
         </p>
       </motion.div>

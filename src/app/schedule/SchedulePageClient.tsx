@@ -24,7 +24,7 @@ export function SchedulePageClient({ games, currentPlayerId }: SchedulePageClien
 
   return (
     <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 glass border-b border-zinc-200">
+      <header className="sticky top-0 z-40 glass border-b border-zinc-200 dark:border-white/10">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -33,11 +33,11 @@ export function SchedulePageClient({ games, currentPlayerId }: SchedulePageClien
             <h1 className="text-xl font-black text-zinc-900 lg:text-2xl">
               <span className="flex items-center gap-2"><Calendar className="w-5 h-5 text-[#1B5E20]" strokeWidth={1.5} /><span className="text-gradient">Schedule</span></span>
             </h1>
-            <p className="text-sm text-zinc-500">Upcoming games</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">Upcoming games</p>
           </motion.div>
           <button
             onClick={() => setShowCreate(true)}
-            className="rounded-xl bg-gradient-to-r from-[#1B5E20] to-green-600 px-4 py-2 text-sm font-bold text-white hover:shadow-lg transition-all"
+            className="rounded-xl bg-gradient-to-r from-[#1B5E20] to-green-600 px-4 py-2.5 text-sm font-bold text-white hover:shadow-lg transition-all min-h-[44px] touch-manipulation"
           >
             + New Game
           </button>

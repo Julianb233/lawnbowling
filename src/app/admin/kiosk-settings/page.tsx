@@ -29,7 +29,7 @@ export default function KioskSettingsPage() {
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h1 className="mb-8 text-2xl font-bold text-zinc-900">Kiosk Settings</h1>
+        <h1 className="mb-8 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Kiosk Settings</h1>
 
         {saved && (
           <div className="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">

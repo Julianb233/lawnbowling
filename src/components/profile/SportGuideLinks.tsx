@@ -12,7 +12,7 @@ export function SportGuideLinks({ sports }: { sports: string[] }) {
 
   return (
     <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
-      <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-600">
+      <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-600 dark:text-zinc-400">
         <BookOpen className="h-4 w-4" />
         Learn How to Play
       </h3>

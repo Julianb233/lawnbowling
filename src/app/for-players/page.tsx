@@ -56,7 +56,7 @@ export default function ForPlayersPage() {
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-[#1B5E20] shadow-lg shadow-[#1B5E20]/15">
               <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-zinc-900">
+            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
               Lawnbowling
             </span>
           </Link>
@@ -128,7 +128,7 @@ export default function ForPlayersPage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             Your Sport. Your Level. Your Schedule.
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
             Find partners for whatever you play
           </p>
         </div>
@@ -184,17 +184,17 @@ export default function ForPlayersPage() {
           ].map((item) => (
             <div
               key={item.problem}
-              className="group rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
+              className="group rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
             >
               <div
                 className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} shadow-lg`}
               >
                 <item.icon className="h-6 w-6 text-white" />
               </div>
-              <p className="mb-3 text-base font-bold text-zinc-900">
+              <p className="mb-3 text-base font-bold text-zinc-900 dark:text-zinc-100">
                 &ldquo;{item.problem}&rdquo;
               </p>
-              <p className="text-sm leading-relaxed text-zinc-600">
+              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                 {item.solution}
               </p>
             </div>
@@ -208,7 +208,7 @@ export default function ForPlayersPage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             Everything You Need to Play More
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
             From finding a partner to stepping on court, we handle all of it
           </p>
         </div>
@@ -260,17 +260,17 @@ export default function ForPlayersPage() {
           ].map((feature) => (
             <div
               key={feature.title}
-              className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
+              className="group rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
             >
               <div
                 className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg ${feature.glow}`}
               >
                 <feature.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-zinc-900">
+              <h3 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
                 {feature.title}
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-600">
+              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                 {feature.desc}
               </p>
             </div>
@@ -287,7 +287,7 @@ export default function ForPlayersPage() {
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
             From Couch to Court in 60 Seconds
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
             Three steps. That&apos;s it.
           </p>
         </div>
@@ -322,11 +322,11 @@ export default function ForPlayersPage() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-indigo-600 shadow-lg shadow-[#1B5E20]/15">
                     <item.icon className="h-5 w-5 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-zinc-900">
+                  <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
                     {item.title}
                   </h3>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                   {item.desc}
                 </p>
               </div>
@@ -350,7 +350,7 @@ export default function ForPlayersPage() {
                 Every Game Comes With Coverage.{" "}
                 <span className="text-zinc-400">Play Worry-Free.</span>
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+              <p className="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
                 Rolled ankles. Strained shoulders. A bad collision at the net.
                 It happens in every sport. With Lawnbowling, per-participant
                 liability coverage activates the moment you check in and
@@ -383,7 +383,7 @@ export default function ForPlayersPage() {
               ].map((item) => (
                 <div
                   key={item.text}
-                  className="flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
+                  className="flex items-center gap-4 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 shadow-sm"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-teal-500/10">
                     <item.icon className="h-5 w-5 text-teal-600" />
@@ -423,7 +423,7 @@ export default function ForPlayersPage() {
                   <stat.icon className="h-6 w-6 text-amber-500 fill-amber-500" />
                 )}
               </div>
-              <span className="mt-1 block text-sm font-medium text-zinc-500">
+              <span className="mt-1 block text-sm font-medium text-zinc-500 dark:text-zinc-400">
                 {stat.label}
               </span>
             </div>
@@ -477,10 +477,10 @@ export default function ForPlayersPage() {
                   {testimonial.name.charAt(0)}
                 </div>
                 <div>
-                  <span className="block text-sm font-semibold text-zinc-900">
+                  <span className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                     {testimonial.name}
                   </span>
-                  <span className="block text-xs text-zinc-500">
+                  <span className="block text-xs text-zinc-500 dark:text-zinc-400">
                     {testimonial.role}
                   </span>
                 </div>
@@ -505,7 +505,7 @@ export default function ForPlayersPage() {
                 Install It Like an App.{" "}
                 <span className="text-zinc-400">Without the App Store.</span>
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+              <p className="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
                 Lawnbowling is a PWA -- a progressive web app that installs
                 directly to your home screen. No downloads, no updates, no
                 storage eaten up. Works on iPhone, Android, and iPad. Open it
@@ -520,7 +520,7 @@ export default function ForPlayersPage() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="flex items-center gap-3 text-zinc-600"
+                    className="flex items-center gap-3 text-zinc-600 dark:text-zinc-400"
                   >
                     <CheckCircle className="h-5 w-5 text-[#1B5E20] shrink-0" />
                     {item}
@@ -539,7 +539,7 @@ export default function ForPlayersPage() {
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="live-dot" />
-                        <span className="text-[8px] text-zinc-500">Live</span>
+                        <span className="text-[8px] text-zinc-500 dark:text-zinc-400">Live</span>
                       </span>
                     </div>
                     <div className="flex-1 space-y-2 p-2.5">
@@ -599,31 +599,31 @@ export default function ForPlayersPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-zinc-50">
+      <footer className="border-t border-zinc-200 bg-zinc-50 dark:bg-white/5">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#1B5E20] to-[#1B5E20]">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Lawnbowling</span>
+            <span className="font-semibold text-zinc-900 dark:text-zinc-100">Lawnbowling</span>
           </Link>
-          <div className="flex items-center gap-6 text-sm text-zinc-500">
-            <Link href="/for-venues" className="hover:text-zinc-700 transition">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-zinc-500 dark:text-zinc-400">
+            <Link href="/for-venues" className="py-1 hover:text-zinc-700 transition">
               For Venues
             </Link>
-            <Link href="/insurance" className="hover:text-zinc-700 transition">
+            <Link href="/insurance" className="py-1 hover:text-zinc-700 transition">
               Insurance
             </Link>
-            <Link href="/about" className="hover:text-zinc-700 transition">
+            <Link href="/about" className="py-1 hover:text-zinc-700 transition">
               About
             </Link>
-            <Link href="/faq" className="hover:text-zinc-700 transition">
+            <Link href="/faq" className="py-1 hover:text-zinc-700 transition">
               FAQ
             </Link>
-            <Link href="/terms" className="hover:text-zinc-700 transition">
+            <Link href="/terms" className="py-1 hover:text-zinc-700 transition">
               Terms
             </Link>
-            <Link href="/privacy" className="hover:text-zinc-700 transition">
+            <Link href="/privacy" className="py-1 hover:text-zinc-700 transition">
               Privacy
             </Link>
           </div>
