@@ -103,7 +103,7 @@ export default function TournamentDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FEFCF9]">
+      <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518]">
         <div className="mx-auto max-w-3xl px-4 py-8">
           <div className="h-48 animate-pulse rounded-2xl bg-zinc-100" />
         </div>
@@ -113,7 +113,7 @@ export default function TournamentDetailPage() {
 
   if (!tournament) {
     return (
-      <div className="min-h-screen bg-[#FEFCF9]">
+      <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518]">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center">
           <p className="text-zinc-500 dark:text-zinc-400">Tournament not found</p>
           <Link href="/tournament" className="mt-4 inline-block text-sm text-[#1B5E20] hover:underline">
@@ -135,7 +135,7 @@ export default function TournamentDetailPage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518] pb-20 lg:pb-0">
       <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <Link href="/tournament" className="mb-2 flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-600 dark:text-zinc-400">
@@ -144,7 +144,7 @@ export default function TournamentDetailPage() {
           </Link>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
-              <h1 className="text-lg font-bold text-zinc-900 sm:text-xl truncate">{tournament.name}</h1>
+              <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 sm:text-xl truncate">{tournament.name}</h1>
               <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-zinc-500 dark:text-zinc-400">
                 <span style={{ color: sportColor.primary }}>
                   <SportIcon sport={tournament.sport as Sport} className="w-4 h-4 inline-block" /> {sportLabel?.label ?? tournament.sport}

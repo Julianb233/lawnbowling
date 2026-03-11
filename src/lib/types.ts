@@ -632,6 +632,34 @@ export interface ClubVenue {
   venue?: Venue;
 }
 
+// ===== Visit Requests =====
+
+export type VisitRequestStatus = "pending" | "accepted" | "declined" | "expired";
+
+export interface VisitRequest {
+  id: string;
+  club_id: string;
+  player_id: string;
+  requested_date: string;
+  skill_level: SkillLevel;
+  preferred_positions: BowlsPosition[];
+  message: string | null;
+  status: VisitRequestStatus;
+  responded_by: string | null;
+  responded_at: string | null;
+  visit_token: string | null;
+  expires_at: string | null;
+  created_at: string;
+  updated_at: string;
+  player?: Player;
+  club?: {
+    id: string;
+    name: string;
+    city: string;
+    state_code: string;
+  };
+}
+
 // Subscription / Pricing
 export type SubscriptionPlan = "free" | "basic" | "premium" | "venue_owner";
 export type SportSkillLevel = "beginner" | "intermediate" | "advanced" | "expert";

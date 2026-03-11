@@ -217,11 +217,11 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
-        className="rounded-2xl bg-white border border-zinc-200 p-5 transition-all hover:border-zinc-300 hover:shadow-sm"
+        className="rounded-2xl bg-white dark:bg-[#1a3d28] border border-zinc-200 dark:border-white/10 p-5 transition-all hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-sm"
       >
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
-            <h3 className="text-base font-bold text-zinc-900 truncate">
+            <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 truncate">
               {t.name}
             </h3>
             <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
@@ -240,7 +240,7 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <div className="text-right">
-              <p className="text-lg font-black text-[#1B5E20]">
+              <p className="text-lg font-black text-[#1B5E20] dark:text-emerald-400">
                 {t.checkin_count ?? 0}
               </p>
               <p className="text-[11px] text-zinc-400">checked in</p>
@@ -248,8 +248,8 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
             <span
               className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
                 isActive
-                  ? "bg-[#1B5E20]/10 text-[#2E7D32]"
-                  : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                  ? "bg-[#1B5E20]/10 dark:bg-emerald-400/10 text-[#2E7D32] dark:text-emerald-400"
+                  : "bg-zinc-100 dark:bg-white/5 text-zinc-500 dark:text-zinc-400"
               }`}
             >
               {isActive ? "Active" : "Done"}
