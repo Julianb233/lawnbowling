@@ -53,7 +53,7 @@ function KioskPageContent() {
   useEffect(() => {
     if (!venue?.id) return;
 
-    // If explicit tournament_id param, skip auto-detection
+    // If explicit tournament_id param, skip auto-detection (UCI-09)
     if (tournamentIdParam) {
       setSelectedTournamentId(tournamentIdParam);
       setDetectingTournament(false);
@@ -115,7 +115,7 @@ function KioskPageContent() {
         venueName={venue?.name}
         subtitle={
           selectedTournament
-            ? `${selectedTournament.name} — Tournament Check-In`
+            ? `${selectedTournament.name} -- Tournament Check-In`
             : isBowlsMode && activeTournaments.length > 1
               ? "Select Tournament"
               : "Tournament Day Check-In"
@@ -153,6 +153,11 @@ function KioskPageContent() {
             tournamentId={selectedTournamentId}
             tournamentName={selectedTournament?.name ?? "Bowls Tournament"}
           />
+        )}
+
+        {/* Bowls mode requested but no tournaments found -- fallback to generic (UCI-12) */}
+        {venue && !detectingTournament && isBowlsMode && !selectedTournamentId && activeTournaments.length === 0 && view === "checkin" && (
+          <KioskCheckIn venueId={venue.id} />
         )}
 
         {/* Generic mode: original check-in (UCI-12) */}

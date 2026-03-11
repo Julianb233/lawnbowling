@@ -1,219 +1,367 @@
 import { describe, it, expect } from "vitest";
-import type { Tournament } from "@/lib/types";
+import {
+  isTournamentActiveToday,
+  filterActiveTournaments,
+  determineKioskMode,
+  autoSelectTournament,
+  findExistingCheckin,
+  buildCheckinPayload,
+  validateCheckinRequest,
+  isValidCheckinSource,
+} from "@/lib/checkin-utils";
+import type { Tournament, BowlsCheckin } from "@/lib/types";
 
-// ─── Tournament Auto-Detection Logic (UCI-01) ──────────────────────────
+// ===== Helpers =====
 
-/**
- * Replicate the auto-detection logic from kiosk/page.tsx:
- * Given a list of tournaments for today, determine kiosk mode behavior.
- */
-function detectKioskMode(
-  tournaments: Pick<Tournament, "id" | "name" | "status" | "starts_at">[],
-  modeParam: string | null,
-  tournamentIdParam: string | null
-) {
-  const selectedTournamentId = tournamentIdParam ?? (tournaments.length === 1 ? tournaments[0].id : null);
-  const isBowlsMode = modeParam === "bowls" || selectedTournamentId !== null || tournaments.length > 0;
-  const needsTournamentSelection = isBowlsMode && !selectedTournamentId && tournaments.length > 1;
-
-  return { isBowlsMode, selectedTournamentId, needsTournamentSelection };
-}
-
-describe("Tournament Auto-Detection (UCI-01)", () => {
-  const makeTournament = (id: string, name: string): Pick<Tournament, "id" | "name" | "status" | "starts_at"> => ({
-    id,
-    name,
+function makeTournament(overrides: Partial<Tournament> = {}): Tournament {
+  return {
+    id: "t-1",
+    venue_id: "v-1",
+    name: "Wednesday Social",
+    sport: "lawn_bowling",
+    format: "round_robin",
     status: "registration",
+    max_players: 32,
+    created_by: "p-1",
     starts_at: new Date().toISOString(),
+    created_at: new Date().toISOString(),
+    ...overrides,
+  };
+}
+
+function makeCheckin(overrides: Partial<BowlsCheckin> = {}): BowlsCheckin {
+  return {
+    id: "c-1",
+    player_id: "p-1",
+    tournament_id: "t-1",
+    preferred_position: "skip",
+    checkin_source: "manual",
+    checked_in_at: new Date().toISOString(),
+    ...overrides,
+  };
+}
+
+// ===== UCI-01: Auto-detection logic =====
+
+describe("UCI-01: Tournament auto-detection", () => {
+  const today = new Date(2026, 2, 11, 10, 0, 0); // March 11, 2026 10:00 AM
+
+  it("detects a tournament starting today with registration status", () => {
+    const tournament = makeTournament({
+      status: "registration",
+      starts_at: new Date(2026, 2, 11, 9, 0, 0).toISOString(),
+    });
+    expect(isTournamentActiveToday(tournament, today)).toBe(true);
   });
 
-  it("auto-selects when exactly one tournament exists", () => {
-    const tournaments = [makeTournament("t1", "Wednesday Social")];
-    const result = detectKioskMode(tournaments, null, null);
-    expect(result.isBowlsMode).toBe(true);
-    expect(result.selectedTournamentId).toBe("t1");
-    expect(result.needsTournamentSelection).toBe(false);
+  it("detects a tournament starting today with in_progress status", () => {
+    const tournament = makeTournament({
+      status: "in_progress",
+      starts_at: new Date(2026, 2, 11, 14, 0, 0).toISOString(),
+    });
+    expect(isTournamentActiveToday(tournament, today)).toBe(true);
   });
 
-  it("requires selection when multiple tournaments exist (UCI-05)", () => {
+  it("rejects a completed tournament", () => {
+    const tournament = makeTournament({
+      status: "completed",
+      starts_at: new Date(2026, 2, 11, 9, 0, 0).toISOString(),
+    });
+    expect(isTournamentActiveToday(tournament, today)).toBe(false);
+  });
+
+  it("rejects a cancelled tournament", () => {
+    const tournament = makeTournament({
+      status: "cancelled",
+      starts_at: new Date(2026, 2, 11, 9, 0, 0).toISOString(),
+    });
+    expect(isTournamentActiveToday(tournament, today)).toBe(false);
+  });
+
+  it("rejects a tournament from yesterday", () => {
+    const tournament = makeTournament({
+      status: "registration",
+      starts_at: new Date(2026, 2, 10, 9, 0, 0).toISOString(),
+    });
+    expect(isTournamentActiveToday(tournament, today)).toBe(false);
+  });
+
+  it("rejects a tournament from tomorrow", () => {
+    const tournament = makeTournament({
+      status: "registration",
+      starts_at: new Date(2026, 2, 12, 9, 0, 0).toISOString(),
+    });
+    expect(isTournamentActiveToday(tournament, today)).toBe(false);
+  });
+
+  it("rejects a tournament with null starts_at", () => {
+    const tournament = makeTournament({
+      status: "registration",
+      starts_at: null,
+    });
+    expect(isTournamentActiveToday(tournament, today)).toBe(false);
+  });
+
+  it("filters active tournaments from a mixed list", () => {
     const tournaments = [
-      makeTournament("t1", "Morning Pairs"),
-      makeTournament("t2", "Afternoon Triples"),
+      makeTournament({
+        id: "t-active",
+        status: "registration",
+        starts_at: new Date(2026, 2, 11, 9, 0, 0).toISOString(),
+      }),
+      makeTournament({
+        id: "t-completed",
+        status: "completed",
+        starts_at: new Date(2026, 2, 11, 8, 0, 0).toISOString(),
+      }),
+      makeTournament({
+        id: "t-tomorrow",
+        status: "registration",
+        starts_at: new Date(2026, 2, 12, 9, 0, 0).toISOString(),
+      }),
     ];
-    const result = detectKioskMode(tournaments, null, null);
-    expect(result.isBowlsMode).toBe(true);
-    expect(result.selectedTournamentId).toBeNull();
-    expect(result.needsTournamentSelection).toBe(true);
-  });
 
-  it("falls back to generic mode when no tournaments exist (UCI-12)", () => {
-    const result = detectKioskMode([], null, null);
-    expect(result.isBowlsMode).toBe(false);
-    expect(result.selectedTournamentId).toBeNull();
-    expect(result.needsTournamentSelection).toBe(false);
-  });
-
-  it("honors explicit tournament_id param (UCI-09)", () => {
-    const result = detectKioskMode([], null, "explicit-id");
-    expect(result.isBowlsMode).toBe(true);
-    expect(result.selectedTournamentId).toBe("explicit-id");
-  });
-
-  it("honors mode=bowls param without tournament_id", () => {
-    const result = detectKioskMode([], "bowls", null);
-    expect(result.isBowlsMode).toBe(true);
-    expect(result.selectedTournamentId).toBeNull();
+    const active = filterActiveTournaments(tournaments, today);
+    expect(active).toHaveLength(1);
+    expect(active[0].id).toBe("t-active");
   });
 });
 
-// ─── Upsert / Idempotency Logic (UCI-13) ────────────────────────────────
+// ===== UCI-05: Auto-select single tournament =====
 
-/**
- * Simulate the upsert behavior: given existing check-ins and a new check-in,
- * upsert on (player_id, tournament_id) key.
- */
-interface MockCheckin {
-  player_id: string;
-  tournament_id: string;
-  preferred_position: string;
-  checkin_source: string;
-}
-
-function simulateUpsert(existing: MockCheckin[], incoming: MockCheckin): MockCheckin[] {
-  const idx = existing.findIndex(
-    (c) => c.player_id === incoming.player_id && c.tournament_id === incoming.tournament_id
-  );
-  if (idx >= 0) {
-    // Update in place
-    const updated = [...existing];
-    updated[idx] = { ...updated[idx], ...incoming };
-    return updated;
-  }
-  return [...existing, incoming];
-}
-
-describe("Check-in Upsert Behavior (UCI-13)", () => {
-  it("creates a new check-in when player is not yet checked in", () => {
-    const result = simulateUpsert([], {
-      player_id: "p1",
-      tournament_id: "t1",
-      preferred_position: "skip",
-      checkin_source: "kiosk",
-    });
-    expect(result).toHaveLength(1);
-    expect(result[0].player_id).toBe("p1");
+describe("UCI-05: Tournament auto-selection", () => {
+  it("auto-selects when exactly one tournament is active", () => {
+    const tournaments = [makeTournament({ id: "t-only" })];
+    expect(autoSelectTournament(tournaments)).toBe("t-only");
   });
 
-  it("updates position when player checks in again (no duplicate)", () => {
-    const existing: MockCheckin[] = [{
-      player_id: "p1",
-      tournament_id: "t1",
-      preferred_position: "skip",
-      checkin_source: "kiosk",
-    }];
-    const result = simulateUpsert(existing, {
-      player_id: "p1",
-      tournament_id: "t1",
-      preferred_position: "lead",
-      checkin_source: "kiosk",
-    });
-    expect(result).toHaveLength(1);
-    expect(result[0].preferred_position).toBe("lead");
+  it("returns null when multiple tournaments are active", () => {
+    const tournaments = [
+      makeTournament({ id: "t-1" }),
+      makeTournament({ id: "t-2" }),
+    ];
+    expect(autoSelectTournament(tournaments)).toBeNull();
   });
 
-  it("allows same player in different tournaments", () => {
-    const existing: MockCheckin[] = [{
-      player_id: "p1",
-      tournament_id: "t1",
-      preferred_position: "skip",
-      checkin_source: "kiosk",
-    }];
-    const result = simulateUpsert(existing, {
-      player_id: "p1",
-      tournament_id: "t2",
-      preferred_position: "vice",
-      checkin_source: "app",
-    });
-    expect(result).toHaveLength(2);
-  });
-
-  it("allows different players in same tournament", () => {
-    const existing: MockCheckin[] = [{
-      player_id: "p1",
-      tournament_id: "t1",
-      preferred_position: "skip",
-      checkin_source: "kiosk",
-    }];
-    const result = simulateUpsert(existing, {
-      player_id: "p2",
-      tournament_id: "t1",
-      preferred_position: "lead",
-      checkin_source: "manual",
-    });
-    expect(result).toHaveLength(2);
-  });
-
-  it("preserves checkin_source when updating position (UCI-07)", () => {
-    const existing: MockCheckin[] = [{
-      player_id: "p1",
-      tournament_id: "t1",
-      preferred_position: "skip",
-      checkin_source: "kiosk",
-    }];
-    const result = simulateUpsert(existing, {
-      player_id: "p1",
-      tournament_id: "t1",
-      preferred_position: "vice",
-      checkin_source: "kiosk",
-    });
-    expect(result[0].checkin_source).toBe("kiosk");
+  it("returns null when no tournaments are active", () => {
+    expect(autoSelectTournament([])).toBeNull();
   });
 });
 
-// ─── Checkin Source Validation (UCI-10) ──────────────────────────────────
+// ===== UCI-07: Duplicate check-in detection =====
 
-describe("Check-in Source Validation (UCI-10)", () => {
-  const validSources = ["kiosk", "manual", "app"] as const;
+describe("UCI-07: Duplicate check-in detection", () => {
+  it("finds an existing check-in for a player", () => {
+    const checkins = [
+      makeCheckin({ player_id: "p-1", preferred_position: "skip" }),
+      makeCheckin({ id: "c-2", player_id: "p-2", preferred_position: "lead" }),
+    ];
 
-  it("accepts all valid check-in sources", () => {
-    for (const source of validSources) {
-      expect(["kiosk", "manual", "app"]).toContain(source);
-    }
+    const result = findExistingCheckin(checkins, "p-1");
+    expect(result).not.toBeNull();
+    expect(result!.preferred_position).toBe("skip");
   });
 
-  it("kiosk check-in sets source to 'kiosk'", () => {
-    const checkin: MockCheckin = {
-      player_id: "p1",
-      tournament_id: "t1",
-      preferred_position: "skip",
-      checkin_source: "kiosk",
-    };
-    expect(checkin.checkin_source).toBe("kiosk");
+  it("returns null when player is not checked in", () => {
+    const checkins = [
+      makeCheckin({ player_id: "p-1" }),
+    ];
+
+    const result = findExistingCheckin(checkins, "p-999");
+    expect(result).toBeNull();
   });
 
-  it("manual check-in from /bowls/[id] defaults to 'manual'", () => {
-    const checkinSource: string | undefined = undefined;
-    const source = checkinSource ?? "manual";
-    expect(source).toBe("manual");
+  it("returns null for empty checkins list", () => {
+    expect(findExistingCheckin([], "p-1")).toBeNull();
   });
 });
 
-// ─── Existing Check-in Detection (UCI-07) ───────────────────────────────
+// ===== UCI-09/UCI-12: Kiosk mode determination =====
 
-describe("Existing Check-in Detection (UCI-07)", () => {
-  const checkins: MockCheckin[] = [
-    { player_id: "p1", tournament_id: "t1", preferred_position: "skip", checkin_source: "kiosk" },
-    { player_id: "p2", tournament_id: "t1", preferred_position: "lead", checkin_source: "manual" },
-  ];
-
-  it("detects an already-checked-in player", () => {
-    const existing = checkins.find((c) => c.player_id === "p1");
-    expect(existing).toBeDefined();
-    expect(existing!.preferred_position).toBe("skip");
+describe("UCI-09/UCI-12: Kiosk mode determination", () => {
+  it("returns bowls mode when mode param is bowls", () => {
+    expect(
+      determineKioskMode({
+        modeParam: "bowls",
+        tournamentIdParam: null,
+        activeTournaments: [],
+      })
+    ).toBe("bowls");
   });
 
-  it("returns undefined for a new player", () => {
-    const existing = checkins.find((c) => c.player_id === "p3");
-    expect(existing).toBeUndefined();
+  it("returns bowls mode when tournament_id param is set", () => {
+    expect(
+      determineKioskMode({
+        modeParam: null,
+        tournamentIdParam: "t-123",
+        activeTournaments: [],
+      })
+    ).toBe("bowls");
+  });
+
+  it("returns bowls mode when active tournaments detected", () => {
+    expect(
+      determineKioskMode({
+        modeParam: null,
+        tournamentIdParam: null,
+        activeTournaments: [makeTournament()],
+      })
+    ).toBe("bowls");
+  });
+
+  it("returns generic mode when no bowls indicators present (UCI-12 fallback)", () => {
+    expect(
+      determineKioskMode({
+        modeParam: null,
+        tournamentIdParam: null,
+        activeTournaments: [],
+      })
+    ).toBe("generic");
+  });
+
+  it("returns generic mode when mode param is something else", () => {
+    expect(
+      determineKioskMode({
+        modeParam: "pickleball",
+        tournamentIdParam: null,
+        activeTournaments: [],
+      })
+    ).toBe("generic");
+  });
+});
+
+// ===== UCI-03/UCI-13: Check-in payload construction =====
+
+describe("UCI-03/UCI-13: Check-in payload", () => {
+  it("builds a kiosk check-in payload with specific position", () => {
+    const payload = buildCheckinPayload({
+      playerId: "p-1",
+      tournamentId: "t-1",
+      position: "skip",
+      source: "kiosk",
+    });
+
+    expect(payload).toEqual({
+      player_id: "p-1",
+      tournament_id: "t-1",
+      preferred_position: "skip",
+      checkin_source: "kiosk",
+    });
+  });
+
+  it("maps 'any' position to 'lead' default", () => {
+    const payload = buildCheckinPayload({
+      playerId: "p-1",
+      tournamentId: "t-1",
+      position: "any",
+      source: "kiosk",
+    });
+
+    expect(payload.preferred_position).toBe("lead");
+  });
+
+  it("preserves manual source", () => {
+    const payload = buildCheckinPayload({
+      playerId: "p-1",
+      tournamentId: "t-1",
+      position: "vice",
+      source: "manual",
+    });
+
+    expect(payload.checkin_source).toBe("manual");
+  });
+
+  it("preserves app source", () => {
+    const payload = buildCheckinPayload({
+      playerId: "p-1",
+      tournamentId: "t-1",
+      position: "lead",
+      source: "app",
+    });
+
+    expect(payload.checkin_source).toBe("app");
+  });
+});
+
+// ===== Validation =====
+
+describe("Check-in request validation", () => {
+  it("passes for valid request", () => {
+    expect(
+      validateCheckinRequest({
+        player_id: "p-1",
+        tournament_id: "t-1",
+        preferred_position: "skip",
+      })
+    ).toBeNull();
+  });
+
+  it("rejects missing player_id", () => {
+    expect(
+      validateCheckinRequest({
+        tournament_id: "t-1",
+        preferred_position: "skip",
+      })
+    ).toBe("player_id required");
+  });
+
+  it("rejects missing tournament_id", () => {
+    expect(
+      validateCheckinRequest({
+        player_id: "p-1",
+        preferred_position: "skip",
+      })
+    ).toBe("tournament_id required");
+  });
+
+  it("rejects missing preferred_position", () => {
+    expect(
+      validateCheckinRequest({
+        player_id: "p-1",
+        tournament_id: "t-1",
+      })
+    ).toBe("preferred_position required");
+  });
+
+  it("rejects invalid position value", () => {
+    const result = validateCheckinRequest({
+      player_id: "p-1",
+      tournament_id: "t-1",
+      preferred_position: "goalkeeper",
+    });
+    expect(result).toContain("Invalid position");
+  });
+
+  it("accepts all valid positions", () => {
+    const positions = ["skip", "vice", "second", "lead"];
+    positions.forEach((pos) => {
+      expect(
+        validateCheckinRequest({
+          player_id: "p-1",
+          tournament_id: "t-1",
+          preferred_position: pos,
+        })
+      ).toBeNull();
+    });
+  });
+});
+
+describe("Check-in source validation", () => {
+  it("validates kiosk as a valid source", () => {
+    expect(isValidCheckinSource("kiosk")).toBe(true);
+  });
+
+  it("validates manual as a valid source", () => {
+    expect(isValidCheckinSource("manual")).toBe(true);
+  });
+
+  it("validates app as a valid source", () => {
+    expect(isValidCheckinSource("app")).toBe(true);
+  });
+
+  it("rejects invalid sources", () => {
+    expect(isValidCheckinSource("website")).toBe(false);
+    expect(isValidCheckinSource("")).toBe(false);
+    expect(isValidCheckinSource("API")).toBe(false);
   });
 });

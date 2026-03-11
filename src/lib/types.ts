@@ -111,22 +111,13 @@ export interface PlayerSportSkill {
 }
 
 // Waitlist
-export type WaitlistStatus = "waiting" | "notified" | "assigned" | "expired";
-
 export interface WaitlistEntry {
   id: string;
-  venue_id: string;
   player_id: string;
-  partner_id: string | null;
   sport: string;
   position: number;
-  status: WaitlistStatus;
-  notified_at: string | null;
-  assigned_match_id: string | null;
-  estimated_wait_minutes: number | null;
   created_at: string;
   player?: { display_name: string; avatar_url?: string | null };
-  partner?: { display_name: string; avatar_url?: string | null };
 }
 
 // Board constants
@@ -316,28 +307,7 @@ export interface NotificationPreferences {
   updated_at: string;
 }
 
-export type ReportReason =
-  | "unsportsmanlike"
-  | "harassment"
-  | "no_show"
-  | "cheating"
-  | "other";
-
-// Staff Invitations (venue onboarding)
-export type StaffInvitationStatus = "pending" | "accepted" | "expired";
-export type StaffRole = "admin" | "staff";
-
-export interface StaffInvitation {
-  id: string;
-  venue_id: string;
-  invited_by: string;
-  email: string;
-  role: StaffRole;
-  status: StaffInvitationStatus;
-  token: string;
-  created_at: string;
-  expires_at: string;
-}
+export type ReportReason = "unsportsmanlike" | "harassment" | "no_show" | "cheating" | "other";
 
 // ===== Tournaments =====
 
@@ -392,6 +362,153 @@ export interface TournamentMatch {
   player1?: Player; // joined
   player2?: Player; // joined
   winner?: Player; // joined
+}
+
+// Notifications
+export type NotificationType =
+  | "partner_request_received"
+  | "partner_request_accepted"
+  | "partner_request_declined"
+  | "partner_request_expired"
+  | "match_assigned"
+  | "court_assigned"
+  | "friend_checked_in"
+  | "game_reminder"
+  | "match_completed";
+
+export interface AppNotification {
+  id: string;
+  player_id: string;
+  type: NotificationType;
+  title: string;
+  body: string;
+  metadata: Record<string, unknown>;
+  is_read: boolean;
+  created_at: string;
+}
+
+// ===== Lawn Bowling =====
+
+export type BowlsPosition = "skip" | "vice" | "lead" | "second";
+export type BowlsGameFormat = "fours" | "triples" | "pairs" | "singles";
+
+export const BOWLS_POSITION_LABELS: Record<BowlsPosition, { label: string; description: string; order: number }> = {
+  skip: { label: "Skip", description: "Team captain — directs strategy, bowls last", order: 4 },
+  vice: { label: "Vice", description: "Second in command — measures, bowls third", order: 3 },
+  second: { label: "Second", description: "Supports the team — bowls second", order: 2 },
+  lead: { label: "Lead", description: "Sets the head — bowls first, places the jack", order: 1 },
+};
+
+export const BOWLS_FORMAT_LABELS: Record<BowlsGameFormat, { label: string; playersPerTeam: number; teams: number; description: string }> = {
+  fours: { label: "Fours (Rinks)", playersPerTeam: 4, teams: 2, description: "2 teams of 4 — Skip, Vice, Second, Lead" },
+  triples: { label: "Triples", playersPerTeam: 3, teams: 2, description: "2 teams of 3 — Skip, Vice, Lead" },
+  pairs: { label: "Pairs", playersPerTeam: 2, teams: 2, description: "2 teams of 2 — Skip and Lead" },
+  singles: { label: "Singles", playersPerTeam: 1, teams: 2, description: "1 vs 1" },
+};
+
+export function getPositionsForFormat(format: BowlsGameFormat): BowlsPosition[] {
+  switch (format) {
+    case "fours": return ["skip", "vice", "second", "lead"];
+    case "triples": return ["skip", "vice", "lead"];
+    case "pairs": return ["skip", "lead"];
+    case "singles": return [];
+  }
+}
+
+export type CheckinSource = "kiosk" | "manual" | "app";
+
+export interface BowlsCheckin {
+  id: string;
+  player_id: string;
+  tournament_id: string;
+  preferred_position: BowlsPosition;
+  checkin_source: CheckinSource;
+  checked_in_at: string;
+  player?: Player;
+}
+
+export interface BowlsTeamAssignment {
+  rink: number;
+  team: 1 | 2;
+  player_id: string;
+  position: BowlsPosition;
+  player?: Player;
+}
+
+export type ScoreWinner = "team_a" | "team_b" | "draw" | null;
+
+export interface TournamentScore {
+  id: string;
+  tournament_id: string;
+  round: number;
+  rink: number;
+  team_a_players: { player_id: string; display_name: string }[];
+  team_b_players: { player_id: string; display_name: string }[];
+  team_a_scores: number[];
+  team_b_scores: number[];
+  total_a: number;
+  total_b: number;
+  ends_won_a: number;
+  ends_won_b: number;
+  winner: ScoreWinner;
+  is_finalized: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+// ===== Club Members Roster =====
+
+export type RosterSkillLevel = "novice" | "expert";
+
+export interface ClubRosterMember {
+  id: string;
+  tournament_id: string;
+  display_name: string;
+  first_name: string | null;
+  last_name: string | null;
+  skill_level: RosterSkillLevel;
+  member_since: string | null;
+  is_active: boolean;
+  phone: string | null;
+  email: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// ===== Club Claims & Management =====
+
+export type ClaimStatus = "pending" | "approved" | "rejected";
+
+export interface ClubClaimRequest {
+  id: string;
+  club_id: string;
+  player_id: string;
+  status: ClaimStatus;
+  role_at_club: string | null;
+  message: string | null;
+  rejection_reason: string | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  created_at: string;
+  updated_at: string;
+  player?: Player;
+  club?: {
+    id: string;
+    name: string;
+    slug: string;
+    city: string;
+    state_code: string;
+  };
+}
+
+export interface ClubVenue {
+  id: string;
+  club_id: string;
+  venue_id: string;
+  is_primary: boolean;
+  created_at: string;
+  venue?: Venue;
 }
 
 // Subscription / Pricing

@@ -16,7 +16,6 @@ interface KioskBowlsCheckInProps {
 
 const AUTO_RESET_SECONDS = 15;
 const UNDO_WINDOW_SECONDS = 10;
-const CONFIRMATION_DISPLAY_SECONDS = 4;
 
 const POSITION_OPTIONS: {
   value: BowlsPosition | "any";
@@ -334,7 +333,7 @@ export function KioskBowlsCheckIn({
             className="font-bold"
             style={{ fontSize: "18px", color: "var(--kiosk-primary, #1B5E20)" }}
           >
-            {tournamentName} — {checkedInCount} checked in
+            {tournamentName} -- {checkedInCount} checked in
           </span>
         </div>
 
@@ -461,7 +460,7 @@ export function KioskBowlsCheckIn({
                   }}
                   aria-label={
                     isCheckedIn
-                      ? `${player.display_name} is checked in — tap to change position`
+                      ? `${player.display_name} is checked in -- tap to change position`
                       : `Check in ${player.display_name}`
                   }
                 >
@@ -492,7 +491,7 @@ export function KioskBowlsCheckIn({
                       >
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      Checked In — Tap to Change
+                      Checked In -- Tap to Change
                     </span>
                   ) : (
                     <span

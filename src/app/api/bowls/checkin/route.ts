@@ -6,7 +6,7 @@ import type { BowlsPosition, CheckinSource } from "@/lib/types";
  * POST /api/bowls/checkin
  * Check in a player for a bowls tournament with position preference.
  * Body: { player_id, tournament_id, preferred_position, checkin_source? }
- * Idempotent: upserts on (player_id, tournament_id) — no duplicate rows.
+ * Idempotent: upserts on (player_id, tournament_id) — no duplicate rows (UCI-13).
  */
 export async function POST(req: NextRequest) {
   try {
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     const supabase = await createClient();
 
-    // Upsert — if they check in again, update their position choice
+    // Upsert — if they check in again, update their position choice (UCI-13)
     const { data, error } = await supabase
       .from("bowls_checkins")
       .upsert(
