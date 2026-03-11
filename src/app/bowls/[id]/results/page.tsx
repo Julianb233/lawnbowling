@@ -295,6 +295,12 @@ export default function ResultsPage() {
             </div>
             <div className="flex items-center gap-2 print:hidden">
               <button
+                onClick={() => window.print()}
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+              >
+                Print Results
+              </button>
+              <button
                 onClick={() => router.push(`/bowls/${tournamentId}`)}
                 className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
               >
@@ -312,6 +318,62 @@ export default function ResultsPage() {
       </header>
 
       <main className="mx-auto max-w-5xl px-4 py-6">
+        {/* Print-only results header */}
+        <div className="hidden print:block print:mb-6">
+          <div className="border-b-2 border-[#1B5E20] pb-3 mb-4">
+            <h1 className="text-2xl font-black text-zinc-900">{tournamentName}</h1>
+            <div className="flex justify-between text-sm text-zinc-600 mt-1">
+              <span>Tournament Results</span>
+              <span>
+                {rounds.length} round{rounds.length !== 1 ? "s" : ""} played
+              </span>
+              <span>
+                Printed {new Date().toLocaleDateString()}
+              </span>
+            </div>
+          </div>
+
+          {/* Print-only player standings table */}
+          {playerStandings.length > 0 && (
+            <div className="mb-6">
+              <h2 className="text-sm font-bold text-zinc-700 mb-2">Player Standings</h2>
+              <table className="w-full border-collapse text-xs">
+                <thead>
+                  <tr>
+                    <th className="border border-zinc-400 px-2 py-1 text-left bg-zinc-100">#</th>
+                    <th className="border border-zinc-400 px-2 py-1 text-left bg-zinc-100">Player</th>
+                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">P</th>
+                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">W</th>
+                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">L</th>
+                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">D</th>
+                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">SF</th>
+                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">SA</th>
+                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">+/-</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {playerStandings.map((p, idx) => (
+                    <tr key={p.player_id}>
+                      <td className="border border-zinc-400 px-2 py-1 font-bold">{idx + 1}</td>
+                      <td className="border border-zinc-400 px-2 py-1 font-medium">{p.display_name}</td>
+                      <td className="border border-zinc-400 px-2 py-1 text-center">{p.games_played}</td>
+                      <td className="border border-zinc-400 px-2 py-1 text-center font-bold">{p.wins}</td>
+                      <td className="border border-zinc-400 px-2 py-1 text-center">{p.losses}</td>
+                      <td className="border border-zinc-400 px-2 py-1 text-center">{p.draws}</td>
+                      <td className="border border-zinc-400 px-2 py-1 text-center">{p.total_shots_for}</td>
+                      <td className="border border-zinc-400 px-2 py-1 text-center">{p.total_shots_against}</td>
+                      <td className="border border-zinc-400 px-2 py-1 text-center font-bold">
+                        {p.total_shots_for - p.total_shots_against > 0 ? "+" : ""}
+                        {p.total_shots_for - p.total_shots_against}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
         {rounds.length === 0 ? (
           <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
             <p className="text-lg font-semibold text-zinc-400">
