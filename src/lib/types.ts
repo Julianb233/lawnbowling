@@ -101,6 +101,8 @@ export interface PlayerSportSkill {
   id: string;
   player_id: string;
   sport: string;
+  skill_level: SportSkillLevel;
+  rating: number;
   elo_rating: number;
   games_played: number;
   wins: number;
@@ -108,66 +110,33 @@ export interface PlayerSportSkill {
   updated_at: string;
 }
 
-// Subscription / pricing
-export type SubscriptionPlan = "free" | "premium" | "venue_owner";
+// Waitlist
+export type WaitlistStatus = "waiting" | "notified" | "assigned" | "expired";
 
-export interface PricingTier {
-  plan: SubscriptionPlan;
-  name: string;
-  price: number; // cents
-  features: string[];
-  cta: string;
-  popular?: boolean;
+export interface WaitlistEntry {
+  id: string;
+  venue_id: string;
+  player_id: string;
+  partner_id: string | null;
+  sport: string;
+  position: number;
+  status: WaitlistStatus;
+  estimated_wait_minutes: number | null;
+  created_at: string;
+  player?: { display_name: string; avatar_url?: string | null };
+  partner?: { display_name: string; avatar_url?: string | null } | null;
 }
 
-export const PRICING_TIERS: PricingTier[] = [
-  {
-    plan: "free",
-    name: "Free",
-    price: 0,
-    features: [
-      "Find partners at your venue",
-      "Check in & match",
-      "Basic stats tracking",
-    ],
-    cta: "Get Started",
-  },
-  {
-    plan: "premium",
-    name: "Premium",
-    price: 999,
-    features: [
-      "Everything in Free",
-      "Advanced matchmaking",
-      "Detailed skill analytics",
-      "Priority court access",
-      "Tournament entry",
-    ],
-    cta: "Upgrade",
-    popular: true,
-  },
-  {
-    plan: "venue_owner",
-    name: "Venue Owner",
-    price: 4999,
-    features: [
-      "Everything in Premium",
-      "Venue branding & themes",
-      "Player management dashboard",
-      "Court scheduling",
-      "Revenue analytics",
-    ],
-    cta: "Contact Us",
-  },
-];
-
 // Board constants
-export type Sport = "pickleball" | "lawn_bowling" | "tennis";
+export type Sport = "pickleball" | "lawn_bowling" | "tennis" | "badminton" | "racquetball" | "flag_football";
 
 export const SPORT_LABELS: Record<Sport, { emoji: string; label: string; short: string }> = {
   pickleball: { emoji: "\u{1F3D3}", label: "Pickleball", short: "Pickle" },
   lawn_bowling: { emoji: "\u{1F3B3}", label: "Lawn Bowling", short: "Bowl" },
   tennis: { emoji: "\u{1F3BE}", label: "Tennis", short: "Tennis" },
+  badminton: { emoji: "\u{1F3F8}", label: "Badminton", short: "Badminton" },
+  racquetball: { emoji: "\u{1F3BE}", label: "Racquetball", short: "Racquet" },
+  flag_football: { emoji: "\u{1F3C8}", label: "Flag Football", short: "Flag" },
 };
 
 export const SKILL_LABELS: Record<SkillLevel, { stars: number; label: string }> = {
@@ -176,7 +145,7 @@ export const SKILL_LABELS: Record<SkillLevel, { stars: number; label: string }> 
   advanced: { stars: 3, label: "Advanced" },
 };
 
-export const ALL_SPORTS: Sport[] = ["pickleball", "lawn_bowling", "tennis"];
+export const ALL_SPORTS: Sport[] = ["pickleball", "lawn_bowling", "tennis", "badminton", "racquetball", "flag_football"];
 export const ALL_SKILLS: SkillLevel[] = ["beginner", "intermediate", "advanced"];
 
 // Teams
@@ -330,21 +299,6 @@ export interface NotificationPreferences {
   updated_at: string;
 }
 
-export interface PushSubscriptionRecord {
-  id: string;
-  player_id: string;
-  endpoint: string;
-  p256dh: string;
-  auth: string;
-  created_at: string;
-}
-
-export type PushNotificationType =
-  | "partner_request"
-  | "match_ready"
-  | "friend_checkin"
-  | "scheduled_reminder";
-
 export type ReportReason = "unsportsmanlike" | "harassment" | "no_show" | "cheating" | "other";
 
 // ===== Tournaments =====
@@ -402,13 +356,54 @@ export interface TournamentMatch {
   winner?: Player; // joined
 }
 
-// Waitlist
-export interface WaitlistEntry {
-  id: string;
-  venue_id: string;
-  player_id: string;
-  sport: string;
-  position: number;
-  created_at: string;
-  player?: Player; // joined
-}
+// Subscription / Pricing
+export type SubscriptionPlan = "free" | "basic" | "premium" | "venue_owner";
+export type SportSkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
+
+export const PRICING_TIERS = [
+  {
+    plan: "free" as SubscriptionPlan,
+    name: "Free",
+    price: 0,
+    interval: "forever",
+    cta: "Get Started",
+    features: [
+      "Check in & find partners",
+      "Join matches & courts",
+      "Basic player profile",
+      "View leaderboard",
+    ],
+  },
+  {
+    plan: "premium" as SubscriptionPlan,
+    name: "Premium",
+    price: 9.99,
+    interval: "month",
+    popular: true,
+    cta: "Go Premium",
+    features: [
+      "Everything in Free",
+      "Smart skill-based matching",
+      "Detailed stats & analytics",
+      "Priority court assignment",
+      "Schedule recurring games",
+      "Ad-free experience",
+    ],
+  },
+  {
+    plan: "venue_owner" as SubscriptionPlan,
+    name: "Venue Owner",
+    price: 49.99,
+    interval: "month",
+    cta: "Contact Sales",
+    features: [
+      "Everything in Premium",
+      "Full admin dashboard",
+      "Custom branding & theming",
+      "Kiosk mode for iPads",
+      "Export data & reports",
+      "Multi-court management",
+      "Priority support",
+    ],
+  },
+];

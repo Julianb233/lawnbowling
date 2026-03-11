@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Clock, Users } from "lucide-react";
+import { Clock, Users, Timer } from "lucide-react";
 import type { WaitlistEntry } from "@/lib/types";
 
 interface WaitlistBoardProps {
@@ -14,17 +14,20 @@ export function WaitlistBoard({ venueId, sport }: WaitlistBoardProps) {
   const [entries, setEntries] = useState<WaitlistEntry[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function load() {
-      const params = new URLSearchParams({ venue_id: venueId });
-      if (sport) params.set("sport", sport);
-      const res = await fetch(`/api/waitlist?${params}`);
-      const data = await res.json();
-      setEntries(Array.isArray(data) ? data : []);
-      setLoading(false);
-    }
-    load();
+  const load = useCallback(async () => {
+    const params = new URLSearchParams({ venue_id: venueId });
+    if (sport) params.set("sport", sport);
+    const res = await fetch(`/api/waitlist?${params}`);
+    const data = await res.json();
+    setEntries(Array.isArray(data) ? data : []);
+    setLoading(false);
   }, [venueId, sport]);
+
+  useEffect(() => {
+    load();
+    const interval = setInterval(load, 30_000);
+    return () => clearInterval(interval);
+  }, [load]);
 
   if (loading) {
     return <div className="animate-pulse rounded-xl bg-zinc-100 h-24" />;
@@ -62,9 +65,21 @@ export function WaitlistBoard({ venueId, sport }: WaitlistBoardProps) {
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-zinc-700">
                 {entry.player?.display_name || "Player"}
+                {entry.partner?.display_name && (
+                  <span className="text-zinc-400">
+                    {" & "}{entry.partner.display_name}
+                  </span>
+                )}
               </p>
               <p className="text-xs text-zinc-500 dark:text-zinc-400">{entry.sport}</p>
             </div>
+            {entry.estimated_wait_minutes != null &&
+              entry.estimated_wait_minutes > 0 && (
+                <div className="flex items-center gap-1 text-xs text-amber-500">
+                  <Timer className="h-3.5 w-3.5" />
+                  <span>~{entry.estimated_wait_minutes}m</span>
+                </div>
+              )}
           </motion.div>
         ))}
       </div>
