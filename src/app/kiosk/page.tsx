@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { KioskWrapper } from "@/components/kiosk/KioskWrapper";
+import { KioskLayout } from "@/components/kiosk/KioskLayout";
 import { KioskCheckIn } from "@/components/kiosk/KioskCheckIn";
 import { AvailabilityBoard } from "@/components/board/AvailabilityBoard";
 import { useRealtimePlayers } from "@/lib/hooks/useRealtimePlayers";
@@ -15,8 +16,10 @@ export default function KioskPage() {
 
   useEffect(() => {
     fetch("/api/venue/default")
-      .then((r) => r.ok ? r.json() : null)
-      .then((data) => { if (data && !data.error) setVenue(data); })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data && !data.error) setVenue(data);
+      })
       .catch(() => {});
   }, []);
 
@@ -32,61 +35,35 @@ export default function KioskPage() {
 
   return (
     <KioskWrapper inactivityTimeout={30000} onInactivityReset={handleInactivityReset}>
-      <div className="min-h-screen bg-white">
-        {/* Venue header */}
-        <header className="border-b border-zinc-200 px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-black text-zinc-900">
-                {venue?.name || "Lawnbowling"}
-              </h1>
-              <p className="text-sm text-zinc-500">Kiosk Mode</p>
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setView("checkin")}
-                className={`rounded-xl px-6 py-3 text-sm font-bold min-h-[60px] touch-manipulation ${
-                  view === "checkin"
-                    ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                    : "bg-zinc-100 text-zinc-400"
-                }`}
-              >
-                Check In
-              </button>
-              <button
-                onClick={() => setView("board")}
-                className={`rounded-xl px-6 py-3 text-sm font-bold min-h-[60px] touch-manipulation ${
-                  view === "board"
-                    ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                    : "bg-zinc-100 text-zinc-400"
-                }`}
-              >
-                Board ({players.length})
-              </button>
-            </div>
-          </div>
-        </header>
-
-        {/* Content */}
-        <main className="p-6">
-          {view === "checkin" && venue && (
-            <KioskCheckIn venueId={venue.id} />
-          )}
-          {view === "board" && (
-            <AvailabilityBoard
-              players={players}
-              loading={loading}
-              onPickMe={() => {}}
-              pendingTargetIds={new Set()}
+      <KioskLayout
+        venueName={venue?.name}
+        subtitle="Tournament Day Check-In"
+        activeTab={view}
+        onTabChange={setView}
+        playerCount={players.length}
+      >
+        {view === "checkin" && venue && <KioskCheckIn venueId={venue.id} />}
+        {view === "board" && (
+          <AvailabilityBoard
+            players={players}
+            loading={loading}
+            onPickMe={() => {}}
+            pendingTargetIds={new Set()}
+          />
+        )}
+        {!venue && (
+          <div
+            className="flex items-center justify-center py-24"
+            role="status"
+            aria-label="Loading venue"
+          >
+            <div
+              className="h-16 w-16 animate-spin rounded-full border-4 border-t-transparent"
+              style={{ borderColor: "#1B5E20", borderTopColor: "transparent" }}
             />
-          )}
-          {!venue && (
-            <div className="flex items-center justify-center py-16">
-              <div className="h-12 w-12 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
-            </div>
-          )}
-        </main>
-      </div>
+          </div>
+        )}
+      </KioskLayout>
     </KioskWrapper>
   );
 }
