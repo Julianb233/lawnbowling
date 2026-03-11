@@ -7,6 +7,7 @@ import { WaiverStatus } from "@/components/waiver/WaiverStatus";
 import { ProfileCard } from "@/components/profile/ProfileCard";
 import { ProfileStatsSection } from "@/components/stats/ProfileStatsSection";
 import { MatchHistory } from "@/components/profile/MatchHistory";
+import { AvailabilitySchedule } from "@/components/profile/AvailabilitySchedule";
 import { PhotoGallery } from "@/components/profile/PhotoGallery";
 import type { PlayerProfile, SkillLevel, Sport, BowlingPosition, PreferredHand } from "@/lib/db/players";
 import type { Waiver } from "@/lib/db/waivers";
@@ -116,6 +117,8 @@ export function ProfilePageClient({ player, waiver, stats, favoritePartners, pho
             <ProfileStatsSection stats={stats} favoritePartners={favoritePartners} />
 
             <MatchHistory playerId={player.id} />
+
+            <AvailabilitySchedule playerId={player.id} editable />
 
             <PhotoGallery photos={photos} editable onPhotosChange={refreshPhotos} />
 

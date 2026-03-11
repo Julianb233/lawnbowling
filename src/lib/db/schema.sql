@@ -578,3 +578,24 @@ alter table contact_preferences enable row level security;
 
 create policy "Contact prefs: public fields viewable by all" on contact_preferences for select using (true);
 create policy "Contact prefs: own" on contact_preferences for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
+
+-- ===== PROFILE ENHANCEMENTS: ENDORSEMENTS =====
+
+create table player_endorsements (
+  id uuid primary key default uuid_generate_v4(),
+  endorser_id uuid not null references players(id) on delete cascade,
+  endorsed_id uuid not null references players(id) on delete cascade,
+  skill text not null check (skill in ('great_skip', 'reliable_lead', 'strong_second', 'accurate_draw', 'powerful_drive', 'good_sportsmanship', 'team_player', 'tactical_mind')),
+  created_at timestamptz default now(),
+  unique(endorser_id, endorsed_id, skill),
+  check (endorser_id != endorsed_id)
+);
+
+alter table player_endorsements enable row level security;
+
+create policy "Endorsements viewable by all" on player_endorsements for select using (true);
+create policy "Players can endorse others" on player_endorsements for insert with check (public.is_own_player(endorser_id));
+create policy "Players can remove own endorsements" on player_endorsements for delete using (public.is_own_player(endorser_id));
+
+create index idx_endorsements_endorsed on player_endorsements(endorsed_id);
+create index idx_endorsements_endorser on player_endorsements(endorser_id);
