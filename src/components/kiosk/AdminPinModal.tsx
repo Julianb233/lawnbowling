@@ -52,64 +52,64 @@ export function AdminPinModal({ open, onClose, onSuccess }: AdminPinModalProps) 
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.9 }}
-            className="w-full max-w-sm rounded-3xl p-8"
-            style={{ backgroundColor: "var(--kiosk-surface, #FFFFFF)" }}
+            className="w-full max-w-sm rounded-2xl glass p-8"
           >
-            <div className="mb-8 flex items-center justify-between">
+            <div className="mb-6 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Lock className="h-6 w-6" style={{ color: "var(--kiosk-text-secondary, #4A4A4A)" }} />
-                <h2 className="font-bold" style={{ fontSize: "var(--kiosk-text-subheading, 24px)", color: "var(--kiosk-text, #1A1A1A)" }}>
+                <Lock className="h-6 w-6" style={{ color: "#4A4A4A" }} />
+                <h2
+                  className="font-bold"
+                  style={{ fontSize: "32px", color: "#1A1A1A" }}
+                >
                   Admin PIN
                 </h2>
               </div>
               <button
                 onClick={() => { onClose(); setPin(""); }}
-                className="rounded-full p-2 touch-manipulation focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#0D47A1] focus-visible:outline-offset-2"
-                style={{ minHeight: "48px", minWidth: "48px", display: "flex", alignItems: "center", justifyContent: "center" }}
-                aria-label="Close admin PIN dialog"
+                className="rounded-full p-3 hover:bg-zinc-100 touch-manipulation"
+                style={{
+                  minHeight: "56px",
+                  minWidth: "56px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                <X className="h-6 w-6" style={{ color: "var(--kiosk-text-secondary, #4A4A4A)" }} />
+                <X className="h-6 w-6" style={{ color: "#4A4A4A" }} />
               </button>
             </div>
 
-            {/* PIN dots - larger for visibility */}
-            <div className="mb-8 flex justify-center gap-5">
+            {/* PIN dots */}
+            <div className="mb-6 flex justify-center gap-4">
               {[0, 1, 2, 3].map((i) => (
                 <motion.div
                   key={i}
                   animate={error ? { x: [-8, 8, -4, 4, 0] } : {}}
-                  className="rounded-full border-2 transition-colors"
-                  style={{
-                    height: "20px",
-                    width: "20px",
-                    borderColor: i < pin.length
-                      ? error ? "var(--kiosk-error, #C62828)" : "var(--kiosk-success, #2E7D32)"
-                      : "var(--kiosk-text-secondary, #4A4A4A)",
-                    backgroundColor: i < pin.length
-                      ? error ? "var(--kiosk-error, #C62828)" : "var(--kiosk-success, #2E7D32)"
-                      : "transparent",
-                  }}
+                  className={`h-5 w-5 rounded-full border-2 transition-colors ${
+                    i < pin.length
+                      ? error ? "border-red-500 bg-red-500" : "border-green-500 bg-green-500"
+                      : "border-zinc-600"
+                  }`}
                 />
               ))}
             </div>
 
-            {/* Keypad - 72px buttons for elderly-friendly touch targets */}
+            {/* Keypad */}
             <div className="grid grid-cols-3 gap-3">
-              {["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "del"].map((key) => (
+              {["1","2","3","4","5","6","7","8","9","","0","del"].map((key) => (
                 key === "" ? <div key="empty" /> : (
                   <button
                     key={key}
                     onClick={() => key === "del" ? handleDelete() : handleDigit(key)}
-                    className="flex items-center justify-center rounded-xl font-bold touch-manipulation active:scale-[0.95] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#0D47A1] focus-visible:outline-offset-2"
+                    className="flex items-center justify-center rounded-xl touch-manipulation active:scale-[0.95]"
                     style={{
-                      minHeight: "var(--kiosk-touch-target-primary, 72px)",
-                      fontSize: "var(--kiosk-text-subheading, 24px)",
+                      minHeight: "72px",
+                      fontSize: "28px",
+                      fontWeight: 700,
                       backgroundColor: "#F0F0F0",
-                      color: "var(--kiosk-text, #1A1A1A)",
-                      border: "none",
-                      cursor: "pointer",
+                      color: "#1A1A1A",
                     }}
-                    aria-label={key === "del" ? "Delete last digit" : `Enter digit ${key}`}
+                    aria-label={key === "del" ? "Delete last digit" : `Digit ${key}`}
                   >
                     {key === "del" ? "\u232B" : key}
                   </button>

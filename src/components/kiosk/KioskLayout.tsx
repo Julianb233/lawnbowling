@@ -7,10 +7,10 @@ import React, { ReactNode } from "react";
  *
  * Enforces elderly-friendly design tokens (WCAG AAA):
  * - Minimum 56px touch targets, 72px preferred for primary actions
- * - 32px+ headings, 18px+ body text, nothing below 16px
+ * - 32px+ headings, 20px+ body text, nothing below 18px
  * - WCAG AAA contrast (7:1 ratio) using "The Bowling Green" palette
- * - Brand color #1B5E20 (dark bowling green)
- * - All values driven by CSS custom properties (--kiosk-*)
+ * - Brand color #1B5E20 (dark bowling green) — 7.9:1 on white
+ * - All colors validated against WCAG AAA (7:1 minimum)
  */
 
 interface KioskLayoutProps {
@@ -33,37 +33,30 @@ export function KioskLayout({
 }: KioskLayoutProps) {
   return (
     <div
-      className="kiosk-mode min-h-screen"
+      className="min-h-screen"
       style={{
-        backgroundColor: "var(--kiosk-bg)",
+        backgroundColor: "#FAFAF5",
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
-        letterSpacing: "var(--kiosk-letter-spacing)",
+        letterSpacing: "0.01em",
       }}
     >
       {/* Header */}
       <header
         className="border-b-2 px-8 py-5"
-        style={{ borderColor: "#E0E0E0", backgroundColor: "var(--kiosk-surface)" }}
+        style={{ borderColor: "#E0E0E0", backgroundColor: "#FFFFFF" }}
       >
         <div className="flex items-center justify-between">
           <div>
             <h1
               className="font-black"
-              style={{
-                fontSize: "40px",
-                lineHeight: "1.2",
-                color: "var(--kiosk-text)",
-              }}
+              style={{ fontSize: "40px", lineHeight: "1.2", color: "#1A1A1A" }}
             >
               {venueName || "Lawn Bowling Club"}
             </h1>
             {subtitle && (
               <p
                 className="mt-1 font-medium"
-                style={{
-                  fontSize: "var(--kiosk-text-body)",
-                  color: "var(--kiosk-text-secondary)",
-                }}
+                style={{ fontSize: "20px", color: "#4A4A4A" }}
               >
                 {subtitle}
               </p>
@@ -72,18 +65,18 @@ export function KioskLayout({
 
           {/* Navigation tabs */}
           {onTabChange && (
-            <nav className="flex gap-4" role="tablist" aria-label="Kiosk navigation">
+            <nav className="flex gap-3" role="tablist" aria-label="Kiosk navigation">
               <button
                 role="tab"
                 aria-selected={activeTab === "checkin"}
                 onClick={() => onTabChange("checkin")}
-                className="rounded-2xl px-10 font-bold touch-manipulation transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#0D47A1] focus-visible:outline-offset-2"
+                className="rounded-2xl px-8 font-bold touch-manipulation transition-colors"
                 style={{
-                  minHeight: "var(--kiosk-touch-target-primary)",
+                  minHeight: "72px",
                   fontSize: "22px",
-                  backgroundColor: activeTab === "checkin" ? "var(--kiosk-primary)" : "#F0F0F0",
-                  color: activeTab === "checkin" ? "var(--kiosk-on-primary)" : "var(--kiosk-text)",
-                  border: activeTab === "checkin" ? "3px solid var(--kiosk-primary-dark)" : "3px solid transparent",
+                  backgroundColor: activeTab === "checkin" ? "#1B5E20" : "#F0F0F0",
+                  color: activeTab === "checkin" ? "#FFFFFF" : "#1A1A1A",
+                  border: activeTab === "checkin" ? "3px solid #0D3B12" : "3px solid transparent",
                 }}
               >
                 Check In
@@ -92,13 +85,13 @@ export function KioskLayout({
                 role="tab"
                 aria-selected={activeTab === "board"}
                 onClick={() => onTabChange("board")}
-                className="rounded-2xl px-10 font-bold touch-manipulation transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#0D47A1] focus-visible:outline-offset-2"
+                className="rounded-2xl px-8 font-bold touch-manipulation transition-colors"
                 style={{
-                  minHeight: "var(--kiosk-touch-target-primary)",
+                  minHeight: "72px",
                   fontSize: "22px",
-                  backgroundColor: activeTab === "board" ? "var(--kiosk-primary)" : "#F0F0F0",
-                  color: activeTab === "board" ? "var(--kiosk-on-primary)" : "var(--kiosk-text)",
-                  border: activeTab === "board" ? "3px solid var(--kiosk-primary-dark)" : "3px solid transparent",
+                  backgroundColor: activeTab === "board" ? "#1B5E20" : "#F0F0F0",
+                  color: activeTab === "board" ? "#FFFFFF" : "#1A1A1A",
+                  border: activeTab === "board" ? "3px solid #0D3B12" : "3px solid transparent",
                 }}
               >
                 Board{playerCount !== undefined ? ` (${playerCount})` : ""}
@@ -140,12 +133,12 @@ export function KioskButton({
   className = "",
 }: KioskButtonProps) {
   const baseStyles: React.CSSProperties = {
-    minHeight: "var(--kiosk-touch-target-primary)",
+    minHeight: "72px",
     fontSize: "22px",
     fontWeight: 700,
-    letterSpacing: "var(--kiosk-letter-spacing)",
+    letterSpacing: "0.01em",
     lineHeight: "1.4",
-    borderRadius: "var(--kiosk-card-radius)",
+    borderRadius: "16px",
     padding: "16px 32px",
     cursor: disabled ? "not-allowed" : "pointer",
     opacity: disabled ? 0.5 : 1,
@@ -156,22 +149,22 @@ export function KioskButton({
 
   const variantStyles: Record<string, React.CSSProperties> = {
     primary: {
-      backgroundColor: "var(--kiosk-primary)",
-      color: "var(--kiosk-on-primary)",
+      backgroundColor: "#1B5E20",
+      color: "#FFFFFF",
     },
     secondary: {
       backgroundColor: "#F0F0F0",
-      color: "var(--kiosk-text)",
+      color: "#1A1A1A",
       border: "2px solid #CCCCCC",
     },
     danger: {
-      backgroundColor: "var(--kiosk-error)",
-      color: "var(--kiosk-on-primary)",
+      backgroundColor: "#9B1B1B",
+      color: "#FFFFFF",
     },
     outline: {
       backgroundColor: "transparent",
-      color: "var(--kiosk-primary)",
-      border: "3px solid var(--kiosk-primary)",
+      color: "#1B5E20",
+      border: "3px solid #1B5E20",
     },
   };
 
@@ -180,7 +173,7 @@ export function KioskButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={ariaLabel}
-      className={`touch-manipulation active:scale-[0.97] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#0D47A1] focus-visible:outline-offset-2 ${className}`}
+      className={`touch-manipulation active:scale-[0.97] ${className}`}
       style={{ ...baseStyles, ...variantStyles[variant] }}
     >
       {children}
@@ -189,8 +182,8 @@ export function KioskButton({
 }
 
 /**
- * KioskHeading — accessible heading with enforced minimum sizes.
- * Uses kiosk CSS custom properties for consistent sizing.
+ * KioskHeading — accessible heading with enforced minimum 32px sizes.
+ * All heading levels meet WCAG AAA contrast (17.4:1 for #1A1A1A on #FFFFFF).
  */
 interface KioskHeadingProps {
   level?: 1 | 2 | 3;
@@ -201,9 +194,9 @@ interface KioskHeadingProps {
 
 export function KioskHeading({ level = 1, children, className = "", align = "center" }: KioskHeadingProps) {
   const sizes: Record<number, string> = {
-    1: "var(--kiosk-text-heading)",
-    2: "var(--kiosk-text-subheading)",
-    3: "var(--kiosk-text-subheading)",
+    1: "40px",
+    2: "34px",
+    3: "32px",
   };
 
   const Tag = `h${level}` as "h1" | "h2" | "h3";
@@ -214,9 +207,9 @@ export function KioskHeading({ level = 1, children, className = "", align = "cen
       style={{
         fontSize: sizes[level],
         lineHeight: "1.3",
-        color: "var(--kiosk-text)",
+        color: "#1A1A1A",
         textAlign: align,
-        letterSpacing: "var(--kiosk-letter-spacing)",
+        letterSpacing: "0.01em",
       }}
     >
       {children}
@@ -225,8 +218,10 @@ export function KioskHeading({ level = 1, children, className = "", align = "cen
 }
 
 /**
- * KioskText — body text with enforced minimum 16px, recommended 18px+.
- * Uses kiosk CSS custom properties.
+ * KioskText — body text with enforced minimum 18px.
+ * All text colors meet WCAG AAA:
+ * - primary (#1A1A1A): 17.4:1 on white, 16.6:1 on #FAFAF5
+ * - secondary (#4A4A4A): 8.9:1 on white, 8.5:1 on #FAFAF5
  */
 interface KioskTextProps {
   children: ReactNode;
@@ -244,14 +239,14 @@ export function KioskText({
   align = "left",
 }: KioskTextProps) {
   const sizes: Record<string, string> = {
-    body: "var(--kiosk-text-body)",
-    label: "var(--kiosk-text-label)",
-    caption: "var(--kiosk-text-caption)",
+    body: "22px",
+    label: "20px",
+    caption: "18px",
   };
 
   const colors: Record<string, string> = {
-    primary: "var(--kiosk-text)",
-    secondary: "var(--kiosk-text-secondary)",
+    primary: "#1A1A1A",
+    secondary: "#4A4A4A",
   };
 
   return (
@@ -259,10 +254,10 @@ export function KioskText({
       className={className}
       style={{
         fontSize: sizes[size],
-        lineHeight: "var(--kiosk-line-height)",
+        lineHeight: "1.5",
         color: colors[color],
         textAlign: align,
-        letterSpacing: "var(--kiosk-letter-spacing)",
+        letterSpacing: "0.01em",
       }}
     >
       {children}
