@@ -4,13 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Home, Trophy, CircleDot, Calendar, User, type LucideIcon } from "lucide-react";
+import { Home, Trophy, CircleDot, Calendar, User, Shield, type LucideIcon } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const NAV_ITEMS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/board", label: "Home", icon: Home },
   { href: "/tournament", label: "Tourney", icon: Trophy },
   { href: "/bowls", label: "Bowls", icon: CircleDot },
+  { href: "/pennant", label: "Pennant", icon: Shield },
   { href: "/schedule", label: "Schedule", icon: Calendar },
   { href: "/profile", label: "Me", icon: User },
 ];
@@ -27,14 +28,13 @@ export function BottomNav() {
       <div className="flex items-center justify-around py-2">
         {NAV_ITEMS.map((item) => {
           const active = pathname === item.href
-            || (item.href !== "/board" && (pathname?.startsWith(item.href + "/") ?? false))
-            || (item.href === "/bowls" && (pathname?.startsWith("/pennant") ?? false));
+            || (item.href !== "/board" && (pathname?.startsWith(item.href + "/") ?? false));
           return (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "relative flex flex-col items-center justify-center gap-0.5 px-4 py-2 text-[13px] transition-colors min-h-[44px]",
+                "relative flex flex-col items-center justify-center gap-0.5 px-3 py-2 text-[11px] transition-colors min-h-[44px]",
                 active ? "text-[#1B5E20] dark:text-emerald-400 font-semibold" : "text-zinc-500 dark:text-zinc-400"
               )}
             >

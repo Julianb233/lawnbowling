@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import type { TournamentScore } from "@/lib/types";
+import type { TournamentScore, PennantTeam, PennantFixture, PennantFixtureResult, PennantDivision, PennantSeason, GreenConditions } from "@/lib/types";
+import { GreenConditionsWidget } from "@/components/bowls/GreenConditionsWidget";
 import { DashboardHeader } from "@/components/tv/DashboardHeader";
 import LiveScoresSlide from "@/components/tv/LiveScoresSlide";
 import StandingsSlide from "@/components/tv/StandingsSlide";
@@ -11,10 +12,13 @@ import NextDrawSlide from "@/components/tv/NextDrawSlide";
 import WeatherAnnouncementsSlide, {
   type Announcement,
 } from "@/components/tv/WeatherAnnouncementsSlide";
+import PennantLadderSlide from "@/components/tv/PennantLadderSlide";
+import { calculateDivisionStandings } from "@/lib/pennant-engine";
+import type { PennantStanding } from "@/lib/pennant-engine";
 
 // --- Types ---
 
-type SlideType = "scores" | "standings" | "draw" | "weather";
+type SlideType = "scores" | "standings" | "draw" | "weather" | "pennant";
 
 interface TournamentData {
   id: string;
@@ -37,7 +41,7 @@ interface DrawAnnouncement {
 
 const DEFAULT_INTERVAL_SECONDS = 12;
 const RINKS_PER_PAGE = 6;
-const VALID_SLIDE_TYPES: SlideType[] = ["scores", "standings", "draw", "weather"];
+const VALID_SLIDE_TYPES: SlideType[] = ["scores", "standings", "draw", "weather", "pennant"];
 
 // --- Page wrapper with Suspense for useSearchParams ---
 
@@ -76,6 +80,14 @@ function TVDashboard() {
   const [reconnecting, setReconnecting] = useState(false);
   const [drawAnnouncement, setDrawAnnouncement] =
     useState<DrawAnnouncement | null>(null);
+
+  // --- Green conditions state (REQ-15-07) ---
+  const [greenConditions, setGreenConditions] = useState<GreenConditions | null>(null);
+
+  // --- Pennant state (REQ-14-14) ---
+  const [pennantStandings, setPennantStandings] = useState<PennantStanding[]>([]);
+  const [pennantDivisionName, setPennantDivisionName] = useState<string | undefined>();
+  const [pennantSeasonName, setPennantSeasonName] = useState<string | undefined>();
 
   // --- Carousel state ---
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -136,6 +148,61 @@ function TVDashboard() {
     }
   }, [tournament]);
 
+  // REQ-14-14: Load pennant data when tournament is linked to a fixture
+  const loadPennantData = useCallback(async () => {
+    if (!tournament) return;
+    const supabase = createClient();
+
+    // Check if this tournament is linked to a pennant fixture
+    const { data: fixture } = await supabase
+      .from("pennant_fixtures")
+      .select("id, season_id, division_id")
+      .eq("tournament_id", tournament.id)
+      .single();
+
+    if (!fixture) {
+      setPennantStandings([]);
+      return;
+    }
+
+    // Load division info, season info, teams, all fixtures & results for this division
+    const [divRes, seasonRes, teamsRes, fixturesRes, resultsRes] = await Promise.all([
+      supabase.from("pennant_divisions").select("*").eq("id", fixture.division_id).single(),
+      supabase.from("pennant_seasons").select("*").eq("id", fixture.season_id).single(),
+      supabase.from("pennant_teams").select("*").eq("division_id", fixture.division_id),
+      supabase.from("pennant_fixtures").select("*").eq("division_id", fixture.division_id),
+      supabase.from("pennant_fixture_results").select("*"),
+    ]);
+
+    if (divRes.data) setPennantDivisionName((divRes.data as PennantDivision).name);
+    if (seasonRes.data) setPennantSeasonName((seasonRes.data as PennantSeason).name);
+
+    const teams = (teamsRes.data as PennantTeam[]) ?? [];
+    const fixtures = (fixturesRes.data as PennantFixture[]) ?? [];
+    const results = (resultsRes.data as PennantFixtureResult[]) ?? [];
+
+    // Filter results to only those for this division's fixtures
+    const fixtureIds = new Set(fixtures.map((f) => f.id));
+    const divResults = results.filter((r) => fixtureIds.has(r.fixture_id));
+
+    const standings = calculateDivisionStandings(teams, fixtures, divResults);
+    setPennantStandings(standings);
+  }, [tournament]);
+
+  // REQ-15-07: Load green conditions for TV display
+  const loadConditions = useCallback(async () => {
+    if (!tournament) return;
+    try {
+      const res = await fetch("/api/bowls/green-conditions?tournament_id=" + tournament.id);
+      if (res.ok) {
+        const data = await res.json();
+        setGreenConditions(data);
+      }
+    } catch {
+      // Will retry on next poll
+    }
+  }, [tournament]);
+
   // Initial data load
   useEffect(() => {
     loadTournament();
@@ -145,8 +212,10 @@ function TVDashboard() {
     if (tournament) {
       loadScores();
       loadAnnouncements();
+      loadPennantData();
+      loadConditions();
     }
-  }, [tournament, loadScores, loadAnnouncements]);
+  }, [tournament, loadScores, loadAnnouncements, loadPennantData, loadConditions]);
 
   // ========== Supabase Realtime (REQ-LD-04, REQ-LD-09, REQ-LD-15) ==========
 
@@ -217,18 +286,54 @@ function TVDashboard() {
       )
       .subscribe();
 
+    // REQ-14-14: Realtime pennant results updates
+    const pennantChannel = supabase
+      .channel("tv-pennant-results")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "pennant_fixture_results",
+        },
+        () => {
+          loadPennantData();
+        }
+      )
+      .subscribe();
+
+    // REQ-15-12: Realtime green conditions updates
+    const conditionsChannel = supabase
+      .channel("tv-conditions-" + tournament.id)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "green_conditions",
+          filter: "tournament_id=eq." + tournament.id,
+        },
+        () => {
+          loadConditions();
+        }
+      )
+      .subscribe();
+
     // Fallback polling
     const pollInterval = setInterval(() => {
       loadScores();
       loadAnnouncements();
+      loadConditions();
     }, 10000);
 
     return () => {
       clearInterval(pollInterval);
       supabase.removeChannel(scoresChannel);
       supabase.removeChannel(announcementsChannel);
+      supabase.removeChannel(pennantChannel);
+      supabase.removeChannel(conditionsChannel);
     };
-  }, [tournament, loadScores, loadAnnouncements]);
+  }, [tournament, loadScores, loadAnnouncements, loadPennantData, loadConditions]);
 
   // Auto-dismiss draw announcement after 30 seconds
   useEffect(() => {
@@ -267,12 +372,18 @@ function TVDashboard() {
       s.team_a_players?.length > 0
   );
 
+  // REQ-14-14: Include pennant slide when tournament is linked to a pennant fixture
+  const hasPennant = pennantStandings.length > 0;
+
   // REQ-LD-01, REQ-LD-05: Build the slide sequence with score sub-pages
   const allSlideTypes: SlideType[] = [];
   for (let i = 0; i < totalScorePages; i++) {
     allSlideTypes.push("scores");
   }
   allSlideTypes.push("standings");
+  if (hasPennant) {
+    allSlideTypes.push("pennant");
+  }
   if (hasNextDraw) {
     allSlideTypes.push("draw");
   }
@@ -388,6 +499,14 @@ function TVDashboard() {
         return <NextDrawSlide scores={scores} maxRound={maxRound} />;
       case "weather":
         return <WeatherAnnouncementsSlide announcements={announcements} />;
+      case "pennant":
+        return (
+          <PennantLadderSlide
+            standings={pennantStandings}
+            divisionName={pennantDivisionName}
+            seasonName={pennantSeasonName}
+          />
+        );
       default:
         return null;
     }
@@ -407,6 +526,13 @@ function TVDashboard() {
         slideProgress={previewSlide ? 0 : slideProgress}
         reconnecting={reconnecting}
       />
+
+      {/* REQ-15-07: Green conditions on TV display */}
+      {tournament && (
+        <div className="px-6 py-2 border-b border-white/10 bg-zinc-900/50">
+          <GreenConditionsWidget conditions={greenConditions} variant="tv" />
+        </div>
+      )}
 
       {/* Draw Announcement Overlay */}
       {drawAnnouncement && (

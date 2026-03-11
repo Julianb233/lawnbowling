@@ -126,7 +126,12 @@ export interface WaitlistEntry {
 export type Sport = "pickleball" | "lawn_bowling" | "tennis" | "badminton" | "racquetball" | "flag_football";
 
 export const SPORT_LABELS: Record<Sport, { emoji: string; label: string; short: string }> = {
+  pickleball: { emoji: "\u{1F3D3}", label: "Pickleball", short: "Pickle" },
   lawn_bowling: { emoji: "\u{1F3B3}", label: "Lawn Bowling", short: "Bowl" },
+  tennis: { emoji: "\u{1F3BE}", label: "Tennis", short: "Tennis" },
+  badminton: { emoji: "\u{1F3F8}", label: "Badminton", short: "Badminton" },
+  racquetball: { emoji: "\u{1F3BE}", label: "Racquetball", short: "Racquet" },
+  flag_football: { emoji: "\u{1F3C8}", label: "Flag Football", short: "Flag" },
 };
 
 export const SKILL_LABELS: Record<SkillLevel, { stars: number; label: string }> = {
@@ -135,7 +140,7 @@ export const SKILL_LABELS: Record<SkillLevel, { stars: number; label: string }> 
   advanced: { stars: 3, label: "Advanced" },
 };
 
-export const ALL_SPORTS: Sport[] = ["lawn_bowling"];
+export const ALL_SPORTS: Sport[] = ["pickleball", "lawn_bowling", "tennis", "badminton", "racquetball", "flag_football"];
 export const ALL_SKILLS: SkillLevel[] = ["beginner", "intermediate", "advanced"];
 
 // Teams
@@ -308,7 +313,7 @@ export type ReportReason = "unsportsmanlike" | "harassment" | "no_show" | "cheat
 
 // ===== Tournaments =====
 
-export type TournamentBracketType = "winners" | "losers" | "final";
+export type TournamentBracketType = "winners" | "losers" | "final" | "grand_final";
 export type TournamentFormat = "round_robin" | "single_elimination" | "double_elimination";
 export type TournamentStatus = "registration" | "in_progress" | "completed" | "cancelled";
 export type TournamentMatchStatus = "pending" | "in_progress" | "completed";
@@ -795,7 +800,7 @@ export interface GreenConditions {
   recorded_at: string;
   created_at: string;
   updated_at: string;
-  recorder?: { display_name: string };
+  recorder?: { id: string; display_name: string; avatar_url?: string | null };
 }
 
 export const GREEN_SPEED_LABELS: Record<GreenSpeed, string> = {
