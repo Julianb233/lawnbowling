@@ -160,9 +160,9 @@ export function getLocalBusinessSchema(club: ClubData) {
     foundingDate: club.founded ? String(club.founded) : undefined,
     sameAs: [
       club.website,
-      club.socialMedia?.facebook,
-      club.socialMedia?.instagram,
-      club.socialMedia?.youtube,
+      club.facebookUrl,
+      club.instagramUrl,
+      club.youtubeUrl,
     ].filter(Boolean),
   };
 }
