@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { PlayerStatsCard } from "@/components/stats/PlayerStatsCard";
+import { BowlsRatingsCard } from "@/components/stats/BowlsRatingsCard";
 import { MatchHistory } from "@/components/stats/MatchHistory";
 import { WeeklyActivity } from "@/components/stats/WeeklyActivity";
 import { usePlayerStats } from "@/lib/hooks/usePlayerStats";
@@ -44,6 +45,8 @@ export default function StatsPage() {
         ) : (
           <>
             <PlayerStatsCard stats={stats} />
+
+            {currentUserId && <BowlsRatingsCard playerId={currentUserId} />}
 
             {currentUserId && <WeeklyActivity playerId={currentUserId} />}
 

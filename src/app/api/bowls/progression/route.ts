@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createTournamentResultPost } from "@/lib/db/noticeboard";
+import { calculateRatingUpdates, applyUpdates } from "@/lib/bowls-ratings";
+import type { TournamentScore, BowlsCheckin, BowlsPositionRating } from "@/lib/types";
 
 /**
  * Tournament Progression State Machine
@@ -106,6 +108,79 @@ export async function POST(req: NextRequest) {
 
         if (finalizeErr) {
           return NextResponse.json({ error: finalizeErr.message }, { status: 500 });
+        }
+
+        // REQ-11-05: Auto-trigger rating recalculation on finalization
+        try {
+          const { data: allScores } = await supabase
+            .from("tournament_scores")
+            .select("*")
+            .eq("tournament_id", tournament_id)
+            .eq("is_finalized", true)
+            .order("round", { ascending: true });
+
+          if (allScores && allScores.length > 0) {
+            const typedScores = allScores as TournamentScore[];
+            const { data: checkins } = await supabase
+              .from("bowls_checkins")
+              .select("*")
+              .eq("tournament_id", tournament_id);
+
+            const typedCheckins = (checkins ?? []) as BowlsCheckin[];
+            const playerIds = new Set<string>();
+            for (const s of typedScores) {
+              for (const p of s.team_a_players) playerIds.add(p.player_id);
+              for (const p of s.team_b_players) playerIds.add(p.player_id);
+            }
+
+            const season = new Date().getFullYear().toString();
+            const { data: existingData } = await supabase
+              .from("bowls_position_ratings")
+              .select("*")
+              .in("player_id", Array.from(playerIds))
+              .eq("season", season);
+
+            const existingRatings = new Map<string, BowlsPositionRating>();
+            for (const r of (existingData ?? []) as BowlsPositionRating[]) {
+              existingRatings.set(`${r.player_id}:${r.position}`, r);
+            }
+
+            const ratingUpdates = calculateRatingUpdates(typedScores, typedCheckins, existingRatings);
+            const newRatings = applyUpdates(ratingUpdates, existingRatings, season);
+
+            for (const rating of newRatings) {
+              await supabase.from("bowls_position_ratings").upsert(
+                {
+                  player_id: rating.player_id,
+                  position: rating.position,
+                  season: rating.season,
+                  elo_rating: rating.elo_rating,
+                  games_played: rating.games_played,
+                  wins: rating.wins,
+                  losses: rating.losses,
+                  draws: rating.draws,
+                  shot_differential: rating.shot_differential,
+                  ends_won: rating.ends_won,
+                  ends_played: rating.ends_played,
+                  updated_at: new Date().toISOString(),
+                },
+                { onConflict: "player_id,position,season" }
+              );
+            }
+
+            const historyRows = newRatings.map((r) => ({
+              player_id: r.player_id,
+              position: r.position,
+              season,
+              elo_rating: r.elo_rating,
+              tournament_id,
+            }));
+            if (historyRows.length > 0) {
+              await supabase.from("bowls_rating_history").insert(historyRows);
+            }
+          }
+        } catch (ratingErr) {
+          console.error("Auto rating recalculation failed:", ratingErr);
         }
 
         newStatus = "results";

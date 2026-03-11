@@ -821,8 +821,6 @@ export const WIND_STRENGTH_LABELS: Record<WindStrength, string> = {
   strong: "Strong",
 };
 
-export { type GreenConditions, type GreenSpeed, type SurfaceCondition, type WindDirection, type WindStrength, GREEN_SPEED_LABELS, SURFACE_CONDITION_LABELS, WIND_DIRECTION_LABELS, WIND_STRENGTH_LABELS } from "./green-conditions-types";
-
 // ─── Club Memberships (Multi-Tenant Roles) ─────────────────────────
 
 export type ClubRole = "owner" | "admin" | "manager" | "member" | "visitor";
