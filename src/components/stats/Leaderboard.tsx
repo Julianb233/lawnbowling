@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Trophy, Medal } from "lucide-react";
+import { Trophy, Medal, ChevronDown } from "lucide-react";
 import { ALL_SPORTS, SPORT_LABELS } from "@/lib/types";
 import { SportIcon } from "@/components/icons/SportIcon";
 import type { PlayerStats, Sport, BowlsLeaderboardCategory } from "@/lib/types";
@@ -52,6 +52,13 @@ export function Leaderboard({ currentUserId, clubId }: LeaderboardProps) {
   const [loading, setLoading] = useState(true);
   const [sportFilter, setSportFilter] = useState<string | "all">("all");
   const [bowlsCategory, setBowlsCategory] = useState<BowlsLeaderboardCategory>("overall");
+  const [season, setSeason] = useState(new Date().getFullYear().toString());
+  const [showSeasonPicker, setShowSeasonPicker] = useState(false);
+
+  const currentYear = new Date().getFullYear();
+  const availableSeasons = Array.from({ length: 5 }, (_, i) =>
+    (currentYear - i).toString()
+  );
 
   const isBowls = sportFilter === "lawn_bowling";
 
@@ -61,6 +68,7 @@ export function Leaderboard({ currentUserId, clubId }: LeaderboardProps) {
       if (isBowls && bowlsCategory !== "overall") {
         const params = new URLSearchParams();
         params.set("category", bowlsCategory);
+        params.set("season", season);
         if (clubId) params.set("club_id", clubId);
         const res = await fetch(`/api/stats/leaderboard/bowls?${params}`);
         if (res.ok) {
@@ -83,7 +91,7 @@ export function Leaderboard({ currentUserId, clubId }: LeaderboardProps) {
       // ignore
     }
     setLoading(false);
-  }, [sportFilter, clubId, isBowls, bowlsCategory]);
+  }, [sportFilter, clubId, isBowls, bowlsCategory, season]);
 
   useEffect(() => {
     fetchLeaderboard();
