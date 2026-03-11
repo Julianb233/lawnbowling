@@ -2,7 +2,7 @@
 
 import { useState, useEffect, use } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, MapPin, Loader2, AlertCircle, LogIn } from "lucide-react";
+import { CheckCircle2, MapPin, Loader2, AlertCircle, LogIn, Shield, X } from "lucide-react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
@@ -24,6 +24,7 @@ export default function VenueCheckInPage({
   const [venue, setVenue] = useState<VenueInfo | null>(null);
   const [playerName, setPlayerName] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [showInsuranceOffer, setShowInsuranceOffer] = useState(true);
 
   useEffect(() => {
     async function checkIn() {
@@ -154,6 +155,36 @@ export default function VenueCheckInPage({
             >
               Go to Board
             </Link>
+          </motion.div>
+        )}
+
+        {state === "success" && showInsuranceOffer && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="relative mt-4 rounded-xl border border-emerald-200 bg-emerald-50/50 p-4"
+          >
+            <button
+              onClick={() => setShowInsuranceOffer(false)}
+              className="absolute right-2 top-2 rounded-full p-1 text-zinc-400 hover:text-zinc-600"
+              aria-label="Dismiss"
+            >
+              <X className="h-4 w-4" />
+            </button>
+            <div className="flex items-start gap-3 pr-6">
+              <Shield className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+              <div>
+                <p className="text-sm font-semibold text-zinc-900">Protect Your Game</p>
+                <p className="mt-0.5 text-xs text-zinc-600">Per-session coverage from $3/player</p>
+                <Link
+                  href="/insurance/lawn-bowls"
+                  className="mt-2 inline-block rounded-lg bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-emerald-500 transition-colors"
+                >
+                  Learn More
+                </Link>
+              </div>
+            </div>
           </motion.div>
         )}
 

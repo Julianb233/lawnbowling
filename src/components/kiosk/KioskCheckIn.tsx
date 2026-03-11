@@ -269,8 +269,8 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
             onClick={() => setActiveLetter(null)}
             className="rounded-xl font-bold touch-manipulation transition-colors"
             style={{
-              minHeight: "48px",
-              minWidth: "56px",
+              minHeight: "56px",
+              minWidth: "64px",
               fontSize: "18px",
               padding: "8px 16px",
               backgroundColor: activeLetter === null ? "#1B5E20" : "#F0F0F0",
@@ -291,8 +291,8 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                 disabled={!hasPlayers}
                 className="rounded-xl font-bold touch-manipulation transition-colors"
                 style={{
-                  minHeight: "48px",
-                  minWidth: "48px",
+                  minHeight: "56px",
+                  minWidth: "56px",
                   fontSize: "18px",
                   backgroundColor: isActive ? "#1B5E20" : hasPlayers ? "#F0F0F0" : "transparent",
                   color: isActive ? "#FFFFFF" : hasPlayers ? "#1A1A1A" : "#CCCCCC",
@@ -332,7 +332,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                     alignItems: "center",
                     justifyContent: "space-between",
                     backgroundColor: isCheckedIn ? "#E8F5E9" : "#FFFFFF",
-                    border: isCheckedIn ? "2px solid #2E7D32" : "2px solid #E0E0E0",
+                    border: isCheckedIn ? "2px solid #1B5E20" : "2px solid #E0E0E0",
                     cursor: isCheckedIn ? "default" : "pointer",
                   }}
                   aria-label={
@@ -357,7 +357,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                   {isCheckedIn ? (
                     <span
                       className="flex items-center gap-2 font-bold"
-                      style={{ fontSize: "18px", color: "#2E7D32" }}
+                      style={{ fontSize: "18px", color: "#1B5E20" }}
                     >
                       <svg
                         width="24"
@@ -381,7 +381,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                         fontSize: "18px",
                         backgroundColor: "#1B5E20",
                         color: "#FFFFFF",
-                        minHeight: "48px",
+                        minHeight: "56px",
                         display: "flex",
                         alignItems: "center",
                       }}
@@ -496,7 +496,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
           style={{
             width: "120px",
             height: "120px",
-            backgroundColor: "#2E7D32",
+            backgroundColor: "#1B5E20",
           }}
           aria-hidden="true"
         >
@@ -549,6 +549,45 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
           >
             Change Position
           </KioskButton>
+        </div>
+
+        {/* Insurance upsell - non-blocking, appears after confirmation */}
+        <div
+          className="mt-8 w-full rounded-2xl p-5"
+          style={{ backgroundColor: "#F1F8E9", border: "2px solid #C5E1A5" }}
+        >
+          <div className="flex items-start gap-4">
+            <div
+              className="flex shrink-0 items-center justify-center rounded-full"
+              style={{ width: "56px", height: "56px", backgroundColor: "#1B5E20" }}
+              aria-hidden="true"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <p style={{ fontSize: "20px", fontWeight: 700, color: "#1A1A1A", lineHeight: "1.3" }}>
+                Protect Your Game
+              </p>
+              <p style={{ fontSize: "16px", color: "#4A4A4A", marginTop: "4px", lineHeight: "1.4" }}>
+                Per-session coverage from $3/player
+              </p>
+              <a
+                href="/insurance/lawn-bowls"
+                className="mt-3 inline-flex items-center rounded-xl font-bold touch-manipulation"
+                style={{
+                  fontSize: "16px",
+                  padding: "10px 20px",
+                  backgroundColor: "#1B5E20",
+                  color: "#FFFFFF",
+                  minHeight: "56px",
+                }}
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Auto-reset countdown */}
