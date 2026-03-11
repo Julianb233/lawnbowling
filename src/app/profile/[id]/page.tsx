@@ -14,6 +14,7 @@ import { AddFriendButton } from "@/components/social/AddFriendButton";
 import { ProfileStatsSection } from "@/components/stats/ProfileStatsSection";
 import { MatchHistory } from "@/components/profile/MatchHistory";
 import { AvailabilitySchedule } from "@/components/profile/AvailabilitySchedule";
+import { ClubAffiliations } from "@/components/profile/ClubAffiliations";
 import { PhotoGalleryReadonly } from "@/components/profile/PhotoGallery";
 import { getPlayerPhotos } from "@/lib/db/gallery";
 import { getContactPreferences } from "@/lib/db/contact-preferences";
@@ -181,6 +182,8 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
           <MatchHistory playerId={player.id} />
 
           <AvailabilitySchedule playerId={player.id} />
+
+          <ClubAffiliations playerId={player.id} />
 
           <ContactInfo prefs={contactPrefs} />
 
