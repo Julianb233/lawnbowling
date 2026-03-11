@@ -51,6 +51,11 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
+/* Display font for headings */
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;

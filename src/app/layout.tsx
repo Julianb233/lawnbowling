@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { IOSInstallGuide } from "@/components/pwa/IOSInstallGuide";
 import { PushNotificationPrompt } from "@/components/push/PushNotificationPrompt";
@@ -19,6 +19,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const BASE_URL = "https://lawnbowl.app";
@@ -148,7 +160,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${jakarta.variable} antialiased bg-background text-foreground`}
       >
         {/* Floating orbs background */}
         <div className="orb orb-emerald" style={{ width: 400, height: 400, top: '10%', left: '5%' }} />
