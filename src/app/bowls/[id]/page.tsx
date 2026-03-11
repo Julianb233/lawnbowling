@@ -119,9 +119,31 @@ export default function BowlsTournamentPage() {
     loadCheckins();
     loadTournament();
 
+    // UCI-04: Realtime subscription for bowls_checkins -- kiosk check-ins appear within 3 seconds
+    const supabase = createClient();
+    const channel = supabase
+      .channel(`bowls_checkins_${tournamentId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "bowls_checkins",
+          filter: `tournament_id=eq.${tournamentId}`,
+        },
+        () => {
+          loadCheckins();
+        }
+      )
+      .subscribe();
+
+    // Fallback polling in case realtime is not available
     const interval = setInterval(loadCheckins, 5000);
-    return () => clearInterval(interval);
-  }, [loadPlayers, loadCheckins, loadTournament]);
+    return () => {
+      clearInterval(interval);
+      supabase.removeChannel(channel);
+    };
+  }, [loadPlayers, loadCheckins, loadTournament, tournamentId]);
 
   function handlePlayerTap(player: Player) {
     const existing = checkins.find((c) => c.player_id === player.id);
@@ -496,6 +518,19 @@ export default function BowlsTournamentPage() {
                         {BOWLS_POSITION_LABELS[checkin.preferred_position as BowlsPosition]?.label}
                       </p>
                     </div>
+                    {/* UCI-10: Check-in source badge */}
+                    {checkin.checkin_source && (
+                      <span className={cn(
+                        "rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
+                        checkin.checkin_source === "kiosk"
+                          ? "bg-blue-100 text-blue-700"
+                          : checkin.checkin_source === "app"
+                            ? "bg-purple-100 text-purple-700"
+                            : "bg-zinc-100 text-zinc-500"
+                      )}>
+                        {checkin.checkin_source}
+                      </span>
+                    )}
                     <span
                       className={cn(
                         "rounded-full px-3 py-1 text-xs font-semibold text-white",
@@ -504,6 +539,17 @@ export default function BowlsTournamentPage() {
                     >
                       {BOWLS_POSITION_LABELS[checkin.preferred_position as BowlsPosition]?.label}
                     </span>
+                    {/* UCI-11: Remove button for drawmaster */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleUndoCheckin(checkin.player_id);
+                      }}
+                      className="ml-1 rounded-lg border border-zinc-200 px-2 py-1 text-xs font-medium text-zinc-400 hover:border-red-300 hover:text-red-500 hover:bg-red-50 transition-colors min-h-[32px] touch-manipulation"
+                      title="Remove player from check-in list"
+                    >
+                      Remove
+                    </button>
                   </motion.div>
                 );
               })}

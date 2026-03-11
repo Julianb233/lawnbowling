@@ -415,11 +415,14 @@ export function getPositionsForFormat(format: BowlsGameFormat): BowlsPosition[] 
   }
 }
 
+export type CheckinSource = "kiosk" | "manual" | "app";
+
 export interface BowlsCheckin {
   id: string;
   player_id: string;
   tournament_id: string;
   preferred_position: BowlsPosition;
+  checkin_source: CheckinSource;
   checked_in_at: string;
   player?: Player;
 }

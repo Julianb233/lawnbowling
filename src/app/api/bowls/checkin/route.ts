@@ -1,18 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import type { BowlsPosition } from "@/lib/types";
+import type { BowlsPosition, CheckinSource } from "@/lib/types";
 
 /**
  * POST /api/bowls/checkin
  * Check in a player for a bowls tournament with position preference.
- * Body: { player_id, tournament_id, preferred_position }
+ * Body: { player_id, tournament_id, preferred_position, checkin_source? }
+ * Idempotent: upserts on (player_id, tournament_id) — no duplicate rows (UCI-13).
  */
 export async function POST(req: NextRequest) {
   try {
-    const { player_id, tournament_id, preferred_position } = (await req.json()) as {
+    const { player_id, tournament_id, preferred_position, checkin_source } = (await req.json()) as {
       player_id: string;
       tournament_id: string;
       preferred_position: BowlsPosition;
+      checkin_source?: CheckinSource;
     };
 
     if (!player_id || !tournament_id || !preferred_position) {
@@ -24,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     const supabase = await createClient();
 
-    // Upsert — if they check in again, update their position choice
+    // Upsert — if they check in again, update their position choice (UCI-13)
     const { data, error } = await supabase
       .from("bowls_checkins")
       .upsert(
@@ -32,6 +34,7 @@ export async function POST(req: NextRequest) {
           player_id,
           tournament_id,
           preferred_position,
+          checkin_source: checkin_source ?? "manual",
           checked_in_at: new Date().toISOString(),
         },
         { onConflict: "player_id,tournament_id" }
