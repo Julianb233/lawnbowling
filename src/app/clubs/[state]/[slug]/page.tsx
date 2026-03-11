@@ -11,13 +11,15 @@ import {
   ChevronRight,
   ExternalLink,
   Building2,
+  Award,
   Calendar,
   Map,
 } from "lucide-react";
 import {
   CLUBS,
-  AU_STATES,
+  US_STATES,
   SURFACE_LABELS,
+  DIVISION_LABELS,
   getClubById,
   getClubsByState,
   type ClubData,
@@ -79,7 +81,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
     notFound();
   }
 
-  const stateInfo = AU_STATES[club.stateCode];
+  const stateInfo = US_STATES[club.stateCode];
 
   // Nearby clubs: same state, excluding current club
   const nearbyClubs = getClubsByState(club.stateCode).filter(
