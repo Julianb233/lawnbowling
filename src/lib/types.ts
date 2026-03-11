@@ -374,7 +374,8 @@ export type NotificationType =
   | "court_assigned"
   | "friend_checked_in"
   | "game_reminder"
-  | "match_completed";
+  | "match_completed"
+  | "noticeboard_announcement";
 
 export interface AppNotification {
   id: string;
@@ -400,6 +401,7 @@ export interface NoticeboardPost {
   author_id: string;
   title: string;
   body: string;
+  type?: NoticeboardPostType;
   pinned: boolean;
   is_pinned: boolean;
   created_at: string;
@@ -407,6 +409,8 @@ export interface NoticeboardPost {
   author?: Player;
   comments?: NoticeboardComment[];
   reaction_counts?: Record<NoticeboardEmoji, number>;
+  reactions?: Array<{ player_id: string; emoji: NoticeboardEmoji }>;
+  comment_count?: number;
 }
 
 export interface NoticeboardComment {
@@ -761,3 +765,57 @@ export interface PennantFixtureResult {
   recorded_by: string;
   created_at: string;
 }
+
+// === GREEN CONDITIONS ===
+export type GreenSpeed = "fast" | "medium" | "slow";
+export type SurfaceCondition = "dry" | "damp" | "wet";
+export type WindDirection = "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW" | "calm";
+export type WindStrength = "calm" | "light" | "moderate" | "strong";
+
+export interface GreenConditions {
+  id: string;
+  tournament_id: string;
+  venue_id: string;
+  recorded_by: string;
+  green_speed: GreenSpeed;
+  surface_condition: SurfaceCondition;
+  wind_direction: WindDirection;
+  wind_strength: WindStrength;
+  notes: string | null;
+  temperature_c: number | null;
+  recorded_at: string;
+  created_at: string;
+  updated_at: string;
+  recorder?: { display_name: string };
+}
+
+export const GREEN_SPEED_LABELS: Record<GreenSpeed, string> = {
+  fast: "Fast",
+  medium: "Medium",
+  slow: "Slow",
+};
+
+export const SURFACE_CONDITION_LABELS: Record<SurfaceCondition, string> = {
+  dry: "Dry",
+  damp: "Damp",
+  wet: "Wet",
+};
+
+export const WIND_DIRECTION_LABELS: Record<WindDirection, string> = {
+  N: "North",
+  NE: "Northeast",
+  E: "East",
+  SE: "Southeast",
+  S: "South",
+  SW: "Southwest",
+  W: "West",
+  NW: "Northwest",
+  calm: "Calm",
+};
+
+export const WIND_STRENGTH_LABELS: Record<WindStrength, string> = {
+  calm: "Calm",
+  light: "Light",
+  moderate: "Moderate",
+  strong: "Strong",
+};
