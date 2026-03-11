@@ -1,6 +1,18 @@
 import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
+
+/**
+ * Creates a Supabase admin client using the service role key.
+ * Webhooks don't have user cookies, so we use the service role for DB access.
+ */
+function getSupabaseAdmin() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 /**
  * POST /api/webhooks/printify
@@ -31,28 +43,76 @@ export async function POST(request: Request) {
       resourceId: body?.resource?.id,
     });
 
+    const supabase = getSupabaseAdmin();
+
     switch (eventType) {
-      case "order:created":
-        // Log new order creation
+      case "order:created": {
         console.log("[printify-webhook] Order created:", body.resource?.id);
-        break;
 
-      case "order:updated":
-        // Update order status in local database
+        const { error } = await supabase.from("shop_orders").upsert(
+          {
+            printify_order_id: body.resource?.id,
+            status: "created",
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: "printify_order_id" }
+        );
+
+        if (error) {
+          console.error("[printify-webhook] Failed to insert order:", error);
+        }
+        break;
+      }
+
+      case "order:updated": {
+        const newStatus = body.resource?.data?.status ?? "updated";
         console.log("[printify-webhook] Order updated:", body.resource?.id, {
-          status: body.resource?.data?.status,
+          status: newStatus,
         });
-        // TODO: Update Supabase shop_orders table when implemented
-        break;
 
-      case "order:sent-to-production":
+        const { error } = await supabase
+          .from("shop_orders")
+          .update({
+            status: newStatus,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("printify_order_id", body.resource?.id);
+
+        if (error) {
+          console.error("[printify-webhook] Failed to update order:", error);
+        }
+        break;
+      }
+
+      case "order:sent-to-production": {
         console.log(
           "[printify-webhook] Order sent to production:",
           body.resource?.id
         );
-        // TODO: Update order status to "in_production"
-        // TODO: Send email notification to customer
+
+        const { error } = await supabase
+          .from("shop_orders")
+          .update({
+            status: "in_production",
+            updated_at: new Date().toISOString(),
+          })
+          .eq("printify_order_id", body.resource?.id);
+
+        if (error) {
+          console.error(
+            "[printify-webhook] Failed to update order to in_production:",
+            error
+          );
+        }
+
+        // Email notification would be sent here when email service is configured
+        // e.g. sendEmail({ to: customerEmail, subject: "Your order is being produced", ... })
+        console.log(
+          "[printify-webhook] Production notification email would be sent for order:",
+          body.resource?.id
+        );
         break;
+      }
 
       case "order:shipment:created": {
         const shipmentData = body.resource?.data;
@@ -62,19 +122,62 @@ export async function POST(request: Request) {
           trackingNumber: shipmentData?.number,
           trackingUrl: shipmentData?.url,
         });
-        // TODO: Update order with tracking info
-        // TODO: Send shipping notification email to customer
+
+        const { error } = await supabase
+          .from("shop_orders")
+          .update({
+            status: "shipped",
+            tracking_number: shipmentData?.number ?? null,
+            tracking_url: shipmentData?.url ?? null,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("printify_order_id", body.resource?.id);
+
+        if (error) {
+          console.error(
+            "[printify-webhook] Failed to update order with tracking info:",
+            error
+          );
+        }
+
+        // Email notification would be sent here when email service is configured
+        // e.g. sendEmail({ to: customerEmail, subject: "Your order has shipped!", ... })
+        console.log(
+          "[printify-webhook] Shipping notification email would be sent for order:",
+          body.resource?.id
+        );
         break;
       }
 
-      case "order:shipment:delivered":
+      case "order:shipment:delivered": {
         console.log(
           "[printify-webhook] Shipment delivered:",
           body.resource?.id
         );
-        // TODO: Update order status to "delivered"
-        // TODO: Send delivery confirmation email
+
+        const { error } = await supabase
+          .from("shop_orders")
+          .update({
+            status: "delivered",
+            updated_at: new Date().toISOString(),
+          })
+          .eq("printify_order_id", body.resource?.id);
+
+        if (error) {
+          console.error(
+            "[printify-webhook] Failed to update order to delivered:",
+            error
+          );
+        }
+
+        // Email notification would be sent here when email service is configured
+        // e.g. sendEmail({ to: customerEmail, subject: "Your order has been delivered!", ... })
+        console.log(
+          "[printify-webhook] Delivery confirmation email would be sent for order:",
+          body.resource?.id
+        );
         break;
+      }
 
       default:
         console.log("[printify-webhook] Unknown event type:", eventType);

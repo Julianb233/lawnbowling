@@ -12,11 +12,7 @@ interface Court {
 }
 
 const DEFAULT_SPORTS = [
-  "pickleball",
   "lawn_bowling",
-  "tennis",
-  "badminton",
-  "table_tennis",
 ];
 
 export default function CourtsAdminPage() {

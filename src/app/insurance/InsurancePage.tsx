@@ -85,7 +85,7 @@ export function InsurancePage() {
             {" "}Lawsuits Don&apos;t Have To.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
-            Your pickleball player rolls an ankle. Without coverage, that&apos;s
+            A bowler takes a fall on the green. Without coverage, that&apos;s
             a $15K problem. With Lawnbowling, every participant is covered
             the moment they check in. No paperwork. No monthly fees. No cost to
             your venue at all.
@@ -275,7 +275,7 @@ export function InsurancePage() {
               <p className="mt-4 text-lg leading-relaxed text-zinc-600">
                 Most venue operators assume their general liability covers
                 everything. It doesn&apos;t. GL protects your staff. The 40
-                pickleball players on your courts right now? They&apos;re in a
+                lawn bowlers on your green right now? They&apos;re in a
                 coverage gap. Daily Event Insurance closes it, automatically,
                 for every participant, every session.
               </p>
@@ -338,7 +338,7 @@ export function InsurancePage() {
             },
             {
               q: "What sports does this cover?",
-              a: "Everything Lawnbowling supports: pickleball, tennis, lawn bowling, badminton, racquetball, flag football, and more. Doesn't matter if it's a league night or casual open play. If it's happening at a participating venue, it's coverable.",
+              a: "Lawn bowling and all activities at participating clubs. Whether it's a tournament day or casual roll-up, if it's happening at a covered venue, participants are coverable.",
             },
             {
               q: "How does the coverage actually work?",

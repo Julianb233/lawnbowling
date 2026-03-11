@@ -3,9 +3,8 @@
 import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X, Plus } from "lucide-react";
-import { ALL_SPORTS, SPORT_LABELS, TOURNAMENT_FORMAT_LABELS } from "@/lib/types";
-import { SportIcon } from "@/components/icons/SportIcon";
-import type { TournamentFormat, Sport } from "@/lib/types";
+import { TOURNAMENT_FORMAT_LABELS } from "@/lib/types";
+import type { TournamentFormat } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 const ALL_FORMATS: TournamentFormat[] = ["round_robin", "single_elimination", "double_elimination"];
@@ -18,7 +17,7 @@ interface CreateTournamentModalProps {
 
 export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateTournamentModalProps) {
   const [name, setName] = useState("");
-  const [sport, setSport] = useState(ALL_SPORTS[0]);
+  const [sport] = useState("lawn_bowling");
   const [format, setFormat] = useState<TournamentFormat>("single_elimination");
   const [maxPlayers, setMaxPlayers] = useState("16");
   const [startsAt, setStartsAt] = useState("");
@@ -51,7 +50,6 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
       }
 
       setName("");
-      setSport(ALL_SPORTS[0]);
       setFormat("single_elimination");
       setMaxPlayers("16");
       setStartsAt("");
@@ -89,30 +87,6 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
                 className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 required
               />
-            </div>
-
-            <div>
-              <label className="mb-2 block text-sm font-medium text-zinc-400">Sport</label>
-              <div className="flex gap-2">
-                {ALL_SPORTS.map((s) => {
-                  const label = SPORT_LABELS[s];
-                  return (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => setSport(s)}
-                      className={cn(
-                        "flex-1 rounded-xl border px-3 py-2.5 text-sm font-medium transition-all",
-                        sport === s
-                          ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                          : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
-                      )}
-                    >
-                      <SportIcon sport={s} className="w-4 h-4 inline-block" /> {label.short}
-                    </button>
-                  );
-                })}
-              </div>
             </div>
 
             <div>

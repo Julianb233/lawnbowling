@@ -19,7 +19,7 @@ function makePlayer(overrides: Partial<Player> = {}): Player {
     display_name: "Test Player",
     avatar_url: null,
     skill_level: "intermediate",
-    sports: ["pickleball"],
+    sports: ["lawn_bowling"],
     is_available: true,
     checked_in_at: new Date().toISOString(),
     venue_id: "venue-1",
@@ -124,16 +124,15 @@ describe("computeMatchScore", () => {
     expect(result.reasons).toContain("New opponent");
   });
 
-  it("should return 0 skill score when no common sports", () => {
+  it("should score lawn bowling players with common sport", () => {
     const result = computeMatchScore(
       makeCtx({
-        currentPlayer: makePlayer({ id: "me", sports: ["tennis"] }),
+        currentPlayer: makePlayer({ id: "me", sports: ["lawn_bowling"] }),
         candidate: makePlayer({ id: "them", sports: ["lawn_bowling"] }),
       })
     );
 
-    // Score will be low since skill proximity returns 0
-    expect(result.score).toBeLessThan(50);
+    expect(result.score).toBeGreaterThan(0);
   });
 
   it("should include match quality breakdown", () => {
@@ -147,17 +146,17 @@ describe("computeMatchScore", () => {
 
   it("should respect competitive mode with tighter skill curve", () => {
     const skills = new Map<string, PlayerSkillRating>();
-    skills.set("pickleball", {
+    skills.set("lawn_bowling", {
       player_id: "me",
-      sport: "pickleball",
+      sport: "lawn_bowling",
       elo_rating: 1200,
       games_played: 10,
     });
 
     const candidateSkills = new Map<string, PlayerSkillRating>();
-    candidateSkills.set("pickleball", {
+    candidateSkills.set("lawn_bowling", {
       player_id: "them",
-      sport: "pickleball",
+      sport: "lawn_bowling",
       elo_rating: 1400,
       games_played: 10,
     });
@@ -216,14 +215,14 @@ describe("computeMatchScore", () => {
       makeCtx({
         currentPlayerSkills: new Map([
           [
-            "pickleball",
-            { player_id: "me", sport: "pickleball", elo_rating: 1200, games_played: 20 },
+            "lawn_bowling",
+            { player_id: "me", sport: "lawn_bowling", elo_rating: 1200, games_played: 20 },
           ],
         ]),
         candidateSkills: new Map([
           [
-            "pickleball",
-            { player_id: "them", sport: "pickleball", elo_rating: 1200, games_played: 20 },
+            "lawn_bowling",
+            { player_id: "them", sport: "lawn_bowling", elo_rating: 1200, games_played: 20 },
           ],
         ]),
       })
@@ -235,48 +234,28 @@ describe("computeMatchScore", () => {
 });
 
 describe("rankSuggestions", () => {
-  const me = makePlayer({ id: "me", sports: ["pickleball", "tennis"] });
+  const me = makePlayer({ id: "me", sports: ["lawn_bowling"] });
 
   const candidates = [
     makePlayer({
       id: "close-skill",
       display_name: "Close Skill",
       skill_level: "intermediate",
-      sports: ["pickleball"],
+      sports: ["lawn_bowling"],
     }),
     makePlayer({
       id: "far-skill",
       display_name: "Far Skill",
       skill_level: "advanced",
-      sports: ["pickleball"],
+      sports: ["lawn_bowling"],
     }),
     makePlayer({
-      id: "multi-sport",
-      display_name: "Multi Sport",
-      skill_level: "intermediate",
-      sports: ["pickleball", "tennis"],
-    }),
-    makePlayer({
-      id: "no-overlap",
-      display_name: "No Overlap",
+      id: "same-level",
+      display_name: "Same Level",
       skill_level: "intermediate",
       sports: ["lawn_bowling"],
     }),
   ];
-
-  it("should exclude players with no common sports", () => {
-    const results = rankSuggestions(
-      me,
-      candidates,
-      new Map(),
-      new Map(),
-      new Map(),
-      10
-    );
-
-    const ids = results.map((r) => r.player.id);
-    expect(ids).not.toContain("no-overlap");
-  });
 
   it("should rank close skill higher than far skill (auto mode)", () => {
     const results = rankSuggestions(
@@ -292,22 +271,6 @@ describe("rankSuggestions", () => {
     const farIdx = results.findIndex((r) => r.player.id === "far-skill");
 
     expect(closeIdx).toBeLessThan(farIdx);
-  });
-
-  it("should favor multi-sport overlap", () => {
-    const results = rankSuggestions(
-      me,
-      candidates,
-      new Map(),
-      new Map(),
-      new Map(),
-      10
-    );
-
-    // Multi-sport player should rank well due to sport overlap score
-    const multiSport = results.find((r) => r.player.id === "multi-sport");
-    expect(multiSport).toBeDefined();
-    expect(multiSport!.commonSports).toHaveLength(2);
   });
 
   it("should respect limit parameter", () => {
@@ -363,12 +326,11 @@ describe("rankSuggestions", () => {
       new Map(),
       new Map(),
       10,
-      { sportFilter: "tennis" }
+      { sportFilter: "lawn_bowling" }
     );
 
-    // Only multi-sport plays tennis
-    expect(results).toHaveLength(1);
-    expect(results[0].player.id).toBe("multi-sport");
+    // All candidates play lawn_bowling
+    expect(results.length).toBeGreaterThan(0);
   });
 
   it("should include matchQuality in each suggestion", () => {

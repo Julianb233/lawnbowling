@@ -6,7 +6,7 @@ describe("Partner Request Flow", () => {
       id: "req-1",
       requester_id: "player-1",
       target_id: "player-2",
-      sport: "pickleball",
+      sport: "lawn_bowling",
       status: "pending" as const,
       expires_at: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
       created_at: new Date().toISOString(),

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Trophy, Medal, ArrowUpDown, Flame, Target, Gamepad2, Zap, ChevronDown } from "lucide-react";
-import { ALL_SPORTS, SPORT_LABELS, ALL_SKILLS, SKILL_LABELS } from "@/lib/types";
+import { ALL_SKILLS, SKILL_LABELS } from "@/lib/types";
 import type { SkillLevel, BowlsLeaderboardCategory } from "@/lib/types";
 import { getRatingTier } from "@/lib/elo";
 import { cn } from "@/lib/utils";
@@ -71,7 +71,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [bowlsEntries, setBowlsEntries] = useState<BowlsLeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const [sportFilter, setSportFilter] = useState<string | "all">("all");
+  const [sportFilter] = useState<string>("lawn_bowling");
   const [skillFilter, setSkillFilter] = useState<string | "all">("all");
   const [sortBy, setSortBy] = useState<LeaderboardSortBy>("win_rate");
   const [bowlsCategory, setBowlsCategory] = useState<BowlsLeaderboardCategory>("overall");
@@ -100,7 +100,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
         }
       } else {
         const params = new URLSearchParams();
-        if (sportFilter !== "all") params.set("sport", sportFilter);
+        params.set("sport", sportFilter);
         if (skillFilter !== "all") params.set("skill_level", skillFilter);
         params.set("sort_by", sortBy);
         const res = await fetch(`/api/stats/leaderboard?${params}`);
@@ -187,41 +187,6 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
 
   return (
     <div className="space-y-4">
-      {/* Sport filter pills */}
-      <div>
-        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-400">Sport</p>
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          <button
-            onClick={() => setSportFilter("all")}
-            className={cn(
-              "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
-              sportFilter === "all"
-                ? "bg-emerald-600 text-white"
-                : "bg-zinc-100 text-zinc-500 hover:text-zinc-700"
-            )}
-          >
-            All Sports
-          </button>
-          {ALL_SPORTS.map((s) => {
-            const label = SPORT_LABELS[s];
-            return (
-              <button
-                key={s}
-                onClick={() => setSportFilter(s)}
-                className={cn(
-                  "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
-                  sportFilter === s
-                    ? "bg-emerald-600 text-white"
-                    : "bg-zinc-100 text-zinc-500 hover:text-zinc-700"
-                )}
-              >
-                {label.emoji} {label.short}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Skill level filter */}
       <div>
         <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-400">Skill Level</p>
@@ -415,9 +380,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
           <Trophy className="mx-auto mb-3 h-10 w-10 text-zinc-300" />
           <p className="text-sm font-medium text-zinc-500">No players ranked yet</p>
           <p className="mt-1 text-xs text-zinc-400">
-            {sportFilter !== "all"
-              ? `Play at least 3 ${SPORT_LABELS[sportFilter as keyof typeof SPORT_LABELS]?.label ?? sportFilter} games to appear`
-              : "Play at least 5 games to appear on the leaderboard"}
+            Play at least 3 games to appear on the leaderboard
           </p>
         </div>
       ) : (

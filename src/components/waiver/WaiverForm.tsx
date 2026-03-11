@@ -8,7 +8,7 @@ const DEFAULT_WAIVER_TEXT = `LIABILITY WAIVER AND RELEASE OF CLAIMS
 
 By signing this waiver, I acknowledge and agree to the following:
 
-1. ASSUMPTION OF RISK: I understand that participating in recreational sports activities including but not limited to pickleball, lawn bowling, tennis, badminton, and table tennis involves inherent risks of physical injury. I voluntarily assume all risks associated with my participation.
+1. ASSUMPTION OF RISK: I understand that participating in lawn bowling activities involves inherent risks of physical injury. I voluntarily assume all risks associated with my participation.
 
 2. RELEASE OF LIABILITY: I hereby release, discharge, and hold harmless the venue, its owners, operators, employees, and agents from any and all claims, demands, or causes of action arising from my participation in activities at this venue.
 

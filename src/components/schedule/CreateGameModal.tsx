@@ -2,8 +2,6 @@
 
 import { useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
-import { ALL_SPORTS, SPORT_LABELS, type Sport } from "@/lib/types";
-import { SportIcon } from "@/components/icons/SportIcon";
 
 interface CreateGameModalProps {
   open: boolean;
@@ -13,7 +11,7 @@ interface CreateGameModalProps {
 
 export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalProps) {
   const [title, setTitle] = useState("");
-  const [sport, setSport] = useState<string>("pickleball");
+  const [sport] = useState<string>("lawn_bowling");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [maxPlayers, setMaxPlayers] = useState(4);
@@ -65,32 +63,9 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Friday Night Pickleball"
+              placeholder="Tuesday Morning Bowls"
               className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
             />
-          </div>
-
-          <div>
-            <label className="block text-sm text-zinc-400 mb-1">Sport</label>
-            <div className="flex gap-2 flex-wrap">
-              {ALL_SPORTS.map((s) => {
-                const info = SPORT_LABELS[s as Sport];
-                return (
-                  <button
-                    key={s}
-                    onClick={() => setSport(s)}
-                    className={cn(
-                      "rounded-xl px-3 py-2 text-sm border transition-all",
-                      sport === s
-                        ? "border-[#1B5E20]/50 bg-[#1B5E20]/10 text-[#1B5E20]"
-                        : "border-zinc-200 text-zinc-400 hover:bg-zinc-100"
-                    )}
-                  >
-                    <SportIcon sport={s} className="w-4 h-4 inline-block" /> {info?.label || s}
-                  </button>
-                );
-              })}
-            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">

@@ -20,18 +20,13 @@ import {
 } from "lucide-react";
 
 const AVAILABLE_SPORTS = [
-  { id: "pickleball", label: "Pickleball" },
-  { id: "tennis", label: "Tennis" },
   { id: "lawn_bowling", label: "Lawn Bowling" },
-  { id: "badminton", label: "Badminton" },
-  { id: "racquetball", label: "Racquetball" },
-  { id: "flag_football", label: "Flag Football" },
 ];
 
 const STEPS = [
-  { title: "Venue Details", description: "Tell us about your venue" },
-  { title: "Sports", description: "Select sports offered" },
-  { title: "Courts", description: "Configure your courts" },
+  { title: "Club Details", description: "Tell us about your club" },
+  { title: "Sport", description: "Confirm your sport" },
+  { title: "Rinks", description: "Configure your rinks" },
   { title: "Invite Staff", description: "Add your team (optional)" },
 ];
 
@@ -183,10 +178,10 @@ export default function OnboardingPage() {
               <Building2 className="h-6 w-6 text-white" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900">
-              Set Up Your Venue
+              Set Up Your Club
             </h1>
             <p className="mt-1 text-sm text-gray-500">
-              Get your venue on Pick a Partner in minutes
+              Get your club on Lawnbowling in minutes
             </p>
           </div>
 
@@ -230,7 +225,7 @@ export default function OnboardingPage() {
               <div className="space-y-4">
                 <div>
                   <label className="mb-1.5 block text-sm font-medium text-gray-700">
-                    Venue Name *
+                    Club Name *
                   </label>
                   <div className="relative">
                     <Building2 className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
@@ -239,7 +234,7 @@ export default function OnboardingPage() {
                       value={venueName}
                       onChange={(e) => setVenueName(e.target.value)}
                       className={`${inputClass} pl-10`}
-                      placeholder="Sunset Recreation Center"
+                      placeholder="Sunset Lawn Bowling Club"
                       required
                     />
                   </div>
@@ -374,7 +369,7 @@ export default function OnboardingPage() {
             {step === 2 && (
               <div className="space-y-4">
                 <p className="text-sm text-gray-600">
-                  Add courts or lanes for each sport. You can always add more
+                  Add rinks for your club. You can always add more
                   later.
                 </p>
 
@@ -410,7 +405,7 @@ export default function OnboardingPage() {
                     value={newCourtName}
                     onChange={(e) => setNewCourtName(e.target.value)}
                     className={`${inputClass} flex-1`}
-                    placeholder="Court name (e.g., Court 1)"
+                    placeholder="Rink name (e.g., Rink 1)"
                     onKeyDown={(e) => e.key === "Enter" && addCourt()}
                   />
                   <select
@@ -437,7 +432,7 @@ export default function OnboardingPage() {
 
                 {courts.length === 0 && (
                   <p className="text-xs text-gray-400 italic">
-                    No courts added yet. You can skip this and add courts later
+                    No rinks added yet. You can skip this and add rinks later
                     from the admin panel.
                   </p>
                 )}
@@ -552,11 +547,11 @@ export default function OnboardingPage() {
                 {submitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating venue...
+                    Creating club...
                   </>
                 ) : step === STEPS.length - 1 ? (
                   <>
-                    Create Venue
+                    Create Club
                     <Check className="ml-1 h-4 w-4" />
                   </>
                 ) : (
@@ -573,7 +568,7 @@ export default function OnboardingPage() {
           {(step === 2 || step === 3) && (
             <p className="mt-4 text-center text-xs text-gray-400">
               {step === 2
-                ? "You can add courts later from the admin dashboard"
+                ? "You can add rinks later from the admin dashboard"
                 : "You can invite staff later from the admin dashboard"}
             </p>
           )}

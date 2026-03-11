@@ -65,10 +65,8 @@ export default function MatchesAdminPage() {
           onChange={(e) => setSportFilter(e.target.value)}
           className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800"
         >
-          <option value="">All Sports</option>
-          <option value="pickleball">Pickleball</option>
+          <option value="">All</option>
           <option value="lawn_bowling">Lawn Bowling</option>
-          <option value="tennis">Tennis</option>
         </select>
         <select
           value={statusFilter}

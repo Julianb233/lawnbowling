@@ -1,99 +1,25 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
-const SLIDES = [
-  {
-    sport: "Pickleball",
-    tagline: "America's fastest-growing sport",
-    image: "/images/sports/pickleball/hero.webp",
-    color: "emerald",
-  },
-  {
-    sport: "Tennis",
-    tagline: "Classic competition, modern matching",
-    image: "/images/sports/tennis/hero.webp",
-    color: "amber",
-  },
-  {
-    sport: "Lawn Bowling",
-    tagline: "Relaxed play, real connections",
-    image: "/images/sports/lawn-bowling/hero.webp",
-    color: "blue",
-  },
-  {
-    sport: "Badminton",
-    tagline: "Fast rallies, friendly matches",
-    image: "/images/sports/badminton/hero.webp",
-    color: "purple",
-  },
-  {
-    sport: "Racquetball",
-    tagline: "Indoor intensity, instant partners",
-    image: "/images/sports/racquetball/hero.webp",
-    color: "rose",
-  },
-  {
-    sport: "Flag Football",
-    tagline: "Team up, no tackle required",
-    image: "/images/sports/flag-football/hero.webp",
-    color: "orange",
-  },
-] as const;
-
-const AUTOPLAY_MS = 4500;
-
 export function HeroSlideshow() {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const next = useCallback(() => {
-    setIndex((prev) => (prev + 1) % SLIDES.length);
-  }, []);
-
-  useEffect(() => {
-    if (paused) return;
-    timerRef.current = setInterval(next, AUTOPLAY_MS);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [paused, next]);
-
-  const slide = SLIDES[index];
-
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      {/* Full-bleed hero with background slideshow */}
+    <section className="relative w-full overflow-hidden">
+      {/* Full-bleed hero */}
       <div className="relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center">
-        {/* Background images */}
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.02 }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={slide.image}
-              alt={`${slide.sport} action shot`}
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority={index === 0}
-            />
-          </motion.div>
-        </AnimatePresence>
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/sports/lawn-bowling/hero.webp"
+            alt="Lawn bowling action shot"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </div>
 
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
@@ -105,7 +31,7 @@ export function HeroSlideshow() {
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3 py-1.5 sm:mb-8 sm:px-4">
             <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-xs font-medium text-white/90 sm:text-sm">
-              Live at venues now
+              Live at clubs now
             </span>
           </div>
 
@@ -114,13 +40,12 @@ export function HeroSlideshow() {
             Find Your{" "}
             <span className="text-emerald-400">Perfect Partner</span>
             <br />
-            Hit the Court
+            Hit the Green
           </h1>
 
           <p className="mt-4 mx-auto max-w-2xl text-base leading-relaxed text-white/80 sm:mt-6 sm:text-lg md:text-xl drop-shadow">
-            The real-time player board for recreational sports. Check in, pick a
-            partner, and get matched to a court — all from your phone or the
-            venue kiosk.
+            The digital platform for lawn bowling clubs. Tournament draws, live
+            scoring, club directory, and learning resources — all in one place.
           </p>
 
           {/* CTA Buttons */}
@@ -140,36 +65,11 @@ export function HeroSlideshow() {
             </Link>
           </div>
 
-          {/* Sport name cycling */}
+          {/* Tagline */}
           <div className="mt-8 sm:mt-12">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={slide.sport}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="text-base font-semibold text-white/70 sm:text-xl md:text-2xl"
-              >
-                {slide.tagline}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-
-          {/* Dot indicators */}
-          <div className="mt-6 flex items-center justify-center gap-2">
-            {SLIDES.map((s, i) => (
-              <button
-                key={s.sport}
-                onClick={() => setIndex(i)}
-                aria-label={`Go to ${s.sport}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  i === index
-                    ? "w-8 bg-emerald-400"
-                    : "w-2 bg-white/40 hover:bg-white/60"
-                }`}
-              />
-            ))}
+            <p className="text-base font-semibold text-white/70 sm:text-xl md:text-2xl">
+              Relaxed play, real connections
+            </p>
           </div>
         </div>
       </div>

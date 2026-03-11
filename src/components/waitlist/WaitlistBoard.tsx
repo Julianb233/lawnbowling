@@ -90,7 +90,6 @@ export function WaitlistBoard({ venueId, sport }: WaitlistBoardProps) {
                   </span>
                 )}
               </p>
-              <p className="text-xs text-zinc-500">{entry.sport}</p>
             </div>
             <div className="flex items-center gap-1 text-xs text-zinc-400 shrink-0">
               <Timer className="h-3 w-3" />

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, LogOut, Save, Loader2 } from "lucide-react";
-import type { SkillLevel, Sport } from "@/lib/db/players";
+import type { SkillLevel } from "@/lib/db/players";
 import type { NotificationPreferences } from "@/lib/types";
 import { NotificationSettings } from "@/components/settings/NotificationSettings";
 import { MyVisitRequests } from "@/components/clubs/MyVisitRequests";
@@ -12,14 +12,6 @@ const SKILL_LEVELS: { value: SkillLevel; label: string }[] = [
   { value: "beginner", label: "Beginner" },
   { value: "intermediate", label: "Intermediate" },
   { value: "advanced", label: "Advanced" },
-];
-
-const SPORTS: { value: Sport; label: string }[] = [
-  { value: "pickleball", label: "Pickleball" },
-  { value: "tennis", label: "Tennis" },
-  { value: "badminton", label: "Badminton" },
-  { value: "table_tennis", label: "Table Tennis" },
-  { value: "lawn_bowling", label: "Lawn Bowling" },
 ];
 
 const DEFAULT_PREFS: NotificationPreferences = {
@@ -38,7 +30,6 @@ const DEFAULT_PREFS: NotificationPreferences = {
 interface PlayerData {
   display_name: string;
   skill_level: SkillLevel;
-  sports: Sport[];
 }
 
 export default function SettingsPage() {
@@ -51,7 +42,6 @@ export default function SettingsPage() {
 
   const [displayName, setDisplayName] = useState("");
   const [skillLevel, setSkillLevel] = useState<SkillLevel>("beginner");
-  const [sports, setSports] = useState<Sport[]>([]);
   const [notifPrefs, setNotifPrefs] =
     useState<NotificationPreferences>(DEFAULT_PREFS);
 
@@ -72,7 +62,6 @@ export default function SettingsPage() {
         const player: PlayerData = await profileRes.json();
         setDisplayName(player.display_name);
         setSkillLevel(player.skill_level);
-        setSports(player.sports || []);
 
         if (prefsRes.ok) {
           const prefs = await prefsRes.json();
@@ -87,12 +76,6 @@ export default function SettingsPage() {
     loadData();
   }, [router]);
 
-  function toggleSport(sport: Sport) {
-    setSports((prev) =>
-      prev.includes(sport) ? prev.filter((s) => s !== sport) : [...prev, sport]
-    );
-  }
-
   async function handleSave() {
     setError(null);
     setSuccess(false);
@@ -104,7 +87,7 @@ export default function SettingsPage() {
         body: JSON.stringify({
           display_name: displayName,
           skill_level: skillLevel,
-          sports,
+          sports: ["lawn_bowling"],
         }),
       });
       if (!res.ok) {
@@ -197,31 +180,6 @@ export default function SettingsPage() {
                   {level.label}
                 </button>
               ))}
-            </div>
-          </div>
-
-          {/* Sports Preferences */}
-          <div>
-            <label className="mb-2 block text-sm font-medium text-zinc-600">
-              Sports Preferences
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {SPORTS.map((sport) => {
-                const active = sports.includes(sport.value);
-                return (
-                  <button
-                    key={sport.value}
-                    onClick={() => toggleSport(sport.value)}
-                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors min-h-[44px] ${
-                      active
-                        ? "border-green-500 bg-green-50 text-green-600"
-                        : "border-zinc-200 bg-white text-zinc-500 hover:bg-zinc-50"
-                    }`}
-                  >
-                    {sport.label}
-                  </button>
-                );
-              })}
             </div>
           </div>
 

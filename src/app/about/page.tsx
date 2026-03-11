@@ -1,54 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import {
-  Users,
-  ClipboardList,
+  CircleDot,
   Zap,
   ChevronRight,
   Target,
   Smartphone,
-  BarChart3,
+  Trophy,
+  Users,
+  MapPin,
+  BookOpen,
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About | Pick a Partner",
+  title: "About | Lawnbowling",
   description:
-    "Pick a Partner replaces the clipboard sign-up sheet at rec centers with a real-time digital player board for pickleball, tennis, lawn bowling, and more.",
+    "Lawnbowling is the digital platform for lawn bowling clubs across America. Tournament draws, live scoring, club directory, and learning resources — all in one place.",
 };
-
-const sports = [
-  {
-    name: "Pickleball",
-    image: "/images/sports/pickleball/hero.webp",
-    color: "emerald",
-  },
-  {
-    name: "Tennis",
-    image: "/images/sports/tennis/hero.webp",
-    color: "amber",
-  },
-  {
-    name: "Lawn Bowling",
-    image: "/images/sports/lawn-bowling/hero.webp",
-    color: "blue",
-  },
-  {
-    name: "Badminton",
-    image: "/images/sports/badminton/hero.webp",
-    color: "purple",
-  },
-  {
-    name: "Racquetball",
-    image: "/images/sports/racquetball/hero.webp",
-    color: "rose",
-  },
-  {
-    name: "Flag Football",
-    image: "/images/sports/flag-football/hero.webp",
-    color: "orange",
-  },
-];
 
 export default function AboutPage() {
   return (
@@ -67,38 +35,34 @@ export default function AboutPage() {
           height: "400px",
         }}
       />
-      <div
-        className="orb orb-blue"
-        style={{ top: "30%", right: "5%", width: "350px", height: "350px" }}
-      />
 
       {/* Navigation */}
       <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/15">
-              <Users className="h-5 w-5 text-white" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-lg">
+              <CircleDot className="h-5 w-5 text-[#1B5E20]" />
             </div>
             <span className="text-lg font-bold text-zinc-900">
-              Pick a Partner
+              Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
             <Link
-              href="/insurance"
+              href="/clubs"
               className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
             >
-              Insurance
+              Clubs
             </Link>
             <Link
-              href="/for-venues"
+              href="/learn"
               className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
             >
-              For Venues
+              Learn
             </Link>
             <Link
               href="/signup"
-              className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/15 transition hover:bg-emerald-500 hover:shadow-emerald-500/25"
+              className="rounded-xl bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-emerald-700"
             >
               Get Started
             </Link>
@@ -116,13 +80,14 @@ export default function AboutPage() {
             </span>
           </div>
           <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
-            Built for the Way People{" "}
-            <span className="text-gradient">Actually Play</span>
+            Modernizing{" "}
+            <span className="text-gradient">Lawn Bowling</span>{" "}
+            Clubs
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
-            Pick a Partner is the real-time player board that replaces the
-            clipboard sign-up sheet at recreation centers, community courts, and
-            sports facilities everywhere.
+            Lawnbowling is the digital platform built specifically for lawn
+            bowling clubs. We replace the paper draw sheet with automatic
+            tournament draws, live scoring, and a nationwide club directory.
           </p>
         </div>
       </section>
@@ -131,27 +96,21 @@ export default function AboutPage() {
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-rose-500/20 bg-rose-500/10 px-4 py-1.5">
-              <ClipboardList className="h-4 w-4 text-rose-600" />
-              <span className="text-sm font-medium text-rose-600">
-                The Problem
-              </span>
-            </div>
             <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
-              The Clipboard Era Is Over
+              The Paper Draw Sheet Era Is Over
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-zinc-600">
-              Walk into any rec center and you&apos;ll find the same thing: a
-              clipboard hanging on the wall with a sign-up sheet. Names
-              scratched out, confusion about who&apos;s next, arguments over
-              court time, and no way to know who&apos;s actually available.
+              Walk into most lawn bowling clubs and you&apos;ll find the same
+              thing: a drawmaster with a clipboard, shuffling names on paper,
+              trying to balance teams fairly. Players crowd the noticeboard to
+              find their rink assignment. Scores are tallied by hand.
             </p>
             <ul className="mt-6 space-y-3">
               {[
-                "No visibility into who's waiting",
-                "No fair rotation system",
-                "No digital waivers or records",
-                "No data for venue operators",
+                "Manual draw generation takes time and effort",
+                "No fair rotation or position balancing",
+                "Paper scorecards get lost or smudged",
+                "No way to track stats or history",
               ].map((item) => (
                 <li
                   key={item}
@@ -194,37 +153,26 @@ export default function AboutPage() {
           <div className="order-2 md:order-1">
             <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-lg">
               <div className="flex items-center gap-2 border-b border-zinc-100 pb-3">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
-                  <Users className="h-4 w-4 text-white" />
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1B5E20]">
+                  <CircleDot className="h-4 w-4 text-white" />
                 </div>
                 <span className="text-sm font-bold text-zinc-900">
-                  Live Board
+                  Tournament Draw
                 </span>
                 <span className="ml-auto flex items-center gap-1">
                   <span className="live-dot" />
-                  <span className="text-[10px] text-zinc-400">12 players</span>
+                  <span className="text-[10px] text-zinc-400">16 players</span>
                 </span>
               </div>
               <div className="mt-3 grid grid-cols-3 gap-2">
-                {[
-                  "emerald",
-                  "emerald",
-                  "amber",
-                  "blue",
-                  "emerald",
-                  "amber",
-                ].map((color, i) => (
+                {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div
                     key={i}
                     className="rounded-lg border border-zinc-100 bg-zinc-50 p-2 text-center"
                   >
-                    <div
-                      className={`mx-auto mb-1 h-8 w-8 rounded-full bg-${color}-100`}
-                    />
+                    <div className="mx-auto mb-1 h-8 w-8 rounded-full bg-emerald-100" />
                     <div className="h-1.5 w-12 mx-auto rounded-full bg-zinc-200" />
-                    <div
-                      className={`mt-1 h-1 w-8 mx-auto rounded-full bg-${color}-500/30`}
-                    />
+                    <div className="mt-1 h-1 w-8 mx-auto rounded-full bg-emerald-500/30" />
                   </div>
                 ))}
               </div>
@@ -238,20 +186,20 @@ export default function AboutPage() {
               </span>
             </div>
             <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
-              A Real-Time Digital Player Board
+              One Tap. Draw Generated.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-zinc-600">
-              Pick a Partner gives every player a live view of who&apos;s
-              available, what sport they play, and their skill level. Check in
-              from your phone or the venue kiosk. Tap a name to send a partner
-              request. Get matched to a court automatically.
+              Lawnbowling automates tournament day for your club. Players check
+              in on the iPad or their phone, select their preferred position, and
+              the drawmaster taps one button. Teams are formed, rinks assigned,
+              and positions balanced automatically.
             </p>
             <ul className="mt-6 space-y-3">
               {[
-                "Real-time availability updates",
-                "One-tap partner requests",
-                "Automatic court assignment",
-                "Digital waivers built in",
+                "Automatic draw generation for all formats",
+                "Singles, Pairs, Triples, and Fours",
+                "Multiple rotation formats (Mead, Gavel, and more)",
+                "Live scoring per end, per rink",
                 "Works on any device — phone, tablet, kiosk",
               ].map((item) => (
                 <li
@@ -269,38 +217,32 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Sports We Support */}
+      {/* What We Offer */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
-            Sports We Support
+            Everything Your Club Needs
           </h2>
           <p className="mt-4 text-lg text-zinc-600">
-            Built for the sports people actually play at rec centers
+            Built for lawn bowling clubs, designed for bowlers
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-          {sports.map((sport) => (
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {[
+            { icon: Trophy, name: "Tournament Draw", color: "emerald" },
+            { icon: Zap, name: "Live Scoring", color: "blue" },
+            { icon: MapPin, name: "Club Directory", color: "amber" },
+            { icon: BookOpen, name: "Learn to Bowl", color: "purple" },
+          ].map((item) => (
             <div
-              key={sport.name}
-              className="group relative overflow-hidden rounded-2xl shadow-sm"
+              key={item.name}
+              className="flex flex-col items-center gap-3 rounded-2xl border border-zinc-200 p-6 transition-all hover:shadow-md"
             >
-              <div className="aspect-[4/3] relative">
-                <Image
-                  src={sport.image}
-                  alt={`${sport.name} players in action`}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-${item.color}-100`}>
+                <item.icon className={`h-6 w-6 text-${item.color}-600`} />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <span className="text-lg font-bold text-white drop-shadow-lg">
-                  {sport.name}
-                </span>
-              </div>
+              <span className="text-sm font-semibold text-zinc-900">{item.name}</span>
             </div>
           ))}
         </div>
@@ -311,12 +253,12 @@ export default function AboutPage() {
         <div className="glass rounded-3xl p-8 md:p-12">
           <div className="grid gap-8 text-center md:grid-cols-3">
             {[
-              { number: "500+", label: "Facilities" },
-              { number: "6", label: "Sports Supported" },
-              { number: "60s", label: "Check-In to Court" },
+              { number: "100+", label: "Clubs Listed" },
+              { number: "50", label: "US States" },
+              { number: "80+", label: "Glossary Terms" },
             ].map((stat) => (
               <div key={stat.label}>
-                <div className="text-4xl font-extrabold text-emerald-600 md:text-5xl">
+                <div className="text-4xl font-extrabold text-[#1B5E20] md:text-5xl">
                   {stat.number}
                 </div>
                 <div className="mt-2 text-sm font-medium uppercase tracking-wider text-zinc-500">
@@ -330,69 +272,60 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
-        <div className="rounded-3xl bg-gradient-to-r from-emerald-600 to-emerald-500 p-8 text-center shadow-2xl shadow-emerald-500/15 md:p-16">
+        <div className="rounded-3xl bg-gradient-to-r from-[#1B5E20] to-emerald-600 p-8 text-center shadow-2xl shadow-emerald-500/15 md:p-16">
           <h2 className="text-3xl font-bold text-white md:text-4xl">
-            Ready to Get Started?
+            Ready to Modernize Your Club?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-emerald-100/80">
-            Join the players and venues already using Pick a Partner to make rec
-            sports better for everyone.
+            Join clubs across America already using Lawnbowling to simplify
+            tournament day.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/signup"
-              className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-emerald-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-[#1B5E20] shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
             >
-              Start Playing
+              Get Started
               <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
-              href="/for-venues"
-              className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-zinc-2000 hover:bg-zinc-100 active:scale-[0.98]"
+              href="/clubs"
+              className="rounded-2xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/60 hover:bg-white/10 active:scale-[0.98]"
             >
-              I Manage a Venue
+              Find a Club
             </Link>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-zinc-50">
+      <footer className="border-t border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
-              <Users className="h-4 w-4 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1B5E20]">
+              <CircleDot className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Pick a Partner</span>
+            <span className="font-semibold text-zinc-900">Lawnbowling</span>
           </Link>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
-            <Link
-              href="/insurance"
-              className="hover:text-zinc-700 transition"
-            >
-              Insurance
+            <Link href="/clubs" className="hover:text-zinc-700 transition">
+              Clubs
+            </Link>
+            <Link href="/learn" className="hover:text-zinc-700 transition">
+              Learn
             </Link>
             <Link href="/about" className="hover:text-zinc-700 transition">
               About
             </Link>
-            <Link href="/faq" className="hover:text-zinc-700 transition">
-              FAQ
-            </Link>
-            <Link
-              href="/(public)/terms"
-              className="hover:text-zinc-700 transition"
-            >
+            <Link href="/terms" className="hover:text-zinc-700 transition">
               Terms
             </Link>
-            <Link
-              href="/(public)/privacy"
-              className="hover:text-zinc-700 transition"
-            >
+            <Link href="/privacy" className="hover:text-zinc-700 transition">
               Privacy
             </Link>
           </div>
           <span className="text-sm text-zinc-400">
-            &copy; {new Date().getFullYear()} Pick a Partner
+            &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>
       </footer>

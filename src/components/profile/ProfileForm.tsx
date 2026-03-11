@@ -4,7 +4,6 @@ import { useState } from "react";
 import * as Select from "@radix-ui/react-select";
 import { ChevronDown, Check } from "lucide-react";
 import { AvatarUpload } from "./AvatarUpload";
-import { SportsSelect } from "./SportsTags";
 import type { PlayerProfile, SkillLevel, Sport, BowlingPosition, PreferredHand } from "@/lib/db/players";
 
 interface ProfileFormProps {
@@ -26,7 +25,6 @@ interface ProfileFormProps {
 export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "Save Profile" }: ProfileFormProps) {
   const [name, setName] = useState(player?.display_name ?? "");
   const [skillLevel, setSkillLevel] = useState<SkillLevel>(player?.skill_level ?? "beginner");
-  const [sports, setSports] = useState<Sport[]>(player?.sports ?? []);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(player?.avatar_url ?? null);
   const [bio, setBio] = useState(player?.bio ?? "");
   const [preferredPosition, setPreferredPosition] = useState<BowlingPosition | "">(player?.preferred_position ?? "");
@@ -41,18 +39,13 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
       setError("Name is required");
       return;
     }
-    if (sports.length === 0) {
-      setError("Select at least one sport");
-      return;
-    }
-
     setSaving(true);
     setError(null);
     try {
       await onSubmit({
         display_name: name.trim(),
         skill_level: skillLevel,
-        sports,
+        sports: ["lawn_bowling"] as Sport[],
         avatar_url: avatarUrl,
         bio: bio.trim() || null,
         preferred_position: preferredPosition || null,
@@ -125,11 +118,6 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
             </Select.Content>
           </Select.Portal>
         </Select.Root>
-      </div>
-
-      <div>
-        <label className="mb-1.5 block text-sm font-medium text-zinc-700">Sports</label>
-        <SportsSelect selected={sports} onChange={setSports} />
       </div>
 
       <div>

@@ -4,7 +4,7 @@ describe("Match Flow", () => {
   it("should create a match in queued status", () => {
     const match = {
       id: "match-1",
-      sport: "pickleball",
+      sport: "lawn_bowling",
       court_id: null as string | null,
       status: "queued" as const,
       started_at: null as string | null,

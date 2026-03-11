@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { FaqPage } from "./FaqPage";
 
 export const metadata: Metadata = {
-  title: "FAQ | Pick a Partner",
+  title: "FAQ | Lawnbowling",
   description:
-    "Frequently asked questions about Pick a Partner — the real-time player board for recreational sports. Get answers about playing, insurance, venues, and more.",
+    "Frequently asked questions about Lawnbowling — the digital platform for lawn bowling clubs. Get answers about tournament draws, scoring, clubs, and more.",
 };
 
 export default function Page() {

@@ -225,14 +225,8 @@ textarea,
 }
 
 /* === SPORT-SPECIFIC GLOWS (adjusted for light bg) === */
-.glow-pickleball {
-  box-shadow: 0 0 20px rgba(34, 197, 94, 0.1), 0 0 60px rgba(34, 197, 94, 0.04);
-}
 .glow-bowling {
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.1), 0 0 60px rgba(59, 130, 246, 0.04);
-}
-.glow-tennis {
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.1), 0 0 60px rgba(245, 158, 11, 0.04);
 }
 
 /* === ANIMATED GRADIENT BACKGROUND (light mode) === */

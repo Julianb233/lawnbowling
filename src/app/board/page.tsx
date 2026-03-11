@@ -21,10 +21,9 @@ import { SuggestedPartners } from "@/components/board/SuggestedPartners";
 import { VenueSelector } from "@/components/venue/VenueSelector";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { CircleDot, Lightbulb } from "lucide-react";
-import type { Sport, SkillLevel, Player } from "@/lib/types";
+import type { SkillLevel, Player } from "@/lib/types";
 
 export default function BoardPage() {
-  const [sportFilter, setSportFilter] = useState<Sport | null>(null);
   const [skillFilter, setSkillFilter] = useState<SkillLevel | null>(null);
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   const [loadingPlayer, setLoadingPlayer] = useState(true);
@@ -35,7 +34,7 @@ export default function BoardPage() {
   >([]);
 
   const { players, loading } = useRealtimePlayers({
-    sportFilter,
+    sportFilter: null,
     skillFilter,
     venueId: venue?.id ?? null,
   });
@@ -52,7 +51,7 @@ export default function BoardPage() {
       {
         id: update.id,
         targetName: update.targetName || "Player",
-        sport: update.sport || "pickleball",
+        sport: update.sport || "lawn_bowling",
         status: update.status,
       },
     ]);
@@ -192,9 +191,7 @@ export default function BoardPage() {
             className="mb-4"
           >
             <BoardFilters
-              selectedSport={sportFilter}
               selectedSkill={skillFilter}
-              onSportChange={setSportFilter}
               onSkillChange={setSkillFilter}
             />
           </motion.div>
@@ -202,7 +199,7 @@ export default function BoardPage() {
           {currentPlayer?.is_available && (
             <SuggestedPartners
               currentPlayerId={currentPlayer.id}
-              sportFilter={sportFilter}
+              sportFilter={null}
               onPickMe={handlePickMe}
               pendingTargetIds={pendingTargetIds}
             />
@@ -268,7 +265,6 @@ export default function BoardPage() {
         {requestTarget && currentPlayer && (
           <RequestModal
             target={requestTarget}
-            currentPlayerSports={currentPlayer.sports}
             open={!!requestTarget}
             onOpenChange={(open) => !open && setRequestTarget(null)}
             onSubmit={handleSendRequest}

@@ -155,7 +155,7 @@ export function CourtStatusBoard({ venueId }: { venueId?: string }) {
               queuedMatch={queuedMatch}
               onAssign={handleAssign}
               onComplete={handleComplete}
-              durationMinutes={court.sport === "pickleball" ? 20 : undefined}
+              durationMinutes={undefined}
             />
           );
         })}

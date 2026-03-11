@@ -24,14 +24,7 @@ interface WaiverTemplateData {
 }
 
 const AVAILABLE_SPORTS = [
-  "pickleball",
   "lawn_bowling",
-  "tennis",
-  "badminton",
-  "table_tennis",
-  "volleyball",
-  "basketball",
-  "racquetball",
 ];
 
 export default function VenueSettingsPage() {

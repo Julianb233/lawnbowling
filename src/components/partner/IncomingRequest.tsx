@@ -3,11 +3,10 @@
 import { useState, useEffect } from "react";
 import * as Toast from "@radix-ui/react-toast";
 import { Star } from "lucide-react";
-import { SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
-import { SportIcon } from "@/components/icons/SportIcon";
+import { SKILL_LABELS } from "@/lib/types";
 import { getSportColor } from "@/lib/design";
 import { cn } from "@/lib/utils";
-import type { SkillLevel, Sport } from "@/lib/types";
+import type { SkillLevel } from "@/lib/types";
 
 interface IncomingRequestProps {
   request: {
@@ -75,7 +74,6 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
 
   if (dismissed) return null;
 
-  const sportInfo = SPORT_LABELS[request.sport as Sport];
   const skillInfo = requester ? SKILL_LABELS[requester.skill_level] : null;
 
   return (
@@ -109,10 +107,7 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
           </Toast.Title>
           <Toast.Description className="mt-1 text-sm text-zinc-400">
             <span className="font-medium text-zinc-700">{requesterName}</span>{" "}
-            wants to play{" "}
-            <span className="font-medium text-zinc-700">
-              <SportIcon sport={request.sport as Sport} className="w-4 h-4 inline-block" /> {sportInfo?.label || request.sport}
-            </span>
+            wants to play
           </Toast.Description>
 
           {skillInfo && (

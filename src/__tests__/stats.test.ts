@@ -41,15 +41,10 @@ describe("Stats Calculation", () => {
 
     expect(getFavoriteSport([])).toBeNull();
     expect(getFavoriteSport([
-      { sport: "pickleball" },
-      { sport: "pickleball" },
-      { sport: "tennis" },
-    ])).toBe("pickleball");
-    expect(getFavoriteSport([
-      { sport: "tennis" },
-      { sport: "tennis" },
-      { sport: "tennis" },
-    ])).toBe("tennis");
+      { sport: "lawn_bowling" },
+      { sport: "lawn_bowling" },
+      { sport: "lawn_bowling" },
+    ])).toBe("lawn_bowling");
   });
 });
 

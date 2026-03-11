@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export type SkillLevel = "beginner" | "intermediate" | "advanced";
 
-export type Sport = "pickleball" | "lawn_bowling" | "tennis" | "badminton" | "table_tennis";
+export type Sport = "lawn_bowling";
 
 export type BowlingPosition = "lead" | "second" | "third" | "skip";
 

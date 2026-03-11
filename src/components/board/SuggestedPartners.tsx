@@ -3,9 +3,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { SPORT_LABELS } from "@/lib/types";
 import { getSportColor } from "@/lib/design";
-import type { Player, Sport } from "@/lib/types";
+import type { Player } from "@/lib/types";
 import type { MatchMode, MatchQuality } from "@/lib/matchmaking";
 
 interface SuggestionData {
@@ -87,14 +86,6 @@ function SuggestionCard({ suggestion, index, onPickMe, isPending }: {
           <ScoreBadge score={score} />
         </div>
         <div className="mt-0.5 flex flex-wrap items-center gap-1">
-          {commonSports.map((sport: string) => {
-            const info = SPORT_LABELS[sport as Sport];
-            return info ? (
-              <span key={sport} className={cn("inline-flex items-center gap-0.5 rounded-full px-1.5 py-0 text-xs font-medium", getSportColor(sport).bg, "text-zinc-500")}>
-                {info.emoji} {info.short}
-              </span>
-            ) : null;
-          })}
           {eloDiff !== null && <span className="text-xs text-zinc-500">{eloDiff <= 50 ? "~same level" : `${eloDiff} ELO diff`}</span>}
           <QualityIndicator quality={matchQuality} />
         </div>

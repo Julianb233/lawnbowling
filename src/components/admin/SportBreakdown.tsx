@@ -1,55 +1,30 @@
 "use client";
 
-import { SPORT_LABELS, type Sport } from "@/lib/types";
-import { SportIcon } from "@/components/icons/SportIcon";
-
 interface SportBreakdownProps {
   breakdown: Record<string, number>;
 }
 
-const COLORS: Record<string, string> = {
-  pickleball: "bg-[#1B5E20]",
-  lawn_bowling: "bg-[#1B5E20]",
-  tennis: "bg-amber-500",
-};
-
 export function SportBreakdown({ breakdown }: SportBreakdownProps) {
-  const total = Object.values(breakdown).reduce((a, b) => a + b, 0);
+  const total = breakdown["lawn_bowling"] ?? Object.values(breakdown).reduce((a, b) => a + b, 0);
+
   if (total === 0) {
     return <p className="text-sm text-zinc-500 dark:text-zinc-400">No match data yet</p>;
   }
 
-  const entries = Object.entries(breakdown).sort((a, b) => b[1] - a[1]);
-
   return (
     <div className="space-y-3">
-      {/* Bar chart */}
       <div className="flex h-4 rounded-full overflow-hidden bg-zinc-100">
-        {entries.map(([sport, count]) => (
-          <div
-            key={sport}
-            className={`${COLORS[sport] || "bg-zinc-600"} transition-all`}
-            style={{ width: `${(count / total) * 100}%` }}
-          />
-        ))}
+        <div
+          className="bg-[#1B5E20] transition-all"
+          style={{ width: "100%" }}
+        />
       </div>
 
-      {/* Legend */}
-      <div className="flex flex-wrap gap-3">
-        {entries.map(([sport, count]) => {
-          const info = SPORT_LABELS[sport as Sport];
-          const pct = Math.round((count / total) * 100);
-          return (
-            <div key={sport} className="flex items-center gap-1.5">
-              <div
-                className={`h-3 w-3 rounded-full ${COLORS[sport] || "bg-zinc-600"}`}
-              />
-              <span className="text-xs text-zinc-600 dark:text-zinc-400">
-                <SportIcon sport={sport as Sport} className="w-3 h-3 inline-block" /> {info?.label || sport} ({pct}%)
-              </span>
-            </div>
-          );
-        })}
+      <div className="flex items-center gap-1.5">
+        <div className="h-3 w-3 rounded-full bg-[#1B5E20]" />
+        <span className="text-xs text-zinc-600 dark:text-zinc-400">
+          Lawn Bowling ({total} matches)
+        </span>
       </div>
     </div>
   );

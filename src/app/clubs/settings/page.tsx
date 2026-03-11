@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -16,8 +16,10 @@ import {
   CheckCircle,
   ExternalLink,
   Loader2,
+  Upload,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/client";
 
 interface ClubSettings {
   id: string;
@@ -50,6 +52,11 @@ export default function ClubSettingsPage() {
   const [website, setWebsite] = useState("");
   const [rinks, setRinks] = useState("2");
 
+  // Logo upload
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+
   // Danger zone
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
   const [cancellingSubscription, setCancellingSubscription] = useState(false);
@@ -79,8 +86,9 @@ export default function ClubSettingsPage() {
             website: c.website || "",
             rinks: c.rinks || 2,
             plan: profileData?.subscription?.plan || "free",
-            logoUrl: null,
+            logoUrl: c.logo_url || null,
           };
+          if (settings.logoUrl) setLogoPreview(settings.logoUrl);
           setClub(settings);
           setName(settings.name);
           setCity(settings.city);
@@ -156,6 +164,70 @@ export default function ClubSettingsPage() {
       setError("Failed to process cancellation");
     } finally {
       setCancellingSubscription(false);
+    }
+  }
+
+  async function handleLogoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file || !club) return;
+
+    // Validate file type
+    const validTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!validTypes.includes(file.type)) {
+      setError("Please select a JPG, PNG, or WebP image.");
+      return;
+    }
+
+    // Validate file size (2MB max)
+    if (file.size > 2 * 1024 * 1024) {
+      setError("Logo must be under 2MB.");
+      return;
+    }
+
+    setUploadingLogo(true);
+    setError("");
+
+    try {
+      const supabase = createClient();
+      const ext = file.name.split(".").pop() || "png";
+      const path = `club-logos/${club.id}.${ext}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("avatars")
+        .upload(path, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: urlData } = supabase.storage
+        .from("avatars")
+        .getPublicUrl(path);
+
+      const logoUrl = urlData.publicUrl;
+
+      // Update the club record with the new logo URL
+      const res = await fetch("/api/clubs/managed", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: club.id, logo_url: logoUrl }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to update club logo");
+      }
+
+      setLogoPreview(logoUrl);
+      setClub({ ...club, logoUrl });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to upload logo. Please try again."
+      );
+    } finally {
+      setUploadingLogo(false);
+      // Reset the input so the same file can be re-selected
+      if (logoInputRef.current) logoInputRef.current.value = "";
     }
   }
 
@@ -310,14 +382,14 @@ export default function ClubSettingsPage() {
             </FieldGroup>
           </section>
 
-          {/* Logo Upload Placeholder */}
+          {/* Club Logo Upload */}
           <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
             <h2 className="text-lg font-bold text-zinc-900 mb-4">Club Logo</h2>
             <div className="flex items-center gap-4">
-              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 bg-zinc-50 dark:bg-white/5">
-                {club.logoUrl ? (
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 bg-zinc-50 dark:bg-white/5 overflow-hidden">
+                {logoPreview ? (
                   <img
-                    src={club.logoUrl}
+                    src={logoPreview}
                     alt="Club logo"
                     className="h-full w-full rounded-2xl object-cover"
                   />
@@ -326,17 +398,33 @@ export default function ClubSettingsPage() {
                 )}
               </div>
               <div>
+                <input
+                  ref={logoInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  className="hidden"
+                  onChange={handleLogoUpload}
+                />
                 <button
                   type="button"
-                  className="rounded-xl border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
-                  onClick={() =>
-                    alert("Logo upload coming soon! Contact support for help.")
-                  }
+                  disabled={uploadingLogo}
+                  className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 disabled:opacity-50 transition-colors"
+                  onClick={() => logoInputRef.current?.click()}
                 >
-                  Upload Logo
+                  {uploadingLogo ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Uploading...
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="h-4 w-4" />
+                      Upload Logo
+                    </>
+                  )}
                 </button>
                 <p className="mt-1 text-xs text-zinc-400">
-                  PNG or JPG, max 2MB. Recommended: 200x200px
+                  JPG, PNG, or WebP, max 2MB. Recommended: 200x200px
                 </p>
               </div>
             </div>

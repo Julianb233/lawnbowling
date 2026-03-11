@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createPlayer, updatePlayer, getPlayerByUserId } from "@/lib/db/players";
-import type { SkillLevel, Sport } from "@/lib/db/players";
+import type { SkillLevel } from "@/lib/db/players";
 
 export async function GET() {
   try {
@@ -39,10 +39,9 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { display_name, skill_level, sports, avatar_url } = body as {
+    const { display_name, skill_level, avatar_url } = body as {
       display_name: string;
       skill_level: SkillLevel;
-      sports: Sport[];
       avatar_url: string | null;
     };
 
@@ -54,7 +53,7 @@ export async function POST(request: NextRequest) {
       user_id: user.id,
       display_name: display_name.trim(),
       skill_level: skill_level || "beginner",
-      sports: sports || [],
+      sports: ["lawn_bowling"],
       avatar_url: avatar_url || null,
       insurance_status: "none",
       home_club_id: null,
@@ -92,7 +91,7 @@ export async function PATCH(request: NextRequest) {
       updates.display_name = trimmed;
     }
     if (skill_level !== undefined) updates.skill_level = skill_level;
-    if (sports !== undefined) updates.sports = sports;
+    if (sports !== undefined) updates.sports = ["lawn_bowling"];
     if (avatar_url !== undefined) updates.avatar_url = avatar_url;
     if (bio !== undefined) updates.bio = bio ? String(bio).slice(0, 500) : null;
     if (preferred_position !== undefined) updates.preferred_position = preferred_position;

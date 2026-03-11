@@ -10,9 +10,8 @@ import {
   Clock,
   Users,
   ChevronDown,
-  Filter,
 } from "lucide-react";
-import { SPORT_LABELS, ALL_SPORTS, type Sport } from "@/lib/types";
+import { SPORT_LABELS, type Sport } from "@/lib/types";
 import { getSportColor, ANIMATIONS } from "@/lib/design";
 import { cn } from "@/lib/utils";
 
@@ -72,8 +71,7 @@ export function MatchHistoryDetail({ playerId }: MatchHistoryDetailProps) {
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [sportFilter, setSportFilter] = useState<string | null>(null);
-  const [showFilters, setShowFilters] = useState(false);
+  const sportFilter: string | null = null;
 
   const PAGE_SIZE = 20;
 
@@ -123,71 +121,6 @@ export function MatchHistoryDetail({ playerId }: MatchHistoryDetailProps) {
 
   return (
     <div className="space-y-4">
-      {/* Sport Filter */}
-      <div>
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center gap-1.5 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-50"
-        >
-          <Filter className="h-3.5 w-3.5" />
-          {sportFilter
-            ? SPORT_LABELS[sportFilter as Sport]?.short ?? sportFilter
-            : "All Sports"}
-          <ChevronDown
-            className={cn(
-              "h-3 w-3 transition-transform",
-              showFilters && "rotate-180"
-            )}
-          />
-        </button>
-
-        {showFilters && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            className="mt-2 flex flex-wrap gap-1.5"
-          >
-            <button
-              onClick={() => {
-                setSportFilter(null);
-                setShowFilters(false);
-              }}
-              className={cn(
-                "rounded-full px-3 py-1 text-xs font-medium transition-colors",
-                !sportFilter
-                  ? "bg-zinc-900 text-white"
-                  : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
-              )}
-            >
-              All
-            </button>
-            {ALL_SPORTS.map((sport) => {
-              const label = SPORT_LABELS[sport];
-              const color = getSportColor(sport);
-              const active = sportFilter === sport;
-              return (
-                <button
-                  key={sport}
-                  onClick={() => {
-                    setSportFilter(sport);
-                    setShowFilters(false);
-                  }}
-                  className={cn(
-                    "rounded-full px-3 py-1 text-xs font-medium transition-colors",
-                    active
-                      ? "text-white"
-                      : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
-                  )}
-                  style={active ? { backgroundColor: color.primary } : undefined}
-                >
-                  {label.emoji} {label.short}
-                </button>
-              );
-            })}
-          </motion.div>
-        )}
-      </div>
-
       {/* Match List */}
       {matches.length === 0 ? (
         <div className="py-16 text-center">

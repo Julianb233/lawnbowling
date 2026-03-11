@@ -2,10 +2,9 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { SPORT_LABELS, SKILL_LABELS } from "@/lib/types";
+import { SKILL_LABELS } from "@/lib/types";
 import { getSportColor } from "@/lib/design";
-import { SportIcon } from "@/components/icons/SportIcon";
-import type { Player, Sport } from "@/lib/types";
+import type { Player } from "@/lib/types";
 
 interface PlayerCardProps {
   player: Player;
@@ -53,7 +52,7 @@ function Avatar({ name, url, primarySport }: { name: string; url: string | null;
     .slice(0, 2)
     .toUpperCase();
 
-  const sportColor = primarySport ? getSportColor(primarySport) : getSportColor("pickleball");
+  const sportColor = primarySport ? getSportColor(primarySport) : getSportColor("lawn_bowling");
 
   if (url) {
     return (
@@ -84,7 +83,7 @@ function Avatar({ name, url, primarySport }: { name: string; url: string | null;
 
 export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: PlayerCardProps) {
   const primarySport = player.sports[0];
-  const sportColor = primarySport ? getSportColor(primarySport) : getSportColor("pickleball");
+  const sportColor = primarySport ? getSportColor(primarySport) : getSportColor("lawn_bowling");
 
   return (
     <motion.div
@@ -140,27 +139,6 @@ export function PlayerCard({ player, onPickMe, index = 0, isPending = false }: P
           <h3 className="truncate text-base font-semibold text-zinc-900 dark:text-zinc-100">{player.display_name}</h3>
           <div className="mt-0.5 flex items-center gap-2">
             <SkillStars level={player.skill_level} index={index} />
-          </div>
-          <div className="mt-1.5 flex flex-wrap gap-1.5">
-            {player.sports.map((sport, i) => {
-              const info = SPORT_LABELS[sport as Sport];
-              return info ? (
-                <motion.span
-                  key={sport}
-                  className={cn(
-                    "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
-                    getSportColor(sport).bg,
-                    "text-zinc-600 dark:text-zinc-400"
-                  )}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.08 + i * 0.05 + 0.2 }}
-                >
-                  <SportIcon sport={sport as Sport} className="w-3 h-3" />
-                  <span className="hidden sm:inline">{info.short}</span>
-                </motion.span>
-              ) : null;
-            })}
           </div>
         </div>
       </div>

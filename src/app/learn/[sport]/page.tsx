@@ -91,7 +91,7 @@ export default function SportGuidePage() {
           <EquipmentList equipment={guide.equipment} />
 
           {/* Court/Rink Diagram */}
-          <CourtDiagram sport={sport as Sport} />
+          <CourtDiagram />
 
           {/* How to Play */}
           <section id="how-to-play">

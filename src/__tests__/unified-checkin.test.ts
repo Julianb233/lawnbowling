@@ -222,7 +222,7 @@ describe("UCI-09/UCI-12: Kiosk mode determination", () => {
   it("returns generic mode when mode param is something else", () => {
     expect(
       determineKioskMode({
-        modeParam: "pickleball",
+        modeParam: "unknown_sport",
         tournamentIdParam: null,
         activeTournaments: [],
       })
