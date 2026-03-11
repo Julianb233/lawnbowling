@@ -1,5 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { getNotificationPreferences } from "@/lib/db/settings";
+
+export async function GET() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const prefs = await getNotificationPreferences(user.id);
+  return NextResponse.json(prefs);
+}
 
 export async function PUT(request: NextRequest) {
   const supabase = await createClient();

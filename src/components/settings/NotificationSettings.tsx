@@ -2,8 +2,11 @@
 
 import { useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
-import { usePushSubscription } from "@/lib/hooks/usePushSubscription";
 import type { NotificationPreferences } from "@/lib/types";
+import {
+  usePushSubscription,
+  type PushPermission,
+} from "@/lib/hooks/usePushSubscription";
 
 interface NotificationSettingsProps {
   preferences: NotificationPreferences;
@@ -24,7 +27,8 @@ function Toggle({
       disabled={disabled}
       className={cn(
         "relative h-6 w-11 rounded-full transition-colors",
-        checked ? "bg-[#1B5E20]" : "bg-zinc-300"
+        checked ? "bg-emerald-500" : "bg-zinc-300",
+        disabled && "opacity-50 cursor-not-allowed"
       )}
     >
       <span
@@ -37,11 +41,41 @@ function Toggle({
   );
 }
 
-export function NotificationSettings({ preferences }: NotificationSettingsProps) {
+function PushStatusBanner({ permission }: { permission: PushPermission }) {
+  if (permission === "denied") {
+    return (
+      <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-700">
+        Push notifications are blocked by your browser. To enable them, update
+        notification permissions in your browser settings for this site.
+      </div>
+    );
+  }
+  if (permission === "unsupported") {
+    return (
+      <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-xs text-zinc-500">
+        Push notifications are not supported in this browser.
+      </div>
+    );
+  }
+  return null;
+}
+
+export function NotificationSettings({
+  preferences,
+}: NotificationSettingsProps) {
   const [prefs, setPrefs] = useState(preferences);
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
-  const { permission, isSubscribed, subscribe, unsubscribe } = usePushSubscription();
+  const {
+    permission,
+    isSubscribed,
+    loading: pushLoading,
+    subscribe,
+    unsubscribe,
+  } = usePushSubscription();
+
+  const pushDisabled =
+    permission === "denied" || permission === "unsupported";
 
   function update(key: keyof NotificationPreferences, value: boolean) {
     const updated = { ...prefs, [key]: value };
@@ -57,67 +91,97 @@ export function NotificationSettings({ preferences }: NotificationSettingsProps)
     });
   }
 
-  async function handlePushToggle(enabled: boolean) {
-    if (enabled) { await subscribe(); } else { await unsubscribe(); }
+  async function handlePushToggle(
+    key: keyof NotificationPreferences,
+    value: boolean
+  ) {
+    if (value && !isSubscribed) {
+      // Subscribing: request permission and create push subscription first
+      const ok = await subscribe();
+      if (!ok) return; // permission denied or error
+    }
+
+    // Save the preference
+    update(key, value);
+
+    // If all push prefs are being turned off, unsubscribe from push
+    if (!value) {
+      const pushKeys = [
+        "push_partner_requests",
+        "push_match_ready",
+        "push_friend_checkin",
+        "push_scheduled_reminder",
+      ] as const;
+      const allOff = pushKeys.every((k) =>
+        k === key ? !value : !prefs[k]
+      );
+      if (allOff) {
+        await unsubscribe();
+      }
+    }
   }
 
-  const sections = [
-    {
-      title: "Push Notifications",
-      items: [
-        { key: "push_partner_requests" as const, label: "Partner requests" },
-        { key: "push_match_ready" as const, label: "Match ready" },
-        { key: "push_friend_checkin" as const, label: "Friend check-ins" },
-        { key: "push_scheduled_reminder" as const, label: "Game reminders" },
-      ],
-    },
-    {
-      title: "Email Notifications",
-      items: [
-        { key: "email_weekly_summary" as const, label: "Weekly summary" },
-        { key: "email_upcoming_games" as const, label: "Upcoming games" },
-      ],
-    },
+  const pushItems = [
+    { key: "push_partner_requests" as const, label: "Partner requests" },
+    { key: "push_match_ready" as const, label: "Match ready" },
+    { key: "push_friend_checkin" as const, label: "Friend check-ins" },
+    { key: "push_scheduled_reminder" as const, label: "Game reminders" },
+  ];
+
+  const emailItems = [
+    { key: "email_weekly_summary" as const, label: "Weekly summary" },
+    { key: "email_upcoming_games" as const, label: "Upcoming games" },
   ];
 
   return (
     <div className="space-y-6">
-      {permission !== "unsupported" && (
-        <div>
-          <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-3">Browser Push</h3>
-          <div className="flex items-center justify-between rounded-xl glass px-4 py-3">
-            <div>
-              <span className="text-sm text-zinc-700">Enable push notifications</span>
-              {permission === "denied" && <p className="text-xs text-red-400 mt-0.5">Blocked in browser settings</p>}
+      {/* Push Notifications */}
+      <div>
+        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-3">
+          Push Notifications
+        </h3>
+        <PushStatusBanner permission={permission} />
+        <div className="space-y-1">
+          {pushItems.map((item) => (
+            <div
+              key={item.key}
+              className="flex items-center justify-between rounded-xl glass px-4 py-3"
+            >
+              <span className="text-sm text-zinc-700">{item.label}</span>
+              <Toggle
+                checked={prefs[item.key] as boolean}
+                onChange={(v) => handlePushToggle(item.key, v)}
+                disabled={isPending || pushLoading || pushDisabled}
+              />
             </div>
-            <Toggle checked={isSubscribed} onChange={handlePushToggle} disabled={permission === "denied"} />
-          </div>
+          ))}
         </div>
-      )}
-      {sections.map((section) => (
-        <div key={section.title}>
-          <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-3">
-            {section.title}
-          </h3>
-          <div className="space-y-1">
-            {section.items.map((item) => (
-              <div
-                key={item.key}
-                className="flex items-center justify-between rounded-xl glass px-4 py-3"
-              >
-                <span className="text-sm text-zinc-700">{item.label}</span>
-                <Toggle
-                  checked={prefs[item.key] as boolean}
-                  onChange={(v) => update(item.key, v)}
-                  disabled={isPending}
-                />
-              </div>
-            ))}
-          </div>
+      </div>
+
+      {/* Email Notifications */}
+      <div>
+        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-3">
+          Email Notifications
+        </h3>
+        <div className="space-y-1">
+          {emailItems.map((item) => (
+            <div
+              key={item.key}
+              className="flex items-center justify-between rounded-xl glass px-4 py-3"
+            >
+              <span className="text-sm text-zinc-700">{item.label}</span>
+              <Toggle
+                checked={prefs[item.key] as boolean}
+                onChange={(v) => update(item.key, v)}
+                disabled={isPending}
+              />
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+
       {saved && (
-        <p className="text-xs text-[#1B5E20] text-center">Settings saved</p>
+        <p className="text-xs text-emerald-400 text-center">Settings saved</p>
       )}
     </div>
   );

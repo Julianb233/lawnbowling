@@ -330,6 +330,21 @@ export interface NotificationPreferences {
   updated_at: string;
 }
 
+export interface PushSubscriptionRecord {
+  id: string;
+  player_id: string;
+  endpoint: string;
+  p256dh: string;
+  auth: string;
+  created_at: string;
+}
+
+export type PushNotificationType =
+  | "partner_request"
+  | "match_ready"
+  | "friend_checkin"
+  | "scheduled_reminder";
+
 export type ReportReason = "unsportsmanlike" | "harassment" | "no_show" | "cheating" | "other";
 
 // ===== Tournaments =====

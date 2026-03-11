@@ -1,7 +1,4 @@
-/// <reference no-default-lib="true" />
-/// <reference lib="esnext" />
-/// <reference lib="webworker" />
-import { defaultCache } from "@serwist/turbopack/worker";
+import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 
@@ -11,7 +8,8 @@ declare global {
   }
 }
 
-declare const self: ServiceWorkerGlobalScope;
+// @ts-expect-error - ServiceWorkerGlobalScope requires webworker lib
+declare const self: ServiceWorkerGlobalScope & typeof globalThis;
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
@@ -51,59 +49,37 @@ const serwist = new Serwist({
 
 serwist.addEventListeners();
 
-// Handle push notifications
-self.addEventListener("push", (event: PushEvent) => {
+// Handle incoming push notifications
+self.addEventListener("push", (event) => {
   if (!event.data) return;
 
-  try {
-    const payload = event.data.json() as {
-      title?: string;
-      body?: string;
-      icon?: string;
-      badge?: string;
-      tag?: string;
-      url?: string;
-      actions?: Array<{ action: string; title: string }>;
-    };
+  const data = event.data.json() as { title?: string; body?: string; url?: string };
+  const title = data.title || "Pick a Partner";
+  const options: NotificationOptions = {
+    body: data.body || "",
+    icon: "/icons/icon-192x192.png",
+    badge: "/icons/icon-192x192.png",
+    data: { url: data.url || "/" },
+  };
 
-    const title = payload.title ?? "Lawnbowl.app";
-    const options: NotificationOptions = {
-      body: payload.body ?? "",
-      icon: payload.icon ?? "/icons/icon-192x192.png",
-      badge: payload.badge ?? "/icons/icon-72x72.png",
-      tag: payload.tag,
-      data: { url: payload.url ?? "/" },
-      actions: payload.actions,
-    };
-
-    event.waitUntil(self.registration.showNotification(title, options));
-  } catch {
-    // Fallback for non-JSON payloads
-    const text = event.data.text();
-    event.waitUntil(
-      self.registration.showNotification("Lawnbowl.app", { body: text })
-    );
-  }
+  event.waitUntil(self.registration.showNotification(title, options));
 });
 
-// Handle notification click — open the app to the specified URL
-self.addEventListener("notificationclick", (event: NotificationEvent) => {
+// Handle notification click — open the app to the relevant URL
+self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
-  const url = (event.notification.data as { url?: string })?.url ?? "/";
+  const url = (event.notification.data as { url?: string })?.url || "/";
 
   event.waitUntil(
     self.clients
       .matchAll({ type: "window", includeUncontrolled: true })
-      .then((clientList) => {
-        // Focus an existing window if available
-        for (const client of clientList) {
-          if ("focus" in client) {
-            client.focus();
-            if ("navigate" in client) {
-              (client as WindowClient).navigate(url);
-            }
-            return;
+      .then((clients) => {
+        // Focus an existing tab if possible
+        for (const client of clients) {
+          if (client.url.includes(self.location.origin) && "focus" in client) {
+            client.navigate(url);
+            return client.focus();
           }
         }
         // Otherwise open a new window
