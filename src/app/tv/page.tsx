@@ -234,6 +234,9 @@ export default function TVScoreboardPage() {
             </div>
           )}
 
+          {/* Weather */}
+          <WeatherWidget />
+
           {/* Clock */}
           <div className="text-right">
             <p className="text-3xl font-black tabular-nums lg:text-4xl">
