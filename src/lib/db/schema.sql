@@ -496,3 +496,28 @@ create index idx_tournaments_status on tournaments(status) where status != 'comp
 create index idx_tournament_participants_tournament on tournament_participants(tournament_id);
 create index idx_tournament_matches_tournament on tournament_matches(tournament_id);
 create index idx_tournament_matches_round on tournament_matches(tournament_id, round);
+
+-- ===== PROFILE ENHANCEMENTS: BIO & PREFERENCES =====
+alter table players add column if not exists bio text;
+alter table players add column if not exists preferred_position text check (preferred_position in ('lead', 'second', 'third', 'skip'));
+alter table players add column if not exists preferred_hand text check (preferred_hand in ('left', 'right', 'ambidextrous'));
+alter table players add column if not exists years_experience integer;
+
+-- ===== PROFILE ENHANCEMENTS: PHOTO GALLERY =====
+
+create table player_photos (
+  id uuid primary key default uuid_generate_v4(),
+  player_id uuid not null references players(id) on delete cascade,
+  url text not null,
+  caption text,
+  sort_order integer default 0,
+  created_at timestamptz default now()
+);
+
+alter table player_photos enable row level security;
+
+create policy "Photos viewable by all" on player_photos for select using (true);
+create policy "Players can manage own photos" on player_photos for all using (public.is_own_player(player_id)) with check (public.is_own_player(player_id));
+
+create index idx_player_photos_player on player_photos(player_id);
+create index idx_player_photos_sort on player_photos(player_id, sort_order);
