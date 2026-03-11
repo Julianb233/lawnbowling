@@ -36,12 +36,12 @@ export function MatchTimer({ startedAt, durationMinutes }: MatchTimerProps) {
       <span className="relative flex h-2 w-2">
         <span
           className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${
-            isOvertime ? "bg-red-400 animate-ping" : "bg-emerald-400 animate-ping"
+            isOvertime ? "bg-red-400 animate-ping" : "bg-[#1B5E20] animate-ping"
           }`}
         />
         <span
           className={`relative inline-flex h-2 w-2 rounded-full ${
-            isOvertime ? "bg-red-500" : "bg-emerald-500"
+            isOvertime ? "bg-red-500" : "bg-[#1B5E20]"
           }`}
         />
       </span>

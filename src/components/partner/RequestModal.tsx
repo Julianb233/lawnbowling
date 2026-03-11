@@ -91,9 +91,9 @@ export function RequestModal({
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 300 }}
-                    className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20"
+                    className="flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/20"
                   >
-                    <Check className="h-8 w-8 text-emerald-400" />
+                    <Check className="h-8 w-8 text-[#1B5E20]" />
                   </motion.div>
                   <p className="mt-4 text-lg font-semibold text-zinc-900">Request Sent!</p>
                 </motion.div>
@@ -143,7 +143,7 @@ export function RequestModal({
                   <div className="mb-6">
                     <label className="mb-2 block text-sm font-medium text-zinc-400">Sport</label>
                     <Select.Root value={selectedSport} onValueChange={setSelectedSport}>
-                      <Select.Trigger className="inline-flex h-11 w-full items-center justify-between rounded-xl border border-zinc-300 bg-zinc-100 px-4 text-sm text-zinc-700 hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]">
+                      <Select.Trigger className="inline-flex h-11 w-full items-center justify-between rounded-xl border border-zinc-300 bg-zinc-100 px-4 text-sm text-zinc-700 hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/30 min-h-[44px]">
                         <Select.Value />
                         <Select.Icon>
                           <ChevronDown className="h-4 w-4 text-zinc-500" />
@@ -164,7 +164,7 @@ export function RequestModal({
                                     {info?.emoji || ""} {info?.label || sport}
                                   </Select.ItemText>
                                   <Select.ItemIndicator className="ml-auto">
-                                    <Check className="h-4 w-4 text-emerald-400" />
+                                    <Check className="h-4 w-4 text-[#1B5E20]" />
                                   </Select.ItemIndicator>
                                 </Select.Item>
                               );

@@ -104,8 +104,8 @@ export function WaitlistPosition({ position, sport, waitlistId, onLeave }: Waitl
       </div>
 
       {position === 1 && (
-        <div className="mt-2 rounded-lg bg-emerald-500/10 px-3 py-1.5">
-          <p className="text-xs font-medium text-emerald-600">
+        <div className="mt-2 rounded-lg bg-[#1B5E20]/10 px-3 py-1.5">
+          <p className="text-xs font-medium text-[#1B5E20]">
             You are next! Get ready to play.
           </p>
         </div>

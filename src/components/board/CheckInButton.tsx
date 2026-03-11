@@ -49,7 +49,7 @@ export function CheckInButton({ playerId, isAvailable, venueId, onToggle }: Chec
         "touch-manipulation select-none",
         available
           ? "bg-gradient-to-r from-red-500 to-rose-600"
-          : "bg-gradient-to-r from-green-500 to-emerald-600",
+          : "bg-gradient-to-r from-green-500 to-[#1B5E20]",
         loading && "opacity-60 cursor-not-allowed"
       )}
       style={{

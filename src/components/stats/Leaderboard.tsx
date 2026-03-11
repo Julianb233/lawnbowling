@@ -57,7 +57,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
           className={cn(
             "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
             sportFilter === "all"
-              ? "bg-emerald-600 text-white"
+              ? "bg-[#1B5E20] text-white"
               : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
           )}
         >
@@ -72,7 +72,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
               className={cn(
                 "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
                 sportFilter === s
-                  ? "bg-emerald-600 text-white"
+                  ? "bg-[#1B5E20] text-white"
                   : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
               )}
             >
@@ -104,7 +104,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                 className={cn(
                   "flex items-center gap-3 rounded-xl border p-3",
                   isMe
-                    ? "border-emerald-500/30 bg-emerald-500/5"
+                    ? "border-[#1B5E20]/30 bg-[#1B5E20]/5"
                     : "border-zinc-200 bg-zinc-50"
                 )}
               >
@@ -125,7 +125,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-medium text-zinc-700">
                     {entry.player?.display_name}
-                    {isMe && <span className="ml-1 text-xs text-emerald-400">(You)</span>}
+                    {isMe && <span className="ml-1 text-xs text-[#1B5E20]">(You)</span>}
                   </p>
                   <p className="text-xs text-zinc-500">
                     {entry.games_played} games &middot; {entry.wins}W/{entry.losses}L
@@ -133,7 +133,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                 </div>
 
                 <div className="text-right">
-                  <p className="text-lg font-bold text-emerald-400">{Math.round(entry.win_rate)}%</p>
+                  <p className="text-lg font-bold text-[#1B5E20]">{Math.round(entry.win_rate)}%</p>
                 </div>
               </motion.div>
             );

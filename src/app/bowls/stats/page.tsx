@@ -255,7 +255,7 @@ export default function BowlsStatsPage() {
                     </div>
 
                     {/* Avatar */}
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#1B5E20] to-emerald-600 text-sm font-bold text-white">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#1B5E20] to-[#1B5E20] text-sm font-bold text-white">
                       {initials}
                     </div>
 
@@ -287,8 +287,8 @@ export default function BowlsStatsPage() {
                       className="mt-4 border-t border-zinc-100 pt-4"
                     >
                       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                        <div className="rounded-xl bg-emerald-50 p-3 text-center">
-                          <p className="text-2xl font-black text-emerald-600">{player.wins}</p>
+                        <div className="rounded-xl bg-[#1B5E20]/5 p-3 text-center">
+                          <p className="text-2xl font-black text-[#1B5E20]">{player.wins}</p>
                           <p className="text-[11px] text-zinc-500">Wins</p>
                         </div>
                         <div className="rounded-xl bg-red-50 p-3 text-center">
@@ -300,7 +300,7 @@ export default function BowlsStatsPage() {
                           <p className="text-[11px] text-zinc-500">Draws</p>
                         </div>
                         <div className="rounded-xl bg-blue-50 p-3 text-center">
-                          <p className="text-2xl font-black text-blue-600">{player.win_rate}%</p>
+                          <p className="text-2xl font-black text-[#1B5E20]">{player.win_rate}%</p>
                           <p className="text-[11px] text-zinc-500">Win Rate</p>
                         </div>
                       </div>
@@ -317,7 +317,7 @@ export default function BowlsStatsPage() {
                         <div className="rounded-xl bg-zinc-50 p-3 text-center">
                           <p className={cn(
                             "text-lg font-black tabular-nums",
-                            player.shot_difference > 0 ? "text-emerald-600" :
+                            player.shot_difference > 0 ? "text-[#1B5E20]" :
                             player.shot_difference < 0 ? "text-red-500" : "text-zinc-400"
                           )}>
                             {player.shot_difference > 0 ? "+" : ""}{player.shot_difference}

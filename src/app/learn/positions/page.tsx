@@ -41,8 +41,8 @@ const positions = [
     name: "Lead",
     order: "1st to bowl",
     icon: Target,
-    color: "bg-blue-500",
-    lightColor: "bg-blue-500/10 text-blue-700 border-blue-200",
+    color: "bg-[#1B5E20]",
+    lightColor: "bg-[#1B5E20]/10 text-[#2E7D32] border-blue-200",
     focus: "Foundation and consistency",
     bowlsFours: 2,
     bowlsTriples: 3,
@@ -180,7 +180,7 @@ const positionsBreadcrumbs = getBreadcrumbSchema([
 
 export default function PositionsPage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <LearnNav />
       <script
         type="application/ld+json"
@@ -220,7 +220,7 @@ export default function PositionsPage() {
                   MAT END
                 </div>
                 <div className="space-y-2 text-xs text-zinc-600">
-                  <div className="rounded-full bg-blue-100 px-3 py-1 font-semibold text-blue-700">
+                  <div className="rounded-full bg-blue-100 px-3 py-1 font-semibold text-[#2E7D32]">
                     Lead bowls 1st
                   </div>
                   <div className="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-700">

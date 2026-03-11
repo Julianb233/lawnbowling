@@ -64,7 +64,7 @@ export default function AdminInsurancePage() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 mb-6">
         <div className="rounded-xl border border-zinc-200 bg-white p-5 text-center">
-          <p className="text-3xl font-black text-emerald-600">{activeCount}</p>
+          <p className="text-3xl font-black text-[#1B5E20]">{activeCount}</p>
           <p className="text-xs text-zinc-500 mt-1">Active Coverage</p>
         </div>
         <div className="rounded-xl border border-zinc-200 bg-white p-5 text-center">
@@ -128,7 +128,7 @@ export default function AdminInsurancePage() {
                       className={cn(
                         "inline-flex rounded-full px-2.5 py-0.5 text-xs font-bold",
                         p.insurance_status === "active"
-                          ? "bg-emerald-100 text-emerald-700"
+                          ? "bg-[#1B5E20]/10 text-[#2E7D32]"
                           : p.insurance_status === "expired"
                             ? "bg-amber-100 text-amber-700"
                             : "bg-zinc-100 text-zinc-500"

@@ -24,7 +24,7 @@ interface TournamentCardProps {
 }
 
 const STATUS_COLORS: Record<TournamentStatus, { bg: string; text: string; label: string }> = {
-  registration: { bg: "bg-blue-500/10", text: "text-blue-400", label: "Open" },
+  registration: { bg: "bg-[#1B5E20]/10", text: "text-blue-400", label: "Open" },
   in_progress: { bg: "bg-amber-500/10", text: "text-amber-400", label: "In Progress" },
   completed: { bg: "bg-green-500/10", text: "text-green-400", label: "Completed" },
   cancelled: { bg: "bg-zinc-500/10", text: "text-zinc-400", label: "Cancelled" },

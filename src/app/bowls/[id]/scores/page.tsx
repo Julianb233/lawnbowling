@@ -403,7 +403,7 @@ export default function ScoreEntryPage() {
               exit={{ opacity: 0, x: 40 }}
               className={cn(
                 "rounded-xl px-4 py-3 text-sm font-semibold shadow-lg",
-                toast.type === "success" && "bg-emerald-600 text-white",
+                toast.type === "success" && "bg-[#1B5E20] text-white",
                 toast.type === "error" && "bg-red-600 text-white",
                 toast.type === "info" && "bg-zinc-800 text-white"
               )}
@@ -427,7 +427,7 @@ export default function ScoreEntryPage() {
                 <span
                   className={cn(
                     "inline-block h-2.5 w-2.5 rounded-full",
-                    realtimeConnected ? "bg-emerald-400" : "bg-zinc-300"
+                    realtimeConnected ? "bg-[#1B5E20]" : "bg-zinc-300"
                   )}
                   title={realtimeConnected ? "Live updates active" : "Connecting..."}
                 />
@@ -450,13 +450,13 @@ export default function ScoreEntryPage() {
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/live`)}
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-emerald-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 min-h-[44px] touch-manipulation"
               >
                 Live View
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/results`)}
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-blue-600 hover:bg-blue-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-blue-50 min-h-[44px] touch-manipulation"
               >
                 Results
               </button>
@@ -505,7 +505,7 @@ export default function ScoreEntryPage() {
                 className={cn(
                   "relative rounded-2xl p-4 text-left transition-all min-h-[120px] touch-manipulation",
                   entry.isFinalized
-                    ? "bg-emerald-50 border-2 border-emerald-200"
+                    ? "bg-[#1B5E20]/5 border-2 border-[#1B5E20]/20"
                     : isActive
                       ? "bg-[#1B5E20]/5 border-2 border-[#1B5E20] shadow-lg"
                       : "bg-white border border-zinc-200 hover:border-zinc-300 hover:shadow-sm"
@@ -520,7 +520,7 @@ export default function ScoreEntryPage() {
                       <span className="h-2 w-2 rounded-full bg-amber-400" title="Unsaved changes" />
                     )}
                     {entry.isFinalized && (
-                      <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
+                      <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-[10px] font-bold text-[#2E7D32]">
                         Final
                       </span>
                     )}
@@ -537,7 +537,7 @@ export default function ScoreEntryPage() {
                         className={cn(
                           "text-2xl font-black tabular-nums",
                           totalA > totalB
-                            ? "text-emerald-600"
+                            ? "text-[#1B5E20]"
                             : totalA < totalB
                               ? "text-zinc-400"
                               : "text-zinc-700"
@@ -554,7 +554,7 @@ export default function ScoreEntryPage() {
                         className={cn(
                           "text-2xl font-black tabular-nums",
                           totalB > totalA
-                            ? "text-emerald-600"
+                            ? "text-[#1B5E20]"
                             : totalB < totalA
                               ? "text-zinc-400"
                               : "text-zinc-700"
@@ -682,7 +682,7 @@ export default function ScoreEntryPage() {
                       <tbody>
                         {/* Team A row */}
                         <tr className="border-t border-zinc-100">
-                          <td className="px-3 py-3 text-sm font-bold text-blue-600 whitespace-nowrap">
+                          <td className="px-3 py-3 text-sm font-bold text-[#1B5E20] whitespace-nowrap">
                             Team A
                           </td>
                           {rinkScores[activeRink].teamAScores.map(
@@ -859,17 +859,17 @@ export default function ScoreEntryPage() {
         </AnimatePresence>
 
         {allFinalized && (
-          <div className="mt-8 rounded-2xl bg-emerald-50 border border-emerald-200 p-6 text-center">
-            <p className="text-lg font-bold text-emerald-800">
+          <div className="mt-8 rounded-2xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-6 text-center">
+            <p className="text-lg font-bold text-[#2E7D32]">
               Round {round} is finalized
             </p>
-            <p className="text-sm text-emerald-600 mt-1">
+            <p className="text-sm text-[#1B5E20] mt-1">
               All scores have been locked.
             </p>
             <div className="mt-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/results`)}
-                className="rounded-xl bg-emerald-500 px-6 py-3 text-sm font-bold text-white hover:bg-emerald-600 min-h-[48px] touch-manipulation"
+                className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#1B5E20] min-h-[48px] touch-manipulation"
               >
                 View Results
               </button>
@@ -938,10 +938,10 @@ function ScoreInput({
           disabled
             ? "bg-zinc-50 text-zinc-400"
             : isWinning
-              ? "bg-emerald-100 text-emerald-700 ring-2 ring-emerald-300"
+              ? "bg-[#1B5E20]/10 text-[#2E7D32] ring-2 ring-[#1B5E20]"
               : value === 0
                 ? "bg-zinc-50 text-zinc-300"
-                : "bg-blue-50 text-blue-700",
+                : "bg-blue-50 text-[#2E7D32]",
           isCurrent && !disabled && "ring-2 ring-[#1B5E20]/30"
         )}
       >

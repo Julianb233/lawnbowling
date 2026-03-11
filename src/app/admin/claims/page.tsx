@@ -64,7 +64,7 @@ export default function AdminClaimsPage() {
 
   const statusIcon = {
     pending: <Clock className="h-4 w-4 text-amber-500" />,
-    approved: <CheckCircle className="h-4 w-4 text-emerald-500" />,
+    approved: <CheckCircle className="h-4 w-4 text-[#1B5E20]" />,
     rejected: <XCircle className="h-4 w-4 text-red-500" />,
   };
 
@@ -135,7 +135,7 @@ export default function AdminClaimsPage() {
                       {claim.player?.display_name ?? "Unknown Player"}
                     </span>
                     {claim.role_at_club && (
-                      <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
+                      <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-[#2E7D32]">
                         {claim.role_at_club}
                       </span>
                     )}
@@ -172,7 +172,7 @@ export default function AdminClaimsPage() {
                         claim.status === "pending"
                           ? "text-amber-600"
                           : claim.status === "approved"
-                          ? "text-emerald-600"
+                          ? "text-[#1B5E20]"
                           : "text-red-600"
                       }`}
                     >
@@ -184,7 +184,7 @@ export default function AdminClaimsPage() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleAction(claim.id, "approve")}
-                        className="rounded-lg bg-emerald-500 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-600 transition-colors"
+                        className="rounded-lg bg-[#1B5E20] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#1B5E20] transition-colors"
                       >
                         Approve
                       </button>

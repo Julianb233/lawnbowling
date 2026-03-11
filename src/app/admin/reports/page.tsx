@@ -50,10 +50,10 @@ export default async function ReportsPage() {
                     report.status === "pending"
                       ? "bg-amber-50 text-amber-700"
                       : report.status === "resolved"
-                      ? "bg-emerald-50 text-emerald-600"
+                      ? "bg-[#1B5E20]/5 text-[#1B5E20]"
                       : report.status === "dismissed"
                       ? "bg-zinc-100 text-zinc-500"
-                      : "bg-blue-50 text-blue-600"
+                      : "bg-blue-50 text-[#1B5E20]"
                   }`}
                 >
                   {report.status}

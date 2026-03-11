@@ -75,7 +75,7 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name"
-          className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 min-h-[44px]"
+          className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]"
           required
         />
       </div>
@@ -83,7 +83,7 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
       <div>
         <label className="mb-1.5 block text-sm font-medium text-zinc-700">Skill Level</label>
         <Select.Root value={skillLevel} onValueChange={(v) => setSkillLevel(v as SkillLevel)}>
-          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-white px-4 py-3 text-zinc-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 min-h-[44px]">
+          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-white px-4 py-3 text-zinc-900 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]">
             <Select.Value />
             <Select.Icon>
               <ChevronDown className="h-4 w-4 text-zinc-400" />
@@ -122,7 +122,7 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
       <button
         type="submit"
         disabled={saving}
-        className="w-full rounded-lg bg-blue-600 px-4 py-3 font-medium text-white transition-colors hover:bg-blue-500 disabled:opacity-50 min-h-[44px]"
+        className="w-full rounded-lg bg-[#1B5E20] px-4 py-3 font-medium text-white transition-colors hover:bg-[#1B5E20] disabled:opacity-50 min-h-[44px]"
       >
         {saving ? "Saving..." : submitLabel}
       </button>

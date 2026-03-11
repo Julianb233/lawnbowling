@@ -47,7 +47,7 @@ export function CartDrawer() {
           </h2>
           <button
             onClick={() => setOpen(false)}
-            className="rounded-lg p-2 hover:bg-gray-100"
+            className="rounded-lg p-2 hover:bg-[#0A2E12]/5"
             aria-label="Close cart"
           >
             <X className="size-5" />
@@ -57,7 +57,7 @@ export function CartDrawer() {
         {/* Items */}
         <div className="flex-1 overflow-y-auto px-5 py-4">
           {items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-16 text-center text-gray-400">
+            <div className="flex flex-col items-center justify-center py-16 text-center text-[#3D5A3E]/70">
               <ShoppingCart className="mb-4 size-12" />
               <p className="text-lg font-medium">Your cart is empty</p>
               <p className="mt-1 text-sm">
@@ -72,7 +72,7 @@ export function CartDrawer() {
                   className="flex gap-4 rounded-lg border p-3"
                 >
                   {/* Thumbnail */}
-                  <div className="size-20 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
+                  <div className="size-20 flex-shrink-0 overflow-hidden rounded-md bg-[#0A2E12]/5">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={item.image}
@@ -86,7 +86,7 @@ export function CartDrawer() {
                       <p className="font-medium leading-tight">
                         {item.productName}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-[#3D5A3E]">
                         {item.variantLabel}
                       </p>
                     </div>
@@ -102,7 +102,7 @@ export function CartDrawer() {
                               item.quantity - 1
                             )
                           }
-                          className="rounded p-1 hover:bg-gray-100"
+                          className="rounded p-1 hover:bg-[#0A2E12]/5"
                           aria-label="Decrease quantity"
                         >
                           <Minus className="size-3.5" />
@@ -118,7 +118,7 @@ export function CartDrawer() {
                               item.quantity + 1
                             )
                           }
-                          className="rounded p-1 hover:bg-gray-100"
+                          className="rounded p-1 hover:bg-[#0A2E12]/5"
                           aria-label="Increase quantity"
                         >
                           <Plus className="size-3.5" />

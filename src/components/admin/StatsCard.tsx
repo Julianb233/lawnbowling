@@ -20,7 +20,7 @@ export function StatsCard({ label, value, trend, className }: StatsCardProps) {
         <p
           className={cn(
             "mt-1 text-xs font-medium",
-            trend > 0 ? "text-emerald-600" : "text-red-600"
+            trend > 0 ? "text-[#1B5E20]" : "text-red-600"
           )}
         >
           {trend > 0 ? "\u2191" : "\u2193"} {Math.abs(trend)}% vs last month

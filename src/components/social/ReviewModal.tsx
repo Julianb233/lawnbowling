@@ -88,7 +88,7 @@ export function ReviewModal({
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Add a comment (optional)"
-          className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-500 resize-none h-20 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+          className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-500 resize-none h-20 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
         />
 
         <div className="mt-4 flex gap-2">
@@ -104,7 +104,7 @@ export function ReviewModal({
             className={cn(
               "flex-1 rounded-xl px-4 py-2.5 text-sm font-bold text-white transition-all",
               rating > 0
-                ? "bg-gradient-to-r from-emerald-500 to-green-600 hover:shadow-lg"
+                ? "bg-gradient-to-r from-[#1B5E20] to-green-600 hover:shadow-lg"
                 : "bg-zinc-200 text-zinc-400 cursor-not-allowed"
             )}
           >

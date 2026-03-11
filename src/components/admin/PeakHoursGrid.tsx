@@ -16,10 +16,10 @@ function getIntensity(value: number, max: number): string {
   if (max === 0) return "bg-zinc-100";
   const ratio = value / max;
   if (ratio === 0) return "bg-zinc-100";
-  if (ratio < 0.25) return "bg-emerald-100";
-  if (ratio < 0.5) return "bg-emerald-200";
-  if (ratio < 0.75) return "bg-emerald-300";
-  return "bg-emerald-400";
+  if (ratio < 0.25) return "bg-[#1B5E20]/10";
+  if (ratio < 0.5) return "bg-[#1B5E20]/15";
+  if (ratio < 0.75) return "bg-[#1B5E20]";
+  return "bg-[#1B5E20]";
 }
 
 export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {

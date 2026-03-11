@@ -39,7 +39,7 @@ export default function PricingPageClient() {
   }
 
   return (
-    <div className="min-h-screen bg-white px-4 py-8 pb-24">
+    <div className="min-h-screen bg-[#FEFCF9] px-4 py-8 pb-24">
       <div className="mx-auto max-w-4xl">
         <button
           onClick={() => router.back()}

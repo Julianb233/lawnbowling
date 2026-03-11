@@ -64,7 +64,7 @@ export function BoardFilters({
           aria-label="Filter by skill level"
           className={cn(
             "rounded-full border border-zinc-300 bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-600",
-            "focus:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20",
+            "focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20",
             "cursor-pointer backdrop-blur"
           )}
         >

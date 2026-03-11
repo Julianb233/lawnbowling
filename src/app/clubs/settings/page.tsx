@@ -396,7 +396,7 @@ export default function ClubSettingsPage() {
           )}
 
           {saved && (
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700 flex items-center gap-2">
+            <div className="rounded-xl border border-[#1B5E20]/15 bg-[#1B5E20]/5 p-4 text-sm text-[#2E7D32] flex items-center gap-2">
               <CheckCircle className="h-4 w-4" />
               Changes saved successfully!
             </div>

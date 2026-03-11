@@ -62,7 +62,7 @@ export default function PlayersAdminPage() {
           placeholder="Search by name..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none flex-1 max-w-xs"
+          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none flex-1 max-w-xs"
         />
         <select
           value={skillFilter}
@@ -106,10 +106,10 @@ export default function PlayersAdminPage() {
                   </td>
                   <td className="py-3">
                     <span
-                      className={`inline-flex items-center gap-1 text-xs ${player.is_available ? "text-emerald-600" : "text-zinc-500"}`}
+                      className={`inline-flex items-center gap-1 text-xs ${player.is_available ? "text-[#1B5E20]" : "text-zinc-500"}`}
                     >
                       <span
-                        className={`h-2 w-2 rounded-full ${player.is_available ? "bg-emerald-500" : "bg-zinc-400"}`}
+                        className={`h-2 w-2 rounded-full ${player.is_available ? "bg-[#1B5E20]" : "bg-zinc-400"}`}
                       />
                       {player.is_available ? "Online" : "Offline"}
                     </span>

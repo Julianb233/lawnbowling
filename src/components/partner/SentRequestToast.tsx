@@ -22,9 +22,9 @@ const STATUS_CONFIG = {
       const info = SPORT_LABELS[sport as Sport];
       return `You and ${name} are matched for ${info?.label || sport}!`;
     },
-    containerClass: "bg-emerald-500/15 ring-1 ring-emerald-500/30",
-    iconClass: "bg-emerald-500/20 text-emerald-400",
-    textClass: "text-emerald-300",
+    containerClass: "bg-[#1B5E20]/15 ring-1 ring-[#1B5E20]/30",
+    iconClass: "bg-[#1B5E20]/20 text-[#1B5E20]",
+    textClass: "text-[#1B5E20]",
   },
   declined: {
     icon: X,

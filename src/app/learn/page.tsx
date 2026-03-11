@@ -87,7 +87,7 @@ const topics = [
       "Understand the four team positions -- Lead, Second, Third (Vice-Skip), and Skip -- their roles, responsibilities, and shot types.",
     href: "/learn/positions",
     icon: Users,
-    color: "bg-blue-500/10 text-blue-700",
+    color: "bg-[#1B5E20]/10 text-[#2E7D32]",
     borderColor: "border-blue-200 hover:border-blue-400",
   },
   {
@@ -149,7 +149,7 @@ const quickFacts = [
 
 export default function LearnHubPage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <LearnNav />
       <script
         type="application/ld+json"

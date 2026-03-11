@@ -105,7 +105,7 @@ export default function VenueCheckInPage({
             animate={{ opacity: 1 }}
             className="flex flex-col items-center gap-4 py-16"
           >
-            <Loader2 className="h-12 w-12 animate-spin text-emerald-500" />
+            <Loader2 className="h-12 w-12 animate-spin text-[#1B5E20]" />
             <p className="text-sm text-zinc-500">Loading venue...</p>
           </motion.div>
         )}
@@ -116,7 +116,7 @@ export default function VenueCheckInPage({
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center gap-4 py-16"
           >
-            <Loader2 className="h-12 w-12 animate-spin text-emerald-500" />
+            <Loader2 className="h-12 w-12 animate-spin text-[#1B5E20]" />
             <h2 className="text-lg font-bold text-zinc-900">Checking in...</h2>
             <div className="flex items-center gap-2 text-sm text-zinc-500">
               <MapPin className="h-4 w-4" />
@@ -129,14 +129,14 @@ export default function VenueCheckInPage({
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center gap-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center"
+            className="flex flex-col items-center gap-6 rounded-2xl border border-[#1B5E20]/15 bg-[#1B5E20]/5 p-8 text-center"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 300, delay: 0.1 }}
             >
-              <CheckCircle2 className="h-16 w-16 text-emerald-500" />
+              <CheckCircle2 className="h-16 w-16 text-[#1B5E20]" />
             </motion.div>
             <div>
               <h2 className="text-xl font-bold text-zinc-900">You're Checked In!</h2>
@@ -145,12 +145,12 @@ export default function VenueCheckInPage({
               </p>
             </div>
             <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm text-zinc-600">
-              <MapPin className="h-4 w-4 text-emerald-500" />
+              <MapPin className="h-4 w-4 text-[#1B5E20]" />
               {venue.name}
             </div>
             <Link
               href="/board"
-              className="mt-2 w-full rounded-xl bg-emerald-500 py-3 text-center text-sm font-bold text-white hover:bg-emerald-600 transition-colors"
+              className="mt-2 w-full rounded-xl bg-[#1B5E20] py-3 text-center text-sm font-bold text-white hover:bg-[#1B5E20] transition-colors"
             >
               Go to Board
             </Link>
@@ -172,13 +172,13 @@ export default function VenueCheckInPage({
             </div>
             <Link
               href={`/login?redirect=/checkin/${venueId}`}
-              className="w-full rounded-xl bg-emerald-500 py-3 text-center text-sm font-bold text-white hover:bg-emerald-600 transition-colors"
+              className="w-full rounded-xl bg-[#1B5E20] py-3 text-center text-sm font-bold text-white hover:bg-[#1B5E20] transition-colors"
             >
               Sign In
             </Link>
             <Link
               href={`/signup?redirect=/checkin/${venueId}`}
-              className="text-sm text-emerald-600 hover:text-emerald-700"
+              className="text-sm text-[#1B5E20] hover:text-[#2E7D32]"
             >
               Create an Account
             </Link>

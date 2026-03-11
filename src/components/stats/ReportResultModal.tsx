@@ -74,7 +74,7 @@ export function ReportResultModal({ open, onOpenChange, matchId, onReported }: R
                   className={cn(
                     "rounded-xl border p-4 text-center transition-all",
                     winnerTeam === 1
-                      ? "border-blue-500 bg-blue-500/10 text-blue-400"
+                      ? "border-[#1B5E20] bg-[#1B5E20]/10 text-blue-400"
                       : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
                   )}
                 >
@@ -107,7 +107,7 @@ export function ReportResultModal({ open, onOpenChange, matchId, onReported }: R
                   value={team1Score}
                   onChange={(e) => setTeam1Score(e.target.value)}
                   placeholder="T1"
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-center text-lg font-bold text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-center text-lg font-bold text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none"
                 />
                 <span className="text-zinc-600 font-bold">vs</span>
                 <input
@@ -128,7 +128,7 @@ export function ReportResultModal({ open, onOpenChange, matchId, onReported }: R
             <button
               type="submit"
               disabled={loading || winnerTeam === null}
-              className="w-full rounded-xl bg-emerald-600 py-3 font-semibold text-white transition-colors hover:bg-emerald-500 disabled:opacity-50"
+              className="w-full rounded-xl bg-[#1B5E20] py-3 font-semibold text-white transition-colors hover:bg-[#1B5E20] disabled:opacity-50"
             >
               {loading ? "Reporting..." : "Submit Result"}
             </button>

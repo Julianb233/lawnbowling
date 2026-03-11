@@ -188,7 +188,7 @@ export default function BowlsHistoryPage() {
                         className={`rounded-full px-2.5 py-1 text-[11px] font-bold shrink-0 ml-3 ${
                           isCompleted
                             ? "bg-zinc-100 text-zinc-500"
-                            : "bg-emerald-100 text-emerald-700"
+                            : "bg-[#1B5E20]/10 text-[#2E7D32]"
                         }`}
                       >
                         {isCompleted ? "Completed" : "Active"}
@@ -201,7 +201,7 @@ export default function BowlsHistoryPage() {
                         <span className="font-bold text-[#1B5E20]">{t.checkin_count}</span> players
                       </span>
                       <span className="flex items-center gap-1">
-                        <span className="font-bold text-blue-600">{t.rounds_played}</span> round{t.rounds_played !== 1 ? "s" : ""}
+                        <span className="font-bold text-[#1B5E20]">{t.rounds_played}</span> round{t.rounds_played !== 1 ? "s" : ""}
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="font-bold text-purple-600">{t.total_rinks}</span> rink game{t.total_rinks !== 1 ? "s" : ""}

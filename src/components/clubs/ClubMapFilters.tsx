@@ -82,7 +82,7 @@ function FilterChip({
         small ? "px-2.5 py-1 text-[11px]" : "px-3 py-1.5 text-xs"
       } ${
         active
-          ? "border-emerald-500 bg-emerald-500 text-white"
+          ? "border-[#1B5E20] bg-[#1B5E20] text-white"
           : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300"
       }`}
     >

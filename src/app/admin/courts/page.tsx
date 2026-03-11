@@ -109,7 +109,7 @@ export default function CourtsAdminPage() {
           placeholder="Court name"
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
-          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-emerald-500 focus:outline-none"
+          className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
           onKeyDown={(e) => e.key === "Enter" && handleAdd()}
         />
         <select
@@ -129,7 +129,7 @@ export default function CourtsAdminPage() {
       {sports === DEFAULT_SPORTS && (
         <p className="text-xs text-zinc-500 mb-4">
           Using default sports list. Configure venue sports in{" "}
-          <a href="/admin/venue" className="text-emerald-600 hover:underline">
+          <a href="/admin/venue" className="text-[#1B5E20] hover:underline">
             Venue Settings
           </a>{" "}
           to customize.
@@ -183,7 +183,7 @@ export default function CourtsAdminPage() {
                     {court.sport.replace("_", " ")}
                   </span>
                   <span
-                    className={`ml-2 inline-block h-2 w-2 rounded-full ${court.is_available ? "bg-emerald-500" : "bg-red-500"}`}
+                    className={`ml-2 inline-block h-2 w-2 rounded-full ${court.is_available ? "bg-[#1B5E20]" : "bg-red-500"}`}
                   />
                 </div>
                 <div className="flex gap-1">

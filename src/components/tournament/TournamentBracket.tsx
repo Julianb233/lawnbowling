@@ -122,7 +122,7 @@ function EliminationBracket({ matches, onReportResult, currentPlayerId }: Omit<T
                     {canReport && onReportResult && (
                       <button
                         onClick={() => onReportResult(match.id)}
-                        className="mt-1 rounded-lg bg-emerald-600/20 px-2 py-1 text-xs font-medium text-emerald-400 hover:bg-emerald-600/30"
+                        className="mt-1 rounded-lg bg-[#1B5E20]/20 px-2 py-1 text-xs font-medium text-[#1B5E20] hover:bg-[#1B5E20]/30"
                       >
                         Report Result
                       </button>
@@ -163,7 +163,7 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
         </div>
         <div className="h-2 overflow-hidden rounded-full bg-zinc-200">
           <motion.div
-            className="h-full rounded-full bg-emerald-500"
+            className="h-full rounded-full bg-[#1B5E20]"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -211,23 +211,23 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
                       <div className="flex-1 space-y-1.5">
                         <div className={cn(
                           "flex items-center gap-2 text-sm font-medium",
-                          p1Won ? "text-emerald-600" : "text-zinc-700"
+                          p1Won ? "text-[#1B5E20]" : "text-zinc-700"
                         )}>
                           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-500">
                             {match.player1?.display_name?.[0]?.toUpperCase() ?? "?"}
                           </div>
                           <span className="truncate">{match.player1?.display_name ?? "TBD"}</span>
-                          {p1Won && <span className="text-emerald-500">W</span>}
+                          {p1Won && <span className="text-[#1B5E20]">W</span>}
                         </div>
                         <div className={cn(
                           "flex items-center gap-2 text-sm font-medium",
-                          p2Won ? "text-emerald-600" : "text-zinc-700"
+                          p2Won ? "text-[#1B5E20]" : "text-zinc-700"
                         )}>
                           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-500">
                             {match.player2?.display_name?.[0]?.toUpperCase() ?? "?"}
                           </div>
                           <span className="truncate">{match.player2?.display_name ?? "TBD"}</span>
-                          {p2Won && <span className="text-emerald-500">W</span>}
+                          {p2Won && <span className="text-[#1B5E20]">W</span>}
                         </div>
                       </div>
                       <div className="flex flex-col items-end gap-1">
@@ -237,7 +237,7 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
                         {canReport && onReportResult ? (
                           <button
                             onClick={() => onReportResult(match.id)}
-                            className="rounded-lg bg-emerald-600/20 px-2.5 py-1 text-xs font-medium text-emerald-500 hover:bg-emerald-600/30"
+                            className="rounded-lg bg-[#1B5E20]/20 px-2.5 py-1 text-xs font-medium text-[#1B5E20] hover:bg-[#1B5E20]/30"
                           >
                             Report
                           </button>

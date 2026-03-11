@@ -4,13 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Home, Trophy, CircleDot, Calendar, User, type LucideIcon } from "lucide-react";
 
-const NAV_ITEMS = [
-  { href: "/board", label: "Home", icon: "\u{1F3E0}" },
-  { href: "/tournament", label: "Tourney", icon: "\u{1F3C6}" },
-  { href: "/bowls", label: "Bowls", icon: "\u{1F3B3}" },
-  { href: "/schedule", label: "Schedule", icon: "\u{1F4C5}" },
-  { href: "/profile", label: "Me", icon: "\u{1F464}" },
+const NAV_ITEMS: { href: string; label: string; icon: LucideIcon }[] = [
+  { href: "/board", label: "Home", icon: Home },
+  { href: "/tournament", label: "Tourney", icon: Trophy },
+  { href: "/bowls", label: "Bowls", icon: CircleDot },
+  { href: "/schedule", label: "Schedule", icon: Calendar },
+  { href: "/profile", label: "Me", icon: User },
 ];
 
 export function BottomNav() {
@@ -31,15 +32,15 @@ export function BottomNav() {
               href={item.href}
               className={cn(
                 "relative flex flex-col items-center justify-center gap-0.5 px-4 py-2 text-xs transition-colors min-h-[44px]",
-                active ? "text-emerald-400 font-semibold" : "text-zinc-500"
+                active ? "text-[#1B5E20] font-semibold" : "text-zinc-500"
               )}
             >
-              <span className="text-xl">{item.icon}</span>
+              <item.icon className="w-5 h-5" strokeWidth={1.5} />
               <span>{item.label}</span>
               {active && (
                 <motion.div
                   layoutId="nav-indicator"
-                  className="absolute -top-0.5 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-emerald-400"
+                  className="absolute -top-0.5 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-[#1B5E20]"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}

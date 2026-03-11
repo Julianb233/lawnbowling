@@ -58,10 +58,10 @@ const formats = [
   {
     name: "Pairs",
     icon: Users,
-    color: "bg-blue-500",
+    color: "bg-[#1B5E20]",
     lightBg: "bg-blue-50",
     lightBorder: "border-blue-200",
-    textColor: "text-blue-700",
+    textColor: "text-[#2E7D32]",
     playersPerSide: 2,
     bowlsPerPlayer: 4,
     totalBowlsPerEnd: 16,
@@ -162,7 +162,7 @@ const formatsBreadcrumbs = getBreadcrumbSchema([
 
 export default function FormatsPage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <LearnNav />
       <script
         type="application/ld+json"

@@ -95,7 +95,7 @@ const comparisonRows = [
 
 export default function LawnBowlingVsBoccePage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <LearnNav />
       <script
         type="application/ld+json"

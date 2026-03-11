@@ -86,7 +86,7 @@ export function WeeklyActivity({ playerId }: WeeklyActivityProps) {
               <div
                 className={cn(
                   "w-full rounded-t-md transition-all",
-                  d.count > 0 ? "bg-emerald-500" : "bg-zinc-100"
+                  d.count > 0 ? "bg-[#1B5E20]" : "bg-zinc-100"
                 )}
                 style={{ height: `${height}%`, minHeight: 3 }}
               />

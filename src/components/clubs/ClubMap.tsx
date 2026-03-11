@@ -110,7 +110,7 @@ export function ClubMap({ fullScreen = false }: ClubMapProps) {
         className="absolute bottom-6 right-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-zinc-200 bg-white shadow-lg transition-transform hover:scale-105 active:scale-95 touch-manipulation"
         title="Find clubs near me"
       >
-        <Navigation className="h-5 w-5 text-emerald-600" />
+        <Navigation className="h-5 w-5 text-[#1B5E20]" />
       </button>
     </div>
   );

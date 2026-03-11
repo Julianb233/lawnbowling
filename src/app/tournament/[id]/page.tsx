@@ -101,7 +101,7 @@ export default function TournamentDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-[#FEFCF9]">
         <div className="mx-auto max-w-3xl px-4 py-8">
           <div className="h-48 animate-pulse rounded-2xl bg-zinc-100" />
         </div>
@@ -111,10 +111,10 @@ export default function TournamentDetailPage() {
 
   if (!tournament) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-[#FEFCF9]">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center">
           <p className="text-zinc-500">Tournament not found</p>
-          <Link href="/tournament" className="mt-4 inline-block text-sm text-emerald-400 hover:underline">
+          <Link href="/tournament" className="mt-4 inline-block text-sm text-[#1B5E20] hover:underline">
             Back to tournaments
           </Link>
         </div>
@@ -133,7 +133,7 @@ export default function TournamentDetailPage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-white pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
       <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <Link href="/tournament" className="mb-2 flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-600">
@@ -234,7 +234,7 @@ export default function TournamentDetailPage() {
                         className={cn(
                           "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left",
                           winnerId === p.id
-                            ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
+                            ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
                             : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
                         )}
                       >
@@ -250,7 +250,7 @@ export default function TournamentDetailPage() {
                     value={score}
                     onChange={(e) => setScore(e.target.value)}
                     placeholder="e.g. 21-15"
-                    className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                   />
                 </div>
                 <div className="flex gap-2">
@@ -268,7 +268,7 @@ export default function TournamentDetailPage() {
                   <button
                     type="submit"
                     disabled={!winnerId}
-                    className="flex-1 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-500 disabled:opacity-50"
+                    className="flex-1 rounded-xl bg-[#1B5E20] px-4 py-3 text-sm font-semibold text-white hover:bg-[#1B5E20] disabled:opacity-50"
                   >
                     Submit
                   </button>

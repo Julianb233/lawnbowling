@@ -103,7 +103,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
 
           <button
             onClick={() => isLast ? handleComplete() : setStep(step + 1)}
-            className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-3 text-sm font-bold text-white hover:shadow-lg hover:shadow-green-500/25 min-h-[48px]"
+            className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-green-500 to-[#1B5E20] px-8 py-3 text-sm font-bold text-white hover:shadow-lg hover:shadow-green-500/25 min-h-[48px]"
           >
             {isLast ? "Get Started" : "Next"} <ChevronRight className="h-4 w-4" />
           </button>

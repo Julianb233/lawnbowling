@@ -57,7 +57,7 @@ export function SearchResults({ players, teams, games, onSelect }: SearchResults
               onClick={() => onSelect("team", t.id)}
               className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-zinc-50 min-h-[44px]"
             >
-              <Users className="h-4 w-4 shrink-0 text-blue-500" />
+              <Users className="h-4 w-4 shrink-0 text-[#1B5E20]" />
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-zinc-700">{t.name}</p>
                 <p className="text-xs text-zinc-500">{t.sport}</p>

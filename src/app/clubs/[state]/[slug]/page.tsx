@@ -155,9 +155,9 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
             <span
               className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold ${
                 club.status === "claimed"
-                  ? "bg-blue-50 text-blue-700"
+                  ? "bg-blue-50 text-[#2E7D32]"
                   : club.status === "active"
-                    ? "bg-emerald-50 text-emerald-700"
+                    ? "bg-[#1B5E20]/5 text-[#2E7D32]"
                     : club.status === "seasonal"
                       ? "bg-amber-50 text-amber-700"
                       : "bg-zinc-100 text-zinc-500"
@@ -257,7 +257,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                   {club.facilities.map((facility) => (
                     <span
                       key={facility}
-                      className="rounded-full bg-emerald-50 px-3 py-1.5 text-sm font-medium text-emerald-700"
+                      className="rounded-full bg-[#1B5E20]/5 px-3 py-1.5 text-sm font-medium text-[#2E7D32]"
                     >
                       {facility}
                     </span>
@@ -428,7 +428,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                         </span>
                       )}
                       {nearby.greens && (
-                        <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-600">
+                        <span className="rounded-full bg-[#1B5E20]/5 px-2 py-0.5 text-[11px] font-medium text-[#1B5E20]">
                           {nearby.greens} green{nearby.greens !== 1 ? "s" : ""}
                         </span>
                       )}

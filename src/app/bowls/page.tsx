@@ -198,7 +198,7 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
             <span
               className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
                 isActive
-                  ? "bg-emerald-100 text-emerald-700"
+                  ? "bg-[#1B5E20]/10 text-[#2E7D32]"
                   : "bg-zinc-100 text-zinc-500"
               }`}
             >

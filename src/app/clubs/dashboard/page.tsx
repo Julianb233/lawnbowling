@@ -53,13 +53,13 @@ interface ClubDashboardData {
 const PLAN_LABELS: Record<string, { name: string; color: string; bg: string }> = {
   free: { name: "Free", color: "text-zinc-700", bg: "bg-zinc-100" },
   club: { name: "Club", color: "text-[#1B5E20]", bg: "bg-[#1B5E20]/10" },
-  pro: { name: "Pro", color: "text-blue-700", bg: "bg-blue-50" },
+  pro: { name: "Pro", color: "text-[#2E7D32]", bg: "bg-blue-50" },
 };
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
   active: {
     label: "Active",
-    color: "text-emerald-700 bg-emerald-50 border-emerald-200",
+    color: "text-[#2E7D32] bg-[#1B5E20]/5 border-[#1B5E20]/15",
     icon: <CheckCircle className="h-4 w-4" />,
   },
   past_due: {
@@ -74,7 +74,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; icon: React.
   },
   trialing: {
     label: "Trial",
-    color: "text-blue-700 bg-blue-50 border-blue-200",
+    color: "text-[#2E7D32] bg-blue-50 border-blue-200",
     icon: <Clock className="h-4 w-4" />,
   },
 };
@@ -246,7 +246,7 @@ function ClubDashboardContent() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700 flex items-center gap-2"
+            className="rounded-xl border border-[#1B5E20]/15 bg-[#1B5E20]/5 px-4 py-3 text-sm text-[#2E7D32] flex items-center gap-2"
           >
             <CheckCircle className="h-4 w-4 shrink-0" />
             Your subscription is now active! Welcome to the {planInfo.name}{" "}
@@ -401,7 +401,7 @@ function ClubDashboardContent() {
             label="Games Played"
             value={stats.totalGamesPlayed}
             icon={<BarChart3 className="h-5 w-5" />}
-            color="text-blue-600 bg-blue-50"
+            color="text-[#1B5E20] bg-blue-50"
           />
           <StatCard
             label="Avg per Tournament"
@@ -441,7 +441,7 @@ function ClubDashboardContent() {
               icon={<BarChart3 className="h-5 w-5" />}
               title="View History"
               description="Past matches, scores, and stats"
-              color="bg-blue-50 text-blue-600"
+              color="bg-blue-50 text-[#1B5E20]"
             />
             <QuickLink
               href="/schedule"
@@ -514,7 +514,7 @@ function ClubDashboardContent() {
               </div>
               <Link
                 href={`/clubs/${club.stateCode.toLowerCase()}/${club.slug}`}
-                className="inline-flex items-center gap-1 text-sm font-medium text-blue-500 hover:text-blue-600"
+                className="inline-flex items-center gap-1 text-sm font-medium text-[#1B5E20] hover:text-[#1B5E20]"
               >
                 View
                 <ExternalLink className="h-3.5 w-3.5" />

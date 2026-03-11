@@ -36,8 +36,8 @@ export function ClubMapMarker({ club, isSelected, onSelect }: ClubMapMarkerProps
         <div
           className={`flex h-8 w-8 items-center justify-center rounded-full border-2 shadow-md transition-transform ${
             isSelected
-              ? "scale-125 border-emerald-600 bg-emerald-500"
-              : "border-white bg-emerald-600 hover:scale-110"
+              ? "scale-125 border-[#1B5E20] bg-[#1B5E20]"
+              : "border-white bg-[#1B5E20] hover:scale-110"
           }`}
         >
           <span className="text-sm">🎳</span>
@@ -61,13 +61,13 @@ export function ClubMapMarker({ club, isSelected, onSelect }: ClubMapMarkerProps
 
             <div className="mt-2 flex flex-wrap gap-1">
               {club.memberCount && (
-                <span className="inline-flex items-center gap-0.5 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700">
+                <span className="inline-flex items-center gap-0.5 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-[#2E7D32]">
                   <Users className="h-2.5 w-2.5" />
                   {club.memberCount}
                 </span>
               )}
               {club.surfaceType !== "unknown" && (
-                <span className="inline-flex items-center gap-0.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
+                <span className="inline-flex items-center gap-0.5 rounded-full bg-[#1B5E20]/5 px-2 py-0.5 text-[10px] font-medium text-[#2E7D32]">
                   <Leaf className="h-2.5 w-2.5" />
                   {SURFACE_LABELS[club.surfaceType]}
                 </span>
@@ -87,7 +87,7 @@ export function ClubMapMarker({ club, isSelected, onSelect }: ClubMapMarkerProps
 
             <Link
               href={`/clubs/${club.stateCode.toLowerCase()}/${club.id}`}
-              className="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-emerald-500 px-3 py-2 text-xs font-bold text-white hover:bg-emerald-600 transition-colors"
+              className="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-[#1B5E20] px-3 py-2 text-xs font-bold text-white hover:bg-[#1B5E20] transition-colors"
             >
               View Club →
             </Link>

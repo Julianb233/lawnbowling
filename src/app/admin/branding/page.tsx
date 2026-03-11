@@ -51,7 +51,7 @@ export default function BrandingPage() {
             value={venue.logo_url || ""}
             onChange={(e) => setVenue({ ...venue, logo_url: e.target.value })}
             placeholder="https://..."
-            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
           />
         </div>
 
@@ -61,7 +61,7 @@ export default function BrandingPage() {
             value={venue.tagline || ""}
             onChange={(e) => setVenue({ ...venue, tagline: e.target.value })}
             placeholder="Your awesome tagline"
-            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
           />
         </div>
 
@@ -106,7 +106,7 @@ export default function BrandingPage() {
             value={venue.contact_email || ""}
             onChange={(e) => setVenue({ ...venue, contact_email: e.target.value })}
             placeholder="info@venue.com"
-            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
           />
         </div>
 
@@ -116,7 +116,7 @@ export default function BrandingPage() {
             value={venue.contact_phone || ""}
             onChange={(e) => setVenue({ ...venue, contact_phone: e.target.value })}
             placeholder="(555) 123-4567"
-            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
           />
         </div>
 
@@ -126,7 +126,7 @@ export default function BrandingPage() {
             value={venue.website_url || ""}
             onChange={(e) => setVenue({ ...venue, website_url: e.target.value })}
             placeholder="https://yourvenue.com"
-            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
           />
         </div>
       </div>
@@ -153,11 +153,11 @@ export default function BrandingPage() {
         <button
           onClick={save}
           disabled={isPending}
-          className="rounded-lg bg-emerald-500 px-6 py-2.5 text-sm font-bold text-zinc-900 hover:bg-emerald-400 transition-colors"
+          className="rounded-lg bg-[#1B5E20] px-6 py-2.5 text-sm font-bold text-zinc-900 hover:bg-[#1B5E20] transition-colors"
         >
           {isPending ? "Saving..." : "Save Changes"}
         </button>
-        {saved && <span className="text-sm text-emerald-600">Saved!</span>}
+        {saved && <span className="text-sm text-[#1B5E20]">Saved!</span>}
       </div>
     </div>
   );

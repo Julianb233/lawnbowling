@@ -96,7 +96,7 @@ export default function LiveScoresPage() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-950">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-emerald-400 border-t-transparent" />
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
@@ -116,7 +116,7 @@ export default function LiveScoresPage() {
                   <span
                     className={cn(
                       "inline-block h-2.5 w-2.5 rounded-full",
-                      connected ? "bg-emerald-400 animate-pulse" : "bg-zinc-600"
+                      connected ? "bg-[#1B5E20] animate-pulse" : "bg-zinc-600"
                     )}
                   />
                   <span className="text-xs font-medium text-zinc-400">
@@ -152,7 +152,7 @@ export default function LiveScoresPage() {
                   className={cn(
                     "flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold transition-colors touch-manipulation",
                     round === r
-                      ? "bg-emerald-500 text-white"
+                      ? "bg-[#1B5E20] text-white"
                       : "bg-white/10 text-zinc-400 hover:bg-white/20"
                   )}
                 >
@@ -186,7 +186,7 @@ export default function LiveScoresPage() {
                   className={cn(
                     "rounded-2xl border overflow-hidden",
                     score.is_finalized
-                      ? "border-emerald-500/30 bg-emerald-500/5"
+                      ? "border-[#1B5E20]/30 bg-[#1B5E20]/5"
                       : "border-white/10 bg-white/[0.03]"
                   )}
                 >
@@ -202,7 +202,7 @@ export default function LiveScoresPage() {
                         </span>
                       )}
                       {score.is_finalized ? (
-                        <span className="rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-[10px] font-bold text-emerald-400">
+                        <span className="rounded-full bg-[#1B5E20]/20 px-2.5 py-0.5 text-[10px] font-bold text-[#1B5E20]">
                           Final
                         </span>
                       ) : (
@@ -220,7 +220,7 @@ export default function LiveScoresPage() {
                         className={cn(
                           "text-center p-3 rounded-xl",
                           score.winner === "team_a"
-                            ? "bg-blue-500/10 ring-1 ring-blue-500/30"
+                            ? "bg-[#1B5E20]/10 ring-1 ring-[#1B5E20]/30"
                             : "bg-white/5"
                         )}
                       >
@@ -328,7 +328,7 @@ export default function LiveScoresPage() {
                                   className={cn(
                                     "px-1.5 py-1.5 text-center font-bold tabular-nums",
                                     s > score.team_b_scores[i]
-                                      ? "text-emerald-400"
+                                      ? "text-[#1B5E20]"
                                       : s === 0
                                         ? "text-zinc-700"
                                         : "text-zinc-400"
@@ -351,7 +351,7 @@ export default function LiveScoresPage() {
                                   className={cn(
                                     "px-1.5 py-1.5 text-center font-bold tabular-nums",
                                     s > score.team_a_scores[i]
-                                      ? "text-emerald-400"
+                                      ? "text-[#1B5E20]"
                                       : s === 0
                                         ? "text-zinc-700"
                                         : "text-zinc-400"

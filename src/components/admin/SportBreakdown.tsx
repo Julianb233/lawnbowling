@@ -7,8 +7,8 @@ interface SportBreakdownProps {
 }
 
 const COLORS: Record<string, string> = {
-  pickleball: "bg-emerald-500",
-  lawn_bowling: "bg-blue-500",
+  pickleball: "bg-[#1B5E20]",
+  lawn_bowling: "bg-[#1B5E20]",
   tennis: "bg-amber-500",
 };
 

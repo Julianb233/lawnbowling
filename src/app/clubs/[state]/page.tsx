@@ -199,13 +199,13 @@ function ClubListCard({ club }: { club: ClubData }) {
 
             <div className="mt-3 flex flex-wrap gap-1.5">
               {club.memberCount && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">
+                <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-[#2E7D32]">
                   <Users className="h-3 w-3" />
                   {club.memberCount} members
                 </span>
               )}
               {club.greens && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#1B5E20]/5 px-2.5 py-1 text-xs font-medium text-[#2E7D32]">
                   <Leaf className="h-3 w-3" />
                   {club.greens} {club.greens === 1 ? "green" : "greens"}
                   {club.rinks && ` · ${club.rinks} rinks`}

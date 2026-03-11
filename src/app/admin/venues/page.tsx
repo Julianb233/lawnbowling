@@ -57,7 +57,7 @@ export default function VenuesAdminPage() {
             placeholder="Venue name"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
-            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-emerald-500 focus:outline-none flex-1"
+            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-[#1B5E20] focus:outline-none flex-1"
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
           />
           <input
@@ -65,7 +65,7 @@ export default function VenuesAdminPage() {
             placeholder="Address (optional)"
             value={newAddress}
             onChange={(e) => setNewAddress(e.target.value)}
-            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-emerald-500 focus:outline-none flex-1"
+            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-[#1B5E20] focus:outline-none flex-1"
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
           />
           <Button onClick={handleCreate} disabled={creating || !newName.trim()}>
@@ -81,7 +81,7 @@ export default function VenuesAdminPage() {
             key={venue.id}
             className={`flex items-center justify-between rounded-lg border px-4 py-3 transition-colors ${
               venue.id === selectedVenueId
-                ? "border-emerald-600 bg-emerald-950/30"
+                ? "border-[#1B5E20] bg-[#1B5E20]/10"
                 : "border-zinc-200 bg-white"
             }`}
           >
@@ -96,7 +96,7 @@ export default function VenuesAdminPage() {
                 </span>
               )}
               {venue.id === selectedVenueId && (
-                <span className="ml-2 inline-block rounded-full bg-emerald-600/20 px-2 py-0.5 text-xs font-medium text-emerald-400">
+                <span className="ml-2 inline-block rounded-full bg-[#1B5E20]/20 px-2 py-0.5 text-xs font-medium text-[#1B5E20]">
                   Active
                 </span>
               )}

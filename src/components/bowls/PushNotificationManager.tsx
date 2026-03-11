@@ -83,7 +83,7 @@ export function PushNotificationManager({
           <div
             className={cn(
               "flex h-10 w-10 items-center justify-center rounded-full",
-              isSubscribed ? "bg-emerald-100" : "bg-zinc-100"
+              isSubscribed ? "bg-[#1B5E20]/10" : "bg-zinc-100"
             )}
           >
             <svg
@@ -96,7 +96,7 @@ export function PushNotificationManager({
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className={isSubscribed ? "text-emerald-600" : "text-zinc-400"}
+              className={isSubscribed ? "text-[#1B5E20]" : "text-zinc-400"}
             >
               <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
               <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
@@ -120,7 +120,7 @@ export function PushNotificationManager({
             "rounded-xl px-4 py-2 text-sm font-semibold transition-colors",
             isSubscribed
               ? "border border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-50"
-              : "bg-emerald-600 text-white hover:bg-emerald-700"
+              : "bg-[#1B5E20] text-white hover:bg-[#2E7D32]"
           )}
         >
           {isSubscribed ? "Unsubscribe" : "Subscribe"}

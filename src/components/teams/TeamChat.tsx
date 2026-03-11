@@ -44,7 +44,7 @@ export function TeamChat({ teamId, currentUserId }: TeamChatProps) {
   if (loading) {
     return (
       <div className="flex h-96 items-center justify-center">
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
@@ -84,7 +84,7 @@ export function TeamChat({ teamId, currentUserId }: TeamChatProps) {
                   className={cn(
                     "rounded-2xl px-3.5 py-2 text-sm",
                     isMe
-                      ? "rounded-br-md bg-emerald-600 text-white"
+                      ? "rounded-br-md bg-[#1B5E20] text-white"
                       : "rounded-bl-md bg-zinc-100 text-zinc-700"
                   )}
                 >
@@ -109,12 +109,12 @@ export function TeamChat({ teamId, currentUserId }: TeamChatProps) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type a message..."
-          className="flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none"
+          className="flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none"
         />
         <button
           type="submit"
           disabled={!input.trim() || sending}
-          className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white transition-colors hover:bg-emerald-500 disabled:opacity-40"
+          className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B5E20] text-white transition-colors hover:bg-[#1B5E20] disabled:opacity-40"
         >
           <Send className="h-4 w-4" />
         </button>

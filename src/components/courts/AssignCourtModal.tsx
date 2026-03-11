@@ -69,7 +69,7 @@ export function AssignCourtModal({
             {availableCourts.map((court) => (
               <button
                 key={court.id}
-                className="flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-zinc-100 px-4 py-3 text-left hover:border-emerald-600 transition-colors"
+                className="flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-zinc-100 px-4 py-3 text-left hover:border-[#1B5E20] transition-colors"
                 disabled={assigning !== null}
                 onClick={() => handleAssign(court.id)}
               >
@@ -77,7 +77,7 @@ export function AssignCourtModal({
                 {assigning === court.id ? (
                   <span className="text-xs text-zinc-400">Assigning...</span>
                 ) : (
-                  <span className="text-xs text-emerald-400">Available</span>
+                  <span className="text-xs text-[#1B5E20]">Available</span>
                 )}
               </button>
             ))}

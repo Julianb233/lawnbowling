@@ -20,15 +20,15 @@ const NOTIFICATION_ICONS: Record<NotificationType, typeof Bell> = {
 };
 
 const NOTIFICATION_COLORS: Record<NotificationType, string> = {
-  partner_request_received: "bg-blue-500/20 text-blue-600",
-  partner_request_accepted: "bg-emerald-500/20 text-emerald-600",
+  partner_request_received: "bg-[#1B5E20]/20 text-[#1B5E20]",
+  partner_request_accepted: "bg-[#1B5E20]/20 text-[#1B5E20]",
   partner_request_declined: "bg-zinc-500/20 text-zinc-600",
   partner_request_expired: "bg-amber-500/20 text-amber-600",
-  match_assigned: "bg-emerald-500/20 text-emerald-600",
+  match_assigned: "bg-[#1B5E20]/20 text-[#1B5E20]",
   court_assigned: "bg-violet-500/20 text-violet-600",
-  friend_checked_in: "bg-blue-500/20 text-blue-600",
+  friend_checked_in: "bg-[#1B5E20]/20 text-[#1B5E20]",
   game_reminder: "bg-amber-500/20 text-amber-600",
-  match_completed: "bg-emerald-500/20 text-emerald-600",
+  match_completed: "bg-[#1B5E20]/20 text-[#1B5E20]",
 };
 
 function formatTimeAgo(dateStr: string): string {
@@ -87,7 +87,7 @@ function NotificationItem({
         <p className="mt-1 text-xs text-zinc-400">{formatTimeAgo(notification.created_at)}</p>
       </div>
       {!notification.is_read && (
-        <div className="mt-2 h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
+        <div className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#1B5E20]" />
       )}
     </motion.button>
   );
@@ -135,7 +135,7 @@ export function NotificationCenter({ playerId }: { playerId: string | null }) {
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-emerald-500 px-1 text-[10px] font-bold text-white"
+            className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#1B5E20] px-1 text-[10px] font-bold text-white"
           >
             {unreadCount > 99 ? "99+" : unreadCount}
           </motion.span>
@@ -157,7 +157,7 @@ export function NotificationCenter({ playerId }: { playerId: string | null }) {
               {unreadCount > 0 && (
                 <button
                   onClick={markAllAsRead}
-                  className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-emerald-600 transition-colors hover:bg-emerald-50"
+                  className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-[#1B5E20] transition-colors hover:bg-[#1B5E20]/5"
                 >
                   <CheckCheck className="h-3.5 w-3.5" />
                   Mark all read
@@ -169,7 +169,7 @@ export function NotificationCenter({ playerId }: { playerId: string | null }) {
             <div className="max-h-96 overflow-y-auto">
               {loading ? (
                 <div className="flex items-center justify-center py-12">
-                  <div className="h-6 w-6 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
+                  <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#1B5E20] border-t-transparent" />
                 </div>
               ) : notifications.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-zinc-400">

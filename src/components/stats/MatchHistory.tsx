@@ -96,7 +96,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                   {sportLabel?.emoji} {sportLabel?.short ?? match.sport}
                 </span>
                 {isWin && (
-                  <span className="flex items-center gap-1 text-xs font-semibold text-emerald-400">
+                  <span className="flex items-center gap-1 text-xs font-semibold text-[#1B5E20]">
                     <Trophy className="h-3 w-3" /> WIN
                   </span>
                 )}
@@ -135,7 +135,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                   key={mp.player_id}
                   className={cn(
                     "h-6 w-6 overflow-hidden rounded-full border-2",
-                    mp.player_id === playerId ? "border-emerald-500" : "border-zinc-900"
+                    mp.player_id === playerId ? "border-[#1B5E20]" : "border-zinc-900"
                   )}
                 >
                   {mp.players?.avatar_url ? (

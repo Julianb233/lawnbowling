@@ -42,7 +42,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
@@ -59,7 +59,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
   const sportColor = getSportColor(team.sport);
 
   return (
-    <div className="min-h-screen bg-white pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
       <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-3">

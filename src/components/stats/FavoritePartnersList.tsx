@@ -91,8 +91,8 @@ export function FavoritePartnersList({ playerId }: FavoritePartnersListProps) {
             </div>
 
             <div className="flex items-center gap-1 text-right">
-              <Trophy className="h-3 w-3 text-emerald-500" />
-              <span className="text-sm font-bold text-emerald-600">
+              <Trophy className="h-3 w-3 text-[#1B5E20]" />
+              <span className="text-sm font-bold text-[#1B5E20]">
                 {Math.round(fp.win_rate_together)}%
               </span>
             </div>

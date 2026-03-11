@@ -22,7 +22,7 @@ export function EtiquetteCard({ items }: { items: string[] }) {
               key={i}
               className="flex items-start gap-3 text-sm text-zinc-600"
             >
-              <span className="mt-0.5 shrink-0 text-emerald-500">
+              <span className="mt-0.5 shrink-0 text-[#1B5E20]">
                 {"\u2713"}
               </span>
               {item}

@@ -49,7 +49,7 @@ const equipmentBreadcrumbs = getBreadcrumbSchema([
 
 export default function EquipmentGuidePage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <LearnNav />
       <script
         type="application/ld+json"
@@ -235,8 +235,8 @@ export default function EquipmentGuidePage() {
                   {
                     label: "Narrow Bias",
                     desc: "Relatively straight path with a gentle curve at the end. Preferred by leads and for fast greens.",
-                    color: "text-blue-600",
-                    bg: "bg-blue-500/10",
+                    color: "text-[#1B5E20]",
+                    bg: "bg-[#1B5E20]/10",
                   },
                   {
                     label: "Medium Bias",
@@ -467,8 +467,8 @@ export default function EquipmentGuidePage() {
           {/* Shoes */}
           <section id="shoes">
             <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10">
-                <Footprints className="h-5 w-5 text-blue-600" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1B5E20]/10">
+                <Footprints className="h-5 w-5 text-[#1B5E20]" />
               </div>
               <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
                 Shoes

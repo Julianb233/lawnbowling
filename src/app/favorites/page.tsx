@@ -39,7 +39,7 @@ export default async function FavoritesPage() {
             </p>
             <Link
               href="/board"
-              className="inline-block rounded-xl bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-100 transition-colors"
+              className="inline-block rounded-xl bg-[#1B5E20]/5 px-4 py-2 text-sm font-medium text-[#2E7D32] hover:bg-[#1B5E20]/10 transition-colors"
             >
               Find Players
             </Link>

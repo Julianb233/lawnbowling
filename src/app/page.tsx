@@ -21,6 +21,7 @@ import {
   Zap,
 } from "lucide-react";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
+import { LawnBowlingHero } from "@/components/home/LawnBowlingHero";
 
 export default function HomePage() {
   return (
@@ -62,65 +63,8 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Hero — Full-bleed emotional image */}
-      <section className="relative">
-        {/* Background image */}
-        <div className="relative h-[70vh] min-h-[500px] max-h-[800px] w-full overflow-hidden">
-          <Image
-            src="/images/hero-friends-wide.png"
-            alt="Friends laughing together on a bowling green at golden hour"
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A2E12]/90 via-[#0A2E12]/30 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A2E12]/40 to-transparent" />
-        </div>
-
-        {/* Hero content overlay */}
-        <div className="absolute inset-0 flex items-end">
-          <div className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 sm:pb-16 lg:px-8 lg:pb-20">
-            <FadeIn variant="fade-up" delay={0.2}>
-              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#A8D5BA] sm:mb-4 sm:text-base">
-                The #1 Lawn Bowling Platform
-              </p>
-            </FadeIn>
-            <FadeIn variant="fade-up" delay={0.4}>
-              <h1
-                className="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Where friendships{" "}
-                <span className="italic text-[#A8D5BA]">roll.</span>
-              </h1>
-            </FadeIn>
-            <FadeIn variant="fade-up" delay={0.6}>
-              <p className="mt-4 max-w-xl text-base leading-relaxed text-white/80 sm:mt-6 sm:text-lg md:text-xl">
-                Tournament management, live scoring, and club tools —
-                all from the clubhouse iPad. Join 100+ clubs across the country.
-              </p>
-            </FadeIn>
-            <FadeIn variant="fade-up" delay={0.8}>
-              <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4">
-                <Link
-                  href="/signup"
-                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-base font-semibold text-[#1B5E20] shadow-2xl transition-all hover:bg-[#F0FFF4] hover:shadow-3xl active:scale-[0.97]"
-                >
-                  Start Free <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link
-                  href="/clubs"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/30 px-7 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:border-white/60 hover:bg-white/10 active:scale-[0.97]"
-                >
-                  <MapPin className="h-4 w-4" /> Find a Club
-                </Link>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
+      {/* Hero — Illustrated slideshow */}
+      <LawnBowlingHero />
 
       {/* Social proof strip */}
       <section className="border-b border-[#1B5E20]/5 bg-white py-6 sm:py-8">
@@ -207,14 +151,34 @@ export default function HomePage() {
 
             <FadeIn variant="slide-left" delay={0.2}>
               <div className="relative">
-                <div className="relative aspect-square overflow-hidden rounded-3xl shadow-2xl shadow-[#1B5E20]/10">
-                  <Image
-                    src="/images/action-bowl.png"
-                    alt="Close-up of a lawn bowl curving toward the jack on a pristine green"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
+                <div className="relative aspect-square overflow-hidden rounded-3xl bg-gradient-to-br from-[#E8F5E9] via-[#C8E6C9] to-[#A5D6A7] shadow-2xl shadow-[#1B5E20]/10">
+                  {/* Illustrated bowling green with bowls */}
+                  <div className="absolute inset-0 p-8 sm:p-12">
+                    {/* Green surface */}
+                    <div className="absolute bottom-[15%] left-[10%] right-[10%] top-[30%] rounded-xl bg-[#2E7D32]/20">
+                      {/* Rink markers */}
+                      <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[#1B5E20]/15" />
+                      <div className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[#1B5E20]/15" />
+                    </div>
+                    {/* Jack (small yellow ball) */}
+                    <div className="absolute left-1/2 top-[42%] h-4 w-4 -translate-x-1/2 rounded-full bg-[#F5C89A] shadow-md sm:h-5 sm:w-5" />
+                    {/* Bowls approaching */}
+                    <div className="absolute left-[35%] top-[48%] h-8 w-8 rounded-full border-3 border-[#1B5E20]/50 bg-[#1B5E20]/10 shadow-md sm:h-10 sm:w-10" />
+                    <div className="absolute left-[35%] top-[48%] h-8 w-8 sm:h-10 sm:w-10">
+                      <div className="absolute right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#1B5E20]/40" />
+                    </div>
+                    <div className="absolute left-[55%] top-[45%] h-8 w-8 rounded-full border-3 border-[#C62828]/40 bg-[#C62828]/10 shadow-md sm:h-10 sm:w-10" />
+                    <div className="absolute left-[55%] top-[45%] h-8 w-8 sm:h-10 sm:w-10">
+                      <div className="absolute right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#C62828]/30" />
+                    </div>
+                    {/* More bowls scattered */}
+                    <div className="absolute bottom-[25%] left-[25%] h-7 w-7 rounded-full border-2 border-[#1B5E20]/30 bg-[#1B5E20]/5 sm:h-9 sm:w-9" />
+                    <div className="absolute bottom-[30%] right-[25%] h-7 w-7 rounded-full border-2 border-[#C62828]/30 bg-[#C62828]/5 sm:h-9 sm:w-9" />
+                    {/* Curved delivery path */}
+                    <svg className="absolute inset-0 h-full w-full opacity-20" viewBox="0 0 100 100" fill="none">
+                      <path d="M50 90 Q 35 70, 40 50" stroke="#1B5E20" strokeWidth="0.5" strokeDasharray="2 2" />
+                    </svg>
+                  </div>
                 </div>
                 {/* Floating stat card */}
                 <div className="absolute -bottom-4 -left-4 rounded-2xl border border-[#1B5E20]/10 bg-white/95 p-4 shadow-xl backdrop-blur-sm sm:-bottom-6 sm:-left-6 sm:p-5">
@@ -236,41 +200,65 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Community image band — full bleed */}
-      <section className="relative overflow-hidden">
-        <div className="relative h-[50vh] min-h-[400px] max-h-[600px] w-full">
-          <Image
-            src="/images/community-bonding.png"
-            alt="Diverse group of bowlers sharing a warm moment on the green"
-            fill
-            className="object-cover object-top"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A2E12]/80 via-[#0A2E12]/50 to-transparent" />
-        </div>
-        <div className="absolute inset-0 flex items-center">
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <FadeIn variant="fade-up">
-              <div className="max-w-lg">
-                <h2
-                  className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  Every age. Every skill level.{" "}
-                  <span className="italic text-[#A8D5BA]">One green.</span>
-                </h2>
-                <p className="mt-4 text-base leading-relaxed text-white/80 sm:mt-6 sm:text-lg">
-                  Lawn bowling is one of the most inclusive sports on earth. From newcomers
-                  to national champions, from 18 to 88 — everyone belongs on the green.
-                </p>
-                <Link
-                  href="/learn"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/25 sm:mt-8"
-                >
-                  Start learning <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </FadeIn>
+      {/* Community band — illustrated, no photos */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0A2E12] via-[#1B5E20] to-[#0A2E12]">
+        <div className="relative py-20 sm:py-28 lg:py-32">
+          {/* Illustrated bowling green pattern */}
+          <div className="absolute inset-0 overflow-hidden opacity-[0.08]">
+            {/* Green lines representing rinks */}
+            <div className="absolute inset-x-0 top-1/2 h-px bg-white" />
+            <div className="absolute inset-x-0 top-1/3 h-px bg-white/60" />
+            <div className="absolute inset-x-0 bottom-1/3 h-px bg-white/60" />
+            {/* Scattered bowls */}
+            <div className="absolute right-[10%] top-[20%] h-16 w-16 rounded-full border-4 border-white sm:h-24 sm:w-24" />
+            <div className="absolute right-[30%] bottom-[15%] h-12 w-12 rounded-full border-3 border-white sm:h-16 sm:w-16" />
+            <div className="absolute right-[15%] bottom-[30%] h-4 w-4 rounded-full bg-white sm:h-6 sm:w-6" />
+            <div className="absolute left-[60%] top-[15%] h-10 w-10 rounded-full border-3 border-white sm:h-14 sm:w-14" />
+          </div>
+          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
+              <FadeIn variant="fade-up">
+                <div className="max-w-lg">
+                  <h2
+                    className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    Every age. Every skill level.{" "}
+                    <span className="italic text-[#A8D5BA]">One green.</span>
+                  </h2>
+                  <p className="mt-4 text-base leading-relaxed text-white/75 sm:mt-6 sm:text-lg">
+                    Lawn bowling is one of the most inclusive sports on earth. From newcomers
+                    to national champions, from 18 to 88 — everyone belongs on the green.
+                  </p>
+                  <Link
+                    href="/learn"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/25 sm:mt-8"
+                  >
+                    Start learning <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </FadeIn>
+              <FadeIn variant="fade-up" delay={0.2}>
+                <div className="flex justify-center gap-6 sm:gap-8">
+                  {[
+                    { age: "18", label: "Newcomer" },
+                    { age: "45", label: "Weekender" },
+                    { age: "72", label: "Champion" },
+                  ].map((person) => (
+                    <div key={person.age} className="text-center">
+                      <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#A8D5BA]/40 bg-white/10 backdrop-blur-sm sm:h-20 sm:w-20">
+                        <span className="text-2xl font-bold text-white sm:text-3xl" style={{ fontFamily: "var(--font-display)" }}>
+                          {person.age}
+                        </span>
+                      </div>
+                      <p className="text-xs font-medium uppercase tracking-wider text-[#A8D5BA]/70 sm:text-sm">
+                        {person.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </FadeIn>
+            </div>
           </div>
         </div>
       </section>
@@ -350,19 +338,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Clubhouse section — editorial layout */}
+      {/* Clubhouse section — illustrated */}
       <section className="py-20 sm:py-28 lg:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <FadeIn variant="slide-right">
-              <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-[#1B5E20]/10">
-                <Image
-                  src="/images/clubhouse-golden.png"
-                  alt="A charming lawn bowling clubhouse at golden hour"
-                  width={1024}
-                  height={1024}
-                  className="w-full"
-                />
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#E8F5E9] via-[#C8E6C9] to-[#A5D6A7] p-8 shadow-2xl shadow-[#1B5E20]/10 sm:p-12">
+                {/* Illustrated clubhouse scene */}
+                <div className="relative mx-auto aspect-square max-w-[280px] sm:max-w-[320px]">
+                  {/* Bowling green */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1/3 rounded-xl bg-[#2E7D32]/30" />
+                  <div className="absolute bottom-[10%] left-[15%] right-[15%] h-px bg-[#1B5E20]/30" />
+                  {/* Clubhouse building */}
+                  <div className="absolute bottom-[30%] left-[10%] h-[40%] w-[45%] rounded-t-lg bg-[#FEFCF9] shadow-lg">
+                    <div className="absolute -top-3 left-0 right-0 h-6 rounded-t-lg bg-[#8D6E63]" />
+                    <div className="mt-4 flex justify-center gap-2 px-3">
+                      <div className="h-6 w-5 rounded-sm bg-[#1B5E20]/20" />
+                      <div className="h-8 w-6 rounded-t-lg bg-[#1B5E20]/30" />
+                      <div className="h-6 w-5 rounded-sm bg-[#1B5E20]/20" />
+                    </div>
+                  </div>
+                  {/* Bowls on the green */}
+                  <div className="absolute bottom-[12%] right-[20%] h-6 w-6 rounded-full border-2 border-[#1B5E20]/40 bg-[#1B5E20]/10" />
+                  <div className="absolute bottom-[8%] right-[30%] h-5 w-5 rounded-full border-2 border-[#1B5E20]/40 bg-[#1B5E20]/10" />
+                  <div className="absolute bottom-[15%] right-[25%] h-3 w-3 rounded-full bg-[#F5C89A]" />
+                  {/* Flag */}
+                  <div className="absolute right-[15%] top-[20%]">
+                    <div className="h-16 w-0.5 bg-[#1B5E20]/40" />
+                    <div className="absolute -right-4 top-0 h-4 w-4 rounded-sm bg-[#1B5E20]/30" />
+                  </div>
+                </div>
               </div>
             </FadeIn>
 
@@ -509,14 +514,37 @@ export default function HomePage() {
             </FadeIn>
 
             <FadeIn variant="slide-left" delay={0.2} className="order-1 lg:order-2">
-              <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-[#1B5E20]/10">
-                <Image
-                  src="/images/celebration-win.png"
-                  alt="Players celebrating a winning shot on the bowling green"
-                  width={1024}
-                  height={1024}
-                  className="w-full"
-                />
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#E8F5E9] to-[#C8E6C9] p-8 shadow-2xl shadow-[#1B5E20]/10 sm:p-12">
+                {/* Illustrated devices */}
+                <div className="relative mx-auto aspect-square max-w-[280px] sm:max-w-[320px]">
+                  {/* iPad */}
+                  <div className="absolute left-[5%] top-[10%] h-[60%] w-[55%] rounded-2xl border-4 border-[#0A2E12]/20 bg-white shadow-xl">
+                    <div className="m-2 h-[85%] rounded-lg bg-[#1B5E20]/10 p-2">
+                      <div className="h-2 w-12 rounded bg-[#1B5E20]/30" />
+                      <div className="mt-2 space-y-1.5">
+                        <div className="h-4 w-full rounded bg-[#1B5E20]/15" />
+                        <div className="h-4 w-full rounded bg-[#1B5E20]/10" />
+                        <div className="h-4 w-3/4 rounded bg-[#1B5E20]/15" />
+                      </div>
+                    </div>
+                    <div className="mx-auto mt-0.5 h-1 w-8 rounded-full bg-[#0A2E12]/15" />
+                  </div>
+                  {/* Phone */}
+                  <div className="absolute bottom-[8%] right-[10%] h-[50%] w-[28%] rounded-2xl border-3 border-[#0A2E12]/20 bg-white shadow-xl">
+                    <div className="mx-auto mt-1.5 h-1 w-6 rounded-full bg-[#0A2E12]/10" />
+                    <div className="m-1.5 h-[80%] rounded-lg bg-[#1B5E20]/10 p-1.5">
+                      <div className="h-1.5 w-8 rounded bg-[#1B5E20]/30" />
+                      <div className="mt-1.5 space-y-1">
+                        <div className="h-3 w-full rounded bg-[#1B5E20]/15" />
+                        <div className="h-3 w-full rounded bg-[#1B5E20]/10" />
+                      </div>
+                    </div>
+                  </div>
+                  {/* Checkmark badge */}
+                  <div className="absolute right-[5%] top-[15%] flex h-12 w-12 items-center justify-center rounded-full bg-[#1B5E20] shadow-lg">
+                    <CheckCircle className="h-6 w-6 text-white" />
+                  </div>
+                </div>
               </div>
             </FadeIn>
           </div>

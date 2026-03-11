@@ -49,7 +49,7 @@ export default async function AdminLayout({
       {/* Desktop: sidebar */}
       <aside className="hidden lg:block w-56 shrink-0 border-r border-zinc-200 bg-white">
         <div className="p-4 border-b border-zinc-200">
-          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-wider">
+          <h2 className="text-sm font-bold text-[#1B5E20] uppercase tracking-wider">
             Admin Panel
           </h2>
         </div>

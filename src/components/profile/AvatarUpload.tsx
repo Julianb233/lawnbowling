@@ -45,7 +45,7 @@ export function AvatarUpload({ currentUrl, displayName, onUpload }: AvatarUpload
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="group relative rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white"
+        className="group relative rounded-full focus:outline-none focus:ring-2 focus:ring-[#1B5E20] focus:ring-offset-2 focus:ring-offset-white"
         disabled={uploading}
       >
         <Avatar.Root className="inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-zinc-100">

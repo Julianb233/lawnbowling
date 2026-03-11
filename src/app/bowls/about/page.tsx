@@ -8,7 +8,7 @@ import { BottomNav } from "@/components/board/BottomNav";
 const POSITIONS = [
   {
     name: "Skip",
-    color: "bg-blue-500",
+    color: "bg-[#1B5E20]",
     description:
       "The team captain who directs strategy and bowls last. Reads the head, calls the shots, and makes tactical decisions for the team.",
   },
@@ -26,7 +26,7 @@ const POSITIONS = [
   },
   {
     name: "Lead",
-    color: "bg-emerald-500",
+    color: "bg-[#1B5E20]",
     description:
       "Sets the head by placing the jack and bowling first. Establishes the foundation for each end.",
   },
@@ -51,7 +51,7 @@ export default function BowlsAboutPage() {
   return (
     <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
       {/* Hero */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-700 to-green-800">
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#1B5E20] via-[#2E7D32] to-green-800">
         <div className="absolute inset-0 bg-[url('/images/bowls-pattern.svg')] opacity-10" />
         <div className="relative mx-auto max-w-3xl px-4 py-12 text-center">
           <motion.div
@@ -63,7 +63,7 @@ export default function BowlsAboutPage() {
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white">
               Lawn Bowls
             </h1>
-            <p className="mt-2 text-lg text-emerald-100">
+            <p className="mt-2 text-lg text-[#1B5E20]/10">
               The gentleman's game with 800 years of tradition
             </p>
           </motion.div>
@@ -96,14 +96,14 @@ export default function BowlsAboutPage() {
           </p>
 
           {/* Photo placeholder - bowling green */}
-          <div className="mt-6 overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-100 to-green-50 border border-emerald-200">
+          <div className="mt-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#1B5E20]/10 to-green-50 border border-[#1B5E20]/20">
             <div className="flex items-center justify-center py-16">
               <div className="text-center">
                 <span className="text-5xl">🟢</span>
-                <p className="mt-2 text-sm text-emerald-600 font-medium">
+                <p className="mt-2 text-sm text-[#1B5E20] font-medium">
                   The Bowling Green
                 </p>
-                <p className="mt-1 text-xs text-emerald-500">
+                <p className="mt-1 text-xs text-[#1B5E20]">
                   A flat, square playing surface typically 34-40 meters per side
                 </p>
               </div>
@@ -202,7 +202,7 @@ export default function BowlsAboutPage() {
               >
                 <div className="flex items-center justify-between">
                   <h3 className="font-bold text-zinc-900">{f.name}</h3>
-                  <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-bold text-blue-700">
+                  <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-bold text-[#2E7D32]">
                     {f.players}
                   </span>
                 </div>
@@ -245,7 +245,7 @@ export default function BowlsAboutPage() {
               },
             ].map((s) => (
               <div key={s.step} className="flex gap-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-sm font-black text-emerald-700">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1B5E20]/10 text-sm font-black text-[#2E7D32]">
                   {s.step}
                 </div>
                 <div>
@@ -284,17 +284,17 @@ export default function BowlsAboutPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="rounded-2xl bg-gradient-to-br from-emerald-600 to-green-700 p-8 text-center"
+          className="rounded-2xl bg-gradient-to-br from-[#1B5E20] to-green-700 p-8 text-center"
         >
           <h2 className="text-2xl font-black text-white">
             Ready to Roll?
           </h2>
-          <p className="mt-2 text-emerald-100">
+          <p className="mt-2 text-[#1B5E20]/10">
             Check in for today's tournament and get matched with your team
           </p>
           <Link
             href="/bowls"
-            className="mt-4 inline-block rounded-xl bg-white px-6 py-3 text-sm font-bold text-emerald-700 transition-colors hover:bg-emerald-50"
+            className="mt-4 inline-block rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#2E7D32] transition-colors hover:bg-[#1B5E20]/5"
           >
             View Tournaments
           </Link>

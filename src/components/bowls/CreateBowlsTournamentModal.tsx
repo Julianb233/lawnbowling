@@ -82,7 +82,7 @@ export function CreateBowlsTournamentModal({ open, onOpenChange, onCreated }: Cr
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Saturday Social Draw"
-                className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 required
               />
             </div>
@@ -100,7 +100,7 @@ export function CreateBowlsTournamentModal({ open, onOpenChange, onCreated }: Cr
                       className={cn(
                         "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left",
                         bowlsFormat === f
-                          ? "border-blue-500 bg-blue-500/10 text-blue-600"
+                          ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
                           : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
                       )}
                     >
@@ -120,7 +120,7 @@ export function CreateBowlsTournamentModal({ open, onOpenChange, onCreated }: Cr
                   onChange={(e) => setMaxPlayers(e.target.value)}
                   min={4}
                   max={64}
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 />
               </div>
               <div>
@@ -129,7 +129,7 @@ export function CreateBowlsTournamentModal({ open, onOpenChange, onCreated }: Cr
                   type="datetime-local"
                   value={startsAt}
                   onChange={(e) => setStartsAt(e.target.value)}
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 />
               </div>
             </div>
@@ -141,7 +141,7 @@ export function CreateBowlsTournamentModal({ open, onOpenChange, onCreated }: Cr
             <button
               type="submit"
               disabled={loading || !name.trim()}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition-colors hover:bg-blue-500 disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#1B5E20] px-4 py-3 font-semibold text-white transition-colors hover:bg-[#1B5E20] disabled:opacity-50"
             >
               <Plus className="h-4 w-4" />
               {loading ? "Creating..." : "Create Tournament"}

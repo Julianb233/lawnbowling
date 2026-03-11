@@ -25,7 +25,7 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
 
   const statItems = [
     { label: "Played", value: stats.games_played, icon: Target, color: "text-blue-400" },
-    { label: "Wins", value: stats.wins, icon: Trophy, color: "text-emerald-400" },
+    { label: "Wins", value: stats.wins, icon: Trophy, color: "text-[#1B5E20]" },
     { label: "Losses", value: stats.losses, icon: TrendingUp, color: "text-red-400" },
   ];
 

@@ -146,7 +146,7 @@ export default function MatchesAdminPage() {
                       {match.status === "completed" && (
                         <button
                           onClick={() => setReportMatchId(match.id)}
-                          className="rounded-lg bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600 hover:bg-emerald-100 transition-colors"
+                          className="rounded-lg bg-[#1B5E20]/5 px-3 py-1 text-xs font-medium text-[#1B5E20] hover:bg-[#1B5E20]/10 transition-colors"
                         >
                           Report Score
                         </button>

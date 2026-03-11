@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function GlossaryPage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <LearnNav />
       <GlossaryClient />
       <LearnFooter />

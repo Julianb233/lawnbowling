@@ -124,7 +124,7 @@ export function SetupFlowClient({ userId }: { userId: string }) {
               <div
                 className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                   i <= currentIndex
-                    ? "bg-emerald-600 text-white"
+                    ? "bg-[#1B5E20] text-white"
                     : "bg-zinc-200 text-zinc-400"
                 }`}
               >
@@ -134,7 +134,7 @@ export function SetupFlowClient({ userId }: { userId: string }) {
                 {s.label}
               </span>
               {i < steps.length - 1 && (
-                <div className={`h-px flex-1 ${i < currentIndex ? "bg-emerald-600" : "bg-zinc-200"}`} />
+                <div className={`h-px flex-1 ${i < currentIndex ? "bg-[#1B5E20]" : "bg-zinc-200"}`} />
               )}
             </div>
           ))}

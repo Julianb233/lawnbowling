@@ -159,7 +159,7 @@ export default function ClubPricingClient() {
   const proPrice = useMemo(() => memberCount * 10, [memberCount]);
 
   return (
-    <div className="min-h-screen bg-white px-4 py-8 pb-24">
+    <div className="min-h-screen bg-[#FEFCF9] px-4 py-8 pb-24">
       <div className="mx-auto max-w-5xl">
         <button
           onClick={() => router.back()}

@@ -45,7 +45,7 @@ export function JoinTournamentButton({ tournamentId, isJoined, isFull, status, o
         "flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors disabled:opacity-50",
         isJoined
           ? "border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20"
-          : "bg-emerald-600 text-white hover:bg-emerald-500"
+          : "bg-[#1B5E20] text-white hover:bg-[#1B5E20]"
       )}
     >
       {loading ? (

@@ -26,7 +26,7 @@ export function ProfileStatsSection({ stats, favoritePartners }: ProfileStatsSec
                 <p className="text-xs text-zinc-500">Played</p>
               </div>
               <div>
-                <Trophy className="mx-auto mb-1 h-4 w-4 text-emerald-400" />
+                <Trophy className="mx-auto mb-1 h-4 w-4 text-[#1B5E20]" />
                 <p className="text-lg font-bold text-zinc-900">{stats.wins}</p>
                 <p className="text-xs text-zinc-500">Wins</p>
               </div>
@@ -101,7 +101,7 @@ export function ProfileStatsSection({ stats, favoritePartners }: ProfileStatsSec
                     </p>
                   </div>
 
-                  <Trophy className="h-4 w-4 text-emerald-400" />
+                  <Trophy className="h-4 w-4 text-[#1B5E20]" />
                 </Link>
               );
             })}

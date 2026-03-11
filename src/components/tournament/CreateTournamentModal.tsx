@@ -85,7 +85,7 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Spring Championship"
-                className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 required
               />
             </div>
@@ -103,7 +103,7 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
                       className={cn(
                         "flex-1 rounded-xl border px-3 py-2.5 text-sm font-medium transition-all",
                         sport === s
-                          ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
+                          ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
                           : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
                       )}
                     >
@@ -125,7 +125,7 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
                     className={cn(
                       "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left",
                       format === f
-                        ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
+                        ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
                         : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
                     )}
                   >
@@ -144,7 +144,7 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
                   onChange={(e) => setMaxPlayers(e.target.value)}
                   min={2}
                   max={64}
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 />
               </div>
               <div>
@@ -153,7 +153,7 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
                   type="datetime-local"
                   value={startsAt}
                   onChange={(e) => setStartsAt(e.target.value)}
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 />
               </div>
             </div>
@@ -165,7 +165,7 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
             <button
               type="submit"
               disabled={loading || !name.trim()}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 font-semibold text-white transition-colors hover:bg-emerald-500 disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#1B5E20] px-4 py-3 font-semibold text-white transition-colors hover:bg-[#1B5E20] disabled:opacity-50"
             >
               <Plus className="h-4 w-4" />
               {loading ? "Creating..." : "Create Tournament"}

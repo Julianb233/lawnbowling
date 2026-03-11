@@ -95,7 +95,7 @@ export function PricingTable({ currentPlan = "free" }: PricingTableProps) {
                 isCurrentPlan
                   ? "bg-zinc-100 text-zinc-500 cursor-default"
                   : isPopular
-                    ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-green-500/25"
+                    ? "bg-gradient-to-r from-green-500 to-[#1B5E20] text-white hover:shadow-lg hover:shadow-green-500/25"
                     : "bg-zinc-100 text-zinc-700 hover:bg-zinc-100"
               )}
             >

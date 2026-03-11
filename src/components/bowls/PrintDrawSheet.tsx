@@ -44,7 +44,7 @@ export function PrintDrawSheet({
         <p className="text-base font-semibold mt-1">
           {BOWLS_FORMAT_LABELS[drawResult.format].label} &mdash; Round {round}
         </p>
-        <p className="text-sm text-gray-600 mt-0.5">{today}</p>
+        <p className="text-sm text-[#3D5A3E] mt-0.5">{today}</p>
       </div>
 
       {/* Rinks grid */}

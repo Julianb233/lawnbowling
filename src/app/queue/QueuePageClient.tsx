@@ -47,12 +47,12 @@ export function QueuePageClient({
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-4 rounded-2xl glass border border-emerald-500/30 p-4"
+            className="mb-4 rounded-2xl glass border border-[#1B5E20]/30 p-4"
           >
             <div className="flex items-center gap-3">
               <span className="inline-flex items-center gap-1.5">
                 <span className="live-dot !h-2 !w-2" />
-                <span className="text-sm font-semibold text-emerald-400">
+                <span className="text-sm font-semibold text-[#1B5E20]">
                   You&apos;re in the queue
                 </span>
               </span>
@@ -74,7 +74,7 @@ export function QueuePageClient({
           >
             <p className="text-sm text-zinc-500">
               You&apos;re not in the queue. Head to the{" "}
-              <a href="/board" className="text-emerald-400 underline underline-offset-2">
+              <a href="/board" className="text-[#1B5E20] underline underline-offset-2">
                 board
               </a>{" "}
               to find a partner!

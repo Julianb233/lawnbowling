@@ -67,7 +67,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
     .slice(0, 2);
 
   return (
-    <div className="min-h-screen bg-white px-4 py-8">
+    <div className="min-h-screen bg-[#FEFCF9] px-4 py-8">
       <div className="mx-auto max-w-md">
         <Link
           href="/"

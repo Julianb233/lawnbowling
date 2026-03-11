@@ -64,8 +64,8 @@ export function PushNotificationPrompt() {
       </button>
 
       <div className="flex items-start gap-3">
-        <div className="flex-shrink-0 rounded-full bg-emerald-100 p-2">
-          <Bell className="h-5 w-5 text-emerald-600" />
+        <div className="flex-shrink-0 rounded-full bg-[#1B5E20]/10 p-2">
+          <Bell className="h-5 w-5 text-[#1B5E20]" />
         </div>
         <div className="flex-1">
           <p className="text-sm font-medium text-zinc-900">
@@ -79,7 +79,7 @@ export function PushNotificationPrompt() {
             disabled={subscribing}
             className={cn(
               "mt-3 w-full rounded-xl px-4 py-2 text-sm font-medium text-white",
-              "bg-emerald-500 hover:bg-emerald-600 transition-colors",
+              "bg-[#1B5E20] hover:bg-[#1B5E20] transition-colors",
               subscribing && "opacity-50 cursor-not-allowed"
             )}
           >

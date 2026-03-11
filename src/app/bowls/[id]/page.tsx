@@ -31,17 +31,17 @@ interface DrawResult {
 }
 
 const POSITION_COLORS: Record<BowlsPosition, string> = {
-  skip: "bg-blue-500",
+  skip: "bg-[#1B5E20]",
   vice: "bg-purple-500",
   second: "bg-amber-500",
-  lead: "bg-emerald-500",
+  lead: "bg-[#1B5E20]",
 };
 
 const POSITION_RING_COLORS: Record<BowlsPosition, string> = {
-  skip: "ring-blue-500/40",
+  skip: "ring-[#1B5E20]/40",
   vice: "ring-purple-500/40",
   second: "ring-amber-500/40",
-  lead: "ring-emerald-500/40",
+  lead: "ring-[#1B5E20]/40",
 };
 
 export default function BowlsTournamentPage() {
@@ -263,7 +263,7 @@ export default function BowlsTournamentPage() {
             ))}
             <Link
               href={`/bowls/${tournamentId}/scores`}
-              className="rounded-lg px-4 py-2 text-sm font-semibold text-emerald-600 hover:bg-emerald-50 transition-colors"
+              className="rounded-lg px-4 py-2 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 transition-colors"
             >
               Scores
             </Link>
@@ -353,7 +353,7 @@ export default function BowlsTournamentPage() {
                           key="avatar"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
-                          className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#1B5E20] to-emerald-600 text-sm font-bold text-white"
+                          className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#1B5E20] to-[#1B5E20] text-sm font-bold text-white"
                         >
                           {initials}
                         </motion.div>
@@ -362,7 +362,7 @@ export default function BowlsTournamentPage() {
                     <span
                       className={cn(
                         "text-sm font-medium truncate max-w-full",
-                        checked ? "text-blue-700" : "text-zinc-600"
+                        checked ? "text-[#2E7D32]" : "text-zinc-600"
                       )}
                     >
                       {player.display_name}

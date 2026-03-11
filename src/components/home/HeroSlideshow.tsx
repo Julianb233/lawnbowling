@@ -103,7 +103,7 @@ export function HeroSlideshow() {
         <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 md:py-28 text-center">
           {/* Badge */}
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3 py-1.5 sm:mb-8 sm:px-4">
-            <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="inline-flex h-2 w-2 rounded-full bg-[#1B5E20] animate-pulse" />
             <span className="text-xs font-medium text-white/90 sm:text-sm">
               Live at venues now
             </span>
@@ -112,7 +112,7 @@ export function HeroSlideshow() {
           {/* Headline */}
           <h1 className="max-w-4xl mx-auto text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-7xl drop-shadow-lg">
             Find Your{" "}
-            <span className="text-emerald-400">Perfect Partner</span>
+            <span className="text-[#1B5E20]">Perfect Partner</span>
             <br />
             Hit the Court
           </h1>
@@ -127,7 +127,7 @@ export function HeroSlideshow() {
           <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:justify-center sm:gap-4">
             <Link
               href="/signup"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 px-6 py-3.5 text-base font-semibold text-white shadow-2xl shadow-emerald-500/25 transition-all hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4 sm:text-lg"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#1B5E20] to-[#1B5E20] px-6 py-3.5 text-base font-semibold text-white shadow-2xl shadow-[#1B5E20]/25 transition-all hover:shadow-[#1B5E20]/40 hover:scale-[1.02] active:scale-[0.98] sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4 sm:text-lg"
             >
               Start Playing
               <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
@@ -165,7 +165,7 @@ export function HeroSlideshow() {
                 aria-label={`Go to ${s.sport}`}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   i === index
-                    ? "w-8 bg-emerald-400"
+                    ? "w-8 bg-[#1B5E20]"
                     : "w-2 bg-white/40 hover:bg-white/60"
                 }`}
               />

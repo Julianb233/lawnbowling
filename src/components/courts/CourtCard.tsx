@@ -37,7 +37,7 @@ function StatusIndicator({
   status: "open" | "queued" | "playing";
 }) {
   const config = {
-    open: { color: "bg-emerald-500", label: "Open" },
+    open: { color: "bg-[#1B5E20]", label: "Open" },
     queued: { color: "bg-yellow-500", label: "Queued" },
     playing: { color: "bg-red-500", label: "Playing" },
   };

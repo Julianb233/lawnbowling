@@ -291,7 +291,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#FEFCF9]">
       <LearnNav />
 
       {/* Schema.org JSON-LD */}

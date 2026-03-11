@@ -122,7 +122,7 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
                 <button
                   onClick={handleBook}
                   disabled={loading || !date || !time}
-                  className="w-full rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-3 font-bold text-white hover:shadow-lg disabled:opacity-50 min-h-[48px]"
+                  className="w-full rounded-xl bg-gradient-to-r from-green-500 to-[#1B5E20] px-4 py-3 font-bold text-white hover:shadow-lg disabled:opacity-50 min-h-[48px]"
                 >
                   {loading ? <Loader2 className="mx-auto h-5 w-5 animate-spin" /> : "Book Court"}
                 </button>

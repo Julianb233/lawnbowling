@@ -155,7 +155,7 @@ export default function MatchHistoryPage() {
   }).length;
 
   return (
-    <div className="min-h-screen bg-white pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-3">
@@ -289,7 +289,7 @@ function MatchCard({
       className={cn(
         "overflow-hidden rounded-xl border transition-colors",
         isWin
-          ? "border-emerald-200 bg-emerald-50/50"
+          ? "border-[#1B5E20]/15 bg-[#1B5E20]/5"
           : isLoss
             ? "border-red-200 bg-red-50/30"
             : "border-zinc-200 bg-zinc-50"
@@ -304,7 +304,7 @@ function MatchCard({
         <div
           className={cn(
             "h-12 w-1 shrink-0 rounded-full",
-            isWin ? "bg-emerald-500" : isLoss ? "bg-red-400" : "bg-zinc-300"
+            isWin ? "bg-[#1B5E20]" : isLoss ? "bg-red-400" : "bg-zinc-300"
           )}
         />
 
@@ -321,7 +321,7 @@ function MatchCard({
               {sportLabel?.emoji} {sportLabel?.short ?? match.sport}
             </span>
             {isWin && (
-              <span className="flex items-center gap-0.5 text-xs font-bold text-emerald-600">
+              <span className="flex items-center gap-0.5 text-xs font-bold text-[#1B5E20]">
                 <Trophy className="h-3 w-3" /> WIN
               </span>
             )}
@@ -365,11 +365,11 @@ function MatchCard({
         <div className="shrink-0 text-right">
           {result && result.team1_score !== null ? (
             <div className="text-lg font-bold tabular-nums text-zinc-800">
-              <span className={myTeam === 1 ? (isWin ? "text-emerald-600" : "text-red-500") : "text-zinc-400"}>
+              <span className={myTeam === 1 ? (isWin ? "text-[#1B5E20]" : "text-red-500") : "text-zinc-400"}>
                 {result.team1_score}
               </span>
               <span className="mx-1 text-zinc-300">-</span>
-              <span className={myTeam === 2 ? (isWin ? "text-emerald-600" : "text-red-500") : "text-zinc-400"}>
+              <span className={myTeam === 2 ? (isWin ? "text-[#1B5E20]" : "text-red-500") : "text-zinc-400"}>
                 {result.team2_score}
               </span>
             </div>
@@ -488,7 +488,7 @@ function PlayerRow({
       <div
         className={cn(
           "h-6 w-6 shrink-0 overflow-hidden rounded-full border-2",
-          isYou ? "border-emerald-500" : "border-zinc-200"
+          isYou ? "border-[#1B5E20]" : "border-zinc-200"
         )}
       >
         {player.avatar_url ? (

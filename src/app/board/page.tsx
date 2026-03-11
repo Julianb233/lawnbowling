@@ -20,6 +20,7 @@ import { CourtStatusBoard } from "@/components/courts/CourtStatusBoard";
 import { SuggestedPartners } from "@/components/board/SuggestedPartners";
 import { VenueSelector } from "@/components/venue/VenueSelector";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
+import { CircleDot, Lightbulb } from "lucide-react";
 import type { Sport, SkillLevel, Player } from "@/lib/types";
 
 export default function BoardPage() {
@@ -147,8 +148,9 @@ export default function BoardPage() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <h1 className="text-xl font-black text-zinc-900 lg:text-2xl">
-                {"\u{1F3D3}"} <span className="text-gradient">Lawnbowling</span>
+              <h1 className="text-xl font-black text-zinc-900 lg:text-2xl flex items-center gap-2">
+                <CircleDot className="w-5 h-5 text-[#1B5E20]" strokeWidth={1.5} />
+                <span className="text-gradient">Lawnbowling</span>
               </h1>
               <div className="flex items-center gap-2">
                 <p className="text-sm text-zinc-500">{venue?.name ?? "Loading venue..."}</p>
@@ -256,7 +258,8 @@ export default function BoardPage() {
             transition={{ delay: 0.4 }}
             className="mt-6 rounded-2xl glass border-amber-200 px-4 py-3 text-center text-sm text-amber-700"
           >
-            {"\u{1F4A1}"} Tap a player card to send a partner request. They&apos;ll get a ping!
+            <Lightbulb className="w-4 h-4 inline-block mr-1 -mt-0.5" strokeWidth={1.5} />
+            Tap a player card to send a partner request. They&apos;ll get a ping!
           </motion.div>
         </div>
 

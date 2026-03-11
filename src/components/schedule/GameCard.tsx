@@ -47,7 +47,7 @@ export function GameCard({ game, currentPlayerId }: GameCardProps) {
         <div>
           <Link
             href={`/schedule/${game.id}`}
-            className="text-base font-semibold text-zinc-900 hover:text-emerald-400 transition-colors"
+            className="text-base font-semibold text-zinc-900 hover:text-[#1B5E20] transition-colors"
           >
             {game.title}
           </Link>
@@ -63,7 +63,7 @@ export function GameCard({ game, currentPlayerId }: GameCardProps) {
           </div>
         </div>
         <div className="text-right">
-          <p className="text-sm font-medium text-emerald-400">
+          <p className="text-sm font-medium text-[#1B5E20]">
             {formatDate(game.scheduled_at)}
           </p>
           <p className="text-xs text-zinc-400">{formatTime(game.scheduled_at)}</p>

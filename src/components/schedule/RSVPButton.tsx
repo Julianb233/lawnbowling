@@ -40,7 +40,7 @@ export function RSVPButton({ gameId, currentStatus }: RSVPButtonProps) {
             "rounded-lg px-3 py-1.5 text-xs font-medium transition-all",
             status === s.value
               ? s.color === "emerald"
-                ? "bg-emerald-500/20 text-emerald-400 ring-1 ring-emerald-500/30"
+                ? "bg-[#1B5E20]/20 text-[#1B5E20] ring-1 ring-[#1B5E20]/30"
                 : s.color === "amber"
                 ? "bg-amber-500/20 text-amber-400 ring-1 ring-amber-500/30"
                 : "bg-red-500/20 text-red-400 ring-1 ring-red-500/30"

@@ -228,7 +228,7 @@ export default function ClubManagerDashboard() {
           </p>
           <Link
             href="/clubs/claim"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-6 py-3 text-sm font-bold text-white hover:bg-emerald-600 transition-colors"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#1B5E20] transition-colors"
           >
             Claim a Club
           </Link>
@@ -255,7 +255,7 @@ export default function ClubManagerDashboard() {
             {selectedClub && (
               <Link
                 href={`/clubs/${selectedClub.state_code.toLowerCase()}/${selectedClub.slug}`}
-                className="text-sm text-blue-500 hover:text-blue-600 inline-flex items-center gap-1"
+                className="text-sm text-[#1B5E20] hover:text-[#1B5E20] inline-flex items-center gap-1"
               >
                 View Public Page <ExternalLink className="h-3.5 w-3.5" />
               </Link>
@@ -270,7 +270,7 @@ export default function ClubManagerDashboard() {
                   onClick={() => selectClub(club)}
                   className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
                     selectedClub?.id === club.id
-                      ? "bg-emerald-500 text-white"
+                      ? "bg-[#1B5E20] text-white"
                       : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
                   }`}
                 >
@@ -440,7 +440,7 @@ export default function ClubManagerDashboard() {
                     value={venueSearch}
                     onChange={(e) => setVenueSearch(e.target.value)}
                     placeholder="Search venues..."
-                    className="w-full rounded-lg border border-zinc-200 py-2.5 pl-10 pr-4 text-sm focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full rounded-lg border border-zinc-200 py-2.5 pl-10 pr-4 text-sm focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   />
                 </div>
                 {venueOptions.length > 0 && (
@@ -493,7 +493,7 @@ export default function ClubManagerDashboard() {
                         )}
                       </div>
                       {lv.is_primary && (
-                        <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
+                        <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-[10px] font-bold text-[#2E7D32]">
                           PRIMARY
                         </span>
                       )}
@@ -518,7 +518,7 @@ export default function ClubManagerDashboard() {
           )}
 
           {saved && (
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700 flex items-center gap-2">
+            <div className="rounded-xl border border-[#1B5E20]/15 bg-[#1B5E20]/5 p-4 text-sm text-[#2E7D32] flex items-center gap-2">
               <CheckCircle className="h-4 w-4" />
               Changes saved successfully!
             </div>
@@ -527,7 +527,7 @@ export default function ClubManagerDashboard() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full rounded-xl bg-emerald-500 py-3.5 text-sm font-bold text-white hover:bg-emerald-600 disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+            className="w-full rounded-xl bg-[#1B5E20] py-3.5 text-sm font-bold text-white hover:bg-[#1B5E20] disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
           >
             <Save className="h-4 w-4" />
             {saving ? "Saving..." : "Save Changes"}

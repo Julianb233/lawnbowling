@@ -81,7 +81,7 @@ export function AdminWaiversClient() {
             placeholder="Search by player name..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-zinc-200 bg-zinc-50 pl-10 pr-4 py-3 text-zinc-900 placeholder:text-zinc-900/40 focus:border-blue-500 focus:outline-none min-h-[44px]"
+            className="w-full rounded-lg border border-zinc-200 bg-zinc-50 pl-10 pr-4 py-3 text-zinc-900 placeholder:text-zinc-900/40 focus:border-[#1B5E20] focus:outline-none min-h-[44px]"
           />
         </div>
 
@@ -119,7 +119,7 @@ export function AdminWaiversClient() {
                       <td className="px-4 py-3">
                         <Link
                           href={`/profile/${waiver.player_id}`}
-                          className="font-medium text-blue-600 hover:underline"
+                          className="font-medium text-[#1B5E20] hover:underline"
                         >
                           {waiver.players?.display_name ?? "Unknown"}
                         </Link>

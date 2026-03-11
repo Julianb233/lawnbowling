@@ -81,7 +81,7 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
           <p className="text-xs text-zinc-500 mb-1">Organized by</p>
           <Link
             href={`/profile/${game.organizer.id}`}
-            className="text-sm font-medium text-emerald-400 hover:underline"
+            className="text-sm font-medium text-[#1B5E20] hover:underline"
           >
             {game.organizer.display_name}
           </Link>
@@ -110,7 +110,7 @@ export function GameDetail({ game, currentPlayerId }: GameDetailProps) {
                 href={`/profile/${rsvp.player_id}`}
                 className="flex items-center gap-3 rounded-xl glass p-3 hover:bg-zinc-50 transition-colors"
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/20 text-xs font-bold text-emerald-400">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1B5E20]/20 text-xs font-bold text-[#1B5E20]">
                   {rsvp.player?.display_name?.charAt(0)?.toUpperCase() || "?"}
                 </div>
                 <span className="text-sm text-zinc-700">

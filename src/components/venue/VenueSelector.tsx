@@ -18,7 +18,7 @@ export function VenueSelector({ venues, selectedId, selectedVenueId, onSelect, c
     <select
       value={activeId ?? ""}
       onChange={(e) => onSelect(e.target.value)}
-      className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-1.5 text-sm text-zinc-700 focus:border-emerald-500 focus:outline-none"
+      className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-1.5 text-sm text-zinc-700 focus:border-[#1B5E20] focus:outline-none"
     >
       {venues.map((venue) => (
         <option key={venue.id} value={venue.id}>

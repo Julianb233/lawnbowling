@@ -23,7 +23,7 @@ function Toggle({
       disabled={disabled}
       className={cn(
         "relative h-6 w-11 rounded-full transition-colors",
-        checked ? "bg-emerald-500" : "bg-zinc-300"
+        checked ? "bg-[#1B5E20]" : "bg-zinc-300"
       )}
     >
       <span

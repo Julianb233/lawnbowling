@@ -43,10 +43,10 @@ export function CheckoutPlaceholder() {
     return (
       <div className="mx-auto max-w-lg py-20 text-center">
         <CheckCircle2 className="mx-auto mb-4 size-16 text-[#1B5E20]" />
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-[#0A2E12]">
           Order Confirmed!
         </h1>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-[#3D5A3E]">
           Thank you for your order. Your items will be printed and shipped
           within 1-2 weeks. You will receive a confirmation email with tracking
           information.
@@ -69,10 +69,10 @@ export function CheckoutPlaceholder() {
     return (
       <div className="mx-auto max-w-lg py-20 text-center">
         <XCircle className="mx-auto mb-4 size-16 text-orange-500" />
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-[#0A2E12]">
           Checkout Cancelled
         </h1>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-[#3D5A3E]">
           Your order was not completed. No charges were made. Your cart items
           are still saved.
         </p>
@@ -91,10 +91,10 @@ export function CheckoutPlaceholder() {
     return (
       <div className="mx-auto max-w-lg py-20 text-center">
         <ShoppingBag className="mx-auto mb-4 size-16 text-gray-300" />
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-[#0A2E12]">
           Your Cart is Empty
         </h1>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-[#3D5A3E]">
           Add some items to your cart before checking out.
         </p>
         <Link
@@ -152,19 +152,19 @@ export function CheckoutPlaceholder() {
     <div className="mx-auto max-w-2xl">
       <Link
         href="/shop"
-        className="mb-6 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-[#1B5E20]"
+        className="mb-6 inline-flex items-center gap-1 text-sm text-[#3D5A3E] hover:text-[#1B5E20]"
       >
         <ChevronLeft className="size-4" />
         Back to Shop
       </Link>
 
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">Checkout</h1>
+      <h1 className="mb-6 text-2xl font-bold text-[#0A2E12]">Checkout</h1>
 
       <div className="grid gap-6 md:grid-cols-5">
         {/* Order Summary */}
         <div className="md:col-span-3">
           <div className="rounded-xl border bg-white p-6 shadow-sm">
-            <h2 className="mb-4 text-lg font-semibold text-gray-900">
+            <h2 className="mb-4 text-lg font-semibold text-[#0A2E12]">
               Order Summary
             </h2>
             <ul className="divide-y">
@@ -173,7 +173,7 @@ export function CheckoutPlaceholder() {
                   key={`${item.productId}-${item.variantId}`}
                   className="flex gap-4 py-4 first:pt-0 last:pb-0"
                 >
-                  <div className="size-16 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                  <div className="size-16 flex-shrink-0 overflow-hidden rounded-lg bg-[#0A2E12]/5">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={item.image}
@@ -183,18 +183,18 @@ export function CheckoutPlaceholder() {
                   </div>
                   <div className="flex flex-1 flex-col justify-between">
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-[#0A2E12]">
                         {item.productName}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-[#3D5A3E]">
                         {item.variantLabel}
                       </p>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-500">
+                      <span className="text-sm text-[#3D5A3E]">
                         Qty: {item.quantity}
                       </span>
-                      <span className="font-semibold text-gray-900">
+                      <span className="font-semibold text-[#0A2E12]">
                         ${(item.price * item.quantity).toFixed(2)}
                       </span>
                     </div>
@@ -208,16 +208,16 @@ export function CheckoutPlaceholder() {
         {/* Payment Summary */}
         <div className="md:col-span-2">
           <div className="rounded-xl border bg-white p-6 shadow-sm">
-            <h2 className="mb-4 text-lg font-semibold text-gray-900">
+            <h2 className="mb-4 text-lg font-semibold text-[#0A2E12]">
               Payment
             </h2>
 
             <div className="space-y-2 text-sm">
-              <div className="flex justify-between text-gray-600">
+              <div className="flex justify-between text-[#3D5A3E]">
                 <span>Subtotal</span>
                 <span>${totalPrice.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-gray-600">
+              <div className="flex justify-between text-[#3D5A3E]">
                 <span>Shipping</span>
                 <span>
                   {shippingCost === 0 ? (
@@ -228,11 +228,11 @@ export function CheckoutPlaceholder() {
                 </span>
               </div>
               {totalPrice < FREE_SHIPPING_THRESHOLD && (
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[#3D5A3E]/70">
                   Free shipping on orders over ${FREE_SHIPPING_THRESHOLD}
                 </p>
               )}
-              <div className="flex justify-between border-t pt-2 text-base font-bold text-gray-900">
+              <div className="flex justify-between border-t pt-2 text-base font-bold text-[#0A2E12]">
                 <span>Total</span>
                 <span>${orderTotal.toFixed(2)}</span>
               </div>
@@ -264,11 +264,11 @@ export function CheckoutPlaceholder() {
 
             {/* Trust signals */}
             <div className="mt-5 space-y-2">
-              <div className="flex items-center gap-2 text-xs text-gray-500">
+              <div className="flex items-center gap-2 text-xs text-[#3D5A3E]">
                 <Shield className="size-4 text-[#1B5E20]" />
                 <span>Secure payment via Stripe</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-gray-500">
+              <div className="flex items-center gap-2 text-xs text-[#3D5A3E]">
                 <Truck className="size-4 text-[#1B5E20]" />
                 <span>Ships in 1-2 weeks (printed on demand)</span>
               </div>

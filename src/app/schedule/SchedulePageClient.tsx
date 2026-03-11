@@ -36,7 +36,7 @@ export function SchedulePageClient({ games, currentPlayerId }: SchedulePageClien
           </motion.div>
           <button
             onClick={() => setShowCreate(true)}
-            className="rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 px-4 py-2 text-sm font-bold text-white hover:shadow-lg transition-all"
+            className="rounded-xl bg-gradient-to-r from-[#1B5E20] to-green-600 px-4 py-2 text-sm font-bold text-white hover:shadow-lg transition-all"
           >
             + New Game
           </button>

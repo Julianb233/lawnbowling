@@ -74,7 +74,7 @@ export default function ClubDirectoryPage() {
             </div>
             <div className="flex items-center gap-2">
               <Link href="/clubs/manage" className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 min-h-[44px] touch-manipulation hidden sm:block">Manage Club</Link>
-              <Link href="/clubs/claim" className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-emerald-600 min-h-[44px] touch-manipulation hidden sm:block">+ Add Your Club</Link>
+              <Link href="/clubs/claim" className="rounded-xl bg-[#1B5E20] px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#1B5E20] min-h-[44px] touch-manipulation hidden sm:block">+ Add Your Club</Link>
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function ClubDirectoryPage() {
 
         <div className="relative mb-4">
           <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-400" />
-          <input type="text" placeholder="Search clubs by name, city, or state..." value={query} onChange={(e) => setQuery(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white py-3.5 pl-12 pr-4 text-base text-zinc-900 placeholder:text-zinc-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
+          <input type="text" placeholder="Search clubs by name, city, or state..." value={query} onChange={(e) => setQuery(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white py-3.5 pl-12 pr-4 text-base text-zinc-900 placeholder:text-zinc-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20" />
         </div>
 
         <div className="mb-3 flex gap-2 overflow-x-auto scrollbar-hide">
@@ -133,7 +133,7 @@ export default function ClubDirectoryPage() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-12 rounded-2xl border border-dashed border-zinc-300 bg-white p-8 text-center">
           <h3 className="text-lg font-bold text-zinc-900">Don&apos;t see your club?</h3>
           <p className="mt-1 text-sm text-zinc-500">Help us build the most complete lawn bowls directory in the USA</p>
-          <Link href="/clubs/claim" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-500 px-6 py-3 text-sm font-bold text-white hover:bg-blue-600 transition-colors">
+          <Link href="/clubs/claim" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#1B5E20] transition-colors">
             <MapPin className="h-4 w-4" />
             Add Your Club
           </Link>
@@ -157,7 +157,7 @@ function StatCard({ value, label, icon }: { value: string | number; label: strin
 
 function FilterPill({ active, onClick, label, small }: { active: boolean; onClick: () => void; label: string; small?: boolean }) {
   return (
-    <button onClick={onClick} className={`shrink-0 rounded-full border px-4 font-medium transition-colors touch-manipulation ${small ? "py-1.5 text-xs" : "py-2 text-sm"} ${active ? "border-blue-500 bg-blue-500 text-white" : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50"}`}>
+    <button onClick={onClick} className={`shrink-0 rounded-full border px-4 font-medium transition-colors touch-manipulation ${small ? "py-1.5 text-xs" : "py-2 text-sm"} ${active ? "border-[#1B5E20] bg-[#1B5E20] text-white" : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50"}`}>
       {label}
     </button>
   );
@@ -174,7 +174,7 @@ function StateSection({ stateCode, clubs }: { stateCode: string; clubs: ClubData
           <h2 className="text-lg font-black text-zinc-900">{stateName}</h2>
           <span className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-bold text-zinc-500 tabular-nums">{clubs.length}</span>
         </div>
-        <Link href={`/clubs/${stateCode.toLowerCase()}`} className="text-sm font-medium text-blue-500 hover:text-blue-600">View all →</Link>
+        <Link href={`/clubs/${stateCode.toLowerCase()}`} className="text-sm font-medium text-[#1B5E20] hover:text-[#1B5E20]">View all →</Link>
       </div>
       <div className="space-y-3">
         {clubs.map((club, i) => (
@@ -192,7 +192,7 @@ function ClubCard({ club, index }: { club: ClubData; index: number }) {
         <div className="group rounded-2xl border border-zinc-200 bg-white p-5 transition-all hover:border-zinc-300 hover:shadow-sm">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
-              <h3 className="text-base font-bold text-zinc-900 group-hover:text-blue-600 transition-colors truncate">{club.name}</h3>
+              <h3 className="text-base font-bold text-zinc-900 group-hover:text-[#1B5E20] transition-colors truncate">{club.name}</h3>
               <div className="mt-1 flex items-center gap-1.5 text-sm text-zinc-500">
                 <MapPin className="h-3.5 w-3.5 shrink-0" />
                 <span>{club.city}, {club.stateCode}</span>
@@ -202,19 +202,19 @@ function ClubCard({ club, index }: { club: ClubData; index: number }) {
               {club.description && <p className="mt-2 text-sm text-zinc-500 line-clamp-2">{club.description}</p>}
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {club.memberCount && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-[#2E7D32]">
                     <Users className="h-3 w-3" />{club.memberCount} members
                   </span>
                 )}
                 {club.greens && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-[#1B5E20]/5 px-2.5 py-1 text-xs font-medium text-[#2E7D32]">
                     <Leaf className="h-3 w-3" />{club.greens} {club.greens === 1 ? "green" : "greens"}{club.rinks && ` · ${club.rinks} rinks`}
                   </span>
                 )}
                 {club.surfaceType !== "unknown" && (
                   <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-600">{SURFACE_LABELS[club.surfaceType]}</span>
                 )}
-                <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${club.status === "claimed" ? "bg-blue-50 text-blue-700" : club.status === "active" ? "bg-emerald-50 text-emerald-700" : club.status === "seasonal" ? "bg-amber-50 text-amber-700" : "bg-zinc-100 text-zinc-500"}`}>
+                <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${club.status === "claimed" ? "bg-blue-50 text-[#2E7D32]" : club.status === "active" ? "bg-[#1B5E20]/5 text-[#2E7D32]" : club.status === "seasonal" ? "bg-amber-50 text-amber-700" : "bg-zinc-100 text-zinc-500"}`}>
                   {club.status === "claimed" ? "Verified" : club.status === "active" ? "Active" : club.status === "seasonal" ? "Seasonal" : club.status}
                 </span>
                 {club.website && (
@@ -232,7 +232,7 @@ function ClubCard({ club, index }: { club: ClubData; index: number }) {
                 )}
               </div>
             </div>
-            <ChevronRight className="mt-1 h-5 w-5 shrink-0 text-zinc-300 group-hover:text-blue-500 transition-colors" />
+            <ChevronRight className="mt-1 h-5 w-5 shrink-0 text-zinc-300 group-hover:text-[#1B5E20] transition-colors" />
           </div>
         </div>
       </Link>

@@ -45,7 +45,7 @@ export function ProductDetail({ product }: { product: Product }) {
       {/* Breadcrumb */}
       <Link
         href="/shop"
-        className="mb-6 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-[#1B5E20]"
+        className="mb-6 inline-flex items-center gap-1 text-sm text-[#3D5A3E] hover:text-[#1B5E20]"
       >
         <ChevronLeft className="size-4" />
         Back to Shop
@@ -53,7 +53,7 @@ export function ProductDetail({ product }: { product: Product }) {
 
       <div className="grid gap-8 md:grid-cols-2">
         {/* Image */}
-        <div className="overflow-hidden rounded-xl bg-gray-100">
+        <div className="overflow-hidden rounded-xl bg-[#0A2E12]/5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={product.image}
@@ -68,22 +68,22 @@ export function ProductDetail({ product }: { product: Product }) {
             <p className="text-sm font-medium uppercase tracking-wider text-[#1B5E20]">
               {product.category.replace("-", " ")}
             </p>
-            <h1 className="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">
+            <h1 className="mt-1 text-2xl font-bold text-[#0A2E12] sm:text-3xl">
               {product.name}
             </h1>
-            <p className="mt-3 text-lg text-gray-600">{product.description}</p>
+            <p className="mt-3 text-lg text-[#3D5A3E]">{product.description}</p>
           </div>
 
-          <p className="text-3xl font-bold text-gray-900">
+          <p className="text-3xl font-bold text-[#0A2E12]">
             ${product.price.toFixed(2)}
           </p>
 
           {/* Color selector */}
           {colors.length > 0 && (
             <div>
-              <p className="mb-2 text-sm font-medium text-gray-700">
+              <p className="mb-2 text-sm font-medium text-[#3D5A3E]">
                 Color:{" "}
-                <span className="font-normal text-gray-500">
+                <span className="font-normal text-[#3D5A3E]">
                   {selectedColor}
                 </span>
               </p>
@@ -109,7 +109,7 @@ export function ProductDetail({ product }: { product: Product }) {
           {/* Size selector */}
           {sizes.length > 0 && (
             <div>
-              <p className="mb-2 text-sm font-medium text-gray-700">Size</p>
+              <p className="mb-2 text-sm font-medium text-[#3D5A3E]">Size</p>
               <div className="flex flex-wrap gap-2">
                 {sizes.map((size) => (
                   <button
@@ -118,7 +118,7 @@ export function ProductDetail({ product }: { product: Product }) {
                     className={`rounded-lg border px-4 py-2 text-sm font-medium transition ${
                       selectedSize === size
                         ? "border-[#1B5E20] bg-[#1B5E20] text-white"
-                        : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"
+                        : "border-gray-300 bg-white text-[#3D5A3E] hover:border-gray-400"
                     }`}
                   >
                     {size}
@@ -132,7 +132,7 @@ export function ProductDetail({ product }: { product: Product }) {
           <AddToCartButton product={product} variant={selectedVariant} />
 
           {/* Trust signals */}
-          <div className="grid grid-cols-3 gap-4 rounded-lg border bg-gray-50 p-4 text-center text-xs text-gray-500">
+          <div className="grid grid-cols-3 gap-4 rounded-lg border bg-[#FEFCF9] p-4 text-center text-xs text-[#3D5A3E]">
             <div className="flex flex-col items-center gap-1">
               <Truck className="size-5 text-[#1B5E20]" />
               <span>Free shipping over $75</span>

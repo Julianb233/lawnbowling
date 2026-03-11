@@ -54,7 +54,7 @@ const rulesBreadcrumbs = getBreadcrumbSchema([
 
 export default function RulesPage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <LearnNav />
       <script
         type="application/ld+json"
@@ -428,8 +428,8 @@ export default function RulesPage() {
           {/* Delivery */}
           <section id="delivery">
             <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10">
-                <Target className="h-5 w-5 text-blue-600" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1B5E20]/10">
+                <Target className="h-5 w-5 text-[#1B5E20]" />
               </div>
               <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
                 Delivery (How You Bowl)

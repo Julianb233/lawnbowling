@@ -28,7 +28,7 @@ export default function SportGuidePage() {
         <div className="text-center">
           <p className="mb-4 text-6xl">404</p>
           <p className="mb-4 text-zinc-400">Sport guide not found</p>
-          <Link href="/learn" className="text-emerald-400 hover:underline">
+          <Link href="/learn" className="text-[#1B5E20] hover:underline">
             Back to guides
           </Link>
         </div>
@@ -37,7 +37,7 @@ export default function SportGuidePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white pb-24 lg:pb-8">
+    <div className="min-h-screen bg-[#FEFCF9] pb-24 lg:pb-8">
       {/* Header */}
       <header className="sticky top-0 z-40 glass border-b border-zinc-200">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3">
@@ -107,7 +107,7 @@ export default function SportGuidePage() {
                   transition={{ delay: i * 0.06 }}
                   className="flex gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-4"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-sm font-bold text-emerald-400">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1B5E20]/20 text-sm font-bold text-[#1B5E20]">
                     {step.step}
                   </div>
                   <div>
