@@ -87,7 +87,7 @@ export default function HomePage() {
             </span>
           </div>
           <a
-            href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+            href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-lg bg-emerald-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-800 transition-colors"
@@ -114,7 +114,7 @@ export default function HomePage() {
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-xl bg-emerald-700 px-8 py-4 text-base font-bold text-white hover:bg-emerald-800 transition-colors"
@@ -186,7 +186,7 @@ export default function HomePage() {
                   ))}
                 </ul>
                 <a
-                  href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+                  href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`mt-8 block w-full rounded-xl py-3 text-center text-sm font-bold transition-colors ${
@@ -231,7 +231,7 @@ export default function HomePage() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
-              href="https://dailyeventinsurance.com/m/pick-a-partner/quote/new"
+              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-xl bg-emerald-700 px-8 py-4 text-base font-bold text-white hover:bg-emerald-800 transition-colors"
