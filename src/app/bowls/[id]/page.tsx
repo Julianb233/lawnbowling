@@ -272,6 +272,12 @@ export default function BowlsTournamentPage() {
             >
               Results
             </Link>
+            <Link
+              href={`/bowls/${tournamentId}/draw-sheet`}
+              className="rounded-lg px-4 py-2 text-sm font-semibold text-zinc-500 hover:bg-zinc-100 transition-colors"
+            >
+              Draw Sheet
+            </Link>
           </div>
         </div>
       </header>

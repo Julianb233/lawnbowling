@@ -517,6 +517,17 @@ a,
     border-collapse: collapse !important;
   }
 
+  /* Draw sheet tables: visible borders for print readability */
+  table th,
+  table td {
+    border: 0.5pt solid #d4d4d8 !important;
+    padding: 4pt 6pt !important;
+  }
+
+  table thead tr {
+    background: #f4f4f5 !important;
+  }
+
   @page {
     margin: 0.5in;
     size: A4;

@@ -301,6 +301,12 @@ export default function ResultsPage() {
                 Back
               </button>
               <button
+                onClick={() => router.push(`/bowls/${tournamentId}/draw-sheet`)}
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+              >
+                Draw Sheet
+              </button>
+              <button
                 onClick={() => router.push(`/bowls/${tournamentId}/scores`)}
                 className="rounded-xl bg-[#1B5E20] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
               >

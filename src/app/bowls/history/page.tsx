@@ -20,6 +20,7 @@ interface HistoricalTournament {
   checkin_count: number;
   rounds_played: number;
   total_rinks: number;
+  winner_name: string | null;
 }
 
 export default function BowlsHistoryPage() {
@@ -53,11 +54,28 @@ export default function BowlsHistoryPage() {
           const rounds = new Set((scoreData ?? []).map((s: { round: number }) => s.round));
           const totalRinks = (scoreData ?? []).length;
 
+          // Calculate winner from finalized scores (most wins, then shot diff)
+          let winnerName: string | null = null;
+          if (t.status === "completed" && scoreData && scoreData.length > 0) {
+            try {
+              const res = await fetch(`/api/bowls/results?tournament_id=${t.id}`);
+              if (res.ok) {
+                const results = await res.json();
+                if (results.player_standings?.length > 0) {
+                  winnerName = results.player_standings[0].display_name;
+                }
+              }
+            } catch {
+              // Non-critical
+            }
+          }
+
           return {
             ...t,
             checkin_count: checkinCount ?? 0,
             rounds_played: rounds.size,
             total_rinks: totalRinks,
+            winner_name: winnerName,
           } as HistoricalTournament;
         })
       );
@@ -207,6 +225,13 @@ export default function BowlsHistoryPage() {
                         <span className="font-bold text-purple-600">{t.total_rinks}</span> rink game{t.total_rinks !== 1 ? "s" : ""}
                       </span>
                     </div>
+
+                    {t.winner_name && (
+                      <div className="mt-3 flex items-center gap-2 rounded-lg bg-amber-50 px-3 py-2">
+                        <span className="text-xs font-bold text-amber-700">Winner:</span>
+                        <span className="text-xs font-semibold text-amber-900">{t.winner_name}</span>
+                      </div>
+                    )}
 
                     {t.creator?.display_name && (
                       <p className="mt-2 text-xs text-zinc-400">
