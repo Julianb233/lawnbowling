@@ -131,14 +131,14 @@ export function KioskWrapper({
           >
             <h2
               className="mb-4 font-bold"
-              style={{ fontSize: "32px", color: "#1A1A1A" }}
+              style={{ fontSize: "36px", color: "#1A1A1A" }}
             >
               Are you still there?
             </h2>
             <p
               id="inactivity-message"
               className="mb-8"
-              style={{ fontSize: "20px", color: "#4A4A4A", lineHeight: "1.5" }}
+              style={{ fontSize: "22px", color: "#4A4A4A", lineHeight: "1.5" }}
             >
               Tap anywhere to continue. This screen will reset in{" "}
               {warningCountdown} seconds.
@@ -152,14 +152,15 @@ export function KioskWrapper({
               className="rounded-2xl touch-manipulation active:scale-[0.97]"
               style={{
                 minHeight: "72px",
-                padding: "16px 48px",
-                fontSize: "22px",
+                padding: "18px 48px",
+                fontSize: "24px",
                 fontWeight: 700,
                 backgroundColor: "#1B5E20",
                 color: "#FFFFFF",
                 border: "none",
                 cursor: "pointer",
               }}
+              aria-label="Confirm you are still using the kiosk"
             >
               I&apos;m Still Here
             </button>

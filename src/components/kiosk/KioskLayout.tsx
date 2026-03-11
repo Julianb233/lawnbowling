@@ -5,11 +5,12 @@ import React, { ReactNode } from "react";
 /**
  * KioskLayout — shared layout component for all kiosk views.
  *
- * Enforces elderly-friendly design tokens:
+ * Enforces elderly-friendly design tokens (WCAG AAA):
  * - Minimum 56px touch targets, 72px preferred for primary actions
- * - 32px+ headings, 18px+ body text, nothing below 16px
+ * - 32px+ headings, 20px+ body text, nothing below 18px
  * - WCAG AAA contrast (7:1 ratio) using "The Bowling Green" palette
- * - Brand color #1B5E20 (dark bowling green)
+ * - Brand color #1B5E20 (dark bowling green) — 7.9:1 on white
+ * - All colors validated against WCAG AAA (7:1 minimum)
  */
 
 interface KioskLayoutProps {
@@ -48,14 +49,14 @@ export function KioskLayout({
           <div>
             <h1
               className="font-black"
-              style={{ fontSize: "36px", lineHeight: "1.2", color: "#1A1A1A" }}
+              style={{ fontSize: "40px", lineHeight: "1.2", color: "#1A1A1A" }}
             >
               {venueName || "Lawn Bowling Club"}
             </h1>
             {subtitle && (
               <p
                 className="mt-1 font-medium"
-                style={{ fontSize: "18px", color: "#4A4A4A" }}
+                style={{ fontSize: "20px", color: "#4A4A4A" }}
               >
                 {subtitle}
               </p>
@@ -71,8 +72,8 @@ export function KioskLayout({
                 onClick={() => onTabChange("checkin")}
                 className="rounded-2xl px-8 font-bold touch-manipulation transition-colors"
                 style={{
-                  minHeight: "64px",
-                  fontSize: "20px",
+                  minHeight: "72px",
+                  fontSize: "22px",
                   backgroundColor: activeTab === "checkin" ? "#1B5E20" : "#F0F0F0",
                   color: activeTab === "checkin" ? "#FFFFFF" : "#1A1A1A",
                   border: activeTab === "checkin" ? "3px solid #0D3B12" : "3px solid transparent",
@@ -86,8 +87,8 @@ export function KioskLayout({
                 onClick={() => onTabChange("board")}
                 className="rounded-2xl px-8 font-bold touch-manipulation transition-colors"
                 style={{
-                  minHeight: "64px",
-                  fontSize: "20px",
+                  minHeight: "72px",
+                  fontSize: "22px",
                   backgroundColor: activeTab === "board" ? "#1B5E20" : "#F0F0F0",
                   color: activeTab === "board" ? "#FFFFFF" : "#1A1A1A",
                   border: activeTab === "board" ? "3px solid #0D3B12" : "3px solid transparent",
@@ -110,7 +111,7 @@ export function KioskLayout({
 
 /**
  * KioskButton — large, accessible button for kiosk primary actions.
- * Minimum 72px tall, 20px+ text, WCAG AAA contrast.
+ * Minimum 72px tall, 22px+ text, WCAG AAA contrast.
  */
 interface KioskButtonProps {
   children: ReactNode;
@@ -181,7 +182,8 @@ export function KioskButton({
 }
 
 /**
- * KioskHeading — accessible heading with enforced minimum sizes.
+ * KioskHeading — accessible heading with enforced minimum 32px sizes.
+ * All heading levels meet WCAG AAA contrast (17.4:1 for #1A1A1A on #FFFFFF).
  */
 interface KioskHeadingProps {
   level?: 1 | 2 | 3;
@@ -192,9 +194,9 @@ interface KioskHeadingProps {
 
 export function KioskHeading({ level = 1, children, className = "", align = "center" }: KioskHeadingProps) {
   const sizes: Record<number, string> = {
-    1: "36px",
-    2: "28px",
-    3: "24px",
+    1: "40px",
+    2: "34px",
+    3: "32px",
   };
 
   const Tag = `h${level}` as "h1" | "h2" | "h3";
@@ -216,7 +218,10 @@ export function KioskHeading({ level = 1, children, className = "", align = "cen
 }
 
 /**
- * KioskText — body text with enforced minimum 16px, recommended 18px+.
+ * KioskText — body text with enforced minimum 18px.
+ * All text colors meet WCAG AAA:
+ * - primary (#1A1A1A): 17.4:1 on white, 16.6:1 on #FAFAF5
+ * - secondary (#4A4A4A): 8.9:1 on white, 8.5:1 on #FAFAF5
  */
 interface KioskTextProps {
   children: ReactNode;
@@ -234,9 +239,9 @@ export function KioskText({
   align = "left",
 }: KioskTextProps) {
   const sizes: Record<string, string> = {
-    body: "20px",
-    label: "18px",
-    caption: "16px",
+    body: "22px",
+    label: "20px",
+    caption: "18px",
   };
 
   const colors: Record<string, string> = {

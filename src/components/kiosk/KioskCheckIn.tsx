@@ -8,7 +8,7 @@ import { BOWLS_POSITION_LABELS } from "@/lib/types";
 
 // ─── Types ───────────────────────────────────────────────────────
 
-type CheckInStep = "list" | "position" | "confirmation";
+type CheckInStep = "welcome" | "list" | "position" | "confirmation";
 
 interface KioskCheckInProps {
   venueId: string;
@@ -44,7 +44,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
   const [checkedInIds, setCheckedInIds] = useState<Set<string>>(new Set());
 
   // Flow state
-  const [step, setStep] = useState<CheckInStep>("list");
+  const [step, setStep] = useState<CheckInStep>("welcome");
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<BowlsPosition | "any" | null>(null);
 
@@ -77,9 +77,10 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
   // ─── Reset flow ────────────────────────────────────────────────
 
   const resetFlow = useCallback(() => {
-    setStep("list");
+    setStep("welcome");
     setSelectedPlayer(null);
     setSelectedPosition(null);
+    setActiveLetter(null);
     setShowUndo(true);
     if (autoResetRef.current) clearInterval(autoResetRef.current);
     if (undoTimerRef.current) clearInterval(undoTimerRef.current);
@@ -216,7 +217,77 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
     );
   }
 
-  // ─── STEP 1: Player List ───────────────────────────────────────
+  // ─── SCREEN 1: Welcome ──────────────────────────────────────────
+
+  if (step === "welcome") {
+    const checkedInCount = checkedInIds.size;
+    const totalCount = players.length;
+
+    return (
+      <section
+        aria-label="Welcome screen"
+        className="mx-auto flex max-w-2xl flex-col items-center py-12"
+      >
+        {/* Lawn bowls icon */}
+        <div
+          className="mb-8 flex items-center justify-center rounded-full"
+          style={{
+            width: "140px",
+            height: "140px",
+            backgroundColor: "#E8F5E9",
+            border: "4px solid #1B5E20",
+          }}
+          aria-hidden="true"
+        >
+          <svg
+            width="72"
+            height="72"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#1B5E20"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </div>
+
+        <KioskHeading level={1} align="center" className="mb-4">
+          Welcome to Bowls Day
+        </KioskHeading>
+
+        <KioskText size="body" color="secondary" align="center" className="mb-4">
+          Tap the button below to check in for today&apos;s session.
+        </KioskText>
+
+        {checkedInCount > 0 && (
+          <KioskText size="label" color="secondary" align="center" className="mb-8">
+            {checkedInCount} of {totalCount} players already checked in
+          </KioskText>
+        )}
+
+        {!checkedInCount && <div className="mb-8" />}
+
+        <KioskButton
+          onClick={() => setStep("list")}
+          fullWidth
+          ariaLabel="Begin check-in - find your name"
+        >
+          Check In Now
+        </KioskButton>
+
+        <div className="mt-6">
+          <KioskText size="caption" color="secondary" align="center">
+            Touch anywhere to get started
+          </KioskText>
+        </div>
+      </section>
+    );
+  }
+
+  // ─── SCREEN 2: Name Search with A-Z Filter ─────────────────────
 
   if (step === "list") {
     const checkedInCount = checkedInIds.size;
@@ -255,9 +326,13 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
         </div>
 
         {/* Instruction */}
-        <KioskHeading level={2} align="center" className="mb-6">
-          Tap your name to check in
+        <KioskHeading level={2} align="center" className="mb-4">
+          Find Your Name
         </KioskHeading>
+
+        <KioskText size="body" color="secondary" align="center" className="mb-6">
+          Use the letters below to filter, then tap your name
+        </KioskText>
 
         {/* Alphabet filter */}
         <nav
@@ -269,10 +344,10 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
             onClick={() => setActiveLetter(null)}
             className="rounded-xl font-bold touch-manipulation transition-colors"
             style={{
-              minHeight: "56px",
-              minWidth: "64px",
-              fontSize: "18px",
-              padding: "8px 16px",
+              minHeight: "60px",
+              minWidth: "72px",
+              fontSize: "20px",
+              padding: "10px 18px",
               backgroundColor: activeLetter === null ? "#1B5E20" : "#F0F0F0",
               color: activeLetter === null ? "#FFFFFF" : "#1A1A1A",
             }}
@@ -291,9 +366,9 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                 disabled={!hasPlayers}
                 className="rounded-xl font-bold touch-manipulation transition-colors"
                 style={{
-                  minHeight: "56px",
-                  minWidth: "56px",
-                  fontSize: "18px",
+                  minHeight: "60px",
+                  minWidth: "60px",
+                  fontSize: "20px",
                   backgroundColor: isActive ? "#1B5E20" : hasPlayers ? "#F0F0F0" : "transparent",
                   color: isActive ? "#FFFFFF" : hasPlayers ? "#1A1A1A" : "#CCCCCC",
                   cursor: hasPlayers ? "pointer" : "default",
@@ -332,7 +407,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                     alignItems: "center",
                     justifyContent: "space-between",
                     backgroundColor: isCheckedIn ? "#E8F5E9" : "#FFFFFF",
-                    border: isCheckedIn ? "2px solid #1B5E20" : "2px solid #E0E0E0",
+                    border: isCheckedIn ? "3px solid #1B5E20" : "3px solid #E0E0E0",
                     cursor: isCheckedIn ? "default" : "pointer",
                   }}
                   aria-label={
@@ -345,7 +420,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                   <span
                     className="font-semibold"
                     style={{
-                      fontSize: "22px",
+                      fontSize: "24px",
                       color: "#1A1A1A",
                       lineHeight: "1.4",
                     }}
@@ -357,11 +432,11 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                   {isCheckedIn ? (
                     <span
                       className="flex items-center gap-2 font-bold"
-                      style={{ fontSize: "18px", color: "#1B5E20" }}
+                      style={{ fontSize: "20px", color: "#1B5E20" }}
                     >
                       <svg
-                        width="24"
-                        height="24"
+                        width="28"
+                        height="28"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -378,7 +453,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                     <span
                       className="rounded-xl px-6 py-3 font-bold"
                       style={{
-                        fontSize: "18px",
+                        fontSize: "20px",
                         backgroundColor: "#1B5E20",
                         color: "#FFFFFF",
                         minHeight: "56px",
@@ -402,11 +477,22 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
             </KioskText>
           </div>
         )}
+
+        {/* Back to Welcome button */}
+        <div className="mt-8 flex justify-center">
+          <KioskButton
+            variant="secondary"
+            onClick={resetFlow}
+            ariaLabel="Go back to welcome screen"
+          >
+            Back
+          </KioskButton>
+        </div>
       </section>
     );
   }
 
-  // ─── STEP 2: Position Selection ────────────────────────────────
+  // ─── SCREEN 3: Position Selection ───────────────────────────────
 
   if (step === "position" && selectedPlayer) {
     const firstName = selectedPlayer.display_name.split(" ")[0];
@@ -446,12 +532,12 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
             >
               <span
                 className="font-bold"
-                style={{ fontSize: "26px", color: "#1B5E20", lineHeight: "1.3" }}
+                style={{ fontSize: "28px", color: "#1B5E20", lineHeight: "1.3" }}
               >
                 {option.label.toUpperCase()}
               </span>
               <span
-                style={{ fontSize: "18px", color: "#4A4A4A", lineHeight: "1.4" }}
+                style={{ fontSize: "20px", color: "#4A4A4A", lineHeight: "1.4" }}
               >
                 {option.description}
               </span>
@@ -463,7 +549,10 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
         <div className="mt-8 flex justify-center">
           <KioskButton
             variant="secondary"
-            onClick={resetFlow}
+            onClick={() => {
+              setSelectedPlayer(null);
+              setStep("list");
+            }}
             ariaLabel="Go back to player list"
           >
             Back to Player List
@@ -473,7 +562,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
     );
   }
 
-  // ─── STEP 3: Confirmation ──────────────────────────────────────
+  // ─── SCREEN 4: Confirmation ─────────────────────────────────────
 
   if (step === "confirmation" && selectedPlayer) {
     const firstName = selectedPlayer.display_name.split(" ")[0];
@@ -494,15 +583,15 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
         <div
           className="mb-6 flex items-center justify-center rounded-full"
           style={{
-            width: "120px",
-            height: "120px",
+            width: "140px",
+            height: "140px",
             backgroundColor: "#1B5E20",
           }}
           aria-hidden="true"
         >
           <svg
-            width="64"
-            height="64"
+            width="72"
+            height="72"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#FFFFFF"
@@ -567,18 +656,18 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
               </svg>
             </div>
             <div className="flex-1">
-              <p style={{ fontSize: "20px", fontWeight: 700, color: "#1A1A1A", lineHeight: "1.3" }}>
+              <p style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", lineHeight: "1.3" }}>
                 Protect Your Game
               </p>
-              <p style={{ fontSize: "16px", color: "#4A4A4A", marginTop: "4px", lineHeight: "1.4" }}>
+              <p style={{ fontSize: "18px", color: "#4A4A4A", marginTop: "4px", lineHeight: "1.4" }}>
                 Per-session coverage from $3/player
               </p>
               <a
                 href="/insurance/lawn-bowls"
                 className="mt-3 inline-flex items-center rounded-xl font-bold touch-manipulation"
                 style={{
-                  fontSize: "16px",
-                  padding: "10px 20px",
+                  fontSize: "18px",
+                  padding: "12px 24px",
                   backgroundColor: "#1B5E20",
                   color: "#FFFFFF",
                   minHeight: "56px",
@@ -597,9 +686,9 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
           </KioskText>
           {/* Visual countdown bar */}
           <div
-            className="mt-3 h-2 overflow-hidden rounded-full"
+            className="mt-3 h-3 overflow-hidden rounded-full"
             style={{
-              width: "200px",
+              width: "240px",
               backgroundColor: "#E0E0E0",
             }}
             role="timer"

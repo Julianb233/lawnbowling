@@ -103,12 +103,13 @@ export function AdminPinModal({ open, onClose, onSuccess }: AdminPinModalProps) 
                     onClick={() => key === "del" ? handleDelete() : handleDigit(key)}
                     className="flex items-center justify-center rounded-xl touch-manipulation active:scale-[0.95]"
                     style={{
-                      minHeight: "64px",
-                      fontSize: "24px",
+                      minHeight: "72px",
+                      fontSize: "28px",
                       fontWeight: 700,
                       backgroundColor: "#F0F0F0",
                       color: "#1A1A1A",
                     }}
+                    aria-label={key === "del" ? "Delete last digit" : `Digit ${key}`}
                   >
                     {key === "del" ? "\u232B" : key}
                   </button>
