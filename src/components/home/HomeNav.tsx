@@ -21,11 +21,11 @@ export function HomeNav() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-2 sm:gap-3">
           <Image
-            src="/images/logo/lawn-bowl-illustrated-icon.png"
+            src="/images/logo/bowls-icon.png"
             alt="Lawnbowling logo"
             width={36}
             height={36}
-            className="rounded-full shadow-lg"
+            className="rounded-full shadow-lg object-cover"
           />
           <span className="text-base font-bold text-white sm:text-lg">
             Lawnbowling
@@ -96,11 +96,11 @@ export function HomeNav() {
               <div className="flex h-16 items-center justify-between px-4">
                 <div className="flex items-center gap-2">
                   <Image
-                    src="/images/logo/lawn-bowl-illustrated-icon-dark.png"
+                    src="/images/logo/bowls-icon.png"
                     alt="Lawnbowling logo"
                     width={36}
                     height={36}
-                    className="rounded-full"
+                    className="rounded-full object-cover"
                   />
                   <span className="text-base font-bold text-zinc-900">
                     Lawnbowling

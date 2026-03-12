@@ -39,19 +39,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(theme === "dark" ? "light" : "dark");
   }, [theme, setTheme]);
 
-  // Listen for system preference changes
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = (e: MediaQueryListEvent) => {
-      // Only apply system preference if user hasn't manually overridden
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (!stored) {
-        setTheme(e.matches ? "dark" : "light");
-      }
-    };
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, [setTheme]);
+  // Only switch to dark if user explicitly chose it — no OS auto-detection
+  // The toggle button is always available for users who want dark mode
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>

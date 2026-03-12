@@ -138,7 +138,7 @@ export default function LoginPage() {
             {/* Brand */}
             <div className="mb-8 flex items-center gap-3">
               <Image
-                src="/images/logo/lawn-bowl-illustrated-icon.png"
+                src="/images/logo/bowls-icon.png"
                 alt="Lawnbowling"
                 width={40}
                 height={40}
