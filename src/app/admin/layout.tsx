@@ -18,6 +18,7 @@ const navItems = [
   { href: "/admin/branding", label: "Branding" },
   { href: "/admin/kiosk-settings", label: "Kiosk" },
   { href: "/admin/venue-qr", label: "QR Codes" },
+  { href: "/admin/monitoring", label: "Monitoring" },
 ];
 
 export default async function AdminLayout({
