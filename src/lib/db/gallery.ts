@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { STORAGE_BUCKETS, galleryPath } from "@/lib/storage";
 
 export interface PlayerPhoto {
   id: string;
@@ -77,15 +78,17 @@ export async function updatePhotoCaption(
 
 export async function uploadGalleryPhoto(playerId: string, file: File): Promise<string> {
   const supabase = await createClient();
-  const ext = file.name.split(".").pop();
-  const path = `gallery/${playerId}/${Date.now()}.${ext}`;
+  const ext = file.name.split(".").pop() ?? "jpg";
+  const path = galleryPath(playerId, ext);
 
   const { error: uploadError } = await supabase.storage
-    .from("avatars")
+    .from(STORAGE_BUCKETS.GAME_GALLERY)
     .upload(path, file, { upsert: false });
 
   if (uploadError) throw uploadError;
 
-  const { data } = supabase.storage.from("avatars").getPublicUrl(path);
+  const { data } = supabase.storage
+    .from(STORAGE_BUCKETS.GAME_GALLERY)
+    .getPublicUrl(path);
   return data.publicUrl;
 }

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { STORAGE_BUCKETS, avatarPath } from "@/lib/storage";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Camera,
@@ -211,15 +212,20 @@ export default function PlayerOnboardingPage() {
 
     // Upload avatar if a new file was selected
     if (avatarFile && playerId) {
-      const ext = avatarFile.name.split(".").pop();
-      const path = `avatars/${playerId}.${ext}`;
-      const { error: uploadErr } = await supabase.storage
-        .from("avatars")
-        .upload(path, avatarFile, { upsert: true });
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const ext = avatarFile.name.split(".").pop() ?? "jpg";
+        const path = avatarPath(user.id, ext);
+        const { error: uploadErr } = await supabase.storage
+          .from(STORAGE_BUCKETS.PLAYER_AVATARS)
+          .upload(path, avatarFile, { upsert: true });
 
-      if (!uploadErr) {
-        const { data: urlData } = supabase.storage.from("avatars").getPublicUrl(path);
-        finalAvatarUrl = urlData.publicUrl;
+        if (!uploadErr) {
+          const { data: urlData } = supabase.storage
+            .from(STORAGE_BUCKETS.PLAYER_AVATARS)
+            .getPublicUrl(path);
+          finalAvatarUrl = urlData.publicUrl;
+        }
       }
     }
 

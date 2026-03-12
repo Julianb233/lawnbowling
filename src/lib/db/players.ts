@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { STORAGE_BUCKETS, avatarPath } from "@/lib/storage";
 
 export type SkillLevel = "beginner" | "intermediate" | "advanced";
 
@@ -79,15 +80,17 @@ export async function updatePlayer(userId: string, updates: PlayerUpdate) {
 
 export async function uploadAvatar(userId: string, file: File) {
   const supabase = await createClient();
-  const ext = file.name.split(".").pop();
-  const path = `avatars/${userId}.${ext}`;
+  const ext = file.name.split(".").pop() ?? "jpg";
+  const path = avatarPath(userId, ext);
 
   const { error: uploadError } = await supabase.storage
-    .from("avatars")
+    .from(STORAGE_BUCKETS.PLAYER_AVATARS)
     .upload(path, file, { upsert: true });
 
   if (uploadError) throw uploadError;
 
-  const { data } = supabase.storage.from("avatars").getPublicUrl(path);
+  const { data } = supabase.storage
+    .from(STORAGE_BUCKETS.PLAYER_AVATARS)
+    .getPublicUrl(path);
   return data.publicUrl;
 }

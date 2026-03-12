@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
+import { STORAGE_BUCKETS } from "@/lib/storage";
 
 interface ClubSettings {
   id: string;
@@ -193,13 +194,13 @@ export default function ClubSettingsPage() {
       const path = `club-logos/${club.id}.${ext}`;
 
       const { error: uploadError } = await supabase.storage
-        .from("avatars")
+        .from(STORAGE_BUCKETS.GAME_GALLERY)
         .upload(path, file, { upsert: true });
 
       if (uploadError) throw uploadError;
 
       const { data: urlData } = supabase.storage
-        .from("avatars")
+        .from(STORAGE_BUCKETS.GAME_GALLERY)
         .getPublicUrl(path);
 
       const logoUrl = urlData.publicUrl;
