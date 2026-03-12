@@ -36,7 +36,8 @@ export function AvailabilityBoard({ players, loading, onPickMe, pendingTargetIds
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 py-16 text-center glass"
+        className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-16 text-center bg-white/60"
+        style={{ borderColor: "rgba(10,46,18,0.15)" }}
       >
         <motion.div
           animate={{ y: [0, -8, 0] }}
@@ -44,8 +45,8 @@ export function AvailabilityBoard({ players, loading, onPickMe, pendingTargetIds
         >
           <CircleDot className="w-12 h-12 text-[#1B5E20]" strokeWidth={1.5} />
         </motion.div>
-        <p className="mt-4 text-lg font-semibold text-zinc-600 dark:text-zinc-400">No players available</p>
-        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="mt-4 text-lg font-semibold" style={{ color: "#0A2E12" }}>No players available</p>
+        <p className="mt-1 text-sm" style={{ color: "#3D5A3E" }}>
           Check in to be the first on the board!
         </p>
       </motion.div>
