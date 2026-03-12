@@ -12,39 +12,11 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [magicLinkSent, setMagicLinkSent] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const supabase = createClient();
   const returnTo = typeof window !== "undefined"
     ? new URLSearchParams(window.location.search).get("returnTo") || "/"
     : "/";
-
-  async function handleMagicLink(e?: React.FormEvent) {
-    if (e) e.preventDefault();
-    if (!email) {
-      setError("Please enter your email address first.");
-      return;
-    }
-    setLoading(true);
-    setError(null);
-
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
-      },
-    });
-
-    if (error) {
-      setError(error.message);
-      setLoading(false);
-      return;
-    }
-
-    setMagicLinkSent(true);
-    setLoading(false);
-  }
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -96,38 +68,6 @@ export default function LoginPage() {
       bg: "#F0FFF4",
     },
   ];
-
-  if (magicLinkSent) {
-    return (
-      <div className="flex min-h-screen items-center justify-center px-4" style={{ backgroundColor: "#FEFCF9" }}>
-        <div className="w-full max-w-md space-y-6 rounded-2xl border border-[#0A2E12]/10 bg-white p-10 text-center shadow-sm">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full" style={{ backgroundColor: "#F0FFF4" }}>
-            <Mail className="h-10 w-10" style={{ color: "#1B5E20" }} />
-          </div>
-          <h1
-            className="text-3xl font-bold"
-            style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
-          >
-            Check your email
-          </h1>
-          <p className="text-lg" style={{ color: "#3D5A3E" }}>
-            We sent a sign-in link to{" "}
-            <strong style={{ color: "#0A2E12" }}>{email}</strong>.
-          </p>
-          <p className="text-base" style={{ color: "#3D5A3E" }}>
-            Open your email and click the link to sign in. It may take a minute to arrive.
-          </p>
-          <button
-            onClick={() => setMagicLinkSent(false)}
-            className="mt-4 rounded-xl px-6 py-4 text-lg font-semibold text-white transition hover:brightness-110"
-            style={{ backgroundColor: "#1B5E20" }}
-          >
-            Back to sign in
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#FEFCF9" }}>
@@ -204,8 +144,7 @@ export default function LoginPage() {
               </p>
             </div>
 
-            {/* Magic link first (preferred for seniors) */}
-            <form onSubmit={handleMagicLink} className="space-y-5">
+            <form onSubmit={handleLogin} className="space-y-5">
               <div>
                 <label
                   htmlFor="email"
@@ -229,6 +168,29 @@ export default function LoginPage() {
                 </div>
               </div>
 
+              <div>
+                <label
+                  htmlFor="password"
+                  className="mb-2 block text-base font-medium"
+                  style={{ color: "#0A2E12" }}
+                >
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
+                  <input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    style={{ color: "#0A2E12" }}
+                    placeholder="Your password"
+                  />
+                </div>
+              </div>
+
               {error && (
                 <div className="rounded-lg bg-red-50 px-4 py-4 text-base text-red-700">
                   {error}
@@ -241,72 +203,9 @@ export default function LoginPage() {
                 className="w-full rounded-xl py-4 text-lg font-semibold text-white shadow-md transition hover:brightness-110 disabled:opacity-50 active:scale-[0.98]"
                 style={{ backgroundColor: "#1B5E20" }}
               >
-                <span className="flex items-center justify-center gap-2">
-                  <Mail className="h-5 w-5" />
-                  {loading && !showPassword ? "Sending link..." : "Email me a sign-in link"}
-                </span>
+                {loading ? "Signing in..." : "Sign In"}
               </button>
-
-              <p className="text-center text-base" style={{ color: "#3D5A3E" }}>
-                No password needed -- we will email you a sign-in link.
-              </p>
             </form>
-
-            {/* Divider */}
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-[#0A2E12]/10" />
-              </div>
-              <div className="relative flex justify-center text-base">
-                <span className="bg-white px-3" style={{ color: "#3D5A3E" }}>or sign in with password</span>
-              </div>
-            </div>
-
-            {/* Password login (secondary) */}
-            {!showPassword ? (
-              <button
-                type="button"
-                onClick={() => setShowPassword(true)}
-                className="w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 text-lg font-semibold shadow-sm transition hover:bg-[#F0FFF4] active:scale-[0.98]"
-                style={{ color: "#1B5E20" }}
-              >
-                I have a password
-              </button>
-            ) : (
-              <form onSubmit={handleLogin} className="space-y-5">
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="mb-2 block text-base font-medium"
-                    style={{ color: "#0A2E12" }}
-                  >
-                    Password
-                  </label>
-                  <div className="relative">
-                    <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
-                    <input
-                      id="password"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                      style={{ color: "#0A2E12" }}
-                      placeholder="Your password"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full rounded-xl py-4 text-lg font-semibold text-white shadow-md transition hover:brightness-110 disabled:opacity-50 active:scale-[0.98]"
-                  style={{ backgroundColor: "#1B5E20" }}
-                >
-                  {loading ? "Signing in..." : "Sign In with Password"}
-                </button>
-              </form>
-            )}
 
             <p className="mt-6 text-center text-base" style={{ color: "#3D5A3E" }}>
               No account yet?{" "}
