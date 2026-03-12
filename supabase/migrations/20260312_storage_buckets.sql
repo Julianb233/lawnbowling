@@ -1,8 +1,9 @@
 -- Storage buckets for player avatars and game gallery images
 -- AI-2461: Set up Supabase Storage buckets
+-- Idempotent: safe to run multiple times
 
 -- ============================================================
--- 1. Create storage buckets
+-- 1. Create storage buckets (upsert)
 -- ============================================================
 
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
@@ -34,6 +35,16 @@ ON CONFLICT (id) DO UPDATE SET
 -- ============================================================
 -- 2. RLS policies for player-avatars bucket
 -- ============================================================
+
+-- Drop existing policies first to make migration re-runnable
+DROP POLICY IF EXISTS "Anyone can view avatars" ON storage.objects;
+DROP POLICY IF EXISTS "Users can upload own avatar" ON storage.objects;
+DROP POLICY IF EXISTS "Users can update own avatar" ON storage.objects;
+DROP POLICY IF EXISTS "Users can delete own avatar" ON storage.objects;
+DROP POLICY IF EXISTS "Anyone can view gallery images" ON storage.objects;
+DROP POLICY IF EXISTS "Admins can upload gallery images" ON storage.objects;
+DROP POLICY IF EXISTS "Admins can update gallery images" ON storage.objects;
+DROP POLICY IF EXISTS "Admins can delete gallery images" ON storage.objects;
 
 -- Public read access for all avatars
 CREATE POLICY "Anyone can view avatars"
@@ -77,7 +88,6 @@ CREATE POLICY "Anyone can view gallery images"
   USING (bucket_id = 'game-gallery');
 
 -- Only admins (players with role 'admin' or 'club_manager') can upload to gallery
--- Uses the club_memberships table to check for admin/manager role
 CREATE POLICY "Admins can upload gallery images"
   ON storage.objects FOR INSERT
   TO authenticated
