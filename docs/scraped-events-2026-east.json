@@ -1,0 +1,1505 @@
+[
+  {
+    "event_name": "2026 SED Open - Men's Events",
+    "dates": "2026-03-07 to 2026-03-13",
+    "location": {
+      "club_name": "Mount Dora Lawn Bowling Club",
+      "city": "Mount Dora",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs|fours",
+    "gender": "men",
+    "description": "Southeast Division Open - Men's events. The SED Open is one of the largest regional lawn bowling tournaments in the eastern US, attracting bowlers from across the division's 14 member clubs.",
+    "entry_fee": "",
+    "source_url": "https://sedlawnbowls.org/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "2026 SED Open - Women's Events",
+    "dates": "2026-03-07 to 2026-03-13",
+    "location": {
+      "club_name": "Sun City Center Lawn Bowling Club",
+      "city": "Sun City Center",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs|fours",
+    "gender": "women",
+    "description": "Southeast Division Open - Women's events hosted at Sun City Center LBC while men's events are held concurrently at Mount Dora LBC.",
+    "entry_fee": "",
+    "source_url": "https://sedlawnbowls.org/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "SED Playdowns - Pairs & Singles",
+    "dates": "2026-04-20 to 2026-04-26",
+    "location": {
+      "club_name": "Mount Dora Lawn Bowling Club",
+      "city": "Mount Dora",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs",
+    "gender": "open",
+    "description": "Southeast Division Playdowns to qualify for the Bowls USA National Championships. Open to SED division members who commit to representing the Southeast at US Nationals.",
+    "entry_fee": "",
+    "source_url": "https://sedlawnbowls.org/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Pinehurst Spring Roll",
+    "dates": "2026-05-15 to 2026-05-17",
+    "location": {
+      "club_name": "Pinehurst Lawn Bowling Club",
+      "address": "1 Carolina Vista Drive",
+      "city": "Pinehurst",
+      "state": "NC",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "mixed",
+    "gender": "mixed",
+    "description": "Designed to bring lawn bowlers together, inclusive of players of all levels, emphasizing fun competition. Three-day event at the historic Pinehurst Resort.",
+    "entry_fee": "",
+    "source_url": "https://sedlawnbowls.org/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sun City Center - Hawken Aussie (2-4-2) Pairs",
+    "dates": "2026-03-22",
+    "location": {
+      "club_name": "Sun City Center Lawn Bowling Club",
+      "address": "1009 N Pebble Beach Blvd",
+      "city": "Sun City Center",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "open",
+    "description": "Australian 2-4-2 Pairs format tournament hosted by SCCLBC. Open tournament with registration and conditions of play available.",
+    "entry_fee": "",
+    "source_url": "https://www.suncitycenterlbc.com/calendar--events.html",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sun City Center - New Zealand Pairs",
+    "dates": "2026-03-28",
+    "location": {
+      "club_name": "Sun City Center Lawn Bowling Club",
+      "address": "1009 N Pebble Beach Blvd",
+      "city": "Sun City Center",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "open",
+    "description": "New Zealand Pairs format tournament hosted by SCCLBC.",
+    "entry_fee": "",
+    "source_url": "https://www.suncitycenterlbc.com/calendar--events.html",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sun City Center - Suncoaster Afternoon Bowling",
+    "dates": "Mondays, Thursdays, Fridays year-round at 1:00 PM",
+    "location": {
+      "club_name": "Sun City Center Lawn Bowling Club",
+      "address": "1009 N Pebble Beach Blvd",
+      "city": "Sun City Center",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "league",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular afternoon bowling sessions hosted by the Suncoasters (ladies) and Pebble Beach (men's) clubs. Sessions at 1:00 PM Mon/Thu/Fri.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.suncitycenterlbc.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sun City Center - Morning Bowls",
+    "dates": "Monday-Saturday year-round, registration by 8:50 AM",
+    "location": {
+      "club_name": "Sun City Center Lawn Bowling Club",
+      "address": "1009 N Pebble Beach Blvd",
+      "city": "Sun City Center",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Daily morning bowling sessions, Monday through Saturday. Registration by 8:50 AM.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.suncitycenterlbc.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sun City Center - Evening Play",
+    "dates": "Sunday, Tuesday, Thursday evenings year-round, 6:00-8:00 PM",
+    "location": {
+      "club_name": "Sun City Center Lawn Bowling Club",
+      "address": "1009 N Pebble Beach Blvd",
+      "city": "Sun City Center",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular evening play sessions on Sunday, Tuesday, and Thursday nights from 6-8 PM.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.suncitycenterlbc.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sarasota LBC - Women's Singles Championship",
+    "dates": "2026-03-16, 2026-03-18, 2026-03-20",
+    "location": {
+      "club_name": "Sarasota Lawn Bowling Club",
+      "address": "951 Circus Blvd",
+      "city": "Sarasota",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles",
+    "gender": "women",
+    "description": "In-house women's singles championship played over three days (Monday, Wednesday, Friday).",
+    "entry_fee": "",
+    "source_url": "https://www.sarasotalawnbowlingclub.com/open-tournaments/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sarasota LBC - Cut Throat (4,3,2,1)",
+    "dates": "2026-03-23, 2026-03-25, 2026-03-27",
+    "location": {
+      "club_name": "Sarasota Lawn Bowling Club",
+      "address": "951 Circus Blvd",
+      "city": "Sarasota",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles",
+    "gender": "open",
+    "description": "Cut Throat (4-3-2-1) format tournament played over three days (Monday, Wednesday, Friday).",
+    "entry_fee": "",
+    "source_url": "https://www.sarasotalawnbowlingclub.com/open-tournaments/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sarasota LBC - Champion of Champions",
+    "dates": "2026-03-30",
+    "location": {
+      "club_name": "Sarasota Lawn Bowling Club",
+      "address": "951 Circus Blvd",
+      "city": "Sarasota",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles",
+    "gender": "open",
+    "description": "Champion of Champions tournament - winners from other club tournaments compete for the overall club title.",
+    "entry_fee": "",
+    "source_url": "https://www.sarasotalawnbowlingclub.com/open-tournaments/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sarasota LBC - Vice & Skips Clinic",
+    "dates": "2026-02-25",
+    "location": {
+      "club_name": "Sarasota Lawn Bowling Club",
+      "address": "951 Circus Blvd",
+      "city": "Sarasota",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Coaching clinic for Vice and Skip positions. Part of the club's ongoing player development program.",
+    "entry_fee": "",
+    "source_url": "https://www.sarasotalawnbowlingclub.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sarasota LBC - Club Championships",
+    "dates": "2026-01-01 to 2026-04-30",
+    "location": {
+      "club_name": "Sarasota Lawn Bowling Club",
+      "address": "951 Circus Blvd",
+      "city": "Sarasota",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "league",
+    "format": "singles|pairs|triples",
+    "gender": "open",
+    "description": "Season-long club championship competition with multiple formats (singles, pairs, triples) running January through April.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.sarasotalawnbowlingclub.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Clearwater LBC - Regular Sessions",
+    "dates": "Year-round Tue/Thu/Sat",
+    "location": {
+      "club_name": "Clearwater Lawn Bowling Club",
+      "address": "1040 Calumet Street",
+      "city": "Clearwater",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular bowling sessions on Tuesdays, Thursdays, and Saturdays. Club established 1924. All SED tournament participants must be a member of Bowls USA and the Southeast Division.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://clearwaterlawnbowlingclub.org/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Clearwater LBC - Pinellas Invitational Open Triples",
+    "dates": "2026-02-27 (estimated)",
+    "location": {
+      "club_name": "Clearwater Lawn Bowling Club",
+      "address": "1040 Calumet Street",
+      "city": "Clearwater",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "triples",
+    "gender": "open",
+    "description": "Annual Pinellas Invitational - Open Triples tournament. Date estimated from 2025 pattern (last Friday of February).",
+    "entry_fee": "",
+    "source_url": "https://clearwaterlawnbowlingclub.org/",
+    "region": "SED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Mount Dora LBC - Holiday Bowl",
+    "dates": "2026-12 (estimated, typically mid-December)",
+    "location": {
+      "club_name": "Mount Dora Lawn Bowling Club",
+      "address": "125 N Edgerton Court",
+      "city": "Mount Dora",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "mixed",
+    "gender": "mixed",
+    "description": "Annual Holiday Bowl tournament that attracts players from all over the east coast and Florida. Mount Dora LBC is one of the largest Bowls USA affiliated clubs with over 240 members and 14 bowling rinks.",
+    "entry_fee": "",
+    "source_url": "https://www.mountdoralbc.com/",
+    "region": "SED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Mount Dora LBC - Night Bowling",
+    "dates": "Monday-Thursday year-round, sign-in at 6:45 PM",
+    "location": {
+      "club_name": "Mount Dora Lawn Bowling Club",
+      "address": "125 N Edgerton Court",
+      "city": "Mount Dora",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Night bowling under the lights, Monday through Thursday. Sign-in at 6:45 PM.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.mountdoralbc.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Lakeland LBC - Regular Sessions",
+    "dates": "Year-round",
+    "location": {
+      "club_name": "Lakeland Lawn Bowling Club",
+      "city": "Lakeland",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular bowling sessions at Lake Parker Park. Club features a fast green on 8 wide rinks of pro carpet. Part of the SED with 14 member clubs.",
+    "entry_fee": "Club membership required",
+    "source_url": "http://sedlawnbowls.org/lakeland-lawn-bowling-club/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "St. Petersburg LBC - Season Opening",
+    "dates": "2025-11 to 2026-04 (November-April season)",
+    "location": {
+      "club_name": "St. Petersburg Lawn Bowling Club",
+      "address": "536 4th Avenue North",
+      "city": "St. Petersburg",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "The oldest formally organized lawn bowling organization in Florida and tenth oldest in the US. Season runs November to April. Hosts the National Open Lawn Bowling Winter Tournament on alternate years and annual SED championship tournaments.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://en.wikipedia.org/wiki/St._Petersburg_Lawn_Bowling_Club",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "The Villages LBC - Regular Play",
+    "dates": "Year-round",
+    "location": {
+      "club_name": "The Villages Lawn Bowls Club",
+      "address": "1228 Rio Grande Ave",
+      "city": "The Villages",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Year-round lawn bowls on three grass greens at Rio Grande Neighborhood Center, Fenney Putt and Play, and First Responders Recreation Center. Free coaching, games, league and tournament play available.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.thevillages.com/recreation/lawn-bowling/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Maple Leaf LBC - Regular Sessions",
+    "dates": "Monday-Friday 9:15 AM & 2:00 PM, Saturday 9:15 AM, Sunday 2:00 PM",
+    "location": {
+      "club_name": "Maple Leaf Lawn Bowling Club",
+      "city": "Port Charlotte",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Home of International Lawn Bowling in SW Florida. Regular sessions Monday-Friday at 9:15 AM and 2:00 PM, Saturday at 9:15 AM, and Sunday at 2:00 PM. Founded 1987, SED member.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.lawnbowlingml.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Pinehurst LBC - Regular Bowling",
+    "dates": "Year-round, summer (Apr-Sep) 9:00 AM, winter (Oct-Mar) 1:00 PM",
+    "location": {
+      "club_name": "Pinehurst Lawn Bowling Club",
+      "address": "1 Carolina Vista Drive",
+      "city": "Pinehurst",
+      "state": "NC",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Year-round bowling at historic Pinehurst Resort. The club has been the site of many national and international lawn bowls tournaments since the 1920s. World-class lawn bowl court.",
+    "entry_fee": "Membership/resort guest access",
+    "source_url": "https://www.pinehurst.com/activities/lawn-sports/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Williamsburg Inn LBC - Season Play",
+    "dates": "2026-04-01 to 2026-11-01 (daily 3-6 PM)",
+    "location": {
+      "club_name": "Williamsburg Inn Lawn Bowling Club",
+      "address": "136 East Francis Street",
+      "city": "Williamsburg",
+      "state": "VA",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "The only professional lawn bowling green in Virginia. Green open daily 3-6 PM April through November. Full schedule includes pairs programs on Tuesdays and Thursdays, about a dozen weekend tournaments, and special matches on Independence Day and Labor Day. 60 members - second only to Central Park in the NED.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://williamsburgoutside.com/2012/02/21/williamsburg-inn-lawn-bowling-club/",
+    "region": "NED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Williamsburg Inn LBC - Independence Day Match",
+    "dates": "2026-07-04",
+    "location": {
+      "club_name": "Williamsburg Inn Lawn Bowling Club",
+      "address": "136 East Francis Street",
+      "city": "Williamsburg",
+      "state": "VA",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Annual Independence Day match at the Williamsburg Inn Lawn Bowling Club.",
+    "entry_fee": "",
+    "source_url": "https://williamsburgoutside.com/2012/02/21/williamsburg-inn-lawn-bowling-club/",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Williamsburg Inn LBC - Labor Day Match",
+    "dates": "2026-09-07",
+    "location": {
+      "club_name": "Williamsburg Inn Lawn Bowling Club",
+      "address": "136 East Francis Street",
+      "city": "Williamsburg",
+      "state": "VA",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Annual Labor Day match at the Williamsburg Inn Lawn Bowling Club.",
+    "entry_fee": "",
+    "source_url": "https://williamsburgoutside.com/2012/02/21/williamsburg-inn-lawn-bowling-club/",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "36th NY State Masters Championship",
+    "dates": "2026-04-10 to 2026-04-12, 2026-04-17 to 2026-04-19, 2026-04-24 to 2026-04-26, 2026-05-15 to 2026-05-17",
+    "location": {
+      "club_name": "Various New York State Clubs",
+      "city": "New York",
+      "state": "NY",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles",
+    "gender": "open",
+    "description": "36th annual New York State Masters Championship. Multi-weekend tournament played across April and May at various New York State locations.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsnortheast.com/",
+    "region": "NED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "New York Lawn Bowling Club - Season Play",
+    "dates": "2026-05-01 to 2026-11-07 (8 AM to dusk daily)",
+    "location": {
+      "club_name": "New York Lawn Bowling Club",
+      "city": "New York",
+      "state": "NY",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Founded 1926 in Central Park. Season runs May 1 to November 7, play from 8 AM to dusk. Hosts competitive summer league and several tournaments. Open House events welcoming the public to try the sport for free with instruction and equipment provided.",
+    "entry_fee": "Membership includes Central Park permit and Bowls USA membership",
+    "source_url": "https://www.nybowls.com/",
+    "region": "NED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "NED Open",
+    "dates": "2026-08-16 to 2026-08-21 (estimated)",
+    "location": {
+      "club_name": "Buck Hill Falls Lawn Bowling Club",
+      "city": "Buck Hill Falls",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs|triples",
+    "gender": "open",
+    "description": "Northeast Division Open tournament. Annual multi-day competition at Buck Hill Falls in the Pocono Mountains. Buck Hill Falls has two spectacular lawn bowling greens and has garnered national and international attention for its pristine facilities. Dates estimated from 2025 pattern.",
+    "entry_fee": "",
+    "source_url": "https://www.lawnbowlingpittsburgh.org/tournaments",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "NED Playdowns",
+    "dates": "2026-06 to 2026-08 (estimated)",
+    "location": {
+      "club_name": "Various NED Clubs",
+      "city": "Various",
+      "state": "NY",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs",
+    "gender": "open",
+    "description": "Northeast Division Playdowns to qualify for the Bowls USA National Championships. Played at various NED clubs during the summer season.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsnortheast.com/",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Essex County LBC - Season Play",
+    "dates": "2026-04 to 2026-10 (weekends, Mon/Wed evenings 6 PM)",
+    "location": {
+      "club_name": "Essex County Lawn Bowling Club",
+      "city": "Bloomfield",
+      "state": "NJ",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular bowling at Watsessing Park most weekends from mid-April to late October, and Monday and Wednesday nights around 6 PM from May through end of September. New facility opened July 2020.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.njbowls.com/",
+    "region": "NED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Thistle LBC - Jitney Socials",
+    "dates": "2026-05 to 2026-09 (Mon 7 PM, Wed 7 PM, Fri 10 AM)",
+    "location": {
+      "club_name": "Thistle Lawn Bowling Club",
+      "address": "1561 Asylum Ave",
+      "city": "West Hartford",
+      "state": "CT",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular jitney sessions (social lawn bowls) on Mondays and Wednesdays at 7 PM and Fridays at 10 AM, from late May to mid-September. Club founded 1913, located in Elizabeth Park. Competitive tournaments organized at various irregular times, usually on long weekends.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://thistlelawnbowlinginfo.wordpress.com/",
+    "region": "NED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "New Bedford LBC - Season Opening",
+    "dates": "2026-04-25 (estimated, based on 2025 Apr 26 opening)",
+    "location": {
+      "club_name": "New Bedford Lawn Bowling Club",
+      "city": "New Bedford",
+      "state": "MA",
+      "country": "US"
+    },
+    "event_type": "open-day",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Season opening day for New Bedford LBC at Hazelwood Greens. During season, open nights Tuesdays and Thursdays 6-8 PM for members and newcomers. Won the first regional tournament they hosted in 2023.",
+    "entry_fee": "Club membership (fees go toward green maintenance)",
+    "source_url": "https://nblbc.com/",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "New Bedford LBC - Open Nights",
+    "dates": "2026-05 to 2026-10 (Tuesdays and Thursdays 6-8 PM)",
+    "location": {
+      "club_name": "New Bedford Lawn Bowling Club",
+      "city": "New Bedford",
+      "state": "MA",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular Tuesday and Thursday open nights from 6-8 PM during the season for members and newcomers alike.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://nblbc.com/",
+    "region": "NED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Buck Hill Falls LBC - Weekly Social & Tournaments",
+    "dates": "2026-05 to 2026-09 (summer season)",
+    "location": {
+      "club_name": "Buck Hill Falls Lawn Bowling Club",
+      "city": "Buck Hill Falls",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Weekly lawn bowling social plus lessons, tournaments, and special events throughout the summer season. Two spectacular greens at this private community in the Pocono Mountains. Lawn bowling dates back to 1931 at Buck Hill Falls.",
+    "entry_fee": "Community/club membership required",
+    "source_url": "https://www.buckhillfalls.com/public/community/lawn-bowling",
+    "region": "NED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Frick Park LBC - Pro-Am/Guest Tournament",
+    "dates": "2026-05-09 (estimated from 2025 May 10)",
+    "location": {
+      "club_name": "Frick Park Lawn Bowling Club",
+      "address": "7300 Reynolds Street",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "open",
+    "description": "Pro-Am/Guest tournament - members invite guests to participate. Only public lawn bowling green in Pennsylvania.",
+    "entry_fee": "Token entry fee for cash prizes",
+    "source_url": "https://www.lawnbowlingpittsburgh.org/tournaments",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Frick Park LBC - Australian Pairs",
+    "dates": "2026-06-13 (estimated from 2025 Jun 14)",
+    "location": {
+      "club_name": "Frick Park Lawn Bowling Club",
+      "address": "7300 Reynolds Street",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "open",
+    "description": "Australian Pairs format tournament. One-day competition at Frick Park.",
+    "entry_fee": "Token entry fee for cash prizes",
+    "source_url": "https://www.lawnbowlingpittsburgh.org/tournaments",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Frick Park LBC - 4-3-2-1 Tournament",
+    "dates": "2026-07-18 (estimated from 2025 Jul 19)",
+    "location": {
+      "club_name": "Frick Park Lawn Bowling Club",
+      "address": "7300 Reynolds Street",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles",
+    "gender": "open",
+    "description": "4-3-2-1 format tournament at Frick Park. Single-day event.",
+    "entry_fee": "Token entry fee for cash prizes",
+    "source_url": "https://www.lawnbowlingpittsburgh.org/tournaments",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Frick Park LBC - Saladin Pairs",
+    "dates": "2026-08-01 to 2026-08-02 (estimated from 2025 Aug 2-3)",
+    "location": {
+      "club_name": "Frick Park Lawn Bowling Club",
+      "address": "7300 Reynolds Street",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "open",
+    "description": "Saladin Pairs tournament hosted at Frick Park. Two-day competition, NED sanctioned event.",
+    "entry_fee": "Token entry fee for cash prizes",
+    "source_url": "https://www.lawnbowlingpittsburgh.org/tournaments",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Frick Park LBC - Two Bowl Pairs",
+    "dates": "2026-08-22 (estimated from 2025 Aug 23)",
+    "location": {
+      "club_name": "Frick Park Lawn Bowling Club",
+      "address": "7300 Reynolds Street",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "open",
+    "description": "Two Bowl Pairs format tournament at Frick Park.",
+    "entry_fee": "Token entry fee for cash prizes",
+    "source_url": "https://www.lawnbowlingpittsburgh.org/tournaments",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Frick Park LBC - Mixed Pairs",
+    "dates": "2026-09-26 (estimated from 2025 Sep 27)",
+    "location": {
+      "club_name": "Frick Park Lawn Bowling Club",
+      "address": "7300 Reynolds Street",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "mixed",
+    "description": "Mixed Pairs tournament at Frick Park. Season-ending single-day event.",
+    "entry_fee": "Token entry fee for cash prizes",
+    "source_url": "https://www.lawnbowlingpittsburgh.org/tournaments",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Frick Park LBC - Helen Clay Frick Club Championship",
+    "dates": "2026-05 to 2026-09 (season-long)",
+    "location": {
+      "club_name": "Frick Park Lawn Bowling Club",
+      "address": "7300 Reynolds Street",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "league",
+    "format": "singles|pairs",
+    "gender": "open",
+    "description": "Helen Clay Frick Club Championship - the major season-long club championship including Men's Singles, Open Pairs, Ladies' Singles, and Novice Singles bracket competitions.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.lawnbowlingpittsburgh.org/tournaments",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Frick Park LBC - Regular Play",
+    "dates": "2026-05 to 2026-10 (Tue/Sat 10 AM, Wed/Thu 7 PM, Sun 2 PM)",
+    "location": {
+      "club_name": "Frick Park Lawn Bowling Club",
+      "address": "7300 Reynolds Street",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular play sessions at the only public lawn bowling green in Pennsylvania. Tues/Sat at 10 AM, Wed/Thu at 7 PM, Sun at 2 PM, from May to October.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.lawnbowlingpittsburgh.org/",
+    "region": "NED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "NED Spring Fling Classic",
+    "dates": "2026-04-04 to 2026-04-05 (estimated from 2025 Apr 5-6)",
+    "location": {
+      "club_name": "Various NED Clubs",
+      "city": "Various",
+      "state": "PA",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Northeast Division Spring Fling Classic tournament. Two-day early-season event. Dates estimated from 2025 pattern.",
+    "entry_fee": "",
+    "source_url": "https://www.lawnbowlingpittsburgh.org/tournaments",
+    "region": "NED",
+    "status": "estimated"
+  },
+  {
+    "event_name": "SCD Open - Men's Events",
+    "dates": "2026-02-14 to 2026-02-20 (estimated from 2025 Feb 15-20)",
+    "location": {
+      "club_name": "Johnson Lawn Bowls Club",
+      "city": "Sun City West",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs|triples",
+    "gender": "men",
+    "description": "South Central Division Open - Men's events. Aside from the US Open, the SCD Open is the largest lawn bowling tournament in the United States, attracting top bowlers from across the US and Canada. Six days of competition starting at 8:30 AM with close to 200 participants. Dates estimated from 2025 pattern.",
+    "entry_fee": "",
+    "source_url": "https://www.scdlawnbowls.com/tournament-info",
+    "region": "SCD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "SCD Open - Women's Events",
+    "dates": "2026-02-14 to 2026-02-20 (estimated from 2025 Feb 15-20)",
+    "location": {
+      "club_name": "Bell, Lakeview & Oakmont Lawn Bowls Clubs",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs|fours",
+    "gender": "women",
+    "description": "South Central Division Open - Women's events held at Bell, Lakeview and Oakmont clubs in Sun City while men's events run concurrently at Johnson in Sun City West. Close to 200 total men and women participants.",
+    "entry_fee": "",
+    "source_url": "https://www.scdlawnbowls.com/tournament-info",
+    "region": "SCD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "SCD Playdowns",
+    "dates": "2026-03 to 2026-04 (estimated)",
+    "location": {
+      "club_name": "Various Arizona Clubs",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs",
+    "gender": "open",
+    "description": "South Central Division Playdowns to qualify for the Bowls USA National Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.scdlawnbowls.com/tournament-info",
+    "region": "SCD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Grand LBC - Regular Club Bowling",
+    "dates": "Tue/Thu/Sat year-round (10 AM Jan-Mar, 9 AM Apr, 8 AM May, 7 AM Jun-Sep, 8 AM Oct, 9-10 AM Nov-Dec)",
+    "location": {
+      "club_name": "Grand Lawn Bowling Club",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular club bowling every Tuesday, Thursday and Saturday mornings. Times vary by season. Contact: scgbowls@gmail.com",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.grandlawnbowling.org",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Grand LBC - Visitation to Oakmont",
+    "dates": "2026 season (date TBD)",
+    "location": {
+      "club_name": "Oakmont Lawn Bowls Club",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Inter-club visitation from Grand LBC to Oakmont LBC. Part of the regular inter-club social calendar in Sun City.",
+    "entry_fee": "",
+    "source_url": "https://www.grandlawnbowling.org",
+    "region": "SCD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Grand LBC - Veteran/Novice Pairs",
+    "dates": "2026 season (date TBD)",
+    "location": {
+      "club_name": "Grand Lawn Bowling Club",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "open",
+    "description": "Veteran/Novice pairs tournament pairing experienced bowlers with newcomers.",
+    "entry_fee": "",
+    "source_url": "https://www.grandlawnbowling.org",
+    "region": "SCD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Grand LBC - Sunbirds vs Snowbirds",
+    "dates": "2026 season (date TBD, typically late winter)",
+    "location": {
+      "club_name": "Grand Lawn Bowling Club",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Annual Sunbirds (year-round residents) vs Snowbirds (seasonal visitors) match. Fun inter-club social competition.",
+    "entry_fee": "",
+    "source_url": "https://www.grandlawnbowling.org",
+    "region": "SCD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Johnson Lawn Bowls - Daily Draw",
+    "dates": "Mon-Sat year-round",
+    "location": {
+      "club_name": "Johnson Lawn Bowls Club",
+      "city": "Sun City West",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Daily draw play Monday through Saturday year-round at the Johnson Lawn Bowls Club in Sun City West. Major venue for men's SCD events.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://lawnbowls.scwclubs.com/",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Bell Lawn Bowls Club - Regular Play",
+    "dates": "Year-round",
+    "location": {
+      "club_name": "Bell Lawn Bowls Club",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "One of five lawn bowling clubs in Sun City, AZ. Hosts women's SCD Open events. Regular play year-round.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.bowlsaz.com/",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Lakeview Lawn Bowls Club - Regular Play",
+    "dates": "Year-round",
+    "location": {
+      "club_name": "Lakeview Lawn Bowls Club",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "One of five lawn bowling clubs in Sun City, AZ. Hosts women's SCD Open events. Regular play year-round.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.bowlsaz.com/",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Oakmont Lawn Bowls Club - Regular Play",
+    "dates": "Year-round",
+    "location": {
+      "club_name": "Oakmont Lawn Bowls Club",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "One of five lawn bowling clubs in Sun City, AZ. Hosts women's SCD Open events. Regular play year-round.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.bowlsaz.com/",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Leisure World LBC - Daily Play",
+    "dates": "Every day year-round",
+    "location": {
+      "club_name": "Leisure World Lawn Bowling Club",
+      "city": "Mesa",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Bowling available every day year-round. Green located in front of the main building at the entrance to the Leisure World Community Resort.",
+    "entry_fee": "Community resident/club membership",
+    "source_url": "https://www.bowlschat.com/directory/clubs/leisure-world-lawn-bowling-club-mesa",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Bowls USA US Open 2026 - Women's Fours",
+    "dates": "2026-11-01 to 2026-11-02",
+    "location": {
+      "club_name": "Sun City & Sun City West Clubs",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "fours",
+    "gender": "women",
+    "description": "Bowls USA US Open - Women's Fours. The US Open is Bowls USA's premiere event welcoming hundreds of players from across the US and around the world. Open to all World Bowls affiliate members.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsusa.us/us-open.html",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Bowls USA US Open 2026 - Women's Pairs",
+    "dates": "2026-11-03 to 2026-11-04",
+    "location": {
+      "club_name": "Sun City & Sun City West Clubs",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "women",
+    "description": "Bowls USA US Open - Women's Pairs.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsusa.us/us-open.html",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Bowls USA US Open 2026 - Women's Singles",
+    "dates": "2026-11-05 to 2026-11-07",
+    "location": {
+      "club_name": "Sun City & Sun City West Clubs",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles",
+    "gender": "women",
+    "description": "Bowls USA US Open - Women's Singles.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsusa.us/us-open.html",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Bowls USA US Open 2026 - Men's Singles",
+    "dates": "2026-11-01 to 2026-11-03",
+    "location": {
+      "club_name": "Sun City & Sun City West Clubs",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles",
+    "gender": "men",
+    "description": "Bowls USA US Open - Men's Singles.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsusa.us/us-open.html",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Bowls USA US Open 2026 - Men's Pairs",
+    "dates": "2026-11-04 to 2026-11-05",
+    "location": {
+      "club_name": "Sun City & Sun City West Clubs",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "men",
+    "description": "Bowls USA US Open - Men's Pairs.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsusa.us/us-open.html",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Bowls USA US Open 2026 - Men's Fours",
+    "dates": "2026-11-06 to 2026-11-07",
+    "location": {
+      "club_name": "Sun City & Sun City West Clubs",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "fours",
+    "gender": "men",
+    "description": "Bowls USA US Open - Men's Fours.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsusa.us/us-open.html",
+    "region": "SCD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Central Division Open - Team Event",
+    "dates": "2026-08-06 to 2026-08-07 (estimated from 2025 Aug 7-8)",
+    "location": {
+      "club_name": "Milwaukee Lake Park Lawn Bowling Association",
+      "address": "2975 N Lake Park Rd",
+      "city": "Milwaukee",
+      "state": "WI",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "fours",
+    "gender": "mixed",
+    "description": "Central Division Open - Team Event (4 players per team, mixed gender). Teams play a variety of disciplines over two days. Participants must be affiliated with Bowls USA or World Bowls.",
+    "entry_fee": "",
+    "source_url": "https://www.lawnbowlscentral.com/central-division-open",
+    "region": "CD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Central Division Open - Pairs Event",
+    "dates": "2026-08-08 to 2026-08-09 (estimated from 2025 Aug 9-10)",
+    "location": {
+      "club_name": "Milwaukee Lake Park Lawn Bowling Association",
+      "address": "2975 N Lake Park Rd",
+      "city": "Milwaukee",
+      "state": "WI",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "pairs",
+    "gender": "mixed",
+    "description": "Central Division Open - Pairs Event (2 players per team, mixed gender). Two-day competition following the Team Event.",
+    "entry_fee": "",
+    "source_url": "https://www.lawnbowlscentral.com/central-division-open",
+    "region": "CD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Central Division Playdowns - Singles",
+    "dates": "2026-06 to 2026-07 (estimated)",
+    "location": {
+      "club_name": "Milwaukee Lake Park Lawn Bowling Association",
+      "address": "2975 N Lake Park Rd",
+      "city": "Milwaukee",
+      "state": "WI",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles",
+    "gender": "open",
+    "description": "Central Division Playdowns to qualify for the Bowls USA National Championships. Participants must hold membership in the Central Division and Bowls USA.",
+    "entry_fee": "",
+    "source_url": "https://milwaukeelawnbowls.com/tournaments/",
+    "region": "CD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Milwaukee LPLBA - Season Kickoff Meeting & Luncheon",
+    "dates": "2026-05-02",
+    "location": {
+      "club_name": "Milwaukee Lake Park Lawn Bowling Association",
+      "address": "2975 N Lake Park Rd",
+      "city": "Milwaukee",
+      "state": "WI",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Annual organizational meeting to discuss the upcoming season and socialize, includes a luncheon. 12-2 PM.",
+    "entry_fee": "",
+    "source_url": "https://www.milwaukeelawnbowls.com/schedule/",
+    "region": "CD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Milwaukee LPLBA - Open Bowl & Open House",
+    "dates": "2026-05-16",
+    "location": {
+      "club_name": "Milwaukee Lake Park Lawn Bowling Association",
+      "address": "2975 N Lake Park Rd",
+      "city": "Milwaukee",
+      "state": "WI",
+      "country": "US"
+    },
+    "event_type": "open-day",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Season opening Open Bowl (10 AM-12 PM) followed by Open House (12-3 PM) welcoming the public.",
+    "entry_fee": "Free for visitors",
+    "source_url": "https://www.milwaukeelawnbowls.com/schedule/",
+    "region": "CD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Milwaukee LPLBA - Evening Open House & Learn/Bowl",
+    "dates": "2026-05-19",
+    "location": {
+      "club_name": "Milwaukee Lake Park Lawn Bowling Association",
+      "address": "2975 N Lake Park Rd",
+      "city": "Milwaukee",
+      "state": "WI",
+      "country": "US"
+    },
+    "event_type": "open-day",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Evening Open House (6-8 PM) and Learn & Bowl session (6:30-9 PM).",
+    "entry_fee": "Free for visitors",
+    "source_url": "https://www.milwaukeelawnbowls.com/schedule/",
+    "region": "CD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Milwaukee LPLBA - Wildcard League",
+    "dates": "2026-05 to 2026-09 (weekly, typically Wednesdays 7-9 PM)",
+    "location": {
+      "club_name": "Milwaukee Lake Park Lawn Bowling Association",
+      "address": "2975 N Lake Park Rd",
+      "city": "Milwaukee",
+      "state": "WI",
+      "country": "US"
+    },
+    "event_type": "league",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Varied game format league (Wildcard). Weekly play during the season.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.milwaukeelawnbowls.com/schedule/",
+    "region": "CD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Lakeside LBC - Regular Play",
+    "dates": "2026-05 to 2026-10 (Sat/Sun 1-3 PM, Tue 6 PM)",
+    "location": {
+      "club_name": "Lakeside Lawn Bowling Club",
+      "city": "Chicago",
+      "state": "IL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Chicago's premier lawn bowling destination in Jackson Park near the lakefront. Play Saturdays and Sundays 1-3 PM, Tuesday nights at 6 PM. Play stops at 3 PM for afternoon tea in line with British traditions. Earlier starts for tournaments and holiday events.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.lawnbowlingchicago.com/",
+    "region": "CD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Westland LBC - Regular Play",
+    "dates": "2026 season (estimated May-October)",
+    "location": {
+      "club_name": "Westland Lawn Bowling Club",
+      "city": "Westland",
+      "state": "MI",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Michigan-based lawn bowling club. Regular play during the summer season.",
+    "entry_fee": "Club membership required",
+    "source_url": "http://bowlsclub.org/club/2125/",
+    "region": "CD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Bowls USA National Championships 2026",
+    "dates": "2026-09-13 to 2026-09-20",
+    "location": {
+      "club_name": "Laguna Beach Lawn Bowling Club",
+      "address": "455 Cliff Dr",
+      "city": "Laguna Beach",
+      "state": "CA",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs",
+    "gender": "open",
+    "description": "Bowls USA National Championships crowning men's and women's champions in singles and pairs. Round-robin format: singles to 21 shots, pairs 18 ends. Competitors must be US citizens and Bowls USA club members who won their divisional playdowns. Tournament Director: Heather Stewart. Note: While in CA, this event is relevant to all division qualifiers.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsusa.us/national-championship.html",
+    "region": "National",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sarasota LBC - Coach Certification Course",
+    "dates": "2026-01-13",
+    "location": {
+      "club_name": "Sarasota Lawn Bowling Club",
+      "address": "951 Circus Blvd",
+      "city": "Sarasota",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Club Coach Certification Course - one day training for aspiring coaches.",
+    "entry_fee": "",
+    "source_url": "https://www.sarasotalawnbowlingclub.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Mount Dora LBC - Intra-Club Tournaments",
+    "dates": "2026-01 to 2026-04 (winter season)",
+    "location": {
+      "club_name": "Mount Dora Lawn Bowling Club",
+      "address": "125 N Edgerton Court",
+      "city": "Mount Dora",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs|triples",
+    "gender": "open",
+    "description": "Regular intra-club tournaments throughout the winter season at one of the largest Bowls USA clubs with 240+ members and 14 rinks. Views of Lake Dora.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.mountdoralbc.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sun City Center - Game Night",
+    "dates": "Every Wednesday 6:00-9:00 PM year-round",
+    "location": {
+      "club_name": "Sun City Center Lawn Bowling Club",
+      "address": "1009 N Pebble Beach Blvd",
+      "city": "Sun City Center",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Weekly Game Night every Wednesday from 6-9 PM. Social bowling event.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.suncitycenterlbc.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sun City Center - Sunday Pick-up Games",
+    "dates": "Every Sunday at 11:30 AM year-round",
+    "location": {
+      "club_name": "Sun City Center Lawn Bowling Club",
+      "address": "1009 N Pebble Beach Blvd",
+      "city": "Sun City Center",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Weekly Sunday pick-up games at 11:30 AM. Casual format.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.suncitycenterlbc.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Sun City Center - Croquet Sessions",
+    "dates": "Tue/Wed/Thu at 9:00 AM year-round",
+    "location": {
+      "club_name": "Sun City Center Lawn Bowling Club",
+      "address": "1009 N Pebble Beach Blvd",
+      "city": "Sun City Center",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular croquet sessions on Tuesday, Wednesday, and Thursday mornings at 9 AM at the SCCLBC facility.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.suncitycenterlbc.com/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "The Villages LBC - League and Tournament Play",
+    "dates": "Year-round",
+    "location": {
+      "club_name": "The Villages Lawn Bowls Club",
+      "address": "1228 Rio Grande Ave",
+      "city": "The Villages",
+      "state": "FL",
+      "country": "US"
+    },
+    "event_type": "league",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Regular league and tournament play at three grass greens: Rio Grande Neighborhood Center, Fenney Putt and Play, and First Responders Recreation Center. SED member club.",
+    "entry_fee": "Club membership required",
+    "source_url": "http://www.thevillageslbc.org/",
+    "region": "SED",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Grand LBC - Afternoon Bowling",
+    "dates": "Winter season (estimated Oct-Apr)",
+    "location": {
+      "club_name": "Grand Lawn Bowling Club",
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Afternoon bowling sessions during the winter season when snowbird population peaks.",
+    "entry_fee": "Club membership required",
+    "source_url": "https://www.grandlawnbowling.org",
+    "region": "SCD",
+    "status": "estimated"
+  },
+  {
+    "event_name": "Brit's Pub Rooftop Lawn Bowling",
+    "dates": "2026-05 to 2026-09 (summer season, weather permitting)",
+    "location": {
+      "club_name": "Brit's Pub",
+      "city": "Minneapolis",
+      "state": "MN",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Rooftop lawn bowling at Brit's Pub in downtown Minneapolis. Seasonal summer activity - not a formal Bowls USA club but a popular social bowling venue.",
+    "entry_fee": "Pay per session",
+    "source_url": "https://britspub.com/",
+    "region": "CD",
+    "status": "confirmed"
+  },
+  {
+    "event_name": "Milwaukee LPLBA - Workday Sessions",
+    "dates": "2026-04-18, 2026-04-25, 2026-05-02",
+    "location": {
+      "club_name": "Milwaukee Lake Park Lawn Bowling Association",
+      "address": "2975 N Lake Park Rd",
+      "city": "Milwaukee",
+      "state": "WI",
+      "country": "US"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "gender": "open",
+    "description": "Pre-season workday sessions (9 AM-12 PM) to prepare the grounds and clubhouse for the season.",
+    "entry_fee": "",
+    "source_url": "https://www.milwaukeelawnbowls.com/schedule/",
+    "region": "CD",
+    "status": "confirmed"
+  }
+]
