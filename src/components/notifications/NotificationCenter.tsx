@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bell, Check, CheckCheck, Users, Trophy, MapPin, Calendar, UserCheck, X, Megaphone } from "lucide-react";
+import { Bell, Check, CheckCheck, Users, Trophy, MapPin, Calendar, UserCheck, X, Megaphone, MessageCircle, PartyPopper } from "lucide-react";
 import { useNotifications } from "@/lib/hooks/useNotifications";
 import { cn } from "@/lib/utils";
 import type { AppNotification, NotificationType } from "@/lib/types";

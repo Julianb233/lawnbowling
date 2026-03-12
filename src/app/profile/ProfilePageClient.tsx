@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { ProfileForm } from "@/components/profile/ProfileForm";
 import { WaiverStatus } from "@/components/waiver/WaiverStatus";
 import { ProfileCard } from "@/components/profile/ProfileCard";
@@ -11,11 +12,31 @@ import { AvailabilitySchedule } from "@/components/profile/AvailabilitySchedule"
 import { ClubAffiliations } from "@/components/profile/ClubAffiliations";
 import { PhotoGallery } from "@/components/profile/PhotoGallery";
 import { CompletenessBarWithData } from "@/components/profile/CompletenessBar";
+import { FadeIn } from "@/components/motion/FadeIn";
 import type { PlayerProfile, SkillLevel, Sport, BowlingPosition, PreferredHand } from "@/lib/db/players";
 import type { Waiver } from "@/lib/db/waivers";
 import type { PlayerPhoto } from "@/lib/db/gallery";
 import type { PlayerStats, FavoritePartner } from "@/lib/types";
-import { ArrowLeft, LogOut, Pencil } from "lucide-react";
+import { ArrowLeft, LogOut, Pencil, MessageCircle, Users } from "lucide-react";
+import Link from "next/link";
+
+/** Club banner photos — rotated based on player name hash */
+const CLUB_BANNERS = [
+  { src: "/images/scenery-clubhouse-dusk.jpg", alt: "Bowling clubhouse at dusk" },
+  { src: "/images/scenery-golden-hour-green.jpg", alt: "Golden hour on the green" },
+  { src: "/images/scenery-morning-dew-green.jpg", alt: "Morning dew on the bowling green" },
+  { src: "/images/heritage-clubhouse-tea.jpg", alt: "Clubhouse tea time" },
+  { src: "/images/heritage-wooden-bench-green.jpg", alt: "Wooden bench by the green" },
+  { src: "/images/clubhouse-golden.png", alt: "Clubhouse at golden hour" },
+];
+
+function getBannerForPlayer(name: string) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = ((hash << 5) - hash + name.charCodeAt(i)) | 0;
+  }
+  return CLUB_BANNERS[Math.abs(hash) % CLUB_BANNERS.length];
+}
 
 interface ProfilePageClientProps {
   player: PlayerProfile;
@@ -29,6 +50,7 @@ export function ProfilePageClient({ player, waiver, stats, favoritePartners, pho
   const [editing, setEditing] = useState(false);
   const [photos, setPhotos] = useState<PlayerPhoto[]>(initialPhotos);
   const router = useRouter();
+  const banner = getBannerForPlayer(player.display_name);
 
   async function refreshPhotos() {
     try {
@@ -82,23 +104,57 @@ export function ProfilePageClient({ player, waiver, stats, favoritePartners, pho
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 px-4 py-8">
-      <div className="mx-auto max-w-md">
-        <button
-          onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 min-h-[44px]"
-        >
-          <ArrowLeft className="h-4 w-4" /> Back
-        </button>
+    <div className="min-h-screen bg-[#FEFCF9]">
+      {/* Club photo hero banner */}
+      <div className="relative h-48 w-full overflow-hidden">
+        <Image
+          src={banner.src}
+          alt={banner.alt}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A2E12]/60 to-[#0A2E12]/30" />
+        <div className="absolute inset-0 flex items-end px-4 pb-4">
+          <div className="mx-auto w-full max-w-md">
+            <button
+              onClick={() => router.back()}
+              className="mb-3 inline-flex items-center gap-1 text-sm text-[#A8D5BA] hover:text-white min-h-[44px]"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back
+            </button>
+            <h1 className="font-[family-name:var(--font-display)] text-3xl font-bold text-white tracking-tight">
+              My Profile
+            </h1>
+          </div>
+        </div>
+      </div>
 
-        <h1 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-zinc-100">My Profile</h1>
+      <div className="mx-auto max-w-md px-4 -mt-4 relative z-10 pb-28">
+        {/* Quick action links */}
+        <FadeIn>
+          <div className="mb-4 flex gap-2">
+            <Link
+              href="/friends"
+              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white border border-[#0A2E12]/10 px-4 py-3 text-sm font-medium text-[#1B5E20] hover:bg-[#F0FFF4] transition-colors min-h-[44px] shadow-sm"
+            >
+              <Users className="h-4 w-4" /> Friends
+            </Link>
+            <Link
+              href="/chat"
+              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white border border-[#0A2E12]/10 px-4 py-3 text-sm font-medium text-[#1B5E20] hover:bg-[#F0FFF4] transition-colors min-h-[44px] shadow-sm"
+            >
+              <MessageCircle className="h-4 w-4" /> Messages
+            </Link>
+          </div>
+        </FadeIn>
 
-        <div className="mb-6">
+        <div className="mb-4">
           <WaiverStatus waiver={waiver} />
         </div>
 
         {editing ? (
-          <div className="rounded-xl glass p-6">
+          <div className="rounded-xl bg-white border border-[#0A2E12]/10 p-6 shadow-sm">
             <ProfileForm
               player={player}
               onSubmit={handleSubmit}
@@ -107,30 +163,44 @@ export function ProfilePageClient({ player, waiver, stats, favoritePartners, pho
             />
             <button
               onClick={() => setEditing(false)}
-              className="mt-3 w-full rounded-lg border border-zinc-300 px-4 py-3 text-sm text-zinc-500 hover:bg-zinc-50 min-h-[44px]"
+              className="mt-3 w-full rounded-lg border border-[#0A2E12]/10 px-4 py-3 text-sm text-[#3D5A3E] hover:bg-[#F0FFF4] min-h-[44px]"
             >
               Cancel
             </button>
           </div>
         ) : (
           <div className="space-y-4">
-            <CompletenessBarWithData player={player} waiver={waiver} />
+            <FadeIn>
+              <CompletenessBarWithData player={player} waiver={waiver} />
+            </FadeIn>
 
-            <ProfileCard player={player} />
+            <FadeIn delay={0.05}>
+              <ProfileCard player={player} />
+            </FadeIn>
 
-            <ProfileStatsSection stats={stats} favoritePartners={favoritePartners} />
+            <FadeIn delay={0.1}>
+              <ProfileStatsSection stats={stats} favoritePartners={favoritePartners} />
+            </FadeIn>
 
-            <MatchHistory playerId={player.id} />
+            <FadeIn delay={0.15}>
+              <MatchHistory playerId={player.id} />
+            </FadeIn>
 
-            <AvailabilitySchedule playerId={player.id} editable />
+            <FadeIn delay={0.2}>
+              <AvailabilitySchedule playerId={player.id} editable />
+            </FadeIn>
 
-            <ClubAffiliations playerId={player.id} editable />
+            <FadeIn delay={0.25}>
+              <ClubAffiliations playerId={player.id} editable />
+            </FadeIn>
 
-            <PhotoGallery photos={photos} editable onPhotosChange={refreshPhotos} />
+            <FadeIn delay={0.3}>
+              <PhotoGallery photos={photos} editable onPhotosChange={refreshPhotos} />
+            </FadeIn>
 
             <button
               onClick={() => setEditing(true)}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-300 px-4 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 min-h-[44px]"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm font-medium text-[#0A2E12] hover:bg-[#F0FFF4] min-h-[44px] shadow-sm"
             >
               <Pencil className="h-4 w-4" /> Edit Profile
             </button>
@@ -141,7 +211,7 @@ export function ProfilePageClient({ player, waiver, stats, favoritePartners, pho
                 router.push("/login");
                 router.refresh();
               }}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 min-h-[44px]"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 min-h-[44px]"
             >
               <LogOut className="h-4 w-4" /> Sign Out
             </button>
