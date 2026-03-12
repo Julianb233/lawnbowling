@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { calculateRatingUpdates, applyUpdates } from "@/lib/bowls-ratings";
+import { calculateBowlsResult } from "@/lib/tournament-engine";
 import type { TournamentScore, BowlsCheckin, BowlsPositionRating } from "@/lib/types";
 
 const MAX_SCORE_PER_END = 9;
@@ -123,25 +124,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Calculate totals
-    const totalA = scoresA.reduce((sum, s) => sum + s, 0);
-    const totalB = scoresB.reduce((sum, s) => sum + s, 0);
-
-    // Calculate ends won
-    let endsWonA = 0;
-    let endsWonB = 0;
-    for (let i = 0; i < scoresA.length; i++) {
-      if (scoresA[i] > scoresB[i]) endsWonA++;
-      else if (scoresB[i] > scoresA[i]) endsWonB++;
-    }
-
-    // Determine winner
-    let winner: string | null = null;
-    if (scoresA.length > 0) {
-      if (totalA > totalB) winner = "team_a";
-      else if (totalB > totalA) winner = "team_b";
-      else winner = "draw";
-    }
+    // Delegate score calculation to shared game engine
+    // (same logic runs server-side via Edge Function for client-direct calls)
+    const bowlsResult = scoresA.length > 0
+      ? calculateBowlsResult(scoresA, scoresB)
+      : { totalA: 0, totalB: 0, endsWonA: 0, endsWonB: 0, winner: null };
+    const { totalA, totalB, endsWonA, endsWonB, winner } = bowlsResult;
 
     // Check if score record already exists
     const { data: existing } = await supabase
