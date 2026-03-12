@@ -24,6 +24,11 @@ const DEFAULT_PREFS: NotificationPreferences = {
   email_upcoming_games: true,
   profile_public: true,
   stats_public: true,
+  event_reminders: true,
+  new_events: true,
+  tournament_results: true,
+  chat_messages: true,
+  club_announcements: true,
   updated_at: "",
 };
 

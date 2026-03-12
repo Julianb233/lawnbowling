@@ -18,6 +18,11 @@ const NOTIFICATION_ICONS: Record<NotificationType, typeof Bell> = {
   game_reminder: Calendar,
   match_completed: Trophy,
   noticeboard_announcement: Megaphone,
+  event_reminder: Calendar,
+  new_event: PartyPopper,
+  tournament_result: Trophy,
+  chat_message: MessageCircle,
+  club_announcement: Megaphone,
 };
 
 const NOTIFICATION_COLORS: Record<NotificationType, string> = {
@@ -31,6 +36,11 @@ const NOTIFICATION_COLORS: Record<NotificationType, string> = {
   game_reminder: "bg-amber-500/20 text-amber-600",
   match_completed: "bg-[#1B5E20]/20 text-[#1B5E20]",
   noticeboard_announcement: "bg-amber-500/20 text-amber-600",
+  event_reminder: "bg-amber-500/20 text-amber-600",
+  new_event: "bg-[#1B5E20]/20 text-[#1B5E20]",
+  tournament_result: "bg-violet-500/20 text-violet-600",
+  chat_message: "bg-blue-500/20 text-blue-600",
+  club_announcement: "bg-amber-500/20 text-amber-600",
 };
 
 function formatTimeAgo(dateStr: string): string {

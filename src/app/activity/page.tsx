@@ -39,14 +39,18 @@ export default async function ActivityPage() {
     }
   }
 
-  // Fetch recent social activity
-  const { data: recentActivity } = await supabase
-    .from("activity_feed")
-    .select("id, type, metadata, created_at, player:players!activity_feed_player_id_fkey(id, display_name, avatar_url)")
-    .order("created_at", { ascending: false })
-    .limit(10);
-
-  const activityItems = recentActivity ?? [];
+  // Fetch recent social activity (graceful — table may not exist in all envs)
+  let activityItems: Array<{ id: string; type: string; metadata: Record<string, unknown> | null; created_at: string; player: unknown }> = [];
+  try {
+    const { data: recentActivity } = await supabase
+      .from("activity_feed")
+      .select("id, type, metadata, created_at, player:players(id, display_name, avatar_url)")
+      .order("created_at", { ascending: false })
+      .limit(10);
+    activityItems = (recentActivity ?? []) as typeof activityItems;
+  } catch {
+    // table may not exist
+  }
 
   return (
     <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">

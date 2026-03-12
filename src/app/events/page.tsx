@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -18,6 +18,8 @@ import {
   CalendarDays,
   List,
   Check,
+  Lock,
+  Crown,
 } from "lucide-react";
 import { BottomNav } from "@/components/board/BottomNav";
 
@@ -194,10 +196,38 @@ function getDaysUntil(dateStr: string): number {
   return Math.ceil((event.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 }
 
+/** Returns true if the event date falls within the current calendar month. */
+function isCurrentMonth(dateStr: string): boolean {
+  const now = new Date();
+  const d = new Date(dateStr + "T00:00:00");
+  return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+}
+
 export default function EventsPage() {
   const [viewMode, setViewMode] = useState<"list" | "calendar">("list");
   const [activeCategory, setActiveCategory] = useState<EventCategory | "all">("all");
   const [rsvpSet, setRsvpSet] = useState<Set<string>>(new Set());
+  const [isMember, setIsMember] = useState(false);
+
+  // Check membership status on mount
+  useEffect(() => {
+    async function checkMembership() {
+      try {
+        const res = await fetch("/api/profile");
+        if (res.ok) {
+          const data = await res.json();
+          const tier = data.membership_tier;
+          const expiresAt = data.membership_expires_at;
+          if ((tier === "monthly" || tier === "annual") && expiresAt && new Date(expiresAt) > new Date()) {
+            setIsMember(true);
+          }
+        }
+      } catch {
+        // Not logged in or error — treat as free
+      }
+    }
+    checkMembership();
+  }, []);
 
   const filteredEvents = useMemo(() => {
     let events = [...SAMPLE_EVENTS].sort((a, b) => a.date.localeCompare(b.date));
@@ -328,9 +358,17 @@ export default function EventsPage() {
         {/* Events list or calendar */}
         {viewMode === "list" ? (
           <div className="space-y-3">
-            {filteredEvents.map((event, i) => (
+            {filteredEvents.filter((e) => isMember || isCurrentMonth(e.date)).map((event, i) => (
               <EventCard key={event.id} event={event} index={i} rsvpd={rsvpSet.has(event.id)} onRsvp={handleRsvp} />
             ))}
+
+            {/* Soft paywall for future months (free users only) */}
+            {!isMember && filteredEvents.some((e) => !isCurrentMonth(e.date)) && (
+              <MembershipPaywall
+                count={filteredEvents.filter((e) => !isCurrentMonth(e.date)).length}
+                events={filteredEvents.filter((e) => !isCurrentMonth(e.date))}
+              />
+            )}
           </div>
         ) : (
           <div className="space-y-8">
@@ -339,14 +377,26 @@ export default function EventsPage() {
               const end = new Date(start);
               end.setDate(end.getDate() + 6);
               const label = `${start.toLocaleDateString("en-US", { month: "short", day: "numeric" })} — ${end.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+
+              // Check if any event in this week is outside the current month
+              const hasFutureEvents = events.some((e) => !isCurrentMonth(e.date));
+              const isGated = !isMember && hasFutureEvents;
+
               return (
                 <section key={weekStart}>
                   <h3 className="text-sm font-bold text-[#3D5A3E] uppercase tracking-wider mb-3">{label}</h3>
-                  <div className="space-y-3">
-                    {events.map((event, i) => (
-                      <EventCard key={event.id} event={event} index={i} rsvpd={rsvpSet.has(event.id)} onRsvp={handleRsvp} />
-                    ))}
-                  </div>
+                  {isGated ? (
+                    <MembershipPaywall
+                      count={events.length}
+                      events={events}
+                    />
+                  ) : (
+                    <div className="space-y-3">
+                      {events.map((event, i) => (
+                        <EventCard key={event.id} event={event} index={i} rsvpd={rsvpSet.has(event.id)} onRsvp={handleRsvp} />
+                      ))}
+                    </div>
+                  )}
                 </section>
               );
             })}
@@ -452,6 +502,70 @@ function FeaturedEventCard({
         </div>
       </div>
     </motion.div>
+  );
+}
+
+/** Soft paywall overlay — shows blurred preview of gated events with upgrade CTA. */
+function MembershipPaywall({ count, events }: { count: number; events: ClubEvent[] }) {
+  return (
+    <div className="relative">
+      {/* Blurred preview of the gated events */}
+      <div className="space-y-3 select-none pointer-events-none" aria-hidden="true">
+        {events.slice(0, 3).map((event) => {
+          const cfg = CATEGORY_CONFIG[event.category];
+          return (
+            <div
+              key={event.id}
+              className="rounded-2xl border border-[#0A2E12]/10 bg-white overflow-hidden blur-[6px] opacity-60"
+            >
+              <div className="flex">
+                <div className="relative w-28 sm:w-36 shrink-0 bg-[#0A2E12]/5 h-28" />
+                <div className="flex-1 min-w-0 p-4">
+                  <span className={`inline-flex items-center gap-1 rounded-full ${cfg.bg} ${cfg.color} px-2 py-0.5 text-xs font-medium`}>
+                    {cfg.icon}{cfg.label}
+                  </span>
+                  <h3 className="mt-1.5 text-base font-bold text-[#0A2E12]">{event.title}</h3>
+                  <div className="mt-1 flex items-center gap-3 text-sm text-[#3D5A3E]">
+                    <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" />{formatDate(event.date)}</span>
+                    <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{event.time}</span>
+                  </div>
+                  <div className="mt-1 flex items-center gap-1.5 text-sm text-[#3D5A3E]">
+                    <MapPin className="h-3.5 w-3.5 shrink-0" />
+                    <span className="truncate">{event.club}, {event.state}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Overlay CTA */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="rounded-2xl border-2 border-[#1B5E20]/20 bg-white/95 backdrop-blur-sm px-8 py-6 text-center shadow-lg max-w-sm mx-4">
+          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#1B5E20]/10">
+            <Lock className="h-6 w-6 text-[#1B5E20]" />
+          </div>
+          <h3
+            className="text-xl font-bold text-[#0A2E12] mb-1"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            {count} more event{count !== 1 ? "s" : ""} ahead
+          </h3>
+          <p className="text-base text-[#3D5A3E] mb-4">
+            Upgrade to see all upcoming events beyond this month
+          </p>
+          <Link
+            href="/pricing"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-base font-bold text-white hover:bg-[#2E7D32] transition-colors min-h-[48px]"
+          >
+            <Crown className="h-5 w-5" />
+            View Membership Plans
+          </Link>
+          <p className="mt-2 text-sm text-[#3D5A3E]">Starting at $1.25/month</p>
+        </div>
+      </div>
+    </div>
   );
 }
 

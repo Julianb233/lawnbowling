@@ -25,8 +25,26 @@ import { Endorsements } from "@/components/profile/Endorsements";
 import { ProfileClubBadge } from "@/components/clubs/ProfileClubBadge";
 import { BowlsRatingsCard } from "@/components/stats/BowlsRatingsCard";
 import * as Avatar from "@radix-ui/react-avatar";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Shield } from "lucide-react";
+
+const CLUB_BANNERS = [
+  "/images/scenery-clubhouse-dusk.jpg",
+  "/images/scenery-golden-hour-green.jpg",
+  "/images/scenery-morning-dew-green.jpg",
+  "/images/heritage-clubhouse-tea.jpg",
+  "/images/heritage-wooden-bench-green.jpg",
+  "/images/clubhouse-golden.png",
+];
+
+function getBannerForPlayer(name: string) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = ((hash << 5) - hash + name.charCodeAt(i)) | 0;
+  }
+  return CLUB_BANNERS[Math.abs(hash) % CLUB_BANNERS.length];
+}
 
 async function getFriendshipStatus(currentPlayerId: string, targetPlayerId: string) {
   const supabase = await createClient();
@@ -81,19 +99,34 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
     .toUpperCase()
     .slice(0, 2);
 
-  return (
-    <div className="min-h-screen bg-[#FEFCF9] px-4 py-6 sm:py-8">
-      <div className="mx-auto max-w-md">
-        <Link
-          href="/"
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 min-h-[44px]"
-        >
-          <ArrowLeft className="h-4 w-4" /> Back to Board
-        </Link>
+  const bannerSrc = getBannerForPlayer(player.display_name);
 
+  return (
+    <div className="min-h-screen bg-[#FEFCF9]">
+      {/* Club photo hero banner */}
+      <div className="relative h-44 w-full overflow-hidden">
+        <Image
+          src={bannerSrc}
+          alt="Club banner"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A2E12]/60 to-[#0A2E12]/30" />
+        <div className="absolute top-4 left-4">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1 text-sm text-[#A8D5BA] hover:text-white min-h-[44px]"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to Board
+          </Link>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-md px-4 -mt-12 relative z-10 pb-8">
         <div className="space-y-6">
           <div className="flex flex-col items-center text-center">
-            <Avatar.Root className="mb-4 inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-zinc-100">
+            <Avatar.Root className="mb-4 inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-zinc-100 ring-4 ring-[#FEFCF9] shadow-lg">
               <Avatar.Image
                 src={player.avatar_url ?? undefined}
                 alt={player.display_name}
@@ -203,7 +236,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
             <WaiverStatus waiver={waiver} />
           </div>
 
-          <p className="text-center text-xs text-zinc-500 dark:text-zinc-400">
+          <p className="text-center text-xs text-[#3D5A3E]">
             Member since {new Date(player.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long" })}
           </p>
         </div>
