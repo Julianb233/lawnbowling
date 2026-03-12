@@ -62,10 +62,27 @@
       "permanent": true
     }
   ],
+  "_crons_note": "Primary scheduling is now handled by Supabase pg_cron (see supabase/migrations/20260312_pg_cron_jobs.sql). These Vercel crons are kept as a fallback.",
   "crons": [
     {
       "path": "/api/partner/expire",
       "schedule": "*/2 * * * *"
+    },
+    {
+      "path": "/api/cron/visit-requests",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/stats-refresh",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/tournament-cleanup",
+      "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/activity-cleanup",
+      "schedule": "0 5 * * 0"
     }
   ]
 }

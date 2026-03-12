@@ -3,6 +3,7 @@ import { stripe } from "@/lib/stripe/server";
 import { createClient } from "@/lib/supabase/server";
 import Stripe from "stripe";
 import { computeExpiration } from "@/lib/membership";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -73,9 +74,11 @@ export async function POST(req: NextRequest) {
       const invoice = event.data.object as Stripe.Invoice;
       const customerId = typeof invoice.customer === "string" ? invoice.customer : invoice.customer?.id;
 
-      console.warn(
-        `[Membership] Payment failed for customer ${customerId}, invoice ${invoice.id}`,
-      );
+      logger.warn("Payment failed for customer", {
+        route: "membership/webhook",
+        customerId,
+        invoiceId: invoice.id,
+      });
 
       // Future: send push notification or email to the player
       break;

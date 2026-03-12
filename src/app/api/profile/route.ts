@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createPlayer, updatePlayer, getPlayerByUserId } from "@/lib/db/players";
 import type { SkillLevel } from "@/lib/db/players";
+import { logger } from "@/lib/logger";
 
 export async function GET() {
   try {
@@ -19,7 +20,7 @@ export async function GET() {
 
     return NextResponse.json(player);
   } catch (error) {
-    console.error("Get profile error:", error);
+    logger.error("Get profile error", { route: "profile", error });
     return NextResponse.json({ error: "Failed to get profile" }, { status: 500 });
   }
 }
@@ -65,7 +66,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(player, { status: 201 });
   } catch (error) {
-    console.error("Create profile error:", error);
+    logger.error("Create profile error", { route: "profile", error });
     return NextResponse.json({ error: "Failed to create profile" }, { status: 500 });
   }
 }
@@ -103,7 +104,7 @@ export async function PATCH(request: NextRequest) {
     const player = await updatePlayer(user.id, updates);
     return NextResponse.json(player);
   } catch (error) {
-    console.error("Update profile error:", error);
+    logger.error("Update profile error", { route: "profile", error });
     return NextResponse.json({ error: "Failed to update profile" }, { status: 500 });
   }
 }
