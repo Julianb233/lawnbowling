@@ -19,6 +19,12 @@ export function LearnNav() {
             Learning Hub
           </Link>
           <Link
+            href="/gallery"
+            className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-[#1B5E20] transition hover:bg-green-50"
+          >
+            Gallery
+          </Link>
+          <Link
             href="/signup"
             className="rounded-xl bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-green-900/15 transition hover:bg-[#2E7D32] hover:shadow-green-900/25"
           >
