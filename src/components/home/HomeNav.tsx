@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { CircleDot, Menu, X } from "lucide-react";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const navLinks = [
@@ -19,9 +20,13 @@ export function HomeNav() {
     <nav className="absolute top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/20 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-lg">
-            <CircleDot className="h-5 w-5 text-[#1B5E20]" />
-          </div>
+          <Image
+            src="/images/logo/lawn-bowl-illustrated-icon.png"
+            alt="Lawnbowling logo"
+            width={36}
+            height={36}
+            className="rounded-full shadow-lg"
+          />
           <span className="text-base font-bold text-white sm:text-lg">
             Lawnbowling
           </span>
@@ -90,9 +95,13 @@ export function HomeNav() {
               {/* Header with close button */}
               <div className="flex h-16 items-center justify-between px-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1B5E20]">
-                    <CircleDot className="h-5 w-5 text-white" />
-                  </div>
+                  <Image
+                    src="/images/logo/lawn-bowl-illustrated-icon-dark.png"
+                    alt="Lawnbowling logo"
+                    width={36}
+                    height={36}
+                    className="rounded-full"
+                  />
                   <span className="text-base font-bold text-zinc-900">
                     Lawnbowling
                   </span>
