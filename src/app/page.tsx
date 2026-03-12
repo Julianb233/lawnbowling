@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
 import { HomeNav } from "@/components/home/HomeNav";
+import celebrationWinImg from "@/../public/images/celebration-win.png";
+import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 export default function HomePage() {
   return (
@@ -472,11 +474,12 @@ export default function HomePage() {
           <div className="relative overflow-hidden rounded-2xl p-6 text-center shadow-2xl shadow-emerald-500/20 sm:rounded-3xl sm:p-8 md:p-16">
             {/* Background image CTA */}
             <Image
-              src="/images/celebration-win.png"
+              src={celebrationWinImg}
               alt="Celebration on the green"
               fill
               className="object-cover"
               sizes="100vw"
+              placeholder="blur"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A2E12]/90 to-[#1B5E20]/85" />
             <div className="relative z-10">
@@ -514,11 +517,12 @@ export default function HomePage() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-6 sm:px-6 sm:py-8 md:flex-row">
           <div className="flex items-center gap-3">
             <Image
-              src="/images/logo/bowls-icon.png"
+              src={bowlsIconImg}
               alt="Lawnbowling logo"
               width={32}
               height={32}
               className="rounded-full"
+              placeholder="blur"
             />
             <span className="font-semibold text-[#0A2E12] dark:text-[#e8f0eb]" style={{ fontFamily: "var(--font-display)" }}>
               Lawnbowling

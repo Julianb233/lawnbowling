@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Mail, Lock } from "lucide-react";
+import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -57,7 +58,7 @@ export default function LoginPage() {
           {/* Brand top-left */}
           <div className="flex items-center gap-3">
             <Image
-              src="/images/logo/bowls-icon.png"
+              src={bowlsIconImg}
               alt="Lawnbowling"
               width={40}
               height={40}
@@ -105,7 +106,7 @@ export default function LoginPage() {
             <div className="absolute inset-0 bg-gradient-to-b from-[#0A2E12]/60 to-[#0A2E12]/80" />
             <div className="relative z-10 flex h-full flex-col items-center justify-center">
               <Image
-                src="/images/logo/bowls-icon.png"
+                src={bowlsIconImg}
                 alt="Lawnbowling"
                 width={48}
                 height={48}

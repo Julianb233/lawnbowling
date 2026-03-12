@@ -62,8 +62,23 @@ test.describe("Performance Basics", () => {
   });
 
   test("no broken images on homepage", async ({ page }) => {
-    await page.goto("/");
-    await page.waitForTimeout(2000);
+    await page.goto("/", { waitUntil: "networkidle" });
+
+    // Wait for all images to finish loading (Next.js image optimization can be slow)
+    await page.evaluate(() =>
+      Promise.all(
+        Array.from(document.querySelectorAll("img")).map((img) =>
+          img.complete
+            ? Promise.resolve()
+            : new Promise<void>((resolve) => {
+                img.addEventListener("load", () => resolve(), { once: true });
+                img.addEventListener("error", () => resolve(), { once: true });
+                // Safety timeout per image
+                setTimeout(() => resolve(), 10000);
+              })
+        )
+      )
+    );
 
     const brokenImages = await page.evaluate(() => {
       const images = document.querySelectorAll("img");

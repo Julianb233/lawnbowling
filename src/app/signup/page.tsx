@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Mail, Lock, User } from "lucide-react";
+import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
@@ -68,7 +69,7 @@ export default function SignupPage() {
           {/* Brand */}
           <div className="mb-8 flex items-center justify-center gap-3">
             <Image
-              src="/images/logo/bowls-icon.png"
+              src={bowlsIconImg}
               alt="Lawnbowling"
               width={40}
               height={40}
