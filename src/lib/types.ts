@@ -308,6 +308,12 @@ export interface NotificationPreferences {
   email_upcoming_games: boolean;
   profile_public: boolean;
   stats_public: boolean;
+  // New event/chat notification preferences
+  event_reminders: boolean;
+  new_events: boolean;
+  tournament_results: boolean;
+  chat_messages: boolean;
+  club_announcements: boolean;
   updated_at: string;
 }
 
@@ -380,7 +386,12 @@ export type NotificationType =
   | "friend_checked_in"
   | "game_reminder"
   | "match_completed"
-  | "noticeboard_announcement";
+  | "noticeboard_announcement"
+  | "event_reminder"
+  | "new_event"
+  | "tournament_result"
+  | "chat_message"
+  | "club_announcement";
 
 export interface AppNotification {
   id: string;

@@ -29,7 +29,12 @@ export type PushNotificationType =
   | "partner_accepted"
   | "court_available"
   | "game_reminder"
-  | "noticeboard_announcement";
+  | "noticeboard_announcement"
+  | "event_reminder"
+  | "new_event"
+  | "tournament_result"
+  | "chat_message"
+  | "club_announcement";
 
 interface PushSubscriptionRow {
   id: string;
@@ -114,6 +119,16 @@ function getPrefKeyForType(type: PushNotificationType): string | null {
       return "push_scheduled_reminder";
     case "noticeboard_announcement":
       return null; // Always deliver announcement notifications
+    case "event_reminder":
+      return "event_reminders";
+    case "new_event":
+      return "new_events";
+    case "tournament_result":
+      return "tournament_results";
+    case "chat_message":
+      return "chat_messages";
+    case "club_announcement":
+      return "club_announcements";
     default:
       return null;
   }
