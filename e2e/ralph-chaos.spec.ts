@@ -9,16 +9,20 @@ test.describe("Ralph Wiggum Chaos Tests", () => {
     await page.goto("/");
     await page.waitForTimeout(500);
 
-    // Rapidly click multiple nav links
+    // Collect hrefs first, then navigate rapidly (clicking causes DOM detachment)
     const links = page.locator("a[href]");
     const count = await links.count();
-    const clickTargets = Math.min(count, 8);
-
-    for (let i = 0; i < clickTargets; i++) {
+    const hrefs: string[] = [];
+    for (let i = 0; i < Math.min(count, 8); i++) {
       const href = await links.nth(i).getAttribute("href");
-      if (href && href.startsWith("/")) {
-        await links.nth(i).click({ force: true, noWaitAfter: true });
+      if (href && href.startsWith("/") && !href.startsWith("//")) {
+        hrefs.push(href);
       }
+    }
+
+    // Rapidly navigate to each href without waiting for full load
+    for (const href of hrefs) {
+      await page.goto(href, { waitUntil: "commit" }).catch(() => {});
     }
 
     // Wait for things to settle, then verify the app is still functional

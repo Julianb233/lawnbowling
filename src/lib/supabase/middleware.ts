@@ -48,6 +48,13 @@ export async function updateSession(request: NextRequest) {
     "/api/tv/announcements", "/api/search",
     // Stripe webhook endpoints — must be publicly reachable
     "/api/stripe/webhook", "/api/membership/webhook",
+    // External webhook endpoints — called by third-party services without cookies
+    "/api/webhooks/supabase", "/api/webhooks/printify",
+    "/api/shop/webhooks/printify",
+    // Cron endpoints — called by Vercel cron without cookies (auth via CRON_SECRET header)
+    "/api/cron",
+    // Waitlist signup — public form submission
+    "/api/waitlist",
   ];
 
   // Root path is public (landing page)

@@ -1150,7 +1150,9 @@ describe("Phase 5: Social & Partner Flow", () => {
     expect(isValid).toBe(false);
 
     // Different players should be valid
-    const isValid2 = "alice" !== "bob";
+    const differentRequester: string = "alice";
+    const differentTarget: string = "bob";
+    const isValid2 = differentRequester !== differentTarget;
     expect(isValid2).toBe(true);
   });
 
