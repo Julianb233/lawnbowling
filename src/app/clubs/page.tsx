@@ -2,8 +2,9 @@
 
 import { useState, useMemo, useCallback, lazy, Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Search, MapPin, Users, ChevronRight, Globe, Leaf, Map as MapIcon, List, CircleDot, CheckCircle, Navigation } from "lucide-react";
+import { Search, MapPin, Users, ChevronRight, Globe, Leaf, Map as MapIcon, List, CircleDot, CheckCircle, Navigation, Home } from "lucide-react";
 import { BottomNav } from "@/components/board/BottomNav";
 import {
   getAllClubs,
@@ -20,6 +21,25 @@ import {
 } from "@/lib/clubs-data";
 
 const ClubMapLazy = lazy(() => import("@/components/clubs/ClubMap").then((m) => ({ default: m.ClubMap })));
+
+const CLUB_PHOTOS = [
+  "/images/heritage-clubhouse-tea.jpg",
+  "/images/scenery-golden-hour-green.jpg",
+  "/images/heritage-wooden-bench-green.jpg",
+  "/images/scenery-morning-dew-green.jpg",
+  "/images/heritage-scoreboard.jpg",
+  "/images/scenery-clubhouse-dusk.jpg",
+  "/images/heritage-weathered-bowls-patina.jpg",
+  "/images/scenery-overhead-bowls-jack.jpg",
+];
+
+function getClubPhoto(clubId: string): string {
+  let hash = 0;
+  for (let i = 0; i < clubId.length; i++) {
+    hash = (hash * 31 + clubId.charCodeAt(i)) | 0;
+  }
+  return CLUB_PHOTOS[Math.abs(hash) % CLUB_PHOTOS.length];
+}
 
 const STATE_ORDER: string[] = Object.keys(US_STATES);
 
@@ -117,13 +137,20 @@ export default function ClubDirectoryPage() {
   }, [allClubs]);
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-4xl px-4 py-4">
+          <nav className="mb-2 flex items-center gap-1.5 text-sm text-[#3D5A3E]">
+            <Link href="/" className="hover:text-[#0A2E12] transition-colors flex items-center gap-1">
+              <Home className="h-3.5 w-3.5" />Home
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5" />
+            <span className="font-medium text-[#0A2E12]">Club Directory</span>
+          </nav>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">Club Directory</h1>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">{stats.totalClubs} clubs{stats.totalCountries > 1 ? ` across ${stats.totalCountries} countries` : " across the USA"}</p>
+              <h1 className="font-[var(--font-display)] text-2xl font-black tracking-tight text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Club Directory</h1>
+              <p className="text-sm text-[#3D5A3E]">{stats.totalClubs} clubs{stats.totalCountries > 1 ? ` across ${stats.totalCountries} countries` : " across the USA"}</p>
             </div>
             <div className="flex items-center gap-2">
               <div className="flex items-center rounded-xl border border-zinc-200 bg-zinc-50 p-0.5">
@@ -298,70 +325,58 @@ function StateSection({ stateCode, clubs, distanceMap }: { stateCode: string; cl
 }
 
 function ClubCard({ club, index, distanceMi }: { club: ClubData; index: number; distanceMi?: number }) {
+  const photo = getClubPhoto(club.id);
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }}>
       <Link href={`/clubs/${club.stateCode.toLowerCase()}/${club.id}`}>
-        <div className="group rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 transition-all hover:border-zinc-300 hover:shadow-sm">
-          <div className="flex items-start justify-between gap-4">
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-zinc-900 group-hover:text-[#1B5E20] transition-colors truncate">{club.name}</h3>
-                {distanceMi != null && (
-                  <span className="shrink-0 rounded-full bg-blue-50 px-2 py-0.5 text-xs font-semibold text-blue-700 tabular-nums">
-                    {distanceMi < 1 ? "<1" : Math.round(distanceMi)} mi
-                  </span>
-                )}
-              </div>
-              <div className="mt-1 flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400">
-                <MapPin className="h-3.5 w-3.5 shrink-0" />
-                <span>
-                  {club.city}, {club.stateCode}
-                  {(club.country ?? club.countryCode) && (club.country ?? club.countryCode) !== "US" && (
-                    <> {COUNTRIES[(club.country ?? club.countryCode) as CountryCode]?.flag}</>
-                  )}
-                </span>
-                {club.founded && <span className="text-zinc-300">·</span>}
-                {club.founded && <span>Est. {club.founded}</span>}
-              </div>
-              {club.description && <p className="mt-2 text-sm text-zinc-500 line-clamp-2">{club.description}</p>}
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {club.memberCount && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-[#2E7D32]">
-                    <Users className="h-3 w-3" />{club.memberCount} members
-                  </span>
-                )}
-                {club.greens && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-[#1B5E20]/5 px-2.5 py-1 text-xs font-medium text-[#2E7D32]">
-                    <Leaf className="h-3 w-3" />{club.greens} {club.greens === 1 ? "green" : "greens"}{club.rinks && ` · ${club.rinks} rinks`}
-                  </span>
-                )}
-                {club.surfaceType !== "unknown" && (
-                  <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:text-zinc-400">{SURFACE_LABELS[club.surfaceType]}</span>
-                )}
-                <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${club.status === "claimed" ? "bg-blue-50 text-[#2E7D32]" : club.status === "active" ? "bg-[#1B5E20]/5 text-[#2E7D32]" : club.status === "seasonal" ? "bg-amber-50 text-amber-700" : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"}`}>
-                  {club.status === "claimed" ? "Verified" : club.status === "active" ? "Active" : club.status === "seasonal" ? "Seasonal" : club.status}
-                </span>
-                {club.contacts && club.contacts.length > 0 && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700">
-                    <Users className="h-3 w-3" />{club.contacts.length} contact{club.contacts.length !== 1 ? "s" : ""}
-                  </span>
-                )}
-                {club.website && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:text-zinc-400">
-                    <Globe className="h-3 w-3" />Website
-                  </span>
-                )}
-              </div>
-              <div className="mt-2 flex flex-wrap gap-1">
-                {club.activities.slice(0, 4).map((a) => (
-                  <span key={a} className="rounded-full border border-zinc-100 px-2 py-0.5 text-xs text-zinc-400">{a}</span>
-                ))}
-                {club.activities.length > 4 && (
-                  <span className="rounded-full px-2 py-0.5 text-xs text-zinc-400">+{club.activities.length - 4} more</span>
-                )}
-              </div>
+        <div className="group rounded-2xl border border-[#0A2E12]/10 bg-white overflow-hidden transition-all hover:border-[#0A2E12]/20 hover:shadow-sm">
+          <div className="flex">
+            <div className="relative w-28 sm:w-36 shrink-0">
+              <Image src={photo} alt={club.name} fill className="object-cover" sizes="(max-width: 640px) 112px, 144px" />
             </div>
-            <ChevronRight className="mt-1 h-5 w-5 shrink-0 text-zinc-300 group-hover:text-[#1B5E20] transition-colors" />
+            <div className="flex-1 min-w-0 p-4 flex items-start justify-between gap-3">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-[#0A2E12] group-hover:text-[#1B5E20] transition-colors truncate">{club.name}</h3>
+                  {distanceMi != null && (
+                    <span className="shrink-0 rounded-full bg-blue-50 px-2 py-0.5 text-xs font-semibold text-blue-700 tabular-nums">
+                      {distanceMi < 1 ? "<1" : Math.round(distanceMi)} mi
+                    </span>
+                  )}
+                </div>
+                <div className="mt-1 flex items-center gap-1.5 text-sm text-[#3D5A3E]">
+                  <MapPin className="h-3.5 w-3.5 shrink-0" />
+                  <span>
+                    {club.city}, {club.stateCode}
+                    {(club.country ?? club.countryCode) && (club.country ?? club.countryCode) !== "US" && (
+                      <> {COUNTRIES[(club.country ?? club.countryCode) as CountryCode]?.flag}</>
+                    )}
+                  </span>
+                  {club.founded && <span className="text-[#0A2E12]/20">·</span>}
+                  {club.founded && <span>Est. {club.founded}</span>}
+                </div>
+                {club.description && <p className="mt-2 text-sm text-[#3D5A3E] line-clamp-2">{club.description}</p>}
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {club.memberCount && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#1B5E20]/5 px-2.5 py-1 text-xs font-medium text-[#2E7D32]">
+                      <Users className="h-3 w-3" />{club.memberCount} members
+                    </span>
+                  )}
+                  {club.greens && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#1B5E20]/5 px-2.5 py-1 text-xs font-medium text-[#2E7D32]">
+                      <Leaf className="h-3 w-3" />{club.greens} {club.greens === 1 ? "green" : "greens"}{club.rinks && ` · ${club.rinks} rinks`}
+                    </span>
+                  )}
+                  {club.surfaceType !== "unknown" && (
+                    <span className="rounded-full bg-[#0A2E12]/5 px-2.5 py-1 text-xs font-medium text-[#3D5A3E]">{SURFACE_LABELS[club.surfaceType]}</span>
+                  )}
+                  <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${club.status === "claimed" ? "bg-blue-50 text-[#2E7D32]" : club.status === "active" ? "bg-[#1B5E20]/5 text-[#2E7D32]" : club.status === "seasonal" ? "bg-amber-50 text-amber-700" : "bg-[#0A2E12]/5 text-[#3D5A3E]"}`}>
+                    {club.status === "claimed" ? "Verified" : club.status === "active" ? "Active" : club.status === "seasonal" ? "Seasonal" : club.status}
+                  </span>
+                </div>
+              </div>
+              <ChevronRight className="mt-1 h-5 w-5 shrink-0 text-[#0A2E12]/20 group-hover:text-[#1B5E20] transition-colors" />
+            </div>
           </div>
         </div>
       </Link>

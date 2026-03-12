@@ -79,7 +79,7 @@ export default async function StatePage({ params }: StatePageProps) {
   const clubSchemas = clubs.map((club) => getLocalBusinessSchema(club));
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-white/5">
+    <div className="min-h-screen bg-[#FEFCF9]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }}
