@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
-import { createClient } from "@/lib/supabase/server";
+import { createClient as createSupabaseServiceClient } from "@supabase/supabase-js";
 import Stripe from "stripe";
 import { computeExpiration } from "@/lib/membership";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -26,7 +27,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  const supabase = await createClient();
+  // Use service role client to bypass RLS — webhooks have no user session
+  const supabase = createSupabaseServiceClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
 
   switch (event.type) {
     // ---- Checkout completed: activate membership ----
@@ -73,9 +78,11 @@ export async function POST(req: NextRequest) {
       const invoice = event.data.object as Stripe.Invoice;
       const customerId = typeof invoice.customer === "string" ? invoice.customer : invoice.customer?.id;
 
-      console.warn(
-        `[Membership] Payment failed for customer ${customerId}, invoice ${invoice.id}`,
-      );
+      logger.warn("Payment failed for customer", {
+        route: "membership/webhook",
+        customerId,
+        invoiceId: invoice.id,
+      });
 
       // Future: send push notification or email to the player
       break;

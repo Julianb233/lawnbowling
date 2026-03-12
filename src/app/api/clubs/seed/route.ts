@@ -24,6 +24,16 @@ export async function POST() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // Verify admin role — only admins can seed club data
+  const { data: player } = await supabase
+    .from("players")
+    .select("role")
+    .eq("user_id", user.id)
+    .single();
+  if (!player || player.role !== "admin") {
+    return NextResponse.json({ error: "Forbidden — admin role required" }, { status: 403 });
+  }
+
   const allClubs = getAllClubs();
   let clubsSeeded = 0;
   let contactsSeeded = 0;

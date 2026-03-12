@@ -27,6 +27,9 @@ export function LearnFooter() {
           <Link href="/learn/glossary" className="hover:text-[#1B5E20] transition">
             Glossary
           </Link>
+          <Link href="/gallery" className="hover:text-[#1B5E20] transition">
+            Gallery
+          </Link>
         </div>
         <span className="text-sm text-[#3D5A3E]">
           &copy; {new Date().getFullYear()} Lawnbowling

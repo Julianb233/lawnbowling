@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { logger } from "@/lib/logger";
 
 // POST /api/onboarding — full onboarding: create venue, add courts, invite staff
 export async function POST(request: NextRequest) {
@@ -68,7 +69,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (venueError) {
-      console.error("Create venue error:", venueError);
+      logger.error("Create venue error", { route: "onboarding", error: venueError });
       return NextResponse.json(
         { error: "Failed to create venue" },
         { status: 500 }
@@ -83,7 +84,7 @@ export async function POST(request: NextRequest) {
         .eq("id", existingPlayer.id);
 
       if (updateError) {
-        console.error("Update player role error:", updateError);
+        logger.error("Update player role error", { route: "onboarding", error: updateError });
       }
     } else {
       // Create player profile as admin
@@ -96,7 +97,7 @@ export async function POST(request: NextRequest) {
       });
 
       if (insertError) {
-        console.error("Create player error:", insertError);
+        logger.error("Create player error", { route: "onboarding", error: insertError });
       }
     }
 
@@ -117,7 +118,7 @@ export async function POST(request: NextRequest) {
           .insert(courtRows);
 
         if (courtsError) {
-          console.error("Create courts error:", courtsError);
+          logger.error("Create courts error", { route: "onboarding", error: courtsError });
         }
       }
     }
@@ -146,7 +147,7 @@ export async function POST(request: NextRequest) {
           .insert(inviteRows);
 
         if (invError) {
-          console.error("Create invitations error:", invError);
+          logger.error("Create invitations error", { route: "onboarding", error: invError });
         }
       }
     }
@@ -156,7 +157,7 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Onboarding error:", error);
+    logger.error("Onboarding error", { route: "onboarding", error });
     return NextResponse.json(
       { error: "Onboarding failed" },
       { status: 500 }
@@ -192,7 +193,7 @@ export async function GET() {
 
     return NextResponse.json({ completed: false });
   } catch (error) {
-    console.error("Onboarding status error:", error);
+    logger.error("Onboarding status error", { route: "onboarding", error });
     return NextResponse.json(
       { error: "Failed to check status" },
       { status: 500 }

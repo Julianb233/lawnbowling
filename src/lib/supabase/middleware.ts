@@ -44,6 +44,8 @@ export async function updateSession(request: NextRequest) {
     "/sitemap.xml", "/robots.txt",
     // API routes for public pages
     "/api/clubs", "/api/shop/products", "/api/stats/leaderboard",
+    "/api/waitlist/status", "/api/bowls/tournament",
+    "/api/tv/announcements", "/api/search",
   ];
 
   // Root path is public (landing page)
