@@ -10,7 +10,7 @@ const STATUS_CONFIG: Record<VisitRequestStatus, { icon: typeof Clock; color: str
   pending: { icon: Clock, color: "text-amber-600 bg-amber-50 border-amber-200", label: "Pending" },
   accepted: { icon: CheckCircle2, color: "text-green-600 bg-green-50 border-green-200", label: "Accepted" },
   declined: { icon: XCircle, color: "text-red-500 bg-red-50 border-red-200", label: "Declined" },
-  expired: { icon: AlertCircle, color: "text-zinc-400 bg-zinc-50 border-zinc-200", label: "Expired" },
+  expired: { icon: AlertCircle, color: "text-[#3D5A3E] bg-[#0A2E12]/[0.03] border-[#0A2E12]/10", label: "Expired" },
 };
 
 export function MyVisitRequests() {
@@ -39,7 +39,7 @@ export function MyVisitRequests() {
     return (
       <div className="space-y-3">
         {[1, 2].map((i) => (
-          <div key={i} className="h-20 animate-pulse rounded-xl bg-zinc-100" />
+          <div key={i} className="h-20 animate-pulse rounded-xl bg-[#0A2E12]/5" />
         ))}
       </div>
     );
@@ -47,9 +47,9 @@ export function MyVisitRequests() {
 
   if (requests.length === 0) {
     return (
-      <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/80 p-6 text-center">
-        <Plane className="mx-auto mb-2 h-8 w-8 text-zinc-300" />
-        <p className="text-sm text-zinc-500">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white/80 p-6 text-center">
+        <Plane className="mx-auto mb-2 h-8 w-8 text-[#3D5A3E]" />
+        <p className="text-sm text-[#3D5A3E]">
           No visit requests yet. Browse clubs and request a visit!
         </p>
       </div>
@@ -71,14 +71,14 @@ export function MyVisitRequests() {
         return (
           <div
             key={req.id}
-            className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white p-4"
+            className="rounded-xl border border-[#0A2E12]/10 bg-white p-4"
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-bold text-zinc-900 truncate">
+                <p className="text-sm font-bold text-[#0A2E12] truncate">
                   {req.club?.name ?? req.club_id}
                 </p>
-                <p className="mt-0.5 text-xs text-zinc-500">
+                <p className="mt-0.5 text-xs text-[#3D5A3E]">
                   {date}
                 </p>
                 {req.preferred_positions.length > 0 && (
@@ -86,7 +86,7 @@ export function MyVisitRequests() {
                     {req.preferred_positions.map((pos) => (
                       <span
                         key={pos}
-                        className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium capitalize text-zinc-600 dark:text-zinc-400"
+                        className="rounded-full bg-[#0A2E12]/5 px-2 py-0.5 text-[10px] font-medium capitalize text-[#3D5A3E]"
                       >
                         {pos}
                       </span>

@@ -16,7 +16,7 @@ export function ScoringGuide({
 
   return (
     <section id="scoring">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Scoring</h2>
+      <h2 className="mb-4 text-2xl font-bold text-[#0A2E12]">Scoring</h2>
 
       {/* Quick reference box */}
       <motion.div
@@ -32,16 +32,16 @@ export function ScoringGuide({
         <div className="mb-1 text-xs font-semibold uppercase tracking-wider" style={{ color: colors.primary }}>
           Quick Reference
         </div>
-        <p className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{scoring.system}</p>
+        <p className="text-lg font-bold text-[#0A2E12]">{scoring.system}</p>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mb-4 rounded-xl border border-zinc-200 bg-zinc-50 p-4"
+        className="mb-4 rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4"
       >
-        <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">{scoring.explanation}</p>
+        <p className="leading-relaxed text-[#3D5A3E]">{scoring.explanation}</p>
       </motion.div>
 
       {/* Examples */}
@@ -53,27 +53,27 @@ export function ScoringGuide({
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
-            className="rounded-lg border border-zinc-200 bg-zinc-50 p-3"
+            className="rounded-lg border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-3"
           >
-            <p className="mb-1 text-sm font-medium text-zinc-700">
+            <p className="mb-1 text-sm font-medium text-[#2D4A30]">
               {example.scenario}
             </p>
-            <p className="text-sm text-zinc-400">{example.score}</p>
+            <p className="text-sm text-[#3D5A3E]">{example.score}</p>
           </motion.div>
         ))}
       </div>
 
       {/* Tips */}
       {scoring.tips.length > 0 && (
-        <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
-          <h3 className="mb-2 text-sm font-semibold text-zinc-600 dark:text-zinc-400">
+        <div className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4">
+          <h3 className="mb-2 text-sm font-semibold text-[#3D5A3E]">
             Scoring Tips
           </h3>
           <ul className="space-y-1.5">
             {scoring.tips.map((tip, i) => (
               <li
                 key={i}
-                className="flex items-start gap-2 text-sm text-zinc-400"
+                className="flex items-start gap-2 text-sm text-[#3D5A3E]"
               >
                 <span className="mt-0.5 text-xs" style={{ color: colors.primary }}>
                   {"\u25CF"}

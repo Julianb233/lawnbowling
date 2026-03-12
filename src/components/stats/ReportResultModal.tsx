@@ -53,12 +53,12 @@ export function ReportResultModal({ open, onOpenChange, matchId, onReported }: R
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-300 bg-white dark:bg-[#1a3d28] p-6 shadow-2xl">
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-2xl">
           <div className="mb-4 flex items-center justify-between">
-            <Dialog.Title className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+            <Dialog.Title className="text-lg font-bold text-[#0A2E12]">
               Report Result
             </Dialog.Title>
-            <Dialog.Close className="rounded-full p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+            <Dialog.Close className="rounded-full p-1 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30]">
               <X className="h-5 w-5" />
             </Dialog.Close>
           </div>
@@ -66,7 +66,7 @@ export function ReportResultModal({ open, onOpenChange, matchId, onReported }: R
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Winner selection */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-zinc-400">Who won?</label>
+              <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">Who won?</label>
               <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
@@ -75,7 +75,7 @@ export function ReportResultModal({ open, onOpenChange, matchId, onReported }: R
                     "rounded-xl border p-4 text-center transition-all",
                     winnerTeam === 1
                       ? "border-[#1B5E20] bg-[#1B5E20]/10 text-blue-400"
-                      : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
+                      : "border-[#0A2E12]/10 bg-[#0A2E12]/5 text-[#3D5A3E] hover:border-[#0A2E12]/10"
                   )}
                 >
                   <Trophy className="mx-auto mb-1 h-5 w-5" />
@@ -88,7 +88,7 @@ export function ReportResultModal({ open, onOpenChange, matchId, onReported }: R
                     "rounded-xl border p-4 text-center transition-all",
                     winnerTeam === 2
                       ? "border-red-500 bg-red-500/10 text-red-400"
-                      : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
+                      : "border-[#0A2E12]/10 bg-[#0A2E12]/5 text-[#3D5A3E] hover:border-[#0A2E12]/10"
                   )}
                 >
                   <Trophy className="mx-auto mb-1 h-5 w-5" />
@@ -99,7 +99,7 @@ export function ReportResultModal({ open, onOpenChange, matchId, onReported }: R
 
             {/* Score entry */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-zinc-400">Score (optional)</label>
+              <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">Score (optional)</label>
               <div className="flex items-center gap-3">
                 <input
                   type="number"
@@ -107,16 +107,16 @@ export function ReportResultModal({ open, onOpenChange, matchId, onReported }: R
                   value={team1Score}
                   onChange={(e) => setTeam1Score(e.target.value)}
                   placeholder="T1"
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-center text-lg font-bold text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none"
+                  className="w-full rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-4 py-3 text-center text-lg font-bold text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20] focus:outline-none"
                 />
-                <span className="text-zinc-600 font-bold">vs</span>
+                <span className="text-[#3D5A3E] font-bold">vs</span>
                 <input
                   type="number"
                   min="0"
                   value={team2Score}
                   onChange={(e) => setTeam2Score(e.target.value)}
                   placeholder="T2"
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-center text-lg font-bold text-zinc-900 placeholder:text-zinc-400 focus:border-red-500 focus:outline-none"
+                  className="w-full rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-4 py-3 text-center text-lg font-bold text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-red-500 focus:outline-none"
                 />
               </div>
             </div>

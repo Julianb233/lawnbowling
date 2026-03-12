@@ -54,7 +54,7 @@ export default function MatchesAdminPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-800 mb-6">
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6">
         Match History ({total})
       </h1>
 
@@ -63,7 +63,7 @@ export default function MatchesAdminPage() {
         <select
           value={sportFilter}
           onChange={(e) => setSportFilter(e.target.value)}
-          className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800"
+          className="rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-[#0A2E12]"
         >
           <option value="">All</option>
           <option value="lawn_bowling">Lawn Bowling</option>
@@ -71,7 +71,7 @@ export default function MatchesAdminPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800"
+          className="rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-[#0A2E12]"
         >
           <option value="">All Statuses</option>
           <option value="queued">Queued</option>
@@ -81,12 +81,12 @@ export default function MatchesAdminPage() {
       </div>
 
       {loading ? (
-        <div className="text-zinc-500 dark:text-zinc-400">Loading matches...</div>
+        <div className="text-[#3D5A3E]">Loading matches...</div>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-zinc-200 text-left text-zinc-500 dark:text-zinc-400">
+              <tr className="border-b border-[#0A2E12]/10 text-left text-[#3D5A3E]">
                 <th className="pb-2 font-medium">Sport</th>
                 <th className="pb-2 font-medium">Players</th>
                 <th className="pb-2 font-medium">Court</th>
@@ -96,7 +96,7 @@ export default function MatchesAdminPage() {
                 <th className="pb-2 font-medium">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-800">
+            <tbody className="divide-y divide-[#0A2E12]/10">
               {matches.map((match) => {
                 const duration =
                   match.started_at && match.ended_at
@@ -109,23 +109,23 @@ export default function MatchesAdminPage() {
 
                 return (
                   <tr key={match.id}>
-                    <td className="py-3 text-zinc-800 capitalize">
+                    <td className="py-3 text-[#0A2E12] capitalize">
                       {match.sport.replace("_", " ")}
                     </td>
-                    <td className="py-3 text-zinc-500 dark:text-zinc-400">
+                    <td className="py-3 text-[#3D5A3E]">
                       {match.match_players
                         ?.map((mp) => mp.players?.display_name)
                         .filter(Boolean)
                         .join(", ") || "-"}
                     </td>
-                    <td className="py-3 text-zinc-500 dark:text-zinc-400">
+                    <td className="py-3 text-[#3D5A3E]">
                       {match.courts?.name ?? "-"}
                     </td>
                     <td className="py-3">
                       <span
                         className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                           match.status === "completed"
-                            ? "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                            ? "bg-[#0A2E12]/5 text-[#3D5A3E]"
                             : match.status === "playing"
                               ? "bg-red-50 text-red-600"
                               : "bg-yellow-50 text-yellow-700"
@@ -134,10 +134,10 @@ export default function MatchesAdminPage() {
                         {match.status}
                       </span>
                     </td>
-                    <td className="py-3 text-zinc-500 dark:text-zinc-400">
+                    <td className="py-3 text-[#3D5A3E]">
                       {duration !== null ? `${duration} min` : "-"}
                     </td>
-                    <td className="py-3 text-zinc-500 dark:text-zinc-400">
+                    <td className="py-3 text-[#3D5A3E]">
                       {new Date(match.created_at).toLocaleDateString()}
                     </td>
                     <td className="py-3">
@@ -156,7 +156,7 @@ export default function MatchesAdminPage() {
             </tbody>
           </table>
           {matches.length === 0 && (
-            <p className="py-8 text-center text-sm text-zinc-500 italic">
+            <p className="py-8 text-center text-sm text-[#3D5A3E] italic">
               No matches found.
             </p>
           )}

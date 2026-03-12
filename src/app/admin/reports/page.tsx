@@ -10,24 +10,24 @@ export default async function ReportsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-zinc-800">Player Reports</h1>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">{reports.length} reports total</p>
+        <h1 className="text-2xl font-bold text-[#0A2E12]">Player Reports</h1>
+        <p className="text-sm text-[#3D5A3E]">{reports.length} reports total</p>
       </div>
 
       {reports.length === 0 ? (
-        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
-          <p className="text-zinc-500 dark:text-zinc-400">No reports filed yet.</p>
+        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-8 text-center">
+          <p className="text-[#3D5A3E]">No reports filed yet.</p>
         </div>
       ) : (
         <div className="space-y-3">
           {reports.map((report) => (
             <div
               key={report.id}
-              className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4"
+              className="rounded-xl border border-[#0A2E12]/10 bg-white p-4"
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-sm text-zinc-800">
+                  <p className="text-sm text-[#0A2E12]">
                     <span className="font-medium">
                       {report.reporter?.display_name || "Unknown"}
                     </span>
@@ -36,11 +36,11 @@ export default async function ReportsPage() {
                       {report.reported?.display_name || "Unknown"}
                     </span>
                   </p>
-                  <p className="text-xs text-zinc-500 mt-0.5">
+                  <p className="text-xs text-[#3D5A3E] mt-0.5">
                     Reason: {report.reason}
                   </p>
                   {report.details && (
-                    <p className="text-sm text-zinc-500 mt-2">
+                    <p className="text-sm text-[#3D5A3E] mt-2">
                       {report.details}
                     </p>
                   )}
@@ -52,14 +52,14 @@ export default async function ReportsPage() {
                       : report.status === "resolved"
                       ? "bg-[#1B5E20]/5 text-[#1B5E20]"
                       : report.status === "dismissed"
-                      ? "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                      ? "bg-[#0A2E12]/5 text-[#3D5A3E]"
                       : "bg-blue-50 text-[#1B5E20]"
                   }`}
                 >
                   {report.status}
                 </span>
               </div>
-              <p className="text-xs text-zinc-500 mt-2">
+              <p className="text-xs text-[#3D5A3E] mt-2">
                 {new Date(report.created_at).toLocaleDateString("en-US", {
                   month: "short",
                   day: "numeric",

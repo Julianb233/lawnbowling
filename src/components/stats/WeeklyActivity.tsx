@@ -66,9 +66,9 @@ export function WeeklyActivity({ playerId }: WeeklyActivityProps) {
   const maxCount = Math.max(...days.map((d) => d.count), 1);
 
   return (
-    <div className="rounded-2xl border border-zinc-200 bg-white/80 p-4">
+    <div className="rounded-2xl border border-[#0A2E12]/10 bg-white/80 p-4">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-zinc-400">This Week</h3>
+        <h3 className="text-sm font-semibold text-[#3D5A3E]">This Week</h3>
         {streak > 0 && (
           <span className="flex items-center gap-1 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-400">
             <Flame className="h-3 w-3" />
@@ -82,15 +82,15 @@ export function WeeklyActivity({ playerId }: WeeklyActivityProps) {
           const height = d.count > 0 ? Math.max((d.count / maxCount) * 100, 12) : 4;
           return (
             <div key={d.label} className="flex flex-1 flex-col items-center gap-1">
-              <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400">{d.count > 0 ? d.count : ""}</span>
+              <span className="text-xs font-bold text-[#3D5A3E]">{d.count > 0 ? d.count : ""}</span>
               <div
                 className={cn(
                   "w-full rounded-t-md transition-all",
-                  d.count > 0 ? "bg-[#1B5E20]" : "bg-zinc-100"
+                  d.count > 0 ? "bg-[#1B5E20]" : "bg-[#0A2E12]/5"
                 )}
                 style={{ height: `${height}%`, minHeight: 3 }}
               />
-              <span className="text-[10px] text-zinc-600 dark:text-zinc-400">{d.day}</span>
+              <span className="text-[10px] text-[#3D5A3E]">{d.day}</span>
             </div>
           );
         })}

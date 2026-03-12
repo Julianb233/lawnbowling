@@ -184,7 +184,7 @@ export default function ClubOnboardPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+        <div className="min-h-screen bg-[#0A2E12]/[0.03] flex items-center justify-center">
           <Loader2 className="h-8 w-8 animate-spin text-[#1B5E20]" />
         </div>
       }
@@ -368,15 +368,15 @@ function ClubOnboardContent() {
   // Step 5: Confirmation
   if (step === "confirmation") {
     return (
-      <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
+      <div className="min-h-screen bg-[#0A2E12]/[0.03] flex items-center justify-center p-4">
+        <div className="max-w-md w-full rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
             <CheckCircle className="h-8 w-8 text-[#1B5E20]" />
           </div>
-          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+          <h1 className="text-xl font-bold text-[#0A2E12]">
             Welcome to Lawnbowling!
           </h1>
-          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-2 text-sm text-[#3D5A3E]">
             Your club <strong>{name}</strong> has been registered
             {selectedPlan !== "free"
               ? ` on the ${selectedPlanData.name} plan`
@@ -393,7 +393,7 @@ function ClubOnboardContent() {
             </Link>
             <Link
               href="/clubs"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-200 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#0A2E12]/10 px-6 py-3 text-sm font-medium text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors"
             >
               View Club Directory
             </Link>
@@ -404,20 +404,20 @@ function ClubOnboardContent() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-white/5">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03]">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-2xl px-4 py-4">
           <Link
             href="/clubs"
-            className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-[#3D5A3E] hover:text-[#2D4A30] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             Club Directory
           </Link>
-          <h1 className="mt-2 text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
+          <h1 className="mt-2 text-2xl font-black tracking-tight text-[#0A2E12]">
             Set Up Your Club
           </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="text-sm text-[#3D5A3E]">
             Get your club on Lawnbowling in minutes
           </p>
 
@@ -430,7 +430,7 @@ function ClubOnboardContent() {
                   "flex-1 rounded-full py-1.5 text-xs font-medium text-center transition-colors",
                   i <= currentIndex
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-zinc-100 text-zinc-400"
+                    : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                 )}
               >
                 {s.label}
@@ -458,14 +458,14 @@ function ClubOnboardContent() {
         {/* Step 1: Club Info */}
         {step === "info" && (
           <div className="space-y-6">
-            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-              <h2 className="text-lg font-bold text-zinc-900 mb-4">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+              <h2 className="text-lg font-bold text-[#0A2E12] mb-4">
                 Club Information
               </h2>
               <div className="space-y-4">
                 <div>
-                  <label className="flex items-center gap-1.5 text-sm font-medium text-zinc-700 mb-1.5">
-                    <Building2 className="h-4 w-4 text-zinc-400" />
+                  <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
+                    <Building2 className="h-4 w-4 text-[#3D5A3E]" />
                     Club Name *
                   </label>
                   <input
@@ -474,13 +474,13 @@ function ClubOnboardContent() {
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Springfield Lawn Bowling Club"
                     required
-                    className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="flex items-center gap-1.5 text-sm font-medium text-zinc-700 mb-1.5">
-                      <MapPin className="h-4 w-4 text-zinc-400" />
+                    <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
+                      <MapPin className="h-4 w-4 text-[#3D5A3E]" />
                       City *
                     </label>
                     <input
@@ -489,18 +489,18 @@ function ClubOnboardContent() {
                       onChange={(e) => setCity(e.target.value)}
                       placeholder="e.g. San Francisco"
                       required
-                      className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                      className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-zinc-700 mb-1.5 block">
+                    <label className="text-sm font-medium text-[#2D4A30] mb-1.5 block">
                       State *
                     </label>
                     <select
                       value={stateCode}
                       onChange={(e) => setStateCode(e.target.value)}
                       required
-                      className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                      className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                     >
                       <option value="">Select state...</option>
                       {US_STATES.map((s) => (
@@ -512,13 +512,13 @@ function ClubOnboardContent() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-zinc-700 mb-1.5 block">
+                  <label className="text-sm font-medium text-[#2D4A30] mb-1.5 block">
                     Number of Rinks
                   </label>
                   <select
                     value={numRinks}
                     onChange={(e) => setNumRinks(e.target.value)}
-                    className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   >
                     <option value="2">2 rinks</option>
                     <option value="3">3 rinks</option>
@@ -528,13 +528,13 @@ function ClubOnboardContent() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-              <h2 className="text-lg font-bold text-zinc-900 mb-4">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+              <h2 className="text-lg font-bold text-[#0A2E12] mb-4">
                 Contact Person
               </h2>
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-zinc-700 mb-1.5 block">
+                  <label className="text-sm font-medium text-[#2D4A30] mb-1.5 block">
                     Your Name
                   </label>
                   <input
@@ -542,13 +542,13 @@ function ClubOnboardContent() {
                     value={contactName}
                     onChange={(e) => setContactName(e.target.value)}
                     placeholder="John Smith"
-                    className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="flex items-center gap-1.5 text-sm font-medium text-zinc-700 mb-1.5">
-                      <Mail className="h-4 w-4 text-zinc-400" />
+                    <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
+                      <Mail className="h-4 w-4 text-[#3D5A3E]" />
                       Email
                     </label>
                     <input
@@ -556,12 +556,12 @@ function ClubOnboardContent() {
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
                       placeholder="info@yourclub.com"
-                      className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                      className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                     />
                   </div>
                   <div>
-                    <label className="flex items-center gap-1.5 text-sm font-medium text-zinc-700 mb-1.5">
-                      <Phone className="h-4 w-4 text-zinc-400" />
+                    <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
+                      <Phone className="h-4 w-4 text-[#3D5A3E]" />
                       Phone
                     </label>
                     <input
@@ -569,7 +569,7 @@ function ClubOnboardContent() {
                       value={contactPhone}
                       onChange={(e) => setContactPhone(e.target.value)}
                       placeholder="(555) 123-4567"
-                      className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                      className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                     />
                   </div>
                 </div>
@@ -600,10 +600,10 @@ function ClubOnboardContent() {
                     key={plan.id}
                     onClick={() => setSelectedPlan(plan.id)}
                     className={cn(
-                      "w-full rounded-2xl border-2 bg-white dark:bg-[#1a3d28] p-6 text-left transition-all",
+                      "w-full rounded-2xl border-2 bg-white p-6 text-left transition-all",
                       isSelected
                         ? "border-[#1B5E20] shadow-md"
-                        : "border-zinc-200 hover:border-zinc-300"
+                        : "border-[#0A2E12]/10 hover:border-[#0A2E12]/10"
                     )}
                   >
                     <div className="flex items-start gap-4">
@@ -612,14 +612,14 @@ function ClubOnboardContent() {
                           "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl",
                           isSelected
                             ? "bg-[#1B5E20]/10 text-[#1B5E20]"
-                            : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                            : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                         )}
                       >
                         {plan.icon}
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+                          <h3 className="text-lg font-bold text-[#0A2E12]">
                             {plan.name}
                           </h3>
                           {"popular" in plan && plan.popular && (
@@ -628,16 +628,16 @@ function ClubOnboardContent() {
                             </span>
                           )}
                         </div>
-                        <p className="text-sm text-zinc-500 mt-0.5">
+                        <p className="text-sm text-[#3D5A3E] mt-0.5">
                           {plan.description}
                         </p>
-                        <p className="text-xl font-black text-zinc-900 mt-2">
+                        <p className="text-xl font-black text-[#0A2E12] mt-2">
                           {plan.pricePerMember === 0 ? (
                             "Free"
                           ) : (
                             <>
                               ${plan.pricePerMember}
-                              <span className="text-sm font-normal text-zinc-500 dark:text-zinc-400">
+                              <span className="text-sm font-normal text-[#3D5A3E]">
                                 /member/year
                               </span>
                             </>
@@ -647,7 +647,7 @@ function ClubOnboardContent() {
                           {plan.features.map((f) => (
                             <span
                               key={f}
-                              className="inline-flex items-center gap-1 rounded-full bg-zinc-50 px-2.5 py-1 text-xs text-zinc-600 dark:text-zinc-400"
+                              className="inline-flex items-center gap-1 rounded-full bg-[#0A2E12]/[0.03] px-2.5 py-1 text-xs text-[#3D5A3E]"
                             >
                               <CheckCircle className="h-3 w-3 text-[#1B5E20]" />
                               {f}
@@ -660,7 +660,7 @@ function ClubOnboardContent() {
                           "mt-1 h-5 w-5 shrink-0 rounded-full border-2 transition-colors",
                           isSelected
                             ? "border-[#1B5E20] bg-[#1B5E20]"
-                            : "border-zinc-300"
+                            : "border-[#0A2E12]/10"
                         )}
                       >
                         {isSelected && (
@@ -676,7 +676,7 @@ function ClubOnboardContent() {
             <div className="flex justify-between">
               <button
                 onClick={goPrev}
-                className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#0A2E12]/10 px-6 py-3 text-sm font-medium text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Back
@@ -695,11 +695,11 @@ function ClubOnboardContent() {
         {/* Step 3: Estimate Members */}
         {step === "members" && (
           <div className="space-y-6">
-            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-              <h2 className="text-lg font-bold text-zinc-900 mb-2">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+              <h2 className="text-lg font-bold text-[#0A2E12] mb-2">
                 How many members does your club have?
               </h2>
-              <p className="text-sm text-zinc-500 mb-6">
+              <p className="text-sm text-[#3D5A3E] mb-6">
                 This determines your annual subscription cost. You can update
                 this anytime.
               </p>
@@ -708,11 +708,11 @@ function ClubOnboardContent() {
                 <div className="text-center">
                   <div className="flex items-center gap-3">
                     <Users className="h-6 w-6 text-[#1B5E20]" />
-                    <span className="text-5xl font-black text-zinc-900 tabular-nums">
+                    <span className="text-5xl font-black text-[#0A2E12] tabular-nums">
                       {memberEstimate}
                     </span>
                   </div>
-                  <p className="text-sm text-zinc-500 mt-1">members</p>
+                  <p className="text-sm text-[#3D5A3E] mt-1">members</p>
                 </div>
               </div>
 
@@ -725,7 +725,7 @@ function ClubOnboardContent() {
                 onChange={(e) => setMemberEstimate(Number(e.target.value))}
                 className="w-full accent-[#1B5E20] h-2 rounded-full"
               />
-              <div className="flex justify-between text-xs text-zinc-400 mt-1">
+              <div className="flex justify-between text-xs text-[#3D5A3E] mt-1">
                 <span>20</span>
                 <span>100</span>
                 <span>250</span>
@@ -736,10 +736,10 @@ function ClubOnboardContent() {
                 <div className="mt-8 rounded-xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-5">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-zinc-700">
+                      <p className="text-sm font-medium text-[#2D4A30]">
                         {selectedPlanData.name} Plan
                       </p>
-                      <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                      <p className="text-xs text-[#3D5A3E]">
                         ${selectedPlanData.pricePerMember}/member x{" "}
                         {memberEstimate} members
                       </p>
@@ -748,10 +748,10 @@ function ClubOnboardContent() {
                       <p className="text-2xl font-black text-[#1B5E20]">
                         ${annualTotal.toLocaleString()}
                       </p>
-                      <p className="text-xs text-zinc-500 dark:text-zinc-400">per year</p>
+                      <p className="text-xs text-[#3D5A3E]">per year</p>
                     </div>
                   </div>
-                  <p className="mt-2 text-xs text-zinc-400">
+                  <p className="mt-2 text-xs text-[#3D5A3E]">
                     That&apos;s ${selectedPlanData.pricePerMember} per member
                     per year, billed annually
                   </p>
@@ -781,7 +781,7 @@ function ClubOnboardContent() {
             <div className="flex justify-between">
               <button
                 onClick={goPrev}
-                className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#0A2E12]/10 px-6 py-3 text-sm font-medium text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Back
@@ -800,18 +800,18 @@ function ClubOnboardContent() {
         {/* Step 4: Payment */}
         {step === "payment" && (
           <div className="space-y-6">
-            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-              <h2 className="text-lg font-bold text-zinc-900 mb-4">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+              <h2 className="text-lg font-bold text-[#0A2E12] mb-4">
                 Review & Confirm
               </h2>
 
-              <div className="space-y-4 divide-y divide-zinc-100">
+              <div className="space-y-4 divide-y divide-[#0A2E12]/10">
                 <div className="pb-4">
-                  <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">
+                  <p className="text-xs font-medium text-[#3D5A3E] uppercase tracking-wider mb-1">
                     Club
                   </p>
-                  <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{name}</p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                  <p className="text-sm font-bold text-[#0A2E12]">{name}</p>
+                  <p className="text-sm text-[#3D5A3E]">
                     {city},{" "}
                     {US_STATES.find((s) => s.code === stateCode)?.name ||
                       stateCode}{" "}
@@ -820,13 +820,13 @@ function ClubOnboardContent() {
                 </div>
 
                 <div className="pt-4 pb-4">
-                  <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">
+                  <p className="text-xs font-medium text-[#3D5A3E] uppercase tracking-wider mb-1">
                     Plan
                   </p>
-                  <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                  <p className="text-sm font-bold text-[#0A2E12]">
                     {selectedPlanData.name}
                   </p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                  <p className="text-sm text-[#3D5A3E]">
                     {selectedPlan === "free"
                       ? "Free forever, up to 20 members"
                       : `$${selectedPlanData.pricePerMember}/member/year`}
@@ -834,10 +834,10 @@ function ClubOnboardContent() {
                 </div>
 
                 <div className="pt-4 pb-4">
-                  <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">
+                  <p className="text-xs font-medium text-[#3D5A3E] uppercase tracking-wider mb-1">
                     Members
                   </p>
-                  <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                  <p className="text-sm font-bold text-[#0A2E12]">
                     {memberEstimate} estimated members
                   </p>
                 </div>
@@ -845,7 +845,7 @@ function ClubOnboardContent() {
                 {selectedPlan !== "free" && (
                   <div className="pt-4">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                      <p className="text-sm font-bold text-[#0A2E12]">
                         Annual Total
                       </p>
                       <p className="text-2xl font-black text-[#1B5E20]">
@@ -858,11 +858,11 @@ function ClubOnboardContent() {
             </section>
 
             {contactName && (
-              <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-                <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+                <p className="text-xs font-medium text-[#3D5A3E] uppercase tracking-wider mb-1">
                   Contact
                 </p>
-                <p className="text-sm text-zinc-700">
+                <p className="text-sm text-[#2D4A30]">
                   {contactName}
                   {contactEmail && ` -- ${contactEmail}`}
                   {contactPhone && ` -- ${contactPhone}`}
@@ -879,7 +879,7 @@ function ClubOnboardContent() {
             <div className="flex justify-between">
               <button
                 onClick={goPrev}
-                className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#0A2E12]/10 px-6 py-3 text-sm font-medium text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Back
@@ -916,7 +916,7 @@ function ClubOnboardContent() {
             </div>
 
             {selectedPlan !== "free" && (
-              <p className="text-center text-xs text-zinc-400">
+              <p className="text-center text-xs text-[#3D5A3E]">
                 You will be redirected to Stripe for secure payment. 30-day
                 money-back guarantee.
               </p>

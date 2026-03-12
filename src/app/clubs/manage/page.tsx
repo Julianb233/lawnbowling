@@ -212,21 +212,21 @@ export default function ClubManagerDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
-        <p className="text-zinc-500 dark:text-zinc-400">Loading your clubs...</p>
+      <div className="min-h-screen bg-[#0A2E12]/[0.03] flex items-center justify-center">
+        <p className="text-[#3D5A3E]">Loading your clubs...</p>
       </div>
     );
   }
 
   if (clubs.length === 0) {
     return (
-      <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100">
-            <Building2 className="h-8 w-8 text-zinc-400" />
+      <div className="min-h-screen bg-[#0A2E12]/[0.03] flex items-center justify-center p-4">
+        <div className="max-w-md w-full rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#0A2E12]/5">
+            <Building2 className="h-8 w-8 text-[#3D5A3E]" />
           </div>
-          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">No Clubs to Manage</h1>
-          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+          <h1 className="text-xl font-bold text-[#0A2E12]">No Clubs to Manage</h1>
+          <p className="mt-2 text-sm text-[#3D5A3E]">
             You haven&apos;t claimed any clubs yet. Claim your club to manage its listing.
           </p>
           <Link
@@ -241,18 +241,18 @@ export default function ClubManagerDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-white/5">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03]">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <Link
             href="/clubs"
-            className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-[#3D5A3E] hover:text-[#2D4A30] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             Club Directory
           </Link>
           <div className="mt-2 flex items-center justify-between">
-            <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
+            <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
               Club Dashboard
             </h1>
             {selectedClub && (
@@ -274,7 +274,7 @@ export default function ClubManagerDashboard() {
                   className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
                     selectedClub?.id === club.id
                       ? "bg-[#1B5E20] text-white"
-                      : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                      : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5"
                   }`}
                 >
                   {club.name}
@@ -288,8 +288,8 @@ export default function ClubManagerDashboard() {
       <main className="mx-auto max-w-3xl px-4 py-8">
         <form onSubmit={handleSave} className="space-y-6">
           {/* Basic Info */}
-          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-            <h2 className="text-lg font-bold text-zinc-900 mb-4">
+          <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+            <h2 className="text-lg font-bold text-[#0A2E12] mb-4">
               Club Information
             </h2>
             <div className="space-y-4">
@@ -353,8 +353,8 @@ export default function ClubManagerDashboard() {
           </section>
 
           {/* Facilities */}
-          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-            <h2 className="text-lg font-bold text-zinc-900 mb-4">
+          <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+            <h2 className="text-lg font-bold text-[#0A2E12] mb-4">
               Facilities
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -392,8 +392,8 @@ export default function ClubManagerDashboard() {
           </section>
 
           {/* Social Media */}
-          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-            <h2 className="text-lg font-bold text-zinc-900 mb-4">
+          <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+            <h2 className="text-lg font-bold text-[#0A2E12] mb-4">
               Social Media
             </h2>
             <div className="space-y-4">
@@ -419,15 +419,15 @@ export default function ClubManagerDashboard() {
           </section>
 
           {/* Venue Linking */}
-          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+          <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+              <h2 className="text-lg font-bold text-[#0A2E12]">
                 Linked Venues
               </h2>
               <button
                 type="button"
                 onClick={() => setShowVenueSearch(!showVenueSearch)}
-                className="inline-flex items-center gap-1 rounded-lg bg-zinc-100 px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-200 transition-colors"
+                className="inline-flex items-center gap-1 rounded-lg bg-[#0A2E12]/5 px-3 py-1.5 text-xs font-medium text-[#2D4A30] hover:bg-[#0A2E12]/5 transition-colors"
               >
                 <Plus className="h-3.5 w-3.5" />
                 Link Venue
@@ -435,19 +435,19 @@ export default function ClubManagerDashboard() {
             </div>
 
             {showVenueSearch && (
-              <div className="mb-4 rounded-xl border border-zinc-200 bg-zinc-50 p-4">
+              <div className="mb-4 rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3D5A3E]" />
                   <input
                     type="text"
                     value={venueSearch}
                     onChange={(e) => setVenueSearch(e.target.value)}
                     placeholder="Search venues..."
-                    className="w-full rounded-lg border border-zinc-200 py-2.5 pl-10 pr-4 text-sm focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    className="w-full rounded-lg border border-[#0A2E12]/10 py-2.5 pl-10 pr-4 text-sm focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   />
                 </div>
                 {venueOptions.length > 0 && (
-                  <div className="mt-2 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 divide-y divide-zinc-100 max-h-40 overflow-y-auto">
+                  <div className="mt-2 rounded-lg border border-[#0A2E12]/10 bg-white divide-y divide-[#0A2E12]/10 max-h-40 overflow-y-auto">
                     {venueOptions
                       .filter(
                         (v) => !linkedVenues.some((lv) => lv.venue_id === v.id)
@@ -457,11 +457,11 @@ export default function ClubManagerDashboard() {
                           key={venue.id}
                           type="button"
                           onClick={() => handleLinkVenue(venue)}
-                          className="w-full text-left px-3 py-2 text-sm hover:bg-zinc-50 transition-colors"
+                          className="w-full text-left px-3 py-2 text-sm hover:bg-[#0A2E12]/[0.03] transition-colors"
                         >
                           <span className="font-medium">{venue.name}</span>
                           {venue.address && (
-                            <span className="text-zinc-500 text-xs block">
+                            <span className="text-[#3D5A3E] text-xs block">
                               {venue.address}
                             </span>
                           )}
@@ -473,7 +473,7 @@ export default function ClubManagerDashboard() {
             )}
 
             {linkedVenues.length === 0 ? (
-              <p className="text-sm text-zinc-500">
+              <p className="text-sm text-[#3D5A3E]">
                 No venues linked yet. Link a venue to connect your club.
               </p>
             ) : (
@@ -481,16 +481,16 @@ export default function ClubManagerDashboard() {
                 {linkedVenues.map((lv) => (
                   <div
                     key={lv.id}
-                    className="flex items-center justify-between rounded-xl border border-zinc-100 bg-zinc-50 p-3"
+                    className="flex items-center justify-between rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-3"
                   >
                     <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-zinc-400" />
+                      <MapPin className="h-4 w-4 text-[#3D5A3E]" />
                       <div>
-                        <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                        <p className="text-sm font-medium text-[#0A2E12]">
                           {lv.venue?.name ?? "Unknown Venue"}
                         </p>
                         {lv.venue?.address && (
-                          <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                          <p className="text-xs text-[#3D5A3E]">
                             {lv.venue.address}
                           </p>
                         )}
@@ -504,7 +504,7 @@ export default function ClubManagerDashboard() {
                     <button
                       type="button"
                       onClick={() => handleUnlinkVenue(lv.venue_id)}
-                      className="rounded-lg p-1.5 text-zinc-400 hover:bg-zinc-200 hover:text-zinc-600 transition-colors"
+                      className="rounded-lg p-1.5 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#3D5A3E] transition-colors"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -539,7 +539,7 @@ export default function ClubManagerDashboard() {
 
         {/* Membership Management */}
         {selectedClub && (
-          <section className="mt-8 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+          <section className="mt-8 rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
             <ClubMembershipManager
               clubId={selectedClub.id}
               currentUserRole={userClubRole}
@@ -581,8 +581,8 @@ function Field({
 }) {
   return (
     <div>
-      <label className="flex items-center gap-1.5 text-sm font-medium text-zinc-700 mb-1.5">
-        {icon && <span className="text-zinc-400">{icon}</span>}
+      <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
+        {icon && <span className="text-[#3D5A3E]">{icon}</span>}
         {label}
       </label>
       {children}

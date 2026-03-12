@@ -95,14 +95,14 @@ export default function LiveScoresPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+      <div className="flex min-h-screen items-center justify-center bg-[#0A2E12]">
         <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white">
+    <div className="min-h-screen bg-[#0A2E12] text-white">
       {/* Header */}
       <header className="border-b border-white/10">
         <div className="mx-auto max-w-6xl px-4 py-5">
@@ -116,15 +116,15 @@ export default function LiveScoresPage() {
                   <span
                     className={cn(
                       "inline-block h-2.5 w-2.5 rounded-full",
-                      connected ? "bg-[#1B5E20] animate-pulse" : "bg-zinc-600"
+                      connected ? "bg-[#1B5E20] animate-pulse" : "bg-[#3D5A3E]"
                     )}
                   />
-                  <span className="text-xs font-medium text-zinc-400">
+                  <span className="text-xs font-medium text-[#3D5A3E]">
                     {connected ? "LIVE" : "Connecting"}
                   </span>
                 </div>
               </div>
-              <p className="text-sm text-zinc-500 mt-0.5">
+              <p className="text-sm text-[#3D5A3E] mt-0.5">
                 Round {round}
                 {allFinalized && " — Final"}
                 {lastUpdate && (
@@ -136,7 +136,7 @@ export default function LiveScoresPage() {
             </div>
             <button
               onClick={() => router.push(`/bowls/${tournamentId}`)}
-              className="rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-zinc-300 hover:bg-white/5 min-h-[44px] touch-manipulation"
+              className="rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-[#3D5A3E] hover:bg-white/5 min-h-[44px] touch-manipulation"
             >
               Back
             </button>
@@ -153,7 +153,7 @@ export default function LiveScoresPage() {
                     "flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold transition-colors touch-manipulation",
                     round === r
                       ? "bg-[#1B5E20] text-white"
-                      : "bg-white/10 text-zinc-400 hover:bg-white/20"
+                      : "bg-white/10 text-[#3D5A3E] hover:bg-white/20"
                   )}
                 >
                   {r}
@@ -167,10 +167,10 @@ export default function LiveScoresPage() {
       <main className="mx-auto max-w-6xl px-4 py-6">
         {roundScores.length === 0 ? (
           <div className="rounded-2xl border border-white/10 p-12 text-center">
-            <p className="text-lg font-semibold text-zinc-500 dark:text-zinc-400">
+            <p className="text-lg font-semibold text-[#3D5A3E]">
               No scores for this round yet
             </p>
-            <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-1 text-sm text-[#3D5A3E]">
               Scores will appear here in real-time as they are entered
             </p>
           </div>
@@ -192,12 +192,12 @@ export default function LiveScoresPage() {
                 >
                   {/* Rink header */}
                   <div className="flex items-center justify-between px-5 py-3 border-b border-white/5">
-                    <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
+                    <span className="text-xs font-bold uppercase tracking-widest text-[#3D5A3E]">
                       Rink {score.rink}
                     </span>
                     <div className="flex items-center gap-2">
                       {!score.is_finalized && score.team_a_scores.length > 0 && (
-                        <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                        <span className="text-xs font-medium text-[#3D5A3E]">
                           End {score.team_a_scores.length}
                         </span>
                       )}
@@ -224,7 +224,7 @@ export default function LiveScoresPage() {
                             : "bg-white/5"
                         )}
                       >
-                        <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-1">
+                        <p className="text-xs font-bold uppercase tracking-widest text-[#3D5A3E] mb-1">
                           Team A
                         </p>
                         <motion.p
@@ -235,18 +235,18 @@ export default function LiveScoresPage() {
                             "text-4xl font-black tabular-nums",
                             score.winner === "team_a"
                               ? "text-blue-400"
-                              : "text-zinc-300"
+                              : "text-[#3D5A3E]"
                           )}
                         >
                           {score.total_a}
                         </motion.p>
-                        <p className="text-xs text-zinc-600 mt-1">
+                        <p className="text-xs text-[#3D5A3E] mt-1">
                           {score.ends_won_a} ends
                         </p>
                       </div>
 
                       <div className="flex flex-col items-center justify-center">
-                        <span className="text-xl font-black text-zinc-700">
+                        <span className="text-xl font-black text-[#2D4A30]">
                           vs
                         </span>
                         <p className={cn(
@@ -254,7 +254,7 @@ export default function LiveScoresPage() {
                           score.winner === "team_a" ? "text-blue-400" :
                           score.winner === "team_b" ? "text-purple-400" :
                           score.winner === "draw" ? "text-amber-400" :
-                          "text-zinc-600 dark:text-zinc-400"
+                          "text-[#3D5A3E]"
                         )}>
                           {getWinnerLabel(score.winner)}
                         </p>
@@ -268,7 +268,7 @@ export default function LiveScoresPage() {
                             : "bg-white/5"
                         )}
                       >
-                        <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-1">
+                        <p className="text-xs font-bold uppercase tracking-widest text-[#3D5A3E] mb-1">
                           Team B
                         </p>
                         <motion.p
@@ -279,12 +279,12 @@ export default function LiveScoresPage() {
                             "text-4xl font-black tabular-nums",
                             score.winner === "team_b"
                               ? "text-purple-400"
-                              : "text-zinc-300"
+                              : "text-[#3D5A3E]"
                           )}
                         >
                           {score.total_b}
                         </motion.p>
-                        <p className="text-xs text-zinc-600 mt-1">
+                        <p className="text-xs text-[#3D5A3E] mt-1">
                           {score.ends_won_b} ends
                         </p>
                       </div>
@@ -296,7 +296,7 @@ export default function LiveScoresPage() {
                         <table className="w-full text-xs">
                           <thead>
                             <tr className="border-b border-white/5">
-                              <th className="px-2.5 py-1.5 text-left font-bold text-zinc-600 dark:text-zinc-400">
+                              <th className="px-2.5 py-1.5 text-left font-bold text-[#3D5A3E]">
                                 &nbsp;
                               </th>
                               {score.team_a_scores.map((_, i) => (
@@ -305,14 +305,14 @@ export default function LiveScoresPage() {
                                   className={cn(
                                     "px-1.5 py-1.5 text-center font-bold",
                                     i === score.team_a_scores.length - 1
-                                      ? "text-zinc-300"
-                                      : "text-zinc-600 dark:text-zinc-400"
+                                      ? "text-[#3D5A3E]"
+                                      : "text-[#3D5A3E]"
                                   )}
                                 >
                                   {i + 1}
                                 </th>
                               ))}
-                              <th className="px-2.5 py-1.5 text-center font-bold text-zinc-400 border-l border-white/5">
+                              <th className="px-2.5 py-1.5 text-center font-bold text-[#3D5A3E] border-l border-white/5">
                                 T
                               </th>
                             </tr>
@@ -330,8 +330,8 @@ export default function LiveScoresPage() {
                                     s > score.team_b_scores[i]
                                       ? "text-[#1B5E20]"
                                       : s === 0
-                                        ? "text-zinc-700"
-                                        : "text-zinc-400"
+                                        ? "text-[#2D4A30]"
+                                        : "text-[#3D5A3E]"
                                   )}
                                 >
                                   {s}
@@ -353,8 +353,8 @@ export default function LiveScoresPage() {
                                     s > score.team_a_scores[i]
                                       ? "text-[#1B5E20]"
                                       : s === 0
-                                        ? "text-zinc-700"
-                                        : "text-zinc-400"
+                                        ? "text-[#2D4A30]"
+                                        : "text-[#3D5A3E]"
                                   )}
                                 >
                                   {s}
@@ -372,7 +372,7 @@ export default function LiveScoresPage() {
                     {/* Player names */}
                     {(score.team_a_players?.length > 0 ||
                       score.team_b_players?.length > 0) && (
-                      <div className="mt-3 grid grid-cols-2 gap-3 text-sm text-zinc-600 dark:text-zinc-400">
+                      <div className="mt-3 grid grid-cols-2 gap-3 text-sm text-[#3D5A3E]">
                         <div>
                           {score.team_a_players.map((p) => (
                             <p key={p.player_id}>{p.display_name}</p>

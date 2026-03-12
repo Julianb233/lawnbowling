@@ -35,7 +35,7 @@ function ScoreBadge({ score }: { score: number }) {
       ? "text-green-400 bg-green-500/10 ring-green-500/30"
       : score >= 50
         ? "text-amber-400 bg-amber-500/10 ring-amber-500/30"
-        : "text-zinc-400 bg-zinc-500/10 ring-zinc-500/30";
+        : "text-[#3D5A3E] bg-[#0A2E12]/[0.03]0/10 ring-[#0A2E12]/10/30";
   return (
     <span className={cn("inline-flex items-center rounded-full px-2 py-0.5 text-xs font-bold ring-1", color)}>
       {Math.round(score)}%
@@ -47,7 +47,7 @@ function QualityIndicator({ quality }: { quality: MatchQuality }) {
   const labels: Record<MatchQuality["overall"], { text: string; color: string }> = {
     great: { text: "Great match", color: "text-green-500" },
     good: { text: "Good match", color: "text-amber-500" },
-    fair: { text: "Fair match", color: "text-zinc-500" },
+    fair: { text: "Fair match", color: "text-[#3D5A3E]" },
   };
   const { text, color } = labels[quality.overall];
   return <span className={cn("text-xs font-medium", color)}>{text}</span>;
@@ -64,7 +64,7 @@ function SuggestionCard({ suggestion, index, onPickMe, isPending }: {
       initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
       transition={{ delay: index * 0.1, type: "spring", stiffness: 300, damping: 25 }}
       whileHover={{ scale: 1.02 }}
-      className="relative flex items-center gap-3 rounded-xl p-3 glass hover:border-zinc-300 transition-all cursor-pointer touch-manipulation"
+      className="relative flex items-center gap-3 rounded-xl p-3 glass hover:border-[#0A2E12]/10 transition-all cursor-pointer touch-manipulation"
       onClick={() => !isPending && onPickMe?.(player)}
     >
       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-black text-white"
@@ -82,14 +82,14 @@ function SuggestionCard({ suggestion, index, onPickMe, isPending }: {
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <h4 className="truncate text-sm font-semibold text-zinc-900">{player.display_name}</h4>
+          <h4 className="truncate text-sm font-semibold text-[#0A2E12]">{player.display_name}</h4>
           <ScoreBadge score={score} />
         </div>
         <div className="mt-0.5 flex flex-wrap items-center gap-1">
-          {eloDiff !== null && <span className="text-xs text-zinc-500">{eloDiff <= 50 ? "~same level" : `${eloDiff} ELO diff`}</span>}
+          {eloDiff !== null && <span className="text-xs text-[#3D5A3E]">{eloDiff <= 50 ? "~same level" : `${eloDiff} ELO diff`}</span>}
           <QualityIndicator quality={matchQuality} />
         </div>
-        <p className="mt-0.5 truncate text-xs text-zinc-500">{reasons.slice(0, 2).join(" \u00b7 ")}</p>
+        <p className="mt-0.5 truncate text-xs text-[#3D5A3E]">{reasons.slice(0, 2).join(" \u00b7 ")}</p>
       </div>
       <motion.button
         whileHover={isPending ? {} : { scale: 1.05 }} whileTap={isPending ? {} : { scale: 0.95 }}
@@ -140,13 +140,13 @@ export function SuggestedPartners({ currentPlayerId, sportFilter, onPickMe, pend
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-6">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">{"\u2728"} Suggested Partners</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-[#3D5A3E]">{"\u2728"} Suggested Partners</h2>
         <div className="flex items-center gap-2">
-          <div className="flex rounded-full bg-zinc-100 p-0.5">
+          <div className="flex rounded-full bg-[#0A2E12]/5 p-0.5">
             {MODE_OPTIONS.map((opt) => (
               <button key={opt.value} onClick={() => setMode(opt.value)} title={opt.desc}
                 className={cn("rounded-full px-2.5 py-0.5 text-xs font-medium transition-all",
-                  mode === opt.value ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500 hover:text-zinc-600")}>
+                  mode === opt.value ? "bg-white text-[#0A2E12] shadow-sm" : "text-[#3D5A3E] hover:text-[#3D5A3E]")}>
                 {opt.label}
               </button>
             ))}
@@ -154,16 +154,16 @@ export function SuggestedPartners({ currentPlayerId, sportFilter, onPickMe, pend
           <button
             onClick={() => { if (autoMatch) { setAutoMatch(false); } else { setAutoMatch(true); if (suggestions.length === 0) fetchSuggestions(); } }}
             className={cn("rounded-full px-3 py-1 text-xs font-medium transition-all",
-              autoMatch ? "bg-green-500/20 text-green-400 ring-1 ring-green-500/30" : "bg-zinc-100 text-zinc-500 hover:text-zinc-600 hover:bg-zinc-100")}>
+              autoMatch ? "bg-green-500/20 text-green-400 ring-1 ring-green-500/30" : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:text-[#3D5A3E] hover:bg-[#0A2E12]/5")}>
             {autoMatch ? "Auto-matching..." : "Auto-match"}
           </button>
         </div>
       </div>
       {loading && suggestions.length === 0 ? (
-        <div className="space-y-2">{[0, 1, 2].map((i) => (<div key={i} className="h-16 animate-pulse rounded-xl bg-zinc-50" />))}</div>
+        <div className="space-y-2">{[0, 1, 2].map((i) => (<div key={i} className="h-16 animate-pulse rounded-xl bg-[#0A2E12]/[0.03]" />))}</div>
       ) : suggestions.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-zinc-300 px-4 py-6 text-center glass">
-          <p className="text-sm text-zinc-500">No suggestions yet. Check in and wait for other players!</p>
+        <div className="rounded-xl border border-dashed border-[#0A2E12]/10 px-4 py-6 text-center glass">
+          <p className="text-sm text-[#3D5A3E]">No suggestions yet. Check in and wait for other players!</p>
         </div>
       ) : (
         <div className="space-y-2">

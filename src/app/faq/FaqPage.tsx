@@ -197,26 +197,26 @@ export function FaqPage() {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-lg">
               <CircleDot className="h-5 w-5 text-[#1B5E20]" />
             </div>
-            <span className="text-lg font-bold text-zinc-900">
+            <span className="text-lg font-bold text-[#0A2E12]">
               Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
             <Link
               href="/about"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
             >
               About
             </Link>
             <Link
               href="/insurance"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
             >
               Insurance
             </Link>
@@ -233,24 +233,24 @@ export function FaqPage() {
       {/* Hero */}
       <section className="relative mx-auto max-w-4xl px-6 pt-20 pb-12 md:pt-28 md:pb-16">
         <div className="flex flex-col items-center text-center">
-          <h1 className="text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-6xl">
+          <h1 className="text-5xl font-extrabold leading-[1.1] tracking-tight text-[#0A2E12] md:text-6xl">
             Frequently Asked{" "}
             <span className="text-gradient">Questions</span>
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-600">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#3D5A3E]">
             Everything you need to know about Lawnbowling — for players and
             venues alike.
           </p>
 
           {/* Search */}
           <div className="relative mt-10 w-full max-w-lg">
-            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-400" />
+            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#3D5A3E]" />
             <input
               type="text"
               placeholder="Search questions..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-2xl border border-zinc-200 bg-white py-4 pl-12 pr-4 text-zinc-900 shadow-sm outline-none transition-all placeholder:text-zinc-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+              className="w-full rounded-2xl border border-[#0A2E12]/10 bg-white py-4 pl-12 pr-4 text-[#0A2E12] shadow-sm outline-none transition-all placeholder:text-[#3D5A3E] focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
             />
           </div>
         </div>
@@ -260,7 +260,7 @@ export function FaqPage() {
       <section className="relative mx-auto max-w-4xl px-6 pb-24">
         {filteredCategories.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-lg text-zinc-500">
+            <p className="text-lg text-[#3D5A3E]">
               No questions match &ldquo;{search}&rdquo;. Try a different search
               term.
             </p>
@@ -273,7 +273,7 @@ export function FaqPage() {
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10">
                     <category.icon className="h-5 w-5 text-emerald-600" />
                   </div>
-                  <h2 className="text-xl font-bold text-zinc-900">
+                  <h2 className="text-xl font-bold text-[#0A2E12]">
                     {category.name}
                   </h2>
                 </div>
@@ -283,15 +283,15 @@ export function FaqPage() {
                     <Accordion.Item
                       key={i}
                       value={`${category.name}-${i}`}
-                      className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
+                      className="overflow-hidden rounded-xl border border-[#0A2E12]/10 bg-white shadow-sm"
                     >
-                      <Accordion.Trigger className="flex w-full items-center justify-between px-5 py-4 text-left text-zinc-900 hover:bg-zinc-50 transition-colors min-h-[44px] group">
+                      <Accordion.Trigger className="flex w-full items-center justify-between px-5 py-4 text-left text-[#0A2E12] hover:bg-[#0A2E12]/[0.03] transition-colors min-h-[44px] group">
                         <span className="pr-4 font-medium">{item.q}</span>
-                        <ChevronDown className="h-4 w-4 shrink-0 text-zinc-400 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                        <ChevronDown className="h-4 w-4 shrink-0 text-[#3D5A3E] transition-transform duration-200 group-data-[state=open]:rotate-180" />
                       </Accordion.Trigger>
                       <Accordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
-                        <div className="border-t border-zinc-100 px-5 py-4">
-                          <p className="text-sm leading-relaxed text-zinc-600">
+                        <div className="border-t border-[#0A2E12]/10 px-5 py-4">
+                          <p className="text-sm leading-relaxed text-[#3D5A3E]">
                             {item.a}
                           </p>
                         </div>
@@ -308,10 +308,10 @@ export function FaqPage() {
       {/* Still Have Questions CTA */}
       <section className="relative mx-auto max-w-4xl px-6 pb-24">
         <div className="glass rounded-2xl p-8 text-center md:p-12">
-          <h2 className="text-2xl font-bold text-zinc-900">
+          <h2 className="text-2xl font-bold text-[#0A2E12]">
             Still Have Questions?
           </h2>
-          <p className="mt-3 text-zinc-600">
+          <p className="mt-3 text-[#3D5A3E]">
             Our team is happy to help. Reach out and we&apos;ll get back to you
             within 24 hours.
           </p>
@@ -325,41 +325,41 @@ export function FaqPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-zinc-50">
+      <footer className="border-t border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1B5E20]">
               <CircleDot className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Lawnbowling</span>
+            <span className="font-semibold text-[#0A2E12]">Lawnbowling</span>
           </Link>
-          <div className="flex items-center gap-6 text-sm text-zinc-500">
+          <div className="flex items-center gap-6 text-sm text-[#3D5A3E]">
             <Link
               href="/insurance"
-              className="hover:text-zinc-700 transition"
+              className="hover:text-[#2D4A30] transition"
             >
               Insurance
             </Link>
-            <Link href="/about" className="hover:text-zinc-700 transition">
+            <Link href="/about" className="hover:text-[#2D4A30] transition">
               About
             </Link>
-            <Link href="/faq" className="hover:text-zinc-700 transition">
+            <Link href="/faq" className="hover:text-[#2D4A30] transition">
               FAQ
             </Link>
             <Link
               href="/(public)/terms"
-              className="hover:text-zinc-700 transition"
+              className="hover:text-[#2D4A30] transition"
             >
               Terms
             </Link>
             <Link
               href="/(public)/privacy"
-              className="hover:text-zinc-700 transition"
+              className="hover:text-[#2D4A30] transition"
             >
               Privacy
             </Link>
           </div>
-          <span className="text-sm text-zinc-400">
+          <span className="text-sm text-[#3D5A3E]">
             &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>

@@ -86,11 +86,11 @@ export default function CreatePostSheet({
         onClick={() => setIsOpen(true)}
         className={cn(
           "flex items-center gap-2 w-full px-4 py-3 rounded-2xl",
-          "bg-white dark:bg-zinc-900",
-          "border border-zinc-200 dark:border-zinc-800",
-          "text-sm text-zinc-500 dark:text-zinc-400",
-          "hover:bg-zinc-50 dark:hover:bg-zinc-800/50",
-          "hover:border-emerald-300 dark:hover:border-emerald-800",
+          "bg-white",
+          "border border-[#0A2E12]/10",
+          "text-sm text-[#3D5A3E]",
+          "hover:bg-[#0A2E12]/[0.03]:bg-[#0A2E12]/50",
+          "hover:border-emerald-300:border-emerald-800",
           "transition-all duration-150",
           "shadow-sm"
         )}
@@ -119,7 +119,7 @@ export default function CreatePostSheet({
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               className={cn(
                 "fixed bottom-0 left-0 right-0 z-50",
-                "bg-white dark:bg-zinc-900",
+                "bg-white",
                 "rounded-t-3xl",
                 "shadow-2xl",
                 "max-h-[85vh] overflow-y-auto"
@@ -127,19 +127,19 @@ export default function CreatePostSheet({
             >
               {/* Handle */}
               <div className="flex justify-center pt-3 pb-1">
-                <div className="w-10 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+                <div className="w-10 h-1 rounded-full bg-[#0A2E12]/10" />
               </div>
 
               {/* Header */}
               <div className="flex items-center justify-between px-5 py-3">
-                <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+                <h2 className="text-lg font-bold text-[#0A2E12]">
                   {mode === "announcement"
                     ? "New Announcement"
                     : "New Post"}
                 </h2>
                 <button
                   onClick={handleClose}
-                  className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                  className="p-1.5 rounded-lg text-[#3D5A3E] hover:text-[#3D5A3E]:text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-[#0A2E12] transition-colors"
                   aria-label="Close"
                 >
                   <X className="w-5 h-5" />
@@ -154,8 +154,8 @@ export default function CreatePostSheet({
                     className={cn(
                       "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
                       mode === "member_post"
-                        ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300"
-                        : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+                        ? "bg-emerald-100 text-emerald-800"
+                        : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                     )}
                   >
                     <MessageSquarePlus className="w-3.5 h-3.5" />
@@ -166,8 +166,8 @@ export default function CreatePostSheet({
                     className={cn(
                       "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
                       mode === "announcement"
-                        ? "bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300"
-                        : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+                        ? "bg-amber-100 text-amber-800"
+                        : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                     )}
                   >
                     <Megaphone className="w-3.5 h-3.5" />
@@ -183,7 +183,7 @@ export default function CreatePostSheet({
                   <div>
                     <label
                       htmlFor="post-title"
-                      className="block text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1.5 uppercase tracking-wide"
+                      className="block text-xs font-medium text-[#3D5A3E] mb-1.5 uppercase tracking-wide"
                     >
                       Title
                     </label>
@@ -195,10 +195,10 @@ export default function CreatePostSheet({
                       placeholder="e.g., Green Maintenance Schedule"
                       className={cn(
                         "w-full rounded-xl px-4 py-2.5 text-sm",
-                        "bg-zinc-50 dark:bg-zinc-800",
-                        "border border-zinc-200 dark:border-zinc-700",
-                        "text-zinc-900 dark:text-zinc-100",
-                        "placeholder:text-zinc-400 dark:placeholder:text-zinc-500",
+                        "bg-[#0A2E12]/[0.03]",
+                        "border border-[#0A2E12]/10",
+                        "text-[#0A2E12]",
+                        "placeholder:text-[#3D5A3E]:text-[#3D5A3E]",
                         "focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-400",
                         "transition-all duration-150"
                       )}
@@ -210,7 +210,7 @@ export default function CreatePostSheet({
                 <div>
                   <label
                     htmlFor="post-body"
-                    className="block text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1.5 uppercase tracking-wide"
+                    className="block text-xs font-medium text-[#3D5A3E] mb-1.5 uppercase tracking-wide"
                   >
                     {mode === "announcement" ? "Message" : "What's on your mind?"}
                   </label>
@@ -227,15 +227,15 @@ export default function CreatePostSheet({
                     rows={4}
                     className={cn(
                       "w-full rounded-xl px-4 py-3 text-sm resize-none",
-                      "bg-zinc-50 dark:bg-zinc-800",
-                      "border border-zinc-200 dark:border-zinc-700",
-                      "text-zinc-900 dark:text-zinc-100",
-                      "placeholder:text-zinc-400 dark:placeholder:text-zinc-500",
+                      "bg-[#0A2E12]/[0.03]",
+                      "border border-[#0A2E12]/10",
+                      "text-[#0A2E12]",
+                      "placeholder:text-[#3D5A3E]:text-[#3D5A3E]",
                       "focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-400",
                       "transition-all duration-150"
                     )}
                   />
-                  <p className="mt-1 text-[10px] text-zinc-400">
+                  <p className="mt-1 text-[10px] text-[#3D5A3E]">
                     Supports **bold** and *italic* formatting
                   </p>
                 </div>
@@ -249,14 +249,14 @@ export default function CreatePostSheet({
                       "flex items-center gap-2 w-full px-4 py-3 rounded-xl text-sm transition-colors",
                       "border",
                       isPinned
-                        ? "bg-amber-50 dark:bg-amber-950/30 border-amber-300 dark:border-amber-700 text-amber-800 dark:text-amber-300"
-                        : "bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400"
+                        ? "bg-amber-50 border-amber-300 text-amber-800"
+                        : "bg-[#0A2E12]/[0.03] border-[#0A2E12]/10 text-[#3D5A3E]"
                     )}
                   >
                     <Pin
                       className={cn(
                         "w-4 h-4",
-                        isPinned && "text-amber-600 dark:text-amber-400"
+                        isPinned && "text-amber-600"
                       )}
                     />
                     <span className="font-medium">Pin this announcement</span>
@@ -265,7 +265,7 @@ export default function CreatePostSheet({
                         "ml-auto w-10 h-6 rounded-full transition-colors duration-200 relative",
                         isPinned
                           ? "bg-amber-500"
-                          : "bg-zinc-300 dark:bg-zinc-600"
+                          : "bg-[#0A2E12]/10"
                       )}
                     >
                       <motion.div
@@ -283,7 +283,7 @@ export default function CreatePostSheet({
 
                 {/* Error */}
                 {error && (
-                  <p className="text-sm text-red-500 dark:text-red-400">
+                  <p className="text-sm text-red-500">
                     {error}
                   </p>
                 )}

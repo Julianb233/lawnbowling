@@ -96,35 +96,35 @@ export default function BowlsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0f2518]">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] dark:border-emerald-400 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-white">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-background dark:bg-[#0f2518] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <h1 className="text-xl font-black tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-2xl">
+              <h1 className="text-xl font-black tracking-tight text-[#0A2E12] sm:text-2xl">
                 Lawn Bowls
               </h1>
               <div className="flex items-center gap-2 sm:gap-3">
-                <Link href="/bowls/about" className="text-sm text-[#1B5E20] dark:text-emerald-400 hover:text-[#145218] dark:hover:text-emerald-300 py-1">
+                <Link href="/bowls/about" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
                   About
                 </Link>
-                <span className="text-zinc-300 dark:text-zinc-600">|</span>
-                <Link href="/bowls/history" className="text-sm text-[#1B5E20] dark:text-emerald-400 hover:text-[#145218] dark:hover:text-emerald-300 py-1">
+                <span className="text-[#3D5A3E]">|</span>
+                <Link href="/bowls/history" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
                   History
                 </Link>
-                <span className="text-zinc-300 dark:text-zinc-600">|</span>
-                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] dark:text-emerald-400 hover:text-[#145218] dark:hover:text-emerald-300 py-1">
+                <span className="text-[#3D5A3E]">|</span>
+                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
                   Stats
                 </Link>
-                <span className="text-zinc-300 dark:text-zinc-600">|</span>
-                <Link href="/pennant" className="text-sm text-[#1B5E20] dark:text-emerald-400 hover:text-[#145218] dark:hover:text-emerald-300 py-1">
+                <span className="text-[#3D5A3E]">|</span>
+                <Link href="/pennant" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
                   Pennant
                 </Link>
               </div>
@@ -153,7 +153,7 @@ export default function BowlsPage() {
       <main className="mx-auto max-w-3xl px-4 py-6">
         {activeTournaments.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-zinc-500">
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]">
               Active Tournaments
             </h2>
             <div className="space-y-3">
@@ -166,7 +166,7 @@ export default function BowlsPage() {
 
         {pastTournaments.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-zinc-500">
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]">
               Past Tournaments
             </h2>
             <div className="space-y-3">
@@ -178,14 +178,14 @@ export default function BowlsPage() {
         )}
 
         {tournaments.length === 0 && (
-          <div className="rounded-2xl bg-white dark:bg-[#1a3d28] border border-zinc-200 dark:border-white/10 p-12 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10 dark:bg-emerald-400/10">
-              <CircleDot className="w-8 h-8 text-[#1B5E20] dark:text-emerald-400" strokeWidth={1.5} />
+          <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-12 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
+              <CircleDot className="w-8 h-8 text-[#1B5E20]" strokeWidth={1.5} />
             </div>
-            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+            <h3 className="text-lg font-bold text-[#0A2E12]">
               {scope === "club" ? "No club tournaments yet" : "No bowls tournaments yet"}
             </h3>
-            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="mt-1 text-sm text-[#3D5A3E]">
               {scope === "club"
                 ? "Create a tournament for your club or switch to All Clubs"
                 : "Create your first lawn bowling tournament to get started"}
@@ -221,14 +221,14 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
-        className="rounded-2xl bg-white dark:bg-[#1a3d28] border border-zinc-200 dark:border-white/10 p-5 transition-all hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-sm"
+        className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 transition-all hover:border-[#0A2E12]/10:border-white/20 hover:shadow-sm"
       >
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
-            <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 truncate">
+            <h3 className="text-base font-bold text-[#0A2E12] truncate">
               {t.name}
             </h3>
-            <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="mt-0.5 text-sm text-[#3D5A3E]">
               {formatLabel}
               {t.starts_at && (
                 <>
@@ -244,16 +244,16 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <div className="text-right">
-              <p className="text-lg font-black text-[#1B5E20] dark:text-emerald-400">
+              <p className="text-lg font-black text-[#1B5E20]">
                 {t.checkin_count ?? 0}
               </p>
-              <p className="text-sm text-zinc-500">checked in</p>
+              <p className="text-sm text-[#3D5A3E]">checked in</p>
             </div>
             <span
               className={`rounded-full px-2.5 py-1 text-sm font-bold ${
                 isActive
-                  ? "bg-[#1B5E20]/10 dark:bg-emerald-400/10 text-[#2E7D32] dark:text-emerald-400"
-                  : "bg-zinc-100 dark:bg-white/5 text-zinc-500 dark:text-zinc-400"
+                  ? "bg-[#1B5E20]/10 text-[#2E7D32]"
+                  : "bg-[#0A2E12]/5 text-[#3D5A3E]"
               }`}
             >
               {isActive ? "Active" : "Done"}
@@ -261,7 +261,7 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
           </div>
         </div>
         {t.creator?.display_name && (
-          <p className="mt-2 text-xs text-zinc-500">
+          <p className="mt-2 text-xs text-[#3D5A3E]">
             Created by {t.creator.display_name}
           </p>
         )}

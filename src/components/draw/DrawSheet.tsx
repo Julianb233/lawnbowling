@@ -112,7 +112,7 @@ export function DrawSheet({
           {BOWLS_FORMAT_LABELS[draw.format].label}
           {roundNumber && <> &mdash; Round {roundNumber}</>}
         </p>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">{today}</p>
+        <p className="text-xs text-[#3D5A3E]">{today}</p>
       </div>
 
       {/* Action buttons (hidden in print) */}
@@ -128,7 +128,7 @@ export function DrawSheet({
           )}
           <button
             onClick={() => window.print()}
-            className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 dark:bg-background transition-colors min-h-[44px] touch-manipulation"
+            className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors min-h-[44px] touch-manipulation"
           >
             Print Draw Sheet
           </button>
@@ -160,7 +160,7 @@ export function DrawSheet({
 
       {/* Unassigned / Bye players */}
       {draw.unassigned.length > 0 && (
-        <div className="mt-4 rounded-2xl bg-amber-50 border border-amber-200 p-4 print:rounded-none print:border-black print:bg-white dark:bg-card">
+        <div className="mt-4 rounded-2xl bg-amber-50 border border-amber-200 p-4 print:rounded-none print:border-black print:bg-white">
           <h3 className="mb-2 text-sm font-bold text-amber-800 print:text-black">
             Bye ({draw.unassigned.length})
           </h3>
@@ -168,7 +168,7 @@ export function DrawSheet({
             {draw.unassigned.map((u) => (
               <span
                 key={u.player_id}
-                className="rounded-full bg-amber-200/60 px-3 py-1 text-xs font-medium text-amber-800 print:bg-white dark:bg-card print:border print:border-black print:text-black"
+                className="rounded-full bg-amber-200/60 px-3 py-1 text-xs font-medium text-amber-800 print:bg-white print:border print:border-black print:text-black"
               >
                 {u.player?.display_name ?? "Unknown"}
               </span>

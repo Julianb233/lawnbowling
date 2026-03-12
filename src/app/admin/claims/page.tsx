@@ -76,8 +76,8 @@ export default function AdminClaimsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-800 mb-1">Club Claims</h1>
-      <p className="text-sm text-zinc-500 mb-6">
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1">Club Claims</h1>
+      <p className="text-sm text-[#3D5A3E] mb-6">
         Review and manage club ownership claims
       </p>
 
@@ -89,8 +89,8 @@ export default function AdminClaimsPage() {
             onClick={() => setFilter(f)}
             className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
               filter === f
-                ? "bg-zinc-900 text-white"
-                : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                ? "bg-[#0A2E12] text-white"
+                : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5"
             }`}
           >
             {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -99,10 +99,10 @@ export default function AdminClaimsPage() {
       </div>
 
       {loading ? (
-        <p className="text-zinc-500 dark:text-zinc-400">Loading claims...</p>
+        <p className="text-[#3D5A3E]">Loading claims...</p>
       ) : claims.length === 0 ? (
-        <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-12 text-center">
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-12 text-center">
+          <p className="text-sm text-[#3D5A3E]">
             No {filter !== "all" ? filter : ""} claims found
           </p>
         </div>
@@ -111,26 +111,26 @@ export default function AdminClaimsPage() {
           {claims.map((claim) => (
             <div
               key={claim.id}
-              className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5"
+              className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   {/* Club info */}
                   <div className="flex items-center gap-2 mb-2">
-                    <Building2 className="h-4 w-4 text-zinc-400" />
-                    <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                    <Building2 className="h-4 w-4 text-[#3D5A3E]" />
+                    <span className="font-bold text-[#0A2E12]">
                       {claim.club?.name ?? "Unknown Club"}
                     </span>
                     {claim.club && (
-                      <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                      <span className="text-sm text-[#3D5A3E]">
                         {claim.club.city}, {claim.club.state_code}
                       </span>
                     )}
                   </div>
 
                   {/* Claimant info */}
-                  <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-                    <User className="h-3.5 w-3.5 text-zinc-400" />
+                  <div className="flex items-center gap-2 text-sm text-[#3D5A3E]">
+                    <User className="h-3.5 w-3.5 text-[#3D5A3E]" />
                     <span className="font-medium">
                       {claim.player?.display_name ?? "Unknown Player"}
                     </span>
@@ -143,7 +143,7 @@ export default function AdminClaimsPage() {
 
                   {/* Message */}
                   {claim.message && (
-                    <p className="mt-2 text-sm text-zinc-500 bg-zinc-50 rounded-lg p-3">
+                    <p className="mt-2 text-sm text-[#3D5A3E] bg-[#0A2E12]/[0.03] rounded-lg p-3">
                       {claim.message}
                     </p>
                   )}
@@ -156,7 +156,7 @@ export default function AdminClaimsPage() {
                   )}
 
                   {/* Timestamp */}
-                  <p className="mt-2 text-xs text-zinc-400">
+                  <p className="mt-2 text-xs text-[#3D5A3E]">
                     Submitted {new Date(claim.created_at).toLocaleDateString()}
                     {claim.reviewed_at &&
                       ` · Reviewed ${new Date(claim.reviewed_at).toLocaleDateString()}`}
@@ -211,14 +211,14 @@ export default function AdminClaimsPage() {
                     value={rejectionReason}
                     onChange={(e) => setRejectionReason(e.target.value)}
                     placeholder="Reason for rejection (optional)..."
-                    className="flex-1 rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-red-300 focus:outline-none focus:ring-2 focus:ring-red-500/20"
+                    className="flex-1 rounded-lg border border-[#0A2E12]/10 px-3 py-2 text-sm focus:border-red-300 focus:outline-none focus:ring-2 focus:ring-red-500/20"
                   />
                   <button
                     onClick={() => {
                       setRejectingId(null);
                       setRejectionReason("");
                     }}
-                    className="text-sm text-zinc-500 hover:text-zinc-700"
+                    className="text-sm text-[#3D5A3E] hover:text-[#2D4A30]"
                   >
                     Cancel
                   </button>

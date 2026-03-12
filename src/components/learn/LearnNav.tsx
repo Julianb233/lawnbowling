@@ -3,13 +3,13 @@ import { Users } from "lucide-react";
 
 export function LearnNav() {
   return (
-    <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
+    <nav className="sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-[#2E7D32] shadow-lg shadow-green-900/15">
             <Users className="h-5 w-5 text-white" />
           </div>
-          <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Lawnbowling</span>
+          <span className="text-lg font-bold text-[#0A2E12]">Lawnbowling</span>
         </Link>
         <div className="flex items-center gap-3">
           <Link

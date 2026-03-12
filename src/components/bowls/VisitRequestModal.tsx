@@ -71,16 +71,16 @@ export function VisitRequestModal({ clubId, clubName, open, onClose }: VisitRequ
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md rounded-2xl bg-white dark:bg-card shadow-2xl"
+        className="w-full max-w-md rounded-2xl bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between border-b border-zinc-200 dark:border-white/10 px-6 py-4">
-          <h2 className="text-lg font-black text-zinc-900">
+        <div className="flex items-center justify-between border-b border-[#0A2E12]/10 px-6 py-4">
+          <h2 className="text-lg font-black text-[#0A2E12]">
             {success ? "Request Sent!" : `Visit ${clubName}`}
           </h2>
           <button
             onClick={onClose}
-            className="rounded-lg p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 dark:text-zinc-400"
+            className="rounded-lg p-1 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#3D5A3E]"
           >
             <X className="h-5 w-5" />
           </button>
@@ -91,7 +91,7 @@ export function VisitRequestModal({ clubId, clubName, open, onClose }: VisitRequ
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
               <span className="text-3xl">✓</span>
             </div>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="text-sm text-[#3D5A3E]">
               Your visit request has been submitted. The club will be notified
               and you&apos;ll receive a notification when they respond.
             </p>
@@ -112,7 +112,7 @@ export function VisitRequestModal({ clubId, clubName, open, onClose }: VisitRequ
 
             {/* Date */}
             <div>
-              <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+              <label className="block text-sm font-semibold text-[#2D4A30] mb-1">
                 Preferred Date
               </label>
               <input
@@ -121,13 +121,13 @@ export function VisitRequestModal({ clubId, clubName, open, onClose }: VisitRequ
                 min={minDate}
                 value={requestedDate}
                 onChange={(e) => setRequestedDate(e.target.value)}
-                className="w-full rounded-xl border border-zinc-200 dark:border-white/10 px-4 py-3 text-sm focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+                className="w-full rounded-xl border border-[#0A2E12]/10 px-4 py-3 text-sm focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
               />
             </div>
 
             {/* Skill Level */}
             <div>
-              <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+              <label className="block text-sm font-semibold text-[#2D4A30] mb-1">
                 Skill Level
               </label>
               <div className="flex gap-2">
@@ -140,7 +140,7 @@ export function VisitRequestModal({ clubId, clubName, open, onClose }: VisitRequ
                       className={`flex-1 rounded-xl border px-3 py-2.5 text-sm font-semibold capitalize transition-colors ${
                         skillLevel === level
                           ? "border-[#1B5E20] bg-[#1B5E20]/5 text-[#1B5E20]"
-                          : "border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50"
+                          : "border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
                       }`}
                     >
                       {level}
@@ -152,7 +152,7 @@ export function VisitRequestModal({ clubId, clubName, open, onClose }: VisitRequ
 
             {/* Preferred Positions */}
             <div>
-              <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+              <label className="block text-sm font-semibold text-[#2D4A30] mb-1">
                 Preferred Positions
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -165,7 +165,7 @@ export function VisitRequestModal({ clubId, clubName, open, onClose }: VisitRequ
                       className={`rounded-xl border px-3 py-2.5 text-left text-sm transition-colors ${
                         positions.includes(pos)
                           ? "border-[#1B5E20] bg-[#1B5E20]/5 text-[#1B5E20] font-semibold"
-                          : "border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50"
+                          : "border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
                       }`}
                     >
                       <span className="font-medium">
@@ -179,8 +179,8 @@ export function VisitRequestModal({ clubId, clubName, open, onClose }: VisitRequ
 
             {/* Message */}
             <div>
-              <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
-                Message <span className="font-normal text-zinc-400">(optional)</span>
+              <label className="block text-sm font-semibold text-[#2D4A30] mb-1">
+                Message <span className="font-normal text-[#3D5A3E]">(optional)</span>
               </label>
               <textarea
                 value={message}
@@ -188,7 +188,7 @@ export function VisitRequestModal({ clubId, clubName, open, onClose }: VisitRequ
                 placeholder="Introduce yourself or mention any special requirements..."
                 rows={3}
                 maxLength={500}
-                className="w-full rounded-xl border border-zinc-200 dark:border-white/10 px-4 py-3 text-sm focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] resize-none"
+                className="w-full rounded-xl border border-[#0A2E12]/10 px-4 py-3 text-sm focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] resize-none"
               />
             </div>
 

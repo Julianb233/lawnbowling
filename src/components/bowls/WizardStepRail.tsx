@@ -25,7 +25,7 @@ export function WizardStepRail({ steps, currentIndex }: WizardStepRailProps) {
                     "flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors",
                     isComplete && "bg-[#1B5E20] text-white",
                     isCurrent && "bg-[#1B5E20] text-white ring-4 ring-[#1B5E20]/20",
-                    !isComplete && !isCurrent && "bg-zinc-100 text-zinc-400"
+                    !isComplete && !isCurrent && "bg-[#0A2E12]/5 text-[#3D5A3E]"
                   )}
                 >
                   {isComplete ? <Check className="h-3.5 w-3.5" /> : i + 1}
@@ -33,7 +33,7 @@ export function WizardStepRail({ steps, currentIndex }: WizardStepRailProps) {
                 <span
                   className={cn(
                     "text-xs font-medium whitespace-nowrap",
-                    isCurrent ? "text-zinc-900" : isComplete ? "text-zinc-600 dark:text-zinc-400" : "text-zinc-400"
+                    isCurrent ? "text-[#0A2E12]" : isComplete ? "text-[#3D5A3E]" : "text-[#3D5A3E]"
                   )}
                 >
                   {step}
@@ -43,7 +43,7 @@ export function WizardStepRail({ steps, currentIndex }: WizardStepRailProps) {
                 <div
                   className={cn(
                     "mx-2 h-px flex-1 min-w-4",
-                    i < currentIndex ? "bg-[#1B5E20]" : "bg-zinc-200"
+                    i < currentIndex ? "bg-[#1B5E20]" : "bg-[#0A2E12]/5"
                   )}
                 />
               )}
@@ -54,10 +54,10 @@ export function WizardStepRail({ steps, currentIndex }: WizardStepRailProps) {
 
       {/* Mobile: compact "Step N of M" */}
       <div className="flex sm:hidden items-center justify-between">
-        <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+        <span className="text-sm font-semibold text-[#0A2E12]">
           Step {currentIndex + 1} of {steps.length}
         </span>
-        <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+        <span className="text-sm font-medium text-[#3D5A3E]">
           {steps[currentIndex]}
         </span>
       </div>

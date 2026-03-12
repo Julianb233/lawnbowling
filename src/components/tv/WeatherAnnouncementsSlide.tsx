@@ -95,15 +95,15 @@ export default function WeatherAnnouncementsSlide({ announcements }: WeatherAnno
             <p className="text-[clamp(3rem,8vw,7rem)] font-black tabular-nums leading-none text-white">
               {weather.temperature}°F
             </p>
-            <p className="mt-1 text-[clamp(1rem,2vw,1.5rem)] text-zinc-400">
+            <p className="mt-1 text-[clamp(1rem,2vw,1.5rem)] text-[#3D5A3E]">
               {weather.condition}
             </p>
           </div>
-          <div className="ml-[clamp(1rem,2vw,3rem)] flex items-center gap-2 rounded-2xl border border-white/10 bg-zinc-800/50 px-[clamp(0.75rem,1.5vw,1.5rem)] py-[clamp(0.5rem,1vh,1rem)]">
-            <Wind className="text-zinc-400" style={{ width: "clamp(1.5rem, 2vw, 2rem)", height: "clamp(1.5rem, 2vw, 2rem)" }} />
+          <div className="ml-[clamp(1rem,2vw,3rem)] flex items-center gap-2 rounded-2xl border border-white/10 bg-[#0A2E12]/50 px-[clamp(0.75rem,1.5vw,1.5rem)] py-[clamp(0.5rem,1vh,1rem)]">
+            <Wind className="text-[#3D5A3E]" style={{ width: "clamp(1.5rem, 2vw, 2rem)", height: "clamp(1.5rem, 2vw, 2rem)" }} />
             <div>
               <p className="text-[clamp(1.25rem,2.5vw,2rem)] font-black tabular-nums text-white">{weather.windSpeed}</p>
-              <p className="text-[clamp(0.6rem,1vw,0.75rem)] uppercase tracking-wider text-zinc-500">mph wind</p>
+              <p className="text-[clamp(0.6rem,1vw,0.75rem)] uppercase tracking-wider text-[#3D5A3E]">mph wind</p>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function WeatherAnnouncementsSlide({ announcements }: WeatherAnno
       )}
 
       {!weather && activeAnnouncements.length === 0 && (
-        <p className="text-[clamp(1rem,2vw,1.5rem)] text-zinc-500">Weather data loading...</p>
+        <p className="text-[clamp(1rem,2vw,1.5rem)] text-[#3D5A3E]">Weather data loading...</p>
       )}
     </div>
   );

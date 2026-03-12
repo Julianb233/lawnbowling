@@ -123,7 +123,7 @@ function TeamStatsSection({ teamId }: { teamId: string }) {
     return (
       <div className="space-y-3">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-20 animate-pulse rounded-xl bg-zinc-100" />
+          <div key={i} className="h-20 animate-pulse rounded-xl bg-[#0A2E12]/5" />
         ))}
       </div>
     );
@@ -131,9 +131,9 @@ function TeamStatsSection({ teamId }: { teamId: string }) {
 
   if (!stats || stats.totalGames === 0) {
     return (
-      <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6 text-center">
-        <Target className="mx-auto mb-2 h-8 w-8 text-zinc-700" />
-        <p className="text-sm text-zinc-500">No team stats yet. Members need to play some games!</p>
+      <div className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-6 text-center">
+        <Target className="mx-auto mb-2 h-8 w-8 text-[#2D4A30]" />
+        <p className="text-sm text-[#3D5A3E]">No team stats yet. Members need to play some games!</p>
       </div>
     );
   }
@@ -157,7 +157,7 @@ function TeamStatsSection({ teamId }: { teamId: string }) {
   return (
     <div className="space-y-4">
       {/* Win rate circle */}
-      <div className="rounded-2xl border border-zinc-200 bg-white/80 p-6">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white/80 p-6">
         <div className="mb-6 flex items-center justify-center">
           <div className="relative">
             <svg width="100" height="100" viewBox="0 0 100 100" className="-rotate-90">
@@ -173,8 +173,8 @@ function TeamStatsSection({ teamId }: { teamId: string }) {
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-2xl font-bold text-zinc-900">{stats.winRate}%</span>
-              <span className="text-xs text-zinc-500">Win Rate</span>
+              <span className="text-2xl font-bold text-[#0A2E12]">{stats.winRate}%</span>
+              <span className="text-xs text-[#3D5A3E]">Win Rate</span>
             </div>
           </div>
         </div>
@@ -182,10 +182,10 @@ function TeamStatsSection({ teamId }: { teamId: string }) {
         {/* Stat grid */}
         <div className="grid grid-cols-4 gap-2">
           {statItems.map((item) => (
-            <div key={item.label} className="rounded-xl bg-zinc-100 p-3 text-center">
+            <div key={item.label} className="rounded-xl bg-[#0A2E12]/5 p-3 text-center">
               <item.icon className={`mx-auto mb-1 h-4 w-4 ${item.color}`} />
-              <p className="text-lg font-bold text-zinc-900">{item.value}</p>
-              <p className="text-xs text-zinc-500">{item.label}</p>
+              <p className="text-lg font-bold text-[#0A2E12]">{item.value}</p>
+              <p className="text-xs text-[#3D5A3E]">{item.label}</p>
             </div>
           ))}
         </div>
@@ -193,8 +193,8 @@ function TeamStatsSection({ teamId }: { teamId: string }) {
 
       {/* Recent Form */}
       {stats.recentForm.length > 0 && (
-        <div className="rounded-2xl border border-zinc-200 bg-white/80 p-4">
-          <h3 className="mb-3 text-sm font-semibold text-zinc-700">Recent Form</h3>
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white/80 p-4">
+          <h3 className="mb-3 text-sm font-semibold text-[#2D4A30]">Recent Form</h3>
           <div className="flex items-center gap-2">
             {stats.recentForm.map((result, i) => (
               <span
@@ -210,21 +210,21 @@ function TeamStatsSection({ teamId }: { teamId: string }) {
 
       {/* Top Scorer */}
       {stats.topScorer && stats.topScorer.wins > 0 && (
-        <div className="rounded-2xl border border-zinc-200 bg-white/80 p-4">
-          <h3 className="mb-3 text-sm font-semibold text-zinc-700">Top Performer</h3>
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white/80 p-4">
+          <h3 className="mb-3 text-sm font-semibold text-[#2D4A30]">Top Performer</h3>
           <div className="flex items-center gap-3">
-            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-zinc-100">
+            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-[#0A2E12]/5">
               {stats.topScorer.avatar_url ? (
                 <img src={stats.topScorer.avatar_url} alt="" className="h-full w-full object-cover" />
               ) : (
-                <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
+                <div className="flex h-full w-full items-center justify-center text-sm font-bold text-[#3D5A3E]">
                   {stats.topScorer.display_name?.charAt(0)?.toUpperCase()}
                 </div>
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-medium text-zinc-700 truncate">{stats.topScorer.display_name}</p>
-              <p className="text-xs text-zinc-500">
+              <p className="font-medium text-[#2D4A30] truncate">{stats.topScorer.display_name}</p>
+              <p className="text-xs text-[#3D5A3E]">
                 {stats.topScorer.wins} wins from {stats.topScorer.games_played} games ({Math.round(stats.topScorer.win_rate)}% win rate)
               </p>
             </div>
@@ -235,31 +235,31 @@ function TeamStatsSection({ teamId }: { teamId: string }) {
 
       {/* Member Breakdown */}
       {stats.memberStats.filter((m) => m.games_played > 0).length > 1 && (
-        <div className="rounded-2xl border border-zinc-200 bg-white/80 p-4">
-          <h3 className="mb-3 text-sm font-semibold text-zinc-700">Member Breakdown</h3>
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white/80 p-4">
+          <h3 className="mb-3 text-sm font-semibold text-[#2D4A30]">Member Breakdown</h3>
           <div className="space-y-2">
             {stats.memberStats
               .filter((m) => m.games_played > 0)
               .sort((a, b) => b.wins - a.wins)
               .map((m) => (
-                <div key={m.player_id} className="flex items-center gap-3 rounded-xl bg-zinc-50 p-2.5">
-                  <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-zinc-100">
+                <div key={m.player_id} className="flex items-center gap-3 rounded-xl bg-[#0A2E12]/[0.03] p-2.5">
+                  <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-[#0A2E12]/5">
                     {m.avatar_url ? (
                       <img src={m.avatar_url} alt="" className="h-full w-full object-cover" />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center text-xs font-bold text-zinc-500">
+                      <div className="flex h-full w-full items-center justify-center text-xs font-bold text-[#3D5A3E]">
                         {m.display_name?.charAt(0)?.toUpperCase()}
                       </div>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-zinc-700 truncate">{m.display_name}</p>
+                    <p className="text-sm font-medium text-[#2D4A30] truncate">{m.display_name}</p>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-zinc-500">
+                  <div className="flex items-center gap-3 text-xs text-[#3D5A3E]">
                     <span>{m.games_played} GP</span>
                     <span className="text-emerald-600 font-medium">{m.wins}W</span>
                     <span className="text-red-500 font-medium">{m.losses}L</span>
-                    <span className="text-zinc-400">{Math.round(m.win_rate)}%</span>
+                    <span className="text-[#3D5A3E]">{Math.round(m.win_rate)}%</span>
                   </div>
                 </div>
               ))}
@@ -307,7 +307,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
   if (!team) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <p className="text-zinc-500 dark:text-zinc-400">Team not found</p>
+        <p className="text-[#3D5A3E]">Team not found</p>
       </div>
     );
   }
@@ -317,15 +317,15 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-3">
-            <Link href="/teams" className="rounded-lg p-1 text-zinc-400 hover:text-zinc-700">
+            <Link href="/teams" className="rounded-lg p-1 text-[#3D5A3E] hover:text-[#2D4A30]">
               <ArrowLeft className="h-5 w-5" />
             </Link>
             <div className="flex-1">
-              <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{team.name}</h1>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+              <h1 className="text-lg font-bold text-[#0A2E12]">{team.name}</h1>
+              <p className="text-sm text-[#3D5A3E]">
                 <span
                   className="inline-block rounded-full px-2 py-0.5 text-xs font-medium"
                   style={{
@@ -343,7 +343,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
 
       <div className="mx-auto max-w-3xl px-4 py-4">
         {team.description && (
-          <p className="mb-4 text-sm text-zinc-400">{team.description}</p>
+          <p className="mb-4 text-sm text-[#3D5A3E]">{team.description}</p>
         )}
 
         <div className="mb-4">
@@ -351,22 +351,22 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
         </div>
 
         <Tabs.Root defaultValue="members">
-          <Tabs.List className="mb-4 flex gap-1 rounded-xl bg-white dark:bg-[#1a3d28] p-1">
+          <Tabs.List className="mb-4 flex gap-1 rounded-xl bg-white p-1">
             <Tabs.Trigger
               value="members"
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-zinc-500 data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-[#3D5A3E] data-[state=active]:bg-[#0A2E12]/5 data-[state=active]:text-[#0A2E12]"
             >
               <Users className="h-4 w-4" /> Members
             </Tabs.Trigger>
             <Tabs.Trigger
               value="chat"
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-zinc-500 data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-[#3D5A3E] data-[state=active]:bg-[#0A2E12]/5 data-[state=active]:text-[#0A2E12]"
             >
               <MessageCircle className="h-4 w-4" /> Chat
             </Tabs.Trigger>
             <Tabs.Trigger
               value="stats"
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-zinc-500 data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900"
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-medium text-[#3D5A3E] data-[state=active]:bg-[#0A2E12]/5 data-[state=active]:text-[#0A2E12]"
             >
               <BarChart3 className="h-4 w-4" /> Stats
             </Tabs.Trigger>

@@ -13,8 +13,8 @@ export function FriendsList({ friends, currentPlayerId }: FriendsListProps) {
   if (friends.length === 0) {
     return (
       <div className="rounded-2xl glass p-8 text-center">
-        <Users className="w-8 h-8 mx-auto mb-2 text-zinc-400" strokeWidth={1.5} />
-        <p className="text-zinc-500 dark:text-zinc-400">No friends yet. Start connecting!</p>
+        <Users className="w-8 h-8 mx-auto mb-2 text-[#3D5A3E]" strokeWidth={1.5} />
+        <p className="text-[#3D5A3E]">No friends yet. Start connecting!</p>
       </div>
     );
   }
@@ -30,7 +30,7 @@ export function FriendsList({ friends, currentPlayerId }: FriendsListProps) {
           <Link
             key={f.id}
             href={`/profile/${friendPlayer.id}`}
-            className="flex items-center gap-3 rounded-xl glass p-3 hover:bg-zinc-50 transition-colors"
+            className="flex items-center gap-3 rounded-xl glass p-3 hover:bg-[#0A2E12]/[0.03] transition-colors"
           >
             <div className="relative">
               {friendPlayer.avatar_url ? (
@@ -49,10 +49,10 @@ export function FriendsList({ friends, currentPlayerId }: FriendsListProps) {
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-zinc-900 truncate">
+              <p className="text-sm font-medium text-[#0A2E12] truncate">
                 {friendPlayer.display_name}
               </p>
-              <p className="text-xs text-zinc-500 capitalize">
+              <p className="text-xs text-[#3D5A3E] capitalize">
                 {friendPlayer.skill_level} &middot;{" "}
                 {friendPlayer.is_available ? "Online" : "Offline"}
               </p>

@@ -91,16 +91,16 @@ export default function PennantDivisionPage() {
   const sortedRounds = Array.from(rounds.entries()).sort((a, b) => a[0] - b[0]);
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <Link href={`/pennant/${seasonId}`} className="text-sm text-zinc-400 hover:text-zinc-600 mb-1 block">
+          <Link href={`/pennant/${seasonId}`} className="text-sm text-[#3D5A3E] hover:text-[#3D5A3E] mb-1 block">
             &larr; {season?.name ?? "Season"}
           </Link>
-          <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+          <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
             {division?.name ?? "Division"}
           </h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-[#3D5A3E]">
             {season?.name} &middot; {teams.length} teams
           </p>
         </div>
@@ -114,7 +114,7 @@ export default function PennantDivisionPage() {
 
         {sortedRounds.map(([round, roundFixtures]) => (
           <div key={round}>
-            <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
+            <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
               Round {round}
             </h2>
             <div className="space-y-2">

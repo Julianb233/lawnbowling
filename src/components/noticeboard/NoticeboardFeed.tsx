@@ -17,26 +17,26 @@ import {
 
 function PostSkeleton() {
   return (
-    <div className="rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 animate-pulse">
+    <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 animate-pulse">
       <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700" />
+        <div className="w-10 h-10 rounded-full bg-[#0A2E12]/5" />
         <div className="flex-1 space-y-2">
           <div className="flex items-center gap-2">
-            <div className="h-4 w-24 rounded bg-zinc-200 dark:bg-zinc-700" />
-            <div className="h-4 w-16 rounded-full bg-zinc-100 dark:bg-zinc-800" />
+            <div className="h-4 w-24 rounded bg-[#0A2E12]/5" />
+            <div className="h-4 w-16 rounded-full bg-[#0A2E12]/5" />
           </div>
-          <div className="h-3 w-14 rounded bg-zinc-100 dark:bg-zinc-800" />
+          <div className="h-3 w-14 rounded bg-[#0A2E12]/5" />
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        <div className="h-4 w-3/4 rounded bg-zinc-100 dark:bg-zinc-800" />
-        <div className="h-4 w-1/2 rounded bg-zinc-100 dark:bg-zinc-800" />
+        <div className="h-4 w-3/4 rounded bg-[#0A2E12]/5" />
+        <div className="h-4 w-1/2 rounded bg-[#0A2E12]/5" />
       </div>
       <div className="mt-4 flex gap-1">
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="h-8 w-12 rounded-full bg-zinc-100 dark:bg-zinc-800"
+            className="h-8 w-12 rounded-full bg-[#0A2E12]/5"
           />
         ))}
       </div>
@@ -263,10 +263,10 @@ export default function NoticeboardFeed({
             onClick={refreshFeed}
             className={cn(
               "flex items-center justify-center gap-2 w-full py-2.5 rounded-xl",
-              "bg-emerald-50 dark:bg-emerald-950/40",
-              "border border-emerald-200 dark:border-emerald-800",
-              "text-sm font-medium text-emerald-700 dark:text-emerald-300",
-              "hover:bg-emerald-100 dark:hover:bg-emerald-900/40",
+              "bg-emerald-50",
+              "border border-emerald-200",
+              "text-sm font-medium text-emerald-700",
+              "hover:bg-emerald-100:bg-emerald-900/40",
               "transition-colors"
             )}
           >
@@ -283,13 +283,13 @@ export default function NoticeboardFeed({
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center justify-center py-16 px-6"
         >
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900/40 dark:to-emerald-800/40 flex items-center justify-center mb-4">
-            <Newspaper className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center mb-4">
+            <Newspaper className="w-8 h-8 text-emerald-600" />
           </div>
-          <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
+          <h3 className="text-lg font-semibold text-[#0A2E12] mb-1">
             Nothing here yet
           </h3>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center max-w-xs">
+          <p className="text-sm text-[#3D5A3E] text-center max-w-xs">
             Be the first to post! Share updates, celebrate wins, or start a
             conversation with your club.
           </p>
@@ -346,7 +346,7 @@ export default function NoticeboardFeed({
       {/* End of feed */}
       {!hasMore && posts.length > 0 && (
         <div className="py-8 text-center">
-          <p className="text-xs text-zinc-400 dark:text-zinc-500">
+          <p className="text-xs text-[#3D5A3E]">
             You&apos;ve reached the end of the feed
           </p>
         </div>

@@ -117,7 +117,7 @@ export default function DrawSheetPage() {
   if (!data) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <p className="text-zinc-500">Tournament not found</p>
+        <p className="text-[#3D5A3E]">Tournament not found</p>
       </div>
     );
   }
@@ -134,17 +134,17 @@ export default function DrawSheetPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Screen-only toolbar */}
-      <div className="no-print sticky top-0 z-50 border-b border-zinc-200 bg-zinc-50 px-4 py-3">
+      <div className="no-print sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] px-4 py-3">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
           <Link
             href={`/bowls/${tournamentId}`}
-            className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+            className="rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-medium text-[#2D4A30] hover:bg-[#0A2E12]/[0.03]"
           >
             Back to Tournament
           </Link>
 
           <div className="flex items-center gap-3">
-            <span className="text-xs text-zinc-500">
+            <span className="text-xs text-[#3D5A3E]">
               Select A4 or Letter in your print dialog
             </span>
             <button
@@ -161,14 +161,14 @@ export default function DrawSheetPage() {
       <div className="mx-auto max-w-4xl px-6 py-8 print:max-w-none print:px-0 print:py-0">
         {/* Header */}
         <div className="mb-6 border-b-2 border-[#1B5E20] pb-4 print:mb-4 print:pb-2">
-          <h1 className="text-2xl font-black tracking-tight text-zinc-900 print:text-xl">
+          <h1 className="text-2xl font-black tracking-tight text-[#0A2E12] print:text-xl">
             {data.tournamentName}
           </h1>
-          <div className="mt-1 flex items-center gap-3 text-sm text-zinc-600">
+          <div className="mt-1 flex items-center gap-3 text-sm text-[#3D5A3E]">
             <span>{formatLabel}</span>
-            <span className="text-zinc-300">|</span>
+            <span className="text-[#3D5A3E]">|</span>
             <span>{dateStr}</span>
-            <span className="text-zinc-300">|</span>
+            <span className="text-[#3D5A3E]">|</span>
             <span>
               {data.rounds.length} Round{data.rounds.length !== 1 ? "s" : ""}
             </span>
@@ -178,29 +178,29 @@ export default function DrawSheetPage() {
         {/* Rounds */}
         {data.rounds.map((round) => (
           <div key={round.round} className="mb-8 print:mb-4 print:break-inside-avoid">
-            <h2 className="mb-3 text-lg font-bold text-zinc-800 print:text-base print:mb-2">
+            <h2 className="mb-3 text-lg font-bold text-[#0A2E12] print:text-base print:mb-2">
               Round {round.round}
             </h2>
 
             <table className="w-full border-collapse text-sm print:text-xs">
               <thead>
-                <tr className="border-b-2 border-zinc-300 bg-zinc-50 print:bg-zinc-100">
-                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">
+                <tr className="border-b-2 border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] print:bg-[#0A2E12]/5">
+                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     Rink
                   </th>
-                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     Team A
                   </th>
-                  <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     Score
                   </th>
-                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     Team B
                   </th>
-                  <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     Score
                   </th>
-                  <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     Result
                   </th>
                 </tr>
@@ -209,15 +209,15 @@ export default function DrawSheetPage() {
                 {round.scores.map((score) => (
                   <tr
                     key={score.id}
-                    className="border-b border-zinc-200 print:border-zinc-300"
+                    className="border-b border-[#0A2E12]/10 print:border-[#0A2E12]/10"
                   >
-                    <td className="px-3 py-2 font-bold text-zinc-700">
+                    <td className="px-3 py-2 font-bold text-[#2D4A30]">
                       {score.rink}
                     </td>
                     <td className="px-3 py-2">
                       <div className="space-y-0.5">
                         {score.team_a_players.map((p) => (
-                          <div key={p.player_id} className="text-zinc-800">
+                          <div key={p.player_id} className="text-[#0A2E12]">
                             {p.display_name}
                           </div>
                         ))}
@@ -228,7 +228,7 @@ export default function DrawSheetPage() {
                         "px-3 py-2 text-center font-bold tabular-nums",
                         score.winner === "team_a"
                           ? "text-emerald-700"
-                          : "text-zinc-600"
+                          : "text-[#3D5A3E]"
                       )}
                     >
                       {score.is_finalized ? score.total_a : "-"}
@@ -236,7 +236,7 @@ export default function DrawSheetPage() {
                     <td className="px-3 py-2">
                       <div className="space-y-0.5">
                         {score.team_b_players.map((p) => (
-                          <div key={p.player_id} className="text-zinc-800">
+                          <div key={p.player_id} className="text-[#0A2E12]">
                             {p.display_name}
                           </div>
                         ))}
@@ -247,7 +247,7 @@ export default function DrawSheetPage() {
                         "px-3 py-2 text-center font-bold tabular-nums",
                         score.winner === "team_b"
                           ? "text-emerald-700"
-                          : "text-zinc-600"
+                          : "text-[#3D5A3E]"
                       )}
                     >
                       {score.is_finalized ? score.total_b : "-"}
@@ -262,7 +262,7 @@ export default function DrawSheetPage() {
                                 ? "text-purple-700"
                                 : score.winner === "draw"
                                   ? "text-amber-700"
-                                  : "text-zinc-400"
+                                  : "text-[#3D5A3E]"
                           )}
                         >
                           {score.winner === "team_a"
@@ -274,7 +274,7 @@ export default function DrawSheetPage() {
                                 : "-"}
                         </span>
                       ) : (
-                        <span className="text-zinc-400">Pending</span>
+                        <span className="text-[#3D5A3E]">Pending</span>
                       )}
                     </td>
                   </tr>
@@ -296,30 +296,30 @@ export default function DrawSheetPage() {
                       key={`ends-${score.id}`}
                       className="print:break-inside-avoid"
                     >
-                      <p className="mb-1 text-xs font-bold text-zinc-500">
+                      <p className="mb-1 text-xs font-bold text-[#3D5A3E]">
                         Rink {score.rink} &mdash; End-by-End
                       </p>
                       <table className="w-full border-collapse text-xs print:text-[10px]">
                         <thead>
-                          <tr className="border-b border-zinc-200">
-                            <th className="px-2 py-1 text-left text-[10px] font-bold text-zinc-400 w-12">
+                          <tr className="border-b border-[#0A2E12]/10">
+                            <th className="px-2 py-1 text-left text-[10px] font-bold text-[#3D5A3E] w-12">
                               &nbsp;
                             </th>
                             {score.team_a_scores.map((_, i) => (
                               <th
                                 key={i}
-                                className="px-1.5 py-1 text-center text-[10px] font-bold text-zinc-400"
+                                className="px-1.5 py-1 text-center text-[10px] font-bold text-[#3D5A3E]"
                               >
                                 {i + 1}
                               </th>
                             ))}
-                            <th className="px-2 py-1 text-center text-[10px] font-bold text-zinc-700 border-l border-zinc-300">
+                            <th className="px-2 py-1 text-center text-[10px] font-bold text-[#2D4A30] border-l border-[#0A2E12]/10">
                               Tot
                             </th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr className="border-b border-zinc-100">
+                          <tr className="border-b border-[#0A2E12]/10">
                             <td className="px-2 py-1 font-semibold text-blue-600">
                               A
                             </td>
@@ -331,14 +331,14 @@ export default function DrawSheetPage() {
                                   s > score.team_b_scores[i]
                                     ? "text-emerald-600"
                                     : s === 0
-                                      ? "text-zinc-300"
-                                      : "text-zinc-500"
+                                      ? "text-[#3D5A3E]"
+                                      : "text-[#3D5A3E]"
                                 )}
                               >
                                 {s}
                               </td>
                             ))}
-                            <td className="px-2 py-1 text-center font-black text-zinc-900 border-l border-zinc-300 tabular-nums">
+                            <td className="px-2 py-1 text-center font-black text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
                               {score.total_a}
                             </td>
                           </tr>
@@ -354,14 +354,14 @@ export default function DrawSheetPage() {
                                   s > score.team_a_scores[i]
                                     ? "text-emerald-600"
                                     : s === 0
-                                      ? "text-zinc-300"
-                                      : "text-zinc-500"
+                                      ? "text-[#3D5A3E]"
+                                      : "text-[#3D5A3E]"
                                 )}
                               >
                                 {s}
                               </td>
                             ))}
-                            <td className="px-2 py-1 text-center font-black text-zinc-900 border-l border-zinc-300 tabular-nums">
+                            <td className="px-2 py-1 text-center font-black text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
                               {score.total_b}
                             </td>
                           </tr>
@@ -377,40 +377,40 @@ export default function DrawSheetPage() {
         {/* Player Standings */}
         {data.playerStandings.length > 0 && (
           <div className="mt-8 print:mt-4 print:break-before-auto">
-            <h2 className="mb-3 text-lg font-bold text-zinc-800 print:text-base print:mb-2">
+            <h2 className="mb-3 text-lg font-bold text-[#0A2E12] print:text-base print:mb-2">
               Player Standings
             </h2>
             <table className="w-full border-collapse text-sm print:text-xs">
               <thead>
-                <tr className="border-b-2 border-zinc-300 bg-zinc-50 print:bg-zinc-100">
-                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">
+                <tr className="border-b-2 border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] print:bg-[#0A2E12]/5">
+                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     #
                   </th>
-                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     Player
                   </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     P
                   </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     W
                   </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     L
                   </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     D
                   </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     SF
                   </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     SA
                   </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     +/-
                   </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     EW
                   </th>
                 </tr>
@@ -423,17 +423,17 @@ export default function DrawSheetPage() {
                     <tr
                       key={p.player_id}
                       className={cn(
-                        "border-b border-zinc-200",
+                        "border-b border-[#0A2E12]/10",
                         idx === 0 && "bg-amber-50 print:bg-amber-50"
                       )}
                     >
-                      <td className="px-3 py-2 font-bold text-zinc-400">
+                      <td className="px-3 py-2 font-bold text-[#3D5A3E]">
                         {idx + 1}
                       </td>
-                      <td className="px-3 py-2 font-semibold text-zinc-900 whitespace-nowrap">
+                      <td className="px-3 py-2 font-semibold text-[#0A2E12] whitespace-nowrap">
                         {p.display_name}
                       </td>
-                      <td className="px-2 py-2 text-center text-zinc-700">
+                      <td className="px-2 py-2 text-center text-[#2D4A30]">
                         {p.games_played}
                       </td>
                       <td className="px-2 py-2 text-center font-bold text-emerald-700">
@@ -445,10 +445,10 @@ export default function DrawSheetPage() {
                       <td className="px-2 py-2 text-center text-amber-600">
                         {p.draws}
                       </td>
-                      <td className="px-2 py-2 text-center tabular-nums text-zinc-600">
+                      <td className="px-2 py-2 text-center tabular-nums text-[#3D5A3E]">
                         {p.total_shots_for}
                       </td>
-                      <td className="px-2 py-2 text-center tabular-nums text-zinc-600">
+                      <td className="px-2 py-2 text-center tabular-nums text-[#3D5A3E]">
                         {p.total_shots_against}
                       </td>
                       <td
@@ -458,13 +458,13 @@ export default function DrawSheetPage() {
                             ? "text-emerald-700"
                             : diff < 0
                               ? "text-red-600"
-                              : "text-zinc-400"
+                              : "text-[#3D5A3E]"
                         )}
                       >
                         {diff > 0 ? "+" : ""}
                         {diff}
                       </td>
-                      <td className="px-2 py-2 text-center tabular-nums text-zinc-600">
+                      <td className="px-2 py-2 text-center tabular-nums text-[#3D5A3E]">
                         {p.total_ends_won}
                       </td>
                     </tr>
@@ -478,17 +478,17 @@ export default function DrawSheetPage() {
         {/* No data state */}
         {data.rounds.length === 0 && (
           <div className="py-16 text-center">
-            <p className="text-lg font-semibold text-zinc-400">
+            <p className="text-lg font-semibold text-[#3D5A3E]">
               No draw data yet
             </p>
-            <p className="mt-1 text-sm text-zinc-400">
+            <p className="mt-1 text-sm text-[#3D5A3E]">
               Generate a draw and enter scores to see the draw sheet
             </p>
           </div>
         )}
 
         {/* Footer */}
-        <div className="mt-8 border-t border-zinc-200 pt-4 text-center text-xs text-zinc-400 print:mt-4 print:pt-2">
+        <div className="mt-8 border-t border-[#0A2E12]/10 pt-4 text-center text-xs text-[#3D5A3E] print:mt-4 print:pt-2">
           <p>
             {data.tournamentName} &mdash; {formatLabel} &mdash; {dateStr}
           </p>

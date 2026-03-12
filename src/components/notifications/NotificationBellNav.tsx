@@ -43,8 +43,8 @@ export function NotificationBellNav({ active }: { active?: boolean }) {
       className={cn(
         "relative flex flex-col items-center justify-center gap-0.5 px-3 py-2 text-[11px] transition-colors min-h-[44px]",
         active
-          ? "text-[#1B5E20] dark:text-emerald-400 font-semibold"
-          : "text-zinc-500 dark:text-zinc-400"
+          ? "text-[#1B5E20] font-semibold"
+          : "text-[#3D5A3E]"
       )}
       aria-label={`Notifications${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
     >

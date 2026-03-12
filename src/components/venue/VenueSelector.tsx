@@ -24,7 +24,7 @@ export function VenueSelector({
       value={selectedVenueId ?? ""}
       onChange={(e) => onSelect(e.target.value)}
       className={cn(
-        "rounded-lg border border-zinc-700 bg-zinc-800/80 text-zinc-200 transition-colors hover:border-zinc-600 focus:border-green-500 focus:outline-none",
+        "rounded-lg border border-[#0A2E12]/10 bg-[#0A2E12]/80 text-[#3D5A3E] transition-colors hover:border-[#0A2E12]/10 focus:border-green-500 focus:outline-none",
         compact ? "px-2 py-1 text-xs" : "px-3 py-2 text-sm"
       )}
     >

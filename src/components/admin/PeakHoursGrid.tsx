@@ -13,9 +13,9 @@ const HOURS = Array.from({ length: 24 }, (_, i) =>
 );
 
 function getIntensity(value: number, max: number): string {
-  if (max === 0) return "bg-zinc-100";
+  if (max === 0) return "bg-[#0A2E12]/5";
   const ratio = value / max;
-  if (ratio === 0) return "bg-zinc-100";
+  if (ratio === 0) return "bg-[#0A2E12]/5";
   if (ratio < 0.25) return "bg-[#1B5E20]/10";
   if (ratio < 0.5) return "bg-[#1B5E20]/15";
   if (ratio < 0.75) return "bg-[#1B5E20]";
@@ -29,7 +29,7 @@ export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {
   return (
     <div className="space-y-4">
       <div>
-        <h4 className="text-xs text-zinc-500 uppercase tracking-wider mb-2">
+        <h4 className="text-xs text-[#3D5A3E] uppercase tracking-wider mb-2">
           Peak Hours
         </h4>
         <div className="flex gap-1 flex-wrap">
@@ -43,7 +43,7 @@ export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {
                 title={`${HOURS[hour]}: ${count} check-ins`}
               />
               {hour % 4 === 0 && (
-                <span className="text-[10px] text-zinc-600 dark:text-zinc-400">{HOURS[hour]}</span>
+                <span className="text-[10px] text-[#3D5A3E]">{HOURS[hour]}</span>
               )}
             </div>
           ))}
@@ -51,7 +51,7 @@ export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {
       </div>
 
       <div>
-        <h4 className="text-xs text-zinc-500 uppercase tracking-wider mb-2">
+        <h4 className="text-xs text-[#3D5A3E] uppercase tracking-wider mb-2">
           Busiest Days
         </h4>
         <div className="flex gap-2">
@@ -64,7 +64,7 @@ export function PeakHoursGrid({ hourCounts, dayCounts }: PeakHoursGridProps) {
                 )}
                 title={`${DAYS[day]}: ${count} check-ins`}
               />
-              <span className="text-[10px] text-zinc-500 dark:text-zinc-400">{DAYS[day]}</span>
+              <span className="text-[10px] text-[#3D5A3E]">{DAYS[day]}</span>
             </div>
           ))}
         </div>

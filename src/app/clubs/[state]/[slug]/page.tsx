@@ -40,6 +40,7 @@ import { SingleClubMap } from "@/components/clubs/SingleClubMap";
 import { VisitClubButton } from "@/components/clubs/VisitClubButton";
 import { VisitorCount } from "@/components/clubs/VisitorCount";
 import ClubEventCalendar from "@/components/clubs/ClubEventCalendar";
+import { ClubLogo, getClubCoverImage } from "@/components/clubs/ClubLogo";
 
 interface ClubPageProps {
   params: Promise<{ state: string; slug: string }>;
@@ -117,7 +118,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
   const clubSchema = getLocalBusinessSchema(club);
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-white/5">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }}
@@ -127,68 +128,65 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(clubSchema) }}
       />
 
-      {/* Cover Image Hero */}
-      {club.coverImageUrl && (
-        <div className="relative h-48 w-full overflow-hidden bg-zinc-200 sm:h-60">
-          <Image
-            src={club.coverImageUrl}
-            alt={`${club.name} cover photo`}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
-        </div>
-      )}
+      {/* Cover Image Hero — use club's cover or region-aware fallback */}
+      <div className="relative h-48 w-full overflow-hidden bg-[#0A2E12]/5 sm:h-60">
+        <Image
+          src={club.coverImageUrl || getClubCoverImage(club.id, club.region)}
+          alt={`${club.name} cover photo`}
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
+      </div>
 
       {/* Header */}
-      <header className="border-b border-zinc-200 bg-white">
+      <header className="border-b border-[#0A2E12]/10 bg-white">
         <div className="mx-auto max-w-4xl px-4 py-6">
           {/* Breadcrumb */}
-          <nav className="mb-4 flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400">
+          <nav className="mb-4 flex items-center gap-1.5 text-sm text-[#3D5A3E]">
             <Link
               href="/clubs"
-              className="hover:text-zinc-900 transition-colors"
+              className="hover:text-[#0A2E12] transition-colors"
             >
               Clubs
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
             <Link
               href={`/clubs/${club.stateCode.toLowerCase()}`}
-              className="hover:text-zinc-900 transition-colors"
+              className="hover:text-[#0A2E12] transition-colors"
             >
               {stateInfo.name}
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="font-medium text-zinc-900 truncate">
+            <span className="font-medium text-[#0A2E12] truncate">
               {club.name}
             </span>
           </nav>
 
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-3">
-              {club.logoUrl && (
-                <Image
-                  src={club.logoUrl}
-                  alt={`${club.name} logo`}
-                  width={48}
-                  height={48}
-                  className="h-12 w-12 shrink-0 rounded-full border border-zinc-200 object-cover"
-                />
-              )}
+              <ClubLogo
+                name={club.name}
+                stateCode={club.stateCode}
+                country={(club.country ?? club.countryCode) as string | undefined}
+                logoUrl={club.logoUrl}
+                size="lg"
+                className="-mt-10 ring-4 ring-white shadow-lg"
+              />
               <div>
-                <h1 className="text-2xl font-black tracking-tight text-zinc-900 sm:text-3xl">
+                <h1 className="text-2xl font-black tracking-tight text-[#0A2E12] sm:text-3xl">
                   {club.name}
                 </h1>
-                <div className="mt-1 flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="mt-1 flex items-center gap-1.5 text-sm text-[#3D5A3E]">
                   <MapPin className="h-4 w-4 shrink-0" />
                   <span>
                     {club.city}, {club.state}
                   </span>
                   {club.founded && (
                     <>
-                      <span className="text-zinc-300">·</span>
+                      <span className="text-[#3D5A3E]">·</span>
                       <Calendar className="h-3.5 w-3.5" />
                       <span>Est. {club.founded}</span>
                     </>
@@ -204,7 +202,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                     ? "bg-[#1B5E20]/5 text-[#2E7D32]"
                     : club.status === "seasonal"
                       ? "bg-amber-50 text-amber-700"
-                      : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                      : "bg-[#0A2E12]/5 text-[#3D5A3E]"
               }`}
             >
               {club.status === "claimed"
@@ -225,17 +223,17 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
           <div className="space-y-6 lg:col-span-2">
             {/* Description */}
             {club.description && (
-              <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-                <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-100">About</h2>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+                <h2 className="mb-3 text-lg font-bold text-[#0A2E12]">About</h2>
+                <p className="text-sm leading-relaxed text-[#3D5A3E]">
                   {club.description}
                 </p>
               </section>
             )}
 
             {/* Club Details */}
-            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-              <h2 className="mb-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+              <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
                 Club Details
               </h2>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -274,15 +272,15 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
 
             {/* Activities */}
             {club.activities.length > 0 && (
-              <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-                <h2 className="mb-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+                <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
                   Activities
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {club.activities.map((activity) => (
                     <span
                       key={activity}
-                      className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-sm font-medium text-zinc-700"
+                      className="rounded-full border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] px-3 py-1.5 text-sm font-medium text-[#2D4A30]"
                     >
                       {activity}
                     </span>
@@ -292,14 +290,14 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
             )}
 
             {/* Event Calendar */}
-            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
               <ClubEventCalendar clubId={club.id} />
             </section>
 
             {/* Facilities */}
             {club.facilities.length > 0 && (
-              <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-                <h2 className="mb-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+                <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
                   Facilities
                 </h2>
                 <div className="flex flex-wrap gap-2">
@@ -316,8 +314,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
             )}
 
             {/* Location Map */}
-            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-              <h2 className="mb-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+              <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
                 Location
               </h2>
               <SingleClubMap
@@ -332,8 +330,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
           {/* Sidebar — right col */}
           <div className="space-y-6">
             {/* Contact Card */}
-            <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-              <h2 className="mb-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+              <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
                 Contact Info
               </h2>
               <div className="space-y-3">
@@ -342,7 +340,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                     icon={<MapPin className="h-4 w-4" />}
                     label="Address"
                   >
-                    <span className="text-sm text-zinc-600 dark:text-zinc-400">{club.address}</span>
+                    <span className="text-sm text-[#3D5A3E]">{club.address}</span>
                   </ContactRow>
                 )}
                 {club.phone && (
@@ -391,7 +389,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                   !club.phone &&
                   !club.email &&
                   !club.website && (
-                    <p className="text-sm text-zinc-500">
+                    <p className="text-sm text-[#3D5A3E]">
                       No contact information available yet.
                     </p>
                   )}
@@ -400,8 +398,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
 
             {/* Club Contacts / Leadership */}
             {club.contacts && club.contacts.length > 0 && (
-              <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-                <h2 className="mb-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+                <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
                   Leadership
                 </h2>
                 <div className="space-y-4">
@@ -414,8 +412,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
 
             {/* Social Links */}
             {(club.facebookUrl || club.instagramUrl || club.youtubeUrl || club.twitterUrl) && (
-              <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-                <h2 className="mb-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+                <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
                   Social Media
                 </h2>
                 <div className="flex flex-wrap gap-2">
@@ -444,12 +442,12 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
             )}
 
             {/* Claim CTA */}
-            <section className="rounded-2xl border-2 border-dashed border-zinc-300 bg-white dark:bg-[#1a3d28] p-6 text-center">
-              <Building2 className="mx-auto h-8 w-8 text-zinc-400" />
-              <h3 className="mt-3 text-base font-bold text-zinc-900 dark:text-zinc-100">
+            <section className="rounded-2xl border-2 border-dashed border-[#0A2E12]/10 bg-white p-6 text-center">
+              <Building2 className="mx-auto h-8 w-8 text-[#3D5A3E]" />
+              <h3 className="mt-3 text-base font-bold text-[#0A2E12]">
                 Is this your club?
               </h3>
-              <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="mt-1 text-sm text-[#3D5A3E]">
                 Claim this listing to update info, add photos, and manage your
                 club page.
               </p>
@@ -464,13 +462,13 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
 
             {/* Tags */}
             {club.tags.length > 0 && (
-              <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-                <h2 className="mb-3 text-sm font-bold text-zinc-900 dark:text-zinc-100">Tags</h2>
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+                <h2 className="mb-3 text-sm font-bold text-[#0A2E12]">Tags</h2>
                 <div className="flex flex-wrap gap-1.5">
                   {club.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-zinc-100 bg-zinc-50 px-2.5 py-1 text-xs text-zinc-500 dark:text-zinc-400"
+                      className="rounded-full border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] px-2.5 py-1 text-xs text-[#3D5A3E]"
                     >
                       {tag}
                     </span>
@@ -485,7 +483,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
         {nearbyClubs.length > 0 && (
           <section className="mt-10">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+              <h2 className="text-lg font-bold text-[#0A2E12]">
                 Nearby Clubs
               </h2>
               <Link
@@ -501,9 +499,9 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                   key={nearby.id}
                   href={`/clubs/${nearby.stateCode.toLowerCase()}/${nearby.id}`}
                 >
-                  <div className="group rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 transition-all hover:border-zinc-300 hover:shadow-sm">
+                  <div className="group rounded-2xl border border-[#0A2E12]/10 bg-white p-4 transition-all hover:border-[#0A2E12]/10 hover:shadow-sm">
                     <div className="flex items-center justify-between gap-2">
-                      <h3 className="text-sm font-bold text-zinc-900 group-hover:text-[#1B5E20] transition-colors truncate">
+                      <h3 className="text-sm font-bold text-[#0A2E12] group-hover:text-[#1B5E20] transition-colors truncate">
                         {nearby.name}
                       </h3>
                       {"distance" in nearby && (
@@ -512,13 +510,13 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                         </span>
                       )}
                     </div>
-                    <div className="mt-1 flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
+                    <div className="mt-1 flex items-center gap-1 text-xs text-[#3D5A3E]">
                       <MapPin className="h-3 w-3 shrink-0" />
                       <span>{nearby.city}, {nearby.stateCode}</span>
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1">
                       {nearby.surfaceType !== "unknown" && (
-                        <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                        <span className="rounded-full bg-[#0A2E12]/5 px-2 py-0.5 text-sm font-medium text-[#3D5A3E]">
                           {SURFACE_LABELS[nearby.surfaceType]}
                         </span>
                       )}
@@ -539,14 +537,14 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
         <div className="mt-8 flex items-center justify-center gap-4 text-sm">
           <Link
             href={`/clubs/${club.stateCode.toLowerCase()}`}
-            className="font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+            className="font-medium text-[#3D5A3E] hover:text-[#0A2E12]:text-[#3D5A3E] transition-colors"
           >
             &larr; {stateInfo.name} Clubs
           </Link>
-          <span className="text-zinc-300">|</span>
+          <span className="text-[#3D5A3E]">|</span>
           <Link
             href="/clubs"
-            className="font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+            className="font-medium text-[#3D5A3E] hover:text-[#0A2E12]:text-[#3D5A3E] transition-colors"
           >
             All Clubs
           </Link>
@@ -567,12 +565,12 @@ function DetailItem({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 dark:text-zinc-400">
+      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0A2E12]/5 text-[#3D5A3E]">
         {icon}
       </div>
       <div>
-        <p className="text-xs font-medium text-zinc-500">{label}</p>
-        <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{value}</p>
+        <p className="text-xs font-medium text-[#3D5A3E]">{label}</p>
+        <p className="text-sm font-semibold text-[#0A2E12]">{value}</p>
       </div>
     </div>
   );
@@ -589,11 +587,11 @@ function ContactRow({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 dark:text-zinc-400">
+      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0A2E12]/5 text-[#3D5A3E]">
         {icon}
       </div>
       <div>
-        <p className="text-xs font-medium text-zinc-500">{label}</p>
+        <p className="text-xs font-medium text-[#3D5A3E]">{label}</p>
         {children}
       </div>
     </div>
@@ -604,43 +602,43 @@ function ContactCard({ contact }: { contact: ClubContact }) {
   const hasSocials = contact.linkedinUrl || contact.instagramUrl || contact.facebookUrl || contact.twitterUrl;
 
   return (
-    <div className="rounded-xl border border-zinc-100 bg-zinc-50 p-4">
+    <div className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4">
       <div className="flex items-start gap-3">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1B5E20]/10 text-[#1B5E20]">
           <UserCircle className="h-5 w-5" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{contact.name}</p>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">{contact.role}</p>
+          <p className="text-sm font-bold text-[#0A2E12]">{contact.name}</p>
+          <p className="text-xs text-[#3D5A3E]">{contact.role}</p>
           {contact.email && (
             <a href={`mailto:${contact.email}`} className="mt-1 block text-xs text-[#1B5E20] hover:underline break-all">
               {contact.email}
             </a>
           )}
           {contact.phone && (
-            <a href={`tel:${contact.phone}`} className="mt-0.5 block text-xs text-zinc-500 hover:text-zinc-700">
+            <a href={`tel:${contact.phone}`} className="mt-0.5 block text-xs text-[#3D5A3E] hover:text-[#2D4A30]">
               {contact.phone}
             </a>
           )}
           {hasSocials && (
             <div className="mt-2 flex gap-2">
               {contact.linkedinUrl && (
-                <a href={contact.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#0A66C2] transition-colors" title="LinkedIn">
+                <a href={contact.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[#3D5A3E] hover:text-[#0A66C2] transition-colors" title="LinkedIn">
                   <Linkedin className="h-4 w-4" />
                 </a>
               )}
               {contact.instagramUrl && (
-                <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#E4405F] transition-colors" title="Instagram">
+                <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="text-[#3D5A3E] hover:text-[#E4405F] transition-colors" title="Instagram">
                   <Instagram className="h-4 w-4" />
                 </a>
               )}
               {contact.facebookUrl && (
-                <a href={contact.facebookUrl} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#1877F2] transition-colors" title="Facebook">
+                <a href={contact.facebookUrl} target="_blank" rel="noopener noreferrer" className="text-[#3D5A3E] hover:text-[#1877F2] transition-colors" title="Facebook">
                   <Facebook className="h-4 w-4" />
                 </a>
               )}
               {contact.twitterUrl && (
-                <a href={contact.twitterUrl} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#1DA1F2] transition-colors" title="Twitter">
+                <a href={contact.twitterUrl} target="_blank" rel="noopener noreferrer" className="text-[#3D5A3E] hover:text-[#1DA1F2] transition-colors" title="Twitter">
                   <Twitter className="h-4 w-4" />
                 </a>
               )}
@@ -658,7 +656,7 @@ function SocialLink({ href, icon, label, color }: { href: string; icon: React.Re
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-medium text-zinc-700 transition-all hover:border-zinc-300 hover:shadow-sm"
+      className="inline-flex items-center gap-2 rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-medium text-[#2D4A30] transition-all hover:border-[#0A2E12]/10 hover:shadow-sm"
       style={{ color }}
     >
       {icon}

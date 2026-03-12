@@ -50,16 +50,16 @@ export function GreenHistory({ clubId }: { clubId: string }) {
 
   return (
     <section className="mt-8">
-      <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-zinc-400">
+      <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]">
         Green History
       </h2>
       <div className="space-y-2">
         {entries.map((entry) => (
           <div
             key={entry.id}
-            className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white px-4 py-2.5"
+            className="flex items-center justify-between rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-2.5"
           >
-            <span className="text-sm text-zinc-500">
+            <span className="text-sm text-[#3D5A3E]">
               {new Date(entry.recorded_at).toLocaleDateString(undefined, {
                 month: "short",
                 day: "numeric",

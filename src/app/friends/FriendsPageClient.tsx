@@ -25,7 +25,7 @@ export function FriendsPageClient({
         onRespond={() => router.refresh()}
       />
       <div>
-        <h3 className="text-sm font-semibold text-zinc-600 uppercase tracking-wider mb-3">
+        <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider mb-3">
           Friends ({friends.length})
         </h3>
         <FriendsList friends={friends} currentPlayerId={currentPlayerId} />

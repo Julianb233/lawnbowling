@@ -64,13 +64,13 @@ export function PricingTable({ currentPlan = "free" }: PricingTableProps) {
             <div className="mb-4 flex items-center gap-3">
               <div className={cn(
                 "flex h-12 w-12 items-center justify-center rounded-xl",
-                isPopular ? "bg-green-500/20 text-green-400" : "bg-zinc-100 text-zinc-400"
+                isPopular ? "bg-green-500/20 text-green-400" : "bg-[#0A2E12]/5 text-[#3D5A3E]"
               )}>
                 {PLAN_ICONS[tier.plan]}
               </div>
               <div>
-                <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{tier.name}</h3>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                <h3 className="text-lg font-bold text-[#0A2E12]">{tier.name}</h3>
+                <p className="text-sm text-[#3D5A3E]">
                   {tier.price === 0 ? "Free forever" : `$${(tier.price / 100).toFixed(2)}/mo`}
                 </p>
               </div>
@@ -79,7 +79,7 @@ export function PricingTable({ currentPlan = "free" }: PricingTableProps) {
             <div className="mb-6 flex-1">
               <ul className="space-y-3">
                 {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm text-zinc-400">
+                  <li key={feature} className="flex items-start gap-2 text-sm text-[#3D5A3E]">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-500" />
                     {feature}
                   </li>
@@ -93,10 +93,10 @@ export function PricingTable({ currentPlan = "free" }: PricingTableProps) {
               className={cn(
                 "w-full rounded-xl px-4 py-3 text-sm font-bold transition-all min-h-[48px]",
                 isCurrentPlan
-                  ? "bg-zinc-100 text-zinc-500 cursor-default"
+                  ? "bg-[#0A2E12]/5 text-[#3D5A3E] cursor-default"
                   : isPopular
                     ? "bg-gradient-to-r from-green-500 to-[#1B5E20] text-white hover:shadow-lg hover:shadow-green-500/25"
-                    : "bg-zinc-100 text-zinc-700 hover:bg-zinc-100"
+                    : "bg-[#0A2E12]/5 text-[#2D4A30] hover:bg-[#0A2E12]/5"
               )}
             >
               {loading === tier.plan ? (

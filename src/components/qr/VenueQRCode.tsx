@@ -121,21 +121,21 @@ export function VenueQRCode({
         <canvas ref={canvasRef} />
       </div>
       <div className="text-center">
-        <p className="text-sm font-medium text-zinc-700">{venueName}</p>
-        <p className="text-xs text-zinc-500">Scan to check in</p>
+        <p className="text-sm font-medium text-[#2D4A30]">{venueName}</p>
+        <p className="text-xs text-[#3D5A3E]">Scan to check in</p>
       </div>
       {showActions && (
         <div className="flex gap-2">
           <button
             onClick={handleDownload}
-            className="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-2 text-sm text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors"
           >
             <Download className="h-4 w-4" />
             Download
           </button>
           <button
             onClick={handlePrint}
-            className="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-2 text-sm text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors"
           >
             <Printer className="h-4 w-4" />
             Print

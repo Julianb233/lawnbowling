@@ -65,7 +65,7 @@ export function InstallPrompt() {
         </div>
         <button
           onClick={handleDismiss}
-          className="text-slate-400 hover:text-zinc-900 min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-green-400 rounded"
+          className="text-slate-400 hover:text-[#0A2E12] min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-green-400 rounded"
           aria-label="Dismiss install prompt"
         >
           ✕

@@ -273,7 +273,7 @@ export default function ResultsPage() {
     if (winner === "team_a") return "text-[#1B5E20]";
     if (winner === "team_b") return "text-purple-600";
     if (winner === "draw") return "text-amber-600";
-    return "text-zinc-400";
+    return "text-[#3D5A3E]";
   }
 
   if (loading) {
@@ -285,16 +285,16 @@ export default function ResultsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur print:static print:border-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur print:static print:border-0">
         <div className="mx-auto max-w-5xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
+              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
                 Results
               </h1>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">{tournamentName}</p>
+              <p className="text-sm text-[#3D5A3E]">{tournamentName}</p>
             </div>
             <div className="flex items-center gap-2 print:hidden">
               {progression?.current_state === "complete" && (
@@ -308,19 +308,19 @@ export default function ResultsPage() {
               )}
               <button
                 onClick={() => window.print()}
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
               >
                 Print Results
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}`)}
-                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
               >
                 Back
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/draw-sheet`)}
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
               >
                 Draw Sheet
               </button>
@@ -339,8 +339,8 @@ export default function ResultsPage() {
         {/* Print-only results header */}
         <div className="hidden print:block print:mb-6">
           <div className="border-b-2 border-[#1B5E20] pb-3 mb-4">
-            <h1 className="text-2xl font-black text-zinc-900">{tournamentName}</h1>
-            <div className="flex justify-between text-sm text-zinc-600 mt-1">
+            <h1 className="text-2xl font-black text-[#0A2E12]">{tournamentName}</h1>
+            <div className="flex justify-between text-sm text-[#3D5A3E] mt-1">
               <span>Tournament Results</span>
               <span>
                 {rounds.length} round{rounds.length !== 1 ? "s" : ""} played
@@ -354,33 +354,33 @@ export default function ResultsPage() {
           {/* Print-only player standings table */}
           {playerStandings.length > 0 && (
             <div className="mb-6">
-              <h2 className="text-sm font-bold text-zinc-700 mb-2">Player Standings</h2>
+              <h2 className="text-sm font-bold text-[#2D4A30] mb-2">Player Standings</h2>
               <table className="w-full border-collapse text-xs">
                 <thead>
                   <tr>
-                    <th className="border border-zinc-400 px-2 py-1 text-left bg-zinc-100">#</th>
-                    <th className="border border-zinc-400 px-2 py-1 text-left bg-zinc-100">Player</th>
-                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">P</th>
-                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">W</th>
-                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">L</th>
-                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">D</th>
-                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">SF</th>
-                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">SA</th>
-                    <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">+/-</th>
+                    <th className="border border-[#0A2E12]/10 px-2 py-1 text-left bg-[#0A2E12]/5">#</th>
+                    <th className="border border-[#0A2E12]/10 px-2 py-1 text-left bg-[#0A2E12]/5">Player</th>
+                    <th className="border border-[#0A2E12]/10 px-2 py-1 text-center bg-[#0A2E12]/5">P</th>
+                    <th className="border border-[#0A2E12]/10 px-2 py-1 text-center bg-[#0A2E12]/5">W</th>
+                    <th className="border border-[#0A2E12]/10 px-2 py-1 text-center bg-[#0A2E12]/5">L</th>
+                    <th className="border border-[#0A2E12]/10 px-2 py-1 text-center bg-[#0A2E12]/5">D</th>
+                    <th className="border border-[#0A2E12]/10 px-2 py-1 text-center bg-[#0A2E12]/5">SF</th>
+                    <th className="border border-[#0A2E12]/10 px-2 py-1 text-center bg-[#0A2E12]/5">SA</th>
+                    <th className="border border-[#0A2E12]/10 px-2 py-1 text-center bg-[#0A2E12]/5">+/-</th>
                   </tr>
                 </thead>
                 <tbody>
                   {playerStandings.map((p, idx) => (
                     <tr key={p.player_id}>
-                      <td className="border border-zinc-400 px-2 py-1 font-bold">{idx + 1}</td>
-                      <td className="border border-zinc-400 px-2 py-1 font-medium">{p.display_name}</td>
-                      <td className="border border-zinc-400 px-2 py-1 text-center">{p.games_played}</td>
-                      <td className="border border-zinc-400 px-2 py-1 text-center font-bold">{p.wins}</td>
-                      <td className="border border-zinc-400 px-2 py-1 text-center">{p.losses}</td>
-                      <td className="border border-zinc-400 px-2 py-1 text-center">{p.draws}</td>
-                      <td className="border border-zinc-400 px-2 py-1 text-center">{p.total_shots_for}</td>
-                      <td className="border border-zinc-400 px-2 py-1 text-center">{p.total_shots_against}</td>
-                      <td className="border border-zinc-400 px-2 py-1 text-center font-bold">
+                      <td className="border border-[#0A2E12]/10 px-2 py-1 font-bold">{idx + 1}</td>
+                      <td className="border border-[#0A2E12]/10 px-2 py-1 font-medium">{p.display_name}</td>
+                      <td className="border border-[#0A2E12]/10 px-2 py-1 text-center">{p.games_played}</td>
+                      <td className="border border-[#0A2E12]/10 px-2 py-1 text-center font-bold">{p.wins}</td>
+                      <td className="border border-[#0A2E12]/10 px-2 py-1 text-center">{p.losses}</td>
+                      <td className="border border-[#0A2E12]/10 px-2 py-1 text-center">{p.draws}</td>
+                      <td className="border border-[#0A2E12]/10 px-2 py-1 text-center">{p.total_shots_for}</td>
+                      <td className="border border-[#0A2E12]/10 px-2 py-1 text-center">{p.total_shots_against}</td>
+                      <td className="border border-[#0A2E12]/10 px-2 py-1 text-center font-bold">
                         {p.total_shots_for - p.total_shots_against > 0 ? "+" : ""}
                         {p.total_shots_for - p.total_shots_against}
                       </td>
@@ -393,11 +393,11 @@ export default function ResultsPage() {
         </div>
 
         {rounds.length === 0 ? (
-          <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
-            <p className="text-lg font-semibold text-zinc-400">
+          <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-12 text-center">
+            <p className="text-lg font-semibold text-[#3D5A3E]">
               No scores recorded yet
             </p>
-            <p className="mt-1 text-sm text-zinc-400">
+            <p className="mt-1 text-sm text-[#3D5A3E]">
               Enter scores to see results here
             </p>
             <button
@@ -411,33 +411,33 @@ export default function ResultsPage() {
           <>
             {/* Stats overview */}
             <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <div className="rounded-2xl bg-white border border-zinc-200 p-4 text-center">
-                <p className="text-3xl font-black text-zinc-900 dark:text-zinc-100">
+              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
+                <p className="text-3xl font-black text-[#0A2E12]">
                   {rounds.length}
                 </p>
-                <p className="text-xs text-zinc-500 mt-1">
+                <p className="text-xs text-[#3D5A3E] mt-1">
                   Round{rounds.length !== 1 ? "s" : ""} Played
                 </p>
               </div>
-              <div className="rounded-2xl bg-white border border-zinc-200 p-4 text-center">
+              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
                 <p className="text-3xl font-black text-[#1B5E20]">
                   {stats.totalShots}
                 </p>
-                <p className="text-xs text-zinc-500 mt-1">Total Shots</p>
+                <p className="text-xs text-[#3D5A3E] mt-1">Total Shots</p>
               </div>
-              <div className="rounded-2xl bg-white border border-zinc-200 p-4 text-center">
+              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
                 <p className="text-3xl font-black text-purple-600">
                   {stats.totalEnds}
                 </p>
-                <p className="text-xs text-zinc-500 mt-1">Total Ends</p>
+                <p className="text-xs text-[#3D5A3E] mt-1">Total Ends</p>
               </div>
-              <div className="rounded-2xl bg-white border border-zinc-200 p-4 text-center">
+              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
                 <p className="text-3xl font-black text-[#1B5E20]">
                   {stats.highestRinkScore?.score ?? 0}
                 </p>
-                <p className="text-xs text-zinc-500 mt-1">Highest Score</p>
+                <p className="text-xs text-[#3D5A3E] mt-1">Highest Score</p>
                 {stats.highestRinkScore && (
-                  <p className="text-[10px] text-zinc-400">
+                  <p className="text-[10px] text-[#3D5A3E]">
                     {stats.highestRinkScore.team}, Rink{" "}
                     {stats.highestRinkScore.rink} R
                     {stats.highestRinkScore.round}
@@ -454,7 +454,7 @@ export default function ResultsPage() {
                   "rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors min-h-[44px] touch-manipulation",
                   !showStandings
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
+                    : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
                 )}
               >
                 Round Results
@@ -465,7 +465,7 @@ export default function ResultsPage() {
                   "rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors min-h-[44px] touch-manipulation",
                   showStandings
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
+                    : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
                 )}
               >
                 Player Standings
@@ -474,44 +474,44 @@ export default function ResultsPage() {
 
             {/* Player Standings Table */}
             {showStandings && playerStandings.length > 0 && (
-              <div className="mb-6 rounded-2xl bg-white border border-zinc-200 overflow-hidden">
-                <div className="bg-zinc-50 border-b border-zinc-200 px-5 py-3">
-                  <h3 className="text-sm font-bold text-zinc-700">
+              <div className="mb-6 rounded-2xl bg-white border border-[#0A2E12]/10 overflow-hidden">
+                <div className="bg-[#0A2E12]/[0.03] border-b border-[#0A2E12]/10 px-5 py-3">
+                  <h3 className="text-sm font-bold text-[#2D4A30]">
                     Player Standings (All Rounds)
                   </h3>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-zinc-200 bg-zinc-50/50">
-                        <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-zinc-400">#</th>
-                        <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-zinc-400">Player</th>
-                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400">P</th>
-                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400">W</th>
-                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400">L</th>
-                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400">D</th>
-                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400">SF</th>
-                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400">SA</th>
-                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400">+/-</th>
+                      <tr className="border-b border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]/50">
+                        <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">#</th>
+                        <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">Player</th>
+                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">P</th>
+                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">W</th>
+                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">L</th>
+                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">D</th>
+                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">SF</th>
+                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">SA</th>
+                        <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">+/-</th>
                       </tr>
                     </thead>
                     <tbody>
                       {playerStandings.map((p, idx) => (
-                        <tr key={p.player_id} className="border-b border-zinc-100 last:border-0">
-                          <td className="px-4 py-3 text-sm font-bold text-zinc-400">{idx + 1}</td>
-                          <td className="px-4 py-3 text-sm font-semibold text-zinc-900 whitespace-nowrap">
+                        <tr key={p.player_id} className="border-b border-[#0A2E12]/10 last:border-0">
+                          <td className="px-4 py-3 text-sm font-bold text-[#3D5A3E]">{idx + 1}</td>
+                          <td className="px-4 py-3 text-sm font-semibold text-[#0A2E12] whitespace-nowrap">
                             {p.display_name}
                           </td>
-                          <td className="px-3 py-3 text-center font-medium text-zinc-700">{p.games_played}</td>
+                          <td className="px-3 py-3 text-center font-medium text-[#2D4A30]">{p.games_played}</td>
                           <td className="px-3 py-3 text-center font-bold text-[#1B5E20]">{p.wins}</td>
                           <td className="px-3 py-3 text-center font-medium text-red-500">{p.losses}</td>
                           <td className="px-3 py-3 text-center font-medium text-amber-600">{p.draws}</td>
-                          <td className="px-3 py-3 text-center font-medium text-zinc-600 tabular-nums">{p.total_shots_for}</td>
-                          <td className="px-3 py-3 text-center font-medium text-zinc-600 tabular-nums">{p.total_shots_against}</td>
+                          <td className="px-3 py-3 text-center font-medium text-[#3D5A3E] tabular-nums">{p.total_shots_for}</td>
+                          <td className="px-3 py-3 text-center font-medium text-[#3D5A3E] tabular-nums">{p.total_shots_against}</td>
                           <td className={cn(
                             "px-3 py-3 text-center font-bold tabular-nums",
                             p.total_shots_for - p.total_shots_against > 0 ? "text-[#1B5E20]" :
-                            p.total_shots_for - p.total_shots_against < 0 ? "text-red-500" : "text-zinc-400"
+                            p.total_shots_for - p.total_shots_against < 0 ? "text-red-500" : "text-[#3D5A3E]"
                           )}>
                             {p.total_shots_for - p.total_shots_against > 0 ? "+" : ""}
                             {p.total_shots_for - p.total_shots_against}
@@ -536,7 +536,7 @@ export default function ResultsPage() {
                         "flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors whitespace-nowrap min-h-[44px] touch-manipulation",
                         selectedRound === r.round
                           ? "bg-[#1B5E20] text-white"
-                          : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
+                          : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
                       )}
                     >
                       Round {r.round}
@@ -565,11 +565,11 @@ export default function ResultsPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.05 }}
-                        className="rounded-2xl bg-white border border-zinc-200 overflow-hidden"
+                        className="rounded-2xl bg-white border border-[#0A2E12]/10 overflow-hidden"
                       >
                         {/* Rink header */}
-                        <div className="bg-zinc-50 border-b border-zinc-200 px-5 py-3 flex items-center justify-between">
-                          <h3 className="text-sm font-bold text-zinc-700">
+                        <div className="bg-[#0A2E12]/[0.03] border-b border-[#0A2E12]/10 px-5 py-3 flex items-center justify-between">
+                          <h3 className="text-sm font-bold text-[#2D4A30]">
                             Rink {score.rink}
                           </h3>
                           <div className="flex items-center gap-2">
@@ -597,10 +597,10 @@ export default function ResultsPage() {
                                 "text-center p-3 rounded-xl",
                                 score.winner === "team_a"
                                   ? "bg-blue-50 ring-2 ring-blue-200"
-                                  : "bg-zinc-50 dark:bg-white/5"
+                                  : "bg-[#0A2E12]/[0.03]"
                               )}
                             >
-                              <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
+                              <p className="text-xs font-bold uppercase tracking-wider text-[#3D5A3E] mb-1">
                                 Team A
                               </p>
                               <p
@@ -608,19 +608,19 @@ export default function ResultsPage() {
                                   "text-3xl font-black tabular-nums",
                                   score.winner === "team_a"
                                     ? "text-[#1B5E20]"
-                                    : "text-zinc-700"
+                                    : "text-[#2D4A30]"
                                 )}
                               >
                                 {score.total_a}
                               </p>
-                              <p className="text-xs text-zinc-500 mt-1">
+                              <p className="text-xs text-[#3D5A3E] mt-1">
                                 {score.ends_won_a} end
                                 {score.ends_won_a !== 1 ? "s" : ""} won
                               </p>
                             </div>
 
                             <div className="flex items-center justify-center">
-                              <span className="text-2xl font-black text-zinc-300">
+                              <span className="text-2xl font-black text-[#3D5A3E]">
                                 vs
                               </span>
                             </div>
@@ -630,10 +630,10 @@ export default function ResultsPage() {
                                 "text-center p-3 rounded-xl",
                                 score.winner === "team_b"
                                   ? "bg-purple-50 ring-2 ring-purple-200"
-                                  : "bg-zinc-50 dark:bg-white/5"
+                                  : "bg-[#0A2E12]/[0.03]"
                               )}
                             >
-                              <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
+                              <p className="text-xs font-bold uppercase tracking-wider text-[#3D5A3E] mb-1">
                                 Team B
                               </p>
                               <p
@@ -641,12 +641,12 @@ export default function ResultsPage() {
                                   "text-3xl font-black tabular-nums",
                                   score.winner === "team_b"
                                     ? "text-purple-600"
-                                    : "text-zinc-700"
+                                    : "text-[#2D4A30]"
                                 )}
                               >
                                 {score.total_b}
                               </p>
-                              <p className="text-xs text-zinc-500 mt-1">
+                              <p className="text-xs text-[#3D5A3E] mt-1">
                                 {score.ends_won_b} end
                                 {score.ends_won_b !== 1 ? "s" : ""} won
                               </p>
@@ -655,28 +655,28 @@ export default function ResultsPage() {
 
                           {/* End-by-end breakdown */}
                           {score.team_a_scores.length > 0 && (
-                            <div className="overflow-x-auto rounded-xl bg-zinc-50 border border-zinc-100">
+                            <div className="overflow-x-auto rounded-xl bg-[#0A2E12]/[0.03] border border-[#0A2E12]/10">
                               <table className="w-full text-sm">
                                 <thead>
-                                  <tr className="border-b border-zinc-200 dark:border-white/10">
-                                    <th className="px-3 py-2 text-left text-xs font-bold text-zinc-400">
+                                  <tr className="border-b border-[#0A2E12]/10">
+                                    <th className="px-3 py-2 text-left text-xs font-bold text-[#3D5A3E]">
                                       &nbsp;
                                     </th>
                                     {score.team_a_scores.map((_, i) => (
                                       <th
                                         key={i}
-                                        className="px-2 py-2 text-center text-xs font-bold text-zinc-400"
+                                        className="px-2 py-2 text-center text-xs font-bold text-[#3D5A3E]"
                                       >
                                         {i + 1}
                                       </th>
                                     ))}
-                                    <th className="px-3 py-2 text-center text-xs font-bold text-zinc-700 border-l border-zinc-200">
+                                    <th className="px-3 py-2 text-center text-xs font-bold text-[#2D4A30] border-l border-[#0A2E12]/10">
                                       Tot
                                     </th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr className="border-b border-zinc-100">
+                                  <tr className="border-b border-[#0A2E12]/10">
                                     <td className="px-3 py-2 font-semibold text-[#1B5E20]">
                                       A
                                     </td>
@@ -688,14 +688,14 @@ export default function ResultsPage() {
                                           s > score.team_b_scores[i]
                                             ? "text-[#1B5E20]"
                                             : s === 0
-                                              ? "text-zinc-300"
-                                              : "text-zinc-500 dark:text-zinc-400"
+                                              ? "text-[#3D5A3E]"
+                                              : "text-[#3D5A3E]"
                                         )}
                                       >
                                         {s}
                                       </td>
                                     ))}
-                                    <td className="px-3 py-2 text-center font-black text-zinc-900 border-l border-zinc-200 tabular-nums">
+                                    <td className="px-3 py-2 text-center font-black text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
                                       {score.total_a}
                                     </td>
                                   </tr>
@@ -711,14 +711,14 @@ export default function ResultsPage() {
                                           s > score.team_a_scores[i]
                                             ? "text-[#1B5E20]"
                                             : s === 0
-                                              ? "text-zinc-300"
-                                              : "text-zinc-500 dark:text-zinc-400"
+                                              ? "text-[#3D5A3E]"
+                                              : "text-[#3D5A3E]"
                                         )}
                                       >
                                         {s}
                                       </td>
                                     ))}
-                                    <td className="px-3 py-2 text-center font-black text-zinc-900 border-l border-zinc-200 tabular-nums">
+                                    <td className="px-3 py-2 text-center font-black text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
                                       {score.total_b}
                                     </td>
                                   </tr>
@@ -730,9 +730,9 @@ export default function ResultsPage() {
                           {/* Player names if available */}
                           {(score.team_a_players?.length > 0 ||
                             score.team_b_players?.length > 0) && (
-                            <div className="mt-4 grid grid-cols-2 gap-4 text-xs text-zinc-500 dark:text-zinc-400">
+                            <div className="mt-4 grid grid-cols-2 gap-4 text-xs text-[#3D5A3E]">
                               <div>
-                                <p className="font-bold text-zinc-400 mb-1">
+                                <p className="font-bold text-[#3D5A3E] mb-1">
                                   Team A Players
                                 </p>
                                 {score.team_a_players.map((p) => (
@@ -740,7 +740,7 @@ export default function ResultsPage() {
                                 ))}
                               </div>
                               <div>
-                                <p className="font-bold text-zinc-400 mb-1">
+                                <p className="font-bold text-[#3D5A3E] mb-1">
                                   Team B Players
                                 </p>
                                 {score.team_b_players.map((p) => (

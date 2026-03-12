@@ -107,7 +107,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
               "flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-medium transition-all",
               mode === m.value
                 ? "bg-[#1B5E20] text-white"
-                : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
+                : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:text-[#2D4A30]"
             )}
           >
             {m.icon}
@@ -129,7 +129,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
       {/* Draft pool */}
       {mode === "captain" && pool.length > 0 && (
         <div>
-          <p className="mb-2 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mb-2 text-sm text-[#3D5A3E]">
             Team {pickingTeam} picks:
           </p>
           <div className="flex flex-wrap gap-2">
@@ -147,16 +147,16 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
                       : "border-red-500/30 hover:bg-red-500/10"
                   )}
                 >
-                  <div className="h-6 w-6 overflow-hidden rounded-full bg-zinc-700">
+                  <div className="h-6 w-6 overflow-hidden rounded-full bg-[#0A2E12]">
                     {p.avatar_url ? (
                       <img src={p.avatar_url} alt="" className="h-full w-full object-cover" />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center text-xs text-zinc-400">
+                      <div className="flex h-full w-full items-center justify-center text-xs text-[#3D5A3E]">
                         {p.name?.charAt(0)}
                       </div>
                     )}
                   </div>
-                  <span className="text-zinc-700">{p.name}</span>
+                  <span className="text-[#2D4A30]">{p.name}</span>
                 </motion.button>
               ))}
             </AnimatePresence>
@@ -170,12 +170,12 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
           <h4 className="mb-2 text-sm font-bold text-blue-400">Team 1</h4>
           <div className="space-y-1.5">
             {team1.map((p) => (
-              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-                <div className="h-5 w-5 overflow-hidden rounded-full bg-zinc-700">
+              <div key={p.id} className="flex items-center gap-2 text-sm text-[#3D5A3E]">
+                <div className="h-5 w-5 overflow-hidden rounded-full bg-[#0A2E12]">
                   {p.avatar_url ? (
                     <img src={p.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500 dark:text-zinc-400">
+                    <div className="flex h-full w-full items-center justify-center text-xs text-[#3D5A3E]">
                       {p.name?.charAt(0)}
                     </div>
                   )}
@@ -183,7 +183,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
                 {p.name}
               </div>
             ))}
-            {team1.length === 0 && <p className="text-xs text-zinc-600 dark:text-zinc-400">No players</p>}
+            {team1.length === 0 && <p className="text-xs text-[#3D5A3E]">No players</p>}
           </div>
         </div>
 
@@ -191,12 +191,12 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
           <h4 className="mb-2 text-sm font-bold text-red-400">Team 2</h4>
           <div className="space-y-1.5">
             {team2.map((p) => (
-              <div key={p.id} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-                <div className="h-5 w-5 overflow-hidden rounded-full bg-zinc-700">
+              <div key={p.id} className="flex items-center gap-2 text-sm text-[#3D5A3E]">
+                <div className="h-5 w-5 overflow-hidden rounded-full bg-[#0A2E12]">
                   {p.avatar_url ? (
                     <img src={p.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500 dark:text-zinc-400">
+                    <div className="flex h-full w-full items-center justify-center text-xs text-[#3D5A3E]">
                       {p.name?.charAt(0)}
                     </div>
                   )}
@@ -204,7 +204,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
                 {p.name}
               </div>
             ))}
-            {team2.length === 0 && <p className="text-xs text-zinc-600 dark:text-zinc-400">No players</p>}
+            {team2.length === 0 && <p className="text-xs text-[#3D5A3E]">No players</p>}
           </div>
         </div>
       </div>
@@ -214,7 +214,7 @@ export function TeamPicker({ players, onTeamsSet }: TeamPickerProps) {
         <div className="flex gap-2">
           <button
             onClick={handleReset}
-            className="flex-1 rounded-xl border border-zinc-200 py-2.5 text-sm font-medium text-zinc-400 hover:text-zinc-700"
+            className="flex-1 rounded-xl border border-[#0A2E12]/10 py-2.5 text-sm font-medium text-[#3D5A3E] hover:text-[#2D4A30]"
           >
             Reset
           </button>

@@ -33,7 +33,7 @@ export function TournamentList() {
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-40 animate-pulse rounded-2xl bg-zinc-100" />
+          <div key={i} className="h-40 animate-pulse rounded-2xl bg-[#0A2E12]/5" />
         ))}
       </div>
     );
@@ -53,9 +53,9 @@ export function TournamentList() {
 
       {tournaments.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <Trophy className="mb-3 h-12 w-12 text-zinc-700" />
-          <h3 className="mb-1 text-lg font-semibold text-zinc-400">No tournaments yet</h3>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">Create a tournament to get started</p>
+          <Trophy className="mb-3 h-12 w-12 text-[#2D4A30]" />
+          <h3 className="mb-1 text-lg font-semibold text-[#3D5A3E]">No tournaments yet</h3>
+          <p className="text-sm text-[#3D5A3E]">Create a tournament to get started</p>
         </div>
       ) : (
         <motion.div

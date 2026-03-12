@@ -45,11 +45,11 @@ export function WaitlistPosition({
           <p className="text-sm font-semibold text-amber-400">
             You are #{position} in line
           </p>
-          <p className="text-xs text-zinc-500">for {sport}</p>
+          <p className="text-xs text-[#3D5A3E]">for {sport}</p>
           {estimatedWaitMinutes != null && (
             <div className="mt-1 flex items-center gap-1">
-              <Timer className="h-3 w-3 text-zinc-400" />
-              <p className="text-xs text-zinc-400">
+              <Timer className="h-3 w-3 text-[#3D5A3E]" />
+              <p className="text-xs text-[#3D5A3E]">
                 Est. wait: {formatWaitTime(estimatedWaitMinutes)}
               </p>
             </div>
@@ -58,7 +58,7 @@ export function WaitlistPosition({
       </div>
       <button
         onClick={handleLeave}
-        className="rounded-lg p-2 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-600 min-h-[44px] min-w-[44px] flex items-center justify-center"
+        className="rounded-lg p-2 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#3D5A3E] min-h-[44px] min-w-[44px] flex items-center justify-center"
       >
         <X className="h-4 w-4" />
       </button>

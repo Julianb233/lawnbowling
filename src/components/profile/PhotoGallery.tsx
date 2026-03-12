@@ -62,14 +62,14 @@ export function PhotoGallery({ photos, editable = false, onPhotosChange }: Photo
 
   return (
     <div>
-      <h2 className="mb-3 text-sm font-medium text-zinc-600 dark:text-zinc-400">Photos</h2>
+      <h2 className="mb-3 text-sm font-medium text-[#3D5A3E]">Photos</h2>
 
       <div className="grid grid-cols-3 gap-2">
         {photos.map((photo) => (
           <button
             key={photo.id}
             onClick={() => setLightboxPhoto(photo)}
-            className="group relative aspect-square overflow-hidden rounded-lg bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-[#1B5E20] focus:ring-offset-2"
+            className="group relative aspect-square overflow-hidden rounded-lg bg-[#0A2E12]/5 focus:outline-none focus:ring-2 focus:ring-[#1B5E20] focus:ring-offset-2"
           >
             <Image
               src={photo.url}
@@ -85,7 +85,7 @@ export function PhotoGallery({ photos, editable = false, onPhotosChange }: Photo
           <button
             onClick={() => inputRef.current?.click()}
             disabled={uploading}
-            className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-zinc-300 bg-zinc-50 text-zinc-400 transition-colors hover:border-[#1B5E20] hover:text-[#1B5E20] min-h-[44px]"
+            className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] text-[#3D5A3E] transition-colors hover:border-[#1B5E20] hover:text-[#1B5E20] min-h-[44px]"
           >
             {uploading ? (
               <Loader2 className="h-6 w-6 animate-spin" />
@@ -116,7 +116,7 @@ export function PhotoGallery({ photos, editable = false, onPhotosChange }: Photo
             className="relative max-h-[80vh] max-w-lg w-full"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-zinc-900">
+            <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-[#0A2E12]">
               <Image
                 src={lightboxPhoto.url}
                 alt={lightboxPhoto.caption || "Gallery photo"}
@@ -134,7 +134,7 @@ export function PhotoGallery({ photos, editable = false, onPhotosChange }: Photo
 
             <button
               onClick={() => setLightboxPhoto(null)}
-              className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white text-zinc-900 shadow-lg hover:bg-zinc-100 min-h-[44px] min-w-[44px]"
+              className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#0A2E12] shadow-lg hover:bg-[#0A2E12]/5 min-h-[44px] min-w-[44px]"
             >
               <X className="h-4 w-4" />
             </button>

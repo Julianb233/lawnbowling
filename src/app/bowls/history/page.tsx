@@ -103,21 +103,21 @@ export default function BowlsHistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
+              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
                 Tournament History
               </h1>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="text-sm text-[#3D5A3E]">
                 {tournaments.length} tournament{tournaments.length !== 1 ? "s" : ""} total
               </p>
             </div>
             <Link
               href="/bowls"
-              className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation inline-flex items-center"
+              className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation inline-flex items-center"
             >
               Back to Bowls
             </Link>
@@ -132,7 +132,7 @@ export default function BowlsHistoryPage() {
                 className={`rounded-lg px-4 py-2 text-sm font-semibold transition-colors min-h-[40px] touch-manipulation ${
                   filter === f
                     ? "bg-[#1B5E20] text-white"
-                    : "text-zinc-500 hover:bg-zinc-100"
+                    : "text-[#3D5A3E] hover:bg-[#0A2E12]/5"
                 }`}
               >
                 {f === "all" ? "All" : f === "active" ? "Active" : "Completed"}
@@ -144,11 +144,11 @@ export default function BowlsHistoryPage() {
 
       <main className="mx-auto max-w-3xl px-4 py-6">
         {filtered.length === 0 ? (
-          <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
-            <p className="text-lg font-semibold text-zinc-500">
+          <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-12 text-center">
+            <p className="text-lg font-semibold text-[#3D5A3E]">
               No tournaments found
             </p>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-[#3D5A3E]">
               {filter === "completed"
                 ? "No completed tournaments yet"
                 : filter === "active"
@@ -169,14 +169,14 @@ export default function BowlsHistoryPage() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
-                    className="rounded-2xl bg-white border border-zinc-200 p-5 transition-all hover:border-zinc-300 hover:shadow-sm"
+                    className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 transition-all hover:border-[#0A2E12]/10 hover:shadow-sm"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-bold text-zinc-900 truncate">
+                        <h3 className="text-base font-bold text-[#0A2E12] truncate">
                           {t.name}
                         </h3>
-                        <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+                        <p className="mt-0.5 text-sm text-[#3D5A3E]">
                           {formatLabel}
                           {t.starts_at && (
                             <>
@@ -205,7 +205,7 @@ export default function BowlsHistoryPage() {
                       <span
                         className={`rounded-full px-2.5 py-1 text-sm font-bold shrink-0 ml-3 ${
                           isCompleted
-                            ? "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                            ? "bg-[#0A2E12]/5 text-[#3D5A3E]"
                             : "bg-[#1B5E20]/10 text-[#2E7D32]"
                         }`}
                       >
@@ -214,7 +214,7 @@ export default function BowlsHistoryPage() {
                     </div>
 
                     {/* Stats row */}
-                    <div className="mt-3 flex items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400">
+                    <div className="mt-3 flex items-center gap-4 text-xs text-[#3D5A3E]">
                       <span className="flex items-center gap-1">
                         <span className="font-bold text-[#1B5E20]">{t.checkin_count}</span> players
                       </span>
@@ -234,7 +234,7 @@ export default function BowlsHistoryPage() {
                     )}
 
                     {t.creator?.display_name && (
-                      <p className="mt-2 text-xs text-zinc-500">
+                      <p className="mt-2 text-xs text-[#3D5A3E]">
                         Created by {t.creator.display_name}
                       </p>
                     )}

@@ -54,12 +54,12 @@ function LawnBowlingRink() {
 export function CourtDiagram() {
   return (
     <section id="court">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">The Rink</h2>
+      <h2 className="mb-4 text-2xl font-bold text-[#0A2E12]">The Rink</h2>
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:p-6"
+        className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4 sm:p-6"
       >
         <LawnBowlingRink />
       </motion.div>

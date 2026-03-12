@@ -315,7 +315,7 @@ export function WeatherWidget({
     return (
       <div
         className={cn(
-          "rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4",
+          "rounded-2xl border border-[#0A2E12]/10 bg-white p-4",
           className
         )}
       >
@@ -334,11 +334,11 @@ export function WeatherWidget({
     return (
       <div
         className={cn(
-          "rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4",
+          "rounded-2xl border border-[#0A2E12]/10 bg-white p-4",
           className
         )}
       >
-        <p className="text-sm text-zinc-400">
+        <p className="text-sm text-[#3D5A3E]">
           {error ?? "Weather unavailable"}
         </p>
       </div>
@@ -356,15 +356,15 @@ export function WeatherWidget({
     return (
       <div
         className={cn(
-          "flex items-center gap-3 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3",
+          "flex items-center gap-3 rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3",
           className
         )}
       >
-        <WeatherIcon type={weatherInfo.icon} className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
-        <span className="text-lg font-bold text-zinc-900 tabular-nums">
+        <WeatherIcon type={weatherInfo.icon} className="h-5 w-5 text-[#3D5A3E]" />
+        <span className="text-lg font-bold text-[#0A2E12] tabular-nums">
           {weather.temperature}&deg;F
         </span>
-        <span className="text-sm text-zinc-500 dark:text-zinc-400">
+        <span className="text-sm text-[#3D5A3E]">
           Wind {weather.windSpeed} mph {windDir}
         </span>
         {windWarning && (
@@ -379,7 +379,7 @@ export function WeatherWidget({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden",
+        "rounded-2xl border border-[#0A2E12]/10 bg-white overflow-hidden",
         className
       )}
     >
@@ -393,16 +393,16 @@ export function WeatherWidget({
               />
             </div>
             <div>
-              <p className="text-3xl font-black text-zinc-900 tabular-nums">
+              <p className="text-3xl font-black text-[#0A2E12] tabular-nums">
                 {weather.temperature}&deg;F
               </p>
-              <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+              <p className="text-sm font-medium text-[#3D5A3E]">
                 {weatherInfo.label}
               </p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-xs text-zinc-400">{locationName}</p>
+            <p className="text-xs text-[#3D5A3E]">{locationName}</p>
           </div>
         </div>
       </div>
@@ -420,23 +420,23 @@ export function WeatherWidget({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-zinc-400"
+            className="text-[#3D5A3E]"
           >
             <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2" />
             <path d="M9.6 4.6A2 2 0 1 1 11 8H2" />
             <path d="M12.6 19.4A2 2 0 1 0 14 16H2" />
           </svg>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-zinc-700">
+            <p className="text-sm font-semibold text-[#2D4A30]">
               Wind: {weather.windSpeed} mph {windDir}
             </p>
-            <p className="text-xs text-zinc-400">
+            <p className="text-xs text-[#3D5A3E]">
               Direction: {weather.windDirection}&deg;
             </p>
           </div>
           {/* Wind compass */}
           <div
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0A2E12]/10"
             title={`Wind from ${windDir} (${weather.windDirection}°)`}
           >
             <svg

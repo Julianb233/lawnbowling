@@ -35,7 +35,7 @@ export function BlockButton({ targetId, className }: BlockButtonProps) {
       onClick={handleBlock}
       disabled={isPending}
       className={cn(
-        "text-xs text-zinc-500 hover:text-red-400 transition-colors",
+        "text-xs text-[#3D5A3E] hover:text-red-400 transition-colors",
         className
       )}
     >

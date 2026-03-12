@@ -71,11 +71,11 @@ export function GlobalSearch() {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 rounded-xl bg-zinc-50 px-3 py-2 text-sm text-zinc-500 hover:bg-zinc-100 min-h-[44px] transition-colors"
+        className="flex items-center gap-2 rounded-xl bg-[#0A2E12]/[0.03] px-3 py-2 text-sm text-[#3D5A3E] hover:bg-[#0A2E12]/5 min-h-[44px] transition-colors"
       >
         <Search className="h-4 w-4" />
         <span className="hidden sm:inline">Search...</span>
-        <kbd className="hidden rounded bg-zinc-100 px-1.5 py-0.5 text-xs text-zinc-500 sm:inline">
+        <kbd className="hidden rounded bg-[#0A2E12]/5 px-1.5 py-0.5 text-xs text-[#3D5A3E] sm:inline">
           &#8984;K
         </kbd>
       </button>
@@ -98,8 +98,8 @@ export function GlobalSearch() {
               className="w-full max-w-lg rounded-2xl glass overflow-hidden"
             >
               {/* Search input */}
-              <div className="flex items-center gap-3 border-b border-zinc-200 px-4 py-3">
-                <Search className="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
+              <div className="flex items-center gap-3 border-b border-[#0A2E12]/10 px-4 py-3">
+                <Search className="h-5 w-5 text-[#3D5A3E]" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -107,11 +107,11 @@ export function GlobalSearch() {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                   placeholder="Search players, teams, games..."
-                  className="flex-1 bg-transparent text-zinc-900 placeholder-zinc-600 outline-none"
+                  className="flex-1 bg-transparent text-[#0A2E12] placeholder-[#3D5A3E] outline-none"
                 />
                 {query && (
                   <button onClick={() => setQuery("")}>
-                    <X className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
+                    <X className="h-4 w-4 text-[#3D5A3E]" />
                   </button>
                 )}
               </div>
@@ -124,7 +124,7 @@ export function GlobalSearch() {
               ) : query.length >= 2 ? (
                 <SearchResults {...results} onSelect={handleSelect} />
               ) : (
-                <div className="px-4 py-6 text-center text-sm text-zinc-600 dark:text-zinc-400">
+                <div className="px-4 py-6 text-center text-sm text-[#3D5A3E]">
                   Type at least 2 characters to search
                 </div>
               )}

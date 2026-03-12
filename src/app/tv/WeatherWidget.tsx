@@ -80,13 +80,13 @@ export default function WeatherWidget() {
   if (error || !weather) return null;
 
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-zinc-800/50 px-4 py-2">
+    <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-[#0A2E12]/50 px-4 py-2">
       {weather.Icon && <weather.Icon className="w-6 h-6 text-white" strokeWidth={1.5} />}
       <div className="text-right">
         <p className="text-lg font-black tabular-nums leading-tight">
           {weather.temperature}°F
         </p>
-        <p className="text-[11px] text-zinc-400 leading-tight">
+        <p className="text-[11px] text-[#3D5A3E] leading-tight">
           {weather.condition} · {weather.windSpeed} mph
         </p>
       </div>

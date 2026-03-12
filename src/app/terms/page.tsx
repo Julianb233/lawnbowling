@@ -11,20 +11,20 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-[#FEFCF9]">
-      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 dark:bg-[#1a3d28]/80 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-[#1B5E20] shadow-lg shadow-[#1B5E20]/15">
               <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+            <span className="text-lg font-bold text-[#0A2E12]">
               Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
             <Link
               href="/about"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
             >
               About
             </Link>
@@ -39,13 +39,13 @@ export default function TermsPage() {
       </nav>
 
       <main className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-3xl font-bold text-zinc-900 mb-8">
+        <h1 className="text-3xl font-bold text-[#0A2E12] mb-8">
           Terms of Service
         </h1>
-        <div className="prose prose-zinc max-w-none space-y-6 text-zinc-600 text-sm leading-relaxed">
+        <div className="prose prose-zinc max-w-none space-y-6 text-[#3D5A3E] text-sm leading-relaxed">
           <p>Last updated: March 10, 2026</p>
 
-          <h2 className="text-xl font-semibold text-zinc-900 mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
             1. Acceptance of Terms
           </h2>
           <p>
@@ -54,7 +54,7 @@ export default function TermsPage() {
             agree, do not use the Service.
           </p>
 
-          <h2 className="text-xl font-semibold text-zinc-900 mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
             2. Description of Service
           </h2>
           <p>
@@ -63,7 +63,7 @@ export default function TermsPage() {
             partners, schedule games, and track match statistics.
           </p>
 
-          <h2 className="text-xl font-semibold text-zinc-900 mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
             3. User Accounts
           </h2>
           <p>
@@ -73,7 +73,7 @@ export default function TermsPage() {
             Service.
           </p>
 
-          <h2 className="text-xl font-semibold text-zinc-900 mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
             4. Acceptable Use
           </h2>
           <p>
@@ -83,7 +83,7 @@ export default function TermsPage() {
             Service.
           </p>
 
-          <h2 className="text-xl font-semibold text-zinc-900 mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
             5. Content
           </h2>
           <p>
@@ -92,7 +92,7 @@ export default function TermsPage() {
             content that violates these terms.
           </p>
 
-          <h2 className="text-xl font-semibold text-zinc-900 mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
             6. Venue Partnerships
           </h2>
           <p>
@@ -101,7 +101,7 @@ export default function TermsPage() {
             does not replace venue-specific waivers or safety protocols.
           </p>
 
-          <h2 className="text-xl font-semibold text-zinc-900 mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
             7. Limitation of Liability
           </h2>
           <p>
@@ -111,7 +111,7 @@ export default function TermsPage() {
             activities.
           </p>
 
-          <h2 className="text-xl font-semibold text-zinc-900 mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
             8. Termination
           </h2>
           <p>
@@ -120,7 +120,7 @@ export default function TermsPage() {
             Settings page.
           </p>
 
-          <h2 className="text-xl font-semibold text-zinc-900 mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
             9. Changes
           </h2>
           <p>
@@ -128,7 +128,7 @@ export default function TermsPage() {
             Service constitutes acceptance of updated terms.
           </p>
 
-          <h2 className="text-xl font-semibold text-zinc-900 mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
             10. Contact
           </h2>
           <p>
@@ -141,29 +141,29 @@ export default function TermsPage() {
         </div>
       </main>
 
-      <footer className="border-t border-zinc-200 bg-zinc-50 dark:bg-white/5">
+      <footer className="border-t border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#1B5E20] to-[#1B5E20]">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900 dark:text-zinc-100">Lawnbowling</span>
+            <span className="font-semibold text-[#0A2E12]">Lawnbowling</span>
           </Link>
-          <div className="flex items-center gap-6 text-sm text-zinc-500 dark:text-zinc-400">
-            <Link href="/about" className="hover:text-zinc-700 transition">
+          <div className="flex items-center gap-6 text-sm text-[#3D5A3E]">
+            <Link href="/about" className="hover:text-[#2D4A30] transition">
               About
             </Link>
-            <Link href="/faq" className="hover:text-zinc-700 transition">
+            <Link href="/faq" className="hover:text-[#2D4A30] transition">
               FAQ
             </Link>
-            <Link href="/terms" className="hover:text-zinc-700 transition">
+            <Link href="/terms" className="hover:text-[#2D4A30] transition">
               Terms
             </Link>
-            <Link href="/privacy" className="hover:text-zinc-700 transition">
+            <Link href="/privacy" className="hover:text-[#2D4A30] transition">
               Privacy
             </Link>
           </div>
-          <span className="text-sm text-zinc-400">
+          <span className="text-sm text-[#3D5A3E]">
             &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>

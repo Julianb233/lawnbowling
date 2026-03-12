@@ -26,7 +26,7 @@ export function FriendRequests({ requests, onRespond }: FriendRequestsProps) {
 
   return (
     <div className="space-y-2">
-      <h3 className="text-sm font-semibold text-zinc-600 uppercase tracking-wider">
+      <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider">
         Pending Requests ({requests.length})
       </h3>
       {requests.map((req) => (
@@ -38,10 +38,10 @@ export function FriendRequests({ requests, onRespond }: FriendRequestsProps) {
             {req.player?.display_name?.charAt(0)?.toUpperCase() || "?"}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-zinc-900 truncate">
+            <p className="text-sm font-medium text-[#0A2E12] truncate">
               {req.player?.display_name || "Unknown"}
             </p>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">Wants to be friends</p>
+            <p className="text-xs text-[#3D5A3E]">Wants to be friends</p>
           </div>
           <div className="flex gap-1.5">
             <button

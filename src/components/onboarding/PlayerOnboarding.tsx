@@ -199,12 +199,12 @@ export function PlayerOnboarding() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="relative mx-4 w-full max-w-md rounded-3xl bg-zinc-950 border border-white/10 shadow-2xl overflow-hidden"
+            className="relative mx-4 w-full max-w-md rounded-3xl bg-[#0A2E12]/5 border border-white/10 shadow-2xl overflow-hidden"
           >
             {/* Skip button */}
             <button
               onClick={handleDismiss}
-              className="absolute right-4 top-4 z-10 flex items-center gap-1 rounded-full px-3 py-1.5 text-xs text-zinc-500 hover:text-zinc-300 hover:bg-white/5 transition-colors min-h-[44px]"
+              className="absolute right-4 top-4 z-10 flex items-center gap-1 rounded-full px-3 py-1.5 text-xs text-[#3D5A3E] hover:text-[#3D5A3E] hover:bg-white/5 transition-colors min-h-[44px]"
               aria-label="Skip onboarding"
             >
               Skip <X className="h-3.5 w-3.5" />
@@ -231,7 +231,7 @@ export function PlayerOnboarding() {
                   >
                     {screen.title}
                   </h2>
-                  <p className="max-w-sm text-base text-zinc-400 leading-relaxed">
+                  <p className="max-w-sm text-base text-[#3D5A3E] leading-relaxed">
                     {screen.description}
                   </p>
                 </motion.div>
@@ -247,7 +247,7 @@ export function PlayerOnboarding() {
                     key={i}
                     onClick={() => setCurrentScreen(i)}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      i === currentScreen ? "w-8 bg-green-500" : "w-2 bg-zinc-700"
+                      i === currentScreen ? "w-8 bg-green-500" : "w-2 bg-[#0A2E12]"
                     }`}
                     aria-label={`Go to screen ${i + 1}`}
                   />
@@ -259,7 +259,7 @@ export function PlayerOnboarding() {
                 <button
                   onClick={handleBack}
                   disabled={currentScreen === 0}
-                  className="flex items-center gap-1 rounded-xl px-5 py-3 text-sm font-medium text-zinc-400 hover:text-white disabled:invisible transition-colors min-h-[48px]"
+                  className="flex items-center gap-1 rounded-xl px-5 py-3 text-sm font-medium text-[#3D5A3E] hover:text-white disabled:invisible transition-colors min-h-[48px]"
                 >
                   <ChevronLeft className="h-4 w-4" /> Back
                 </button>

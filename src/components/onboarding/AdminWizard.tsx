@@ -140,11 +140,11 @@ export function AdminWizard({ onComplete }: AdminWizardProps) {
     <div className="mx-auto max-w-xl px-4 py-8">
       {/* Progress bar */}
       <div className="mb-8">
-        <div className="mb-2 flex items-center justify-between text-xs text-zinc-500 dark:text-muted-foreground">
+        <div className="mb-2 flex items-center justify-between text-xs text-[#3D5A3E]">
           <span>Setup Progress</span>
           <span>{Math.round(progress)}%</span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-zinc-200">
+        <div className="h-2 overflow-hidden rounded-full bg-[#0A2E12]/5">
           <motion.div
             className="h-full rounded-full bg-gradient-to-r from-green-500 to-emerald-600"
             initial={{ width: 0 }}
@@ -158,7 +158,7 @@ export function AdminWizard({ onComplete }: AdminWizardProps) {
             <span
               key={step.key}
               className={`text-xs font-medium ${
-                i <= currentStep ? "text-green-600" : "text-zinc-400"
+                i <= currentStep ? "text-green-600" : "text-[#3D5A3E]"
               }`}
             >
               {step.label}
@@ -225,7 +225,7 @@ export function AdminWizard({ onComplete }: AdminWizardProps) {
         <button
           onClick={handleBack}
           disabled={currentStep === 0}
-          className="flex items-center gap-1 rounded-xl px-5 py-3 text-sm font-medium text-zinc-500 hover:text-zinc-700 disabled:invisible transition-colors min-h-[48px]"
+          className="flex items-center gap-1 rounded-xl px-5 py-3 text-sm font-medium text-[#3D5A3E] hover:text-[#2D4A30] disabled:invisible transition-colors min-h-[48px]"
         >
           <ChevronLeft className="h-4 w-4" /> Back
         </button>

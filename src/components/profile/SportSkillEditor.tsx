@@ -70,12 +70,12 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
   }
 
   if (loading) {
-    return <div className="animate-pulse rounded-xl bg-zinc-800 h-32" />;
+    return <div className="animate-pulse rounded-xl bg-[#0A2E12] h-32" />;
   }
 
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">Skill per Sport</h3>
+      <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider">Skill per Sport</h3>
       {sports.map((sport) => {
         const skill = skills.find((s) => s.sport === sport);
         const currentLevel = (skill as unknown as { skill_level?: string })?.skill_level || "beginner";
@@ -89,10 +89,10 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
             className="rounded-xl glass p-4"
           >
             <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm font-medium text-zinc-200 capitalize">
+              <span className="text-sm font-medium text-[#3D5A3E] capitalize">
                 {sport.replace("_", " ")}
               </span>
-              <span className="text-xs text-zinc-500">ELO: {Math.round(rating)}</span>
+              <span className="text-xs text-[#3D5A3E]">ELO: {Math.round(rating)}</span>
             </div>
             <div className="flex gap-2">
               {SKILL_LEVELS.map((level) => (
@@ -104,7 +104,7 @@ export function SportSkillEditor({ playerId, sports }: SportSkillEditorProps) {
                     "flex flex-1 flex-col items-center gap-1 rounded-lg border px-2 py-2 text-xs transition-colors min-h-[60px]",
                     currentLevel === level.value
                       ? "border-green-500 bg-green-500/20 text-green-400"
-                      : "border-zinc-700 bg-zinc-800/50 text-zinc-500 hover:border-zinc-600"
+                      : "border-[#0A2E12]/10 bg-[#0A2E12]/50 text-[#3D5A3E] hover:border-[#0A2E12]/10"
                   )}
                 >
                   {saving === sport ? (

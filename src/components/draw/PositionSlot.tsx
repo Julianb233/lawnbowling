@@ -53,7 +53,7 @@ export function PositionSlot({ position, playerName, isCurrentUser, playerId }: 
         colors.border,
         isCurrentUser && "ring-2 ring-[#1B5E20] ring-offset-1 bg-[#1B5E20]/15 border-[#1B5E20]",
         // Print styles: no background colors, use borders and bold
-        "print:bg-white dark:bg-card print:ring-0 print:ring-offset-0",
+        "print:bg-white print:ring-0 print:ring-offset-0",
         isCurrentUser && "print:border-2 print:border-black print:font-bold"
       )}
     >
@@ -68,7 +68,7 @@ export function PositionSlot({ position, playerName, isCurrentUser, playerId }: 
       </span>
       <span
         className={cn(
-          "text-sm font-medium text-zinc-800 truncate flex-1",
+          "text-sm font-medium text-[#0A2E12] truncate flex-1",
           isCurrentUser && "font-bold text-[#1B5E20]",
           "print:text-black",
           isCurrentUser && "print:font-bold"

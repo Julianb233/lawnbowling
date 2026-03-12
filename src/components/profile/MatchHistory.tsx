@@ -50,8 +50,8 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
   if (loading) {
     return (
       <div>
-        <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">Match History</h2>
-        <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-center">
+        <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Match History</h2>
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4 text-center">
           <div className="h-5 w-5 mx-auto animate-spin rounded-full border-2 border-[#1B5E20] border-t-transparent" />
         </div>
       </div>
@@ -61,10 +61,10 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
   if (matches.length === 0) {
     return (
       <div>
-        <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">Match History</h2>
-        <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-center">
-          <Clock className="mx-auto mb-1 h-8 w-8 text-zinc-300" />
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">No matches played yet</p>
+        <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Match History</h2>
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4 text-center">
+          <Clock className="mx-auto mb-1 h-8 w-8 text-[#3D5A3E]" />
+          <p className="text-sm text-[#3D5A3E]">No matches played yet</p>
         </div>
       </div>
     );
@@ -74,9 +74,9 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
 
   return (
     <div>
-      <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+      <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">
         Match History
-        <span className="ml-1 text-zinc-400">({total})</span>
+        <span className="ml-1 text-[#3D5A3E]">({total})</span>
       </h2>
 
       <div className="space-y-2">
@@ -86,7 +86,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
               ? "border-l-[#1B5E20] bg-green-50/50"
               : match.result === "loss"
                 ? "border-l-red-400 bg-red-50/30"
-                : "border-l-zinc-300 bg-zinc-50 dark:bg-white/5";
+                : "border-l-[#0A2E12]/10 bg-[#0A2E12]/[0.03]";
 
           const ResultIcon =
             match.result === "win"
@@ -100,7 +100,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
               ? "text-[#1B5E20]"
               : match.result === "loss"
                 ? "text-red-400"
-                : "text-zinc-400";
+                : "text-[#3D5A3E]";
 
           const resultLabel =
             match.result === "win"
@@ -112,17 +112,17 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
           return (
             <div
               key={match.id}
-              className={`rounded-xl border border-zinc-200 border-l-4 p-3 ${resultColor}`}
+              className={`rounded-xl border border-[#0A2E12]/10 border-l-4 p-3 ${resultColor}`}
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0 flex-1">
                   <Link
                     href={`/bowls/${match.tournament_id}/results`}
-                    className="text-sm font-semibold text-zinc-900 hover:text-[#1B5E20] truncate block"
+                    className="text-sm font-semibold text-[#0A2E12] hover:text-[#1B5E20] truncate block"
                   >
                     {match.tournament_name}
                   </Link>
-                  <p className="text-xs text-zinc-500 mt-0.5">
+                  <p className="text-xs text-[#3D5A3E] mt-0.5">
                     Round {match.round}, Rink {match.rink}
                     {" \u00B7 "}
                     {new Date(match.date).toLocaleDateString(undefined, {
@@ -134,7 +134,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                  <span className="text-sm font-bold text-[#0A2E12]">
                     {match.player_score} - {match.opponent_score}
                   </span>
                   <span
@@ -143,7 +143,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                         ? "bg-[#1B5E20]/10 text-[#1B5E20]"
                         : match.result === "loss"
                           ? "bg-red-100 text-red-600"
-                          : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                          : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                     }`}
                   >
                     <ResultIcon className={`h-3 w-3 ${resultIconColor}`} />
@@ -153,7 +153,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
               </div>
 
               {(match.teammates.length > 0 || match.opponents.length > 0) && (
-                <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-zinc-500 dark:text-zinc-400">
+                <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-[#3D5A3E]">
                   {match.teammates.length > 0 && (
                     <span>
                       w/{" "}
@@ -176,7 +176,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
       {matches.length > 5 && !expanded && (
         <button
           onClick={() => setExpanded(true)}
-          className="mt-2 flex w-full items-center justify-center gap-1 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-50 min-h-[40px]"
+          className="mt-2 flex w-full items-center justify-center gap-1 rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-medium text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] min-h-[40px]"
         >
           <ChevronDown className="h-4 w-4" />
           View All ({total})

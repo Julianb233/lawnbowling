@@ -150,7 +150,7 @@ export default function CommentThread({
             <button
               onClick={handleLoadMore}
               disabled={loadingMore}
-              className="flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors disabled:opacity-50"
+              className="flex items-center gap-1.5 text-xs font-medium text-emerald-600 hover:text-emerald-700:text-emerald-300 transition-colors disabled:opacity-50"
             >
               {loadingMore ? (
                 <Loader2 className="w-3 h-3 animate-spin" />
@@ -165,14 +165,14 @@ export default function CommentThread({
         {/* Loading state */}
         {loading && (
           <div className="flex items-center justify-center py-6">
-            <Loader2 className="w-5 h-5 animate-spin text-zinc-400" />
+            <Loader2 className="w-5 h-5 animate-spin text-[#3D5A3E]" />
           </div>
         )}
 
         {/* Empty state */}
         {!loading && comments.length === 0 && (
           <div className="py-6 text-center">
-            <p className="text-sm text-zinc-400 dark:text-zinc-500">
+            <p className="text-sm text-[#3D5A3E]">
               No comments yet. Be the first!
             </p>
           </div>
@@ -192,7 +192,7 @@ export default function CommentThread({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.15 }}
-                className="group flex items-start gap-2.5 px-4 py-2.5 hover:bg-zinc-50 dark:hover:bg-zinc-800/30 transition-colors"
+                className="group flex items-start gap-2.5 px-4 py-2.5 hover:bg-[#0A2E12]/[0.03]:bg-[#0A2E12]/30 transition-colors"
               >
                 {/* Avatar */}
                 <div className="shrink-0 mt-0.5">
@@ -203,7 +203,7 @@ export default function CommentThread({
                       className="w-7 h-7 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-zinc-300 to-zinc-400 dark:from-zinc-600 dark:to-zinc-700 flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#0A2E12]/5 to-[#0A2E12]/[0.03] flex items-center justify-center">
                       <UserIcon className="w-3.5 h-3.5 text-white" />
                     </div>
                   )}
@@ -212,17 +212,17 @@ export default function CommentThread({
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 truncate">
+                    <span className="text-xs font-semibold text-[#0A2E12] truncate">
                       {author?.display_name ?? "Unknown"}
                     </span>
                     <time
-                      className="text-[10px] text-zinc-400 dark:text-zinc-500 shrink-0"
+                      className="text-[10px] text-[#3D5A3E] shrink-0"
                       title={new Date(comment.created_at).toLocaleString()}
                     >
                       {timeAgo(comment.created_at)}
                     </time>
                   </div>
-                  <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed break-words">
+                  <p className="text-sm text-[#2D4A30] leading-relaxed break-words">
                     {comment.body}
                   </p>
                 </div>
@@ -233,9 +233,9 @@ export default function CommentThread({
                     onClick={() => handleDelete(comment.id)}
                     disabled={deletingId === comment.id}
                     className={cn(
-                      "shrink-0 p-1 rounded-md text-zinc-300 dark:text-zinc-600",
+                      "shrink-0 p-1 rounded-md text-[#3D5A3E]",
                       "opacity-0 group-hover:opacity-100 focus:opacity-100",
-                      "hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20",
+                      "hover:text-red-500:text-red-400 hover:bg-red-50:bg-red-900/20",
                       "transition-all duration-150",
                       "disabled:opacity-50"
                     )}
@@ -258,7 +258,7 @@ export default function CommentThread({
       {currentPlayerId && (
         <form
           onSubmit={handleSubmit}
-          className="flex items-center gap-2 px-4 py-3 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/20"
+          className="flex items-center gap-2 px-4 py-3 border-t border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]/50"
         >
           <div className="relative flex-1">
             <input
@@ -270,10 +270,10 @@ export default function CommentThread({
               maxLength={500}
               className={cn(
                 "w-full rounded-full px-4 py-2 text-sm",
-                "bg-white dark:bg-zinc-800",
-                "border border-zinc-200 dark:border-zinc-700",
-                "text-zinc-900 dark:text-zinc-100",
-                "placeholder:text-zinc-400 dark:placeholder:text-zinc-500",
+                "bg-white",
+                "border border-[#0A2E12]/10",
+                "text-[#0A2E12]",
+                "placeholder:text-[#3D5A3E]:text-[#3D5A3E]",
                 "focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-400",
                 "transition-all duration-150"
               )}

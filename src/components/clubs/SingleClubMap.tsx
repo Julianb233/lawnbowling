@@ -72,10 +72,10 @@ export function SingleClubMap({ lat, lng, clubName, address }: SingleClubMapProp
 
   if (!lat || !lng) {
     return (
-      <div className="flex aspect-[16/9] items-center justify-center rounded-xl bg-zinc-100">
+      <div className="flex aspect-[16/9] items-center justify-center rounded-xl bg-[#0A2E12]/5">
         <div className="text-center">
-          <MapPin className="mx-auto h-8 w-8 text-zinc-400" />
-          <p className="mt-2 text-sm font-medium text-zinc-500 dark:text-zinc-400">
+          <MapPin className="mx-auto h-8 w-8 text-[#3D5A3E]" />
+          <p className="mt-2 text-sm font-medium text-[#3D5A3E]">
             {address ?? "Location not available"}
           </p>
         </div>
@@ -88,7 +88,7 @@ export function SingleClubMap({ lat, lng, clubName, address }: SingleClubMapProp
       <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
         <div ref={mapRef} className="h-full w-full" />
         {!ready && (
-          <div className="absolute inset-0 flex items-center justify-center bg-zinc-100">
+          <div className="absolute inset-0 flex items-center justify-center bg-[#0A2E12]/5">
             <div className="h-8 w-8 animate-spin rounded-full border-3 border-[#1B5E20] border-t-transparent" />
           </div>
         )}

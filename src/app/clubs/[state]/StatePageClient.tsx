@@ -4,29 +4,13 @@ import { useState, lazy, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Users, ChevronRight, Leaf, Globe, Map as MapIcon, List, Home } from "lucide-react";
+import { ClubLogo, getClubCoverImage } from "@/components/clubs/ClubLogo";
 import {
   SURFACE_LABELS,
   type ClubData,
 } from "@/lib/clubs-data";
 
-const CLUB_PHOTOS = [
-  "/images/heritage-clubhouse-tea.jpg",
-  "/images/scenery-golden-hour-green.jpg",
-  "/images/heritage-wooden-bench-green.jpg",
-  "/images/scenery-morning-dew-green.jpg",
-  "/images/heritage-scoreboard.jpg",
-  "/images/scenery-clubhouse-dusk.jpg",
-  "/images/heritage-weathered-bowls-patina.jpg",
-  "/images/scenery-overhead-bowls-jack.jpg",
-];
-
-function getClubPhoto(clubId: string): string {
-  let hash = 0;
-  for (let i = 0; i < clubId.length; i++) {
-    hash = (hash * 31 + clubId.charCodeAt(i)) | 0;
-  }
-  return CLUB_PHOTOS[Math.abs(hash) % CLUB_PHOTOS.length];
-}
+// Cover images now sourced from ClubLogo module (region-aware rotation)
 
 const ClubMapLazy = lazy(() =>
   import("@/components/clubs/ClubMap").then((m) => ({ default: m.ClubMap }))
@@ -69,13 +53,13 @@ export default function StatePageClient({ clubs, stateName, stateCode }: StatePa
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <div className="flex items-center rounded-xl border border-zinc-200 bg-zinc-50 p-0.5">
+              <div className="flex items-center rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-0.5">
                 <button
                   onClick={() => setViewMode("list")}
                   className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
                     viewMode === "list"
-                      ? "bg-white text-zinc-900 shadow-sm"
-                      : "text-zinc-500 dark:text-zinc-400"
+                      ? "bg-white text-[#0A2E12] shadow-sm"
+                      : "text-[#3D5A3E]"
                   }`}
                 >
                   <List className="h-3.5 w-3.5" />
@@ -85,8 +69,8 @@ export default function StatePageClient({ clubs, stateName, stateCode }: StatePa
                   onClick={() => setViewMode("map")}
                   className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
                     viewMode === "map"
-                      ? "bg-white text-zinc-900 shadow-sm"
-                      : "text-zinc-500 dark:text-zinc-400"
+                      ? "bg-white text-[#0A2E12] shadow-sm"
+                      : "text-[#3D5A3E]"
                   }`}
                 >
                   <MapIcon className="h-3.5 w-3.5" />
@@ -109,7 +93,7 @@ export default function StatePageClient({ clubs, stateName, stateCode }: StatePa
         {viewMode === "map" ? (
           <Suspense
             fallback={
-              <div className="aspect-video rounded-2xl bg-zinc-100 animate-pulse" />
+              <div className="aspect-video rounded-2xl bg-[#0A2E12]/5 animate-pulse" />
             }
           >
             <ClubMapLazy fullScreen={false} hideFilters stateFilter={stateCode} />
@@ -123,11 +107,11 @@ export default function StatePageClient({ clubs, stateName, stateCode }: StatePa
         )}
 
         {/* CTA */}
-        <div className="mt-10 rounded-2xl border border-dashed border-zinc-300 bg-white dark:bg-[#1a3d28] p-8 text-center">
-          <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+        <div className="mt-10 rounded-2xl border border-dashed border-[#0A2E12]/10 bg-white p-8 text-center">
+          <h3 className="text-lg font-bold text-[#0A2E12]">
             Know a club in {stateName} we&apos;re missing?
           </h3>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-1 text-sm text-[#3D5A3E]">
             Help us build the most complete lawn bowls directory
           </p>
           <Link
@@ -144,7 +128,7 @@ export default function StatePageClient({ clubs, stateName, stateCode }: StatePa
         <div className="mt-8 text-center">
           <Link
             href="/clubs"
-            className="text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+            className="text-sm font-medium text-[#3D5A3E] hover:text-[#0A2E12]:text-[#3D5A3E] transition-colors"
           >
             &larr; Back to Club Directory
           </Link>
@@ -155,13 +139,17 @@ export default function StatePageClient({ clubs, stateName, stateCode }: StatePa
 }
 
 function ClubListCard({ club }: { club: ClubData }) {
-  const photo = getClubPhoto(club.id);
+  const photo = getClubCoverImage(club.id, club.region);
   return (
     <Link href={`/clubs/${club.stateCode.toLowerCase()}/${club.id}`}>
       <div className="group rounded-2xl border border-[#0A2E12]/10 bg-white overflow-hidden transition-all hover:border-[#0A2E12]/20 hover:shadow-sm">
         <div className="flex">
           <div className="relative w-28 sm:w-36 shrink-0">
             <Image src={photo} alt={club.name} fill className="object-cover" sizes="(max-width: 640px) 112px, 144px" />
+            {/* Club logo overlay on thumbnail */}
+            <div className="absolute bottom-1.5 right-1.5 ring-2 ring-white rounded-full shadow-md">
+              <ClubLogo name={club.name} stateCode={club.stateCode} country={club.country ?? club.countryCode} logoUrl={club.logoUrl} size="xs" />
+            </div>
           </div>
           <div className="flex-1 min-w-0 p-4 flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">

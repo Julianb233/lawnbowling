@@ -163,7 +163,7 @@ export default function ClubPricingClient() {
       <div className="mx-auto max-w-5xl">
         <button
           onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-[#3D5A3E] hover:text-[#0A2E12]:text-[#3D5A3E] min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
@@ -182,7 +182,7 @@ export default function ClubPricingClient() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm text-zinc-500 dark:text-zinc-400"
+            className="mb-6 rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] px-4 py-3 text-sm text-[#3D5A3E]"
           >
             Checkout was cancelled. No charges were made.
           </motion.div>
@@ -198,12 +198,12 @@ export default function ClubPricingClient() {
               <Trophy className="h-3.5 w-3.5" />
               Club Pricing
             </span>
-            <h1 className="text-4xl font-black text-zinc-900 sm:text-5xl">
+            <h1 className="text-4xl font-black text-[#0A2E12] sm:text-5xl">
               Pricing that scales
               <br />
               <span className="text-[#1B5E20]">with your club</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-zinc-500 dark:text-zinc-400">
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-[#3D5A3E]">
               Pay per member, per year. No surprises. Include it in your annual
               dues and give every member a better bowling experience.
             </p>
@@ -232,10 +232,10 @@ export default function ClubPricingClient() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   className={cn(
-                    "relative flex flex-col rounded-2xl border bg-white dark:bg-[#1a3d28] p-6 shadow-sm",
+                    "relative flex flex-col rounded-2xl border bg-white p-6 shadow-sm",
                     isPopular
                       ? "border-[#1B5E20] ring-2 ring-[#1B5E20]/20 scale-[1.02]"
-                      : "border-zinc-200"
+                      : "border-[#0A2E12]/10"
                   )}
                 >
                   {isPopular && (
@@ -250,16 +250,16 @@ export default function ClubPricingClient() {
                         "flex h-12 w-12 items-center justify-center rounded-xl",
                         isPopular
                           ? "bg-[#1B5E20]/10 text-[#1B5E20]"
-                          : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                          : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                       )}
                     >
                       {tier.icon}
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+                      <h3 className="text-lg font-bold text-[#0A2E12]">
                         {tier.name}
                       </h3>
-                      <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                      <p className="text-xs text-[#3D5A3E]">
                         {tier.description}
                       </p>
                     </div>
@@ -269,25 +269,25 @@ export default function ClubPricingClient() {
                   <div className="mb-6">
                     {tier.pricePerMember === 0 ? (
                       <div>
-                        <span className="text-3xl font-black text-zinc-900 dark:text-zinc-100">
+                        <span className="text-3xl font-black text-[#0A2E12]">
                           $0
                         </span>
-                        <span className="text-sm text-zinc-500 ml-1">
+                        <span className="text-sm text-[#3D5A3E] ml-1">
                           forever
                         </span>
-                        <p className="text-xs text-zinc-400 mt-1">
+                        <p className="text-xs text-[#3D5A3E] mt-1">
                           Up to {tier.memberLimit} members
                         </p>
                       </div>
                     ) : (
                       <div>
-                        <span className="text-3xl font-black text-zinc-900 dark:text-zinc-100">
+                        <span className="text-3xl font-black text-[#0A2E12]">
                           ${tier.pricePerMember}
                         </span>
-                        <span className="text-sm text-zinc-500 ml-1">
+                        <span className="text-sm text-[#3D5A3E] ml-1">
                           /member/year
                         </span>
-                        <p className="text-xs text-zinc-400 mt-1">
+                        <p className="text-xs text-[#3D5A3E] mt-1">
                           {annualPrice}/year for {memberCount} members
                         </p>
                       </div>
@@ -300,7 +300,7 @@ export default function ClubPricingClient() {
                       {tier.features.map((feature) => (
                         <li
                           key={feature}
-                          className="flex items-start gap-2 text-sm text-zinc-700"
+                          className="flex items-start gap-2 text-sm text-[#2D4A30]"
                         >
                           <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#1B5E20]" />
                           {feature}
@@ -309,9 +309,9 @@ export default function ClubPricingClient() {
                       {tier.excluded.map((feature) => (
                         <li
                           key={feature}
-                          className="flex items-start gap-2 text-sm text-zinc-300 line-through"
+                          className="flex items-start gap-2 text-sm text-[#3D5A3E] line-through"
                         >
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-zinc-200" />
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#3D5A3E]" />
                           {feature}
                         </li>
                       ))}
@@ -324,8 +324,8 @@ export default function ClubPricingClient() {
                       className={cn(
                         "block w-full rounded-xl px-4 py-3 text-sm font-bold text-center transition-all min-h-[48px]",
                         isCurrent
-                          ? "bg-zinc-100 text-zinc-500 cursor-default"
-                          : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200"
+                          ? "bg-[#0A2E12]/5 text-[#3D5A3E] cursor-default"
+                          : "bg-[#0A2E12]/5 text-[#2D4A30] hover:bg-[#0A2E12]/5"
                       )}
                     >
                       {isCurrent ? "Current Plan" : tier.cta}
@@ -336,10 +336,10 @@ export default function ClubPricingClient() {
                       className={cn(
                         "block w-full rounded-xl px-4 py-3 text-sm font-bold text-center transition-all min-h-[48px]",
                         isCurrent
-                          ? "bg-zinc-100 text-zinc-500 cursor-default"
+                          ? "bg-[#0A2E12]/5 text-[#3D5A3E] cursor-default"
                           : isPopular
                             ? "bg-[#1B5E20] text-white hover:bg-[#2E7D32] shadow-lg shadow-[#1B5E20]/25"
-                            : "bg-zinc-900 text-white hover:bg-zinc-800"
+                            : "bg-[#0A2E12] text-white hover:bg-[#0A2E12]"
                       )}
                     >
                       {isCurrent ? "Current Plan" : tier.cta}
@@ -356,21 +356,21 @@ export default function ClubPricingClient() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mb-16 rounded-2xl border border-zinc-200 bg-zinc-50 p-8"
+          className="mb-16 rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-8"
         >
-          <h2 className="text-2xl font-black text-zinc-900 text-center mb-2">
+          <h2 className="text-2xl font-black text-[#0A2E12] text-center mb-2">
             Calculate Your Price
           </h2>
-          <p className="text-center text-sm text-zinc-500 mb-8">
+          <p className="text-center text-sm text-[#3D5A3E] mb-8">
             Drag the slider to see what your club would pay annually
           </p>
 
           <div className="mx-auto max-w-lg">
             <div className="flex items-center justify-between mb-2">
-              <label className="text-sm font-medium text-zinc-700">
+              <label className="text-sm font-medium text-[#2D4A30]">
                 Club Members
               </label>
-              <span className="text-lg font-black text-zinc-900 tabular-nums">
+              <span className="text-lg font-black text-[#0A2E12] tabular-nums">
                 {memberCount}
               </span>
             </div>
@@ -383,40 +383,40 @@ export default function ClubPricingClient() {
               onChange={(e) => setMemberCount(Number(e.target.value))}
               className="w-full accent-[#1B5E20] h-2 rounded-full"
             />
-            <div className="flex justify-between text-xs text-zinc-400 mt-1">
+            <div className="flex justify-between text-xs text-[#3D5A3E] mt-1">
               <span>20</span>
               <span>500</span>
             </div>
 
             <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-              <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
-                <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
+              <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4">
+                <p className="text-xs font-medium text-[#3D5A3E] uppercase tracking-wider">
                   Free
                 </p>
-                <p className="mt-1 text-2xl font-black text-zinc-900 dark:text-zinc-100">$0</p>
-                <p className="text-xs text-zinc-400">up to 20 members</p>
+                <p className="mt-1 text-2xl font-black text-[#0A2E12]">$0</p>
+                <p className="text-xs text-[#3D5A3E]">up to 20 members</p>
               </div>
-              <div className="rounded-xl border-2 border-[#1B5E20] bg-white dark:bg-[#1a3d28] p-4 shadow-sm">
+              <div className="rounded-xl border-2 border-[#1B5E20] bg-white p-4 shadow-sm">
                 <p className="text-xs font-medium text-[#1B5E20] uppercase tracking-wider">
                   Club
                 </p>
                 <p className="mt-1 text-2xl font-black text-[#1B5E20]">
                   ${clubPrice.toLocaleString()}
                 </p>
-                <p className="text-xs text-zinc-400">/year</p>
+                <p className="text-xs text-[#3D5A3E]">/year</p>
               </div>
-              <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
-                <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
+              <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4">
+                <p className="text-xs font-medium text-[#3D5A3E] uppercase tracking-wider">
                   Pro
                 </p>
-                <p className="mt-1 text-2xl font-black text-zinc-900 dark:text-zinc-100">
+                <p className="mt-1 text-2xl font-black text-[#0A2E12]">
                   ${proPrice.toLocaleString()}
                 </p>
-                <p className="text-xs text-zinc-400">/year</p>
+                <p className="text-xs text-[#3D5A3E]">/year</p>
               </div>
             </div>
 
-            <p className="mt-4 text-center text-xs text-zinc-400">
+            <p className="mt-4 text-center text-xs text-[#3D5A3E]">
               That&apos;s just ${(clubPrice / memberCount).toFixed(2)} per
               member on the Club plan -- less than a cup of coffee
             </p>
@@ -430,7 +430,7 @@ export default function ClubPricingClient() {
           transition={{ delay: 0.4 }}
           className="mb-16"
         >
-          <h2 className="text-2xl font-black text-zinc-900 text-center mb-8">
+          <h2 className="text-2xl font-black text-[#0A2E12] text-center mb-8">
             What Clubs Get
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -471,13 +471,13 @@ export default function ClubPricingClient() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + i * 0.05 }}
-                className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6"
+                className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B5E20]/10 text-[#1B5E20]">
                   {feature.icon}
                 </div>
-                <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{feature.title}</h3>
-                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{feature.desc}</p>
+                <h3 className="font-bold text-[#0A2E12]">{feature.title}</h3>
+                <p className="mt-1 text-sm text-[#3D5A3E]">{feature.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -490,28 +490,28 @@ export default function ClubPricingClient() {
           transition={{ delay: 0.5 }}
           className="mb-16"
         >
-          <h2 className="text-2xl font-black text-zinc-900 text-center mb-8">
+          <h2 className="text-2xl font-black text-[#0A2E12] text-center mb-8">
             Frequently Asked Questions
           </h2>
           <div className="mx-auto max-w-2xl space-y-3">
             {FAQ_ITEMS.map((item, i) => (
               <div
                 key={i}
-                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="flex w-full items-center justify-between px-5 py-4 text-left text-sm font-semibold text-zinc-900 min-h-[48px]"
+                  className="flex w-full items-center justify-between px-5 py-4 text-left text-sm font-semibold text-[#0A2E12] min-h-[48px]"
                 >
                   {item.q}
                   {openFaq === i ? (
-                    <ChevronUp className="h-4 w-4 shrink-0 text-zinc-400" />
+                    <ChevronUp className="h-4 w-4 shrink-0 text-[#3D5A3E]" />
                   ) : (
-                    <ChevronDown className="h-4 w-4 shrink-0 text-zinc-400" />
+                    <ChevronDown className="h-4 w-4 shrink-0 text-[#3D5A3E]" />
                   )}
                 </button>
                 {openFaq === i && (
-                  <div className="border-t border-zinc-100 px-5 py-4 text-sm text-zinc-600 dark:text-zinc-400">
+                  <div className="border-t border-[#0A2E12]/10 px-5 py-4 text-sm text-[#3D5A3E]">
                     {item.a}
                   </div>
                 )}

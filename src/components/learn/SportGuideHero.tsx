@@ -11,7 +11,7 @@ export function SportGuideHero({ guide }: { guide: SportGuide }) {
   const colors = getSportColor(guide.sport);
 
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-zinc-200 p-6 sm:p-8">
+    <section className="relative overflow-hidden rounded-2xl border border-[#0A2E12]/10 p-6 sm:p-8">
       <div
         className="absolute inset-0 opacity-20"
         style={{
@@ -30,7 +30,7 @@ export function SportGuideHero({ guide }: { guide: SportGuide }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mb-2 text-3xl font-black text-zinc-900 sm:text-4xl"
+          className="mb-2 text-3xl font-black text-[#0A2E12] sm:text-4xl"
         >
           {guide.name}
         </motion.h1>
@@ -38,7 +38,7 @@ export function SportGuideHero({ guide }: { guide: SportGuide }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="mb-4 text-lg text-zinc-400"
+          className="mb-4 text-lg text-[#3D5A3E]"
         >
           {guide.tagline}
         </motion.p>
@@ -57,11 +57,11 @@ export function SportGuideHero({ guide }: { guide: SportGuide }) {
           >
             {guide.difficulty}
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0A2E12]/5 px-3 py-1.5 text-sm text-[#3D5A3E]">
             <Clock className="h-3.5 w-3.5" />
             {guide.typicalDuration}
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0A2E12]/5 px-3 py-1.5 text-sm text-[#3D5A3E]">
             <Users className="h-3.5 w-3.5" />
             {guide.playersNeeded}
           </span>

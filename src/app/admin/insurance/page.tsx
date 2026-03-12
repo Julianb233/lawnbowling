@@ -51,33 +51,33 @@ export default function AdminInsurancePage() {
   const coverageRate = players.length > 0 ? Math.round((activeCount / players.length) * 100) : 0;
 
   if (venueLoading || loading) {
-    return <div className="text-zinc-500 dark:text-zinc-400">Loading insurance data...</div>;
+    return <div className="text-[#3D5A3E]">Loading insurance data...</div>;
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-800 mb-1">Insurance Coverage</h1>
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1">Insurance Coverage</h1>
       {selectedVenue && (
-        <p className="text-sm text-zinc-500 mb-6">{selectedVenue.name}</p>
+        <p className="text-sm text-[#3D5A3E] mb-6">{selectedVenue.name}</p>
       )}
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 mb-6">
-        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-5 text-center">
           <p className="text-3xl font-black text-[#1B5E20]">{activeCount}</p>
-          <p className="text-xs text-zinc-500 mt-1">Active Coverage</p>
+          <p className="text-xs text-[#3D5A3E] mt-1">Active Coverage</p>
         </div>
-        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-5 text-center">
           <p className="text-3xl font-black text-amber-500">{expiredCount}</p>
-          <p className="text-xs text-zinc-500 mt-1">Expired</p>
+          <p className="text-xs text-[#3D5A3E] mt-1">Expired</p>
         </div>
-        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
-          <p className="text-3xl font-black text-zinc-400">{noneCount}</p>
-          <p className="text-xs text-zinc-500 mt-1">No Coverage</p>
+        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-5 text-center">
+          <p className="text-3xl font-black text-[#3D5A3E]">{noneCount}</p>
+          <p className="text-xs text-[#3D5A3E] mt-1">No Coverage</p>
         </div>
-        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-5 text-center">
           <p className="text-3xl font-black text-[#1B5E20]">{coverageRate}%</p>
-          <p className="text-xs text-zinc-500 mt-1">Coverage Rate</p>
+          <p className="text-xs text-[#3D5A3E] mt-1">Coverage Rate</p>
         </div>
       </div>
 
@@ -91,7 +91,7 @@ export default function AdminInsurancePage() {
               "rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
               filter === status
                 ? "bg-[#1B5E20] text-white"
-                : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5"
             )}
           >
             {status === "all" ? `All (${players.length})` :
@@ -103,26 +103,26 @@ export default function AdminInsurancePage() {
       </div>
 
       {/* Player list */}
-      <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden">
+      <div className="rounded-xl border border-[#0A2E12]/10 bg-white overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-zinc-200 bg-zinc-50 dark:bg-white/5">
-              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-zinc-400">Player</th>
-              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400">Status</th>
-              <th className="px-4 py-3 text-right text-xs font-bold uppercase tracking-wider text-zinc-400">Last Updated</th>
+            <tr className="border-b border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]">
+              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">Player</th>
+              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">Status</th>
+              <th className="px-4 py-3 text-right text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">Last Updated</th>
             </tr>
           </thead>
           <tbody>
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={3} className="px-4 py-8 text-center text-zinc-400">
+                <td colSpan={3} className="px-4 py-8 text-center text-[#3D5A3E]">
                   No players found
                 </td>
               </tr>
             ) : (
               filtered.map((p) => (
-                <tr key={p.id} className="border-b border-zinc-100 last:border-0">
-                  <td className="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100">{p.display_name}</td>
+                <tr key={p.id} className="border-b border-[#0A2E12]/10 last:border-0">
+                  <td className="px-4 py-3 font-medium text-[#0A2E12]">{p.display_name}</td>
                   <td className="px-4 py-3 text-center">
                     <span
                       className={cn(
@@ -131,14 +131,14 @@ export default function AdminInsurancePage() {
                           ? "bg-[#1B5E20]/10 text-[#2E7D32]"
                           : p.insurance_status === "expired"
                             ? "bg-amber-100 text-amber-700"
-                            : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                            : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                       )}
                     >
                       {p.insurance_status === "active" ? "Active" :
                        p.insurance_status === "expired" ? "Expired" : "None"}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right text-zinc-500 dark:text-zinc-400">
+                  <td className="px-4 py-3 text-right text-[#3D5A3E]">
                     {new Date(p.updated_at).toLocaleDateString()}
                   </td>
                 </tr>

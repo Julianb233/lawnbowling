@@ -48,13 +48,13 @@ export function AvatarUpload({ currentUrl, displayName, onUpload }: AvatarUpload
         className="group relative rounded-full focus:outline-none focus:ring-2 focus:ring-[#1B5E20] focus:ring-offset-2 focus:ring-offset-white"
         disabled={uploading}
       >
-        <Avatar.Root className="inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-zinc-100">
+        <Avatar.Root className="inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-[#0A2E12]/5">
           <Avatar.Image
             src={preview ?? undefined}
             alt={displayName}
             className="h-full w-full object-cover"
           />
-          <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-zinc-500 dark:text-zinc-400">
+          <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-[#3D5A3E]">
             {initials || "?"}
           </Avatar.Fallback>
         </Avatar.Root>

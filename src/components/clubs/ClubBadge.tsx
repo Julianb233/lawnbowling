@@ -64,7 +64,7 @@ export function ClubBadge({ clubId, size = "sm", showName = true, className }: C
         )}
       </div>
       {showName && (
-        <span className={cn("font-medium text-zinc-600 truncate", textSize)}>
+        <span className={cn("font-medium text-[#3D5A3E] truncate", textSize)}>
           {club.name}
         </span>
       )}

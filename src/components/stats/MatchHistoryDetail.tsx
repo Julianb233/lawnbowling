@@ -113,7 +113,7 @@ export function MatchHistoryDetail({ playerId }: MatchHistoryDetailProps) {
     return (
       <div className="space-y-3">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="h-36 animate-pulse rounded-2xl bg-zinc-100" />
+          <div key={i} className="h-36 animate-pulse rounded-2xl bg-[#0A2E12]/5" />
         ))}
       </div>
     );
@@ -125,10 +125,10 @@ export function MatchHistoryDetail({ playerId }: MatchHistoryDetailProps) {
       {matches.length === 0 ? (
         <div className="py-16 text-center">
           <div className="text-3xl">🏆</div>
-          <p className="mt-2 text-sm text-zinc-500">
+          <p className="mt-2 text-sm text-[#3D5A3E]">
             {sportFilter ? "No matches for this sport yet" : "No match history yet"}
           </p>
-          <p className="mt-1 text-xs text-zinc-400">
+          <p className="mt-1 text-xs text-[#3D5A3E]">
             Play some games and your history will appear here
           </p>
         </div>
@@ -151,10 +151,10 @@ export function MatchHistoryDetail({ playerId }: MatchHistoryDetailProps) {
           <button
             onClick={loadMore}
             disabled={loadingMore}
-            className="flex items-center gap-1.5 rounded-xl bg-zinc-100 px-5 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-200 disabled:opacity-50"
+            className="flex items-center gap-1.5 rounded-xl bg-[#0A2E12]/5 px-5 py-2.5 text-sm font-medium text-[#3D5A3E] transition-colors hover:bg-[#0A2E12]/5 disabled:opacity-50"
           >
             {loadingMore ? (
-              <div className="h-4 w-4 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-600" />
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-[#0A2E12]/10 border-t-[#1B5E20]" />
             ) : (
               <ChevronDown className="h-4 w-4" />
             )}
@@ -206,7 +206,7 @@ function MatchCard({
           ? "border-emerald-200"
           : isLoss
             ? "border-red-200"
-            : "border-zinc-200"
+            : "border-[#0A2E12]/10"
       )}
     >
       {/* Result banner */}
@@ -217,7 +217,7 @@ function MatchCard({
             ? "bg-emerald-50 text-emerald-600"
             : isLoss
               ? "bg-red-50 text-red-500"
-              : "bg-zinc-50 text-zinc-500"
+              : "bg-[#0A2E12]/[0.03] text-[#3D5A3E]"
         )}
       >
         <div className="flex items-center gap-1.5">
@@ -249,7 +249,7 @@ function MatchCard({
             {sportLabel?.emoji} {sportLabel?.label ?? match.sport}
           </span>
           {match.ended_at && (
-            <span className="flex items-center gap-1 text-xs text-zinc-400">
+            <span className="flex items-center gap-1 text-xs text-[#3D5A3E]">
               <Calendar className="h-3 w-3" />
               {formatDate(match.ended_at)}
             </span>
@@ -260,7 +260,7 @@ function MatchCard({
         <div className="mb-3 space-y-2">
           {partners.length > 0 && (
             <div className="flex items-center gap-2">
-              <span className="w-16 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
+              <span className="w-16 text-[10px] font-medium uppercase tracking-wider text-[#3D5A3E]">
                 Partner
               </span>
               <div className="flex items-center gap-1.5">
@@ -272,7 +272,7 @@ function MatchCard({
           )}
           {opponents.length > 0 && (
             <div className="flex items-center gap-2">
-              <span className="w-16 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
+              <span className="w-16 text-[10px] font-medium uppercase tracking-wider text-[#3D5A3E]">
                 {opponents.length > 1 ? "Opponents" : "Opponent"}
               </span>
               <div className="flex items-center gap-1.5">
@@ -285,7 +285,7 @@ function MatchCard({
         </div>
 
         {/* Court & Duration footer */}
-        <div className="flex items-center gap-4 text-xs text-zinc-400">
+        <div className="flex items-center gap-4 text-xs text-[#3D5A3E]">
           {match.courts?.name && (
             <span className="flex items-center gap-1">
               <MapPin className="h-3 w-3" />
@@ -314,8 +314,8 @@ function PlayerChip({
   player: { id: string; display_name: string; avatar_url: string | null };
 }) {
   return (
-    <div className="flex items-center gap-1.5 rounded-full bg-zinc-50 py-0.5 pl-0.5 pr-2.5">
-      <div className="h-5 w-5 overflow-hidden rounded-full bg-zinc-200">
+    <div className="flex items-center gap-1.5 rounded-full bg-[#0A2E12]/[0.03] py-0.5 pl-0.5 pr-2.5">
+      <div className="h-5 w-5 overflow-hidden rounded-full bg-[#0A2E12]/5">
         {player.avatar_url ? (
           <img
             src={player.avatar_url}
@@ -323,12 +323,12 @@ function PlayerChip({
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-[10px] font-medium text-zinc-500">
+          <div className="flex h-full w-full items-center justify-center text-[10px] font-medium text-[#3D5A3E]">
             {player.display_name?.charAt(0)}
           </div>
         )}
       </div>
-      <span className="text-xs font-medium text-zinc-700">
+      <span className="text-xs font-medium text-[#2D4A30]">
         {player.display_name}
       </span>
     </div>

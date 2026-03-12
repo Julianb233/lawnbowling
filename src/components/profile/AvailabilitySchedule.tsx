@@ -107,8 +107,8 @@ export function AvailabilitySchedule({ playerId, editable = false }: Availabilit
   if (loading) {
     return (
       <div>
-        <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">Availability</h2>
-        <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-center">
+        <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Availability</h2>
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4 text-center">
           <div className="h-5 w-5 mx-auto animate-spin rounded-full border-2 border-[#1B5E20] border-t-transparent" />
         </div>
       </div>
@@ -120,10 +120,10 @@ export function AvailabilitySchedule({ playerId, editable = false }: Availabilit
   if (!hasSlots && !editable) {
     return (
       <div>
-        <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">Availability</h2>
-        <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-center">
-          <Calendar className="mx-auto mb-1 h-8 w-8 text-zinc-300" />
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">No availability set</p>
+        <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Availability</h2>
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4 text-center">
+          <Calendar className="mx-auto mb-1 h-8 w-8 text-[#3D5A3E]" />
+          <p className="text-sm text-[#3D5A3E]">No availability set</p>
         </div>
       </div>
     );
@@ -134,7 +134,7 @@ export function AvailabilitySchedule({ playerId, editable = false }: Availabilit
   return (
     <div>
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+        <h2 className="text-sm font-medium text-[#3D5A3E]">
           Availability
         </h2>
         {editable && !editing && (
@@ -147,16 +147,16 @@ export function AvailabilitySchedule({ playerId, editable = false }: Availabilit
         )}
       </div>
 
-      <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-3 overflow-x-auto">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-3 overflow-x-auto">
         <div className="grid grid-cols-[auto_repeat(7,1fr)] gap-1 min-w-[320px]">
           {/* Header row */}
           <div className="flex items-center justify-center p-1">
-            <Clock className="h-3 w-3 text-zinc-400" />
+            <Clock className="h-3 w-3 text-[#3D5A3E]" />
           </div>
           {DAYS.map((day, i) => (
             <div
               key={i}
-              className="text-center text-[11px] font-semibold text-zinc-500 p-1"
+              className="text-center text-[11px] font-semibold text-[#3D5A3E] p-1"
             >
               {day}
             </div>
@@ -167,7 +167,7 @@ export function AvailabilitySchedule({ playerId, editable = false }: Availabilit
             <>
               <div
                 key={`label-${timeSlot.start}`}
-                className="flex items-center text-[11px] text-zinc-400 pr-1 whitespace-nowrap"
+                className="flex items-center text-[11px] text-[#3D5A3E] pr-1 whitespace-nowrap"
               >
                 {timeSlot.label}
               </div>
@@ -183,7 +183,7 @@ export function AvailabilitySchedule({ playerId, editable = false }: Availabilit
                     className={`rounded-md h-8 transition-colors ${
                       isActive
                         ? "bg-[#1B5E20]/20 border border-[#1B5E20]/30"
-                        : "bg-zinc-100 border border-zinc-200"
+                        : "bg-[#0A2E12]/5 border border-[#0A2E12]/10"
                     } ${
                       isEditing
                         ? "cursor-pointer hover:border-[#1B5E20]/50"
@@ -218,7 +218,7 @@ export function AvailabilitySchedule({ playerId, editable = false }: Availabilit
                 }
                 setPendingSlots(active);
               }}
-              className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-500 hover:bg-zinc-50 min-h-[36px]"
+              className="rounded-lg border border-[#0A2E12]/10 px-3 py-2 text-sm text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] min-h-[36px]"
             >
               Cancel
             </button>

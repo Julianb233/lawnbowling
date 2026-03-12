@@ -25,7 +25,7 @@ export function InsuranceOffer({ onDismiss, onStatusUpdate }: InsuranceOfferProp
 
       <button
         onClick={handleDismiss}
-        className="absolute right-3 top-3 rounded-full p-1 text-zinc-400 hover:text-zinc-700 min-h-[44px] min-w-[44px] flex items-center justify-center"
+        className="absolute right-3 top-3 rounded-full p-1 text-[#3D5A3E] hover:text-[#2D4A30] min-h-[44px] min-w-[44px] flex items-center justify-center"
         aria-label="Dismiss"
       >
         <X className="h-4 w-4" />
@@ -37,26 +37,26 @@ export function InsuranceOffer({ onDismiss, onStatusUpdate }: InsuranceOfferProp
             <Shield className="h-6 w-6 text-[#1B5E20]" />
           </div>
           <div>
-            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">FREE Liability Insurance</h3>
+            <h3 className="font-semibold text-[#0A2E12]">FREE Liability Insurance</h3>
             <p className="text-xs text-[#1B5E20] font-medium">Powered by Daily Event Insurance</p>
           </div>
         </div>
 
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="text-sm text-[#3D5A3E]">
           Protect your players with per-participant liability coverage — completely free for your venue.
           Coverage activates instantly and is underwritten by A-rated carriers including AIG and Lloyd&apos;s of London.
         </p>
 
         <div className="grid grid-cols-1 gap-2">
-          <div className="flex items-center gap-2 text-sm text-zinc-700">
+          <div className="flex items-center gap-2 text-sm text-[#2D4A30]">
             <CheckCircle2 className="h-4 w-4 text-[#1B5E20] shrink-0" />
             <span>Zero cost — no setup fees, no monthly charges</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-zinc-700">
+          <div className="flex items-center gap-2 text-sm text-[#2D4A30]">
             <DollarSign className="h-4 w-4 text-[#1B5E20] shrink-0" />
             <span>Earn $2-$10 for every covered participant</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-zinc-700">
+          <div className="flex items-center gap-2 text-sm text-[#2D4A30]">
             <Zap className="h-4 w-4 text-[#1B5E20] shrink-0" />
             <span>10-minute setup, coverage live within 48 hours</span>
           </div>
@@ -74,7 +74,7 @@ export function InsuranceOffer({ onDismiss, onStatusUpdate }: InsuranceOfferProp
           </a>
           <button
             onClick={handleDismiss}
-            className="rounded-lg border border-zinc-300 px-4 py-2.5 text-sm text-zinc-500 transition-colors hover:bg-zinc-50 min-h-[44px]"
+            className="rounded-lg border border-[#0A2E12]/10 px-4 py-2.5 text-sm text-[#3D5A3E] transition-colors hover:bg-[#0A2E12]/[0.03] min-h-[44px]"
           >
             Maybe Later
           </button>

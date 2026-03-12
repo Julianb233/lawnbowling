@@ -75,11 +75,11 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <h3 className="text-lg font-black text-zinc-900 dark:text-zinc-100">Log Green Conditions</h3>
+      <h3 className="text-lg font-black text-[#0A2E12]">Log Green Conditions</h3>
 
       {/* Green Speed */}
       <div>
-        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-zinc-400">
+        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
           Green Speed
         </label>
         <div className="grid grid-cols-3 gap-2">
@@ -92,7 +92,7 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
                 "rounded-xl border px-3 py-3 text-sm font-semibold transition-all",
                 speed === s
                   ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                  : "border-zinc-200 dark:border-white/10 bg-white dark:bg-card text-zinc-500 dark:text-muted-foreground hover:border-zinc-300"
+                  : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#0A2E12]/10"
               )}
             >
               {GREEN_SPEED_LABELS[s]}
@@ -103,7 +103,7 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
 
       {/* Surface Condition */}
       <div>
-        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-zinc-400">
+        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
           Surface
         </label>
         <div className="grid grid-cols-3 gap-2">
@@ -116,7 +116,7 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
                 "rounded-xl border px-3 py-3 text-sm font-semibold transition-all",
                 surface === s
                   ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                  : "border-zinc-200 dark:border-white/10 bg-white dark:bg-card text-zinc-500 dark:text-muted-foreground hover:border-zinc-300"
+                  : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#0A2E12]/10"
               )}
             >
               {SURFACE_CONDITION_LABELS[s]}
@@ -127,7 +127,7 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
 
       {/* Wind Direction - Compass Rose (3x3 grid) */}
       <div>
-        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-zinc-400">
+        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
           Wind Direction
         </label>
         <div className="mx-auto w-fit">
@@ -143,7 +143,7 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
                     "flex h-12 w-12 items-center justify-center rounded-xl border text-sm font-bold transition-all",
                     windDir === dir
                       ? "border-[#1B5E20] bg-[#1B5E20] text-white"
-                      : "border-zinc-200 dark:border-white/10 bg-white dark:bg-card text-zinc-500 dark:text-muted-foreground hover:border-zinc-300"
+                      : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#0A2E12]/10"
                   )}
                 >
                   {COMPASS_LABELS[dir]}
@@ -156,7 +156,7 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
 
       {/* Wind Strength */}
       <div>
-        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-zinc-400">
+        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
           Wind Strength
         </label>
         <div className="grid grid-cols-4 gap-2">
@@ -169,7 +169,7 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
                 "rounded-xl border px-2 py-3 text-xs font-semibold transition-all",
                 windStr === s
                   ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                  : "border-zinc-200 dark:border-white/10 bg-white dark:bg-card text-zinc-500 dark:text-muted-foreground hover:border-zinc-300"
+                  : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#0A2E12]/10"
               )}
             >
               {WIND_STRENGTH_LABELS[s]}
@@ -180,8 +180,8 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
 
       {/* Notes */}
       <div>
-        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-zinc-400">
-          Notes <span className="font-normal text-zinc-300">(optional)</span>
+        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+          Notes <span className="font-normal text-[#3D5A3E]">(optional)</span>
         </label>
         <textarea
           value={notes}
@@ -189,9 +189,9 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
           maxLength={280}
           rows={2}
           placeholder="e.g. Heavy on the backhand side..."
-          className="w-full rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-sm text-zinc-900 dark:text-foreground placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20 resize-none"
+          className="w-full rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20 resize-none"
         />
-        <p className="mt-1 text-right text-[11px] text-zinc-400">{notes.length}/280</p>
+        <p className="mt-1 text-right text-[11px] text-[#3D5A3E]">{notes.length}/280</p>
       </div>
 
       {error && (
@@ -205,7 +205,7 @@ export function GreenConditionsForm({ tournamentId, existing, onSaved, onCancel 
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-background py-3 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 min-h-[48px] touch-manipulation"
+          className="flex-1 rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] py-3 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/5 min-h-[48px] touch-manipulation"
         >
           Cancel
         </button>

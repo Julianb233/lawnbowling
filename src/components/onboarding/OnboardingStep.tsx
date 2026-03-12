@@ -39,7 +39,7 @@ export function OnboardingStep({ icon: Icon, title, description, color = "text-g
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="max-w-sm text-lg text-zinc-600 leading-relaxed"
+        className="max-w-sm text-lg text-[#3D5A3E] leading-relaxed"
       >
         {description}
       </motion.p>

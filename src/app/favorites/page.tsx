@@ -19,12 +19,12 @@ export default async function FavoritesPage() {
 
   return (
     <div className="min-h-screen bg-animated-gradient">
-      <header className="sticky top-0 z-40 glass border-b border-zinc-200 dark:border-white/10">
+      <header className="sticky top-0 z-40 glass border-b border-[#0A2E12]/10">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
-          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+          <h1 className="text-xl font-bold text-[#0A2E12]">
             {"\u2B50"} Favorites
           </h1>
-          <Link href="/board" className="text-sm text-zinc-500 hover:text-zinc-700">
+          <Link href="/board" className="text-sm text-[#3D5A3E] hover:text-[#2D4A30]">
             Back
           </Link>
         </div>
@@ -34,7 +34,7 @@ export default async function FavoritesPage() {
         {!favorites || favorites.length === 0 ? (
           <div className="rounded-2xl glass p-8 text-center">
             <p className="text-3xl mb-2">{"\u2B50"}</p>
-            <p className="text-zinc-500 mb-4">
+            <p className="text-[#3D5A3E] mb-4">
               No favorites yet. Star players you enjoy playing with!
             </p>
             <Link
@@ -53,7 +53,7 @@ export default async function FavoritesPage() {
                 <Link
                   key={fav.id}
                   href={`/profile/${player.id}`}
-                  className="flex items-center gap-3 rounded-xl glass p-3 hover:bg-zinc-50 transition-colors"
+                  className="flex items-center gap-3 rounded-xl glass p-3 hover:bg-[#0A2E12]/[0.03] transition-colors"
                 >
                   <div className="relative">
                     {player.avatar_url ? (
@@ -72,10 +72,10 @@ export default async function FavoritesPage() {
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-zinc-900 truncate">
+                    <p className="text-sm font-medium text-[#0A2E12] truncate">
                       {player.name}
                     </p>
-                    <p className="text-xs text-zinc-500 capitalize">
+                    <p className="text-xs text-[#3D5A3E] capitalize">
                       {player.skill_level} &middot;{" "}
                       {player.is_available ? "Online" : "Offline"}
                     </p>

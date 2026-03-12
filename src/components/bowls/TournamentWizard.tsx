@@ -262,15 +262,15 @@ export function TournamentWizard({
   return (
     <div>
       {/* Step Rail */}
-      <div className="mb-6 rounded-2xl bg-white border border-zinc-200 p-4">
+      <div className="mb-6 rounded-2xl bg-white border border-[#0A2E12]/10 p-4">
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
             Round {progression.current_round}
           </span>
           <span className={cn(
             "rounded-full px-2.5 py-1 text-[11px] font-bold",
             currentState === "complete"
-              ? "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+              ? "bg-[#0A2E12]/5 text-[#3D5A3E]"
               : "bg-[#1B5E20]/10 text-[#2E7D32]"
           )}>
             {STEP_LABELS[currentState]}
@@ -288,16 +288,16 @@ export function TournamentWizard({
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="rounded-2xl bg-white border border-zinc-200 p-6">
+          <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-6">
             <div className="mb-4 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1B5E20]/10 text-[#1B5E20]">
                 {STEP_ICONS[currentState]}
               </div>
               <div>
-                <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+                <h2 className="text-lg font-bold text-[#0A2E12]">
                   {STEP_LABELS[currentState]}
                 </h2>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="text-sm text-[#3D5A3E]">
                   {STEP_DESCRIPTIONS[currentState]}
                 </p>
               </div>
@@ -306,8 +306,8 @@ export function TournamentWizard({
             {/* === REGISTRATION === */}
             {currentState === "registration" && (
               <div className="space-y-4">
-                <div className="rounded-xl bg-zinc-50 p-4">
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                <div className="rounded-xl bg-[#0A2E12]/[0.03] p-4">
+                  <p className="text-sm text-[#3D5A3E]">
                     <span className="font-semibold">{tournamentName}</span> is ready
                     to begin. Start check-in to allow players to register.
                   </p>
@@ -323,27 +323,27 @@ export function TournamentWizard({
             {/* === CHECK-IN === */}
             {currentState === "checkin" && (
               <div className="space-y-4">
-                <div className="flex items-center justify-between rounded-xl bg-zinc-50 p-4">
+                <div className="flex items-center justify-between rounded-xl bg-[#0A2E12]/[0.03] p-4">
                   <div>
-                    <p className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
+                    <p className="text-2xl font-black text-[#0A2E12]">
                       {progression.checkin_count}
                     </p>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400">players checked in</p>
+                    <p className="text-xs text-[#3D5A3E]">players checked in</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                      Minimum: <span className="font-semibold text-zinc-700">{playersPerRink}</span> for{" "}
+                    <p className="text-sm text-[#3D5A3E]">
+                      Minimum: <span className="font-semibold text-[#2D4A30]">{playersPerRink}</span> for{" "}
                       {BOWLS_FORMAT_LABELS[format].label}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <label className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Format:</label>
+                  <label className="text-sm font-medium text-[#3D5A3E]">Format:</label>
                   <select
                     value={format}
                     onChange={(e) => onFormatChange(e.target.value as BowlsGameFormat)}
-                    className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm font-medium text-zinc-700 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+                    className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-medium text-[#2D4A30] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                   >
                     {(Object.entries(BOWLS_FORMAT_LABELS) as [BowlsGameFormat, typeof BOWLS_FORMAT_LABELS[BowlsGameFormat]][]).map(
                       ([key, val]) => (
@@ -376,8 +376,8 @@ export function TournamentWizard({
             {currentState === "draw" && (
               <div className="space-y-4">
                 {drawResult && (
-                  <div className="rounded-xl bg-zinc-50 p-4">
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                  <div className="rounded-xl bg-[#0A2E12]/[0.03] p-4">
+                    <p className="text-sm text-[#3D5A3E]">
                       Draw generated: <span className="font-semibold">{drawResult.rinkCount} rink{drawResult.rinkCount !== 1 ? "s" : ""}</span>{" "}
                       for {BOWLS_FORMAT_LABELS[drawResult.format].label}
                     </p>
@@ -407,7 +407,7 @@ export function TournamentWizard({
                         ? "Cannot re-draw while scores are in progress. Finalize or clear all scores first."
                         : undefined
                     }
-                    className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     Re-Draw
                   </button>
@@ -418,8 +418,8 @@ export function TournamentWizard({
             {/* === SCORING === */}
             {currentState === "scoring" && (
               <div className="space-y-4">
-                <div className="rounded-xl bg-zinc-50 p-4">
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                <div className="rounded-xl bg-[#0A2E12]/[0.03] p-4">
+                  <p className="text-sm text-[#3D5A3E]">
                     Round {progression.current_round} is in progress. Enter scores for
                     each rink.
                   </p>
@@ -427,7 +427,7 @@ export function TournamentWizard({
                     <div className="mt-3 space-y-1">
                       {rinkScores.map((r) => (
                         <div key={r.rink} className="flex items-center justify-between text-sm">
-                          <span className="text-zinc-600 dark:text-zinc-400">Rink {r.rink}</span>
+                          <span className="text-[#3D5A3E]">Rink {r.rink}</span>
                           <span className={cn(
                             "font-medium",
                             r.is_finalized ? "text-[#1B5E20]" : "text-amber-600"
@@ -472,7 +472,7 @@ export function TournamentWizard({
                       ? "Cannot re-draw while scores are in progress. Finalize or clear all scores first."
                       : undefined
                   }
-                  className="text-sm text-zinc-400 hover:text-zinc-600 disabled:cursor-not-allowed disabled:hover:text-zinc-400"
+                  className="text-sm text-[#3D5A3E] hover:text-[#3D5A3E] disabled:cursor-not-allowed disabled:hover:text-[#3D5A3E]"
                 >
                   Re-Draw Round
                 </button>
@@ -482,23 +482,23 @@ export function TournamentWizard({
             {/* === RESULTS === */}
             {currentState === "results" && (
               <div className="space-y-4">
-                <div className="rounded-xl bg-zinc-50 p-4">
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                <div className="rounded-xl bg-[#0A2E12]/[0.03] p-4">
+                  <p className="text-sm text-[#3D5A3E]">
                     Round {progression.current_round} results are in. You can start
                     another round or complete the tournament.
                   </p>
                   {standings.length > 0 && (
                     <div className="mt-3">
-                      <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
+                      <p className="text-xs font-bold uppercase tracking-wider text-[#3D5A3E] mb-2">
                         Top Players
                       </p>
                       {standings.slice(0, 5).map((p, i) => (
                         <div key={p.player_id} className="flex items-center justify-between text-sm py-1">
-                          <span className="text-zinc-700">
-                            <span className="font-semibold text-zinc-400 mr-2">{i + 1}.</span>
+                          <span className="text-[#2D4A30]">
+                            <span className="font-semibold text-[#3D5A3E] mr-2">{i + 1}.</span>
                             {p.display_name}
                           </span>
-                          <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                          <span className="text-xs text-[#3D5A3E]">
                             {p.wins}W {p.losses}L {p.draws}D &middot; +{p.total_shots_for - p.total_shots_against}
                           </span>
                         </div>
@@ -526,7 +526,7 @@ export function TournamentWizard({
                   <button
                     onClick={() => performAction("complete")}
                     disabled={actionLoading}
-                    className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 disabled:opacity-50"
+                    className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-50"
                   >
                     End Tournament
                   </button>
@@ -540,40 +540,40 @@ export function TournamentWizard({
                 <div className="rounded-xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-5">
                   <div className="flex items-center gap-3 mb-3">
                     <Trophy className="h-6 w-6 text-[#1B5E20]" />
-                    <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Tournament Complete</h3>
+                    <h3 className="text-lg font-bold text-[#0A2E12]">Tournament Complete</h3>
                   </div>
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <p className="text-2xl font-black text-[#1B5E20]">
                         {totalRoundsPlayed}
                       </p>
-                      <p className="text-xs text-zinc-500 dark:text-zinc-400">Rounds Played</p>
+                      <p className="text-xs text-[#3D5A3E]">Rounds Played</p>
                     </div>
                     <div>
                       <p className="text-2xl font-black text-[#1B5E20]">
                         {progression.checkin_count}
                       </p>
-                      <p className="text-xs text-zinc-500 dark:text-zinc-400">Total Players</p>
+                      <p className="text-xs text-[#3D5A3E]">Total Players</p>
                     </div>
                     <div>
                       <p className="text-2xl font-black text-[#1B5E20]">
                         {standings[0]?.display_name ?? "-"}
                       </p>
-                      <p className="text-xs text-zinc-500 dark:text-zinc-400">Winner</p>
+                      <p className="text-xs text-[#3D5A3E]">Winner</p>
                     </div>
                   </div>
                   {standings.length > 0 && (
                     <div className="mt-4 border-t border-[#1B5E20]/10 pt-3">
-                      <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
+                      <p className="text-xs font-bold uppercase tracking-wider text-[#3D5A3E] mb-2">
                         Final Standings
                       </p>
                       {standings.slice(0, 5).map((p, i) => (
                         <div key={p.player_id} className="flex items-center justify-between text-sm py-1">
-                          <span className="text-zinc-700">
+                          <span className="text-[#2D4A30]">
                             <span className="font-bold text-[#1B5E20] mr-2">{i + 1}.</span>
                             {p.display_name}
                           </span>
-                          <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                          <span className="text-xs text-[#3D5A3E]">
                             {p.wins}W-{p.losses}L-{p.draws}D
                           </span>
                         </div>
@@ -606,7 +606,7 @@ export function TournamentWizard({
         <div className="mt-4">
           <button
             onClick={() => setShowAdvanced(!showAdvanced)}
-            className="flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-400"
+            className="flex items-center gap-1 text-sm text-[#3D5A3E] hover:text-[#3D5A3E]"
           >
             {showAdvanced ? (
               <ChevronDown className="h-4 w-4" />
@@ -622,8 +622,8 @@ export function TournamentWizard({
               exit={{ opacity: 0, height: 0 }}
               className="mt-3"
             >
-              <div className="rounded-2xl bg-white border border-zinc-200 overflow-hidden">
-                <div className="flex gap-1 p-2 border-b border-zinc-100">
+              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 overflow-hidden">
+                <div className="flex gap-1 p-2 border-b border-[#0A2E12]/10">
                   {(
                     [
                       { key: "checkin" as const, label: "Check In" },
@@ -637,8 +637,8 @@ export function TournamentWizard({
                       className={cn(
                         "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
                         advancedTab === tab.key
-                          ? "bg-zinc-100 text-zinc-900"
-                          : "text-zinc-500 hover:bg-zinc-50 dark:bg-white/5"
+                          ? "bg-[#0A2E12]/5 text-[#0A2E12]"
+                          : "text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
                       )}
                     >
                       {tab.label}
@@ -693,7 +693,7 @@ function CTAButton({
       </button>
       {tooltip && disabled && (
         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-10">
-          <div className="rounded-lg bg-zinc-900 px-3 py-2 text-xs text-white max-w-xs text-center shadow-lg">
+          <div className="rounded-lg bg-[#0A2E12] px-3 py-2 text-xs text-white max-w-xs text-center shadow-lg">
             {tooltip}
           </div>
         </div>

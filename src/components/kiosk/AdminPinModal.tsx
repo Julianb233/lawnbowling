@@ -66,7 +66,7 @@ export function AdminPinModal({ open, onClose, onSuccess }: AdminPinModalProps) 
               </div>
               <button
                 onClick={() => { onClose(); setPin(""); }}
-                className="rounded-full p-3 hover:bg-zinc-100 touch-manipulation"
+                className="rounded-full p-3 hover:bg-[#0A2E12]/5 touch-manipulation"
                 style={{
                   minHeight: "56px",
                   minWidth: "56px",
@@ -88,7 +88,7 @@ export function AdminPinModal({ open, onClose, onSuccess }: AdminPinModalProps) 
                   className={`h-5 w-5 rounded-full border-2 transition-colors ${
                     i < pin.length
                       ? error ? "border-red-500 bg-red-500" : "border-green-500 bg-green-500"
-                      : "border-zinc-600"
+                      : "border-[#0A2E12]/10"
                   }`}
                 />
               ))}

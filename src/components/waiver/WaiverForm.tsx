@@ -51,14 +51,14 @@ export function WaiverForm({ waiverText = DEFAULT_WAIVER_TEXT, onSubmit, venueNa
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="flex items-center gap-2 text-zinc-500 dark:text-zinc-400">
+      <div className="flex items-center gap-2 text-[#3D5A3E]">
         <FileText className="h-5 w-5" />
         <h3 className="text-sm font-medium uppercase tracking-wide">Liability Waiver</h3>
       </div>
 
       <div
         ref={scrollRef}
-        className="max-h-64 overflow-y-auto rounded-lg border border-zinc-200 bg-black/30 p-4 text-sm leading-relaxed text-white/70"
+        className="max-h-64 overflow-y-auto rounded-lg border border-[#0A2E12]/10 bg-black/30 p-4 text-sm leading-relaxed text-white/70"
       >
         <pre className="whitespace-pre-wrap font-sans">{waiverText}</pre>
       </div>
@@ -67,14 +67,14 @@ export function WaiverForm({ waiverText = DEFAULT_WAIVER_TEXT, onSubmit, venueNa
         <Checkbox.Root
           checked={accepted}
           onCheckedChange={(checked) => setAccepted(checked === true)}
-          className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded border border-white/30 bg-zinc-50 transition-colors data-[state=checked]:border-[#1B5E20] data-[state=checked]:bg-[#1B5E20] min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0"
+          className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded border border-white/30 bg-[#0A2E12]/[0.03] transition-colors data-[state=checked]:border-[#1B5E20] data-[state=checked]:bg-[#1B5E20] min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0"
           id="waiver-accept"
         >
           <Checkbox.Indicator>
             <Check className="h-4 w-4 text-white" />
           </Checkbox.Indicator>
         </Checkbox.Root>
-        <label htmlFor="waiver-accept" className="text-sm text-zinc-700 cursor-pointer">
+        <label htmlFor="waiver-accept" className="text-sm text-[#2D4A30] cursor-pointer">
           I accept the liability waiver and terms for activities at {venueName}. I understand and acknowledge the risks
           involved in recreational sports participation.
         </label>

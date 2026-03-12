@@ -55,7 +55,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
     return (
       <div className="space-y-3">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-20 animate-pulse rounded-xl bg-zinc-100" />
+          <div key={i} className="h-20 animate-pulse rounded-xl bg-[#0A2E12]/5" />
         ))}
       </div>
     );
@@ -63,7 +63,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
 
   if (matches.length === 0) {
     return (
-      <div className="py-12 text-center text-sm text-zinc-600 dark:text-zinc-400">
+      <div className="py-12 text-center text-sm text-[#3D5A3E]">
         No match history yet
       </div>
     );
@@ -83,7 +83,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
           <motion.div
             key={match.id}
             {...ANIMATIONS.fadeInUp}
-            className="rounded-xl border border-zinc-200 bg-zinc-50 p-3"
+            className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-3"
           >
             <div className="mb-2 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -108,13 +108,13 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                 )}
               </div>
               {result && result.team1_score !== null && (
-                <span className="text-sm font-bold text-zinc-600 dark:text-zinc-400">
+                <span className="text-sm font-bold text-[#3D5A3E]">
                   {result.team1_score} - {result.team2_score}
                 </span>
               )}
             </div>
 
-            <div className="flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
+            <div className="flex items-center gap-3 text-xs text-[#3D5A3E]">
               {match.ended_at && (
                 <span className="flex items-center gap-1">
                   <Calendar className="h-3 w-3" />
@@ -136,13 +136,13 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                   key={mp.player_id}
                   className={cn(
                     "h-6 w-6 overflow-hidden rounded-full border-2",
-                    mp.player_id === playerId ? "border-[#1B5E20]" : "border-zinc-900"
+                    mp.player_id === playerId ? "border-[#1B5E20]" : "border-[#0A2E12]/10"
                   )}
                 >
                   {mp.players?.avatar_url ? (
                     <img src={mp.players.avatar_url} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-[10px] text-zinc-500 dark:text-zinc-400">
+                    <div className="flex h-full w-full items-center justify-center bg-[#0A2E12]/5 text-[10px] text-[#3D5A3E]">
                       {mp.players?.display_name?.charAt(0)}
                     </div>
                   )}

@@ -13,8 +13,8 @@ export function UpcomingGames({ games, currentPlayerId }: UpcomingGamesProps) {
   if (games.length === 0) {
     return (
       <div className="rounded-2xl glass p-8 text-center">
-        <Calendar className="w-8 h-8 mx-auto mb-2 text-zinc-400" strokeWidth={1.5} />
-        <p className="text-zinc-400">No upcoming games. Schedule one!</p>
+        <Calendar className="w-8 h-8 mx-auto mb-2 text-[#3D5A3E]" strokeWidth={1.5} />
+        <p className="text-[#3D5A3E]">No upcoming games. Schedule one!</p>
       </div>
     );
   }

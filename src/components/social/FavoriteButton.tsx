@@ -42,7 +42,7 @@ export function FavoriteButton({
         "flex h-8 w-8 items-center justify-center rounded-full transition-all",
         favorited
           ? "text-amber-500 bg-amber-50"
-          : "text-zinc-400 hover:text-amber-500 hover:bg-amber-50",
+          : "text-[#3D5A3E] hover:text-amber-500 hover:bg-amber-50",
         className
       )}
       aria-label={favorited ? "Remove from favorites" : "Add to favorites"}

@@ -24,10 +24,10 @@ export default function LiveScoresSlide({
     return (
       <div className="flex h-full items-center justify-center">
         <div className="text-center">
-          <h3 className="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-zinc-500">
+          <h3 className="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-[#3D5A3E]">
             Round {currentRound}
           </h3>
-          <p className="mt-2 text-[clamp(1rem,2vw,1.25rem)] text-zinc-600">
+          <p className="mt-2 text-[clamp(1rem,2vw,1.25rem)] text-[#3D5A3E]">
             Waiting for scores...
           </p>
         </div>
@@ -38,11 +38,11 @@ export default function LiveScoresSlide({
   return (
     <div className="flex h-full flex-col px-[clamp(1rem,2vw,2rem)]">
       <div className="mb-[clamp(0.5rem,1vh,1rem)] flex items-center justify-between">
-        <h2 className="text-[clamp(1rem,2vw,1.5rem)] font-black uppercase tracking-wider text-zinc-400">
+        <h2 className="text-[clamp(1rem,2vw,1.5rem)] font-black uppercase tracking-wider text-[#3D5A3E]">
           Live Scores &mdash; Round {currentRound}
         </h2>
         {roundScores.length > rinksPerPage && (
-          <span className="text-[clamp(0.75rem,1.2vw,1rem)] text-zinc-500">
+          <span className="text-[clamp(0.75rem,1.2vw,1rem)] text-[#3D5A3E]">
             Page {pageIndex + 1} of {Math.ceil(roundScores.length / rinksPerPage)}
           </span>
         )}
@@ -65,11 +65,11 @@ function ScoreCard({ score }: { score: TournamentScore }) {
 
   return (
     <div className={cn(
-      "rounded-2xl border bg-zinc-900 overflow-hidden",
+      "rounded-2xl border bg-[#0A2E12] overflow-hidden",
       isFinalized ? "border-emerald-500/30" : hasScores ? "border-amber-500/30" : "border-white/10"
     )}>
-      <div className="flex items-center justify-between border-b border-white/5 bg-zinc-800/50 px-[clamp(0.75rem,1.5vw,1.25rem)] py-[clamp(0.4rem,0.8vh,0.75rem)]">
-        <h3 className="text-[clamp(0.65rem,1vw,0.875rem)] font-bold uppercase tracking-wider text-zinc-400">
+      <div className="flex items-center justify-between border-b border-white/5 bg-[#0A2E12]/50 px-[clamp(0.75rem,1.5vw,1.25rem)] py-[clamp(0.4rem,0.8vh,0.75rem)]">
+        <h3 className="text-[clamp(0.65rem,1vw,0.875rem)] font-bold uppercase tracking-wider text-[#3D5A3E]">
           Rink {score.rink}
         </h3>
         {isFinalized ? (
@@ -80,21 +80,21 @@ function ScoreCard({ score }: { score: TournamentScore }) {
             In Play
           </span>
         ) : (
-          <span className="rounded-full bg-zinc-700 px-3 py-0.5 text-[clamp(0.6rem,0.9vw,0.75rem)] font-bold text-zinc-400">Pending</span>
+          <span className="rounded-full bg-[#0A2E12] px-3 py-0.5 text-[clamp(0.6rem,0.9vw,0.75rem)] font-bold text-[#3D5A3E]">Pending</span>
         )}
       </div>
       <div className="p-[clamp(0.75rem,1.5vw,1.25rem)]">
         <TeamRow label="Team A" players={score.team_a_players} total={score.total_a} endsWon={score.ends_won_a} winning={teamAWinning} color="emerald" />
         <div className="my-[clamp(0.3rem,0.5vh,0.5rem)] flex items-center gap-2">
           <div className="flex-1 border-t border-white/5" />
-          <span className="text-[clamp(0.5rem,0.8vw,0.65rem)] font-bold text-zinc-600">VS</span>
+          <span className="text-[clamp(0.5rem,0.8vw,0.65rem)] font-bold text-[#3D5A3E]">VS</span>
           <div className="flex-1 border-t border-white/5" />
         </div>
         <TeamRow label="Team B" players={score.team_b_players} total={score.total_b} endsWon={score.ends_won_b} winning={teamBWinning} color="blue" />
         {isFinalized && (
           <div className="mt-2 text-center">
             {isDraw ? (
-              <span className="text-[clamp(0.6rem,1vw,0.875rem)] font-bold text-zinc-400">Draw</span>
+              <span className="text-[clamp(0.6rem,1vw,0.875rem)] font-bold text-[#3D5A3E]">Draw</span>
             ) : teamAWinning ? (
               <span className="text-[clamp(0.6rem,1vw,0.875rem)] font-bold text-emerald-400">Team A wins by {score.total_a - score.total_b}</span>
             ) : (
@@ -115,7 +115,7 @@ function TeamRow({ label, players, total, endsWon, winning, color }: {
   winning: boolean;
   color: "emerald" | "blue";
 }) {
-  const bgClass = winning ? (color === "emerald" ? "bg-emerald-500/10" : "bg-blue-500/10") : "bg-zinc-800/30";
+  const bgClass = winning ? (color === "emerald" ? "bg-emerald-500/10" : "bg-blue-500/10") : "bg-[#0A2E12]/30";
   const colorClass = color === "emerald" ? "text-emerald-400" : "text-blue-400";
 
   return (
@@ -126,12 +126,12 @@ function TeamRow({ label, players, total, endsWon, winning, color }: {
           {players?.map((p) => (
             <p key={p.player_id} className="text-[clamp(0.6rem,1vw,0.875rem)] font-medium text-white truncate">{p.display_name}</p>
           ))}
-          {(!players || players.length === 0) && <p className="text-[clamp(0.6rem,1vw,0.875rem)] text-zinc-500">--</p>}
+          {(!players || players.length === 0) && <p className="text-[clamp(0.6rem,1vw,0.875rem)] text-[#3D5A3E]">--</p>}
         </div>
       </div>
       <div className="ml-4 text-right">
         <p className={cn("text-[clamp(2rem,4vw,3.5rem)] font-black tabular-nums", winning ? colorClass : "text-white")}>{total}</p>
-        <p className="text-[clamp(0.5rem,0.8vw,0.65rem)] text-zinc-500">{endsWon} ends</p>
+        <p className="text-[clamp(0.5rem,0.8vw,0.65rem)] text-[#3D5A3E]">{endsWon} ends</p>
       </div>
     </div>
   );

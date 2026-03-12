@@ -173,7 +173,7 @@ export default function FixtureDetailPage() {
   if (!fixture) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <p className="text-zinc-400">Fixture not found</p>
+        <p className="text-[#3D5A3E]">Fixture not found</p>
       </div>
     );
   }
@@ -182,16 +182,16 @@ export default function FixtureDetailPage() {
   const awayName = fixture.away_team?.name ?? "Away";
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <Link href={`/pennant/${seasonId}`} className="text-sm text-zinc-400 hover:text-zinc-600 mb-1 block">
+          <Link href={`/pennant/${seasonId}`} className="text-sm text-[#3D5A3E] hover:text-[#3D5A3E] mb-1 block">
             &larr; Season
           </Link>
-          <h1 className="text-xl font-black tracking-tight text-zinc-900">
+          <h1 className="text-xl font-black tracking-tight text-[#0A2E12]">
             Round {fixture.round}
           </h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-[#3D5A3E]">
             {homeName} vs {awayName}
           </p>
         </div>
@@ -199,47 +199,47 @@ export default function FixtureDetailPage() {
 
       <main className="mx-auto max-w-3xl px-4 py-6 space-y-6">
         {/* Match card */}
-        <div className="rounded-2xl border border-zinc-200 bg-white p-6">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
           <div className="flex items-center gap-4">
             <div className="flex-1 text-right">
-              <p className="text-lg font-bold text-zinc-900">{homeName}</p>
-              <p className="text-xs uppercase tracking-wider text-zinc-400">Home</p>
+              <p className="text-lg font-bold text-[#0A2E12]">{homeName}</p>
+              <p className="text-xs uppercase tracking-wider text-[#3D5A3E]">Home</p>
             </div>
 
             <div className="shrink-0 text-center px-4">
               {result ? (
                 <div className="flex items-center gap-2">
-                  <span className={cn("text-3xl font-black", result.winner_team_id === fixture.home_team_id ? "text-[#1B5E20]" : "text-zinc-400")}>
+                  <span className={cn("text-3xl font-black", result.winner_team_id === fixture.home_team_id ? "text-[#1B5E20]" : "text-[#3D5A3E]")}>
                     {result.home_shot_total}
                   </span>
-                  <span className="text-zinc-300">-</span>
-                  <span className={cn("text-3xl font-black", result.winner_team_id === fixture.away_team_id ? "text-[#1B5E20]" : "text-zinc-400")}>
+                  <span className="text-[#3D5A3E]">-</span>
+                  <span className={cn("text-3xl font-black", result.winner_team_id === fixture.away_team_id ? "text-[#1B5E20]" : "text-[#3D5A3E]")}>
                     {result.away_shot_total}
                   </span>
                 </div>
               ) : (
-                <span className="text-lg font-bold text-zinc-300">VS</span>
+                <span className="text-lg font-bold text-[#3D5A3E]">VS</span>
               )}
             </div>
 
             <div className="flex-1">
-              <p className="text-lg font-bold text-zinc-900">{awayName}</p>
-              <p className="text-xs uppercase tracking-wider text-zinc-400">Away</p>
+              <p className="text-lg font-bold text-[#0A2E12]">{awayName}</p>
+              <p className="text-xs uppercase tracking-wider text-[#3D5A3E]">Away</p>
             </div>
           </div>
 
           {result && (
-            <div className="mt-4 pt-4 border-t border-zinc-100 flex justify-center gap-6 text-xs text-zinc-500">
+            <div className="mt-4 pt-4 border-t border-[#0A2E12]/10 flex justify-center gap-6 text-xs text-[#3D5A3E]">
               <span>Rink wins: {result.home_rink_wins} - {result.away_rink_wins}</span>
               <span>Points: {result.points_home} - {result.points_away}</span>
             </div>
           )}
 
           {fixture.venue && (
-            <p className="mt-3 text-center text-xs text-zinc-400">{fixture.venue}</p>
+            <p className="mt-3 text-center text-xs text-[#3D5A3E]">{fixture.venue}</p>
           )}
           {fixture.scheduled_at && (
-            <p className="mt-1 text-center text-xs text-zinc-400">
+            <p className="mt-1 text-center text-xs text-[#3D5A3E]">
               {new Date(fixture.scheduled_at).toLocaleDateString("en-US", {
                 weekday: "long",
                 month: "long",
@@ -276,7 +276,7 @@ export default function FixtureDetailPage() {
             )}
             <button
               onClick={() => setShowResultForm(!showResultForm)}
-              className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 transition-colors min-h-[44px] touch-manipulation"
+              className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors min-h-[44px] touch-manipulation"
             >
               {result ? "Edit Result" : "Enter Result"}
             </button>
@@ -285,46 +285,46 @@ export default function FixtureDetailPage() {
 
         {/* Result entry form */}
         {showResultForm && (
-          <div className="rounded-2xl border border-zinc-200 bg-white p-5 space-y-4">
-            <h3 className="text-sm font-bold text-zinc-700">Match Result</h3>
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 space-y-4">
+            <h3 className="text-sm font-bold text-[#2D4A30]">Match Result</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-zinc-500 mb-1">{homeName} Shot Total</label>
+                <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">{homeName} Shot Total</label>
                 <input
                   type="number"
                   value={homeShotTotal}
                   onChange={(e) => setHomeShotTotal(Number(e.target.value))}
-                  className="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm"
+                  className="w-full rounded-lg border border-[#0A2E12]/10 px-3 py-2 text-sm"
                   min={0}
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-zinc-500 mb-1">{awayName} Shot Total</label>
+                <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">{awayName} Shot Total</label>
                 <input
                   type="number"
                   value={awayShotTotal}
                   onChange={(e) => setAwayShotTotal(Number(e.target.value))}
-                  className="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm"
+                  className="w-full rounded-lg border border-[#0A2E12]/10 px-3 py-2 text-sm"
                   min={0}
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-zinc-500 mb-1">{homeName} Rink Wins</label>
+                <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">{homeName} Rink Wins</label>
                 <input
                   type="number"
                   value={homeRinkWins}
                   onChange={(e) => setHomeRinkWins(Number(e.target.value))}
-                  className="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm"
+                  className="w-full rounded-lg border border-[#0A2E12]/10 px-3 py-2 text-sm"
                   min={0}
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-zinc-500 mb-1">{awayName} Rink Wins</label>
+                <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">{awayName} Rink Wins</label>
                 <input
                   type="number"
                   value={awayRinkWins}
                   onChange={(e) => setAwayRinkWins(Number(e.target.value))}
-                  className="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm"
+                  className="w-full rounded-lg border border-[#0A2E12]/10 px-3 py-2 text-sm"
                   min={0}
                 />
               </div>
@@ -339,7 +339,7 @@ export default function FixtureDetailPage() {
               </button>
               <button
                 onClick={() => setShowResultForm(false)}
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
               >
                 Cancel
               </button>
@@ -349,17 +349,17 @@ export default function FixtureDetailPage() {
 
         {/* Team rosters */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-4">
             <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-emerald-600">
               {homeName}
             </h3>
             {homeMembers.length === 0 ? (
-              <p className="text-xs text-zinc-400">No players assigned</p>
+              <p className="text-xs text-[#3D5A3E]">No players assigned</p>
             ) : (
               <div className="space-y-2">
                 {homeMembers.map((m) => (
                   <div key={m.id} className="flex items-center gap-2">
-                    <span className="text-sm text-zinc-700">{m.player?.display_name ?? "Unknown"}</span>
+                    <span className="text-sm text-[#2D4A30]">{m.player?.display_name ?? "Unknown"}</span>
                     {m.role === "captain" && (
                       <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold text-amber-700">
                         Captain
@@ -371,17 +371,17 @@ export default function FixtureDetailPage() {
             )}
           </div>
 
-          <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-4">
             <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-blue-600">
               {awayName}
             </h3>
             {awayMembers.length === 0 ? (
-              <p className="text-xs text-zinc-400">No players assigned</p>
+              <p className="text-xs text-[#3D5A3E]">No players assigned</p>
             ) : (
               <div className="space-y-2">
                 {awayMembers.map((m) => (
                   <div key={m.id} className="flex items-center gap-2">
-                    <span className="text-sm text-zinc-700">{m.player?.display_name ?? "Unknown"}</span>
+                    <span className="text-sm text-[#2D4A30]">{m.player?.display_name ?? "Unknown"}</span>
                     {m.role === "captain" && (
                       <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold text-amber-700">
                         Captain

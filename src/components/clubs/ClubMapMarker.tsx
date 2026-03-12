@@ -51,8 +51,8 @@ export function ClubMapMarker({ club, isSelected, onSelect }: ClubMapMarkerProps
           maxWidth={300}
         >
           <div className="p-1">
-            <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{club.name}</h3>
-            <div className="mt-1 flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
+            <h3 className="text-sm font-bold text-[#0A2E12]">{club.name}</h3>
+            <div className="mt-1 flex items-center gap-1 text-xs text-[#3D5A3E]">
               <MapPin className="h-3 w-3" />
               <span>
                 {club.city}, {club.stateCode}
@@ -73,14 +73,14 @@ export function ClubMapMarker({ club, isSelected, onSelect }: ClubMapMarkerProps
                 </span>
               )}
               {club.greens && (
-                <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-600 dark:text-zinc-400">
+                <span className="rounded-full bg-[#0A2E12]/5 px-2 py-0.5 text-xs font-medium text-[#3D5A3E]">
                   {club.greens} green{club.greens !== 1 ? "s" : ""}
                 </span>
               )}
             </div>
 
             {club.description && (
-              <p className="mt-2 text-xs text-zinc-500 line-clamp-2">
+              <p className="mt-2 text-xs text-[#3D5A3E] line-clamp-2">
                 {club.description}
               </p>
             )}

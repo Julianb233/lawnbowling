@@ -40,26 +40,26 @@ export default function ForPlayersPage() {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-lg">
               <CircleDot className="h-5 w-5 text-[#1B5E20]" />
             </div>
-            <span className="text-lg font-bold text-zinc-900">
+            <span className="text-lg font-bold text-[#0A2E12]">
               Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
             <Link
               href="/clubs"
-              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
             >
               Clubs
             </Link>
             <Link
               href="/learn"
-              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
+              className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
             >
               Learn
             </Link>
@@ -82,12 +82,12 @@ export default function ForPlayersPage() {
               For Bowlers
             </span>
           </div>
-          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
+          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-[#0A2E12] md:text-7xl">
             Your{" "}
             <span className="text-gradient">Lawn Bowling</span>{" "}
             Companion
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#3D5A3E] md:text-xl">
             Check in for tournament day from your phone. See your rink
             assignment, track your scores end by end, and watch your stats
             grow over the season. Lawnbowling makes the game you love even
@@ -103,7 +103,7 @@ export default function ForPlayersPage() {
             </Link>
             <Link
               href="/clubs"
-              className="inline-flex items-center gap-2 rounded-2xl border border-zinc-300 bg-white px-8 py-4 text-lg font-semibold text-zinc-700 backdrop-blur transition-all hover:border-zinc-400 hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-2xl border border-[#0A2E12]/10 bg-white px-8 py-4 text-lg font-semibold text-[#2D4A30] backdrop-blur transition-all hover:border-[#0A2E12]/10 hover:bg-[#0A2E12]/[0.03] hover:text-[#0A2E12] active:scale-[0.98]"
             >
               Find a Club
             </Link>
@@ -114,10 +114,10 @@ export default function ForPlayersPage() {
       {/* Features */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
         <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+          <h2 className="text-3xl font-bold text-[#0A2E12] md:text-4xl">
             Everything You Need to Bowl
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-[#3D5A3E]">
             From finding a club to stepping on the green
           </p>
         </div>
@@ -169,17 +169,17 @@ export default function ForPlayersPage() {
           ].map((feature) => (
             <div
               key={feature.title}
-              className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
+              className="group rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-sm transition-all hover:border-[#0A2E12]/10 hover:shadow-md"
             >
               <div
                 className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg ${feature.glow}`}
               >
                 <feature.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-zinc-900">
+              <h3 className="mb-2 text-lg font-semibold text-[#0A2E12]">
                 {feature.title}
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-600">
+              <p className="text-sm leading-relaxed text-[#3D5A3E]">
                 {feature.desc}
               </p>
             </div>
@@ -190,10 +190,10 @@ export default function ForPlayersPage() {
       {/* How It Works */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
         <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+          <h2 className="text-3xl font-bold text-[#0A2E12] md:text-4xl">
             Tournament Day, Simplified
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-[#3D5A3E]">
             Three steps. That&apos;s it.
           </p>
         </div>
@@ -220,17 +220,17 @@ export default function ForPlayersPage() {
             },
           ].map((item) => (
             <div key={item.step} className="relative">
-              <div className="rounded-2xl border border-zinc-100 bg-zinc-50 p-8">
+              <div className="rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-8">
                 <span className="text-5xl font-black text-[#1B5E20]/15">
                   {item.step}
                 </span>
                 <div className="mt-4 flex items-center gap-3">
                   <item.icon className="h-5 w-5 text-[#1B5E20]" />
-                  <h3 className="text-xl font-bold text-zinc-900">
+                  <h3 className="text-xl font-bold text-[#0A2E12]">
                     {item.title}
                   </h3>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-3 text-sm leading-relaxed text-[#3D5A3E]">
                   {item.desc}
                 </p>
               </div>
@@ -242,7 +242,7 @@ export default function ForPlayersPage() {
       {/* Social Proof */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+          <h2 className="text-3xl font-bold text-[#0A2E12] md:text-4xl">
             What Bowlers Say
           </h2>
         </div>
@@ -273,7 +273,7 @@ export default function ForPlayersPage() {
           ].map((testimonial) => (
             <div
               key={testimonial.name}
-              className="rounded-2xl border border-zinc-100 bg-white p-6"
+              className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6"
             >
               <div className="mb-4 flex gap-1">
                 {[1, 2, 3, 4, 5].map((i) => (
@@ -283,7 +283,7 @@ export default function ForPlayersPage() {
                   />
                 ))}
               </div>
-              <p className="text-sm leading-relaxed text-zinc-600 italic">
+              <p className="text-sm leading-relaxed text-[#3D5A3E] italic">
                 &ldquo;{testimonial.quote}&rdquo;
               </p>
               <div className="mt-4 flex items-center gap-3">
@@ -293,10 +293,10 @@ export default function ForPlayersPage() {
                   {testimonial.name.charAt(0)}
                 </div>
                 <div>
-                  <span className="block text-sm font-semibold text-zinc-900">
+                  <span className="block text-sm font-semibold text-[#0A2E12]">
                     {testimonial.name}
                   </span>
-                  <span className="block text-xs text-zinc-500">
+                  <span className="block text-xs text-[#3D5A3E]">
                     {testimonial.role}
                   </span>
                 </div>
@@ -308,7 +308,7 @@ export default function ForPlayersPage() {
 
       {/* Device Showcase */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
-        <div className="rounded-2xl border border-zinc-100 bg-zinc-50 p-8 md:p-12">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-8 md:p-12">
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div>
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5">
@@ -317,11 +317,11 @@ export default function ForPlayersPage() {
                   Works Everywhere
                 </span>
               </div>
-              <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+              <h2 className="text-3xl font-bold text-[#0A2E12] md:text-4xl">
                 iPad Kiosk.{" "}
-                <span className="text-zinc-400">Phone Personal.</span>
+                <span className="text-[#3D5A3E]">Phone Personal.</span>
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+              <p className="mt-4 text-lg leading-relaxed text-[#3D5A3E]">
                 Set up an iPad at the clubhouse as a shared check-in kiosk.
                 Players can also use their own phones — install the PWA for an
                 app-like experience with no download required.
@@ -335,7 +335,7 @@ export default function ForPlayersPage() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="flex items-center gap-3 text-zinc-600"
+                    className="flex items-center gap-3 text-[#3D5A3E]"
                   >
                     <CheckCircle className="h-5 w-5 text-[#1B5E20] shrink-0" />
                     {item}
@@ -345,15 +345,15 @@ export default function ForPlayersPage() {
             </div>
             <div className="flex items-center justify-center">
               <div className="relative">
-                <div className="h-72 w-96 rounded-2xl border border-zinc-200 bg-zinc-100 p-3 shadow-2xl">
+                <div className="h-72 w-96 rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 p-3 shadow-2xl">
                   <div className="flex h-full flex-col rounded-xl bg-white">
-                    <div className="flex items-center gap-2 border-b border-zinc-100 px-4 py-2">
+                    <div className="flex items-center gap-2 border-b border-[#0A2E12]/10 px-4 py-2">
                       <span className="text-xs font-bold text-[#1B5E20]">
                         Lawnbowling
                       </span>
                       <span className="ml-auto flex items-center gap-1">
                         <span className="live-dot" />
-                        <span className="text-xs text-zinc-500">Live</span>
+                        <span className="text-xs text-[#3D5A3E]">Live</span>
                       </span>
                     </div>
                     <div className="flex-1 p-3">
@@ -361,10 +361,10 @@ export default function ForPlayersPage() {
                         {[1, 2, 3, 4, 5, 6].map((i) => (
                           <div
                             key={i}
-                            className="rounded-lg border border-zinc-100 bg-zinc-50 p-2"
+                            className="rounded-lg border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-2"
                           >
-                            <div className="mx-auto mb-1 h-6 w-6 rounded-full bg-zinc-300" />
-                            <div className="mx-auto h-1.5 w-10 rounded-full bg-zinc-300" />
+                            <div className="mx-auto mb-1 h-6 w-6 rounded-full bg-[#0A2E12]/10" />
+                            <div className="mx-auto h-1.5 w-10 rounded-full bg-[#0A2E12]/10" />
                             <div className="mx-auto mt-1 h-1 w-6 rounded-full bg-emerald-300" />
                           </div>
                         ))}
@@ -391,7 +391,7 @@ export default function ForPlayersPage() {
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/signup"
-              className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-[#1B5E20] shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-[#1B5E20] shadow-lg transition hover:bg-[#0A2E12]/5 active:scale-[0.98]"
             >
               Get Started
               <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
@@ -407,32 +407,32 @@ export default function ForPlayersPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-white">
+      <footer className="border-t border-[#0A2E12]/10 bg-white">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1B5E20]">
               <CircleDot className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Lawnbowling</span>
+            <span className="font-semibold text-[#0A2E12]">Lawnbowling</span>
           </Link>
-          <div className="flex items-center gap-6 text-sm text-zinc-500">
-            <Link href="/clubs" className="hover:text-zinc-700 transition">
+          <div className="flex items-center gap-6 text-sm text-[#3D5A3E]">
+            <Link href="/clubs" className="hover:text-[#2D4A30] transition">
               Clubs
             </Link>
-            <Link href="/learn" className="hover:text-zinc-700 transition">
+            <Link href="/learn" className="hover:text-[#2D4A30] transition">
               Learn
             </Link>
-            <Link href="/about" className="hover:text-zinc-700 transition">
+            <Link href="/about" className="hover:text-[#2D4A30] transition">
               About
             </Link>
-            <Link href="/terms" className="hover:text-zinc-700 transition">
+            <Link href="/terms" className="hover:text-[#2D4A30] transition">
               Terms
             </Link>
-            <Link href="/privacy" className="hover:text-zinc-700 transition">
+            <Link href="/privacy" className="hover:text-[#2D4A30] transition">
               Privacy
             </Link>
           </div>
-          <span className="text-sm text-zinc-400">
+          <span className="text-sm text-[#3D5A3E]">
             &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>

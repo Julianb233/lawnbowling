@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Search, MapPin, Users, ChevronRight, Globe, Leaf, Map as MapIcon, List, CircleDot, CheckCircle, Navigation, Home } from "lucide-react";
 import { BottomNav } from "@/components/board/BottomNav";
+import { ClubLogo, getClubCoverImage } from "@/components/clubs/ClubLogo";
 import {
   getAllClubs,
   COUNTRIES,
@@ -22,24 +23,7 @@ import {
 
 const ClubMapLazy = lazy(() => import("@/components/clubs/ClubMap").then((m) => ({ default: m.ClubMap })));
 
-const CLUB_PHOTOS = [
-  "/images/heritage-clubhouse-tea.jpg",
-  "/images/scenery-golden-hour-green.jpg",
-  "/images/heritage-wooden-bench-green.jpg",
-  "/images/scenery-morning-dew-green.jpg",
-  "/images/heritage-scoreboard.jpg",
-  "/images/scenery-clubhouse-dusk.jpg",
-  "/images/heritage-weathered-bowls-patina.jpg",
-  "/images/scenery-overhead-bowls-jack.jpg",
-];
-
-function getClubPhoto(clubId: string): string {
-  let hash = 0;
-  for (let i = 0; i < clubId.length; i++) {
-    hash = (hash * 31 + clubId.charCodeAt(i)) | 0;
-  }
-  return CLUB_PHOTOS[Math.abs(hash) % CLUB_PHOTOS.length];
-}
+// Cover images now sourced from ClubLogo module (region-aware rotation)
 
 const STATE_ORDER: string[] = Object.keys(US_STATES);
 
@@ -153,15 +137,15 @@ export default function ClubDirectoryPage() {
               <p className="text-sm text-[#3D5A3E]">{stats.totalClubs} clubs{stats.totalCountries > 1 ? ` across ${stats.totalCountries} countries` : " across the USA"}</p>
             </div>
             <div className="flex items-center gap-2">
-              <div className="flex items-center rounded-xl border border-zinc-200 bg-zinc-50 p-0.5">
-                <button onClick={() => setViewMode("list")} className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${viewMode === "list" ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500 dark:text-zinc-400"}`}>
+              <div className="flex items-center rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-0.5">
+                <button onClick={() => setViewMode("list")} className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${viewMode === "list" ? "bg-white text-[#0A2E12] shadow-sm" : "text-[#3D5A3E]"}`}>
                   <List className="h-3.5 w-3.5" />List
                 </button>
-                <button onClick={() => setViewMode("map")} className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${viewMode === "map" ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500 dark:text-zinc-400"}`}>
+                <button onClick={() => setViewMode("map")} className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${viewMode === "map" ? "bg-white text-[#0A2E12] shadow-sm" : "text-[#3D5A3E]"}`}>
                   <MapIcon className="h-3.5 w-3.5" />Map
                 </button>
               </div>
-              <Link href="/clubs/manage" className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 min-h-[44px] touch-manipulation hidden sm:flex items-center">Manage Club</Link>
+              <Link href="/clubs/manage" className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2.5 text-sm font-medium text-[#2D4A30] transition-colors hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation hidden sm:flex items-center">Manage Club</Link>
               <Link href="/clubs/claim" className="rounded-xl bg-[#1B5E20] px-3 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation flex items-center">
                 <span className="hidden sm:inline">+ Add Your Club</span>
                 <span className="sm:hidden">+ Add</span>
@@ -181,8 +165,8 @@ export default function ClubDirectoryPage() {
 
         <div className="relative mb-4 flex gap-2">
           <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-400" />
-            <input type="text" placeholder="Search clubs by name, city, or state..." value={query} onChange={(e) => setQuery(e.target.value)} className="w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 py-3.5 pl-12 pr-4 text-base text-zinc-900 placeholder:text-zinc-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20" />
+            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#3D5A3E]" />
+            <input type="text" placeholder="Search clubs by name, city, or state..." value={query} onChange={(e) => setQuery(e.target.value)} className="w-full rounded-2xl border border-[#0A2E12]/10 bg-white py-3.5 pl-12 pr-4 text-base text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20" />
           </div>
           <button
             onClick={handleNearMe}
@@ -190,7 +174,7 @@ export default function ClubDirectoryPage() {
             className={`shrink-0 flex items-center gap-1.5 rounded-2xl border px-4 py-3.5 text-sm font-medium transition-colors touch-manipulation ${
               nearMeActive
                 ? "border-[#1B5E20] bg-[#1B5E20] text-white"
-                : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 dark:bg-white/5"
+                : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#0A2E12]/10 hover:bg-[#0A2E12]/[0.03]"
             } ${geoLoading ? "opacity-60" : ""}`}
           >
             <Navigation className="h-4 w-4" />
@@ -237,7 +221,7 @@ export default function ClubDirectoryPage() {
         </div>
 
         {viewMode === "map" ? (
-          <Suspense fallback={<div className="aspect-video rounded-2xl bg-zinc-100 animate-pulse" />}>
+          <Suspense fallback={<div className="aspect-video rounded-2xl bg-[#0A2E12]/5 animate-pulse" />}>
             <ClubMapLazy
               fullScreen={false}
               hideFilters
@@ -248,12 +232,12 @@ export default function ClubDirectoryPage() {
             />
           </Suspense>
         ) : filteredClubs.length === 0 ? (
-          <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-12 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100">
-              <MapPin className="h-8 w-8 text-zinc-400" />
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-12 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#0A2E12]/5">
+              <MapPin className="h-8 w-8 text-[#3D5A3E]" />
             </div>
-            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">No clubs found</h3>
-            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Try adjusting your search or filters</p>
+            <h3 className="text-lg font-bold text-[#0A2E12]">No clubs found</h3>
+            <p className="mt-1 text-sm text-[#3D5A3E]">Try adjusting your search or filters</p>
           </div>
         ) : nearMeActive && userLocation ? (
           <div className="space-y-3">
@@ -269,9 +253,9 @@ export default function ClubDirectoryPage() {
           </div>
         )}
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-12 rounded-2xl border border-dashed border-zinc-300 bg-white dark:bg-[#1a3d28] p-8 text-center">
-          <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Don&apos;t see your club?</h3>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Help us build the most complete lawn bowls directory in the world</p>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-12 rounded-2xl border border-dashed border-[#0A2E12]/10 bg-white p-8 text-center">
+          <h3 className="text-lg font-bold text-[#0A2E12]">Don&apos;t see your club?</h3>
+          <p className="mt-1 text-sm text-[#3D5A3E]">Help us build the most complete lawn bowls directory in the world</p>
           <Link href="/clubs/claim" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#1B5E20] transition-colors">
             <MapPin className="h-4 w-4" />
             Add Your Club
@@ -286,17 +270,17 @@ export default function ClubDirectoryPage() {
 
 function StatCard({ value, label, icon }: { value: string | number; label: string; icon: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 text-center">
+    <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-4 text-center">
       <div className="flex justify-center mb-1">{icon}</div>
-      <p className="mt-1 text-2xl font-black text-zinc-900 tabular-nums">{value}</p>
-      <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">{label}</p>
+      <p className="mt-1 text-2xl font-black text-[#0A2E12] tabular-nums">{value}</p>
+      <p className="text-xs font-medium text-[#3D5A3E]">{label}</p>
     </div>
   );
 }
 
 function FilterPill({ active, onClick, label, small }: { active: boolean; onClick: () => void; label: string; small?: boolean }) {
   return (
-    <button onClick={onClick} className={`shrink-0 rounded-full border px-4 font-medium transition-colors touch-manipulation min-h-[44px] ${small ? "py-2 text-xs" : "py-2.5 text-sm"} ${active ? "border-[#1B5E20] bg-[#1B5E20] text-white" : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 dark:bg-white/5"}`}>
+    <button onClick={onClick} className={`shrink-0 rounded-full border px-4 font-medium transition-colors touch-manipulation min-h-[44px] ${small ? "py-2 text-xs" : "py-2.5 text-sm"} ${active ? "border-[#1B5E20] bg-[#1B5E20] text-white" : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#0A2E12]/10 hover:bg-[#0A2E12]/[0.03]"}`}>
       {label}
     </button>
   );
@@ -310,8 +294,8 @@ function StateSection({ stateCode, clubs, distanceMap }: { stateCode: string; cl
     <section>
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h2 className="text-lg font-black text-zinc-900 dark:text-zinc-100">{stateName}</h2>
-          <span className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-bold text-zinc-500 tabular-nums">{clubs.length}</span>
+          <h2 className="text-lg font-black text-[#0A2E12]">{stateName}</h2>
+          <span className="rounded-full bg-[#0A2E12]/5 px-2.5 py-0.5 text-xs font-bold text-[#3D5A3E] tabular-nums">{clubs.length}</span>
         </div>
         <Link href={`/clubs/${stateCode.toLowerCase()}`} className="text-sm font-medium text-[#1B5E20] hover:text-[#1B5E20]">View all →</Link>
       </div>
@@ -325,7 +309,7 @@ function StateSection({ stateCode, clubs, distanceMap }: { stateCode: string; cl
 }
 
 function ClubCard({ club, index, distanceMi }: { club: ClubData; index: number; distanceMi?: number }) {
-  const photo = getClubPhoto(club.id);
+  const photo = getClubCoverImage(club.id, club.region);
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }}>
       <Link href={`/clubs/${club.stateCode.toLowerCase()}/${club.id}`}>
@@ -333,6 +317,10 @@ function ClubCard({ club, index, distanceMi }: { club: ClubData; index: number; 
           <div className="flex">
             <div className="relative w-28 sm:w-36 shrink-0">
               <Image src={photo} alt={club.name} fill className="object-cover" sizes="(max-width: 640px) 112px, 144px" />
+              {/* Club logo overlay on thumbnail */}
+              <div className="absolute bottom-1.5 right-1.5 ring-2 ring-white rounded-full shadow-md">
+                <ClubLogo name={club.name} stateCode={club.stateCode} country={club.country ?? club.countryCode} logoUrl={club.logoUrl} size="xs" />
+              </div>
             </div>
             <div className="flex-1 min-w-0 p-4 flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">

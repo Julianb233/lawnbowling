@@ -60,7 +60,7 @@ const TIER_COLORS: Record<string, string> = {
   expert: "text-amber-600",
   advanced: "text-purple-600",
   intermediate: "text-blue-600",
-  beginner: "text-zinc-500",
+  beginner: "text-[#3D5A3E]",
 };
 
 interface LeaderboardProps {
@@ -129,8 +129,8 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
       );
     if (rank === 2)
       return (
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-100">
-          <Medal className="h-4 w-4 text-zinc-400" />
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0A2E12]/5">
+          <Medal className="h-4 w-4 text-[#3D5A3E]" />
         </div>
       );
     if (rank === 3)
@@ -141,7 +141,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
       );
     return (
       <div className="flex h-8 w-8 items-center justify-center">
-        <span className="text-sm font-bold text-zinc-400">{rank}</span>
+        <span className="text-sm font-bold text-[#3D5A3E]">{rank}</span>
       </div>
     );
   };
@@ -152,28 +152,28 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
         return (
           <div className="text-right">
             <p className="text-lg font-bold text-emerald-500">{entry.elo_rating ?? "—"}</p>
-            <p className="text-[10px] uppercase tracking-wide text-zinc-400">ELO</p>
+            <p className="text-[10px] uppercase tracking-wide text-[#3D5A3E]">ELO</p>
           </div>
         );
       case "games_played":
         return (
           <div className="text-right">
             <p className="text-lg font-bold text-emerald-500">{entry.games_played}</p>
-            <p className="text-[10px] uppercase tracking-wide text-zinc-400">Games</p>
+            <p className="text-[10px] uppercase tracking-wide text-[#3D5A3E]">Games</p>
           </div>
         );
       case "wins":
         return (
           <div className="text-right">
             <p className="text-lg font-bold text-emerald-500">{entry.wins}</p>
-            <p className="text-[10px] uppercase tracking-wide text-zinc-400">Wins</p>
+            <p className="text-[10px] uppercase tracking-wide text-[#3D5A3E]">Wins</p>
           </div>
         );
       default:
         return (
           <div className="text-right">
             <p className="text-lg font-bold text-emerald-500">{Math.round(entry.win_rate)}%</p>
-            <p className="text-[10px] uppercase tracking-wide text-zinc-400">Win Rate</p>
+            <p className="text-[10px] uppercase tracking-wide text-[#3D5A3E]">Win Rate</p>
           </div>
         );
     }
@@ -189,7 +189,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
     <div className="space-y-4">
       {/* Skill level filter */}
       <div>
-        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-400">Skill Level</p>
+        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-[#3D5A3E]">Skill Level</p>
         <div className="flex gap-2">
           <button
             onClick={() => setSkillFilter("all")}
@@ -197,7 +197,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
               "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
               skillFilter === "all"
                 ? "bg-violet-600 text-white"
-                : "bg-zinc-100 text-zinc-500 hover:text-zinc-700"
+                : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:text-[#2D4A30]"
             )}
           >
             All Levels
@@ -210,7 +210,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                 "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
                 skillFilter === level
                   ? "bg-violet-600 text-white"
-                  : "bg-zinc-100 text-zinc-500 hover:text-zinc-700"
+                  : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:text-[#2D4A30]"
               )}
             >
               {SKILL_LABELS[level].label}
@@ -221,7 +221,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
 
       {/* Sort options */}
       <div>
-        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-400">
+        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-[#3D5A3E]">
           <ArrowUpDown className="mr-1 inline h-3 w-3" />
           Rank By
         </p>
@@ -233,8 +233,8 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
               className={cn(
                 "flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
                 sortBy === opt.value
-                  ? "bg-zinc-800 text-white"
-                  : "bg-zinc-100 text-zinc-500 hover:text-zinc-700"
+                  ? "bg-[#0A2E12] text-white"
+                  : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:text-[#2D4A30]"
               )}
             >
               {opt.icon}
@@ -247,7 +247,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
       {/* Bowls category tabs + season selector */}
       {isBowls && (
         <div className="flex items-center gap-3">
-          <div className="flex flex-1 gap-1.5 overflow-x-auto rounded-lg bg-zinc-100 p-1">
+          <div className="flex flex-1 gap-1.5 overflow-x-auto rounded-lg bg-[#0A2E12]/5 p-1">
             {BOWLS_CATEGORIES.map((cat) => (
               <button
                 key={cat.key}
@@ -255,8 +255,8 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                 className={cn(
                   "shrink-0 rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
                   bowlsCategory === cat.key
-                    ? "bg-white text-zinc-900 shadow-sm"
-                    : "text-zinc-500 hover:text-zinc-700"
+                    ? "bg-white text-[#0A2E12] shadow-sm"
+                    : "text-[#3D5A3E] hover:text-[#2D4A30]"
                 )}
               >
                 {cat.label}
@@ -266,13 +266,13 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
           <div className="relative shrink-0">
             <button
               onClick={() => setShowSeasonPicker(!showSeasonPicker)}
-              className="flex items-center gap-1 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs font-medium text-zinc-600 hover:bg-zinc-50"
+              className="flex items-center gap-1 rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-1.5 text-xs font-medium text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
             >
               {season}
               <ChevronDown className="h-3 w-3" />
             </button>
             {showSeasonPicker && (
-              <div className="absolute right-0 top-full z-10 mt-1 rounded-lg border border-zinc-200 bg-white py-1 shadow-lg">
+              <div className="absolute right-0 top-full z-10 mt-1 rounded-lg border border-[#0A2E12]/10 bg-white py-1 shadow-lg">
                 {availableSeasons.map((s) => (
                   <button
                     key={s}
@@ -284,7 +284,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                       "block w-full px-4 py-1.5 text-left text-xs",
                       s === season
                         ? "bg-emerald-500/5 font-bold text-emerald-600"
-                        : "text-zinc-600 hover:bg-zinc-50"
+                        : "text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
                     )}
                   >
                     {s}
@@ -300,14 +300,14 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <div key={i} className="h-16 animate-pulse rounded-xl bg-zinc-100" />
+            <div key={i} className="h-16 animate-pulse rounded-xl bg-[#0A2E12]/5" />
           ))}
         </div>
       ) : (isBowls && bowlsCategory !== "overall") ? (
         bowlsEntries.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-zinc-200 py-16 text-center">
-            <Trophy className="mx-auto mb-3 h-10 w-10 text-zinc-300" />
-            <p className="text-sm font-medium text-zinc-500">No rated players in this category yet</p>
+          <div className="rounded-xl border border-dashed border-[#0A2E12]/10 py-16 text-center">
+            <Trophy className="mx-auto mb-3 h-10 w-10 text-[#3D5A3E]" />
+            <p className="text-sm font-medium text-[#3D5A3E]">No rated players in this category yet</p>
           </div>
         ) : (
           <motion.div className="space-y-2" {...ANIMATIONS.staggerChildren} initial="initial" animate="animate">
@@ -320,30 +320,30 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                   <Link
                     href={`/profile/${entry.player_id}`}
                     className={cn(
-                      "flex items-center gap-3 rounded-xl border p-3 transition-colors hover:bg-zinc-50",
+                      "flex items-center gap-3 rounded-xl border p-3 transition-colors hover:bg-[#0A2E12]/[0.03]",
                       isMe
                         ? "border-emerald-500/30 bg-emerald-500/5"
-                        : "border-zinc-200 bg-white"
+                        : "border-[#0A2E12]/10 bg-white"
                     )}
                   >
                     {getRankDisplay(rank)}
 
-                    <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-zinc-100">
+                    <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-[#0A2E12]/5">
                       {entry.player?.avatar_url ? (
                         <img src={entry.player.avatar_url} alt="" className="h-full w-full object-cover" />
                       ) : (
-                        <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
+                        <div className="flex h-full w-full items-center justify-center text-sm font-bold text-[#3D5A3E]">
                           {entry.player?.display_name?.charAt(0)?.toUpperCase()}
                         </div>
                       )}
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-zinc-700">
+                      <p className="truncate text-sm font-medium text-[#2D4A30]">
                         {entry.player?.display_name}
                         {isMe && <span className="ml-1 text-xs text-emerald-500">(You)</span>}
                       </p>
-                      <p className="text-xs text-zinc-400">
+                      <p className="text-xs text-[#3D5A3E]">
                         {entry.games_played} games &middot; {entry.wins}W/{entry.losses}L
                         {entry.draws > 0 ? `/${entry.draws}D` : ""}
                         {bowlsCategory !== "ends_pct" && (
@@ -358,14 +358,14 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                       {bowlsCategory === "ends_pct" ? (
                         <div>
                           <p className="text-lg font-bold text-emerald-500">{entry.ends_won_pct}%</p>
-                          <p className="text-[10px] uppercase tracking-wide text-zinc-400">Ends</p>
+                          <p className="text-[10px] uppercase tracking-wide text-[#3D5A3E]">Ends</p>
                         </div>
                       ) : (
                         <div>
                           <p className="text-lg font-bold text-emerald-500 tabular-nums">
                             {Math.round(entry.elo_rating)}
                           </p>
-                          <p className="text-[10px] uppercase tracking-wide text-zinc-400">ELO</p>
+                          <p className="text-[10px] uppercase tracking-wide text-[#3D5A3E]">ELO</p>
                         </div>
                       )}
                     </div>
@@ -376,10 +376,10 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
           </motion.div>
         )
       ) : entries.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-zinc-200 py-16 text-center">
-          <Trophy className="mx-auto mb-3 h-10 w-10 text-zinc-300" />
-          <p className="text-sm font-medium text-zinc-500">No players ranked yet</p>
-          <p className="mt-1 text-xs text-zinc-400">
+        <div className="rounded-xl border border-dashed border-[#0A2E12]/10 py-16 text-center">
+          <Trophy className="mx-auto mb-3 h-10 w-10 text-[#3D5A3E]" />
+          <p className="text-sm font-medium text-[#3D5A3E]">No players ranked yet</p>
+          <p className="mt-1 text-xs text-[#3D5A3E]">
             Play at least 3 games to appear on the leaderboard
           </p>
         </div>
@@ -398,9 +398,9 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                     key={entry.player_id}
                     href={`/profile/${entry.player_id}`}
                     className={cn(
-                      "flex flex-col items-center rounded-xl border p-3 transition-colors hover:bg-zinc-50",
+                      "flex flex-col items-center rounded-xl border p-3 transition-colors hover:bg-[#0A2E12]/[0.03]",
                       rank === 1 ? "order-2 border-amber-200 bg-amber-50/50" : "",
-                      rank === 2 ? "order-1 border-zinc-200 bg-zinc-50" : "",
+                      rank === 2 ? "order-1 border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]" : "",
                       rank === 3 ? "order-3 border-amber-100 bg-orange-50/30" : "",
                       isMe ? "ring-2 ring-emerald-500/30" : ""
                     )}
@@ -409,13 +409,13 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                       <div
                         className={cn(
                           "h-12 w-12 overflow-hidden rounded-full border-2",
-                          rank === 1 ? "border-amber-400" : rank === 2 ? "border-zinc-300" : "border-amber-600"
+                          rank === 1 ? "border-amber-400" : rank === 2 ? "border-[#0A2E12]/10" : "border-amber-600"
                         )}
                       >
                         {entry.player?.avatar_url ? (
                           <img src={entry.player.avatar_url} alt="" className="h-full w-full object-cover" />
                         ) : (
-                          <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-base font-bold text-zinc-400">
+                          <div className="flex h-full w-full items-center justify-center bg-[#0A2E12]/5 text-base font-bold text-[#3D5A3E]">
                             {entry.player?.display_name?.charAt(0)?.toUpperCase()}
                           </div>
                         )}
@@ -423,16 +423,16 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                       <div
                         className={cn(
                           "absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold text-white",
-                          rank === 1 ? "bg-amber-500" : rank === 2 ? "bg-zinc-400" : "bg-amber-700"
+                          rank === 1 ? "bg-amber-500" : rank === 2 ? "bg-[#0A2E12]/5" : "bg-amber-700"
                         )}
                       >
                         {rank}
                       </div>
                     </div>
-                    <p className="mt-2 max-w-full truncate text-xs font-semibold text-zinc-700">
+                    <p className="mt-2 max-w-full truncate text-xs font-semibold text-[#2D4A30]">
                       {entry.player?.display_name}
                     </p>
-                    <p className="text-[10px] text-zinc-400">
+                    <p className="text-[10px] text-[#3D5A3E]">
                       {entry.games_played}G &middot; {entry.wins}W
                     </p>
                     <p className="mt-0.5 text-sm font-bold text-emerald-500">
@@ -461,30 +461,30 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
                 <Link
                   href={`/profile/${entry.player_id}`}
                   className={cn(
-                    "flex items-center gap-3 rounded-xl border p-3 transition-colors hover:bg-zinc-50",
+                    "flex items-center gap-3 rounded-xl border p-3 transition-colors hover:bg-[#0A2E12]/[0.03]",
                     isMe
                       ? "border-emerald-500/30 bg-emerald-500/5"
-                      : "border-zinc-200 bg-white"
+                      : "border-[#0A2E12]/10 bg-white"
                   )}
                 >
                   {getRankDisplay(rank)}
 
-                  <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-zinc-100">
+                  <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-[#0A2E12]/5">
                     {entry.player?.avatar_url ? (
                       <img src={entry.player.avatar_url} alt="" className="h-full w-full object-cover" />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500">
+                      <div className="flex h-full w-full items-center justify-center text-sm font-bold text-[#3D5A3E]">
                         {entry.player?.display_name?.charAt(0)?.toUpperCase()}
                       </div>
                     )}
                   </div>
 
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-zinc-700">
+                    <p className="truncate text-sm font-medium text-[#2D4A30]">
                       {entry.player?.display_name}
                       {isMe && <span className="ml-1 text-xs text-emerald-500">(You)</span>}
                     </p>
-                    <p className="text-xs text-zinc-400">
+                    <p className="text-xs text-[#3D5A3E]">
                       {skillStars(entry.player?.skill_level)} {entry.games_played} games &middot;{" "}
                       {entry.wins}W/{entry.losses}L
                     </p>

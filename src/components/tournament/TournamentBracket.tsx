@@ -42,13 +42,13 @@ function PlayerSlot({
         isWinner
           ? "border-green-500/30 bg-green-500/10 text-green-400"
           : isEmpty
-            ? "border-zinc-200 bg-zinc-50 text-zinc-600 dark:text-zinc-400"
-            : "border-zinc-200 bg-zinc-100 text-zinc-600 dark:text-zinc-400"
+            ? "border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] text-[#3D5A3E]"
+            : "border-[#0A2E12]/10 bg-[#0A2E12]/5 text-[#3D5A3E]"
       )}
     >
       {player ? (
         <>
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-700 text-[10px] font-bold text-zinc-600 dark:text-zinc-400">
+          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#0A2E12] text-[10px] font-bold text-[#3D5A3E]">
             {player.display_name?.[0]?.toUpperCase() ?? "?"}
           </div>
           <span className="truncate">{player.display_name}</span>
@@ -84,7 +84,7 @@ function EliminationBracket({ matches, onReportResult, currentPlayerId }: Omit<T
 
         return (
           <div key={round} className="flex flex-col gap-2">
-            <h4 className="mb-2 text-center text-xs font-semibold uppercase text-zinc-500 dark:text-zinc-400">
+            <h4 className="mb-2 text-center text-xs font-semibold uppercase text-[#3D5A3E]">
               {label}
             </h4>
             <div
@@ -111,7 +111,7 @@ function EliminationBracket({ matches, onReportResult, currentPlayerId }: Omit<T
                       isWinner={match.winner_id === match.player1_id && !!match.winner_id}
                       isEmpty={!match.player1_id}
                     />
-                    <div className="px-2 text-center text-[10px] text-zinc-600 dark:text-zinc-400">
+                    <div className="px-2 text-center text-[10px] text-[#3D5A3E]">
                       {match.score ?? "vs"}
                     </div>
                     <PlayerSlot
@@ -156,12 +156,12 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
   return (
     <div className="space-y-6">
       {/* Progress bar */}
-      <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
+      <div className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4">
         <div className="mb-2 flex items-center justify-between text-sm">
-          <span className="font-medium text-zinc-700">Tournament Progress</span>
-          <span className="text-zinc-500 dark:text-zinc-400">{completed}/{total} matches played</span>
+          <span className="font-medium text-[#2D4A30]">Tournament Progress</span>
+          <span className="text-[#3D5A3E]">{completed}/{total} matches played</span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-zinc-200">
+        <div className="h-2 overflow-hidden rounded-full bg-[#0A2E12]/5">
           <motion.div
             className="h-full rounded-full bg-[#1B5E20]"
             initial={{ width: 0 }}
@@ -179,7 +179,7 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
         return (
           <div key={roundNum}>
             <div className="mb-3 flex items-center gap-2">
-              <h4 className="text-sm font-semibold text-zinc-700">Round {roundNum}</h4>
+              <h4 className="text-sm font-semibold text-[#2D4A30]">Round {roundNum}</h4>
               {roundComplete && (
                 <span className="rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] font-medium text-green-500">
                   Complete
@@ -203,17 +203,17 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
                     className={cn(
                       "rounded-xl border p-3 transition-colors",
                       match.status === "completed"
-                        ? "border-zinc-200 bg-zinc-50 dark:bg-white/5"
-                        : "border-zinc-200 bg-white"
+                        ? "border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]"
+                        : "border-[#0A2E12]/10 bg-white"
                     )}
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex-1 space-y-1.5">
                         <div className={cn(
                           "flex items-center gap-2 text-sm font-medium",
-                          p1Won ? "text-[#1B5E20]" : "text-zinc-700"
+                          p1Won ? "text-[#1B5E20]" : "text-[#2D4A30]"
                         )}>
-                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-500 dark:text-zinc-400">
+                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0A2E12]/5 text-[10px] font-bold text-[#3D5A3E]">
                             {match.player1?.display_name?.[0]?.toUpperCase() ?? "?"}
                           </div>
                           <span className="truncate">{match.player1?.display_name ?? "TBD"}</span>
@@ -221,9 +221,9 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
                         </div>
                         <div className={cn(
                           "flex items-center gap-2 text-sm font-medium",
-                          p2Won ? "text-[#1B5E20]" : "text-zinc-700"
+                          p2Won ? "text-[#1B5E20]" : "text-[#2D4A30]"
                         )}>
-                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-500 dark:text-zinc-400">
+                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0A2E12]/5 text-[10px] font-bold text-[#3D5A3E]">
                             {match.player2?.display_name?.[0]?.toUpperCase() ?? "?"}
                           </div>
                           <span className="truncate">{match.player2?.display_name ?? "TBD"}</span>
@@ -232,7 +232,7 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
                       </div>
                       <div className="flex flex-col items-end gap-1">
                         {match.score && (
-                          <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">{match.score}</span>
+                          <span className="text-xs font-medium text-[#3D5A3E]">{match.score}</span>
                         )}
                         {canReport && onReportResult ? (
                           <button
@@ -247,7 +247,7 @@ function RoundRobinBracket({ matches, onReportResult, currentPlayerId }: Omit<To
                               "rounded-full px-2 py-0.5 text-[10px] font-medium",
                               match.status === "completed"
                                 ? "bg-green-500/10 text-green-500"
-                                : "bg-zinc-100 text-zinc-400"
+                                : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                             )}
                           >
                             {match.status === "completed" ? "Done" : "Pending"}
@@ -281,7 +281,7 @@ function DoubleEliminationBracket({ matches, onReportResult, currentPlayerId }: 
     <div className="space-y-4">
       <div className="flex gap-2">
         {bracketTabs.map((tab) => (
-          <button key={tab.key} onClick={() => setActiveBracket(tab.key)} className={cn("rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors", activeBracket === tab.key ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200")}>
+          <button key={tab.key} onClick={() => setActiveBracket(tab.key)} className={cn("rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors", activeBracket === tab.key ? "bg-[#0A2E12] text-white" : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5")}>
             {tab.label} ({tab.count})
           </button>
         ))}
@@ -294,7 +294,7 @@ function DoubleEliminationBracket({ matches, onReportResult, currentPlayerId }: 
 export function TournamentBracket({ matches, format, onReportResult, currentPlayerId }: TournamentBracketProps) {
   if (matches.length === 0) {
     return (
-      <div className="py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
+      <div className="py-8 text-center text-sm text-[#3D5A3E]">
         Bracket has not been generated yet
       </div>
     );

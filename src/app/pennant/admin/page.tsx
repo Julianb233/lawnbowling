@@ -165,13 +165,13 @@ export default function PennantAdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <Link href="/pennant" className="text-sm text-zinc-400 hover:text-zinc-600 mb-1 block">
+          <Link href="/pennant" className="text-sm text-[#3D5A3E] hover:text-[#3D5A3E] mb-1 block">
             &larr; Seasons
           </Link>
-          <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+          <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
             Create Pennant Season
           </h1>
         </div>
@@ -179,65 +179,65 @@ export default function PennantAdminPage() {
 
       <main className="mx-auto max-w-3xl px-4 py-6 space-y-6">
         {/* Season Details */}
-        <div className="rounded-2xl border border-zinc-200 bg-white p-5 space-y-4">
-          <h2 className="text-sm font-bold text-zinc-700">Season Details</h2>
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 space-y-4">
+          <h2 className="text-sm font-bold text-[#2D4A30]">Season Details</h2>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-500 mb-1">Season Name</label>
+            <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">Season Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. 2026 Winter Pennant"
-              className="w-full rounded-lg border border-zinc-200 px-3 py-2.5 text-sm focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+              className="w-full rounded-lg border border-[#0A2E12]/10 px-3 py-2.5 text-sm focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-500 mb-1">Year</label>
+              <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">Year</label>
               <input
                 type="number"
                 value={seasonYear}
                 onChange={(e) => setSeasonYear(Number(e.target.value))}
-                className="w-full rounded-lg border border-zinc-200 px-3 py-2.5 text-sm"
+                className="w-full rounded-lg border border-[#0A2E12]/10 px-3 py-2.5 text-sm"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-zinc-500 mb-1">Rounds</label>
+              <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">Rounds</label>
               <input
                 type="number"
                 value={roundsTotal}
                 onChange={(e) => setRoundsTotal(Number(e.target.value))}
                 min={1}
-                className="w-full rounded-lg border border-zinc-200 px-3 py-2.5 text-sm"
+                className="w-full rounded-lg border border-[#0A2E12]/10 px-3 py-2.5 text-sm"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-500 mb-1">Start Date</label>
+              <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">Start Date</label>
               <input
                 type="date"
                 value={startsAt}
                 onChange={(e) => setStartsAt(e.target.value)}
-                className="w-full rounded-lg border border-zinc-200 px-3 py-2.5 text-sm"
+                className="w-full rounded-lg border border-[#0A2E12]/10 px-3 py-2.5 text-sm"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-zinc-500 mb-1">End Date</label>
+              <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">End Date</label>
               <input
                 type="date"
                 value={endsAt}
                 onChange={(e) => setEndsAt(e.target.value)}
-                className="w-full rounded-lg border border-zinc-200 px-3 py-2.5 text-sm"
+                className="w-full rounded-lg border border-[#0A2E12]/10 px-3 py-2.5 text-sm"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-500 mb-1">Format</label>
+            <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">Format</label>
             <div className="flex gap-2">
               {(["round_robin", "home_away"] as PennantSeasonFormat[]).map((f) => (
                 <button
@@ -248,7 +248,7 @@ export default function PennantAdminPage() {
                     "rounded-lg border px-4 py-2 text-sm font-medium transition-all",
                     format === f
                       ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                      : "border-zinc-200 bg-white text-zinc-500 hover:border-zinc-400"
+                      : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#0A2E12]/10"
                   )}
                 >
                   {f === "round_robin" ? "Round Robin" : "Home & Away"}
@@ -258,12 +258,12 @@ export default function PennantAdminPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-500 mb-1">Description (optional)</label>
+            <label className="block text-xs font-semibold text-[#3D5A3E] mb-1">Description (optional)</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={2}
-              className="w-full rounded-lg border border-zinc-200 px-3 py-2.5 text-sm resize-none focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+              className="w-full rounded-lg border border-[#0A2E12]/10 px-3 py-2.5 text-sm resize-none focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
             />
           </div>
         </div>
@@ -271,18 +271,18 @@ export default function PennantAdminPage() {
         {/* Divisions */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-zinc-700">Divisions & Teams</h2>
+            <h2 className="text-sm font-bold text-[#2D4A30]">Divisions & Teams</h2>
             <button
               type="button"
               onClick={addDivision}
-              className="rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-semibold text-zinc-600 hover:bg-zinc-50 min-h-[32px] touch-manipulation"
+              className="rounded-lg border border-[#0A2E12]/10 px-3 py-1.5 text-xs font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] min-h-[32px] touch-manipulation"
             >
               + Add Division
             </button>
           </div>
 
           {divisions.map((div, divIdx) => (
-            <div key={divIdx} className="rounded-2xl border border-zinc-200 bg-white p-5 space-y-3">
+            <div key={divIdx} className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 space-y-3">
               <div className="flex items-center justify-between">
                 <input
                   type="text"
@@ -292,7 +292,7 @@ export default function PennantAdminPage() {
                       prev.map((d, i) => (i === divIdx ? { ...d, name: e.target.value } : d))
                     )
                   }
-                  className="text-sm font-bold text-zinc-700 border-none p-0 focus:outline-none bg-transparent"
+                  className="text-sm font-bold text-[#2D4A30] border-none p-0 focus:outline-none bg-transparent"
                 />
                 {divisions.length > 1 && (
                   <button
@@ -307,11 +307,11 @@ export default function PennantAdminPage() {
 
               {div.teams.map((team, teamIdx) => (
                 <div key={teamIdx} className="flex items-center gap-2 pl-2">
-                  <span className="text-sm text-zinc-600">{team.name}</span>
+                  <span className="text-sm text-[#3D5A3E]">{team.name}</span>
                   <button
                     type="button"
                     onClick={() => removeTeam(divIdx, teamIdx)}
-                    className="text-[10px] text-zinc-400 hover:text-red-500"
+                    className="text-[10px] text-[#3D5A3E] hover:text-red-500"
                   >
                     remove
                   </button>
@@ -324,7 +324,7 @@ export default function PennantAdminPage() {
                   value={newTeamName[divIdx] ?? ""}
                   onChange={(e) => setNewTeamName((prev) => ({ ...prev, [divIdx]: e.target.value }))}
                   placeholder="Team name..."
-                  className="flex-1 rounded-lg border border-zinc-200 px-3 py-2 text-sm"
+                  className="flex-1 rounded-lg border border-[#0A2E12]/10 px-3 py-2 text-sm"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") { e.preventDefault(); addTeam(divIdx); }
                   }}
@@ -332,7 +332,7 @@ export default function PennantAdminPage() {
                 <button
                   type="button"
                   onClick={() => addTeam(divIdx)}
-                  className="rounded-lg bg-zinc-100 px-3 py-2 text-xs font-semibold text-zinc-600 hover:bg-zinc-200 min-h-[36px] touch-manipulation"
+                  className="rounded-lg bg-[#0A2E12]/5 px-3 py-2 text-xs font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/5 min-h-[36px] touch-manipulation"
                 >
                   Add
                 </button>

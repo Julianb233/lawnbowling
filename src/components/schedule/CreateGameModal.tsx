@@ -53,44 +53,44 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="w-full max-w-md rounded-2xl glass p-6 max-h-[90vh] overflow-y-auto">
-        <h2 className="text-lg font-bold text-zinc-900 mb-4">
+        <h2 className="text-lg font-bold text-[#0A2E12] mb-4">
           Schedule a Game
         </h2>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm text-zinc-400 mb-1">Title</label>
+            <label className="block text-sm text-[#3D5A3E] mb-1">Title</label>
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Tuesday Morning Bowls"
-              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+              className="w-full rounded-xl bg-[#0A2E12]/5 border border-[#0A2E12]/10 px-4 py-2.5 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm text-zinc-400 mb-1">Date</label>
+              <label className="block text-sm text-[#3D5A3E] mb-1">Date</label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+                className="w-full rounded-xl bg-[#0A2E12]/5 border border-[#0A2E12]/10 px-4 py-2.5 text-sm text-[#0A2E12] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
               />
             </div>
             <div>
-              <label className="block text-sm text-zinc-400 mb-1">Time</label>
+              <label className="block text-sm text-[#3D5A3E] mb-1">Time</label>
               <input
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+                className="w-full rounded-xl bg-[#0A2E12]/5 border border-[#0A2E12]/10 px-4 py-2.5 text-sm text-[#0A2E12] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm text-zinc-400 mb-1">
+            <label className="block text-sm text-[#3D5A3E] mb-1">
               Max Players
             </label>
             <input
@@ -99,19 +99,19 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               max={20}
               value={maxPlayers}
               onChange={(e) => setMaxPlayers(Number(e.target.value))}
-              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+              className="w-full rounded-xl bg-[#0A2E12]/5 border border-[#0A2E12]/10 px-4 py-2.5 text-sm text-[#0A2E12] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
             />
           </div>
 
           <div>
-            <label className="block text-sm text-zinc-400 mb-1">
+            <label className="block text-sm text-[#3D5A3E] mb-1">
               Description (optional)
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="All skill levels welcome!"
-              className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-500 resize-none h-16 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+              className="w-full rounded-xl bg-[#0A2E12]/5 border border-[#0A2E12]/10 px-4 py-3 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] resize-none h-16 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
             />
           </div>
 
@@ -120,7 +120,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               onClick={() => setIsRecurring(!isRecurring)}
               className={cn(
                 "relative h-6 w-11 rounded-full transition-colors",
-                isRecurring ? "bg-[#1B5E20]" : "bg-zinc-700"
+                isRecurring ? "bg-[#1B5E20]" : "bg-[#0A2E12]"
               )}
             >
               <span
@@ -130,18 +130,18 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
                 )}
               />
             </button>
-            <span className="text-sm text-zinc-600 dark:text-zinc-400">Recurring</span>
+            <span className="text-sm text-[#3D5A3E]">Recurring</span>
           </div>
 
           {isRecurring && (
             <div>
-              <label className="block text-sm text-zinc-400 mb-1">
+              <label className="block text-sm text-[#3D5A3E] mb-1">
                 Recurrence
               </label>
               <select
                 value={recurrenceRule}
                 onChange={(e) => setRecurrenceRule(e.target.value)}
-                className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+                className="w-full rounded-xl bg-[#0A2E12]/5 border border-[#0A2E12]/10 px-4 py-2.5 text-sm text-[#0A2E12] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
               >
                 <option value="">Select...</option>
                 <option value="weekly:monday">Weekly - Monday</option>
@@ -161,7 +161,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
         <div className="mt-6 flex gap-2">
           <button
             onClick={onClose}
-            className="flex-1 rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-400 hover:bg-zinc-100 transition-colors"
+            className="flex-1 rounded-xl border border-[#0A2E12]/10 px-4 py-2.5 text-sm font-medium text-[#3D5A3E] hover:bg-[#0A2E12]/5 transition-colors"
           >
             Cancel
           </button>
@@ -172,7 +172,7 @@ export function CreateGameModal({ open, onClose, onCreated }: CreateGameModalPro
               "flex-1 rounded-xl px-4 py-2.5 text-sm font-bold text-white transition-all",
               title && date && time
                 ? "bg-gradient-to-r from-[#1B5E20] to-green-600 hover:shadow-lg"
-                : "bg-zinc-700 text-zinc-500 cursor-not-allowed"
+                : "bg-[#0A2E12] text-[#3D5A3E] cursor-not-allowed"
             )}
           >
             Create Game

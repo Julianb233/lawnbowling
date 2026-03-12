@@ -99,7 +99,7 @@ export function Endorsements({ playerId, isOwnProfile, currentPlayerId }: Endors
 
   return (
     <div>
-      <h2 className="mb-3 text-sm font-medium text-zinc-600 dark:text-zinc-400">Endorsements</h2>
+      <h2 className="mb-3 text-sm font-medium text-[#3D5A3E]">Endorsements</h2>
 
       {counts.length > 0 ? (
         <div className="flex flex-wrap gap-2">
@@ -113,7 +113,7 @@ export function Endorsements({ playerId, isOwnProfile, currentPlayerId }: Endors
                 className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
                   endorsed
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200"
+                    : "bg-[#0A2E12]/5 text-[#2D4A30] hover:bg-[#0A2E12]/5"
                 } ${isOwnProfile || !currentPlayerId ? "cursor-default" : "cursor-pointer"}`}
               >
                 <ThumbsUp className="h-3 w-3" />
@@ -124,21 +124,21 @@ export function Endorsements({ playerId, isOwnProfile, currentPlayerId }: Endors
           })}
         </div>
       ) : (
-        <p className="text-xs text-zinc-400">No endorsements yet</p>
+        <p className="text-xs text-[#3D5A3E]">No endorsements yet</p>
       )}
 
       {!isOwnProfile && currentPlayerId && !showPicker && (
         <button
           onClick={() => setShowPicker(true)}
-          className="mt-3 inline-flex items-center gap-1 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
+          className="mt-3 inline-flex items-center gap-1 rounded-lg border border-[#0A2E12]/10 px-3 py-1.5 text-xs font-medium text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
         >
           <Plus className="h-3 w-3" /> Endorse
         </button>
       )}
 
       {showPicker && (
-        <div className="mt-3 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-3">
-          <p className="mb-2 text-xs font-medium text-zinc-500 dark:text-zinc-400">Select a skill to endorse</p>
+        <div className="mt-3 rounded-lg border border-[#0A2E12]/10 bg-white p-3">
+          <p className="mb-2 text-xs font-medium text-[#3D5A3E]">Select a skill to endorse</p>
           <div className="flex flex-wrap gap-1.5">
             {ENDORSEMENT_SKILLS.map((s) => {
               const alreadyEndorsed = myEndorsements.includes(s.id);
@@ -149,7 +149,7 @@ export function Endorsements({ playerId, isOwnProfile, currentPlayerId }: Endors
                   className={`rounded-full px-2.5 py-1 text-xs transition-colors ${
                     alreadyEndorsed
                       ? "bg-[#1B5E20] text-white"
-                      : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200"
+                      : "bg-[#0A2E12]/5 text-[#2D4A30] hover:bg-[#0A2E12]/5"
                   }`}
                 >
                   {s.label}
@@ -159,7 +159,7 @@ export function Endorsements({ playerId, isOwnProfile, currentPlayerId }: Endors
           </div>
           <button
             onClick={() => setShowPicker(false)}
-            className="mt-2 text-xs text-zinc-400 hover:text-zinc-600 dark:text-zinc-400"
+            className="mt-2 text-xs text-[#3D5A3E] hover:text-[#3D5A3E]"
           >
             Close
           </button>

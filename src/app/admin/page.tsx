@@ -14,9 +14,9 @@ interface Stats {
 
 function StatCard({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-      <p className="text-sm text-zinc-500 dark:text-zinc-400">{label}</p>
-      <p className="mt-1 text-3xl font-bold text-zinc-800">{value}</p>
+    <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-6">
+      <p className="text-sm text-[#3D5A3E]">{label}</p>
+      <p className="mt-1 text-3xl font-bold text-[#0A2E12]">{value}</p>
     </div>
   );
 }
@@ -74,14 +74,14 @@ export default function AdminDashboard() {
   }, [selectedVenueId]);
 
   if (venueLoading || loading || !stats) {
-    return <div className="text-zinc-500 dark:text-zinc-400">Loading dashboard...</div>;
+    return <div className="text-[#3D5A3E]">Loading dashboard...</div>;
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-800 mb-1">Dashboard</h1>
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1">Dashboard</h1>
       {selectedVenue && (
-        <p className="text-sm text-zinc-500 mb-6">{selectedVenue.name}</p>
+        <p className="text-sm text-[#3D5A3E] mb-6">{selectedVenue.name}</p>
       )}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Players Online" value={stats.playersOnline} />

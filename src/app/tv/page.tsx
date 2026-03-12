@@ -49,7 +49,7 @@ export default function TVScoreboardPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+        <div className="flex min-h-screen items-center justify-center bg-[#0A2E12]">
           <div className="h-16 w-16 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
         </div>
       }
@@ -466,7 +466,7 @@ function TVDashboard() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+      <div className="flex min-h-screen items-center justify-center bg-[#0A2E12]">
         <div className="h-16 w-16 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
       </div>
     );
@@ -515,7 +515,7 @@ function TVDashboard() {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-zinc-950 text-white overflow-hidden select-none flex flex-col"
+      className="min-h-screen bg-[#0A2E12] text-white overflow-hidden select-none flex flex-col"
     >
       {/* REQ-LD-12: Persistent header */}
       <DashboardHeader
@@ -529,7 +529,7 @@ function TVDashboard() {
 
       {/* REQ-15-07: Green conditions on TV display */}
       {tournament && (
-        <div className="px-6 py-2 border-b border-white/10 bg-zinc-900/50">
+        <div className="px-6 py-2 border-b border-white/10 bg-[#0A2E12]/50">
           <GreenConditionsWidget conditions={greenConditions} variant="tv" />
         </div>
       )}
@@ -538,7 +538,7 @@ function TVDashboard() {
       {drawAnnouncement && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
           <div className="mx-8 w-full max-w-5xl animate-in fade-in zoom-in duration-500">
-            <div className="rounded-3xl border border-emerald-500/30 bg-zinc-900 p-8 shadow-2xl shadow-emerald-500/10">
+            <div className="rounded-3xl border border-emerald-500/30 bg-[#0A2E12] p-8 shadow-2xl shadow-emerald-500/10">
               <div className="mb-8 text-center">
                 <p className="text-lg font-semibold uppercase tracking-widest text-emerald-400">
                   Draw Announcement
@@ -553,9 +553,9 @@ function TVDashboard() {
                   .map((rink) => (
                     <div
                       key={rink.rink}
-                      className="rounded-2xl border border-white/10 bg-zinc-800/50 p-5"
+                      className="rounded-2xl border border-white/10 bg-[#0A2E12]/50 p-5"
                     >
-                      <p className="mb-3 text-center text-sm font-bold uppercase tracking-wider text-zinc-400">
+                      <p className="mb-3 text-center text-sm font-bold uppercase tracking-wider text-[#3D5A3E]">
                         Rink {rink.rink}
                       </p>
                       <div className="grid grid-cols-2 gap-4">
@@ -583,7 +583,7 @@ function TVDashboard() {
                     </div>
                   ))}
               </div>
-              <p className="mt-6 text-center text-sm text-zinc-500">
+              <p className="mt-6 text-center text-sm text-[#3D5A3E]">
                 This announcement will dismiss automatically
               </p>
             </div>
@@ -596,7 +596,7 @@ function TVDashboard() {
         {!tournament ? (
           <div className="flex h-full items-center justify-center">
             <div className="text-center">
-              <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-zinc-800">
+              <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[#0A2E12]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="48"
@@ -607,20 +607,20 @@ function TVDashboard() {
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="text-zinc-600"
+                  className="text-[#3D5A3E]"
                 >
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12 6 12 12 16 14" />
                 </svg>
               </div>
               <h2
-                className="font-black text-zinc-400"
+                className="font-black text-[#3D5A3E]"
                 style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
               >
                 No Active Tournament
               </h2>
               <p
-                className="mt-2 text-zinc-600"
+                className="mt-2 text-[#3D5A3E]"
                 style={{ fontSize: "clamp(1rem, 1.5vw, 1.25rem)" }}
               >
                 Waiting for a tournament to begin...
@@ -638,9 +638,9 @@ function TVDashboard() {
       </main>
 
       {/* REQ-LD-14: Footer - no site navigation */}
-      <footer className="border-t border-white/5 bg-zinc-950/90 backdrop-blur px-8 py-3">
+      <footer className="border-t border-white/5 bg-[#0A2E12]/90 backdrop-blur px-8 py-3">
         <div className="flex items-center justify-between">
-          <p className="text-xs text-zinc-600">Powered by Lawnbowling App</p>
+          <p className="text-xs text-[#3D5A3E]">Powered by Lawnbowling App</p>
           <div className="flex items-center gap-4">
             {activeSlides.length > 1 && !previewSlide && (
               <div className="flex items-center gap-1.5">
@@ -650,13 +650,13 @@ function TVDashboard() {
                     className={"h-1.5 rounded-full transition-all duration-300 " +
                       (i === currentSlideIndex % activeSlides.length
                         ? "w-6 bg-emerald-500"
-                        : "w-1.5 bg-zinc-700")
+                        : "w-1.5 bg-[#0A2E12]")
                     }
                   />
                 ))}
               </div>
             )}
-            <p className="text-xs text-zinc-600">
+            <p className="text-xs text-[#3D5A3E]">
               Auto-refreshing · TV Display Mode
             </p>
           </div>

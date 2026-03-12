@@ -19,12 +19,12 @@ export default function VenueQRPage() {
   }, []);
 
   if (loading) {
-    return <div className="text-zinc-500">Loading venues...</div>;
+    return <div className="text-[#3D5A3E]">Loading venues...</div>;
   }
 
   if (venues.length === 0) {
     return (
-      <div className="text-zinc-500">
+      <div className="text-[#3D5A3E]">
         No venues configured. Create a venue first in Venue Settings.
       </div>
     );
@@ -32,10 +32,10 @@ export default function VenueQRPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-800 mb-2">
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-2">
         Venue QR Codes
       </h1>
-      <p className="text-sm text-zinc-500 mb-8">
+      <p className="text-sm text-[#3D5A3E] mb-8">
         Print these QR codes and display them at venue entrances or on tables.
         Players scan to check in automatically.
       </p>
@@ -44,7 +44,7 @@ export default function VenueQRPage() {
         {venues.map((venue) => (
           <div
             key={venue.id}
-            className="rounded-2xl border border-zinc-200 bg-white p-6 flex flex-col items-center"
+            className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6 flex flex-col items-center"
           >
             <VenueQRCode
               venueId={venue.id}
@@ -53,7 +53,7 @@ export default function VenueQRPage() {
               showActions
             />
             {venue.address && (
-              <p className="mt-3 text-xs text-zinc-400 text-center">
+              <p className="mt-3 text-xs text-[#3D5A3E] text-center">
                 {venue.address}
               </p>
             )}

@@ -37,8 +37,8 @@ export function AdminVenuePicker() {
   if (venues.length <= 1) return null;
 
   return (
-    <div className="px-4 py-3 border-b border-zinc-200 dark:border-white/10">
-      <label className="block text-xs font-medium text-zinc-500 mb-1">
+    <div className="px-4 py-3 border-b border-[#0A2E12]/10">
+      <label className="block text-xs font-medium text-[#3D5A3E] mb-1">
         Active Venue
       </label>
       <VenueSelector

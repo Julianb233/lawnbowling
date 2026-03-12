@@ -102,20 +102,20 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
         )}
 
         <div className="flex-1 min-w-0">
-          <Toast.Title className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+          <Toast.Title className="text-sm font-semibold text-[#0A2E12]">
             Partner Request!
           </Toast.Title>
-          <Toast.Description className="mt-1 text-sm text-zinc-400">
-            <span className="font-medium text-zinc-700">{requesterName}</span>{" "}
+          <Toast.Description className="mt-1 text-sm text-[#3D5A3E]">
+            <span className="font-medium text-[#2D4A30]">{requesterName}</span>{" "}
             wants to play
           </Toast.Description>
 
           {skillInfo && (
             <div className="mt-1 text-xs text-amber-400">
               {Array.from({ length: 3 }, (_, i) => (
-                <Star key={i} className={cn("h-3 w-3 inline-block", i < skillInfo.stars ? "fill-amber-400 text-amber-400" : "text-zinc-300")} strokeWidth={1.5} />
+                <Star key={i} className={cn("h-3 w-3 inline-block", i < skillInfo.stars ? "fill-amber-400 text-amber-400" : "text-[#3D5A3E]")} strokeWidth={1.5} />
               ))}{" "}
-              <span className="text-zinc-500 dark:text-zinc-400">{skillInfo.label}</span>
+              <span className="text-[#3D5A3E]">{skillInfo.label}</span>
             </div>
           )}
 
@@ -134,14 +134,14 @@ export function IncomingRequest({ request, onRespond }: IncomingRequestProps) {
             <button
               onClick={() => handleRespond(false)}
               disabled={responding}
-              className="flex-1 rounded-xl border border-zinc-300 bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-700 btn-press disabled:opacity-50 min-h-[44px]"
+              className="flex-1 rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-3 py-2 text-sm font-medium text-[#3D5A3E] hover:text-[#2D4A30] btn-press disabled:opacity-50 min-h-[44px]"
             >
               Decline
             </button>
           </div>
         </div>
 
-        <span className="shrink-0 rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-mono text-zinc-500 tabular-nums">
+        <span className="shrink-0 rounded-full bg-[#0A2E12]/5 px-2 py-0.5 text-xs font-mono text-[#3D5A3E] tabular-nums">
           {timeLeft}
         </span>
       </div>

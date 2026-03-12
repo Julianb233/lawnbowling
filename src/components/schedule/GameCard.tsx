@@ -43,12 +43,12 @@ export function GameCard({ game, currentPlayerId }: GameCardProps) {
   const spotsLeft = game.max_players - goingCount;
 
   return (
-    <div className="rounded-2xl glass p-4 hover:bg-zinc-50 transition-colors">
+    <div className="rounded-2xl glass p-4 hover:bg-[#0A2E12]/[0.03] transition-colors">
       <div className="flex items-start justify-between mb-2">
         <div>
           <Link
             href={`/schedule/${game.id}`}
-            className="text-base font-semibold text-zinc-900 hover:text-[#1B5E20] transition-colors"
+            className="text-base font-semibold text-[#0A2E12] hover:text-[#1B5E20] transition-colors"
           >
             {game.title}
           </Link>
@@ -67,17 +67,17 @@ export function GameCard({ game, currentPlayerId }: GameCardProps) {
           <p className="text-sm font-medium text-[#1B5E20]">
             {formatDate(game.scheduled_at)}
           </p>
-          <p className="text-xs text-zinc-400">{formatTime(game.scheduled_at)}</p>
+          <p className="text-xs text-[#3D5A3E]">{formatTime(game.scheduled_at)}</p>
         </div>
       </div>
 
       {game.description && (
-        <p className="text-sm text-zinc-400 mb-3">{game.description}</p>
+        <p className="text-sm text-[#3D5A3E] mb-3">{game.description}</p>
       )}
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-zinc-500 dark:text-zinc-400">
+          <span className="text-xs text-[#3D5A3E]">
             {goingCount}/{game.max_players} players
           </span>
           {spotsLeft <= 2 && spotsLeft > 0 && (

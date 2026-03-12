@@ -21,7 +21,7 @@ function timeAgo(dateStr: string): string {
 export function ReviewsList({ reviews }: ReviewsListProps) {
   if (reviews.length === 0) {
     return (
-      <p className="text-sm text-zinc-500 text-center py-4">
+      <p className="text-sm text-[#3D5A3E] text-center py-4">
         No reviews yet
       </p>
     );
@@ -33,14 +33,14 @@ export function ReviewsList({ reviews }: ReviewsListProps) {
         <div key={review.id} className="rounded-xl glass p-3">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-200 text-xs font-bold text-zinc-600 dark:text-zinc-400">
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0A2E12]/5 text-xs font-bold text-[#3D5A3E]">
                 {review.reviewer?.display_name?.charAt(0)?.toUpperCase() || "?"}
               </div>
-              <span className="text-sm font-medium text-zinc-700">
+              <span className="text-sm font-medium text-[#2D4A30]">
                 {review.reviewer?.display_name || "Anonymous"}
               </span>
             </div>
-            <span className="text-xs text-zinc-500 dark:text-zinc-400">
+            <span className="text-xs text-[#3D5A3E]">
               {timeAgo(review.created_at)}
             </span>
           </div>
@@ -51,7 +51,7 @@ export function ReviewsList({ reviews }: ReviewsListProps) {
                 className={`h-3.5 w-3.5 ${
                   review.rating >= star
                     ? "fill-amber-400 text-amber-400"
-                    : "fill-none text-zinc-300"
+                    : "fill-none text-[#3D5A3E]"
                 }`}
                 viewBox="0 0 20 20"
                 stroke="currentColor"
@@ -62,7 +62,7 @@ export function ReviewsList({ reviews }: ReviewsListProps) {
             ))}
           </div>
           {review.comment && (
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">{review.comment}</p>
+            <p className="text-sm text-[#3D5A3E]">{review.comment}</p>
           )}
         </div>
       ))}

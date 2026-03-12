@@ -10,14 +10,14 @@ interface ClubScopeToggleProps {
 
 export function ClubScopeToggle({ scope, onScopeChange, clubName }: ClubScopeToggleProps) {
   return (
-    <div className="flex rounded-full border border-zinc-200 bg-zinc-100 p-0.5">
+    <div className="flex rounded-full border border-[#0A2E12]/10 bg-[#0A2E12]/5 p-0.5">
       <button
         onClick={() => onScopeChange("club")}
         className={cn(
           "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
           scope === "club"
             ? "bg-[#1B5E20] text-white shadow-sm"
-            : "text-zinc-500 hover:text-zinc-700"
+            : "text-[#3D5A3E] hover:text-[#2D4A30]"
         )}
       >
         {clubName || "My Club"}
@@ -28,7 +28,7 @@ export function ClubScopeToggle({ scope, onScopeChange, clubName }: ClubScopeTog
           "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
           scope === "all"
             ? "bg-[#1B5E20] text-white shadow-sm"
-            : "text-zinc-500 hover:text-zinc-700"
+            : "text-[#3D5A3E] hover:text-[#2D4A30]"
         )}
       >
         All Clubs

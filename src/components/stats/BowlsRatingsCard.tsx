@@ -53,7 +53,7 @@ const TIER_COLORS: Record<string, string> = {
   expert: "bg-amber-100 text-amber-800 border-amber-200",
   advanced: "bg-purple-100 text-purple-800 border-purple-200",
   intermediate: "bg-blue-100 text-blue-800 border-blue-200",
-  beginner: "bg-zinc-100 text-zinc-600 border-zinc-200",
+  beginner: "bg-[#0A2E12]/5 text-[#3D5A3E] border-[#0A2E12]/10",
 };
 
 function TierBadge({ rating }: { rating: number }) {
@@ -84,9 +84,9 @@ function PositionCard({
     rating.position.charAt(0).toUpperCase() + rating.position.slice(1);
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
+    <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+        <span className="text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]">
           {posLabel}
         </span>
         <TierBadge rating={rating.elo_rating} />
@@ -94,10 +94,10 @@ function PositionCard({
 
       <div className="mt-2 flex items-end justify-between">
         <div>
-          <p className="text-2xl font-black text-zinc-900 tabular-nums">
+          <p className="text-2xl font-black text-[#0A2E12] tabular-nums">
             {Math.round(rating.elo_rating)}
           </p>
-          <p className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">
+          <p className="mt-0.5 text-xs text-[#3D5A3E]">
             {rating.games_played} games &middot; {rating.wins}W/{rating.losses}L
             {rating.draws > 0 ? `/${rating.draws}D` : ""}
           </p>
@@ -106,9 +106,9 @@ function PositionCard({
       </div>
 
       {/* Shot differential & ends won */}
-      <div className="mt-3 flex gap-3 border-t border-zinc-100 pt-3">
+      <div className="mt-3 flex gap-3 border-t border-[#0A2E12]/10 pt-3">
         <div className="flex-1">
-          <p className="text-xs text-zinc-500">Shot Diff</p>
+          <p className="text-xs text-[#3D5A3E]">Shot Diff</p>
           <p
             className={cn(
               "text-sm font-bold tabular-nums",
@@ -116,7 +116,7 @@ function PositionCard({
                 ? "text-green-600"
                 : rating.shot_differential < 0
                   ? "text-red-500"
-                  : "text-zinc-500 dark:text-zinc-400"
+                  : "text-[#3D5A3E]"
             )}
           >
             {rating.shot_differential > 0 ? "+" : ""}
@@ -124,8 +124,8 @@ function PositionCard({
           </p>
         </div>
         <div className="flex-1">
-          <p className="text-xs text-zinc-500">Ends Won</p>
-          <p className="text-sm font-bold tabular-nums text-zinc-700">
+          <p className="text-xs text-[#3D5A3E]">Ends Won</p>
+          <p className="text-sm font-bold tabular-nums text-[#2D4A30]">
             {rating.ends_won_pct}%
           </p>
         </div>
@@ -196,10 +196,10 @@ export function BowlsRatingsCard({ playerId }: BowlsRatingsCardProps) {
   if (loading) {
     return (
       <div className="space-y-3">
-        <div className="h-6 w-48 animate-pulse rounded bg-zinc-100" />
+        <div className="h-6 w-48 animate-pulse rounded bg-[#0A2E12]/5" />
         <div className="grid grid-cols-2 gap-3">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-36 animate-pulse rounded-xl bg-zinc-100" />
+            <div key={i} className="h-36 animate-pulse rounded-xl bg-[#0A2E12]/5" />
           ))}
         </div>
       </div>
@@ -208,9 +208,9 @@ export function BowlsRatingsCard({ playerId }: BowlsRatingsCardProps) {
 
   if (ratings.length === 0) {
     return (
-      <div className="rounded-2xl border border-zinc-200 bg-white/80 p-6 text-center">
-        <Target className="mx-auto mb-2 h-10 w-10 text-zinc-300" />
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white/80 p-6 text-center">
+        <Target className="mx-auto mb-2 h-10 w-10 text-[#3D5A3E]" />
+        <p className="text-sm text-[#3D5A3E]">
           No bowls position ratings yet. Play in tournaments to build your ratings!
         </p>
       </div>
@@ -222,20 +222,20 @@ export function BowlsRatingsCard({ playerId }: BowlsRatingsCardProps) {
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <TrendingUp className="h-4 w-4 text-[#1B5E20]" />
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-[#3D5A3E]">
             Position Ratings
           </h2>
         </div>
         <div className="relative">
           <button
             onClick={() => setShowSeasonPicker(!showSeasonPicker)}
-            className="flex items-center gap-1 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
+            className="flex items-center gap-1 rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-1.5 text-xs font-medium text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
           >
             {season} Season
             <ChevronDown className="h-3 w-3" />
           </button>
           {showSeasonPicker && (
-            <div className="absolute right-0 top-full z-10 mt-1 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 py-1 shadow-lg">
+            <div className="absolute right-0 top-full z-10 mt-1 rounded-lg border border-[#0A2E12]/10 bg-white py-1 shadow-lg">
               {availableSeasons.map((s) => (
                 <button
                   key={s}
@@ -247,7 +247,7 @@ export function BowlsRatingsCard({ playerId }: BowlsRatingsCardProps) {
                     "block w-full px-4 py-1.5 text-left text-xs",
                     s === season
                       ? "bg-[#1B5E20]/5 font-bold text-[#1B5E20]"
-                      : "text-zinc-600 hover:bg-zinc-50 dark:bg-white/5"
+                      : "text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
                   )}
                 >
                   {s}

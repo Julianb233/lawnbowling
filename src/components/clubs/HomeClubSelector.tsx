@@ -57,7 +57,7 @@ export function HomeClubSelector({ currentClubId, onSelect, showSkip, onSkip }: 
 
   return (
     <div>
-      <label className="mb-2 block text-sm font-medium text-zinc-700">Home Club</label>
+      <label className="mb-2 block text-sm font-medium text-[#2D4A30]">Home Club</label>
 
       {confirming && selected && (
         <div className="mb-3 rounded-xl border border-amber-200 bg-amber-50 p-3">
@@ -75,7 +75,7 @@ export function HomeClubSelector({ currentClubId, onSelect, showSkip, onSkip }: 
             <button
               type="button"
               onClick={() => setConfirming(false)}
-              className="rounded-lg bg-zinc-200 px-3 py-1.5 text-xs font-bold text-zinc-700"
+              className="rounded-lg bg-[#0A2E12]/5 px-3 py-1.5 text-xs font-bold text-[#2D4A30]"
             >
               Cancel
             </button>
@@ -87,8 +87,8 @@ export function HomeClubSelector({ currentClubId, onSelect, showSkip, onSkip }: 
         <div className="flex items-center gap-3 rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 p-3">
           <Building2 className="h-5 w-5 shrink-0 text-[#1B5E20]" />
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{selected.name}</p>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm font-medium text-[#0A2E12]">{selected.name}</p>
+            <p className="text-xs text-[#3D5A3E]">
               {selected.city}, {selected.stateCode}
             </p>
           </div>
@@ -98,7 +98,7 @@ export function HomeClubSelector({ currentClubId, onSelect, showSkip, onSkip }: 
               setSelected(null);
               onSelect(null);
             }}
-            className="shrink-0 rounded-md p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700"
+            className="shrink-0 rounded-md p-1 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30]"
           >
             <X className="h-4 w-4" />
           </button>
@@ -106,29 +106,29 @@ export function HomeClubSelector({ currentClubId, onSelect, showSkip, onSkip }: 
       ) : !confirming ? (
         <div>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3D5A3E]" />
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search for your club..."
-              className="w-full rounded-xl border border-zinc-200 bg-zinc-100 pl-9 pr-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+              className="w-full rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 pl-9 pr-4 py-3 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
             />
           </div>
 
           {results.length > 0 && (
-            <div className="mt-2 max-h-52 overflow-y-auto rounded-xl border border-zinc-200 bg-white">
+            <div className="mt-2 max-h-52 overflow-y-auto rounded-xl border border-[#0A2E12]/10 bg-white">
               {results.map((club) => (
                 <button
                   key={club.id}
                   type="button"
                   onClick={() => handleSelect(club)}
-                  className="flex w-full items-center gap-3 border-b border-zinc-100 px-3 py-2.5 text-left last:border-0 hover:bg-zinc-50 dark:bg-white/5"
+                  className="flex w-full items-center gap-3 border-b border-[#0A2E12]/10 px-3 py-2.5 text-left last:border-0 hover:bg-[#0A2E12]/[0.03]"
                 >
-                  <Building2 className="h-4 w-4 shrink-0 text-zinc-400" />
+                  <Building2 className="h-4 w-4 shrink-0 text-[#3D5A3E]" />
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-zinc-900 truncate">{club.name}</p>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400">{club.city}, {club.stateCode}</p>
+                    <p className="text-sm font-medium text-[#0A2E12] truncate">{club.name}</p>
+                    <p className="text-xs text-[#3D5A3E]">{club.city}, {club.stateCode}</p>
                   </div>
                 </button>
               ))}
@@ -136,14 +136,14 @@ export function HomeClubSelector({ currentClubId, onSelect, showSkip, onSkip }: 
           )}
 
           {query.length >= 2 && results.length === 0 && (
-            <p className="mt-2 text-center text-xs text-zinc-400">No clubs found</p>
+            <p className="mt-2 text-center text-xs text-[#3D5A3E]">No clubs found</p>
           )}
 
           {showSkip && (
             <button
               type="button"
               onClick={onSkip}
-              className="mt-3 w-full text-center text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-400"
+              className="mt-3 w-full text-center text-sm text-[#3D5A3E] hover:text-[#3D5A3E]"
             >
               Skip for now
             </button>

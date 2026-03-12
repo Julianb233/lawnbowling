@@ -11,7 +11,7 @@ interface PlayerRatingProps {
 export function PlayerRating({ average, count, className }: PlayerRatingProps) {
   if (count === 0) {
     return (
-      <span className={cn("text-xs text-zinc-500 dark:text-zinc-400", className)}>No ratings yet</span>
+      <span className={cn("text-xs text-[#3D5A3E]", className)}>No ratings yet</span>
     );
   }
 
@@ -27,7 +27,7 @@ export function PlayerRating({ average, count, className }: PlayerRatingProps) {
                 ? "fill-amber-400 text-amber-400"
                 : average >= star - 0.5
                 ? "fill-amber-400/50 text-amber-400"
-                : "fill-none text-zinc-300"
+                : "fill-none text-[#3D5A3E]"
             )}
             viewBox="0 0 20 20"
             stroke="currentColor"
@@ -37,7 +37,7 @@ export function PlayerRating({ average, count, className }: PlayerRatingProps) {
           </svg>
         ))}
       </div>
-      <span className="text-xs text-zinc-500 dark:text-zinc-400">
+      <span className="text-xs text-[#3D5A3E]">
         {average.toFixed(1)} ({count})
       </span>
     </div>

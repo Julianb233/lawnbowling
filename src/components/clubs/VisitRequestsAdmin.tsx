@@ -55,14 +55,14 @@ export function VisitRequestsAdmin({ clubId }: VisitRequestsAdminProps) {
     pending: { label: "Pending", color: "text-amber-600 bg-amber-50" },
     accepted: { label: "Accepted", color: "text-green-600 bg-green-50" },
     declined: { label: "Declined", color: "text-red-500 bg-red-50" },
-    expired: { label: "Expired", color: "text-zinc-400 bg-zinc-50" },
+    expired: { label: "Expired", color: "text-[#3D5A3E] bg-[#0A2E12]/[0.03]" },
   };
 
   if (loading) {
     return (
       <div className="space-y-3">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-24 animate-pulse rounded-xl bg-zinc-100" />
+          <div key={i} className="h-24 animate-pulse rounded-xl bg-[#0A2E12]/5" />
         ))}
       </div>
     );
@@ -70,9 +70,9 @@ export function VisitRequestsAdmin({ clubId }: VisitRequestsAdminProps) {
 
   if (requests.length === 0) {
     return (
-      <div className="rounded-2xl border border-zinc-200 bg-white/80 p-8 text-center">
-        <MapPin className="mx-auto mb-3 h-10 w-10 text-zinc-300" />
-        <p className="text-sm text-zinc-500">No visit requests yet.</p>
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white/80 p-8 text-center">
+        <MapPin className="mx-auto mb-3 h-10 w-10 text-[#3D5A3E]" />
+        <p className="text-sm text-[#3D5A3E]">No visit requests yet.</p>
       </div>
     );
   }
@@ -85,7 +85,7 @@ export function VisitRequestsAdmin({ clubId }: VisitRequestsAdminProps) {
       {/* Pending requests */}
       {pending.length > 0 && (
         <div>
-          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
+          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#3D5A3E]">
             Pending ({pending.length})
           </h3>
           <div className="space-y-3">
@@ -108,15 +108,15 @@ export function VisitRequestsAdmin({ clubId }: VisitRequestsAdminProps) {
                       <User className="h-5 w-5 text-amber-700" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-bold text-zinc-900">
+                      <p className="text-sm font-bold text-[#0A2E12]">
                         {req.player?.display_name ?? "Unknown Player"}
                       </p>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-[#3D5A3E]">
                         <Clock className="inline h-3 w-3 mr-0.5" />
                         {date}
                       </p>
                       <div className="mt-1 flex flex-wrap gap-1">
-                        <span className="rounded-full bg-zinc-200 px-2 py-0.5 text-[10px] font-medium capitalize text-zinc-600 dark:text-zinc-400">
+                        <span className="rounded-full bg-[#0A2E12]/5 px-2 py-0.5 text-[10px] font-medium capitalize text-[#3D5A3E]">
                           {req.skill_level}
                         </span>
                         {req.preferred_positions.map((pos) => (
@@ -129,7 +129,7 @@ export function VisitRequestsAdmin({ clubId }: VisitRequestsAdminProps) {
                         ))}
                       </div>
                       {req.message && (
-                        <p className="mt-2 text-xs italic text-zinc-500">
+                        <p className="mt-2 text-xs italic text-[#3D5A3E]">
                           &ldquo;{req.message}&rdquo;
                         </p>
                       )}
@@ -148,7 +148,7 @@ export function VisitRequestsAdmin({ clubId }: VisitRequestsAdminProps) {
                     <button
                       onClick={() => handleRespond(req.id, "decline")}
                       disabled={isResponding}
-                      className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 disabled:opacity-50"
+                      className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-xs font-bold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-50"
                     >
                       <X className="h-3.5 w-3.5" />
                       Decline
@@ -164,7 +164,7 @@ export function VisitRequestsAdmin({ clubId }: VisitRequestsAdminProps) {
       {/* Resolved requests */}
       {resolved.length > 0 && (
         <div>
-          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
+          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#3D5A3E]">
             History ({resolved.length})
           </h3>
           <div className="space-y-2">
@@ -178,13 +178,13 @@ export function VisitRequestsAdmin({ clubId }: VisitRequestsAdminProps) {
               return (
                 <div
                   key={req.id}
-                  className="flex items-center gap-3 rounded-xl border border-zinc-200 bg-white p-3"
+                  className="flex items-center gap-3 rounded-xl border border-[#0A2E12]/10 bg-white p-3"
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300 truncate">
+                    <p className="text-sm font-medium text-[#2D4A30] truncate">
                       {req.player?.display_name ?? "Unknown Player"}
                     </p>
-                    <p className="text-xs text-zinc-400">{date}</p>
+                    <p className="text-xs text-[#3D5A3E]">{date}</p>
                   </div>
                   <span
                     className={cn(

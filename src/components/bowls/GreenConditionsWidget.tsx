@@ -22,7 +22,7 @@ const SURFACE_COLORS: Record<string, string> = {
 };
 
 const WIND_COLORS: Record<string, string> = {
-  calm: "text-zinc-400",
+  calm: "text-[#3D5A3E]",
   light: "text-sky-500",
   moderate: "text-amber-500",
   strong: "text-red-500",
@@ -47,12 +47,12 @@ export function GreenConditionsWidget({ conditions, variant = "default", onEdit 
       <div className={cn(
         "rounded-2xl border p-4",
         isTV
-          ? "border-white/10 bg-zinc-800/50"
-          : "border-zinc-200 dark:border-white/10 bg-white dark:bg-card"
+          ? "border-white/10 bg-[#0A2E12]/50"
+          : "border-[#0A2E12]/10 bg-white"
       )}>
         <p className={cn(
           "text-sm font-medium",
-          isTV ? "text-zinc-500 dark:text-zinc-400" : "text-zinc-400"
+          isTV ? "text-[#3D5A3E]" : "text-[#3D5A3E]"
         )}>
           Conditions not yet logged
         </p>
@@ -109,7 +109,7 @@ export function GreenConditionsWidget({ conditions, variant = "default", onEdit 
               <path d="M12 19V5M5 12l7-7 7 7" />
             </svg>
           )}
-          <span className="text-sm text-zinc-400">
+          <span className="text-sm text-[#3D5A3E]">
             {conditions.wind_direction === "calm"
               ? "Calm"
               : `${WIND_STRENGTH_LABELS[conditions.wind_strength]} ${conditions.wind_direction}`
@@ -122,9 +122,9 @@ export function GreenConditionsWidget({ conditions, variant = "default", onEdit 
 
   // Default variant
   return (
-    <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
+    <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-4">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-400">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
           Green Conditions
         </h3>
         {onEdit && (
@@ -149,7 +149,7 @@ export function GreenConditionsWidget({ conditions, variant = "default", onEdit 
         </span>
 
         {/* Wind */}
-        <span className="inline-flex items-center gap-1 rounded-full border border-zinc-200 dark:border-white/10 px-3 py-1 text-xs font-bold text-zinc-600 dark:text-zinc-400">
+        <span className="inline-flex items-center gap-1 rounded-full border border-[#0A2E12]/10 px-3 py-1 text-xs font-bold text-[#3D5A3E]">
           {conditions.wind_direction !== "calm" && (
             <svg
               width="12" height="12" viewBox="0 0 24 24" fill="none"
@@ -168,10 +168,10 @@ export function GreenConditionsWidget({ conditions, variant = "default", onEdit 
       </div>
 
       {conditions.notes && (
-        <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">{conditions.notes}</p>
+        <p className="mt-2 text-xs text-[#3D5A3E]">{conditions.notes}</p>
       )}
 
-      <p className="mt-2 text-[11px] text-zinc-400">
+      <p className="mt-2 text-[11px] text-[#3D5A3E]">
         Recorded {conditions.recorder?.display_name ? `by ${conditions.recorder.display_name}` : ""}{" "}
         at {new Date(conditions.recorded_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
       </p>

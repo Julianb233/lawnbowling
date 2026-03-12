@@ -205,7 +205,7 @@ export function DrawmasterTour() {
       <div
         ref={tooltipRef}
         role="tooltip"
-        className="absolute z-[251] w-80 rounded-2xl bg-zinc-900 border border-white/10 p-5 shadow-2xl"
+        className="absolute z-[251] w-80 rounded-2xl bg-[#0A2E12] border border-white/10 p-5 shadow-2xl"
         style={{ top: tooltipPos.top, left: tooltipPos.left }}
       >
         <div className="flex items-start justify-between mb-3">
@@ -214,14 +214,14 @@ export function DrawmasterTour() {
           </span>
           <button
             onClick={handleDismiss}
-            className="text-zinc-500 hover:text-zinc-300 -mt-1 -mr-1 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="text-[#3D5A3E] hover:text-[#3D5A3E] -mt-1 -mr-1 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Dismiss tour"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
         <h3 className="text-base font-bold text-white mb-1.5">{step.title}</h3>
-        <p className="text-sm text-zinc-400 leading-relaxed mb-4">{step.description}</p>
+        <p className="text-sm text-[#3D5A3E] leading-relaxed mb-4">{step.description}</p>
         <button
           onClick={handleNext}
           className="w-full rounded-xl bg-green-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-green-500 transition-colors min-h-[44px]"

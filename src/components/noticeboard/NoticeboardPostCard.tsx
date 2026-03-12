@@ -75,17 +75,17 @@ const POST_TYPE_CONFIG = {
   announcement: {
     icon: Megaphone,
     label: "Announcement",
-    badgeColor: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+    badgeColor: "bg-amber-100 text-amber-800",
   },
   tournament_result: {
     icon: Trophy,
     label: "Tournament Result",
-    badgeColor: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300",
+    badgeColor: "bg-emerald-100 text-emerald-800",
   },
   member_post: {
     icon: MessageCircle,
     label: "Post",
-    badgeColor: "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300",
+    badgeColor: "bg-[#0A2E12]/5 text-[#3D5A3E]",
   },
 };
 
@@ -178,19 +178,19 @@ export default function NoticeboardPostCard({
       transition={{ duration: 0.2, ease: "easeOut" }}
       className={cn(
         "relative rounded-2xl overflow-hidden transition-shadow",
-        "bg-white dark:bg-zinc-900",
-        "border border-zinc-200 dark:border-zinc-800",
+        "bg-white",
+        "border border-[#0A2E12]/10",
         "shadow-sm hover:shadow-md",
-        post.is_pinned && "ring-2 ring-amber-400/50 dark:ring-amber-500/30"
+        post.is_pinned && "ring-2 ring-amber-400/50"
       )}
       role="article"
       aria-label={`${typeConfig.label} by ${author?.display_name ?? "Unknown"}`}
     >
       {/* Pinned indicator bar */}
       {post.is_pinned && (
-        <div className="flex items-center gap-1.5 px-4 py-1.5 bg-amber-50 dark:bg-amber-950/30 border-b border-amber-200/50 dark:border-amber-800/30">
-          <Pin className="w-3 h-3 text-amber-600 dark:text-amber-400" />
-          <span className="text-xs font-medium text-amber-700 dark:text-amber-400">
+        <div className="flex items-center gap-1.5 px-4 py-1.5 bg-amber-50 border-b border-amber-200/50">
+          <Pin className="w-3 h-3 text-amber-600" />
+          <span className="text-xs font-medium text-amber-700">
             Pinned
           </span>
         </div>
@@ -204,10 +204,10 @@ export default function NoticeboardPostCard({
             <img
               src={author.avatar_url}
               alt={author.display_name}
-              className="w-10 h-10 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-800"
+              className="w-10 h-10 rounded-full object-cover ring-2 ring-[#0A2E12]/10"
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-800">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center ring-2 ring-[#0A2E12]/10">
               <UserIcon className="w-5 h-5 text-white" />
             </div>
           )}
@@ -216,7 +216,7 @@ export default function NoticeboardPostCard({
         {/* Author + Meta */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-semibold text-sm text-zinc-900 dark:text-zinc-100 truncate">
+            <span className="font-semibold text-sm text-[#0A2E12] truncate">
               {author?.display_name ?? "Unknown Player"}
             </span>
             <span
@@ -230,7 +230,7 @@ export default function NoticeboardPostCard({
             </span>
           </div>
           <time
-            className="text-xs text-zinc-500 dark:text-zinc-400"
+            className="text-xs text-[#3D5A3E]"
             dateTime={post.created_at}
             title={new Date(post.created_at).toLocaleString()}
           >
@@ -243,7 +243,7 @@ export default function NoticeboardPostCard({
           <div className="relative shrink-0">
             <button
               onClick={() => setShowMenu(!showMenu)}
-              className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-300 transition-colors"
+              className="p-1.5 rounded-lg text-[#3D5A3E] hover:text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-[#0A2E12]:text-[#3D5A3E] transition-colors"
               aria-label="Post options"
               aria-expanded={showMenu}
             >
@@ -256,14 +256,14 @@ export default function NoticeboardPostCard({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.1 }}
-                  className="absolute right-0 top-8 z-20 w-44 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-xl py-1"
+                  className="absolute right-0 top-8 z-20 w-44 rounded-xl border border-[#0A2E12]/10 bg-white shadow-xl py-1"
                 >
                   <button
                     onClick={() => {
                       onPin(post.id, !post.is_pinned);
                       setShowMenu(false);
                     }}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                    className="flex items-center gap-2 w-full px-3 py-2 text-sm text-[#2D4A30] hover:bg-[#0A2E12]/[0.03]:bg-[#0A2E12] transition-colors"
                   >
                     {post.is_pinned ? (
                       <PinOff className="w-4 h-4" />
@@ -277,7 +277,7 @@ export default function NoticeboardPostCard({
                       onDelete(post.id);
                       setShowMenu(false);
                     }}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                    className="flex items-center gap-2 w-full px-3 py-2 text-sm text-red-600 hover:bg-red-50:bg-red-900/20 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                     Delete post
@@ -291,13 +291,13 @@ export default function NoticeboardPostCard({
 
       {/* Title */}
       {post.title && (
-        <h3 className="px-4 pb-1 text-base font-bold text-zinc-900 dark:text-zinc-50 leading-snug">
+        <h3 className="px-4 pb-1 text-base font-bold text-[#0A2E12] leading-snug">
           {post.title}
         </h3>
       )}
 
       {/* Body */}
-      <div className="px-4 pb-3 text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed whitespace-pre-wrap">
+      <div className="px-4 pb-3 text-sm text-[#2D4A30] leading-relaxed whitespace-pre-wrap">
         {renderMarkdownLite(post.body)}
       </div>
 
@@ -317,8 +317,8 @@ export default function NoticeboardPostCard({
                   "inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-sm transition-all duration-150",
                   "border",
                   isActive
-                    ? "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-300"
-                    : "bg-zinc-50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700/50"
+                    ? "bg-emerald-50 border-emerald-300 text-emerald-800"
+                    : "bg-[#0A2E12]/[0.03] border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-[#0A2E12]/50"
                 )}
                 aria-label={`React with ${EMOJI_LABELS[emoji]}${count > 0 ? `, ${count} reactions` : ""}`}
                 aria-pressed={isActive}
@@ -353,9 +353,9 @@ export default function NoticeboardPostCard({
         onClick={() => setShowComments(!showComments)}
         className={cn(
           "flex items-center gap-2 w-full px-4 py-2.5",
-          "border-t border-zinc-100 dark:border-zinc-800",
-          "text-sm text-zinc-600 dark:text-zinc-400",
-          "hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors"
+          "border-t border-[#0A2E12]/10",
+          "text-sm text-[#3D5A3E]",
+          "hover:bg-[#0A2E12]/[0.03]:bg-[#0A2E12]/50 transition-colors"
         )}
         aria-expanded={showComments}
         aria-label={`${localCommentCount} comments. ${showComments ? "Collapse" : "Expand"} comments`}
@@ -385,7 +385,7 @@ export default function NoticeboardPostCard({
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="border-t border-zinc-100 dark:border-zinc-800">
+            <div className="border-t border-[#0A2E12]/10">
               <CommentThread
                 postId={post.id}
                 currentPlayerId={currentPlayerId}

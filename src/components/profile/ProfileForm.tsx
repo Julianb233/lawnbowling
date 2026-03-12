@@ -76,7 +76,7 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
       </div>
 
       <div>
-        <label htmlFor="display_name" className="mb-1.5 block text-sm font-medium text-zinc-700">
+        <label htmlFor="display_name" className="mb-1.5 block text-sm font-medium text-[#2D4A30]">
           Display Name
         </label>
         <input
@@ -85,28 +85,28 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name"
-          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]"
+          className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]"
           required
         />
       </div>
 
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-zinc-700">Skill Level</label>
+        <label className="mb-1.5 block text-sm font-medium text-[#2D4A30]">Skill Level</label>
         <Select.Root value={skillLevel} onValueChange={(v) => setSkillLevel(v as SkillLevel)}>
-          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]">
+          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]">
             <Select.Value />
             <Select.Icon>
-              <ChevronDown className="h-4 w-4 text-zinc-400" />
+              <ChevronDown className="h-4 w-4 text-[#3D5A3E]" />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="overflow-hidden rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-xl">
+            <Select.Content className="overflow-hidden rounded-lg border border-[#0A2E12]/10 bg-white shadow-xl">
               <Select.Viewport className="p-1">
                 {(["beginner", "intermediate", "advanced"] as SkillLevel[]).map((level) => (
                   <Select.Item
                     key={level}
                     value={level}
-                    className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2.5 text-sm text-zinc-900 outline-none hover:bg-zinc-50 min-h-[44px]"
+                    className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2.5 text-sm text-[#0A2E12] outline-none hover:bg-[#0A2E12]/[0.03] min-h-[44px]"
                   >
                     <Select.ItemIndicator>
                       <Check className="h-4 w-4" />
@@ -121,7 +121,7 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
       </div>
 
       <div>
-        <label htmlFor="bio" className="mb-1.5 block text-sm font-medium text-zinc-700">
+        <label htmlFor="bio" className="mb-1.5 block text-sm font-medium text-[#2D4A30]">
           Bio
         </label>
         <textarea
@@ -131,28 +131,28 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
           placeholder="Tell others about yourself..."
           rows={3}
           maxLength={500}
-          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] resize-none"
+          className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] resize-none"
         />
-        <p className="mt-1 text-xs text-zinc-400">{bio.length}/500</p>
+        <p className="mt-1 text-xs text-[#3D5A3E]">{bio.length}/500</p>
       </div>
 
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-zinc-700">Preferred Position</label>
+        <label className="mb-1.5 block text-sm font-medium text-[#2D4A30]">Preferred Position</label>
         <Select.Root value={preferredPosition} onValueChange={(v) => setPreferredPosition(v as BowlingPosition)}>
-          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]">
+          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]">
             <Select.Value placeholder="Select position" />
             <Select.Icon>
-              <ChevronDown className="h-4 w-4 text-zinc-400" />
+              <ChevronDown className="h-4 w-4 text-[#3D5A3E]" />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="overflow-hidden rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-xl">
+            <Select.Content className="overflow-hidden rounded-lg border border-[#0A2E12]/10 bg-white shadow-xl">
               <Select.Viewport className="p-1">
                 {(["lead", "second", "third", "skip"] as BowlingPosition[]).map((pos) => (
                   <Select.Item
                     key={pos}
                     value={pos}
-                    className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2.5 text-sm text-zinc-900 outline-none hover:bg-zinc-50 min-h-[44px]"
+                    className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2.5 text-sm text-[#0A2E12] outline-none hover:bg-[#0A2E12]/[0.03] min-h-[44px]"
                   >
                     <Select.ItemIndicator>
                       <Check className="h-4 w-4" />
@@ -167,22 +167,22 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
       </div>
 
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-zinc-700">Preferred Hand</label>
+        <label className="mb-1.5 block text-sm font-medium text-[#2D4A30]">Preferred Hand</label>
         <Select.Root value={preferredHand} onValueChange={(v) => setPreferredHand(v as PreferredHand)}>
-          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]">
+          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]">
             <Select.Value placeholder="Select hand" />
             <Select.Icon>
-              <ChevronDown className="h-4 w-4 text-zinc-400" />
+              <ChevronDown className="h-4 w-4 text-[#3D5A3E]" />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="overflow-hidden rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-xl">
+            <Select.Content className="overflow-hidden rounded-lg border border-[#0A2E12]/10 bg-white shadow-xl">
               <Select.Viewport className="p-1">
                 {(["left", "right", "ambidextrous"] as PreferredHand[]).map((hand) => (
                   <Select.Item
                     key={hand}
                     value={hand}
-                    className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2.5 text-sm text-zinc-900 outline-none hover:bg-zinc-50 min-h-[44px]"
+                    className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2.5 text-sm text-[#0A2E12] outline-none hover:bg-[#0A2E12]/[0.03] min-h-[44px]"
                   >
                     <Select.ItemIndicator>
                       <Check className="h-4 w-4" />
@@ -197,7 +197,7 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
       </div>
 
       <div>
-        <label htmlFor="years_experience" className="mb-1.5 block text-sm font-medium text-zinc-700">
+        <label htmlFor="years_experience" className="mb-1.5 block text-sm font-medium text-[#2D4A30]">
           Years of Experience
         </label>
         <input
@@ -208,7 +208,7 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
           value={yearsExperience}
           onChange={(e) => setYearsExperience(e.target.value)}
           placeholder="e.g. 5"
-          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]"
+          className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]"
         />
       </div>
 

@@ -8,7 +8,7 @@ export function SportsTags({ size = "md" }: { sports?: string[]; size?: "sm" | "
   return (
     <div className="flex flex-wrap gap-1.5">
       <span
-        className={`inline-flex items-center gap-1.5 rounded-full bg-zinc-100 ${sizeClasses}`}
+        className={`inline-flex items-center gap-1.5 rounded-full bg-[#0A2E12]/5 ${sizeClasses}`}
       >
         <CircleDot className={size === "sm" ? "w-3 h-3" : "w-4 h-4"} strokeWidth={1.5} />
         Lawn Bowling

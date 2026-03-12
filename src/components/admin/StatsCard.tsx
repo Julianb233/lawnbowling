@@ -11,9 +11,9 @@ interface StatsCardProps {
 
 export function StatsCard({ label, value, trend, className }: StatsCardProps) {
   return (
-    <div className={cn("rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4", className)}>
-      <p className="text-xs text-zinc-500 uppercase tracking-wider">{label}</p>
-      <p className="mt-1 text-2xl font-bold text-zinc-900 tabular-nums">
+    <div className={cn("rounded-xl border border-[#0A2E12]/10 bg-white p-4", className)}>
+      <p className="text-xs text-[#3D5A3E] uppercase tracking-wider">{label}</p>
+      <p className="mt-1 text-2xl font-bold text-[#0A2E12] tabular-nums">
         {value}
       </p>
       {trend !== undefined && trend !== 0 && (

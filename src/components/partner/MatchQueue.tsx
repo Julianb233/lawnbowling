@@ -2,11 +2,12 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ClipboardList } from "lucide-react";
+import { ClipboardList, Play } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { SPORT_LABELS } from "@/lib/types";
 import { SportIcon } from "@/components/icons/SportIcon";
 import { getSportColor } from "@/lib/design";
+import Link from "next/link";
 import type { Sport } from "@/lib/types";
 
 interface MatchQueuePlayer {
@@ -46,14 +47,14 @@ function PlayerPill({ player }: { player: MatchQueuePlayer["player"] }) {
         <img
           src={player.avatar_url}
           alt={displayName}
-          className="h-8 w-8 rounded-full object-cover ring-1 ring-zinc-200"
+          className="h-8 w-8 rounded-full object-cover ring-1 ring-[#0A2E12]/10"
         />
       ) : (
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-xs font-bold text-white ring-1 ring-zinc-200">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-xs font-bold text-white ring-1 ring-[#0A2E12]/10">
           {initials}
         </div>
       )}
-      <span className="text-sm font-medium text-zinc-700 truncate">{displayName}</span>
+      <span className="text-sm font-medium text-[#2D4A30] truncate">{displayName}</span>
     </div>
   );
 }
@@ -67,7 +68,7 @@ export function MatchQueue() {
     const { data, error } = await supabase
       .from("matches")
       .select("*, match_players(player_id, team, player:players(id, display_name, name, avatar_url, skill_level)), courts(name)")
-      .eq("status", "queued")
+      .in("status", ["queued", "playing"])
       .order("created_at", { ascending: true });
 
     if (!error && data) {
@@ -102,7 +103,7 @@ export function MatchQueue() {
   if (loading) {
     return (
       <div>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-400">
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#3D5A3E]">
           Ready to Play
         </h2>
         <div className="space-y-3">
@@ -116,7 +117,7 @@ export function MatchQueue() {
 
   return (
     <div>
-      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-400">
+      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#3D5A3E]">
         Ready to Play ({matches.length})
       </h2>
 
@@ -126,9 +127,9 @@ export function MatchQueue() {
             animate={{ y: [0, -4, 0] }}
             transition={{ repeat: Infinity, duration: 2 }}
           >
-            <ClipboardList className="w-8 h-8 text-zinc-400" strokeWidth={1.5} />
+            <ClipboardList className="w-8 h-8 text-[#3D5A3E]" strokeWidth={1.5} />
           </motion.div>
-          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-2 text-sm text-[#3D5A3E]">
             No pairs waiting yet
           </p>
         </div>
@@ -142,45 +143,63 @@ export function MatchQueue() {
               const sportInfo = SPORT_LABELS[match.sport as Sport];
               const sportColor = getSportColor(match.sport);
 
+              const isPlaying = match.status === "playing";
+
               return (
-                <motion.div
-                  key={match.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ delay: index * 0.05 }}
-                  className="rounded-xl glass-light p-3"
-                  style={{ borderLeft: `3px solid ${sportColor.primary}` }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span
-                      className="text-xs font-bold tracking-wider"
-                      style={{ color: sportColor.primary }}
-                    >
-                      #{index + 1} in queue
-                    </span>
-                    <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                      <SportIcon sport={match.sport as Sport} className="w-3.5 h-3.5 inline-block" /> {sportInfo?.label || match.sport}
-                    </span>
-                  </div>
+                <Link key={match.id} href={`/match/${match.id}`}>
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="rounded-xl glass-light p-3 cursor-pointer transition hover:shadow-md"
+                    style={{ borderLeft: `3px solid ${isPlaying ? "#1B5E20" : sportColor.primary}` }}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span
+                        className="text-xs font-bold tracking-wider"
+                        style={{ color: isPlaying ? "#1B5E20" : sportColor.primary }}
+                      >
+                        {isPlaying ? (
+                          <span className="inline-flex items-center gap-1">
+                            <Play className="h-3 w-3" />
+                            In Progress
+                          </span>
+                        ) : (
+                          `#${index + 1} in queue`
+                        )}
+                      </span>
+                      <span className="text-xs text-[#3D5A3E]">
+                        <SportIcon sport={match.sport as Sport} className="w-3.5 h-3.5 inline-block" /> {sportInfo?.label || match.sport}
+                      </span>
+                    </div>
 
-                  <div className="flex items-center gap-2">
-                    {player1 && <PlayerPill player={player1} />}
-                    <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400">VS</span>
-                    {player2 && <PlayerPill player={player2} />}
-                  </div>
+                    <div className="flex items-center gap-2">
+                      {player1 && <PlayerPill player={player1} />}
+                      <span className="text-xs font-bold text-[#3D5A3E]">VS</span>
+                      {player2 && <PlayerPill player={player2} />}
+                    </div>
 
-                  <div className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
-                    {match.courts
-                      ? `Assigned to ${match.courts.name}`
-                      : (
+                    <div className="mt-2 text-xs text-[#3D5A3E]">
+                      {isPlaying ? (
+                        <span className="inline-flex items-center gap-1 font-medium" style={{ color: "#1B5E20" }}>
+                          <span className="relative flex h-1.5 w-1.5">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
+                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-600" />
+                          </span>
+                          Tap to view live score
+                        </span>
+                      ) : match.courts ? (
+                        `Assigned to ${match.courts.name}`
+                      ) : (
                         <span className="inline-flex items-center gap-1">
                           <span className="live-dot !h-1.5 !w-1.5" />
                           Waiting for court
                         </span>
                       )}
-                  </div>
-                </motion.div>
+                    </div>
+                  </motion.div>
+                </Link>
               );
             })}
           </AnimatePresence>

@@ -5,14 +5,14 @@ import { motion } from "framer-motion";
 export function EtiquetteCard({ items }: { items: string[] }) {
   return (
     <section id="etiquette">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Etiquette</h2>
+      <h2 className="mb-4 text-2xl font-bold text-[#0A2E12]">Etiquette</h2>
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:p-5"
+        className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4 sm:p-5"
       >
-        <p className="mb-4 text-sm text-zinc-400">
+        <p className="mb-4 text-sm text-[#3D5A3E]">
           Good sportsmanship matters. Follow these unwritten rules to be a great
           playing partner.
         </p>
@@ -20,7 +20,7 @@ export function EtiquetteCard({ items }: { items: string[] }) {
           {items.map((item, i) => (
             <li
               key={i}
-              className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-400"
+              className="flex items-start gap-3 text-sm text-[#3D5A3E]"
             >
               <span className="mt-0.5 shrink-0 text-[#1B5E20]">
                 {"\u2713"}

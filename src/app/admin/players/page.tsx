@@ -51,7 +51,7 @@ export default function PlayersAdminPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-800 mb-6">
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6">
         Players ({total})
       </h1>
 
@@ -62,12 +62,12 @@ export default function PlayersAdminPage() {
           placeholder="Search by name..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none flex-1 max-w-xs"
+          className="rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none flex-1 max-w-xs"
         />
         <select
           value={skillFilter}
           onChange={(e) => setSkillFilter(e.target.value)}
-          className="rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800"
+          className="rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-[#0A2E12]"
         >
           <option value="">All Skill Levels</option>
           <option value="beginner">Beginner</option>
@@ -77,12 +77,12 @@ export default function PlayersAdminPage() {
       </div>
 
       {loading ? (
-        <div className="text-zinc-500 dark:text-zinc-400">Loading players...</div>
+        <div className="text-[#3D5A3E]">Loading players...</div>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-zinc-200 text-left text-zinc-500 dark:text-zinc-400">
+              <tr className="border-b border-[#0A2E12]/10 text-left text-[#3D5A3E]">
                 <th className="pb-2 font-medium">Name</th>
                 <th className="pb-2 font-medium">Skill</th>
                 <th className="pb-2 font-medium">Sports</th>
@@ -92,24 +92,24 @@ export default function PlayersAdminPage() {
                 <th className="pb-2 font-medium">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-800">
+            <tbody className="divide-y divide-[#0A2E12]/10">
               {players.map((player) => (
                 <tr key={player.id}>
-                  <td className="py-3 text-zinc-800">{player.display_name}</td>
+                  <td className="py-3 text-[#0A2E12]">{player.display_name}</td>
                   <td className="py-3">
                     <SkillBadge level={player.skill_level} />
                   </td>
-                  <td className="py-3 text-zinc-500 dark:text-zinc-400">
+                  <td className="py-3 text-[#3D5A3E]">
                     {player.sports
                       ?.map((s) => s.replace("_", " "))
                       .join(", ") || "-"}
                   </td>
                   <td className="py-3">
                     <span
-                      className={`inline-flex items-center gap-1 text-xs ${player.is_available ? "text-[#1B5E20]" : "text-zinc-500 dark:text-zinc-400"}`}
+                      className={`inline-flex items-center gap-1 text-xs ${player.is_available ? "text-[#1B5E20]" : "text-[#3D5A3E]"}`}
                     >
                       <span
-                        className={`h-2 w-2 rounded-full ${player.is_available ? "bg-[#1B5E20]" : "bg-zinc-400"}`}
+                        className={`h-2 w-2 rounded-full ${player.is_available ? "bg-[#1B5E20]" : "bg-[#0A2E12]/5"}`}
                       />
                       {player.is_available ? "Online" : "Offline"}
                     </span>
@@ -119,13 +119,13 @@ export default function PlayersAdminPage() {
                       className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                         player.role === "admin"
                           ? "bg-purple-100 text-purple-700"
-                          : "bg-zinc-100 text-zinc-500 dark:text-zinc-400"
+                          : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                       }`}
                     >
                       {player.role}
                     </span>
                   </td>
-                  <td className="py-3 text-zinc-500 dark:text-zinc-400">
+                  <td className="py-3 text-[#3D5A3E]">
                     {new Date(player.created_at).toLocaleDateString()}
                   </td>
                   <td className="py-3">
@@ -144,7 +144,7 @@ export default function PlayersAdminPage() {
             </tbody>
           </table>
           {players.length === 0 && (
-            <p className="py-8 text-center text-sm text-zinc-500 italic">
+            <p className="py-8 text-center text-sm text-[#3D5A3E] italic">
               No players found.
             </p>
           )}

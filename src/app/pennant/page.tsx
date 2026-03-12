@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import type { PennantSeason, PennantSeasonStatus } from "@/lib/types";
 
 const STATUS_LABELS: Record<PennantSeasonStatus, { label: string; color: string }> = {
-  draft: { label: "Draft", color: "bg-zinc-100 text-zinc-500" },
+  draft: { label: "Draft", color: "bg-[#0A2E12]/5 text-[#3D5A3E]" },
   registration: { label: "Registration Open", color: "bg-blue-100 text-blue-700" },
   in_progress: { label: "In Progress", color: "bg-green-100 text-green-700" },
   completed: { label: "Completed", color: "bg-purple-100 text-purple-700" },
@@ -50,13 +50,13 @@ export default function PennantSeasonsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900">Pennant Seasons</h1>
-              <p className="text-sm text-zinc-500">League competitions and standings</p>
+              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">Pennant Seasons</h1>
+              <p className="text-sm text-[#3D5A3E]">League competitions and standings</p>
             </div>
             <Link
               href="/pennant/admin"
@@ -70,9 +70,9 @@ export default function PennantSeasonsPage() {
 
       <main className="mx-auto max-w-3xl px-4 py-6 space-y-8">
         {grouped.length === 0 && (
-          <div className="rounded-2xl border border-zinc-200 bg-white p-12 text-center">
-            <p className="text-lg font-semibold text-zinc-400">No pennant seasons yet</p>
-            <p className="mt-1 text-sm text-zinc-400">
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-12 text-center">
+            <p className="text-lg font-semibold text-[#3D5A3E]">No pennant seasons yet</p>
+            <p className="mt-1 text-sm text-[#3D5A3E]">
               Create your first season to get started with league play.
             </p>
           </div>
@@ -80,7 +80,7 @@ export default function PennantSeasonsPage() {
 
         {grouped.map((group) => (
           <div key={group.status}>
-            <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
+            <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
               {group.label}
             </h2>
             <div className="space-y-3">
@@ -88,24 +88,24 @@ export default function PennantSeasonsPage() {
                 <Link
                   key={season.id}
                   href={`/pennant/${season.id}`}
-                  className="block rounded-2xl border border-zinc-200 bg-white p-5 transition-shadow hover:shadow-md"
+                  className="block rounded-2xl border border-[#0A2E12]/10 bg-white p-5 transition-shadow hover:shadow-md"
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="text-base font-bold text-zinc-900">{season.name}</h3>
-                      <p className="mt-1 text-sm text-zinc-500">
+                      <h3 className="text-base font-bold text-[#0A2E12]">{season.name}</h3>
+                      <p className="mt-1 text-sm text-[#3D5A3E]">
                         {season.season_year} &middot; {season.rounds_total} rounds &middot;{" "}
                         {season.format === "round_robin" ? "Round Robin" : "Home & Away"}
                       </p>
                       {season.description && (
-                        <p className="mt-1 text-xs text-zinc-400 line-clamp-2">{season.description}</p>
+                        <p className="mt-1 text-xs text-[#3D5A3E] line-clamp-2">{season.description}</p>
                       )}
                     </div>
                     <span className={cn("shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold", group.color)}>
                       {group.label}
                     </span>
                   </div>
-                  <div className="mt-3 text-xs text-zinc-400">
+                  <div className="mt-3 text-xs text-[#3D5A3E]">
                     {new Date(season.starts_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     {" — "}
                     {new Date(season.ends_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}

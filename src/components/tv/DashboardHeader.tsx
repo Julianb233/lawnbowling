@@ -29,7 +29,7 @@ export function DashboardHeader({
   }, []);
 
   return (
-    <header className="relative border-b border-white/10 bg-zinc-900/80">
+    <header className="relative border-b border-white/10 bg-[#0A2E12]/80">
       <div className="flex items-center justify-between px-8 py-4">
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-600 text-2xl font-black">
@@ -42,7 +42,7 @@ export function DashboardHeader({
             >
               {tournamentName}
             </h1>
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-[#3D5A3E]">
               {status === "in_progress"
                 ? "In Progress"
                 : status === "registration"
@@ -83,7 +83,7 @@ export function DashboardHeader({
                 minute: "2-digit",
               })}
             </p>
-            <p className="text-xs text-zinc-500">
+            <p className="text-xs text-[#3D5A3E]">
               {currentTime.toLocaleDateString([], {
                 weekday: "long",
                 month: "short",
@@ -94,7 +94,7 @@ export function DashboardHeader({
 
           <button
             onClick={onToggleFullscreen}
-            className="rounded-lg border border-white/10 p-2 text-zinc-400 hover:bg-white/5 hover:text-white transition-colors"
+            className="rounded-lg border border-white/10 p-2 text-[#3D5A3E] hover:bg-white/5 hover:text-white transition-colors"
             title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
           >
             {isFullscreen ? (

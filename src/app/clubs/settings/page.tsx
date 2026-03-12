@@ -233,7 +233,7 @@ export default function ClubSettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#0A2E12]/[0.03] flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-[#1B5E20]" />
       </div>
     );
@@ -241,10 +241,10 @@ export default function ClubSettingsPage() {
 
   if (!club) {
     return (
-      <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center">
-          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">No Club Found</h1>
-          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+      <div className="min-h-screen bg-[#0A2E12]/[0.03] flex items-center justify-center p-4">
+        <div className="max-w-md w-full rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
+          <h1 className="text-xl font-bold text-[#0A2E12]">No Club Found</h1>
+          <p className="mt-2 text-sm text-[#3D5A3E]">
             Register or claim a club first.
           </p>
           <Link
@@ -259,20 +259,20 @@ export default function ClubSettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-8">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-8">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <Link
             href="/clubs/dashboard"
-            className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-[#3D5A3E] hover:text-[#2D4A30] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             Dashboard
           </Link>
-          <h1 className="mt-2 text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
+          <h1 className="mt-2 text-2xl font-black tracking-tight text-[#0A2E12]">
             Club Settings
           </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="text-sm text-[#3D5A3E]">
             Manage your club profile and billing
           </p>
         </div>
@@ -281,8 +281,8 @@ export default function ClubSettingsPage() {
       <main className="mx-auto max-w-3xl px-4 py-8">
         <form onSubmit={handleSave} className="space-y-6">
           {/* Club Info */}
-          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-            <h2 className="text-lg font-bold text-zinc-900 mb-4">
+          <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+            <h2 className="text-lg font-bold text-[#0A2E12] mb-4">
               Club Information
             </h2>
             <div className="space-y-4">
@@ -295,7 +295,7 @@ export default function ClubSettingsPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                  className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                 />
               </FieldGroup>
 
@@ -308,7 +308,7 @@ export default function ClubSettingsPage() {
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   placeholder="City"
-                  className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                  className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                 />
               </FieldGroup>
 
@@ -318,7 +318,7 @@ export default function ClubSettingsPage() {
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder="123 Green Lane"
-                  className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                  className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                 />
               </FieldGroup>
 
@@ -332,7 +332,7 @@ export default function ClubSettingsPage() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="(555) 123-4567"
-                    className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   />
                 </FieldGroup>
                 <FieldGroup
@@ -344,7 +344,7 @@ export default function ClubSettingsPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="info@yourclub.com"
-                    className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   />
                 </FieldGroup>
               </div>
@@ -358,22 +358,22 @@ export default function ClubSettingsPage() {
                   value={website}
                   onChange={(e) => setWebsite(e.target.value)}
                   placeholder="https://yourclub.com"
-                  className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                  className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                 />
               </FieldGroup>
             </div>
           </section>
 
           {/* Facilities */}
-          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-            <h2 className="text-lg font-bold text-zinc-900 mb-4">
+          <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+            <h2 className="text-lg font-bold text-[#0A2E12] mb-4">
               Facilities
             </h2>
             <FieldGroup label="Number of Rinks">
               <select
                 value={rinks}
                 onChange={(e) => setRinks(e.target.value)}
-                className="w-full rounded-xl border border-zinc-200 py-3 px-4 text-sm text-zinc-900 focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
               >
                 <option value="2">2 rinks</option>
                 <option value="3">3 rinks</option>
@@ -383,10 +383,10 @@ export default function ClubSettingsPage() {
           </section>
 
           {/* Club Logo Upload */}
-          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
-            <h2 className="text-lg font-bold text-zinc-900 mb-4">Club Logo</h2>
+          <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+            <h2 className="text-lg font-bold text-[#0A2E12] mb-4">Club Logo</h2>
             <div className="flex items-center gap-4">
-              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 bg-zinc-50 dark:bg-white/5 overflow-hidden">
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-dashed border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] overflow-hidden">
                 {logoPreview ? (
                   <img
                     src={logoPreview}
@@ -394,7 +394,7 @@ export default function ClubSettingsPage() {
                     className="h-full w-full rounded-2xl object-cover"
                   />
                 ) : (
-                  <Image className="h-8 w-8 text-zinc-300" />
+                  <Image className="h-8 w-8 text-[#3D5A3E]" />
                 )}
               </div>
               <div>
@@ -408,7 +408,7 @@ export default function ClubSettingsPage() {
                 <button
                   type="button"
                   disabled={uploadingLogo}
-                  className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 disabled:opacity-50 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-xl border border-[#0A2E12]/10 px-4 py-2 text-sm font-medium text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] disabled:opacity-50 transition-colors"
                   onClick={() => logoInputRef.current?.click()}
                 >
                   {uploadingLogo ? (
@@ -423,7 +423,7 @@ export default function ClubSettingsPage() {
                     </>
                   )}
                 </button>
-                <p className="mt-1 text-xs text-zinc-400">
+                <p className="mt-1 text-xs text-[#3D5A3E]">
                   JPG, PNG, or WebP, max 2MB. Recommended: 200x200px
                 </p>
               </div>
@@ -431,16 +431,16 @@ export default function ClubSettingsPage() {
           </section>
 
           {/* Billing Management */}
-          <section className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+          <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Billing</h2>
-              <CreditCard className="h-5 w-5 text-zinc-400" />
+              <h2 className="text-lg font-bold text-[#0A2E12]">Billing</h2>
+              <CreditCard className="h-5 w-5 text-[#3D5A3E]" />
             </div>
 
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                  <p className="text-sm font-medium text-[#0A2E12]">
                     Current Plan:{" "}
                     <span className="text-[#1B5E20]">
                       {club.plan === "pro"
@@ -450,7 +450,7 @@ export default function ClubSettingsPage() {
                           : "Free"}
                     </span>
                   </p>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                  <p className="text-xs text-[#3D5A3E]">
                     {club.plan === "free"
                       ? "Upgrade for full features"
                       : "Manage your payment method and invoices"}
@@ -502,12 +502,12 @@ export default function ClubSettingsPage() {
 
         {/* Danger Zone */}
         {club.plan !== "free" && (
-          <section className="mt-8 rounded-2xl border border-red-200 bg-white dark:bg-[#1a3d28] p-6">
+          <section className="mt-8 rounded-2xl border border-red-200 bg-white p-6">
             <h2 className="text-lg font-bold text-red-700 mb-2 flex items-center gap-2">
               <AlertTriangle className="h-5 w-5" />
               Danger Zone
             </h2>
-            <p className="text-sm text-zinc-500 mb-4">
+            <p className="text-sm text-[#3D5A3E] mb-4">
               Cancelling your subscription will downgrade your club to the Free
               plan. Your data will be preserved for 90 days.
             </p>
@@ -543,7 +543,7 @@ export default function ClubSettingsPage() {
                   <button
                     type="button"
                     onClick={() => setShowCancelConfirm(false)}
-                    className="rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
+                    className="rounded-xl border border-[#0A2E12]/10 px-4 py-2.5 text-sm font-medium text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors"
                   >
                     Never Mind
                   </button>
@@ -568,8 +568,8 @@ function FieldGroup({
 }) {
   return (
     <div>
-      <label className="flex items-center gap-1.5 text-sm font-medium text-zinc-700 mb-1.5">
-        {icon && <span className="text-zinc-400">{icon}</span>}
+      <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
+        {icon && <span className="text-[#3D5A3E]">{icon}</span>}
         {label}
       </label>
       {children}

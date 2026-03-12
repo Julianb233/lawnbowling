@@ -55,8 +55,8 @@ export function ReportPlayerModal({
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
         <div className="w-full max-w-sm rounded-2xl glass p-6 text-center">
           <p className="text-3xl mb-2">{"\u2705"}</p>
-          <p className="text-zinc-900 font-medium">Report submitted</p>
-          <p className="text-sm text-zinc-500 mt-1">
+          <p className="text-[#0A2E12] font-medium">Report submitted</p>
+          <p className="text-sm text-[#3D5A3E] mt-1">
             An admin will review this shortly.
           </p>
         </div>
@@ -67,10 +67,10 @@ export function ReportPlayerModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="w-full max-w-sm rounded-2xl glass p-6">
-        <h2 className="text-lg font-bold text-zinc-900 mb-1">
+        <h2 className="text-lg font-bold text-[#0A2E12] mb-1">
           Report {reportedName}
         </h2>
-        <p className="text-sm text-zinc-500 mb-4">
+        <p className="text-sm text-[#3D5A3E] mb-4">
           This report will be reviewed by venue administrators.
         </p>
 
@@ -83,7 +83,7 @@ export function ReportPlayerModal({
                 "w-full text-left rounded-xl px-4 py-2.5 text-sm transition-all border",
                 reason === r.value
                   ? "border-red-300 bg-red-50 text-red-700"
-                  : "border-zinc-200 text-zinc-600 hover:bg-zinc-100"
+                  : "border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/5"
               )}
             >
               {r.label}
@@ -95,13 +95,13 @@ export function ReportPlayerModal({
           value={details}
           onChange={(e) => setDetails(e.target.value)}
           placeholder="Additional details (optional)"
-          className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-500 resize-none h-20 focus:outline-none focus:ring-2 focus:ring-red-500/50"
+          className="w-full rounded-xl bg-[#0A2E12]/5 border border-[#0A2E12]/10 px-4 py-3 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] resize-none h-20 focus:outline-none focus:ring-2 focus:ring-red-500/50"
         />
 
         <div className="mt-4 flex gap-2">
           <button
             onClick={onClose}
-            className="flex-1 rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-600 hover:bg-zinc-100 transition-colors"
+            className="flex-1 rounded-xl border border-[#0A2E12]/10 px-4 py-2.5 text-sm font-medium text-[#3D5A3E] hover:bg-[#0A2E12]/5 transition-colors"
           >
             Cancel
           </button>
@@ -112,7 +112,7 @@ export function ReportPlayerModal({
               "flex-1 rounded-xl px-4 py-2.5 text-sm font-bold text-white transition-all",
               reason
                 ? "bg-red-600 hover:bg-red-500"
-                : "bg-zinc-200 text-zinc-400 cursor-not-allowed"
+                : "bg-[#0A2E12]/5 text-[#3D5A3E] cursor-not-allowed"
             )}
           >
             Submit Report

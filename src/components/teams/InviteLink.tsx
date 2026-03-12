@@ -41,10 +41,10 @@ export function InviteLink({ inviteCode }: InviteLinkProps) {
   }
 
   return (
-    <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
-      <p className="mb-2 text-sm font-medium text-zinc-400">Invite Link</p>
+    <div className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4">
+      <p className="mb-2 text-sm font-medium text-[#3D5A3E]">Invite Link</p>
       <div className="flex items-center gap-2">
-        <div className="min-w-0 flex-1 truncate rounded-lg bg-zinc-100 px-3 py-2 text-sm text-zinc-600 font-mono">
+        <div className="min-w-0 flex-1 truncate rounded-lg bg-[#0A2E12]/5 px-3 py-2 text-sm text-[#3D5A3E] font-mono">
           {inviteCode}
         </div>
         <button
@@ -53,14 +53,14 @@ export function InviteLink({ inviteCode }: InviteLinkProps) {
             "flex h-9 w-9 items-center justify-center rounded-lg transition-colors",
             copied
               ? "bg-[#1B5E20]/10 text-[#1B5E20]"
-              : "bg-zinc-100 text-zinc-400 hover:text-zinc-700"
+              : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:text-[#2D4A30]"
           )}
         >
           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
         </button>
         <button
           onClick={handleShare}
-          className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-400 transition-colors hover:text-zinc-700"
+          className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0A2E12]/5 text-[#3D5A3E] transition-colors hover:text-[#2D4A30]"
         >
           <Share2 className="h-4 w-4" />
         </button>

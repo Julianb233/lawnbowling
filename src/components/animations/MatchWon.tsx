@@ -113,13 +113,13 @@ export function MatchWon({
 
       {/* Winner banner */}
       <div
-        className="relative z-10 rounded-2xl bg-white/95 dark:bg-[#1a3d28]/95 px-8 py-6 text-center shadow-2xl backdrop-blur"
+        className="relative z-10 rounded-2xl bg-white/95 px-8 py-6 text-center shadow-2xl backdrop-blur"
         style={{
           animation: reduced ? "none" : "matchWonBanner 500ms ease-out forwards",
         }}
       >
-        <p className="text-3xl font-black text-zinc-900 dark:text-zinc-100">{teamName} Wins!</p>
-        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Tap to dismiss</p>
+        <p className="text-3xl font-black text-[#0A2E12]">{teamName} Wins!</p>
+        <p className="mt-1 text-sm text-[#3D5A3E]">Tap to dismiss</p>
       </div>
     </div>
   );

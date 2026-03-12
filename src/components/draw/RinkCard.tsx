@@ -57,10 +57,10 @@ export function RinkCard({
     <div
       id={`rink-card-${rinkNumber}`}
       className={cn(
-        "draw-rink-card rounded-2xl border bg-white dark:bg-card overflow-hidden transition-shadow",
+        "draw-rink-card rounded-2xl border bg-white overflow-hidden transition-shadow",
         hasCurrentUser
           ? "border-[#1B5E20] shadow-md shadow-[#1B5E20]/10"
-          : "border-zinc-200 dark:border-white/10",
+          : "border-[#0A2E12]/10",
         revealMode && "draw-reveal-card",
         // Print styles
         "print:rounded-none print:border print:border-black print:shadow-none print:break-inside-avoid"
@@ -73,18 +73,18 @@ export function RinkCard({
           "flex items-baseline gap-2 border-b px-4 py-2.5",
           hasCurrentUser
             ? "bg-[#1B5E20]/5 border-[#1B5E20]/20"
-            : "bg-zinc-50 dark:bg-background border-zinc-200 dark:border-white/10",
-          "print:bg-white dark:bg-card print:border-black"
+            : "bg-[#0A2E12]/[0.03] border-[#0A2E12]/10",
+          "print:bg-white print:border-black"
         )}
       >
-        <span className="text-2xl font-black text-zinc-900 dark:text-foreground print:text-black">
+        <span className="text-2xl font-black text-[#0A2E12] print:text-black">
           {rinkNumber}
         </span>
-        <span className="text-xs font-bold uppercase tracking-wider text-zinc-500 print:text-black">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#3D5A3E] print:text-black">
           Rink
         </span>
         {rinkLocation && (
-          <span className="ml-auto text-xs text-zinc-500 print:text-black">
+          <span className="ml-auto text-xs text-[#3D5A3E] print:text-black">
             {rinkLocation}
           </span>
         )}
@@ -96,7 +96,7 @@ export function RinkCard({
       </div>
 
       {/* Teams */}
-      <div className="grid grid-cols-2 divide-x divide-zinc-100 print:divide-black">
+      <div className="grid grid-cols-2 divide-x divide-[#0A2E12]/10 print:divide-black">
         {/* Team 1 */}
         <div className="p-3 space-y-1.5">
           <p className="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-2 print:text-black">

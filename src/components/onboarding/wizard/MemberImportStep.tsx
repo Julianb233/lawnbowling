@@ -73,8 +73,8 @@ export function MemberImportStep({ members, onChange, errors }: MemberImportStep
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-black text-zinc-900 dark:text-foreground">Member Import</h2>
-        <p className="mt-1 text-sm text-zinc-500 dark:text-muted-foreground">
+        <h2 className="text-2xl font-black text-[#0A2E12]">Member Import</h2>
+        <p className="mt-1 text-sm text-[#3D5A3E]">
           Add at least one member to continue. You can upload a CSV or add manually.
         </p>
       </div>
@@ -83,7 +83,7 @@ export function MemberImportStep({ members, onChange, errors }: MemberImportStep
       {csvError && <p className="text-xs text-amber-600">{csvError}</p>}
 
       {/* CSV Upload */}
-      <label className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-zinc-300 px-4 py-4 text-sm font-medium text-zinc-500 dark:text-muted-foreground hover:border-green-400 hover:text-green-600 transition-colors min-h-[44px]">
+      <label className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-[#0A2E12]/10 px-4 py-4 text-sm font-medium text-[#3D5A3E] hover:border-green-400 hover:text-green-600 transition-colors min-h-[44px]">
         <Upload className="h-4 w-4" />
         Upload CSV (name, email)
         <input
@@ -97,13 +97,13 @@ export function MemberImportStep({ members, onChange, errors }: MemberImportStep
       {/* Manual entry */}
       <div className="space-y-3">
         {members.map((member, i) => (
-          <div key={i} className="flex items-center gap-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-card p-3">
+          <div key={i} className="flex items-center gap-2 rounded-xl border border-[#0A2E12]/10 bg-white p-3">
             <div className="flex-1">
               <input
                 type="text"
                 value={member.name}
                 onChange={(e) => updateMember(i, "name", e.target.value)}
-                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-background px-3 py-2 text-sm text-zinc-900 dark:text-foreground outline-none focus:border-green-500/50 min-h-[44px]"
+                className="w-full rounded-lg border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] px-3 py-2 text-sm text-[#0A2E12] outline-none focus:border-green-500/50 min-h-[44px]"
                 placeholder="Name"
               />
             </div>
@@ -112,13 +112,13 @@ export function MemberImportStep({ members, onChange, errors }: MemberImportStep
                 type="email"
                 value={member.email}
                 onChange={(e) => updateMember(i, "email", e.target.value)}
-                className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-background px-3 py-2 text-sm text-zinc-900 dark:text-foreground outline-none focus:border-green-500/50 min-h-[44px]"
+                className="w-full rounded-lg border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] px-3 py-2 text-sm text-[#0A2E12] outline-none focus:border-green-500/50 min-h-[44px]"
                 placeholder="Email (optional)"
               />
             </div>
             <button
               onClick={() => removeMember(i)}
-              className="rounded-lg p-2 text-zinc-400 hover:bg-red-50 hover:text-red-500 transition-colors min-h-[44px]"
+              className="rounded-lg p-2 text-[#3D5A3E] hover:bg-red-50 hover:text-red-500 transition-colors min-h-[44px]"
               aria-label={`Remove ${member.name || "member"}`}
             >
               <Trash2 className="h-4 w-4" />
@@ -129,12 +129,12 @@ export function MemberImportStep({ members, onChange, errors }: MemberImportStep
 
       <button
         onClick={addMember}
-        className="flex items-center gap-2 rounded-xl border border-dashed border-zinc-300 px-4 py-3 text-sm font-medium text-zinc-500 dark:text-muted-foreground hover:border-green-400 hover:text-green-600 transition-colors w-full justify-center min-h-[44px]"
+        className="flex items-center gap-2 rounded-xl border border-dashed border-[#0A2E12]/10 px-4 py-3 text-sm font-medium text-[#3D5A3E] hover:border-green-400 hover:text-green-600 transition-colors w-full justify-center min-h-[44px]"
       >
         <Plus className="h-4 w-4" /> Add Member Manually
       </button>
 
-      <p className="text-xs text-zinc-400">
+      <p className="text-xs text-[#3D5A3E]">
         {members.length} member{members.length !== 1 ? "s" : ""} added
       </p>
     </div>

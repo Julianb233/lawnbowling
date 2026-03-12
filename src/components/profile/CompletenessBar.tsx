@@ -136,19 +136,19 @@ export function CompletenessBar({
 
   if (compact) {
     return (
-      <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
+      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-zinc-700">Profile</span>
-          <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{percentage}%</span>
+          <span className="text-sm font-medium text-[#2D4A30]">Profile</span>
+          <span className="text-sm font-semibold text-[#0A2E12]">{percentage}%</span>
         </div>
-        <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-100">
+        <div className="h-2 w-full overflow-hidden rounded-full bg-[#0A2E12]/5">
           <div
             className={`h-full rounded-full transition-all duration-500 ${barColor}`}
             style={{ width: `${percentage}%` }}
           />
         </div>
         {incomplete.length > 0 && (
-          <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
+          <p className="mt-2 text-xs text-[#3D5A3E]">
             {incomplete[0].suggestion}
           </p>
         )}
@@ -157,7 +157,7 @@ export function CompletenessBar({
   }
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
+    <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4">
       {percentage === 100 ? (
         <div className="flex items-center gap-2 text-[#1B5E20]">
           <Sparkles className="h-5 w-5" />
@@ -166,11 +166,11 @@ export function CompletenessBar({
       ) : (
         <>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-zinc-700">Profile Completeness</span>
-            <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{percentage}%</span>
+            <span className="text-sm font-medium text-[#2D4A30]">Profile Completeness</span>
+            <span className="text-sm font-semibold text-[#0A2E12]">{percentage}%</span>
           </div>
 
-          <div className="h-3 w-full overflow-hidden rounded-full bg-zinc-100">
+          <div className="h-3 w-full overflow-hidden rounded-full bg-[#0A2E12]/5">
             <div
               className={`h-full rounded-full transition-all duration-500 ${barColor}`}
               style={{ width: `${percentage}%` }}
@@ -180,7 +180,7 @@ export function CompletenessBar({
           {incomplete.length > 0 && (
             <button
               onClick={() => setExpanded(!expanded)}
-              className="mt-3 flex w-full items-center justify-between text-sm text-zinc-500 hover:text-zinc-700 min-h-[44px]"
+              className="mt-3 flex w-full items-center justify-between text-sm text-[#3D5A3E] hover:text-[#2D4A30] min-h-[44px]"
             >
               <span>{incomplete.length} item{incomplete.length !== 1 ? "s" : ""} remaining</span>
               {expanded ? (
@@ -198,11 +198,11 @@ export function CompletenessBar({
                   {item.completed ? (
                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#1B5E20]" />
                   ) : (
-                    <Circle className="mt-0.5 h-4 w-4 shrink-0 text-zinc-300" />
+                    <Circle className="mt-0.5 h-4 w-4 shrink-0 text-[#3D5A3E]" />
                   )}
                   <span
                     className={`text-sm ${
-                      item.completed ? "text-zinc-400 line-through" : "text-zinc-700"
+                      item.completed ? "text-[#3D5A3E] line-through" : "text-[#2D4A30]"
                     }`}
                   >
                     {item.completed ? item.label : item.suggestion}

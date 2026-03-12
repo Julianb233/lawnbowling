@@ -38,7 +38,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
       <div className="flex justify-end p-4">
         <button
           onClick={handleComplete}
-          className="flex items-center gap-1 rounded-full px-4 py-2 text-sm text-zinc-500 hover:text-zinc-600 min-h-[44px]"
+          className="flex items-center gap-1 rounded-full px-4 py-2 text-sm text-[#3D5A3E] hover:text-[#3D5A3E] min-h-[44px]"
         >
           Skip <X className="h-4 w-4" />
         </button>
@@ -54,7 +54,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
       {/* Navigation */}
       <div className="p-6 pb-12">
         {/* Progress indicator */}
-        <p className="mb-3 text-center text-sm font-medium text-zinc-500">
+        <p className="mb-3 text-center text-sm font-medium text-[#3D5A3E]">
           Step {step + 1} of {STEPS.length}
         </p>
         <div className="mb-6 flex justify-center gap-2">
@@ -63,7 +63,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
               key={i}
               onClick={() => setStep(i)}
               className={`h-3 rounded-full transition-all ${
-                i === step ? "w-10 bg-green-500" : "w-3 bg-zinc-300"
+                i === step ? "w-10 bg-green-500" : "w-3 bg-[#0A2E12]/10"
               }`}
             />
           ))}
@@ -74,7 +74,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
           <button
             onClick={() => setStep(Math.max(0, step - 1))}
             disabled={step === 0}
-            className="flex items-center gap-1 rounded-xl px-6 py-3 text-base font-medium text-zinc-500 hover:text-zinc-700 disabled:invisible min-h-[48px]"
+            className="flex items-center gap-1 rounded-xl px-6 py-3 text-base font-medium text-[#3D5A3E] hover:text-[#2D4A30] disabled:invisible min-h-[48px]"
           >
             <ChevronLeft className="h-4 w-4" /> Back
           </button>

@@ -102,16 +102,16 @@ export default function PennantSeasonPage() {
     .slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <Link href="/pennant" className="text-sm text-zinc-400 hover:text-zinc-600 mb-1 block">
+          <Link href="/pennant" className="text-sm text-[#3D5A3E] hover:text-[#3D5A3E] mb-1 block">
             &larr; Seasons
           </Link>
-          <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+          <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
             {season?.name ?? "Season"}
           </h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-[#3D5A3E]">
             {season?.season_year} &middot; {season?.rounds_total} rounds
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function PennantSeasonPage() {
                   "rounded-lg px-4 py-2 text-sm font-semibold transition-colors min-h-[40px] touch-manipulation",
                   selectedDivision === div.id
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-400"
+                    : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:border-[#0A2E12]/10"
                 )}
               >
                 {div.name}
@@ -148,7 +148,7 @@ export default function PennantSeasonPage() {
         {/* Upcoming Fixtures */}
         {upcomingFixtures.length > 0 && (
           <div>
-            <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
+            <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
               Upcoming Fixtures
             </h2>
             <div className="space-y-2">
@@ -166,7 +166,7 @@ export default function PennantSeasonPage() {
         {/* Recent Results */}
         {completedFixtures.length > 0 && (
           <div>
-            <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
+            <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
               Recent Results
             </h2>
             <div className="space-y-2">

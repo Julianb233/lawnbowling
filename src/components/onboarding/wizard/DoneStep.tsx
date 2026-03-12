@@ -29,8 +29,8 @@ export function DoneStep({ completedItems, clubName }: DoneStepProps) {
         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
           <Check className="h-8 w-8 text-green-600" />
         </div>
-        <h2 className="text-2xl font-black text-zinc-900 dark:text-foreground">You're All Set!</h2>
-        <p className="mt-1 text-sm text-zinc-500 dark:text-muted-foreground">
+        <h2 className="text-2xl font-black text-[#0A2E12]">You're All Set!</h2>
+        <p className="mt-1 text-sm text-[#3D5A3E]">
           {clubName} is ready to go. Here's what you've configured:
         </p>
       </div>
@@ -40,13 +40,13 @@ export function DoneStep({ completedItems, clubName }: DoneStepProps) {
         {items.map((item) => (
           <div
             key={item.label}
-            className="flex items-center gap-3 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-card px-4 py-3"
+            className="flex items-center gap-3 rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3"
           >
             <div
               className={`flex h-6 w-6 items-center justify-center rounded-full ${
                 item.done
                   ? "bg-green-100 text-green-600"
-                  : "bg-zinc-100 text-zinc-400"
+                  : "bg-[#0A2E12]/5 text-[#3D5A3E]"
               }`}
             >
               {item.done ? (
@@ -57,7 +57,7 @@ export function DoneStep({ completedItems, clubName }: DoneStepProps) {
             </div>
             <span
               className={`text-sm font-medium ${
-                item.done ? "text-zinc-900 dark:text-foreground" : "text-zinc-400"
+                item.done ? "text-[#0A2E12]" : "text-[#3D5A3E]"
               }`}
             >
               {item.label}
@@ -77,7 +77,7 @@ export function DoneStep({ completedItems, clubName }: DoneStepProps) {
         </Link>
         <Link
           href="/clubs"
-          className="flex items-center justify-between rounded-xl border border-zinc-200 dark:border-white/10 bg-white px-4 py-3 text-sm font-medium text-zinc-600 hover:bg-zinc-50 dark:bg-background transition-colors min-h-[44px]"
+          className="flex items-center justify-between rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm font-medium text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] transition-colors min-h-[44px]"
         >
           View Your Club Page
           <ExternalLink className="h-4 w-4" />

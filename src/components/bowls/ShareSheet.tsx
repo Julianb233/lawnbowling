@@ -83,8 +83,8 @@ export function ShareSheet({
       label: copied ? "Copied!" : "Copy Link",
       icon: copied ? Check : Link2,
       onClick: handleCopyLink,
-      color: "text-zinc-700",
-      bgColor: copied ? "bg-[#1B5E20]/10 border-[#1B5E20]/30" : "bg-white border-zinc-200",
+      color: "text-[#2D4A30]",
+      bgColor: copied ? "bg-[#1B5E20]/10 border-[#1B5E20]/30" : "bg-white border-[#0A2E12]/10",
     },
     {
       id: "whatsapp",
@@ -132,42 +132,42 @@ export function ShareSheet({
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 100 }}
-            className="w-full max-w-md rounded-t-3xl sm:rounded-3xl bg-white dark:bg-[#1a3d28] p-6 shadow-2xl"
+            className="w-full max-w-md rounded-t-3xl sm:rounded-3xl bg-white p-6 shadow-2xl"
           >
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+              <h3 className="text-lg font-bold text-[#0A2E12]">
                 Share Results
               </h3>
               <button
                 onClick={onClose}
-                className="rounded-full p-1.5 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700"
+                className="rounded-full p-1.5 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30]"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {/* Share card preview */}
-            <div className="mb-6 rounded-xl bg-zinc-50 border border-zinc-200 p-4">
-              <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{tournamentName}</p>
+            <div className="mb-6 rounded-xl bg-[#0A2E12]/[0.03] border border-[#0A2E12]/10 p-4">
+              <p className="text-sm font-bold text-[#0A2E12]">{tournamentName}</p>
               {topPlayers.length > 0 && (
                 <div className="mt-2 space-y-1">
                   {topPlayers.slice(0, 3).map((p, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-zinc-600 dark:text-zinc-400">
+                    <div key={idx} className="flex items-center gap-2 text-xs text-[#3D5A3E]">
                       <span className={cn(
                         "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white",
-                        idx === 0 ? "bg-amber-500" : idx === 1 ? "bg-zinc-400" : "bg-amber-700"
+                        idx === 0 ? "bg-amber-500" : idx === 1 ? "bg-[#0A2E12]/5" : "bg-amber-700"
                       )}>
                         {idx + 1}
                       </span>
                       <span className="font-medium">{p.display_name}</span>
-                      <span className="ml-auto text-zinc-400">
+                      <span className="ml-auto text-[#3D5A3E]">
                         {p.wins}W | {p.shot_diff > 0 ? "+" : ""}{p.shot_diff}
                       </span>
                     </div>
                   ))}
                 </div>
               )}
-              <p className="mt-2 text-[10px] text-zinc-400 truncate">{resultsUrl}</p>
+              <p className="mt-2 text-[10px] text-[#3D5A3E] truncate">{resultsUrl}</p>
             </div>
 
             {/* Share targets */}

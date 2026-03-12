@@ -128,12 +128,12 @@ export default function SettingsPage() {
       <div className="mx-auto max-w-md">
         <button
           onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-[#3D5A3E] hover:text-[#0A2E12] min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h1 className="mb-8 text-2xl font-bold text-zinc-900">Settings</h1>
+        <h1 className="mb-8 text-2xl font-bold text-[#0A2E12]">Settings</h1>
 
         {error && (
           <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
@@ -152,7 +152,7 @@ export default function SettingsPage() {
           <div>
             <label
               htmlFor="display-name"
-              className="mb-2 block text-sm font-medium text-zinc-600"
+              className="mb-2 block text-sm font-medium text-[#3D5A3E]"
             >
               Display Name
             </label>
@@ -161,14 +161,14 @@ export default function SettingsPage() {
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
+              className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] placeholder-[#3D5A3E] outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
               placeholder="Your display name"
             />
           </div>
 
           {/* Skill Level */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-zinc-600">
+            <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">
               Skill Level
             </label>
             <div className="flex gap-2">
@@ -179,7 +179,7 @@ export default function SettingsPage() {
                   className={`flex-1 rounded-lg border px-3 py-3 text-sm font-medium transition-colors min-h-[44px] ${
                     skillLevel === level.value
                       ? "border-green-500 bg-green-50 text-green-600"
-                      : "border-zinc-200 bg-white text-zinc-500 hover:bg-zinc-50"
+                      : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
                   }`}
                 >
                   {level.label}
@@ -203,24 +203,24 @@ export default function SettingsPage() {
           </button>
 
           {/* Divider */}
-          <div className="border-t border-zinc-200" />
+          <div className="border-t border-[#0A2E12]/10" />
 
           {/* Visit Requests */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-zinc-600">
+            <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">
               My Visit Requests
             </label>
             <MyVisitRequests />
           </div>
 
           {/* Divider */}
-          <div className="border-t border-zinc-200" />
+          <div className="border-t border-[#0A2E12]/10" />
 
           {/* Notification Preferences */}
           <NotificationSettings preferences={notifPrefs} />
 
           {/* Divider */}
-          <div className="border-t border-zinc-200" />
+          <div className="border-t border-[#0A2E12]/10" />
 
           {/* Sign Out */}
           <button

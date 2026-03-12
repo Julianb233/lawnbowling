@@ -25,18 +25,18 @@ export default function MatchHistoryPage() {
 
   return (
     <div className="min-h-screen bg-white pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-3">
             <Link
               href="/stats"
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-zinc-500 transition-colors hover:bg-zinc-100"
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-[#3D5A3E] transition-colors hover:bg-[#0A2E12]/5"
             >
               <ArrowLeft className="h-5 w-5" />
             </Link>
             <div>
-              <h1 className="text-xl font-bold text-zinc-900">Match History</h1>
-              <p className="text-sm text-zinc-500">
+              <h1 className="text-xl font-bold text-[#0A2E12]">Match History</h1>
+              <p className="text-sm text-[#3D5A3E]">
                 Your past games and results
               </p>
             </div>
@@ -50,7 +50,7 @@ export default function MatchHistoryPage() {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="h-36 animate-pulse rounded-2xl bg-zinc-100"
+                className="h-36 animate-pulse rounded-2xl bg-[#0A2E12]/5"
               />
             ))}
           </div>
@@ -58,7 +58,7 @@ export default function MatchHistoryPage() {
           <MatchHistoryDetail playerId={currentUserId} />
         ) : (
           <div className="py-16 text-center">
-            <p className="text-sm text-zinc-500">
+            <p className="text-sm text-[#3D5A3E]">
               Please sign in to view your match history
             </p>
             <Link

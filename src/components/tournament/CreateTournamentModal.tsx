@@ -66,31 +66,31 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-300 bg-white dark:bg-[#1a3d28] p-6 shadow-2xl">
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-2xl">
           <div className="mb-4 flex items-center justify-between">
-            <Dialog.Title className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+            <Dialog.Title className="text-lg font-bold text-[#0A2E12]">
               Create Tournament
             </Dialog.Title>
-            <Dialog.Close className="rounded-full p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+            <Dialog.Close className="rounded-full p-1 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30]">
               <X className="h-5 w-5" />
             </Dialog.Close>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="mb-1 block text-sm font-medium text-zinc-400">Tournament Name</label>
+              <label className="mb-1 block text-sm font-medium text-[#3D5A3E]">Tournament Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Spring Championship"
-                className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+                className="w-full rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-4 py-3 text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 required
               />
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-zinc-400">Format</label>
+              <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">Format</label>
               <div className="grid grid-cols-1 gap-2">
                 {ALL_FORMATS.map((f) => (
                   <button
@@ -101,7 +101,7 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
                       "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left",
                       format === f
                         ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                        : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
+                        : "border-[#0A2E12]/10 bg-[#0A2E12]/5 text-[#3D5A3E] hover:border-[#0A2E12]/10"
                     )}
                   >
                     {TOURNAMENT_FORMAT_LABELS[f]}
@@ -112,23 +112,23 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="mb-1 block text-sm font-medium text-zinc-400">Max Players</label>
+                <label className="mb-1 block text-sm font-medium text-[#3D5A3E]">Max Players</label>
                 <input
                   type="number"
                   value={maxPlayers}
                   onChange={(e) => setMaxPlayers(e.target.value)}
                   min={2}
                   max={64}
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+                  className="w-full rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-4 py-3 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-zinc-400">Start Date</label>
+                <label className="mb-1 block text-sm font-medium text-[#3D5A3E]">Start Date</label>
                 <input
                   type="datetime-local"
                   value={startsAt}
                   onChange={(e) => setStartsAt(e.target.value)}
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+                  className="w-full rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-4 py-3 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                 />
               </div>
             </div>

@@ -57,7 +57,7 @@ export function PushNotificationPrompt() {
     >
       <button
         onClick={handleDismiss}
-        className="absolute top-2 right-2 text-zinc-400 hover:text-zinc-600"
+        className="absolute top-2 right-2 text-[#3D5A3E] hover:text-[#3D5A3E]"
         aria-label="Dismiss"
       >
         <X className="h-4 w-4" />
@@ -68,10 +68,10 @@ export function PushNotificationPrompt() {
           <Bell className="h-5 w-5 text-emerald-600" />
         </div>
         <div className="flex-1">
-          <p className="text-sm font-medium text-zinc-900">
+          <p className="text-sm font-medium text-[#0A2E12]">
             Stay in the game
           </p>
-          <p className="mt-0.5 text-xs text-zinc-500">
+          <p className="mt-0.5 text-xs text-[#3D5A3E]">
             Get notified when someone wants to partner up or a court opens.
           </p>
           <button

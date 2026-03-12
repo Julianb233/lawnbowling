@@ -34,7 +34,7 @@ export function VisitorCount({ clubId }: VisitorCountProps) {
   if (count === null || count === 0) return null;
 
   return (
-    <div className="flex items-center gap-1.5 text-sm text-zinc-500">
+    <div className="flex items-center gap-1.5 text-sm text-[#3D5A3E]">
       <Users className="h-3.5 w-3.5" />
       <span>
         {count} visitor{count !== 1 ? "s" : ""} this season

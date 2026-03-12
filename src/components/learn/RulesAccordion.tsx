@@ -8,7 +8,7 @@ import type { SportGuide } from "@/lib/sport-guides";
 export function RulesAccordion({ rules }: { rules: SportGuide["rules"] }) {
   return (
     <section id="rules">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Key Rules</h2>
+      <h2 className="mb-4 text-2xl font-bold text-[#0A2E12]">Key Rules</h2>
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -19,15 +19,15 @@ export function RulesAccordion({ rules }: { rules: SportGuide["rules"] }) {
             <Accordion.Item
               key={i}
               value={`rule-${i}`}
-              className="overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 dark:bg-white/5"
+              className="overflow-hidden rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]"
             >
-              <Accordion.Trigger className="flex w-full items-center justify-between px-4 py-3 text-left text-zinc-900 hover:bg-zinc-100 transition-colors min-h-[44px] group">
+              <Accordion.Trigger className="flex w-full items-center justify-between px-4 py-3 text-left text-[#0A2E12] hover:bg-[#0A2E12]/5 transition-colors min-h-[44px] group">
                 <span className="font-medium">{rule.rule}</span>
-                <ChevronDown className="h-4 w-4 shrink-0 text-zinc-500 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                <ChevronDown className="h-4 w-4 shrink-0 text-[#3D5A3E] transition-transform duration-200 group-data-[state=open]:rotate-180" />
               </Accordion.Trigger>
               <Accordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
-                <div className="border-t border-zinc-200 px-4 py-3">
-                  <p className="text-sm leading-relaxed text-zinc-400">
+                <div className="border-t border-[#0A2E12]/10 px-4 py-3">
+                  <p className="text-sm leading-relaxed text-[#3D5A3E]">
                     {rule.explanation}
                   </p>
                 </div>

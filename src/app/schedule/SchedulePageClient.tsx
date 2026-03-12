@@ -24,16 +24,16 @@ export function SchedulePageClient({ games, currentPlayerId }: SchedulePageClien
 
   return (
     <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 glass border-b border-zinc-200 dark:border-white/10">
+      <header className="sticky top-0 z-40 glass border-b border-[#0A2E12]/10">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <h1 className="text-xl font-black text-zinc-900 lg:text-2xl">
+            <h1 className="text-xl font-black text-[#0A2E12] lg:text-2xl">
               <span className="flex items-center gap-2"><Calendar className="w-5 h-5 text-[#1B5E20]" strokeWidth={1.5} /><span className="text-gradient">Schedule</span></span>
             </h1>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Upcoming games</p>
+            <p className="text-sm text-[#3D5A3E]">Upcoming games</p>
           </motion.div>
           <button
             onClick={() => setShowCreate(true)}

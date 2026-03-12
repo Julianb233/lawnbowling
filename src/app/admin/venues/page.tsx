@@ -41,23 +41,23 @@ export default function VenuesAdminPage() {
   };
 
   if (loading) {
-    return <div className="text-zinc-400">Loading venues...</div>;
+    return <div className="text-[#3D5A3E]">Loading venues...</div>;
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-zinc-900 mb-6">Venue Management</h1>
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6">Venue Management</h1>
 
       {/* Create venue */}
-      <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 mb-6">
-        <h2 className="text-sm font-semibold text-zinc-600 mb-3">Add New Venue</h2>
+      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4 mb-6">
+        <h2 className="text-sm font-semibold text-[#3D5A3E] mb-3">Add New Venue</h2>
         <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             placeholder="Venue name"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
-            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-[#1B5E20] focus:outline-none flex-1"
+            className="rounded-lg border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-3 py-2 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none flex-1"
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
           />
           <input
@@ -65,7 +65,7 @@ export default function VenuesAdminPage() {
             placeholder="Address (optional)"
             value={newAddress}
             onChange={(e) => setNewAddress(e.target.value)}
-            className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-zinc-900 focus:border-[#1B5E20] focus:outline-none flex-1"
+            className="rounded-lg border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-3 py-2 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none flex-1"
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
           />
           <Button onClick={handleCreate} disabled={creating || !newName.trim()}>
@@ -82,16 +82,16 @@ export default function VenuesAdminPage() {
             className={`flex items-center justify-between rounded-lg border px-4 py-3 transition-colors ${
               venue.id === selectedVenueId
                 ? "border-[#1B5E20] bg-[#1B5E20]/10"
-                : "border-zinc-200 bg-white"
+                : "border-[#0A2E12]/10 bg-white"
             }`}
           >
             <div>
-              <span className="font-medium text-zinc-900 dark:text-zinc-100">{venue.name}</span>
+              <span className="font-medium text-[#0A2E12]">{venue.name}</span>
               {venue.address && (
-                <span className="ml-2 text-xs text-zinc-500 dark:text-zinc-400">{venue.address}</span>
+                <span className="ml-2 text-xs text-[#3D5A3E]">{venue.address}</span>
               )}
               {venue.sports?.length > 0 && (
-                <span className="ml-2 text-xs text-zinc-600 dark:text-zinc-400">
+                <span className="ml-2 text-xs text-[#3D5A3E]">
                   {venue.sports.map((s) => s.replace("_", " ")).join(", ")}
                 </span>
               )}
@@ -107,14 +107,14 @@ export default function VenuesAdminPage() {
                   Select
                 </Button>
               )}
-              <a href="/admin/venue" className="inline-flex items-center justify-center rounded-md text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 h-8 px-3 transition-colors">
+              <a href="/admin/venue" className="inline-flex items-center justify-center rounded-md text-sm font-medium text-[#3D5A3E] hover:text-[#0A2E12]:text-[#3D5A3E] hover:bg-[#0A2E12]/5 h-8 px-3 transition-colors">
                 Settings
               </a>
             </div>
           </div>
         ))}
         {venues.length === 0 && (
-          <p className="text-sm text-zinc-500 italic">
+          <p className="text-sm text-[#3D5A3E] italic">
             No venues yet. Create one above to get started.
           </p>
         )}

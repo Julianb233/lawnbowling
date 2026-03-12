@@ -340,16 +340,16 @@ export default function BowlsTournamentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-5xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-zinc-900">
+              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
                 {tournamentName}
               </h1>
-              <p className="text-sm text-zinc-500">
+              <p className="text-sm text-[#3D5A3E]">
                 Tournament Check-in &middot; {checkins.length} players registered
               </p>
             </div>
@@ -359,7 +359,7 @@ export default function BowlsTournamentPage() {
               <select
                 value={format}
                 onChange={(e) => setFormat(e.target.value as BowlsGameFormat)}
-                className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-700 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-medium text-[#2D4A30] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
               >
                 {(Object.entries(BOWLS_FORMAT_LABELS) as [BowlsGameFormat, typeof BOWLS_FORMAT_LABELS[BowlsGameFormat]][]).map(
                   ([key, val]) => (
@@ -388,7 +388,7 @@ export default function BowlsTournamentPage() {
                   "rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
                   view === tab.key
                     ? "bg-[#1B5E20] text-white"
-                    : "text-zinc-500 hover:bg-zinc-100"
+                    : "text-[#3D5A3E] hover:bg-[#0A2E12]/5"
                 )}
               >
                 {tab.label}
@@ -424,7 +424,7 @@ export default function BowlsTournamentPage() {
         {/* ===== GREEN CONDITIONS FORM MODAL ===== */}
         {showConditionsForm && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-            <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="w-full max-w-md rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
               <GreenConditionsForm
                 tournamentId={tournamentId}
                 existing={greenConditions}
@@ -447,11 +447,11 @@ export default function BowlsTournamentPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for your name..."
-                className="w-full rounded-2xl border border-zinc-200 bg-white px-5 py-4 text-lg text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                className="w-full rounded-2xl border border-[#0A2E12]/10 bg-white px-5 py-4 text-lg text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
               />
             </div>
 
-            <p className="mb-4 text-center text-sm text-zinc-500">
+            <p className="mb-4 text-center text-sm text-[#3D5A3E]">
               Tap your name, then choose your preferred position
             </p>
 
@@ -481,7 +481,7 @@ export default function BowlsTournamentPage() {
                       "relative flex flex-col items-center gap-2 rounded-2xl p-4 transition-all min-h-[120px] touch-manipulation",
                       checked
                         ? "bg-blue-50 border-2 border-blue-200"
-                        : "bg-white border border-zinc-200 hover:border-zinc-300 hover:shadow-sm"
+                        : "bg-white border border-[#0A2E12]/10 hover:border-[#0A2E12]/10 hover:shadow-sm"
                     )}
                   >
                     <AnimatePresence mode="wait">
@@ -522,7 +522,7 @@ export default function BowlsTournamentPage() {
                     <span
                       className={cn(
                         "text-sm font-medium truncate max-w-full",
-                        checked ? "text-blue-700" : "text-zinc-600"
+                        checked ? "text-blue-700" : "text-[#3D5A3E]"
                       )}
                     >
                       {player.display_name}
@@ -530,13 +530,13 @@ export default function BowlsTournamentPage() {
                     {playerTopRatings.has(player.id) && (() => {
                       const r = playerTopRatings.get(player.id)!;
                       return (
-                        <span className="text-xs font-bold text-[#1B5E20] dark:text-emerald-400">
+                        <span className="text-xs font-bold text-[#1B5E20]">
                           {r.position.charAt(0).toUpperCase() + r.position.slice(1)} {r.elo}
                         </span>
                       );
                     })()}
                     {checked && (
-                      <span className="text-sm text-zinc-500">
+                      <span className="text-sm text-[#3D5A3E]">
                         tap to undo
                       </span>
                     )}
@@ -554,7 +554,7 @@ export default function BowlsTournamentPage() {
               {positionsNeeded.map((pos) => (
                 <div
                   key={pos}
-                  className="rounded-2xl bg-white border border-zinc-200 p-4 text-center"
+                  className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center"
                 >
                   <div
                     className={cn(
@@ -564,29 +564,29 @@ export default function BowlsTournamentPage() {
                   >
                     {positionCounts[pos] ?? 0}
                   </div>
-                  <p className="text-sm font-semibold text-zinc-700">
+                  <p className="text-sm font-semibold text-[#2D4A30]">
                     {BOWLS_POSITION_LABELS[pos].label}
                   </p>
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-[#3D5A3E]">
                     {BOWLS_POSITION_LABELS[pos].description}
                   </p>
                 </div>
               ))}
             </div>
 
-            <div className="mb-6 rounded-2xl bg-white border border-zinc-200 p-4">
+            <div className="mb-6 rounded-2xl bg-white border border-[#0A2E12]/10 p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-black text-zinc-900">
+                  <p className="text-2xl font-black text-[#0A2E12]">
                     {checkins.length}
                   </p>
-                  <p className="text-xs text-zinc-500">players checked in</p>
+                  <p className="text-xs text-[#3D5A3E]">players checked in</p>
                 </div>
                 <div className="text-right">
                   <p className="text-2xl font-black text-[#1B5E20]">
                     {possibleRinks}
                   </p>
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-[#3D5A3E]">
                     rinks possible ({BOWLS_FORMAT_LABELS[format].label})
                   </p>
                 </div>
@@ -616,7 +616,7 @@ export default function BowlsTournamentPage() {
                     key={checkin.id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-4 rounded-xl bg-white border border-zinc-200 px-4 py-3"
+                    className="flex items-center gap-4 rounded-xl bg-white border border-[#0A2E12]/10 px-4 py-3"
                   >
                     <div
                       className={cn(
@@ -627,10 +627,10 @@ export default function BowlsTournamentPage() {
                       {initials}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-zinc-900 truncate">
+                      <p className="text-sm font-semibold text-[#0A2E12] truncate">
                         {displayName}
                       </p>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-[#3D5A3E]">
                         {BOWLS_POSITION_LABELS[checkin.preferred_position as BowlsPosition]?.label}
                       </p>
                     </div>
@@ -644,7 +644,7 @@ export default function BowlsTournamentPage() {
                           ? "bg-blue-100 text-blue-700"
                           : checkin.checkin_source === "app"
                             ? "bg-purple-100 text-purple-700"
-                            : "bg-zinc-100 text-zinc-500"
+                            : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                       )}>
                         {checkin.checkin_source}
                       </span>
@@ -663,7 +663,7 @@ export default function BowlsTournamentPage() {
                         e.stopPropagation();
                         handleUndoCheckin(checkin.player_id);
                       }}
-                      className="ml-1 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-medium text-zinc-500 hover:border-red-300 hover:text-red-500 hover:bg-red-50 transition-colors min-h-[44px] touch-manipulation"
+                      className="ml-1 rounded-lg border border-[#0A2E12]/10 px-3 py-2 text-sm font-medium text-[#3D5A3E] hover:border-red-300 hover:text-red-500 hover:bg-red-50 transition-colors min-h-[44px] touch-manipulation"
                       title="Remove player from check-in list"
                     >
                       Remove
@@ -673,11 +673,11 @@ export default function BowlsTournamentPage() {
               })}
 
               {checkins.length === 0 && (
-                <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
-                  <p className="text-lg font-semibold text-zinc-500">
+                <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-12 text-center">
+                  <p className="text-lg font-semibold text-[#3D5A3E]">
                     No players checked in yet
                   </p>
-                  <p className="mt-1 text-sm text-zinc-500">
+                  <p className="mt-1 text-sm text-[#3D5A3E]">
                     Switch to the Check In tab to register players
                   </p>
                 </div>
@@ -701,11 +701,11 @@ export default function BowlsTournamentPage() {
               </div>
             )}
             {totalRounds === 0 ? (
-              <div className="rounded-2xl bg-white border border-zinc-200 p-12 text-center">
-                <p className="text-lg font-semibold text-zinc-500">
+              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-12 text-center">
+                <p className="text-lg font-semibold text-[#3D5A3E]">
                   No draw generated yet
                 </p>
-                <p className="mt-1 text-sm text-zinc-500">
+                <p className="mt-1 text-sm text-[#3D5A3E]">
                   Check in players and generate a draw from the Board tab
                 </p>
                 <button
@@ -728,7 +728,7 @@ export default function BowlsTournamentPage() {
                           "shrink-0 rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
                           activeRound === round
                             ? "bg-[#1B5E20] text-white"
-                            : "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50"
+                            : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
                         )}
                       >
                         Round {round}
@@ -739,11 +739,11 @@ export default function BowlsTournamentPage() {
 
                 <div className="mb-6 flex items-center justify-between no-print">
                   <div>
-                    <h2 className="text-xl font-black text-zinc-900">
+                    <h2 className="text-xl font-black text-[#0A2E12]">
                       Tournament Draw &mdash; Round {activeRound}
                     </h2>
                     {drawResult && (
-                      <p className="text-sm text-zinc-500">
+                      <p className="text-sm text-[#3D5A3E]">
                         {tournamentName} &middot; {BOWLS_FORMAT_LABELS[drawResult.format].label} &middot;{" "}
                         {drawResult.rinkCount} rink
                         {drawResult.rinkCount !== 1 ? "s" : ""}
@@ -753,7 +753,7 @@ export default function BowlsTournamentPage() {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => window.print()}
-                      className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                      className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
                     >
                       Print Draw Sheet
                     </button>
@@ -767,7 +767,7 @@ export default function BowlsTournamentPage() {
                     <button
                       onClick={() => handleGenerateDraw()}
                       disabled={generatingDraw}
-                      className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 disabled:opacity-40 min-h-[44px] touch-manipulation"
+                      className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] disabled:opacity-40 min-h-[44px] touch-manipulation"
                     >
                       Re-Draw
                     </button>
@@ -777,8 +777,8 @@ export default function BowlsTournamentPage() {
                 {/* Print-only draw sheet header */}
                 <div className="hidden print:block print:mb-4">
                   <div className="border-b-2 border-[#1B5E20] pb-3 mb-4">
-                    <h1 className="text-2xl font-black text-zinc-900">{tournamentName}</h1>
-                    <div className="flex justify-between text-sm text-zinc-600 mt-1">
+                    <h1 className="text-2xl font-black text-[#0A2E12]">{tournamentName}</h1>
+                    <div className="flex justify-between text-sm text-[#3D5A3E] mt-1">
                       <span>{tournamentDate}</span>
                       <span>Round {activeRound}{totalRounds > 1 ? ` of ${totalRounds}` : ""}</span>
                       {drawResult && <span>{BOWLS_FORMAT_LABELS[drawResult.format].label}</span>}
@@ -799,16 +799,16 @@ export default function BowlsTournamentPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="rounded-2xl bg-white border border-zinc-200 overflow-hidden print:rounded print:border-zinc-400"
+                            className="rounded-2xl bg-white border border-[#0A2E12]/10 overflow-hidden print:rounded print:border-[#0A2E12]/10"
                           >
-                            <div className="bg-zinc-50 border-b border-zinc-200 px-5 py-3 print:bg-zinc-100 print:py-2">
-                              <h3 className="text-sm font-bold text-zinc-700">
+                            <div className="bg-[#0A2E12]/[0.03] border-b border-[#0A2E12]/10 px-5 py-3 print:bg-[#0A2E12]/5 print:py-2">
+                              <h3 className="text-sm font-bold text-[#2D4A30]">
                                 Rink {idx + 1}
                               </h3>
                             </div>
-                            <div className="grid grid-cols-2 divide-x divide-zinc-100 print:divide-zinc-300">
+                            <div className="grid grid-cols-2 divide-x divide-[#0A2E12]/10 print:divide-[#0A2E12]/10">
                               <div className="p-4 print:p-3">
-                                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-500 print:text-zinc-600">
+                                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#3D5A3E] print:text-[#3D5A3E]">
                                   Team 1
                                 </p>
                                 <div className="space-y-2 print:space-y-1">
@@ -825,13 +825,13 @@ export default function BowlsTournamentPage() {
                                       >
                                         <span
                                           className={cn(
-                                            "inline-flex h-7 items-center rounded-full px-2 text-sm font-bold text-white print:bg-zinc-700 print:h-auto print:py-0.5 print:text-xs",
+                                            "inline-flex h-7 items-center rounded-full px-2 text-sm font-bold text-white print:bg-[#0A2E12] print:h-auto print:py-0.5 print:text-xs",
                                             POSITION_COLORS[a.position]
                                           )}
                                         >
                                           {BOWLS_POSITION_LABELS[a.position].label}
                                         </span>
-                                        <span className="text-sm font-medium text-zinc-700 truncate print:text-xs print:text-black">
+                                        <span className="text-sm font-medium text-[#2D4A30] truncate print:text-xs print:text-black">
                                           {a.player?.display_name ?? "TBD"}
                                         </span>
                                         {guestPlayerIds.has(a.player_id) && <GuestPlayerBadge />}
@@ -841,7 +841,7 @@ export default function BowlsTournamentPage() {
                               </div>
 
                               <div className="p-4 print:p-3">
-                                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-500 print:text-zinc-600">
+                                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#3D5A3E] print:text-[#3D5A3E]">
                                   Team 2
                                 </p>
                                 <div className="space-y-2 print:space-y-1">
@@ -858,13 +858,13 @@ export default function BowlsTournamentPage() {
                                       >
                                         <span
                                           className={cn(
-                                            "inline-flex h-7 items-center rounded-full px-2 text-sm font-bold text-white print:bg-zinc-700 print:h-auto print:py-0.5 print:text-xs",
+                                            "inline-flex h-7 items-center rounded-full px-2 text-sm font-bold text-white print:bg-[#0A2E12] print:h-auto print:py-0.5 print:text-xs",
                                             POSITION_COLORS[a.position]
                                           )}
                                         >
                                           {BOWLS_POSITION_LABELS[a.position].label}
                                         </span>
-                                        <span className="text-sm font-medium text-zinc-700 truncate print:text-xs print:text-black">
+                                        <span className="text-sm font-medium text-[#2D4A30] truncate print:text-xs print:text-black">
                                           {a.player?.display_name ?? "TBD"}
                                         </span>
                                         {guestPlayerIds.has(a.player_id) && <GuestPlayerBadge />}
@@ -880,35 +880,35 @@ export default function BowlsTournamentPage() {
 
                     {/* Print-only score recording table */}
                     <div className="hidden print:block mt-6">
-                      <h3 className="text-sm font-bold text-zinc-700 mb-2">Score Recording</h3>
+                      <h3 className="text-sm font-bold text-[#2D4A30] mb-2">Score Recording</h3>
                       <table className="w-full border-collapse text-xs">
                         <thead>
                           <tr>
-                            <th className="border border-zinc-400 px-2 py-1 text-left bg-zinc-100">Rink</th>
+                            <th className="border border-[#0A2E12]/10 px-2 py-1 text-left bg-[#0A2E12]/5">Rink</th>
                             {Array.from({ length: 12 }, (_, i) => (
-                              <th key={i} className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100 w-8">
+                              <th key={i} className="border border-[#0A2E12]/10 px-2 py-1 text-center bg-[#0A2E12]/5 w-8">
                                 {i + 1}
                               </th>
                             ))}
-                            <th className="border border-zinc-400 px-2 py-1 text-center bg-zinc-100">Total</th>
+                            <th className="border border-[#0A2E12]/10 px-2 py-1 text-center bg-[#0A2E12]/5">Total</th>
                           </tr>
                         </thead>
                         <tbody>
                           {drawResult.rinks.map((_, idx) => (
                             <Fragment key={idx}>
                               <tr>
-                                <td className="border border-zinc-400 px-2 py-2 font-medium">R{idx + 1} - T1</td>
+                                <td className="border border-[#0A2E12]/10 px-2 py-2 font-medium">R{idx + 1} - T1</td>
                                 {Array.from({ length: 12 }, (_, i) => (
-                                  <td key={i} className="border border-zinc-400 px-2 py-2">&nbsp;</td>
+                                  <td key={i} className="border border-[#0A2E12]/10 px-2 py-2">&nbsp;</td>
                                 ))}
-                                <td className="border border-zinc-400 px-2 py-2">&nbsp;</td>
+                                <td className="border border-[#0A2E12]/10 px-2 py-2">&nbsp;</td>
                               </tr>
                               <tr>
-                                <td className="border border-zinc-400 px-2 py-2 font-medium">R{idx + 1} - T2</td>
+                                <td className="border border-[#0A2E12]/10 px-2 py-2 font-medium">R{idx + 1} - T2</td>
                                 {Array.from({ length: 12 }, (_, i) => (
-                                  <td key={i} className="border border-zinc-400 px-2 py-2">&nbsp;</td>
+                                  <td key={i} className="border border-[#0A2E12]/10 px-2 py-2">&nbsp;</td>
                                 ))}
-                                <td className="border border-zinc-400 px-2 py-2">&nbsp;</td>
+                                <td className="border border-[#0A2E12]/10 px-2 py-2">&nbsp;</td>
                               </tr>
                             </Fragment>
                           ))}
@@ -917,11 +917,11 @@ export default function BowlsTournamentPage() {
                     </div>
 
                     {drawResult.unassigned.length > 0 && (
-                      <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-200 p-5 print:bg-white print:border-zinc-400 print:rounded">
+                      <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-200 p-5 print:bg-white print:border-[#0A2E12]/10 print:rounded">
                         <h3 className="mb-2 text-sm font-bold text-amber-800 print:text-black">
                           Unassigned Players ({drawResult.unassigned.length})
                         </h3>
-                        <p className="mb-3 text-xs text-amber-600 print:text-zinc-600">
+                        <p className="mb-3 text-xs text-amber-600 print:text-[#3D5A3E]">
                           Not enough players for a full rink. These players can be
                           added as substitutes or wait for more check-ins.
                         </p>
@@ -929,7 +929,7 @@ export default function BowlsTournamentPage() {
                           {drawResult.unassigned.map((u) => (
                             <span
                               key={u.player_id}
-                              className="rounded-full bg-amber-200/60 px-3 py-1 text-xs font-medium text-amber-800 print:bg-zinc-200 print:text-black"
+                              className="rounded-full bg-amber-200/60 px-3 py-1 text-xs font-medium text-amber-800 print:bg-[#0A2E12]/5 print:text-black"
                             >
                               {u.player?.display_name ?? "Unknown"}
                             </span>
@@ -955,10 +955,10 @@ export default function BowlsTournamentPage() {
               exit={{ opacity: 0, scale: 0.9 }}
               className="mx-4 w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl"
             >
-              <h3 className="mb-1 text-xl font-black text-zinc-900">
+              <h3 className="mb-1 text-xl font-black text-[#0A2E12]">
                 {selectedPlayer.display_name}
               </h3>
-              <p className="mb-6 text-sm text-zinc-500">
+              <p className="mb-6 text-sm text-[#3D5A3E]">
                 Choose your preferred position for{" "}
                 {BOWLS_FORMAT_LABELS[format].label}
               </p>
@@ -968,7 +968,7 @@ export default function BowlsTournamentPage() {
                   <button
                     key={pos}
                     onClick={() => handlePositionSelect(pos)}
-                    className="flex w-full items-center gap-4 rounded-2xl border border-zinc-200 p-4 text-left transition-all hover:border-[#1B5E20]/30 hover:bg-[#1B5E20]/5 active:scale-[0.98] min-h-[72px] touch-manipulation"
+                    className="flex w-full items-center gap-4 rounded-2xl border border-[#0A2E12]/10 p-4 text-left transition-all hover:border-[#1B5E20]/30 hover:bg-[#1B5E20]/5 active:scale-[0.98] min-h-[72px] touch-manipulation"
                   >
                     <div
                       className={cn(
@@ -979,10 +979,10 @@ export default function BowlsTournamentPage() {
                       {BOWLS_POSITION_LABELS[pos].order}
                     </div>
                     <div>
-                      <p className="text-base font-bold text-zinc-900">
+                      <p className="text-base font-bold text-[#0A2E12]">
                         {BOWLS_POSITION_LABELS[pos].label}
                       </p>
-                      <p className="text-sm text-zinc-500">
+                      <p className="text-sm text-[#3D5A3E]">
                         {BOWLS_POSITION_LABELS[pos].description}
                       </p>
                     </div>
@@ -992,7 +992,7 @@ export default function BowlsTournamentPage() {
 
               <button
                 onClick={() => setSelectedPlayer(null)}
-                className="mt-4 w-full rounded-2xl border border-zinc-200 bg-zinc-50 py-3 text-sm font-semibold text-zinc-600 hover:bg-zinc-100 min-h-[48px] touch-manipulation"
+                className="mt-4 w-full rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] py-3 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/5 min-h-[48px] touch-manipulation"
               >
                 Cancel
               </button>

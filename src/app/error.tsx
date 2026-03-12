@@ -19,15 +19,15 @@ export default function Error({
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-amber-500/10">
           <span className="text-4xl">{"\uD83D\uDE35"}</span>
         </div>
-        <h2 className="text-2xl font-bold text-zinc-900 mb-2">
+        <h2 className="text-2xl font-bold text-[#0A2E12] mb-2">
           Something went wrong
         </h2>
-        <p className="text-zinc-600 mb-6">
+        <p className="text-[#3D5A3E] mb-6">
           Don&apos;t worry, it happens to the best of us. Let&apos;s get you
           back in the game.
         </p>
         {error.digest && (
-          <p className="text-xs text-zinc-400 mb-4 font-mono">
+          <p className="text-xs text-[#3D5A3E] mb-4 font-mono">
             Error ID: {error.digest}
           </p>
         )}

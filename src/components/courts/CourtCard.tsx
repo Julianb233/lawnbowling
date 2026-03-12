@@ -43,7 +43,7 @@ function StatusIndicator({
   };
   const { color, label } = config[status];
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400">
+    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#3D5A3E]">
       <span className={`h-2.5 w-2.5 rounded-full ${color}`} />
       {label}
     </span>
@@ -56,7 +56,7 @@ function PlayerList({ players }: { players: MatchPlayer[] }) {
       {players.map((mp) => (
         <span
           key={mp.player_id}
-          className="inline-flex items-center rounded-md bg-zinc-700/50 px-2 py-0.5 text-xs text-zinc-600 dark:text-zinc-400"
+          className="inline-flex items-center rounded-md bg-[#0A2E12]/50 px-2 py-0.5 text-xs text-[#3D5A3E]"
         >
           {mp.players.display_name}
         </span>
@@ -80,11 +80,11 @@ export function CourtCard({
       : "open";
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-4">
+    <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4">
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">{court.name}</h3>
-          <p className="text-xs text-zinc-500 capitalize">
+          <h3 className="font-semibold text-[#0A2E12]">{court.name}</h3>
+          <p className="text-xs text-[#3D5A3E] capitalize">
             {court.sport.replace("_", " ")}
           </p>
         </div>
@@ -115,7 +115,7 @@ export function CourtCard({
 
       {status === "queued" && queuedMatch && (
         <div className="space-y-2">
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">Next up:</p>
+          <p className="text-xs text-[#3D5A3E]">Next up:</p>
           <PlayerList players={queuedMatch.match_players} />
           {onAssign && (
             <Button
@@ -130,7 +130,7 @@ export function CourtCard({
       )}
 
       {status === "open" && (
-        <p className="text-sm text-zinc-600 italic">Available</p>
+        <p className="text-sm text-[#3D5A3E] italic">Available</p>
       )}
     </div>
   );

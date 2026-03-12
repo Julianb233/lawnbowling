@@ -21,8 +21,8 @@ export function ClubMapFilters({
 }: ClubMapFiltersProps) {
   return (
     <div className="absolute left-4 right-4 top-4 z-10 sm:left-4 sm:right-auto sm:max-w-xs">
-      <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/95 p-3 shadow-lg backdrop-blur">
-        <p className="mb-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white/95 p-3 shadow-lg backdrop-blur">
+        <p className="mb-2 text-xs font-bold text-[#3D5A3E] uppercase tracking-wider">
           {clubCount} clubs shown
         </p>
 
@@ -83,7 +83,7 @@ function FilterChip({
       } ${
         active
           ? "border-[#1B5E20] bg-[#1B5E20] text-white"
-          : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300"
+          : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#0A2E12]/10"
       }`}
     >
       {label}

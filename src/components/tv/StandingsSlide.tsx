@@ -70,7 +70,7 @@ export default function StandingsSlide({ scores, tournamentName }: StandingsSlid
   if (standings.length === 0) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <p style={{ fontSize: "clamp(1.25rem, 2vw, 2rem)" }} className="font-bold text-zinc-500">
+        <p style={{ fontSize: "clamp(1.25rem, 2vw, 2rem)" }} className="font-bold text-[#3D5A3E]">
           No finalized results yet
         </p>
       </div>
@@ -88,14 +88,14 @@ export default function StandingsSlide({ scores, tournamentName }: StandingsSlid
       <div className="overflow-hidden rounded-2xl border border-white/10">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-white/10 bg-zinc-800/50">
-              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-zinc-400 w-12">#</th>
-              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-zinc-400">Player</th>
-              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400 w-16">W</th>
-              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400 w-16">L</th>
-              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400 w-16">D</th>
-              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400 w-20">PF</th>
-              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-400 w-20">+/-</th>
+            <tr className="border-b border-white/10 bg-[#0A2E12]/50">
+              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E] w-12">#</th>
+              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">Player</th>
+              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E] w-16">W</th>
+              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E] w-16">L</th>
+              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E] w-16">D</th>
+              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E] w-20">PF</th>
+              <th className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E] w-20">+/-</th>
             </tr>
           </thead>
           <tbody>
@@ -111,9 +111,9 @@ export default function StandingsSlide({ scores, tournamentName }: StandingsSlid
                   <span className={cn(
                     "flex h-7 w-7 items-center justify-center rounded-full text-xs font-black",
                     i === 0 ? "bg-amber-500 text-black"
-                      : i === 1 ? "bg-zinc-300 text-black"
+                      : i === 1 ? "bg-[#0A2E12]/10 text-black"
                         : i === 2 ? "bg-amber-700 text-white"
-                          : "bg-zinc-800 text-zinc-400"
+                          : "bg-[#0A2E12] text-[#3D5A3E]"
                   )}>
                     {i + 1}
                   </span>
@@ -121,11 +121,11 @@ export default function StandingsSlide({ scores, tournamentName }: StandingsSlid
                 <td className="px-4 py-3 text-sm font-semibold text-white">{s.displayName}</td>
                 <td className="px-4 py-3 text-center text-sm font-bold text-emerald-400 tabular-nums">{s.wins}</td>
                 <td className="px-4 py-3 text-center text-sm font-bold text-red-400 tabular-nums">{s.losses}</td>
-                <td className="px-4 py-3 text-center text-sm font-bold text-zinc-400 tabular-nums">{s.draws}</td>
-                <td className="px-4 py-3 text-center text-sm font-medium text-zinc-300 tabular-nums">{s.pointsFor}</td>
+                <td className="px-4 py-3 text-center text-sm font-bold text-[#3D5A3E] tabular-nums">{s.draws}</td>
+                <td className="px-4 py-3 text-center text-sm font-medium text-[#3D5A3E] tabular-nums">{s.pointsFor}</td>
                 <td className={cn(
                   "px-4 py-3 text-center text-sm font-bold tabular-nums",
-                  s.differential > 0 ? "text-emerald-400" : s.differential < 0 ? "text-red-400" : "text-zinc-400"
+                  s.differential > 0 ? "text-emerald-400" : s.differential < 0 ? "text-red-400" : "text-[#3D5A3E]"
                 )}>
                   {s.differential > 0 ? "+" : ""}{s.differential}
                 </td>

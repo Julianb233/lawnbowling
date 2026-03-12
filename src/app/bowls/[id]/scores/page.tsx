@@ -419,14 +419,14 @@ export default function ScoreEntryPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0f2518]">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] dark:border-emerald-400 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-white">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-[#0f2518] pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
       {/* Toast notifications */}
       <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
         <AnimatePresence>
@@ -440,7 +440,7 @@ export default function ScoreEntryPage() {
                 "rounded-xl px-4 py-3 text-sm font-semibold shadow-lg",
                 toast.type === "success" && "bg-[#1B5E20] text-white",
                 toast.type === "error" && "bg-red-600 text-white",
-                toast.type === "info" && "bg-zinc-800 text-white"
+                toast.type === "info" && "bg-[#0A2E12] text-white"
               )}
             >
               {toast.message}
@@ -450,19 +450,19 @@ export default function ScoreEntryPage() {
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-5xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100">
+                <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
                   Score Entry
                 </h1>
                 {/* Realtime connection indicator */}
                 <span
                   className={cn(
                     "inline-block h-2.5 w-2.5 rounded-full",
-                    realtimeConnected ? "bg-[#1B5E20]" : "bg-zinc-300"
+                    realtimeConnected ? "bg-[#1B5E20]" : "bg-[#0A2E12]/10"
                   )}
                   title={realtimeConnected ? "Live updates active" : "Connecting..."}
                 />
@@ -472,26 +472,26 @@ export default function ScoreEntryPage() {
                   </span>
                 )}
               </div>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="text-sm text-[#3D5A3E]">
                 {tournamentName} &middot; Round {round}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}`)}
-                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
               >
                 Back
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/live`)}
-                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 min-h-[44px] touch-manipulation"
               >
                 Live View
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/results`)}
-                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-blue-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-blue-50 min-h-[44px] touch-manipulation"
               >
                 Results
               </button>
@@ -500,7 +500,7 @@ export default function ScoreEntryPage() {
 
           {/* Round selector */}
           <div className="mt-3 flex items-center gap-2">
-            <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Round:</span>
+            <span className="text-sm font-medium text-[#3D5A3E]">Round:</span>
             {[1, 2, 3, 4, 5].map((r) => (
               <button
                 key={r}
@@ -513,7 +513,7 @@ export default function ScoreEntryPage() {
                   "flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-colors touch-manipulation",
                   round === r
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-zinc-100 dark:bg-white/10 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-white/15"
+                    : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15"
                 )}
               >
                 {r}
@@ -543,11 +543,11 @@ export default function ScoreEntryPage() {
                     ? "bg-[#1B5E20]/5 border-2 border-[#1B5E20]/20"
                     : isActive
                       ? "bg-[#1B5E20]/5 border-2 border-[#1B5E20] shadow-lg"
-                      : "bg-white dark:bg-[#1a3d28] border border-zinc-200 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-sm"
+                      : "bg-white border border-[#0A2E12]/10 hover:border-[#0A2E12]/10:border-white/20 hover:shadow-sm"
                 )}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                     Rink {entry.rink}
                   </span>
                   <div className="flex items-center gap-1">
@@ -565,7 +565,7 @@ export default function ScoreEntryPage() {
                 {hasScores ? (
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-400">
+                      <span className="text-sm font-semibold text-[#3D5A3E]">
                         Team A
                       </span>
                       <MatchPoint isMatchPoint={isMatchPoint(entry.teamAScores, entry.teamBScores) === "a"}>
@@ -575,8 +575,8 @@ export default function ScoreEntryPage() {
                             totalA > totalB
                               ? "text-[#1B5E20]"
                               : totalA < totalB
-                                ? "text-zinc-400"
-                                : "text-zinc-700"
+                                ? "text-[#3D5A3E]"
+                                : "text-[#2D4A30]"
                           )}
                         >
                           <NumberFlip value={totalA} />
@@ -584,7 +584,7 @@ export default function ScoreEntryPage() {
                       </MatchPoint>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-400">
+                      <span className="text-sm font-semibold text-[#3D5A3E]">
                         Team B
                       </span>
                       <MatchPoint isMatchPoint={isMatchPoint(entry.teamAScores, entry.teamBScores) === "b"}>
@@ -594,21 +594,21 @@ export default function ScoreEntryPage() {
                             totalB > totalA
                               ? "text-[#1B5E20]"
                               : totalB < totalA
-                                ? "text-zinc-400"
-                                : "text-zinc-700"
+                                ? "text-[#3D5A3E]"
+                                : "text-[#2D4A30]"
                           )}
                         >
                           <NumberFlip value={totalB} />
                         </span>
                       </MatchPoint>
                     </div>
-                    <p className="text-sm text-zinc-500 mt-1">
+                    <p className="text-sm text-[#3D5A3E] mt-1">
                       {entry.teamAScores.length} end
                       {entry.teamAScores.length !== 1 ? "s" : ""} played
                     </p>
                   </div>
                 ) : (
-                  <p className="text-sm text-zinc-500 mt-2">
+                  <p className="text-sm text-[#3D5A3E] mt-2">
                     Tap to enter scores
                   </p>
                 )}
@@ -620,7 +620,7 @@ export default function ScoreEntryPage() {
           {!allFinalized && (
             <button
               onClick={addRink}
-              className="flex min-h-[120px] items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 dark:border-white/10 text-zinc-400 dark:text-zinc-500 hover:border-zinc-300 dark:hover:border-white/20 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors touch-manipulation"
+              className="flex min-h-[120px] items-center justify-center rounded-2xl border-2 border-dashed border-[#0A2E12]/10 text-[#3D5A3E] hover:border-[#0A2E12]/10:border-white/20 hover:text-[#3D5A3E]:text-[#3D5A3E] transition-colors touch-manipulation"
             >
               <span className="text-3xl font-light">+</span>
             </button>
@@ -635,16 +635,16 @@ export default function ScoreEntryPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="rounded-3xl bg-white dark:bg-[#1a3d28] border border-zinc-200 dark:border-white/10 shadow-xl overflow-hidden"
+              className="rounded-3xl bg-white border border-[#0A2E12]/10 shadow-xl overflow-hidden"
             >
-              <div className="bg-zinc-50 dark:bg-[#0f2518] border-b border-zinc-200 dark:border-white/10 px-6 py-4">
+              <div className="bg-[#0A2E12]/[0.03] border-b border-[#0A2E12]/10 px-6 py-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-lg font-black text-zinc-900 dark:text-zinc-100">
+                    <h2 className="text-lg font-black text-[#0A2E12]">
                       Rink {rinkScores[activeRink].rink} &mdash; End by End
                     </h2>
                     {rinkScores[activeRink].teamAScores.length > 0 && (
-                      <p className="text-xs text-zinc-500 mt-0.5">
+                      <p className="text-xs text-[#3D5A3E] mt-0.5">
                         Currently on End {rinkScores[activeRink].teamAScores.length}
                       </p>
                     )}
@@ -657,7 +657,7 @@ export default function ScoreEntryPage() {
                           disabled={
                             rinkScores[activeRink].teamAScores.length === 0
                           }
-                          className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 disabled:opacity-30 min-h-[44px] touch-manipulation"
+                          className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-30 min-h-[44px] touch-manipulation"
                         >
                           - End
                         </button>
@@ -671,7 +671,7 @@ export default function ScoreEntryPage() {
                     )}
                     <button
                       onClick={() => setActiveRink(null)}
-                      className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                      className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
                     >
                       Close
                     </button>
@@ -682,10 +682,10 @@ export default function ScoreEntryPage() {
               <div className="p-6">
                 {rinkScores[activeRink].teamAScores.length === 0 ? (
                   <div className="py-8 text-center">
-                    <p className="text-lg font-semibold text-zinc-500">
+                    <p className="text-lg font-semibold text-[#3D5A3E]">
                       No ends recorded yet
                     </p>
-                    <p className="mt-1 text-sm text-zinc-500">
+                    <p className="mt-1 text-sm text-[#3D5A3E]">
                       Tap &quot;+ End&quot; to start scoring
                     </p>
                   </div>
@@ -694,7 +694,7 @@ export default function ScoreEntryPage() {
                     <table className="w-full">
                       <thead>
                         <tr>
-                          <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">
+                          <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
                             &nbsp;
                           </th>
                           {rinkScores[activeRink].teamAScores.map((_, i) => (
@@ -704,23 +704,23 @@ export default function ScoreEntryPage() {
                                 "px-2 py-2 text-center text-xs font-bold uppercase tracking-wider min-w-[56px]",
                                 i === rinkScores[activeRink].teamAScores.length - 1
                                   ? "text-[#1B5E20]"
-                                  : "text-zinc-400"
+                                  : "text-[#3D5A3E]"
                               )}
                             >
                               E{i + 1}
                             </th>
                           ))}
-                          <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 border-l border-zinc-200 dark:border-white/10">
+                          <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#2D4A30] border-l border-[#0A2E12]/10">
                             Total
                           </th>
-                          <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
+                          <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#2D4A30]">
                             Ends
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         {/* Team A row */}
-                        <tr className="border-t border-zinc-100 dark:border-white/5">
+                        <tr className="border-t border-[#0A2E12]/10">
                           <td className="px-3 py-3 text-sm font-bold text-[#1B5E20] whitespace-nowrap">
                             Team A
                           </td>
@@ -754,15 +754,15 @@ export default function ScoreEntryPage() {
                               </td>
                             )
                           )}
-                          <td className="px-3 py-3 text-center border-l border-zinc-200 dark:border-white/10">
+                          <td className="px-3 py-3 text-center border-l border-[#0A2E12]/10">
                             <MatchPoint isMatchPoint={isMatchPoint(rinkScores[activeRink].teamAScores, rinkScores[activeRink].teamBScores) === "a"}>
-                              <span className="text-xl font-black text-zinc-900 dark:text-zinc-100 tabular-nums">
+                              <span className="text-xl font-black text-[#0A2E12] tabular-nums">
                                 <NumberFlip value={getTotal(rinkScores[activeRink].teamAScores)} />
                               </span>
                             </MatchPoint>
                           </td>
                           <td className="px-3 py-3 text-center">
-                            <span className="text-lg font-bold text-zinc-600 dark:text-zinc-400 tabular-nums">
+                            <span className="text-lg font-bold text-[#3D5A3E] tabular-nums">
                               {
                                 getEndsWon(
                                   rinkScores[activeRink].teamAScores,
@@ -774,7 +774,7 @@ export default function ScoreEntryPage() {
                         </tr>
 
                         {/* Team B row */}
-                        <tr className="border-t border-zinc-100 dark:border-white/5">
+                        <tr className="border-t border-[#0A2E12]/10">
                           <td className="px-3 py-3 text-sm font-bold text-purple-600 whitespace-nowrap">
                             Team B
                           </td>
@@ -808,15 +808,15 @@ export default function ScoreEntryPage() {
                               </td>
                             )
                           )}
-                          <td className="px-3 py-3 text-center border-l border-zinc-200 dark:border-white/10">
+                          <td className="px-3 py-3 text-center border-l border-[#0A2E12]/10">
                             <MatchPoint isMatchPoint={isMatchPoint(rinkScores[activeRink].teamAScores, rinkScores[activeRink].teamBScores) === "b"}>
-                              <span className="text-xl font-black text-zinc-900 dark:text-zinc-100 tabular-nums">
+                              <span className="text-xl font-black text-[#0A2E12] tabular-nums">
                                 <NumberFlip value={getTotal(rinkScores[activeRink].teamBScores)} />
                               </span>
                             </MatchPoint>
                           </td>
                           <td className="px-3 py-3 text-center">
-                            <span className="text-lg font-bold text-zinc-600 dark:text-zinc-400 tabular-nums">
+                            <span className="text-lg font-bold text-[#3D5A3E] tabular-nums">
                               {
                                 getEndsWon(
                                   rinkScores[activeRink].teamAScores,
@@ -835,7 +835,7 @@ export default function ScoreEntryPage() {
                 {!rinkScores[activeRink].isFinalized &&
                   rinkScores[activeRink].teamAScores.length > 0 && (
                     <div className="mt-6 flex items-center justify-between">
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-[#3D5A3E]">
                         Auto-saves after changes
                       </p>
                       <button
@@ -854,7 +854,7 @@ export default function ScoreEntryPage() {
 
         {/* Finalize Round */}
         {rinkScores.length > 0 && !allFinalized && (
-          <div className="mt-8 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/30 p-6">
+          <div className="mt-8 rounded-2xl bg-amber-50 border border-amber-200 p-6">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-amber-800">
@@ -890,18 +890,18 @@ export default function ScoreEntryPage() {
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.95 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-sm rounded-2xl bg-white dark:bg-[#1a3d28] p-6 shadow-2xl"
+                className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
               >
-                <h3 className="text-lg font-black text-zinc-900 dark:text-zinc-100">
+                <h3 className="text-lg font-black text-[#0A2E12]">
                   Finalize Round {round}?
                 </h3>
-                <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="mt-2 text-sm text-[#3D5A3E]">
                   All scores for {rinkScores.length} rink{rinkScores.length !== 1 ? "s" : ""} will be locked permanently. This cannot be undone.
                 </p>
                 <div className="mt-6 flex items-center gap-3 justify-end">
                   <button
                     onClick={() => setConfirmFinalize(false)}
-                    className="rounded-xl border border-zinc-200 px-5 py-2.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 min-h-[44px] touch-manipulation"
+                    className="rounded-xl border border-[#0A2E12]/10 px-5 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
                   >
                     Cancel
                   </button>
@@ -980,7 +980,7 @@ function ScoreInput({
       {!disabled && (
         <button
           onClick={() => onChange(Math.min(value + 1, 9))}
-          className="flex h-8 w-12 items-center justify-center rounded-lg bg-zinc-100 dark:bg-white/10 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-white/15 active:bg-zinc-300 dark:active:bg-white/20 touch-manipulation"
+          className="flex h-8 w-12 items-center justify-center rounded-lg bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15 active:bg-[#0A2E12]/10:bg-white/20 touch-manipulation"
         >
           <svg
             className="h-4 w-4"
@@ -1001,12 +1001,12 @@ function ScoreInput({
         className={cn(
           "flex h-12 w-12 items-center justify-center rounded-xl text-lg font-black tabular-nums transition-colors",
           disabled
-            ? "bg-zinc-50 dark:bg-white/5 text-zinc-400"
+            ? "bg-[#0A2E12]/[0.03] text-[#3D5A3E]"
             : isWinning
-              ? "bg-[#1B5E20]/10 dark:bg-emerald-900/30 text-[#2E7D32] dark:text-emerald-400 ring-2 ring-[#1B5E20] dark:ring-emerald-500"
+              ? "bg-[#1B5E20]/10 text-[#2E7D32] ring-2 ring-[#1B5E20]"
               : value === 0
-                ? "bg-zinc-50 dark:bg-white/5 text-zinc-300 dark:text-zinc-500 dark:text-muted-foreground"
-                : "bg-blue-50 dark:bg-emerald-900/20 text-[#2E7D32] dark:text-emerald-400",
+                ? "bg-[#0A2E12]/[0.03] text-[#3D5A3E]"
+                : "bg-blue-50 text-[#2E7D32]",
           isCurrent && !disabled && "ring-2 ring-[#1B5E20]/30"
         )}
       >
@@ -1015,7 +1015,7 @@ function ScoreInput({
       {!disabled && (
         <button
           onClick={() => onChange(Math.max(value - 1, 0))}
-          className="flex h-8 w-12 items-center justify-center rounded-lg bg-zinc-100 dark:bg-white/10 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-white/15 active:bg-zinc-300 dark:active:bg-white/20 touch-manipulation"
+          className="flex h-8 w-12 items-center justify-center rounded-lg bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15 active:bg-[#0A2E12]/10:bg-white/20 touch-manipulation"
         >
           <svg
             className="h-4 w-4"

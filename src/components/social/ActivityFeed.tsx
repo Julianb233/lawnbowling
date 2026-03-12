@@ -30,8 +30,8 @@ export function ActivityFeed({ items }: ActivityFeedProps) {
   if (items.length === 0) {
     return (
       <div className="rounded-2xl glass p-8 text-center">
-        <Radio className="w-8 h-8 mx-auto mb-2 text-zinc-400" strokeWidth={1.5} />
-        <p className="text-zinc-500 dark:text-zinc-400">No activity yet. Check back soon!</p>
+        <Radio className="w-8 h-8 mx-auto mb-2 text-[#3D5A3E]" strokeWidth={1.5} />
+        <p className="text-[#3D5A3E]">No activity yet. Check back soon!</p>
       </div>
     );
   }
@@ -50,21 +50,21 @@ export function ActivityFeed({ items }: ActivityFeedProps) {
             key={item.id}
             className="flex items-start gap-3 rounded-xl glass p-3"
           >
-            <config.icon className="w-5 h-5 mt-0.5 text-zinc-500 shrink-0" strokeWidth={1.5} />
+            <config.icon className="w-5 h-5 mt-0.5 text-[#3D5A3E] shrink-0" strokeWidth={1.5} />
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-zinc-700">
-                <span className="font-medium text-zinc-900 dark:text-zinc-100">
+              <p className="text-sm text-[#2D4A30]">
+                <span className="font-medium text-[#0A2E12]">
                   {item.player?.display_name || "Someone"}
                 </span>{" "}
                 {config.verb}
                 {meta?.sport && (
-                  <span className="text-zinc-500 dark:text-zinc-400"> for {meta.sport}</span>
+                  <span className="text-[#3D5A3E]"> for {meta.sport}</span>
                 )}
                 {meta?.title && (
-                  <span className="text-zinc-500 dark:text-zinc-400">: {meta.title}</span>
+                  <span className="text-[#3D5A3E]">: {meta.title}</span>
                 )}
               </p>
-              <p className="text-xs text-zinc-500 mt-0.5">
+              <p className="text-xs text-[#3D5A3E] mt-0.5">
                 {timeAgo(item.created_at)}
               </p>
             </div>

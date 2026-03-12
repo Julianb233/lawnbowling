@@ -110,8 +110,8 @@ export function QRScanner({ venueId, onScanSuccess }: QRScannerProps) {
   if (cameraError) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-16">
-        <Camera className="h-16 w-16 text-zinc-600 dark:text-zinc-400" />
-        <p className="text-zinc-400">Camera access required for QR scanning</p>
+        <Camera className="h-16 w-16 text-[#3D5A3E]" />
+        <p className="text-[#3D5A3E]">Camera access required for QR scanning</p>
       </div>
     );
   }

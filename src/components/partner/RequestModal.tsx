@@ -91,15 +91,15 @@ export function RequestModal({
                   >
                     <Check className="h-8 w-8 text-[#1B5E20]" />
                   </motion.div>
-                  <p className="mt-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">Request Sent!</p>
+                  <p className="mt-4 text-lg font-semibold text-[#0A2E12]">Request Sent!</p>
                 </motion.div>
               ) : (
                 <motion.div key="form">
-                  <Dialog.Close className="absolute right-4 top-4 rounded-full p-1 text-zinc-500 hover:text-zinc-600 transition-colors">
+                  <Dialog.Close className="absolute right-4 top-4 rounded-full p-1 text-[#3D5A3E] hover:text-[#3D5A3E] transition-colors">
                     <X className="h-5 w-5" />
                   </Dialog.Close>
 
-                  <Dialog.Title className="text-center text-lg font-semibold text-zinc-900 mb-6">
+                  <Dialog.Title className="text-center text-lg font-semibold text-[#0A2E12] mb-6">
                     Pick {target.display_name} as your partner?
                   </Dialog.Title>
 
@@ -126,13 +126,13 @@ export function RequestModal({
                         style={{ backgroundColor: sportColor.primary }}
                       />
                     </div>
-                    <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">{target.display_name}</h3>
+                    <h3 className="text-base font-semibold text-[#0A2E12]">{target.display_name}</h3>
                     {skillInfo && (
                       <span className="inline-flex items-center gap-1 text-sm text-amber-400">
                         {Array.from({ length: 3 }, (_, i) => (
-                          <Star key={i} className={cn("h-3 w-3 inline-block", i < skillInfo.stars ? "fill-amber-400 text-amber-400" : "text-zinc-300")} strokeWidth={1.5} />
+                          <Star key={i} className={cn("h-3 w-3 inline-block", i < skillInfo.stars ? "fill-amber-400 text-amber-400" : "text-[#3D5A3E]")} strokeWidth={1.5} />
                         ))}{" "}
-                        <span className="text-zinc-400">{skillInfo.label}</span>
+                        <span className="text-[#3D5A3E]">{skillInfo.label}</span>
                       </span>
                     )}
                   </div>
@@ -155,7 +155,7 @@ export function RequestModal({
                     </motion.button>
                     <button
                       onClick={() => onOpenChange(false)}
-                      className="w-full rounded-xl px-4 py-3 text-sm font-medium text-zinc-500 hover:text-zinc-600 transition-colors min-h-[44px]"
+                      className="w-full rounded-xl px-4 py-3 text-sm font-medium text-[#3D5A3E] hover:text-[#3D5A3E] transition-colors min-h-[44px]"
                     >
                       Nevermind
                     </button>

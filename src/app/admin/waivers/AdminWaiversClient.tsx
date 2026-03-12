@@ -57,65 +57,65 @@ export function AdminWaiversClient() {
     : waivers;
 
   return (
-    <div className="min-h-screen bg-zinc-50 px-4 py-8">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] px-4 py-8">
       <div className="mx-auto max-w-4xl">
         <Link
           href="/admin"
-          className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-900/60 hover:text-zinc-900 min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-[#0A2E12]/60 hover:text-[#0A2E12] min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4" /> Admin
         </Link>
 
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Signed Waivers</h1>
-            <p className="text-sm text-zinc-900/60">{total} total waivers</p>
+            <h1 className="text-2xl font-bold text-[#0A2E12]">Signed Waivers</h1>
+            <p className="text-sm text-[#0A2E12]/60">{total} total waivers</p>
           </div>
-          <FileText className="h-8 w-8 text-zinc-900/20" />
+          <FileText className="h-8 w-8 text-[#0A2E12]/20" />
         </div>
 
         <div className="relative mb-6">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-900/40" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#0A2E12]/40" />
           <input
             type="text"
             placeholder="Search by player name..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-zinc-200 bg-zinc-50 pl-10 pr-4 py-3 text-zinc-900 placeholder:text-zinc-900/40 focus:border-[#1B5E20] focus:outline-none min-h-[44px]"
+            className="w-full rounded-lg border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] pl-10 pr-4 py-3 text-[#0A2E12] placeholder:text-[#0A2E12]/40 focus:border-[#1B5E20] focus:outline-none min-h-[44px]"
           />
         </div>
 
         {loading ? (
           <div className="flex justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-600" />
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#0A2E12]/10 border-t-[#1B5E20]" />
           </div>
         ) : filtered.length === 0 ? (
-          <div className="rounded-xl border border-zinc-200 bg-zinc-50 py-12 text-center">
-            <p className="text-zinc-900/40">No waivers found.</p>
+          <div className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] py-12 text-center">
+            <p className="text-[#0A2E12]/40">No waivers found.</p>
           </div>
         ) : (
           <>
-            <div className="overflow-hidden rounded-xl border border-zinc-200">
+            <div className="overflow-hidden rounded-xl border border-[#0A2E12]/10">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-zinc-200 bg-zinc-50 dark:bg-white/5">
-                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-zinc-900/60">
+                  <tr className="border-b border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]">
+                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-[#0A2E12]/60">
                       Player
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-zinc-900/60">
+                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-[#0A2E12]/60">
                       Signed Date
                     </th>
-                    <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-zinc-900/60 md:table-cell">
+                    <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-[#0A2E12]/60 md:table-cell">
                       IP Address
                     </th>
-                    <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-zinc-900/60 lg:table-cell">
+                    <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-[#0A2E12]/60 lg:table-cell">
                       User Agent
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-100">
+                <tbody className="divide-y divide-[#0A2E12]/10">
                   {filtered.map((waiver) => (
-                    <tr key={waiver.id} className="hover:bg-zinc-50 dark:bg-white/5">
+                    <tr key={waiver.id} className="hover:bg-[#0A2E12]/[0.03]">
                       <td className="px-4 py-3">
                         <Link
                           href={`/profile/${waiver.player_id}`}
@@ -124,16 +124,16 @@ export function AdminWaiversClient() {
                           {waiver.players?.display_name ?? "Unknown"}
                         </Link>
                       </td>
-                      <td className="px-4 py-3 text-sm text-zinc-900/70">
+                      <td className="px-4 py-3 text-sm text-[#0A2E12]/70">
                         {new Date(waiver.accepted_at).toLocaleString("en-US", {
                           dateStyle: "medium",
                           timeStyle: "short",
                         })}
                       </td>
-                      <td className="hidden px-4 py-3 text-sm text-zinc-900/50 md:table-cell">
+                      <td className="hidden px-4 py-3 text-sm text-[#0A2E12]/50 md:table-cell">
                         {waiver.ip_address}
                       </td>
-                      <td className="hidden max-w-xs truncate px-4 py-3 text-sm text-zinc-900/50 lg:table-cell">
+                      <td className="hidden max-w-xs truncate px-4 py-3 text-sm text-[#0A2E12]/50 lg:table-cell">
                         {waiver.user_agent}
                       </td>
                     </tr>
@@ -143,14 +143,14 @@ export function AdminWaiversClient() {
             </div>
 
             <div className="mt-4 flex items-center justify-between">
-              <p className="text-sm text-zinc-900/50">
+              <p className="text-sm text-[#0A2E12]/50">
                 Showing {filtered.length} of {total} waivers
               </p>
               {waivers.length < total && (
                 <button
                   onClick={() => fetchWaivers(waivers.length)}
                   disabled={loadingMore}
-                  className="rounded-lg border border-zinc-200 px-4 py-2 text-sm text-zinc-900/70 transition-colors hover:bg-zinc-50 disabled:opacity-50 min-h-[44px]"
+                  className="rounded-lg border border-[#0A2E12]/10 px-4 py-2 text-sm text-[#0A2E12]/70 transition-colors hover:bg-[#0A2E12]/[0.03] disabled:opacity-50 min-h-[44px]"
                 >
                   {loadingMore ? "Loading..." : "Load More"}
                 </button>

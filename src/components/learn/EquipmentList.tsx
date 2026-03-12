@@ -32,7 +32,7 @@ function getEquipmentIcon(name: string): LucideIcon {
 export function EquipmentList({ equipment }: { equipment: SportGuide["equipment"] }) {
   return (
     <section id="equipment">
-      <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+      <h2 className="mb-4 text-2xl font-bold text-[#0A2E12]">
         What You&apos;ll Need
       </h2>
       <div className="grid gap-3 sm:grid-cols-2">
@@ -45,13 +45,13 @@ export function EquipmentList({ equipment }: { equipment: SportGuide["equipment"
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="rounded-xl border border-zinc-200 bg-zinc-50 p-4"
+              className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-4"
             >
               <div className="mb-2 flex items-center gap-3">
-                <Icon className="w-6 h-6 text-zinc-600 shrink-0" strokeWidth={1.5} />
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">{item.name}</h3>
+                <Icon className="w-6 h-6 text-[#3D5A3E] shrink-0" strokeWidth={1.5} />
+                <h3 className="font-semibold text-[#0A2E12]">{item.name}</h3>
               </div>
-              <p className="text-sm leading-relaxed text-zinc-400">
+              <p className="text-sm leading-relaxed text-[#3D5A3E]">
                 {item.description}
               </p>
             </motion.div>

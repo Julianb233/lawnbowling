@@ -126,7 +126,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
       <div className="mx-auto max-w-md px-4 -mt-12 relative z-10 pb-8">
         <div className="space-y-6">
           <div className="flex flex-col items-center text-center">
-            <Avatar.Root className="mb-4 inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-zinc-100 ring-4 ring-[#FEFCF9] shadow-lg">
+            <Avatar.Root className="mb-4 inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-[#0A2E12]/5 ring-4 ring-[#FEFCF9] shadow-lg">
               <Avatar.Image
                 src={player.avatar_url ?? undefined}
                 alt={player.display_name}

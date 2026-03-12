@@ -71,7 +71,7 @@ export function ContactPreferencesEditor() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-8">
-        <Loader2 className="h-5 w-5 animate-spin text-zinc-400" />
+        <Loader2 className="h-5 w-5 animate-spin text-[#3D5A3E]" />
       </div>
     );
   }
@@ -80,11 +80,11 @@ export function ContactPreferencesEditor() {
 
   return (
     <div className="space-y-5">
-      <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Contact Preferences</h2>
+      <h2 className="text-lg font-semibold text-[#0A2E12]">Contact Preferences</h2>
 
       {/* Preferred Contact Method */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-zinc-600 dark:text-zinc-400">
+        <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">
           Preferred Contact Method
         </label>
         <div className="grid grid-cols-2 gap-2">
@@ -95,7 +95,7 @@ export function ContactPreferencesEditor() {
               className={`flex items-center gap-2 rounded-lg border px-3 py-3 text-sm font-medium transition-colors min-h-[44px] ${
                 prefs.preferred_contact === value
                   ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                  : "border-zinc-200 bg-white text-zinc-500 hover:bg-zinc-50 dark:bg-white/5"
+                  : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
               }`}
             >
               {Icon && <Icon className="h-4 w-4" />}
@@ -107,7 +107,7 @@ export function ContactPreferencesEditor() {
 
       {/* Email */}
       <div>
-        <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-zinc-600 dark:text-zinc-400">
+        <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-[#3D5A3E]">
           Email Address
         </label>
         <input
@@ -116,22 +116,22 @@ export function ContactPreferencesEditor() {
           value={prefs.email ?? ""}
           onChange={(e) => setPrefs({ ...prefs, email: e.target.value || null })}
           placeholder="your@email.com"
-          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 placeholder-zinc-400 outline-none focus:border-[#1B5E20]/50 focus:ring-1 focus:ring-[#1B5E20]/50 min-h-[44px]"
+          className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] placeholder-[#3D5A3E] outline-none focus:border-[#1B5E20]/50 focus:ring-1 focus:ring-[#1B5E20]/50 min-h-[44px]"
         />
         <label className="mt-2 flex items-center gap-2">
           <input
             type="checkbox"
             checked={prefs.show_email}
             onChange={(e) => setPrefs({ ...prefs, show_email: e.target.checked })}
-            className="h-4 w-4 rounded border-zinc-300 text-[#1B5E20] focus:ring-[#1B5E20]"
+            className="h-4 w-4 rounded border-[#0A2E12]/10 text-[#1B5E20] focus:ring-[#1B5E20]"
           />
-          <span className="text-sm text-zinc-600 dark:text-zinc-400">Show email on profile</span>
+          <span className="text-sm text-[#3D5A3E]">Show email on profile</span>
         </label>
       </div>
 
       {/* Phone */}
       <div>
-        <label htmlFor="contact-phone" className="mb-2 block text-sm font-medium text-zinc-600 dark:text-zinc-400">
+        <label htmlFor="contact-phone" className="mb-2 block text-sm font-medium text-[#3D5A3E]">
           Phone Number
         </label>
         <input
@@ -140,22 +140,22 @@ export function ContactPreferencesEditor() {
           value={prefs.phone ?? ""}
           onChange={(e) => setPrefs({ ...prefs, phone: e.target.value || null })}
           placeholder="+1 (555) 000-0000"
-          className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-zinc-900 placeholder-zinc-400 outline-none focus:border-[#1B5E20]/50 focus:ring-1 focus:ring-[#1B5E20]/50 min-h-[44px]"
+          className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] placeholder-[#3D5A3E] outline-none focus:border-[#1B5E20]/50 focus:ring-1 focus:ring-[#1B5E20]/50 min-h-[44px]"
         />
         <label className="mt-2 flex items-center gap-2">
           <input
             type="checkbox"
             checked={prefs.show_phone}
             onChange={(e) => setPrefs({ ...prefs, show_phone: e.target.checked })}
-            className="h-4 w-4 rounded border-zinc-300 text-[#1B5E20] focus:ring-[#1B5E20]"
+            className="h-4 w-4 rounded border-[#0A2E12]/10 text-[#1B5E20] focus:ring-[#1B5E20]"
           />
-          <span className="text-sm text-zinc-600 dark:text-zinc-400">Show phone on profile</span>
+          <span className="text-sm text-[#3D5A3E]">Show phone on profile</span>
         </label>
       </div>
 
       {/* Who Can Message Me */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-zinc-600 dark:text-zinc-400">
+        <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">
           Who Can Message Me
         </label>
         <div className="flex gap-2">
@@ -166,7 +166,7 @@ export function ContactPreferencesEditor() {
               className={`flex-1 rounded-lg border px-3 py-3 text-sm font-medium transition-colors min-h-[44px] ${
                 prefs.allow_messages_from === value
                   ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                  : "border-zinc-200 bg-white text-zinc-500 hover:bg-zinc-50 dark:bg-white/5"
+                  : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
               }`}
             >
               {label}
@@ -211,11 +211,11 @@ export function ContactInfo({
 
   return (
     <div>
-      <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">Contact</h2>
+      <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Contact</h2>
       <div className="space-y-2">
         {prefs.preferred_contact !== "none" && (
-          <div className="flex items-center gap-2 text-sm text-zinc-700">
-            <MessageSquare className="h-4 w-4 text-zinc-400" />
+          <div className="flex items-center gap-2 text-sm text-[#2D4A30]">
+            <MessageSquare className="h-4 w-4 text-[#3D5A3E]" />
             <span>
               Prefers{" "}
               {prefs.preferred_contact === "in_app"
@@ -225,14 +225,14 @@ export function ContactInfo({
           </div>
         )}
         {prefs.show_email && prefs.email && (
-          <div className="flex items-center gap-2 text-sm text-zinc-700">
-            <Mail className="h-4 w-4 text-zinc-400" />
+          <div className="flex items-center gap-2 text-sm text-[#2D4A30]">
+            <Mail className="h-4 w-4 text-[#3D5A3E]" />
             <span>{prefs.email}</span>
           </div>
         )}
         {prefs.show_phone && prefs.phone && (
-          <div className="flex items-center gap-2 text-sm text-zinc-700">
-            <Phone className="h-4 w-4 text-zinc-400" />
+          <div className="flex items-center gap-2 text-sm text-[#2D4A30]">
+            <Phone className="h-4 w-4 text-[#3D5A3E]" />
             <span>{prefs.phone}</span>
           </div>
         )}

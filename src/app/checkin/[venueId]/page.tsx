@@ -56,7 +56,7 @@ export default function VenueCheckInPage() {
   }, [venueId, router]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#0A2E12]/5 via-[#0A2E12]/5 to-[#0A2E12]/[0.03] p-4">
       <AnimatePresence mode="wait">
         {state === "loading" && (
           <motion.div
@@ -67,7 +67,7 @@ export default function VenueCheckInPage() {
             className="flex flex-col items-center gap-4 text-center"
           >
             <Loader2 className="h-16 w-16 animate-spin text-emerald-500" />
-            <p className="text-lg text-zinc-300">Checking you in...</p>
+            <p className="text-lg text-[#3D5A3E]">Checking you in...</p>
           </motion.div>
         )}
 
@@ -94,7 +94,7 @@ export default function VenueCheckInPage() {
               <p className="mt-2 text-xl text-emerald-400 font-semibold">
                 Welcome, {playerName}
               </p>
-              <div className="mt-3 flex items-center justify-center gap-2 text-zinc-400">
+              <div className="mt-3 flex items-center justify-center gap-2 text-[#3D5A3E]">
                 <MapPin className="h-4 w-4" />
                 <span>{venueName}</span>
               </div>
@@ -120,10 +120,10 @@ export default function VenueCheckInPage() {
             className="flex flex-col items-center gap-4 text-center"
           >
             <AlertCircle className="h-16 w-16 text-amber-500" />
-            <p className="text-lg text-zinc-300">
+            <p className="text-lg text-[#3D5A3E]">
               Please log in to check in
             </p>
-            <p className="text-sm text-zinc-500">Redirecting to login...</p>
+            <p className="text-sm text-[#3D5A3E]">Redirecting to login...</p>
           </motion.div>
         )}
 
@@ -137,14 +137,14 @@ export default function VenueCheckInPage() {
             <AlertCircle className="h-20 w-20 text-red-500" />
             <div>
               <h1 className="text-2xl font-bold text-white">Check-in Failed</h1>
-              <p className="mt-2 text-zinc-400">{errorMsg}</p>
+              <p className="mt-2 text-[#3D5A3E]">{errorMsg}</p>
             </div>
             <button
               onClick={() => {
                 setState("loading");
                 window.location.reload();
               }}
-              className="rounded-xl bg-zinc-700 px-6 py-3 text-white hover:bg-zinc-600 transition-colors"
+              className="rounded-xl bg-[#0A2E12] px-6 py-3 text-white hover:bg-[#0A2E12]/5 transition-colors"
             >
               Try Again
             </button>

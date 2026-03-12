@@ -45,7 +45,7 @@ export function TeamList() {
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-40 animate-pulse rounded-2xl bg-zinc-100" />
+          <div key={i} className="h-40 animate-pulse rounded-2xl bg-[#0A2E12]/5" />
         ))}
       </div>
     );
@@ -64,7 +64,7 @@ export function TeamList() {
         </button>
         <button
           onClick={() => setShowJoin(true)}
-          className="flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-2.5 text-sm font-semibold text-zinc-600 transition-colors hover:border-zinc-400 hover:text-zinc-900"
+          className="flex items-center gap-2 rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-4 py-2.5 text-sm font-semibold text-[#3D5A3E] transition-colors hover:border-[#0A2E12]/10 hover:text-[#0A2E12]"
         >
           <KeyRound className="h-4 w-4" />
           Join Team
@@ -74,9 +74,9 @@ export function TeamList() {
       {/* Team grid */}
       {teams.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <Users className="mb-3 h-12 w-12 text-zinc-700" />
-          <h3 className="mb-1 text-lg font-semibold text-zinc-400">No teams yet</h3>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">Create a team or join one with an invite code</p>
+          <Users className="mb-3 h-12 w-12 text-[#2D4A30]" />
+          <h3 className="mb-1 text-lg font-semibold text-[#3D5A3E]">No teams yet</h3>
+          <p className="text-sm text-[#3D5A3E]">Create a team or join one with an invite code</p>
         </div>
       ) : (
         <motion.div

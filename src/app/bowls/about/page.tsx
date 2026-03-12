@@ -50,14 +50,14 @@ const HISTORY_FACTS = [
 
 export default function BowlsAboutPage() {
   const equipIcons: Record<string, React.ReactNode> = {
-    bowls: <Circle className="w-6 h-6 text-zinc-700" strokeWidth={1.5} />,
-    jack: <CircleDot className="w-6 h-6 text-zinc-400" strokeWidth={1.5} />,
-    mat: <Ruler className="w-6 h-6 text-zinc-600 dark:text-zinc-400" strokeWidth={1.5} />,
-    shoes: <Footprints className="w-6 h-6 text-zinc-600 dark:text-zinc-400" strokeWidth={1.5} />,
+    bowls: <Circle className="w-6 h-6 text-[#2D4A30]" strokeWidth={1.5} />,
+    jack: <CircleDot className="w-6 h-6 text-[#3D5A3E]" strokeWidth={1.5} />,
+    mat: <Ruler className="w-6 h-6 text-[#3D5A3E]" strokeWidth={1.5} />,
+    shoes: <Footprints className="w-6 h-6 text-[#3D5A3E]" strokeWidth={1.5} />,
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
       {/* Hero */}
       <div className="relative overflow-hidden bg-gradient-to-br from-[#1B5E20] via-[#2E7D32] to-green-800">
         <div className="absolute inset-0 bg-[url('/images/bowls-pattern.svg')] opacity-10" />
@@ -85,10 +85,10 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-2xl font-black text-[#0A2E12]">
             What is Lawn Bowls?
           </h2>
-          <p className="mt-3 text-zinc-600 leading-relaxed">
+          <p className="mt-3 text-[#3D5A3E] leading-relaxed">
             Lawn bowls is a precision sport where players roll biased balls
             (called <strong>bowls</strong>) toward a smaller white ball (the{" "}
             <strong>jack</strong>). The goal is simple: get your bowls closer to
@@ -96,7 +96,7 @@ export default function BowlsAboutPage() {
             <strong>bias</strong> — makes every delivery a challenge of skill,
             strategy, and touch.
           </p>
-          <p className="mt-3 text-zinc-600 leading-relaxed">
+          <p className="mt-3 text-[#3D5A3E] leading-relaxed">
             Played on a flat, manicured green divided into <strong>rinks</strong>,
             lawn bowls is a sport for all ages and fitness levels. Whether you're
             a competitive tournament player or enjoying a social roll-up at the
@@ -125,7 +125,7 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">Key Equipment</h2>
+          <h2 className="text-2xl font-black text-[#0A2E12]">Key Equipment</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {[
               {
@@ -151,11 +151,11 @@ export default function BowlsAboutPage() {
             ].map((item) => (
               <div
                 key={item.name}
-                className="rounded-xl bg-white border border-zinc-200 p-4"
+                className="rounded-xl bg-white border border-[#0A2E12]/10 p-4"
               >
                 {equipIcons[item.icon]}
-                <h3 className="mt-2 font-bold text-zinc-900 dark:text-zinc-100">{item.name}</h3>
-                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{item.desc}</p>
+                <h3 className="mt-2 font-bold text-[#0A2E12]">{item.name}</h3>
+                <p className="mt-1 text-sm text-[#3D5A3E]">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -167,17 +167,17 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-2xl font-black text-[#0A2E12]">
             Team Positions
           </h2>
-          <p className="mt-2 text-zinc-500 text-sm">
+          <p className="mt-2 text-[#3D5A3E] text-sm">
             In team formats, each player has a specific role and bowling order
           </p>
           <div className="mt-4 space-y-3">
             {POSITIONS.map((pos, i) => (
               <div
                 key={pos.name}
-                className="flex gap-4 rounded-xl bg-white border border-zinc-200 p-4"
+                className="flex gap-4 rounded-xl bg-white border border-[#0A2E12]/10 p-4"
               >
                 <div
                   className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white font-bold text-sm ${pos.color}`}
@@ -185,8 +185,8 @@ export default function BowlsAboutPage() {
                   {4 - i}
                 </div>
                 <div>
-                  <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{pos.name}</h3>
-                  <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+                  <h3 className="font-bold text-[#0A2E12]">{pos.name}</h3>
+                  <p className="mt-0.5 text-sm text-[#3D5A3E]">
                     {pos.description}
                   </p>
                 </div>
@@ -201,20 +201,20 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">Game Formats</h2>
+          <h2 className="text-2xl font-black text-[#0A2E12]">Game Formats</h2>
           <div className="mt-4 space-y-3">
             {FORMATS.map((f) => (
               <div
                 key={f.name}
-                className="rounded-xl bg-white border border-zinc-200 p-4"
+                className="rounded-xl bg-white border border-[#0A2E12]/10 p-4"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{f.name}</h3>
+                  <h3 className="font-bold text-[#0A2E12]">{f.name}</h3>
                   <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-bold text-[#2E7D32]">
                     {f.players}
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{f.desc}</p>
+                <p className="mt-1 text-sm text-[#3D5A3E]">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -226,7 +226,7 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-2xl font-black text-[#0A2E12]">
             How a Game Works
           </h2>
           <div className="mt-4 space-y-4">
@@ -257,8 +257,8 @@ export default function BowlsAboutPage() {
                   {s.step}
                 </div>
                 <div>
-                  <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{s.title}</h3>
-                  <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">{s.desc}</p>
+                  <h3 className="font-bold text-[#0A2E12]">{s.title}</h3>
+                  <p className="mt-0.5 text-sm text-[#3D5A3E]">{s.desc}</p>
                 </div>
               </div>
             ))}
@@ -271,17 +271,17 @@ export default function BowlsAboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
         >
-          <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-2xl font-black text-[#0A2E12]">
             A Brief History
           </h2>
           <div className="mt-4 space-y-3">
             {HISTORY_FACTS.map((fact, i) => (
               <div
                 key={i}
-                className="flex gap-3 rounded-xl bg-white border border-zinc-200 p-4"
+                className="flex gap-3 rounded-xl bg-white border border-[#0A2E12]/10 p-4"
               >
-                <ScrollText className="w-5 h-5 shrink-0 text-zinc-400 mt-0.5" strokeWidth={1.5} />
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">{fact}</p>
+                <ScrollText className="w-5 h-5 shrink-0 text-[#3D5A3E] mt-0.5" strokeWidth={1.5} />
+                <p className="text-sm text-[#3D5A3E]">{fact}</p>
               </div>
             ))}
           </div>

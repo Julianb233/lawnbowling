@@ -96,8 +96,8 @@ export function SetupFlowClient({ userId }: { userId: string }) {
       <div className="flex min-h-screen items-center justify-center bg-animated-gradient px-4">
         <div className="text-center">
           <CheckCircle2 className="mx-auto mb-4 h-16 w-16 text-green-600" />
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">You&apos;re All Set!</h1>
-          <p className="mt-2 text-zinc-500 dark:text-zinc-400">Redirecting to the board...</p>
+          <h1 className="text-2xl font-bold text-[#0A2E12]">You&apos;re All Set!</h1>
+          <p className="mt-2 text-[#3D5A3E]">Redirecting to the board...</p>
         </div>
       </div>
     );
@@ -114,8 +114,8 @@ export function SetupFlowClient({ userId }: { userId: string }) {
   return (
     <div className="min-h-screen bg-animated-gradient px-4 py-8">
       <div className="mx-auto max-w-md">
-        <h1 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">Welcome!</h1>
-        <p className="mb-6 text-zinc-500 dark:text-zinc-400">Let&apos;s get you set up to play.</p>
+        <h1 className="mb-2 text-2xl font-bold text-[#0A2E12]">Welcome!</h1>
+        <p className="mb-6 text-[#3D5A3E]">Let&apos;s get you set up to play.</p>
 
         {/* Step indicator */}
         <div className="mb-8 flex items-center gap-2">
@@ -125,16 +125,16 @@ export function SetupFlowClient({ userId }: { userId: string }) {
                 className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                   i <= currentIndex
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-zinc-200 text-zinc-400"
+                    : "bg-[#0A2E12]/5 text-[#3D5A3E]"
                 }`}
               >
                 {i + 1}
               </div>
-              <span className={`text-xs ${i <= currentIndex ? "text-zinc-900" : "text-zinc-400"}`}>
+              <span className={`text-xs ${i <= currentIndex ? "text-[#0A2E12]" : "text-[#3D5A3E]"}`}>
                 {s.label}
               </span>
               {i < steps.length - 1 && (
-                <div className={`h-px flex-1 ${i < currentIndex ? "bg-[#1B5E20]" : "bg-zinc-200"}`} />
+                <div className={`h-px flex-1 ${i < currentIndex ? "bg-[#1B5E20]" : "bg-[#0A2E12]/5"}`} />
               )}
             </div>
           ))}

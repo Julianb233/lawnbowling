@@ -27,18 +27,18 @@ export default async function FriendsPage() {
 
   return (
     <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 glass border-b border-zinc-200 dark:border-white/10">
+      <header className="sticky top-0 z-40 glass border-b border-[#0A2E12]/10">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-2">
             <Link
               href="/board"
-              className="inline-flex items-center justify-center h-8 w-8 rounded-lg text-zinc-400 hover:text-zinc-900 transition-colors"
+              className="inline-flex items-center justify-center h-8 w-8 rounded-lg text-[#3D5A3E] hover:text-[#0A2E12] transition-colors"
             >
               <ArrowLeft className="h-5 w-5" />
             </Link>
-            <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">Friends</h1>
+            <h1 className="text-xl font-bold text-[#0A2E12]">Friends</h1>
           </div>
-          <p className="text-sm text-zinc-500 ml-10">
+          <p className="text-sm text-[#3D5A3E] ml-10">
             {friends.length} friend{friends.length !== 1 ? "s" : ""}
             {pendingRequests.length > 0 &&
               ` \u00b7 ${pendingRequests.length} pending`}

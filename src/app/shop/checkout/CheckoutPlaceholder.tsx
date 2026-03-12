@@ -163,7 +163,7 @@ export function CheckoutPlaceholder() {
       <div className="grid gap-6 md:grid-cols-5">
         {/* Order Summary */}
         <div className="md:col-span-3">
-          <div className="rounded-xl border bg-white dark:bg-[#1a3d28] p-6 shadow-sm">
+          <div className="rounded-xl border bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-lg font-semibold text-[#0A2E12]">
               Order Summary
             </h2>
@@ -207,7 +207,7 @@ export function CheckoutPlaceholder() {
 
         {/* Payment Summary */}
         <div className="md:col-span-2">
-          <div className="rounded-xl border bg-white dark:bg-[#1a3d28] p-6 shadow-sm">
+          <div className="rounded-xl border bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-lg font-semibold text-[#0A2E12]">
               Payment
             </h2>

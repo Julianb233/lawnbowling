@@ -35,39 +35,39 @@ export default function BrandingPage() {
   }
 
   if (loading) return <div className="skeleton h-64 rounded-xl" />;
-  if (!venue) return <p className="text-zinc-500 dark:text-zinc-400">No venue configured</p>;
+  if (!venue) return <p className="text-[#3D5A3E]">No venue configured</p>;
 
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
-        <h1 className="text-2xl font-bold text-zinc-800">Venue Branding</h1>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">Customize how your venue appears to players</p>
+        <h1 className="text-2xl font-bold text-[#0A2E12]">Venue Branding</h1>
+        <p className="text-sm text-[#3D5A3E]">Customize how your venue appears to players</p>
       </div>
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm text-zinc-500 mb-1">Logo URL</label>
+          <label className="block text-sm text-[#3D5A3E] mb-1">Logo URL</label>
           <input
             value={venue.logo_url || ""}
             onChange={(e) => setVenue({ ...venue, logo_url: e.target.value })}
             placeholder="https://..."
-            className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+            className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm text-[#0A2E12] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-zinc-500 mb-1">Tagline</label>
+          <label className="block text-sm text-[#3D5A3E] mb-1">Tagline</label>
           <input
             value={venue.tagline || ""}
             onChange={(e) => setVenue({ ...venue, tagline: e.target.value })}
             placeholder="Your awesome tagline"
-            className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+            className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm text-[#0A2E12] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm text-zinc-500 mb-1">Primary Color</label>
+            <label className="block text-sm text-[#3D5A3E] mb-1">Primary Color</label>
             <div className="flex gap-2 items-center">
               <input
                 type="color"
@@ -78,12 +78,12 @@ export default function BrandingPage() {
               <input
                 value={venue.primary_color || "#22c55e"}
                 onChange={(e) => setVenue({ ...venue, primary_color: e.target.value })}
-                className="flex-1 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm text-zinc-800 font-mono"
+                className="flex-1 rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm text-[#0A2E12] font-mono"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm text-zinc-500 mb-1">Secondary Color</label>
+            <label className="block text-sm text-[#3D5A3E] mb-1">Secondary Color</label>
             <div className="flex gap-2 items-center">
               <input
                 type="color"
@@ -94,56 +94,56 @@ export default function BrandingPage() {
               <input
                 value={venue.secondary_color || "#0f172a"}
                 onChange={(e) => setVenue({ ...venue, secondary_color: e.target.value })}
-                className="flex-1 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm text-zinc-800 font-mono"
+                className="flex-1 rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm text-[#0A2E12] font-mono"
               />
             </div>
           </div>
         </div>
 
         <div>
-          <label className="block text-sm text-zinc-500 mb-1">Contact Email</label>
+          <label className="block text-sm text-[#3D5A3E] mb-1">Contact Email</label>
           <input
             value={venue.contact_email || ""}
             onChange={(e) => setVenue({ ...venue, contact_email: e.target.value })}
             placeholder="info@venue.com"
-            className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+            className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm text-[#0A2E12] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-zinc-500 mb-1">Contact Phone</label>
+          <label className="block text-sm text-[#3D5A3E] mb-1">Contact Phone</label>
           <input
             value={venue.contact_phone || ""}
             onChange={(e) => setVenue({ ...venue, contact_phone: e.target.value })}
             placeholder="(555) 123-4567"
-            className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+            className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm text-[#0A2E12] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-zinc-500 mb-1">Website</label>
+          <label className="block text-sm text-[#3D5A3E] mb-1">Website</label>
           <input
             value={venue.website_url || ""}
             onChange={(e) => setVenue({ ...venue, website_url: e.target.value })}
             placeholder="https://yourvenue.com"
-            className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+            className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm text-[#0A2E12] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
           />
         </div>
       </div>
 
       {/* Preview */}
-      <div className="rounded-xl border border-zinc-200 p-6" style={{ backgroundColor: venue.secondary_color || "#0f172a" }}>
-        <p className="text-xs text-zinc-500 mb-2">Preview</p>
+      <div className="rounded-xl border border-[#0A2E12]/10 p-6" style={{ backgroundColor: venue.secondary_color || "#0f172a" }}>
+        <p className="text-xs text-[#3D5A3E] mb-2">Preview</p>
         <div className="flex items-center gap-3">
           {venue.logo_url ? (
             <img src={venue.logo_url} alt="Logo" className="h-12 w-12 rounded-lg object-cover" />
           ) : (
-            <div className="h-12 w-12 rounded-lg flex items-center justify-center text-zinc-900 font-bold" style={{ backgroundColor: venue.primary_color || "#22c55e" }}>
+            <div className="h-12 w-12 rounded-lg flex items-center justify-center text-[#0A2E12] font-bold" style={{ backgroundColor: venue.primary_color || "#22c55e" }}>
               {venue.name?.charAt(0) || "V"}
             </div>
           )}
           <div>
-            <h3 className="font-bold text-zinc-800">{venue.name}</h3>
+            <h3 className="font-bold text-[#0A2E12]">{venue.name}</h3>
             {venue.tagline && <p className="text-sm" style={{ color: venue.primary_color || "#22c55e" }}>{venue.tagline}</p>}
           </div>
         </div>
@@ -153,7 +153,7 @@ export default function BrandingPage() {
         <button
           onClick={save}
           disabled={isPending}
-          className="rounded-lg bg-[#1B5E20] px-6 py-2.5 text-sm font-bold text-zinc-900 hover:bg-[#1B5E20] transition-colors"
+          className="rounded-lg bg-[#1B5E20] px-6 py-2.5 text-sm font-bold text-[#0A2E12] hover:bg-[#1B5E20] transition-colors"
         >
           {isPending ? "Saving..." : "Save Changes"}
         </button>

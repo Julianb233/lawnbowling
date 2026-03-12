@@ -64,7 +64,7 @@ export function TeamRoster({ teamId, currentUserId, captainId }: TeamRosterProps
     return (
       <div className="space-y-3">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-14 animate-pulse rounded-xl bg-zinc-100" />
+          <div key={i} className="h-14 animate-pulse rounded-xl bg-[#0A2E12]/5" />
         ))}
       </div>
     );
@@ -76,13 +76,13 @@ export function TeamRoster({ teamId, currentUserId, captainId }: TeamRosterProps
         <motion.div
           key={m.id}
           {...ANIMATIONS.fadeInUp}
-          className="flex items-center gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-3"
+          className="flex items-center gap-3 rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] p-3"
         >
-          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-zinc-100">
+          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-[#0A2E12]/5">
             {m.player.avatar_url ? (
               <img src={m.player.avatar_url} alt="" className="h-full w-full object-cover" />
             ) : (
-              <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-500 dark:text-zinc-400">
+              <div className="flex h-full w-full items-center justify-center text-sm font-bold text-[#3D5A3E]">
                 {m.player.display_name?.charAt(0)?.toUpperCase()}
               </div>
             )}
@@ -90,7 +90,7 @@ export function TeamRoster({ teamId, currentUserId, captainId }: TeamRosterProps
 
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <span className="font-medium text-zinc-700 truncate">{m.player.display_name}</span>
+              <span className="font-medium text-[#2D4A30] truncate">{m.player.display_name}</span>
               {m.role === "captain" && (
                 <Crown className="h-3.5 w-3.5 shrink-0 text-amber-400" />
               )}
@@ -104,7 +104,7 @@ export function TeamRoster({ teamId, currentUserId, captainId }: TeamRosterProps
             <button
               onClick={() => handleRemove(m.player_id)}
               className={cn(
-                "rounded-lg p-2 text-zinc-600 transition-colors hover:bg-red-500/10 hover:text-red-400"
+                "rounded-lg p-2 text-[#3D5A3E] transition-colors hover:bg-red-500/10 hover:text-red-400"
               )}
             >
               <UserMinus className="h-4 w-4" />

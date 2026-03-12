@@ -11,15 +11,15 @@ import {
 import { cn } from "@/lib/utils";
 
 const SPEED_BADGE: Record<string, string> = {
-  fast: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
-  medium: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  slow: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+  fast: "bg-emerald-100 text-emerald-700",
+  medium: "bg-amber-100 text-amber-700",
+  slow: "bg-red-100 text-red-700",
 };
 
 const SURFACE_BADGE: Record<string, string> = {
-  dry: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
-  damp: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-  wet: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400",
+  dry: "bg-orange-100 text-orange-700",
+  damp: "bg-blue-100 text-blue-700",
+  wet: "bg-indigo-100 text-indigo-700",
 };
 
 interface GreenHistorySectionProps {
@@ -57,12 +57,12 @@ export function GreenHistorySection({ venueId }: GreenHistorySectionProps) {
 
   return (
     <section className="mt-10">
-      <h2 className="mb-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">
+      <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
         Green History
       </h2>
 
       {/* Summary line */}
-      <p className="mb-4 text-sm text-zinc-500 dark:text-muted-foreground">
+      <p className="mb-4 text-sm text-[#3D5A3E]">
         Last {history.length} sessions:{" "}
         {Object.entries(speedCounts)
           .map(([speed, count]) => `${Math.round((count / history.length) * 100)}% ${GREEN_SPEED_LABELS[speed as keyof typeof GREEN_SPEED_LABELS]}`)
@@ -73,9 +73,9 @@ export function GreenHistorySection({ venueId }: GreenHistorySectionProps) {
         {history.map((h) => (
           <div
             key={h.id}
-            className="flex items-center gap-3 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2.5"
+            className="flex items-center gap-3 rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5"
           >
-            <span className="text-xs text-zinc-500 dark:text-muted-foreground w-20 shrink-0">
+            <span className="text-xs text-[#3D5A3E] w-20 shrink-0">
               {new Date(h.recorded_at).toLocaleDateString([], { month: "short", day: "numeric" })}
             </span>
             <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-bold", SPEED_BADGE[h.green_speed])}>
@@ -84,7 +84,7 @@ export function GreenHistorySection({ venueId }: GreenHistorySectionProps) {
             <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-bold", SURFACE_BADGE[h.surface_condition])}>
               {SURFACE_CONDITION_LABELS[h.surface_condition]}
             </span>
-            <span className="text-xs text-zinc-400">
+            <span className="text-xs text-[#3D5A3E]">
               {h.wind_direction === "calm" ? "Calm" : `${WIND_STRENGTH_LABELS[h.wind_strength]} ${h.wind_direction}`}
             </span>
           </div>

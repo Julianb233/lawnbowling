@@ -49,10 +49,10 @@ export function ReviewModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="w-full max-w-sm rounded-2xl glass p-6">
-        <h2 className="text-lg font-bold text-zinc-900 mb-1">
+        <h2 className="text-lg font-bold text-[#0A2E12] mb-1">
           Rate {reviewedName}
         </h2>
-        <p className="text-sm text-zinc-500 mb-4">
+        <p className="text-sm text-[#3D5A3E] mb-4">
           How was your experience playing with them?
         </p>
 
@@ -71,7 +71,7 @@ export function ReviewModal({
                   "h-8 w-8 transition-colors",
                   (hoverRating || rating) >= star
                     ? "fill-amber-400 text-amber-400"
-                    : "fill-none text-zinc-300"
+                    : "fill-none text-[#3D5A3E]"
                 )}
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -88,13 +88,13 @@ export function ReviewModal({
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Add a comment (optional)"
-          className="w-full rounded-xl bg-zinc-100 border border-zinc-200 px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-500 resize-none h-20 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
+          className="w-full rounded-xl bg-[#0A2E12]/5 border border-[#0A2E12]/10 px-4 py-3 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] resize-none h-20 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/50"
         />
 
         <div className="mt-4 flex gap-2">
           <button
             onClick={onClose}
-            className="flex-1 rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-600 hover:bg-zinc-100 transition-colors"
+            className="flex-1 rounded-xl border border-[#0A2E12]/10 px-4 py-2.5 text-sm font-medium text-[#3D5A3E] hover:bg-[#0A2E12]/5 transition-colors"
           >
             Cancel
           </button>
@@ -105,7 +105,7 @@ export function ReviewModal({
               "flex-1 rounded-xl px-4 py-2.5 text-sm font-bold text-white transition-all",
               rating > 0
                 ? "bg-gradient-to-r from-[#1B5E20] to-green-600 hover:shadow-lg"
-                : "bg-zinc-200 text-zinc-400 cursor-not-allowed"
+                : "bg-[#0A2E12]/5 text-[#3D5A3E] cursor-not-allowed"
             )}
           >
             Submit

@@ -44,7 +44,7 @@ export function RSVPButton({ gameId, currentStatus }: RSVPButtonProps) {
                 : s.color === "amber"
                 ? "bg-amber-500/20 text-amber-400 ring-1 ring-amber-500/30"
                 : "bg-red-500/20 text-red-400 ring-1 ring-red-500/30"
-              : "text-zinc-400 hover:bg-zinc-100"
+              : "text-[#3D5A3E] hover:bg-[#0A2E12]/5"
           )}
         >
           {s.label}

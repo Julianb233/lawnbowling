@@ -29,18 +29,18 @@ export default function StatsPage() {
 
   return (
     <div className="min-h-screen bg-white pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <h1 className="text-xl font-bold text-zinc-900">My Stats</h1>
-          <p className="text-sm text-zinc-500">Your performance at a glance</p>
+          <h1 className="text-xl font-bold text-[#0A2E12]">My Stats</h1>
+          <p className="text-sm text-[#3D5A3E]">Your performance at a glance</p>
         </div>
       </header>
 
       <div className="mx-auto max-w-3xl space-y-6 px-4 py-6">
         {loading ? (
           <div className="space-y-4">
-            <div className="h-48 animate-pulse rounded-2xl bg-zinc-100" />
-            <div className="h-32 animate-pulse rounded-2xl bg-zinc-100" />
+            <div className="h-48 animate-pulse rounded-2xl bg-[#0A2E12]/5" />
+            <div className="h-32 animate-pulse rounded-2xl bg-[#0A2E12]/5" />
           </div>
         ) : (
           <>
@@ -53,7 +53,7 @@ export default function StatsPage() {
             {currentUserId && (
               <div>
                 <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+                  <h2 className="text-sm font-semibold uppercase tracking-wider text-[#3D5A3E]">
                     Match History
                   </h2>
                   <Link

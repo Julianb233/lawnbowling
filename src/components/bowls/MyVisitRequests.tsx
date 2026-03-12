@@ -8,7 +8,7 @@ const STATUS_STYLES: Record<string, string> = {
   pending: "bg-amber-50 text-amber-700 border-amber-200",
   accepted: "bg-green-50 text-green-700 border-green-200",
   declined: "bg-red-50 text-red-700 border-red-200",
-  expired: "bg-zinc-100 text-zinc-500 border-zinc-200",
+  expired: "bg-[#0A2E12]/5 text-[#3D5A3E] border-[#0A2E12]/10",
 };
 
 export function MyVisitRequests() {
@@ -25,7 +25,7 @@ export function MyVisitRequests() {
 
   if (loading) {
     return (
-      <div className="py-4 text-center text-sm text-zinc-400">
+      <div className="py-4 text-center text-sm text-[#3D5A3E]">
         Loading visit requests...
       </div>
     );
@@ -34,8 +34,8 @@ export function MyVisitRequests() {
   if (requests.length === 0) {
     return (
       <div className="py-6 text-center">
-        <MapPin className="mx-auto h-8 w-8 text-zinc-300" />
-        <p className="mt-2 text-sm text-zinc-500">
+        <MapPin className="mx-auto h-8 w-8 text-[#3D5A3E]" />
+        <p className="mt-2 text-sm text-[#3D5A3E]">
           No visit requests yet. Browse the{" "}
           <a href="/clubs" className="text-[#1B5E20] hover:underline">
             club directory
@@ -51,14 +51,14 @@ export function MyVisitRequests() {
       {requests.map((req) => (
         <div
           key={req.id}
-          className="rounded-xl border border-zinc-200 bg-white p-4"
+          className="rounded-xl border border-[#0A2E12]/10 bg-white p-4"
         >
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <p className="text-sm font-bold text-zinc-900 truncate">
+              <p className="text-sm font-bold text-[#0A2E12] truncate">
                 {req.club_id}
               </p>
-              <div className="mt-1 flex items-center gap-3 text-xs text-zinc-500">
+              <div className="mt-1 flex items-center gap-3 text-xs text-[#3D5A3E]">
                 <span className="inline-flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5" />
                   {req.requested_date}
@@ -73,7 +73,7 @@ export function MyVisitRequests() {
                   {req.preferred_positions.map((pos) => (
                     <span
                       key={pos}
-                      className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-zinc-600 dark:text-zinc-400 capitalize"
+                      className="rounded-full bg-[#0A2E12]/5 px-2 py-0.5 text-[11px] font-medium text-[#3D5A3E] capitalize"
                     >
                       {pos}
                     </span>

@@ -108,25 +108,25 @@ export function VenueQRCode({ venueId, venueName, size = 256 }: VenueQRCodeProps
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-sm">
         <canvas ref={canvasRef} />
       </div>
 
-      <p className="text-center text-sm text-zinc-500 dark:text-zinc-400">
-        Players scan this code to check in at <strong className="text-zinc-700">{venueName}</strong>
+      <p className="text-center text-sm text-[#3D5A3E]">
+        Players scan this code to check in at <strong className="text-[#2D4A30]">{venueName}</strong>
       </p>
 
       <div className="flex gap-2">
         <button
           onClick={handleDownload}
-          className="flex items-center gap-2 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 transition-colors"
+          className="flex items-center gap-2 rounded-lg bg-[#0A2E12] px-4 py-2 text-sm font-medium text-white hover:bg-[#0A2E12] transition-colors"
         >
           <Download className="h-4 w-4" />
           Download
         </button>
         <button
           onClick={handleCopyUrl}
-          className="flex items-center gap-2 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors"
+          className="flex items-center gap-2 rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-2 text-sm font-medium text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors"
         >
           {copied ? (
             <>
@@ -142,7 +142,7 @@ export function VenueQRCode({ venueId, venueName, size = 256 }: VenueQRCodeProps
         </button>
       </div>
 
-      <p className="rounded-lg bg-zinc-100 px-3 py-1.5 text-xs text-zinc-500 font-mono break-all">
+      <p className="rounded-lg bg-[#0A2E12]/5 px-3 py-1.5 text-xs text-[#3D5A3E] font-mono break-all">
         {checkinUrl}
       </p>
     </div>

@@ -44,20 +44,20 @@ export function InsurancePage() {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/15">
               <Users className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-zinc-900">
+            <span className="text-lg font-bold text-[#0A2E12]">
               Lawnbowling
             </span>
           </Link>
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
             >
               Home
             </Link>
@@ -77,14 +77,14 @@ export function InsurancePage() {
           <div className="mb-8 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500 to-blue-500 shadow-2xl shadow-teal-500/20">
             <Shield className="h-10 w-10 text-white" />
           </div>
-          <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
+          <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.1] tracking-tight text-[#0A2E12] md:text-7xl">
             Injuries{" "}
             <span className="bg-gradient-to-r from-teal-500 to-blue-500 bg-clip-text text-transparent">
               Happen.
             </span>
             {" "}Lawsuits Don&apos;t Have To.
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#3D5A3E] md:text-xl">
             A bowler takes a fall on the green. Without coverage, that&apos;s
             a $15K problem. With Lawnbowling, every participant is covered
             the moment they check in. No paperwork. No monthly fees. No cost to
@@ -108,7 +108,7 @@ export function InsurancePage() {
             </a>
             <a
               href="#how-it-works"
-              className="inline-flex items-center gap-2 rounded-2xl border border-zinc-300 bg-white px-8 py-4 text-lg font-semibold text-zinc-700 backdrop-blur transition-all hover:border-zinc-400 hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-2xl border border-[#0A2E12]/10 bg-white px-8 py-4 text-lg font-semibold text-[#2D4A30] backdrop-blur transition-all hover:border-[#0A2E12]/10 hover:bg-[#0A2E12]/[0.03] hover:text-[#0A2E12] active:scale-[0.98]"
             >
               See How It Works
             </a>
@@ -127,10 +127,10 @@ export function InsurancePage() {
               <Shield className="h-8 w-8 text-white" />
             </div>
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-2xl font-bold text-zinc-900 md:text-3xl">
+              <h2 className="text-2xl font-bold text-[#0A2E12] md:text-3xl">
                 Lawn Bowls Coverage
               </h2>
-              <p className="mt-2 text-zinc-600">
+              <p className="mt-2 text-[#3D5A3E]">
                 Per-session insurance designed specifically for lawn bowlers.
                 Coverage from $3/player covers falls, sprains, bowl-strike
                 injuries, and more. 54% of lawn bowls injuries are from falls
@@ -151,10 +151,10 @@ export function InsurancePage() {
         className="relative mx-auto max-w-6xl px-6 pb-24"
       >
         <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+          <h2 className="text-3xl font-bold text-[#0A2E12] md:text-4xl">
             Coverage in Three Taps
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-[#3D5A3E]">
             No phone calls. No forms. No waiting on hold with an insurance rep.
           </p>
         </div>
@@ -181,7 +181,7 @@ export function InsurancePage() {
             },
           ].map((item) => (
             <div key={item.step} className="relative">
-              <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md">
+              <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-8 shadow-sm transition-all hover:border-[#0A2E12]/10 hover:shadow-md">
                 <span className="text-5xl font-black text-teal-500/20">
                   {item.step}
                 </span>
@@ -189,11 +189,11 @@ export function InsurancePage() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 shadow-lg shadow-teal-500/15">
                     <item.icon className="h-5 w-5 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-zinc-900">
+                  <h3 className="text-xl font-bold text-[#0A2E12]">
                     {item.title}
                   </h3>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-3 text-sm leading-relaxed text-[#3D5A3E]">
                   {item.desc}
                 </p>
               </div>
@@ -205,10 +205,10 @@ export function InsurancePage() {
       {/* What's Covered */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
         <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+          <h2 className="text-3xl font-bold text-[#0A2E12] md:text-4xl">
             What&apos;s Actually Covered
           </h2>
-          <p className="mt-4 text-lg text-zinc-600">
+          <p className="mt-4 text-lg text-[#3D5A3E]">
             The stuff your general liability policy quietly excludes
           </p>
         </div>
@@ -246,17 +246,17 @@ export function InsurancePage() {
           ].map((item) => (
             <div
               key={item.title}
-              className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md"
+              className="group rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-sm transition-all hover:border-[#0A2E12]/10 hover:shadow-md"
             >
               <div
                 className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} shadow-lg ${item.glow}`}
               >
                 <item.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-zinc-900">
+              <h3 className="mb-2 text-lg font-semibold text-[#0A2E12]">
                 {item.title}
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-600">
+              <p className="text-sm leading-relaxed text-[#3D5A3E]">
                 {item.desc}
               </p>
             </div>
@@ -269,10 +269,10 @@ export function InsurancePage() {
         <div className="glass rounded-3xl p-8 md:p-12">
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div>
-              <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+              <h2 className="text-3xl font-bold text-[#0A2E12] md:text-4xl">
                 Your GL Policy Has a Blind Spot
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-zinc-600">
+              <p className="mt-4 text-lg leading-relaxed text-[#3D5A3E]">
                 Most venue operators assume their general liability covers
                 everything. It doesn&apos;t. GL protects your staff. The 40
                 lawn bowlers on your green right now? They&apos;re in a
@@ -309,12 +309,12 @@ export function InsurancePage() {
               ].map((item) => (
                 <div
                   key={item.text}
-                  className="flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
+                  className="flex items-center gap-4 rounded-xl border border-[#0A2E12]/10 bg-white p-4 shadow-sm"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-teal-500/10">
                     <item.icon className="h-5 w-5 text-teal-600" />
                   </div>
-                  <span className="font-medium text-zinc-800">{item.text}</span>
+                  <span className="font-medium text-[#0A2E12]">{item.text}</span>
                 </div>
               ))}
             </div>
@@ -325,7 +325,7 @@ export function InsurancePage() {
       {/* FAQ Accordion */}
       <section className="relative mx-auto max-w-3xl px-6 pb-24">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+          <h2 className="text-3xl font-bold text-[#0A2E12] md:text-4xl">
             Questions? We Get These a Lot.
           </h2>
         </div>
@@ -360,15 +360,15 @@ export function InsurancePage() {
             <Accordion.Item
               key={i}
               value={`faq-${i}`}
-              className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
+              className="overflow-hidden rounded-xl border border-[#0A2E12]/10 bg-white shadow-sm"
             >
-              <Accordion.Trigger className="flex w-full items-center justify-between px-6 py-4 text-left text-zinc-900 hover:bg-zinc-50 transition-colors min-h-[44px] group">
+              <Accordion.Trigger className="flex w-full items-center justify-between px-6 py-4 text-left text-[#0A2E12] hover:bg-[#0A2E12]/[0.03] transition-colors min-h-[44px] group">
                 <span className="pr-4 font-semibold">{item.q}</span>
-                <ChevronDown className="h-5 w-5 shrink-0 text-zinc-400 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                <ChevronDown className="h-5 w-5 shrink-0 text-[#3D5A3E] transition-transform duration-200 group-data-[state=open]:rotate-180" />
               </Accordion.Trigger>
               <Accordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
-                <div className="border-t border-zinc-100 px-6 py-4">
-                  <p className="text-sm leading-relaxed text-zinc-600">
+                <div className="border-t border-[#0A2E12]/10 px-6 py-4">
+                  <p className="text-sm leading-relaxed text-[#3D5A3E]">
                     {item.a}
                   </p>
                 </div>
@@ -395,7 +395,7 @@ export function InsurancePage() {
               href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-teal-700 shadow-lg transition hover:bg-zinc-100 active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-teal-700 shadow-lg transition hover:bg-[#0A2E12]/5 active:scale-[0.98]"
             >
               Get Free Coverage
               <ExternalLink className="h-5 w-5" />
@@ -422,7 +422,7 @@ export function InsurancePage() {
           ].map((badge) => (
             <div
               key={badge.label}
-              className="flex items-center gap-3 text-zinc-500"
+              className="flex items-center gap-3 text-[#3D5A3E]"
             >
               <badge.icon className="h-6 w-6 text-teal-500" />
               <span className="text-sm font-semibold uppercase tracking-wider">
@@ -434,41 +434,41 @@ export function InsurancePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-zinc-50">
+      <footer className="border-t border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <Users className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Lawnbowling</span>
+            <span className="font-semibold text-[#0A2E12]">Lawnbowling</span>
           </Link>
-          <div className="flex items-center gap-6 text-sm text-zinc-500">
+          <div className="flex items-center gap-6 text-sm text-[#3D5A3E]">
             <Link
               href="/insurance"
-              className="hover:text-zinc-700 transition"
+              className="hover:text-[#2D4A30] transition"
             >
               Insurance
             </Link>
-            <Link href="/about" className="hover:text-zinc-700 transition">
+            <Link href="/about" className="hover:text-[#2D4A30] transition">
               About
             </Link>
-            <Link href="/faq" className="hover:text-zinc-700 transition">
+            <Link href="/faq" className="hover:text-[#2D4A30] transition">
               FAQ
             </Link>
             <Link
               href="/(public)/terms"
-              className="hover:text-zinc-700 transition"
+              className="hover:text-[#2D4A30] transition"
             >
               Terms
             </Link>
             <Link
               href="/(public)/privacy"
-              className="hover:text-zinc-700 transition"
+              className="hover:text-[#2D4A30] transition"
             >
               Privacy
             </Link>
           </div>
-          <span className="text-sm text-zinc-400">
+          <span className="text-sm text-[#3D5A3E]">
             &copy; {new Date().getFullYear()} Lawnbowling
           </span>
         </div>

@@ -20,7 +20,7 @@ const EVENT_TYPE_COLORS: Record<ClubEventType, string> = {
   tournament: "bg-emerald-500",
   meeting: "bg-amber-500",
   practice: "bg-violet-500",
-  other: "bg-zinc-400",
+  other: "bg-[#0A2E12]/5",
 };
 
 const EVENT_TYPE_LABELS: Record<ClubEventType, string> = {
@@ -94,17 +94,17 @@ export default function ClubEventCalendar({ clubId, isAdmin = false }: ClubEvent
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Events</h3>
+        <h3 className="text-lg font-bold text-[#0A2E12]">Events</h3>
         <div className="flex items-center gap-2">
           {/* View toggle */}
-          <div className="flex rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-hidden">
+          <div className="flex rounded-lg border border-[#0A2E12]/10 overflow-hidden">
             <button
               onClick={() => setViewMode("calendar")}
               className={cn(
                 "p-1.5 transition-colors",
                 viewMode === "calendar"
-                  ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
-                  : "text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "text-[#3D5A3E] hover:text-[#3D5A3E]:text-[#3D5A3E]"
               )}
               aria-label="Calendar view"
             >
@@ -115,8 +115,8 @@ export default function ClubEventCalendar({ clubId, isAdmin = false }: ClubEvent
               className={cn(
                 "p-1.5 transition-colors",
                 viewMode === "list"
-                  ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
-                  : "text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "text-[#3D5A3E] hover:text-[#3D5A3E]:text-[#3D5A3E]"
               )}
               aria-label="List view"
             >
@@ -128,7 +128,7 @@ export default function ClubEventCalendar({ clubId, isAdmin = false }: ClubEvent
             <>
               <button
                 onClick={() => setShowCsvImport(!showCsvImport)}
-                className="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
+                className="p-1.5 rounded-lg border border-[#0A2E12]/10 text-[#3D5A3E] hover:text-[#3D5A3E]:text-[#3D5A3E] transition-colors"
                 title="Import CSV"
               >
                 <Upload className="w-4 h-4" />
@@ -173,11 +173,11 @@ export default function ClubEventCalendar({ clubId, isAdmin = false }: ClubEvent
       {viewMode === "calendar" && (
         <div>
           <div className="flex items-center justify-between mb-3">
-            <button onClick={prevMonth} className="p-1 rounded text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100">
+            <button onClick={prevMonth} className="p-1 rounded text-[#3D5A3E] hover:text-[#0A2E12]:text-[#3D5A3E]">
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <span className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">{monthName}</span>
-            <button onClick={nextMonth} className="p-1 rounded text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100">
+            <span className="text-sm font-semibold text-[#2D4A30]">{monthName}</span>
+            <button onClick={nextMonth} className="p-1 rounded text-[#3D5A3E] hover:text-[#0A2E12]:text-[#3D5A3E]">
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
@@ -190,12 +190,12 @@ export default function ClubEventCalendar({ clubId, isAdmin = false }: ClubEvent
         <div>
           {loading ? (
             <div className="flex justify-center py-8">
-              <Loader2 className="w-5 h-5 animate-spin text-zinc-400" />
+              <Loader2 className="w-5 h-5 animate-spin text-[#3D5A3E]" />
             </div>
           ) : events.length === 0 ? (
             <div className="text-center py-8">
-              <CalendarDays className="w-8 h-8 mx-auto text-zinc-300 dark:text-zinc-600 mb-2" />
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">No upcoming events</p>
+              <CalendarDays className="w-8 h-8 mx-auto text-[#3D5A3E] mb-2" />
+              <p className="text-sm text-[#3D5A3E]">No upcoming events</p>
             </div>
           ) : (
             <div className="space-y-2">
@@ -229,17 +229,17 @@ function MonthGrid({ year, month, events, loading }: { year: number; month: numb
   const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden">
-      <div className="grid grid-cols-7 bg-zinc-50 dark:bg-zinc-800/50">
+    <div className="rounded-xl border border-[#0A2E12]/10 overflow-hidden">
+      <div className="grid grid-cols-7 bg-[#0A2E12]/[0.03]">
         {dayLabels.map((d) => (
-          <div key={d} className="px-1 py-2 text-center text-[10px] font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+          <div key={d} className="px-1 py-2 text-center text-[10px] font-semibold uppercase tracking-wider text-[#3D5A3E]">
             {d}
           </div>
         ))}
       </div>
       <div className="grid grid-cols-7">
         {Array.from({ length: firstDay }).map((_, i) => (
-          <div key={`empty-${i}`} className="border-t border-zinc-100 dark:border-zinc-800 min-h-[3rem]" />
+          <div key={`empty-${i}`} className="border-t border-[#0A2E12]/10 min-h-[3rem]" />
         ))}
         {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((day) => {
           const dayEvents = eventsByDate.get(day) ?? [];
@@ -248,13 +248,13 @@ function MonthGrid({ year, month, events, loading }: { year: number; month: numb
             <div
               key={day}
               className={cn(
-                "border-t border-zinc-100 dark:border-zinc-800 min-h-[3rem] p-1",
-                isToday && "bg-emerald-50/50 dark:bg-emerald-950/20"
+                "border-t border-[#0A2E12]/10 min-h-[3rem] p-1",
+                isToday && "bg-emerald-50/50"
               )}
             >
               <span className={cn(
                 "text-xs tabular-nums",
-                isToday ? "font-bold text-emerald-600 dark:text-emerald-400" : "text-zinc-600 dark:text-zinc-400"
+                isToday ? "font-bold text-emerald-600" : "text-[#3D5A3E]"
               )}>
                 {day}
               </span>
@@ -272,8 +272,8 @@ function MonthGrid({ year, month, events, loading }: { year: number; month: numb
         })}
       </div>
       {loading && (
-        <div className="flex justify-center py-2 border-t border-zinc-100 dark:border-zinc-800">
-          <Loader2 className="w-4 h-4 animate-spin text-zinc-400" />
+        <div className="flex justify-center py-2 border-t border-[#0A2E12]/10">
+          <Loader2 className="w-4 h-4 animate-spin text-[#3D5A3E]" />
         </div>
       )}
     </div>
@@ -291,21 +291,21 @@ function EventCard({ event }: { event: ClubEvent }) {
   });
 
   return (
-    <div className="flex gap-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-3">
+    <div className="flex gap-3 rounded-xl border border-[#0A2E12]/10 bg-white p-3">
       <div className={cn("w-1 rounded-full shrink-0", EVENT_TYPE_COLORS[event.event_type])} />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">
+          <h4 className="text-sm font-semibold text-[#0A2E12] truncate">
             {event.title}
           </h4>
           <span className={cn(
             "shrink-0 px-1.5 py-0.5 rounded text-[10px] font-medium uppercase tracking-wide",
-            "bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400"
+            "bg-[#0A2E12]/5 text-[#3D5A3E]"
           )}>
             {EVENT_TYPE_LABELS[event.event_type]}
           </span>
         </div>
-        <div className="flex items-center gap-3 mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+        <div className="flex items-center gap-3 mt-1 text-xs text-[#3D5A3E]">
           <span>{formattedDate}</span>
           {event.start_time && (
             <span className="flex items-center gap-1">
@@ -322,7 +322,7 @@ function EventCard({ event }: { event: ClubEvent }) {
           )}
         </div>
         {event.description && (
-          <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2">
+          <p className="mt-1 text-xs text-[#3D5A3E] line-clamp-2">
             {event.description}
           </p>
         )}
@@ -381,25 +381,25 @@ function CreateEventForm({
 
   const inputClass = cn(
     "w-full rounded-lg px-3 py-2 text-sm",
-    "bg-zinc-50 dark:bg-zinc-800",
-    "border border-zinc-200 dark:border-zinc-700",
-    "text-zinc-900 dark:text-zinc-100",
+    "bg-[#0A2E12]/[0.03]",
+    "border border-[#0A2E12]/10",
+    "text-[#0A2E12]",
     "focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
   );
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-4 space-y-3">
+    <form onSubmit={handleSubmit} className="rounded-xl border border-[#0A2E12]/10 bg-white p-4 space-y-3">
       <div>
-        <label className="block text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1">Title *</label>
+        <label className="block text-xs font-medium text-[#3D5A3E] mb-1">Title *</label>
         <input name="title" required className={inputClass} placeholder="e.g., Saturday Social Bowls" />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1">Date *</label>
+          <label className="block text-xs font-medium text-[#3D5A3E] mb-1">Date *</label>
           <input name="event_date" type="date" required className={inputClass} />
         </div>
         <div>
-          <label className="block text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1">Type</label>
+          <label className="block text-xs font-medium text-[#3D5A3E] mb-1">Type</label>
           <select name="event_type" className={inputClass} defaultValue="other">
             <option value="social">Social</option>
             <option value="tournament">Tournament</option>
@@ -411,25 +411,25 @@ function CreateEventForm({
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1">Start Time</label>
+          <label className="block text-xs font-medium text-[#3D5A3E] mb-1">Start Time</label>
           <input name="start_time" type="time" className={inputClass} />
         </div>
         <div>
-          <label className="block text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1">End Time</label>
+          <label className="block text-xs font-medium text-[#3D5A3E] mb-1">End Time</label>
           <input name="end_time" type="time" className={inputClass} />
         </div>
       </div>
       <div>
-        <label className="block text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1">Location</label>
+        <label className="block text-xs font-medium text-[#3D5A3E] mb-1">Location</label>
         <input name="location" className={inputClass} placeholder="e.g., Main green" />
       </div>
       <div>
-        <label className="block text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1">Description</label>
+        <label className="block text-xs font-medium text-[#3D5A3E] mb-1">Description</label>
         <textarea name="description" rows={2} className={cn(inputClass, "resize-none")} placeholder="Optional details..." />
       </div>
       {error && <p className="text-sm text-red-500">{error}</p>}
       <div className="flex gap-2 justify-end">
-        <button type="button" onClick={onCancel} className="px-3 py-1.5 text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300">
+        <button type="button" onClick={onCancel} className="px-3 py-1.5 text-sm text-[#3D5A3E] hover:text-[#2D4A30]:text-[#3D5A3E]">
           Cancel
         </button>
         <button type="submit" disabled={submitting} className="px-4 py-1.5 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 disabled:opacity-50">
@@ -484,10 +484,10 @@ function CsvImportForm({
   };
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-4 space-y-3">
+    <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4 space-y-3">
       <div>
-        <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Import events from CSV</p>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">
+        <p className="text-sm font-medium text-[#2D4A30] mb-1">Import events from CSV</p>
+        <p className="text-xs text-[#3D5A3E]">
           CSV should have columns: title, date, start_time, end_time, type, description
         </p>
       </div>
@@ -496,22 +496,22 @@ function CsvImportForm({
         accept=".csv,text/csv"
         onChange={handleFileUpload}
         disabled={submitting}
-        className="block w-full text-sm text-zinc-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-emerald-50 file:text-emerald-700 dark:file:bg-emerald-900/40 dark:file:text-emerald-300 hover:file:bg-emerald-100"
+        className="block w-full text-sm text-[#3D5A3E] file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-emerald-50 file:text-emerald-700:bg-emerald-900/40:text-emerald-300 hover:file:bg-emerald-100"
       />
       {submitting && (
-        <div className="flex items-center gap-2 text-sm text-zinc-500">
+        <div className="flex items-center gap-2 text-sm text-[#3D5A3E]">
           <Loader2 className="w-4 h-4 animate-spin" />
           Importing...
         </div>
       )}
       {result && (
-        <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
+        <p className="text-sm text-emerald-600 font-medium">
           Successfully imported {result.imported} events
         </p>
       )}
       {error && <p className="text-sm text-red-500">{error}</p>}
       <div className="flex justify-end">
-        <button onClick={onCancel} className="px-3 py-1.5 text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300">
+        <button onClick={onCancel} className="px-3 py-1.5 text-sm text-[#3D5A3E] hover:text-[#2D4A30]:text-[#3D5A3E]">
           Close
         </button>
       </div>

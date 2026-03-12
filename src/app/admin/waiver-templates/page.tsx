@@ -106,22 +106,22 @@ export default function AdminWaiverTemplatesPage() {
     <div>
       <Link
         href="/admin/waivers"
-        className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-700 transition-colors"
+        className="mb-6 inline-flex items-center gap-1 text-sm text-[#3D5A3E] hover:text-[#2D4A30] transition-colors"
       >
         <ArrowLeft className="h-4 w-4" /> Back to Waivers
       </Link>
 
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-800">Waiver Templates</h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <h1 className="text-2xl font-bold text-[#0A2E12]">Waiver Templates</h1>
+          <p className="text-sm text-[#3D5A3E]">
             Configure the waiver text shown to players during sign-up.
           </p>
         </div>
         {!creating && !editing && (
           <button
             onClick={startCreate}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#1B5E20] px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-[#1B5E20] transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#1B5E20] px-4 py-2 text-sm font-medium text-[#0A2E12] hover:bg-[#1B5E20] transition-colors"
           >
             <Plus className="h-4 w-4" /> New Template
           </button>
@@ -141,30 +141,30 @@ export default function AdminWaiverTemplatesPage() {
       )}
 
       {(creating || editing) && (
-        <div className="mb-6 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 space-y-4">
-          <h2 className="text-lg font-semibold text-zinc-800">
+        <div className="mb-6 rounded-xl border border-[#0A2E12]/10 bg-white p-6 space-y-4">
+          <h2 className="text-lg font-semibold text-[#0A2E12]">
             {creating ? "Create Template" : "Edit Template"}
           </h2>
 
           <div>
-            <label className="block text-sm font-medium text-zinc-500 mb-1">Title</label>
+            <label className="block text-sm font-medium text-[#3D5A3E] mb-1">Title</label>
             <input
               type="text"
               value={formTitle}
               onChange={(e) => setFormTitle(e.target.value)}
-              className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none"
+              className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-zinc-500 mb-1">
+            <label className="block text-sm font-medium text-[#3D5A3E] mb-1">
               Waiver Body Text
             </label>
             <textarea
               value={formBody}
               onChange={(e) => setFormBody(e.target.value)}
               rows={12}
-              className="w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-zinc-800 focus:border-[#1B5E20] focus:outline-none font-mono text-sm"
+              className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none font-mono text-sm"
               placeholder="Enter the full waiver text that players will read and accept..."
             />
           </div>
@@ -175,9 +175,9 @@ export default function AdminWaiverTemplatesPage() {
               id="is_active"
               checked={formActive}
               onChange={(e) => setFormActive(e.target.checked)}
-              className="h-4 w-4 rounded border-zinc-300 bg-white text-[#1B5E20] focus:ring-[#1B5E20]"
+              className="h-4 w-4 rounded border-[#0A2E12]/10 bg-white text-[#1B5E20] focus:ring-[#1B5E20]"
             />
-            <label htmlFor="is_active" className="text-sm text-zinc-500 dark:text-zinc-400">
+            <label htmlFor="is_active" className="text-sm text-[#3D5A3E]">
               Set as active template (shown to new players)
             </label>
           </div>
@@ -186,13 +186,13 @@ export default function AdminWaiverTemplatesPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="inline-flex items-center gap-2 rounded-lg bg-[#1B5E20] px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-[#1B5E20] disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#1B5E20] px-4 py-2 text-sm font-medium text-[#0A2E12] hover:bg-[#1B5E20] disabled:opacity-50 transition-colors"
             >
               {saving ? "Saving..." : "Save Template"}
             </button>
             <button
               onClick={cancelForm}
-              className="rounded-lg border border-zinc-200 px-4 py-2 text-sm text-zinc-500 hover:bg-white transition-colors"
+              className="rounded-lg border border-[#0A2E12]/10 px-4 py-2 text-sm text-[#3D5A3E] hover:bg-white transition-colors"
             >
               Cancel
             </button>
@@ -202,12 +202,12 @@ export default function AdminWaiverTemplatesPage() {
 
       {loading ? (
         <div className="flex justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-600" />
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#0A2E12]/10 border-t-[#1B5E20]" />
         </div>
       ) : templates.length === 0 ? (
-        <div className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 py-12 text-center">
-          <p className="text-zinc-500 dark:text-zinc-400">No waiver templates yet.</p>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+        <div className="rounded-xl border border-[#0A2E12]/10 bg-white py-12 text-center">
+          <p className="text-[#3D5A3E]">No waiver templates yet.</p>
+          <p className="mt-1 text-sm text-[#3D5A3E]">
             The default waiver text will be used until you create a custom template.
           </p>
         </div>
@@ -219,23 +219,23 @@ export default function AdminWaiverTemplatesPage() {
               className={`rounded-xl border p-4 ${
                 t.is_active
                   ? "border-[#1B5E20]/20 bg-[#1B5E20]/5"
-                  : "border-zinc-200 bg-white"
+                  : "border-[#0A2E12]/10 bg-white"
               }`}
             >
               <div className="flex items-start justify-between">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <h3 className="font-medium text-zinc-800">{t.title}</h3>
+                    <h3 className="font-medium text-[#0A2E12]">{t.title}</h3>
                     {t.is_active && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-[#1B5E20]/5 px-2 py-0.5 text-xs font-medium text-[#1B5E20]">
                         <Check className="h-3 w-3" /> Active
                       </span>
                     )}
                   </div>
-                  <p className="mt-1 line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">
+                  <p className="mt-1 line-clamp-2 text-sm text-[#3D5A3E]">
                     {t.body.slice(0, 200)}...
                   </p>
-                  <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
+                  <p className="mt-2 text-xs text-[#3D5A3E]">
                     Updated {new Date(t.updated_at).toLocaleDateString("en-US", {
                       dateStyle: "medium",
                     })}
@@ -243,7 +243,7 @@ export default function AdminWaiverTemplatesPage() {
                 </div>
                 <button
                   onClick={() => startEdit(t)}
-                  className="ml-4 shrink-0 rounded-lg border border-zinc-200 p-2 text-zinc-500 hover:bg-white hover:text-zinc-700 transition-colors"
+                  className="ml-4 shrink-0 rounded-lg border border-[#0A2E12]/10 p-2 text-[#3D5A3E] hover:bg-white hover:text-[#2D4A30] transition-colors"
                   aria-label="Edit template"
                 >
                   <Pencil className="h-4 w-4" />

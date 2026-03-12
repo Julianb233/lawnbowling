@@ -27,7 +27,7 @@ const STATUS_COLORS: Record<TournamentStatus, { bg: string; text: string; label:
   registration: { bg: "bg-[#1B5E20]/10", text: "text-blue-400", label: "Open" },
   in_progress: { bg: "bg-amber-500/10", text: "text-amber-400", label: "In Progress" },
   completed: { bg: "bg-green-500/10", text: "text-green-400", label: "Completed" },
-  cancelled: { bg: "bg-zinc-500/10", text: "text-zinc-400", label: "Cancelled" },
+  cancelled: { bg: "bg-[#0A2E12]/[0.03]0/10", text: "text-[#3D5A3E]", label: "Cancelled" },
 };
 
 export function TournamentCard({ tournament }: TournamentCardProps) {
@@ -42,7 +42,7 @@ export function TournamentCard({ tournament }: TournamentCardProps) {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className={cn(
-          "rounded-2xl border border-zinc-200 bg-white/80 p-4 transition-colors hover:border-zinc-200",
+          "rounded-2xl border border-[#0A2E12]/10 bg-white/80 p-4 transition-colors hover:border-[#0A2E12]/10",
           "cursor-pointer"
         )}
       >
@@ -58,8 +58,8 @@ export function TournamentCard({ tournament }: TournamentCardProps) {
           </span>
         </div>
 
-        <h3 className="mb-1 font-bold text-zinc-900 dark:text-zinc-100">{tournament.name}</h3>
-        <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
+        <h3 className="mb-1 font-bold text-[#0A2E12]">{tournament.name}</h3>
+        <p className="mb-3 text-sm text-[#3D5A3E]">
           {TOURNAMENT_FORMAT_LABELS[tournament.format]}
         </p>
 
@@ -73,7 +73,7 @@ export function TournamentCard({ tournament }: TournamentCardProps) {
           >
             {sportLabel?.label ?? tournament.sport}
           </span>
-          <div className="flex items-center gap-3 text-zinc-500 dark:text-zinc-400">
+          <div className="flex items-center gap-3 text-[#3D5A3E]">
             <span className="flex items-center gap-1">
               <Users className="h-3.5 w-3.5" />
               {participantCount}/{tournament.max_players}

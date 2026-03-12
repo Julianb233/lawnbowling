@@ -23,22 +23,22 @@ interface TournamentStandingsProps {
 export function TournamentStandings({ standings }: TournamentStandingsProps) {
   if (standings.length === 0) {
     return (
-      <div className="py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
+      <div className="py-8 text-center text-sm text-[#3D5A3E]">
         No participants yet
       </div>
     );
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-zinc-200">
+    <div className="overflow-hidden rounded-2xl border border-[#0A2E12]/10">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-zinc-200 bg-zinc-50 dark:bg-white/5">
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">#</th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">Player</th>
-            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">W</th>
-            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">L</th>
-            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">Status</th>
+          <tr className="border-b border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]">
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-[#3D5A3E]">#</th>
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase text-[#3D5A3E]">Player</th>
+            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-[#3D5A3E]">W</th>
+            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-[#3D5A3E]">L</th>
+            <th className="px-4 py-3 text-center text-xs font-medium uppercase text-[#3D5A3E]">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +46,7 @@ export function TournamentStandings({ standings }: TournamentStandingsProps) {
             <tr
               key={s.player_id}
               className={cn(
-                "border-b border-zinc-200/50 transition-colors hover:bg-zinc-50 dark:bg-white/5",
+                "border-b border-[#0A2E12]/10/50 transition-colors hover:bg-[#0A2E12]/[0.03]",
                 i === 0 && "bg-amber-500/5"
               )}
             >
@@ -54,19 +54,19 @@ export function TournamentStandings({ standings }: TournamentStandingsProps) {
                 {i === 0 ? (
                   <Trophy className="h-4 w-4 text-amber-400" />
                 ) : i === 1 ? (
-                  <Medal className="h-4 w-4 text-zinc-600 dark:text-zinc-400" />
+                  <Medal className="h-4 w-4 text-[#3D5A3E]" />
                 ) : i === 2 ? (
                   <Medal className="h-4 w-4 text-amber-600" />
                 ) : (
-                  <span className="text-sm text-zinc-500 dark:text-zinc-400">{i + 1}</span>
+                  <span className="text-sm text-[#3D5A3E]">{i + 1}</span>
                 )}
               </td>
               <td className="px-4 py-3">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-100 text-xs font-medium text-zinc-400">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0A2E12]/5 text-xs font-medium text-[#3D5A3E]">
                     {s.player.display_name?.[0]?.toUpperCase() ?? "?"}
                   </div>
-                  <span className="text-sm font-medium text-zinc-700">
+                  <span className="text-sm font-medium text-[#2D4A30]">
                     {s.player.display_name}
                   </span>
                 </div>

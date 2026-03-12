@@ -66,9 +66,9 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
             className="w-full max-w-md rounded-2xl glass p-6"
           >
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Book {court.name}</h2>
-              <button onClick={onClose} className="rounded-full p-1 hover:bg-zinc-100">
-                <X className="h-5 w-5 text-zinc-400" />
+              <h2 className="text-lg font-bold text-[#0A2E12]">Book {court.name}</h2>
+              <button onClick={onClose} className="rounded-full p-1 hover:bg-[#0A2E12]/5">
+                <X className="h-5 w-5 text-[#3D5A3E]" />
               </button>
             </div>
 
@@ -80,29 +80,29 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
             ) : (
               <div className="space-y-4">
                 <div>
-                  <label className="mb-1 block text-sm text-zinc-400">
+                  <label className="mb-1 block text-sm text-[#3D5A3E]">
                     <Calendar className="inline h-4 w-4 mr-1" /> Date
                   </label>
                   <input
                     type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
-                    className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-white outline-none focus:border-green-500/50 min-h-[44px]"
+                    className="w-full rounded-lg border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] px-4 py-3 text-white outline-none focus:border-green-500/50 min-h-[44px]"
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm text-zinc-400">
+                  <label className="mb-1 block text-sm text-[#3D5A3E]">
                     <Clock className="inline h-4 w-4 mr-1" /> Time
                   </label>
                   <input
                     type="time"
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
-                    className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-white outline-none focus:border-green-500/50 min-h-[44px]"
+                    className="w-full rounded-lg border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] px-4 py-3 text-white outline-none focus:border-green-500/50 min-h-[44px]"
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm text-zinc-400">Duration</label>
+                  <label className="mb-1 block text-sm text-[#3D5A3E]">Duration</label>
                   <div className="flex gap-2">
                     {[30, 60, 90, 120].map((d) => (
                       <button
@@ -111,7 +111,7 @@ export function BookCourtModal({ court, open, onClose }: BookCourtModalProps) {
                         className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium min-h-[44px] ${
                           duration === d
                             ? "border-green-500 bg-green-500/20 text-green-400"
-                            : "border-zinc-200 bg-zinc-50 text-zinc-500 dark:text-zinc-400"
+                            : "border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] text-[#3D5A3E]"
                         }`}
                       >
                         {d}m

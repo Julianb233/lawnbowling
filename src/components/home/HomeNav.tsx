@@ -58,7 +58,7 @@ export function HomeNav() {
           </Link>
           <Link
             href="/signup"
-            className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#1B5E20] shadow-lg transition hover:bg-zinc-50 sm:px-5 sm:py-2.5"
+            className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#1B5E20] shadow-lg transition hover:bg-[#0A2E12]/[0.03] sm:px-5 sm:py-2.5"
           >
             Get Started
           </Link>
@@ -102,7 +102,7 @@ export function HomeNav() {
                     height={36}
                     className="rounded-full object-cover"
                   />
-                  <span className="text-base font-bold text-zinc-900">
+                  <span className="text-base font-bold text-[#0A2E12]">
                     Lawnbowling
                   </span>
                 </div>
@@ -110,7 +110,7 @@ export function HomeNav() {
                   type="button"
                   aria-label="Close menu"
                   onClick={() => setMenuOpen(false)}
-                  className="flex h-12 w-12 items-center justify-center rounded-lg text-zinc-700 transition hover:bg-zinc-100"
+                  className="flex h-12 w-12 items-center justify-center rounded-lg text-[#2D4A30] transition hover:bg-[#0A2E12]/5"
                 >
                   <X className="h-7 w-7" />
                 </button>
@@ -124,7 +124,7 @@ export function HomeNav() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="block rounded-xl px-4 py-4 text-lg font-semibold text-zinc-900 transition hover:bg-zinc-100"
+                      className="block rounded-xl px-4 py-4 text-lg font-semibold text-[#0A2E12] transition hover:bg-[#0A2E12]/5"
                       style={{ minHeight: 48, fontSize: 18 }}
                     >
                       {link.label}
