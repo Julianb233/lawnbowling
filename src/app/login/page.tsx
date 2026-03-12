@@ -15,8 +15,8 @@ export default function LoginPage() {
   const router = useRouter();
   const supabase = createClient();
   const returnTo = typeof window !== "undefined"
-    ? new URLSearchParams(window.location.search).get("returnTo") || "/"
-    : "/";
+    ? new URLSearchParams(window.location.search).get("returnTo") || "/board"
+    : "/board";
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
