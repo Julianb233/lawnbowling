@@ -8,6 +8,8 @@ import Link from "next/link";
 import { BottomNav } from "@/components/board/BottomNav";
 import { TournamentBracket } from "@/components/tournament/TournamentBracket";
 import { TournamentStandings } from "@/components/tournament/TournamentStandings";
+import { BracketView } from "@/components/tournament/BracketView";
+import { RoundRobinView } from "@/components/tournament/RoundRobinView";
 import { JoinTournamentButton } from "@/components/tournament/JoinTournamentButton";
 import { SPORT_LABELS, TOURNAMENT_FORMAT_LABELS } from "@/lib/types";
 import { SportIcon } from "@/components/icons/SportIcon";
@@ -103,9 +105,9 @@ export default function TournamentDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518]">
+      <div className="min-h-screen bg-[#FEFCF9]">
         <div className="mx-auto max-w-3xl px-4 py-8">
-          <div className="h-48 animate-pulse rounded-2xl bg-zinc-100 dark:bg-white/5" />
+          <div className="h-48 animate-pulse rounded-2xl bg-[#0A2E12]/5" />
         </div>
       </div>
     );
@@ -113,9 +115,9 @@ export default function TournamentDetailPage() {
 
   if (!tournament) {
     return (
-      <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518]">
+      <div className="min-h-screen bg-[#FEFCF9]">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-          <p className="text-zinc-500 dark:text-zinc-400">Tournament not found</p>
+          <p className="text-[#3D5A3E]">Tournament not found</p>
           <Link href="/tournament" className="mt-4 inline-block text-sm text-[#1B5E20] hover:underline">
             Back to tournaments
           </Link>
@@ -135,17 +137,17 @@ export default function TournamentDetailPage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#1a3d28]/95 backdrop-blur">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <Link href="/tournament" className="mb-2 flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-600 dark:text-zinc-400">
+          <Link href="/tournament" className="mb-2 flex items-center gap-1 text-sm text-[#3D5A3E] hover:text-[#3D5A3E]">
             <ArrowLeft className="h-4 w-4" />
             Tournaments
           </Link>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
-              <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 sm:text-xl truncate">{tournament.name}</h1>
-              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-zinc-500 dark:text-zinc-400">
+              <h1 className="text-lg font-bold text-[#0A2E12] sm:text-xl truncate">{tournament.name}</h1>
+              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[#3D5A3E]">
                 <span style={{ color: sportColor.primary }}>
                   <SportIcon sport={tournament.sport as Sport} className="w-4 h-4 inline-block" /> {sportLabel?.label ?? tournament.sport}
                 </span>
@@ -183,26 +185,40 @@ export default function TournamentDetailPage() {
           <Tabs.List className="mb-6 flex gap-1 rounded-xl bg-white/80 p-1">
             <Tabs.Trigger
               value="bracket"
-              className="flex-1 rounded-lg px-3 py-3 text-sm font-medium text-zinc-500 transition-colors data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900 min-h-[44px] touch-manipulation"
+              className="flex-1 rounded-lg px-3 py-3 text-sm font-medium text-[#3D5A3E] transition-colors data-[state=active]:bg-[#0A2E12]/5 data-[state=active]:text-[#0A2E12] min-h-[44px] touch-manipulation"
             >
               <Trophy className="mr-1.5 inline h-4 w-4" />
               Bracket
             </Tabs.Trigger>
             <Tabs.Trigger
               value="standings"
-              className="flex-1 rounded-lg px-3 py-3 text-sm font-medium text-zinc-500 transition-colors data-[state=active]:bg-zinc-100 data-[state=active]:text-zinc-900 min-h-[44px] touch-manipulation"
+              className="flex-1 rounded-lg px-3 py-3 text-sm font-medium text-[#3D5A3E] transition-colors data-[state=active]:bg-[#0A2E12]/5 data-[state=active]:text-[#0A2E12] min-h-[44px] touch-manipulation"
             >
               Standings
             </Tabs.Trigger>
           </Tabs.List>
 
           <Tabs.Content value="bracket">
-            <TournamentBracket
-              matches={matches as unknown as Parameters<typeof TournamentBracket>[0]["matches"]}
-              format={tournament.format}
-              onReportResult={(matchId) => setReportingMatch(matchId)}
-              currentPlayerId={currentPlayerId ?? undefined}
-            />
+            {tournament.format === "round_robin" ? (
+              <RoundRobinView
+                matches={matches as unknown as Parameters<typeof RoundRobinView>[0]["matches"]}
+                onReportResult={(matchId) => setReportingMatch(matchId)}
+                currentPlayerId={currentPlayerId ?? undefined}
+              />
+            ) : tournament.format === "single_elimination" ? (
+              <BracketView
+                matches={matches as unknown as Parameters<typeof BracketView>[0]["matches"]}
+                onReportResult={(matchId) => setReportingMatch(matchId)}
+                currentPlayerId={currentPlayerId ?? undefined}
+              />
+            ) : (
+              <TournamentBracket
+                matches={matches as unknown as Parameters<typeof TournamentBracket>[0]["matches"]}
+                format={tournament.format}
+                onReportResult={(matchId) => setReportingMatch(matchId)}
+                currentPlayerId={currentPlayerId ?? undefined}
+              />
+            )}
           </Tabs.Content>
 
           <Tabs.Content value="standings">
@@ -218,12 +234,12 @@ export default function TournamentDetailPage() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-sm rounded-2xl border border-zinc-300 bg-white dark:bg-[#1a3d28] p-6 shadow-2xl"
+              className="w-full max-w-sm rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-2xl"
             >
-              <h3 className="mb-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">Report Result</h3>
+              <h3 className="mb-4 text-lg font-bold text-[#0A2E12]">Report Result</h3>
               <form onSubmit={handleReportResult} className="space-y-4">
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-zinc-400">Winner</label>
+                  <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">Winner</label>
                   <div className="flex flex-col gap-2">
                     {[
                       { id: (reportMatch.player1_id ?? "") as string, name: ((reportMatch.player1 as Record<string, string> | null)?.display_name ?? "Player 1") },
@@ -237,7 +253,7 @@ export default function TournamentDetailPage() {
                           "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left",
                           winnerId === p.id
                             ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
-                            : "border-zinc-200 bg-zinc-100 text-zinc-400 hover:border-zinc-400"
+                            : "border-[#0A2E12]/10 bg-[#0A2E12]/5 text-[#3D5A3E] hover:border-[#0A2E12]/10"
                         )}
                       >
                         {p.name}
@@ -246,13 +262,13 @@ export default function TournamentDetailPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-zinc-400">Score</label>
+                  <label className="mb-1 block text-sm font-medium text-[#3D5A3E]">Score</label>
                   <input
                     type="text"
                     value={score}
                     onChange={(e) => setScore(e.target.value)}
                     placeholder="e.g. 21-15"
-                    className="w-full rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+                    className="w-full rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-4 py-3 text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
                   />
                 </div>
                 <div className="flex gap-2">
@@ -263,7 +279,7 @@ export default function TournamentDetailPage() {
                       setScore("");
                       setWinnerId("");
                     }}
-                    className="flex-1 rounded-xl border border-zinc-200 bg-zinc-100 px-4 py-3 text-sm font-semibold text-zinc-600 hover:border-zinc-400"
+                    className="flex-1 rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/5 px-4 py-3 text-sm font-semibold text-[#3D5A3E] hover:border-[#0A2E12]/10"
                   >
                     Cancel
                   </button>
