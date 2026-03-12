@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5F0E6"/>
+      <stop offset="100%" stop-color="#E8E0D0"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#bg)" width="600" height="600"/>
+  <g transform="translate(300,310)">
+    <!-- Tote handles -->
+    <path d="M-50,-140 Q-50,-180 -20,-180 L-20,-120" fill="none" stroke="#C4A97D" stroke-width="6" stroke-linecap="round"/>
+    <path d="M50,-140 Q50,-180 20,-180 L20,-120" fill="none" stroke="#C4A97D" stroke-width="6" stroke-linecap="round"/>
+    <!-- Tote body -->
+    <path d="M-100,-120 L-90,130 Q-85,150 0,150 Q85,150 90,130 L100,-120 Z" fill="#F5F0E1"/>
+    <!-- Tote top fold -->
+    <path d="M-100,-120 Q0,-110 100,-120 Q0,-130 -100,-120 Z" fill="#E8DCC8"/>
+    <!-- Bottom seam -->
+    <line x1="-85" y1="130" x2="85" y2="130" stroke="#DDD0B8" stroke-width="1.5"/>
+    <!-- Design: bowling green illustration -->
+    <rect x="-55" y="-40" width="110" height="80" rx="4" fill="#E8F5E9"/>
+    <!-- Green -->
+    <rect x="-55" y="0" width="110" height="40" rx="0" fill="#C8E6C9"/>
+    <!-- Bowls -->
+    <circle cx="-15" cy="15" r="10" fill="#1B5E20"/>
+    <circle cx="-15" cy="15" r="7" fill="#2E7D32"/>
+    <circle cx="10" cy="10" r="10" fill="#5D4037"/>
+    <circle cx="10" cy="10" r="7" fill="#795548"/>
+    <!-- Jack -->
+    <circle cx="25" cy="20" r="5" fill="#FFD54F"/>
+    <!-- Text below -->
+    <text x="0" y="80" fill="#1B5E20" font-size="11" font-family="Georgia,serif" text-anchor="middle" font-weight="bold" letter-spacing="2">ON THE GREEN</text>
+  </g>
+  <ellipse cx="300" cy="490" rx="90" ry="8" fill="rgba(0,0,0,0.05)"/>
+</svg>

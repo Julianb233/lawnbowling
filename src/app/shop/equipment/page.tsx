@@ -254,7 +254,7 @@ export default function EquipmentPage() {
     <>
       {/* Hero */}
       <section className="mb-10 text-center">
-        <h1 className="text-3xl font-bold text-[#0A2E12] sm:text-4xl">
+        <h1 className="font-[family-name:var(--font-display)] text-4xl font-bold text-[#0A2E12] sm:text-5xl">
           Equipment & Gear Guide
         </h1>
         <p className="mx-auto mt-2 max-w-2xl text-[#3D5A3E]">

@@ -145,13 +145,8 @@ function accessoryVariants(type: "sticker" | "tote" | "towel" | "pin"): ProductV
 }
 
 // ---------------------------------------------------------------------------
-// Product data — placeholder images use solid color blocks via data-uri
+// Product data — illustrated SVG product images in /public/images/shop/
 // ---------------------------------------------------------------------------
-
-const placeholderImage = (bg: string, text: string) =>
-  `data:image/svg+xml,${encodeURIComponent(
-    `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect fill='${bg}' width='600' height='600'/><text x='50%' y='45%' fill='white' font-size='36' font-family='system-ui,sans-serif' text-anchor='middle' dominant-baseline='middle'>${text}</text><text x='50%' y='58%' fill='rgba(255,255,255,0.6)' font-size='18' font-family='system-ui,sans-serif' text-anchor='middle' dominant-baseline='middle'>Lawn Bowling Shop</text></svg>`
-  )}`;
 
 const BASE_TEE = 18;
 const BASE_HAT = 14;
@@ -172,7 +167,7 @@ export const PRODUCTS: Product[] = [
     category: "t-shirts",
     baseCost: BASE_TEE,
     price: markup(BASE_TEE),
-    image: placeholderImage("#1B5E20", "Jack High Tee"),
+    image: "/images/shop/tee-jack-high.svg",
     variants: teeVariants(),
     featured: true,
     tags: ["best-seller"],
@@ -186,7 +181,7 @@ export const PRODUCTS: Product[] = [
     category: "t-shirts",
     baseCost: BASE_TEE,
     price: markup(BASE_TEE),
-    image: placeholderImage("#2E7D32", "The Draw Shot"),
+    image: "/images/shop/tee-draw-shot.svg",
     variants: teeVariants(),
     tags: ["new"],
   },
@@ -199,7 +194,7 @@ export const PRODUCTS: Product[] = [
     category: "t-shirts",
     baseCost: BASE_TEE,
     price: markup(BASE_TEE),
-    image: placeholderImage("#388E3C", "Toucher! Tee"),
+    image: "/images/shop/tee-toucher.svg",
     variants: teeVariants(),
   },
   {
@@ -211,7 +206,7 @@ export const PRODUCTS: Product[] = [
     category: "t-shirts",
     baseCost: BASE_TEE,
     price: markup(BASE_TEE),
-    image: placeholderImage("#43A047", "Bias Is Life"),
+    image: "/images/shop/tee-bias-life.svg",
     variants: teeVariants(),
   },
 
@@ -225,7 +220,7 @@ export const PRODUCTS: Product[] = [
     category: "hats",
     baseCost: BASE_HAT,
     price: markup(BASE_HAT),
-    image: placeholderImage("#1565C0", "Greenkeeper Cap"),
+    image: "/images/shop/hat-greenkeeper.svg",
     variants: hatVariants(),
     featured: true,
   },
@@ -238,7 +233,7 @@ export const PRODUCTS: Product[] = [
     category: "hats",
     baseCost: BASE_HAT + 2,
     price: markup(BASE_HAT + 2),
-    image: placeholderImage("#0D47A1", "Skip Bucket Hat"),
+    image: "/images/shop/hat-skip-bucket.svg",
     variants: hatVariants(),
   },
   {
@@ -250,7 +245,7 @@ export const PRODUCTS: Product[] = [
     category: "hats",
     baseCost: BASE_HAT,
     price: markup(BASE_HAT),
-    image: placeholderImage("#1976D2", "Bowls Club Visor"),
+    image: "/images/shop/hat-visor.svg",
     variants: hatVariants(),
   },
 
@@ -264,7 +259,7 @@ export const PRODUCTS: Product[] = [
     category: "mugs",
     baseCost: BASE_MUG,
     price: markup(BASE_MUG),
-    image: placeholderImage("#6D4C41", "Morning End Mug"),
+    image: "/images/shop/mug-morning-end.svg",
     variants: mugVariants(),
     featured: true,
   },
@@ -277,7 +272,7 @@ export const PRODUCTS: Product[] = [
     category: "mugs",
     baseCost: BASE_MUG,
     price: markup(BASE_MUG),
-    image: placeholderImage("#5D4037", "Measure Up Mug"),
+    image: "/images/shop/mug-measure-up.svg",
     variants: mugVariants(),
   },
   {
@@ -289,7 +284,7 @@ export const PRODUCTS: Product[] = [
     category: "mugs",
     baseCost: BASE_MUG,
     price: markup(BASE_MUG),
-    image: placeholderImage("#4E342E", "Keep Calm & Bowl On"),
+    image: "/images/shop/mug-keep-calm.svg",
     variants: mugVariants(),
     tags: ["gift-idea"],
   },
@@ -304,7 +299,7 @@ export const PRODUCTS: Product[] = [
     category: "accessories",
     baseCost: BASE_STICKER,
     price: markup(BASE_STICKER),
-    image: placeholderImage("#F57C00", "Sticker Pack"),
+    image: "/images/shop/acc-sticker-pack.svg",
     variants: accessoryVariants("sticker"),
     tags: ["gift-idea"],
   },
@@ -317,7 +312,7 @@ export const PRODUCTS: Product[] = [
     category: "accessories",
     baseCost: BASE_TOTE,
     price: markup(BASE_TOTE),
-    image: placeholderImage("#E65100", "Green Tote"),
+    image: "/images/shop/acc-tote.svg",
     variants: accessoryVariants("tote"),
   },
   {
@@ -329,7 +324,7 @@ export const PRODUCTS: Product[] = [
     category: "accessories",
     baseCost: BASE_TOWEL,
     price: markup(BASE_TOWEL),
-    image: placeholderImage("#BF360C", "Bowler's Towel"),
+    image: "/images/shop/acc-towel.svg",
     variants: accessoryVariants("towel"),
   },
   {
@@ -341,7 +336,7 @@ export const PRODUCTS: Product[] = [
     category: "accessories",
     baseCost: BASE_PIN,
     price: markup(BASE_PIN),
-    image: placeholderImage("#D84315", "Enamel Pin"),
+    image: "/images/shop/acc-enamel-pin.svg",
     variants: accessoryVariants("pin"),
     tags: ["gift-idea"],
   },

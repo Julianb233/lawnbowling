@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5F0E6"/>
+      <stop offset="100%" stop-color="#E8E0D0"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#bg)" width="600" height="600"/>
+  <g transform="translate(300,300)">
+    <!-- Cap brim -->
+    <ellipse cx="0" cy="40" rx="130" ry="25" fill="#14491A"/>
+    <!-- Cap crown -->
+    <path d="M-100,40 Q-110,-30 -70,-70 Q-30,-100 0,-105 Q30,-100 70,-70 Q110,-30 100,40 Z" fill="#1B5E20"/>
+    <!-- Cap panel line -->
+    <path d="M0,-105 L0,40" stroke="#14491A" stroke-width="1.5" opacity="0.5"/>
+    <!-- Front panel seam -->
+    <path d="M-50,-85 Q0,-95 50,-85" fill="none" stroke="#14491A" stroke-width="1" opacity="0.4"/>
+    <!-- Embroidered bowl icon -->
+    <circle cx="0" cy="-25" r="20" fill="none" stroke="#A8D5BA" stroke-width="2.5"/>
+    <circle cx="0" cy="-25" r="14" fill="none" stroke="#A8D5BA" stroke-width="1.5"/>
+    <circle cx="0" cy="-25" r="4" fill="#A8D5BA"/>
+    <!-- Button on top -->
+    <circle cx="0" cy="-105" r="6" fill="#14491A"/>
+    <!-- Strap adjuster hint -->
+    <path d="M-80,40 Q-90,55 -70,60" fill="none" stroke="#14491A" stroke-width="2"/>
+  </g>
+  <ellipse cx="300" cy="420" rx="100" ry="10" fill="rgba(0,0,0,0.06)"/>
+</svg>

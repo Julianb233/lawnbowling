@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F0F5F1"/>
+      <stop offset="100%" stop-color="#E0E8E2"/>
+    </linearGradient>
+    <linearGradient id="mug" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#EDEDED"/>
+      <stop offset="50%" stop-color="#FAFAFA"/>
+      <stop offset="100%" stop-color="#E0E0E0"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#bg)" width="600" height="600"/>
+  <g transform="translate(280,300)">
+    <rect x="-80" y="-80" width="160" height="170" rx="8" fill="url(#mug)"/>
+    <ellipse cx="0" cy="90" rx="80" ry="8" fill="#D8D8D8"/>
+    <ellipse cx="0" cy="-80" rx="80" ry="10" fill="#EDEDED"/>
+    <ellipse cx="0" cy="-80" rx="75" ry="8" fill="#D5D5D5"/>
+    <path d="M80,-30 Q130,-30 130,20 Q130,70 80,70" fill="none" stroke="#D8D8D8" stroke-width="14" stroke-linecap="round"/>
+    <path d="M80,-30 Q125,-30 125,20 Q125,65 80,70" fill="none" stroke="#EDEDED" stroke-width="8" stroke-linecap="round"/>
+    <!-- Design: measuring tape graphic wrapping -->
+    <path d="M-60,-20 Q-40,-25 -20,-15 Q0,-5 20,-15 Q40,-25 60,-20" fill="none" stroke="#FFD54F" stroke-width="6" opacity="0.7"/>
+    <path d="M-60,10 Q-40,5 -20,15 Q0,25 20,15 Q40,5 60,10" fill="none" stroke="#FFD54F" stroke-width="6" opacity="0.7"/>
+    <!-- Tick marks on tape -->
+    <line x1="-40" y1="-22" x2="-40" y2="-16" stroke="#8B6914" stroke-width="1.5"/>
+    <line x1="-20" y1="-15" x2="-20" y2="-9" stroke="#8B6914" stroke-width="1.5"/>
+    <line x1="0" y1="-8" x2="0" y2="-2" stroke="#8B6914" stroke-width="1.5"/>
+    <line x1="20" y1="-15" x2="20" y2="-9" stroke="#8B6914" stroke-width="1.5"/>
+    <line x1="40" y1="-22" x2="40" y2="-16" stroke="#8B6914" stroke-width="1.5"/>
+    <!-- Text -->
+    <text x="0" y="-45" fill="#3D5A3E" font-size="10" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="bold" letter-spacing="2">DOES IT</text>
+    <text x="0" y="55" fill="#1B5E20" font-size="14" font-family="Georgia,serif" text-anchor="middle" font-weight="bold" letter-spacing="1">MEASURE UP?</text>
+    <!-- Steam -->
+    <path d="M-15,-100 Q-20,-120 -10,-130" fill="none" stroke="#CCC" stroke-width="2" opacity="0.3"/>
+    <path d="M5,-100 Q10,-120 0,-130" fill="none" stroke="#CCC" stroke-width="2" opacity="0.3"/>
+  </g>
+  <ellipse cx="300" cy="430" rx="100" ry="10" fill="rgba(0,0,0,0.06)"/>
+</svg>

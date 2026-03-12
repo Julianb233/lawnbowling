@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F0F5F1"/>
+      <stop offset="100%" stop-color="#E0E8E2"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#bg)" width="600" height="600"/>
+  <g transform="translate(300,290)">
+    <!-- Bucket hat brim -->
+    <ellipse cx="0" cy="30" rx="140" ry="30" fill="#0D3D15"/>
+    <!-- Crown -->
+    <path d="M-90,30 Q-95,-20 -80,-50 Q-50,-80 0,-85 Q50,-80 80,-50 Q95,-20 90,30 Z" fill="#1B5E20"/>
+    <!-- Band -->
+    <path d="M-90,10 Q0,25 90,10 Q0,-5 -90,10 Z" fill="#14491A"/>
+    <!-- Embroidered text on band -->
+    <text x="0" y="15" fill="#A8D5BA" font-size="10" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="bold" letter-spacing="3">SKIP</text>
+    <!-- Top gather -->
+    <circle cx="0" cy="-85" r="5" fill="#14491A"/>
+    <!-- Stitch lines -->
+    <path d="M-60,-65 Q0,-75 60,-65" fill="none" stroke="#14491A" stroke-width="1" opacity="0.4"/>
+    <path d="M-75,-45 Q0,-55 75,-45" fill="none" stroke="#14491A" stroke-width="1" opacity="0.4"/>
+  </g>
+  <ellipse cx="300" cy="400" rx="100" ry="10" fill="rgba(0,0,0,0.06)"/>
+</svg>

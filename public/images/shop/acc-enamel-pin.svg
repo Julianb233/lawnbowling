@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5F0E6"/>
+      <stop offset="100%" stop-color="#E8E0D0"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D4A843"/>
+      <stop offset="50%" stop-color="#F0D060"/>
+      <stop offset="100%" stop-color="#C4952E"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#bg)" width="600" height="600"/>
+  <g transform="translate(300,290)">
+    <!-- Pin shadow -->
+    <ellipse cx="5" cy="85" rx="65" ry="8" fill="rgba(0,0,0,0.08)"/>
+    <!-- Pin body -->
+    <circle cx="0" cy="0" r="75" fill="url(#gold)"/>
+    <circle cx="0" cy="0" r="70" fill="#1B5E20"/>
+    <!-- Inner gold ring -->
+    <circle cx="0" cy="0" r="60" fill="none" stroke="#D4A843" stroke-width="2"/>
+    <!-- Bowl illustration -->
+    <circle cx="-10" cy="-5" r="22" fill="#2E7D32" stroke="#A8D5BA" stroke-width="2"/>
+    <circle cx="-10" cy="-5" r="15" fill="#388E3C"/>
+    <circle cx="-10" cy="-5" r="5" fill="#A8D5BA"/>
+    <!-- Jack -->
+    <circle cx="20" cy="10" r="8" fill="#FFD54F"/>
+    <circle cx="20" cy="10" r="5" fill="#FFC107"/>
+    <!-- Text arc - simplified -->
+    <text x="0" y="45" fill="#A8D5BA" font-size="10" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="bold" letter-spacing="3">LAWN BOWLS</text>
+    <!-- Pin clasp hint on back -->
+    <rect x="-5" y="75" width="10" height="8" rx="2" fill="#C4952E"/>
+  </g>
+</svg>

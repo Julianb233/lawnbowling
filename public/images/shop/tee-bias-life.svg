@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EDE7DB"/>
+      <stop offset="100%" stop-color="#DDD5C8"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#bg)" width="600" height="600"/>
+  <g transform="translate(300,310) scale(1.1)">
+    <path d="M-130,-120 L-180,-80 L-140,-20 L-100,-60 Z" fill="#1A237E"/>
+    <path d="M130,-120 L180,-80 L140,-20 L100,-60 Z" fill="#1A237E"/>
+    <path d="M-100,-60 L-100,140 Q-100,160 -80,160 L80,160 Q100,160 100,140 L100,-60 L130,-120 Q80,-150 40,-150 L20,-130 Q0,-115 -20,-130 L-40,-150 Q-80,-150 -130,-120 Z" fill="#1A237E"/>
+    <path d="M-20,-130 Q0,-115 20,-130 L40,-150 Q0,-165 -40,-150 Z" fill="#141E6B"/>
+    <!-- BIAS IS LIFE text stack -->
+    <text x="0" y="-25" fill="#FFD54F" font-size="15" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="300" letter-spacing="6">BIAS</text>
+    <text x="0" y="5" fill="#FFFFFF" font-size="11" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="300" letter-spacing="4">IS</text>
+    <text x="0" y="40" fill="#FFD54F" font-size="28" font-family="Georgia,serif" text-anchor="middle" font-weight="900" letter-spacing="5">LIFE</text>
+    <!-- Curved bias line -->
+    <path d="M-50,65 Q-20,55 0,60 Q20,65 50,55" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <!-- Small bowl showing bias -->
+    <circle cx="50" cy="55" r="5" fill="rgba(255,213,79,0.6)"/>
+  </g>
+  <ellipse cx="300" cy="530" rx="120" ry="12" fill="rgba(0,0,0,0.06)"/>
+</svg>

@@ -95,7 +95,7 @@ export function ProductDetail({ product }: { product: Product }) {
                     className={`size-10 rounded-full border-2 transition ${
                       selectedColor === label
                         ? "border-[#1B5E20] ring-2 ring-[#1B5E20]/30"
-                        : "border-gray-300 hover:border-gray-400"
+                        : "border-[#0A2E12]/15 hover:border-[#0A2E12]/20"
                     }`}
                     style={{ backgroundColor: hex }}
                     title={label}
@@ -118,7 +118,7 @@ export function ProductDetail({ product }: { product: Product }) {
                     className={`rounded-lg border px-4 py-2 text-sm font-medium transition ${
                       selectedSize === size
                         ? "border-[#1B5E20] bg-[#1B5E20] text-white"
-                        : "border-gray-300 bg-white text-[#3D5A3E] hover:border-gray-400"
+                        : "border-[#0A2E12]/15 bg-white text-[#3D5A3E] hover:border-[#0A2E12]/20"
                     }`}
                   >
                     {size}

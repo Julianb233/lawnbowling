@@ -25,11 +25,11 @@ export function ShopCatalog() {
   return (
     <>
       {/* Hero */}
-      <section className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-[#0A2E12] sm:text-4xl">
+      <section className="mb-10 text-center">
+        <h1 className="font-[family-name:var(--font-display)] text-4xl font-bold text-[#0A2E12] sm:text-5xl">
           Lawn Bowling Merch
         </h1>
-        <p className="mt-2 text-[#3D5A3E]">
+        <p className="mx-auto mt-3 max-w-lg text-lg text-[#3D5A3E]">
           Unique apparel and gifts for bowlers. Printed on demand, shipped
           worldwide.
         </p>
@@ -64,7 +64,7 @@ export function ShopCatalog() {
       </div>
 
       {/* Product grid */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
         {filtered.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

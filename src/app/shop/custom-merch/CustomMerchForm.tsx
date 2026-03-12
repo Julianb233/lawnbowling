@@ -120,8 +120,8 @@ export function CustomMerchForm() {
     return (
       <div className="mx-auto max-w-lg py-20 text-center">
         <CheckCircle2 className="mx-auto mb-4 size-16 text-[#1B5E20]" />
-        <h1 className="text-2xl font-bold text-gray-900">Request Received!</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-2xl font-bold text-[#0A2E12]">Request Received!</h1>
+        <p className="mt-2 text-[#3D5A3E]">
           Thank you, {form.contactName}! We will get back to{" "}
           <strong>{form.clubName}</strong> within 2 business days with a custom
           quote and mockups for your merchandise.
@@ -140,7 +140,7 @@ export function CustomMerchForm() {
     <div>
       <Link
         href="/shop"
-        className="mb-6 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-[#1B5E20]"
+        className="mb-6 inline-flex items-center gap-1 text-sm text-[#3D5A3E]/70 hover:text-[#1B5E20]"
       >
         <ChevronLeft className="size-4" />
         Back to Shop
@@ -148,10 +148,10 @@ export function CustomMerchForm() {
 
       {/* Hero */}
       <section className="mb-10 text-center">
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h1 className="font-[family-name:var(--font-display)] text-4xl font-bold text-[#0A2E12] sm:text-5xl">
           Custom Club Merch
         </h1>
-        <p className="mx-auto mt-2 max-w-2xl text-gray-600">
+        <p className="mx-auto mt-3 max-w-2xl text-[#3D5A3E]">
           Get branded merchandise for your lawn bowling club. Custom t-shirts,
           hats, mugs, and more with your club logo and colors. Minimum orders
           start at just 6 items.
@@ -184,8 +184,8 @@ export function CustomMerchForm() {
             <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-[#1B5E20]/10 text-[#1B5E20]">
               {b.icon}
             </div>
-            <h3 className="font-semibold text-gray-900">{b.title}</h3>
-            <p className="mt-1 text-sm text-gray-600">{b.desc}</p>
+            <h3 className="font-semibold text-[#0A2E12]">{b.title}</h3>
+            <p className="mt-1 text-sm text-[#3D5A3E]">{b.desc}</p>
           </div>
         ))}
       </div>
@@ -195,14 +195,14 @@ export function CustomMerchForm() {
         onSubmit={handleSubmit}
         className="mx-auto max-w-2xl rounded-xl border bg-white p-6 shadow-sm sm:p-10"
       >
-        <h2 className="mb-6 text-xl font-bold text-gray-900">
+        <h2 className="mb-6 text-xl font-bold text-[#0A2E12]">
           Request a Quote
         </h2>
 
         {/* Club info */}
         <div className="mb-6 grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-[#2D4A30]">
               Club Name *
             </label>
             <input
@@ -217,7 +217,7 @@ export function CustomMerchForm() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-[#2D4A30]">
               Contact Name *
             </label>
             <input
@@ -231,7 +231,7 @@ export function CustomMerchForm() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-[#2D4A30]">
               Email *
             </label>
             <input
@@ -245,7 +245,7 @@ export function CustomMerchForm() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-[#2D4A30]">
               Phone
             </label>
             <input
@@ -261,7 +261,7 @@ export function CustomMerchForm() {
 
         {/* Product selection */}
         <div className="mb-6">
-          <label className="mb-2 block text-sm font-medium text-gray-700">
+          <label className="mb-2 block text-sm font-medium text-[#2D4A30]">
             Select Items *
           </label>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -273,29 +273,29 @@ export function CustomMerchForm() {
                 className={`flex items-start gap-3 rounded-lg border p-3 text-left transition ${
                   form.selectedItems.includes(opt.id)
                     ? "border-[#1B5E20] bg-[#1B5E20]/5 ring-1 ring-[#1B5E20]"
-                    : "border-gray-200 hover:border-gray-300"
+                    : "border-[#0A2E12]/10 hover:border-[#0A2E12]/15"
                 }`}
               >
                 <div
                   className={`flex size-8 items-center justify-center rounded-lg ${
                     form.selectedItems.includes(opt.id)
                       ? "bg-[#1B5E20] text-white"
-                      : "bg-gray-100 text-gray-500"
+                      : "bg-[#0A2E12]/5 text-[#3D5A3E]/70"
                   }`}
                 >
                   {opt.icon}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-900">
+                    <span className="text-sm font-medium text-[#0A2E12]">
                       {opt.label}
                     </span>
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-[#3D5A3E]/70">
                       {opt.priceRange}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500">{opt.description}</p>
-                  <p className="mt-0.5 text-[11px] text-gray-400">
+                  <p className="text-xs text-[#3D5A3E]/70">{opt.description}</p>
+                  <p className="mt-0.5 text-[11px] text-[#3D5A3E]/50">
                     Min. {opt.minQty} units
                   </p>
                 </div>
@@ -307,7 +307,7 @@ export function CustomMerchForm() {
         {/* Quantity and details */}
         <div className="mb-6 grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-[#2D4A30]">
               Estimated Quantity (per item)
             </label>
             <select
@@ -325,7 +325,7 @@ export function CustomMerchForm() {
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-[#2D4A30]">
               Club Colors
             </label>
             <input
@@ -342,7 +342,7 @@ export function CustomMerchForm() {
 
         {/* Logo */}
         <div className="mb-6">
-          <label className="mb-2 block text-sm font-medium text-gray-700">
+          <label className="mb-2 block text-sm font-medium text-[#2D4A30]">
             Do you have a club logo?
           </label>
           <div className="flex gap-4">
@@ -368,7 +368,7 @@ export function CustomMerchForm() {
             </label>
           </div>
           {form.hasLogo && (
-            <div className="mt-3 flex items-center gap-3 rounded-lg border-2 border-dashed border-gray-300 p-4 text-sm text-gray-500">
+            <div className="mt-3 flex items-center gap-3 rounded-lg border-2 border-dashed border-[#0A2E12]/15 p-4 text-sm text-[#3D5A3E]/70">
               <Upload className="size-5 flex-shrink-0" />
               <span>
                 Upload your logo after we confirm your quote. We accept PNG, SVG,
@@ -380,7 +380,7 @@ export function CustomMerchForm() {
 
         {/* Notes */}
         <div className="mb-8">
-          <label className="mb-1 block text-sm font-medium text-gray-700">
+          <label className="mb-1 block text-sm font-medium text-[#2D4A30]">
             <MessageSquare className="mr-1 inline size-4" />
             Additional Notes
           </label>
@@ -416,7 +416,7 @@ export function CustomMerchForm() {
           )}
         </button>
 
-        <p className="mt-3 text-center text-xs text-gray-400">
+        <p className="mt-3 text-center text-xs text-[#3D5A3E]/50">
           We will reply within 2 business days with pricing, mockups, and next
           steps.
         </p>
