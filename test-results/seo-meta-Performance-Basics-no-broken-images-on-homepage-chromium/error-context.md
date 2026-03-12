@@ -1,0 +1,214 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - button "Switch to dark mode" [ref=e3]:
+    - img [ref=e4]
+  - generic [ref=e6]:
+    - navigation [ref=e7]:
+      - generic [ref=e8]:
+        - generic [ref=e9]:
+          - img "Lawnbowling logo" [ref=e10]
+          - generic [ref=e11]: Lawnbowling
+        - generic [ref=e12]:
+          - link "Clubs" [ref=e13] [cursor=pointer]:
+            - /url: /clubs
+          - link "Learn" [ref=e14] [cursor=pointer]:
+            - /url: /learn
+          - link "Shop" [ref=e15] [cursor=pointer]:
+            - /url: /shop
+          - link "Sign In" [ref=e16] [cursor=pointer]:
+            - /url: /login
+          - link "Get Started" [ref=e17] [cursor=pointer]:
+            - /url: /signup
+    - generic [ref=e18]:
+      - img "Friends laughing together on a bowling green at golden hour" [ref=e20]
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - paragraph [ref=e26]: "The #1 Lawn Bowling Platform"
+          - heading "Where friendships roll." [level=1] [ref=e27]
+          - paragraph [ref=e28]: Tournament management, live scoring, and club tools — all from the clubhouse iPad.
+        - generic [ref=e30]:
+          - link "Start Free" [ref=e31] [cursor=pointer]:
+            - /url: /signup
+            - text: Start Free
+            - img [ref=e32]
+          - link "Find a Club" [ref=e34] [cursor=pointer]:
+            - /url: /clubs
+            - img [ref=e35]
+            - text: Find a Club
+    - generic [ref=e38]:
+      - generic [ref=e40]:
+        - heading "Trusted by Clubs Across America" [level=2] [ref=e41]
+        - paragraph [ref=e42]: Join the community making lawn bowling simple
+      - generic [ref=e43]:
+        - generic [ref=e45]:
+          - generic [ref=e47]: 100+
+          - generic [ref=e48]: Clubs Listed
+        - generic [ref=e50]:
+          - generic [ref=e52]: "50"
+          - generic [ref=e53]: US States
+        - generic [ref=e55]:
+          - generic [ref=e57]: 80+
+          - generic [ref=e58]: Glossary Terms
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - generic [ref=e62]: "4.9"
+            - img [ref=e63]
+          - generic [ref=e65]: Rating
+    - generic [ref=e67]:
+      - img "Lawn bowlers sharing a moment on the green" [ref=e70]
+      - generic [ref=e72]:
+        - paragraph [ref=e73]: More than a game
+        - heading "Community on the green" [level=2] [ref=e74]
+        - paragraph [ref=e75]: Lawn bowling is about the people as much as the sport. From social roll-ups to competitive tournaments, every session ends with a handshake and a story.
+    - generic [ref=e76]:
+      - generic [ref=e78]:
+        - heading "Everything Your Club Needs" [level=2] [ref=e79]
+        - paragraph [ref=e80]: Built for lawn bowling clubs, designed for bowlers
+      - generic [ref=e81]:
+        - generic [ref=e83]:
+          - img [ref=e85]
+          - heading "Tournament Draw" [level=3] [ref=e91]
+          - paragraph [ref=e92]: Automatic draw generation for Singles, Pairs, Triples, and Fours. Multiple rotation formats.
+        - generic [ref=e94]:
+          - img [ref=e96]
+          - heading "Live Scoring" [level=3] [ref=e98]
+          - paragraph [ref=e99]: Score entry per end, per rink, in real-time. Results calculated automatically.
+        - generic [ref=e101]:
+          - img [ref=e103]
+          - heading "Club Directory" [level=3] [ref=e106]
+          - paragraph [ref=e107]: Browse 100+ lawn bowling clubs across the USA. Find your nearest green.
+        - generic [ref=e109]:
+          - img [ref=e111]
+          - heading "Learn to Bowl" [level=3] [ref=e113]
+          - paragraph [ref=e114]: Comprehensive guides covering rules, positions, formats, equipment, and glossary.
+    - generic [ref=e115]:
+      - generic [ref=e117]:
+        - heading "How It Works" [level=2] [ref=e118]
+        - paragraph [ref=e119]: Tournament day, simplified
+      - generic [ref=e120]:
+        - generic [ref=e122]:
+          - text: "01"
+          - generic [ref=e123]:
+            - img [ref=e124]
+            - heading "Check In" [level=3] [ref=e127]
+          - paragraph [ref=e128]: Players check in at the clubhouse iPad or on their phone. Select your preferred position.
+        - generic [ref=e130]:
+          - text: "02"
+          - generic [ref=e131]:
+            - img [ref=e132]
+            - heading "Generate Draw" [level=3] [ref=e137]
+          - paragraph [ref=e138]: The drawmaster taps one button. Teams are formed, rinks assigned, positions balanced.
+        - generic [ref=e140]:
+          - text: "03"
+          - generic [ref=e141]:
+            - img [ref=e142]
+            - heading "Play & Score" [level=3] [ref=e148]
+          - paragraph [ref=e149]: Enter scores end-by-end on the iPad. Results calculate automatically. Stats update live.
+    - generic [ref=e151]:
+      - generic [ref=e153]:
+        - paragraph [ref=e154]: The clubhouse experience
+        - heading "Golden hour on the green" [level=2] [ref=e155]
+        - paragraph [ref=e156]: There's nothing quite like the late afternoon light across a freshly-cut bowling green. Lawnbowling helps clubs focus on what matters — the game and the company.
+      - img "Clubhouse at golden hour" [ref=e159]
+    - generic [ref=e160]:
+      - heading "What Bowlers Say" [level=2] [ref=e163]
+      - generic [ref=e164]:
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - img [ref=e168]
+            - img [ref=e170]
+            - img [ref=e172]
+            - img [ref=e174]
+            - img [ref=e176]
+          - paragraph [ref=e178]: “We replaced the paper draw sheet and everyone loves it. The iPad makes tournament day a breeze.”
+          - generic [ref=e179]:
+            - generic [ref=e180]: M
+            - generic [ref=e181]:
+              - generic [ref=e182]: Margaret H.
+              - generic [ref=e183]: Club Secretary
+        - generic [ref=e185]:
+          - generic [ref=e186]:
+            - img [ref=e187]
+            - img [ref=e189]
+            - img [ref=e191]
+            - img [ref=e193]
+            - img [ref=e195]
+          - paragraph [ref=e197]: “Being able to check in on my phone and see my rink assignment right away is brilliant. No more crowding the noticeboard.”
+          - generic [ref=e198]:
+            - generic [ref=e199]: B
+            - generic [ref=e200]:
+              - generic [ref=e201]: Bob T.
+              - generic [ref=e202]: Club Bowler
+        - generic [ref=e204]:
+          - generic [ref=e205]:
+            - img [ref=e206]
+            - img [ref=e208]
+            - img [ref=e210]
+            - img [ref=e212]
+            - img [ref=e214]
+          - paragraph [ref=e216]: “The learning hub helped my grandchildren understand the sport. Now they want to come bowl every weekend!”
+          - generic [ref=e217]:
+            - generic [ref=e218]: P
+            - generic [ref=e219]:
+              - generic [ref=e220]: Patricia L.
+              - generic [ref=e221]: Life Member
+    - generic [ref=e225]:
+      - generic [ref=e226]:
+        - generic [ref=e227]:
+          - img [ref=e228]
+          - generic [ref=e230]: Works Everywhere
+        - heading "iPad Kiosk. Phone Personal." [level=2] [ref=e231]
+        - paragraph [ref=e232]: Set up an iPad at the clubhouse as a shared check-in kiosk. Players can also use their own phones — install the PWA for an app-like experience with no download required.
+        - list [ref=e233]:
+          - listitem [ref=e234]:
+            - img [ref=e235]
+            - text: Install via 'Add to Home Screen'
+          - listitem [ref=e238]:
+            - img [ref=e239]
+            - text: Works offline with cached data
+          - listitem [ref=e242]:
+            - img [ref=e243]
+            - text: iPad landscape kiosk mode
+          - listitem [ref=e246]:
+            - img [ref=e247]
+            - text: iPhone portrait personal mode
+      - generic [ref=e254]:
+        - generic [ref=e255]: Lawnbowling
+        - generic [ref=e258]: Live
+    - generic [ref=e287]:
+      - img "Celebration on the green" [ref=e288]
+      - generic [ref=e290]:
+        - heading "Ready to modernize your club?" [level=2] [ref=e291]
+        - paragraph [ref=e292]: Lawnbowling replaces the paper draw sheet. No more confusion, no more headaches on tournament day.
+        - generic [ref=e293]:
+          - link "Start Free" [ref=e294] [cursor=pointer]:
+            - /url: /signup
+          - link "Find a Club" [ref=e295] [cursor=pointer]:
+            - /url: /clubs
+    - contentinfo [ref=e296]:
+      - generic [ref=e297]:
+        - generic [ref=e298]:
+          - img "Lawnbowling logo" [ref=e299]
+          - generic [ref=e300]: Lawnbowling
+        - generic [ref=e301]:
+          - link "Clubs" [ref=e302] [cursor=pointer]:
+            - /url: /clubs
+          - link "Learn" [ref=e303] [cursor=pointer]:
+            - /url: /learn
+          - link "Shop" [ref=e304] [cursor=pointer]:
+            - /url: /shop
+          - link "Blog" [ref=e305] [cursor=pointer]:
+            - /url: /blog
+          - link "Insurance" [ref=e306] [cursor=pointer]:
+            - /url: /insurance
+          - link "About" [ref=e307] [cursor=pointer]:
+            - /url: /about
+          - link "Terms" [ref=e308] [cursor=pointer]:
+            - /url: /terms
+          - link "Privacy" [ref=e309] [cursor=pointer]:
+            - /url: /privacy
+        - generic [ref=e310]: © 2026 Lawnbowling
+  - alert [ref=e311]
+```
