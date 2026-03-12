@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
 import { sendEmail } from "@/lib/email/send";
 import { welcomeEmail } from "@/lib/email/templates/welcome";
 import { matchReminderEmail } from "@/lib/email/templates/match-reminder";
@@ -19,6 +20,13 @@ const TEMPLATES: Record<string, (data: Record<string, string | number>) => { sub
 };
 
 export async function POST(req: NextRequest) {
+  // Require authentication to prevent open relay abuse
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { to, template, data } = await req.json();
 
   if (!to || !template) {

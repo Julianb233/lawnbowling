@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
-import { createClient } from "@/lib/supabase/server";
+import { createClient as createSupabaseServiceClient } from "@supabase/supabase-js";
 import {
   isPrintifyConfigured,
   createOrder,
@@ -22,14 +22,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  const supabase = await createClient();
+  // Use service role client to bypass RLS — webhooks have no user session
+  const supabase = createSupabaseServiceClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
 
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
 
       // Handle shop orders — forward to Printify for fulfillment
-      if (session.metadata?.source === "shop") {
+      if (session.metadata?.source === "lawnbowl-shop") {
         await handleShopOrder(session);
         break;
       }

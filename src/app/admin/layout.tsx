@@ -5,12 +5,18 @@ import { AdminShell } from "./AdminShell";
 const navItems = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/venues", label: "Venues" },
-  { href: "/admin/venue", label: "Settings" },
+  { href: "/admin/venue", label: "Venue Settings" },
   { href: "/admin/courts", label: "Courts" },
   { href: "/admin/players", label: "Players" },
+  { href: "/admin/matches", label: "Matches" },
   { href: "/admin/waivers", label: "Waivers" },
   { href: "/admin/waiver-templates", label: "Templates" },
-  { href: "/admin/matches", label: "Matches" },
+  { href: "/admin/claims", label: "Claims" },
+  { href: "/admin/analytics", label: "Analytics" },
+  { href: "/admin/reports", label: "Reports" },
+  { href: "/admin/insurance", label: "Insurance" },
+  { href: "/admin/branding", label: "Branding" },
+  { href: "/admin/kiosk-settings", label: "Kiosk" },
   { href: "/admin/venue-qr", label: "QR Codes" },
 ];
 
