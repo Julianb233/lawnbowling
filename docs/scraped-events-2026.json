@@ -1,0 +1,1511 @@
+[
+  {
+    "id": "usa-001",
+    "event_name": "Americas Region World Championship Qualifier (AQT)",
+    "dates": {
+      "start": "2026-03-02",
+      "end": "2026-03-06",
+      "practice_days": ["2026-02-28", "2026-03-01"]
+    },
+    "location": {
+      "club_name": "Long Beach Lawn Bowling Club",
+      "address": "1109 Federation Drive",
+      "city": "Long Beach",
+      "state": "CA",
+      "country": "USA",
+      "zip": "90804"
+    },
+    "event_type": "international_qualifier",
+    "format": ["singles", "pairs", "triples", "fours"],
+    "gender": "open (men and women)",
+    "description": "Historic first Americas Region World Championship Qualifier. Five countries compete: USA, Canada, Jamaica, Brazil, and Argentina. Determines Americas region qualification spots for the 2027 World Championships in Leamington Spa, England. Silver tier World Bowls Series sanctioned ranking event.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.bowlsusa.us/international.html",
+    "source_url": "https://www.worldbowls.com/americas-region-world-championships-qualifier-preview/",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-001",
+    "event_name": "2026 SWD Mumma Mixed Pairs",
+    "dates": {
+      "start": "2026-02-28",
+      "end": "2026-02-28"
+    },
+    "location": {
+      "club_name": "Riverside Lawn Bowling Club",
+      "address": "2601 Fairmount Boulevard",
+      "city": "Riverside",
+      "state": "CA",
+      "country": "USA",
+      "zip": "92501"
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "mixed",
+    "description": "Southwest Division mixed pairs tournament, first SWD event of the 2026 season.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-002",
+    "event_name": "2026 SWD Men's So Cal Rinks",
+    "dates": {
+      "start": "2026-03-14",
+      "end": "2026-03-15"
+    },
+    "location": {
+      "club_name": "Santa Monica Lawn Bowls Club",
+      "address": "2439 Wilshire Boulevard",
+      "city": "Santa Monica",
+      "state": "CA",
+      "country": "USA",
+      "zip": "90403"
+    },
+    "event_type": "tournament",
+    "format": ["fours"],
+    "gender": "men",
+    "description": "Two-day Southwest Division men's rinks (fours) championship in Southern California.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-003",
+    "event_name": "2026 SWD Women - Cal 5s",
+    "dates": {
+      "start": "2026-03-14",
+      "end": "2026-03-14",
+      "time": "09:00-17:00"
+    },
+    "location": {
+      "club_name": "Laguna Beach Lawn Bowling Club",
+      "address": "455 Cliff Drive",
+      "city": "Laguna Beach",
+      "state": "CA",
+      "country": "USA",
+      "zip": "92651"
+    },
+    "event_type": "tournament",
+    "format": ["5-bowl singles"],
+    "gender": "women",
+    "description": "Southwest Division women's California 5-bowl competition.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-004",
+    "event_name": "Annual Pat Gonzales Carnival",
+    "dates": {
+      "start": "2026-03-21",
+      "end": "2026-03-21",
+      "time": "09:00-17:00"
+    },
+    "location": {
+      "club_name": "Long Beach Lawn Bowling Club",
+      "address": "1109 Federation Drive",
+      "city": "Long Beach",
+      "state": "CA",
+      "country": "USA",
+      "zip": "90804"
+    },
+    "event_type": "tournament",
+    "format": ["mixed"],
+    "gender": "open",
+    "description": "Annual carnival-style tournament at Long Beach, named in honor of Pat Gonzales.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-005",
+    "event_name": "2026 Sun City Aussie Pairs",
+    "dates": {
+      "start": "2026-03-22",
+      "end": "2026-03-22",
+      "time": "09:00-17:00"
+    },
+    "location": {
+      "club_name": "Sun City Lawn Bowling Club",
+      "address": null,
+      "city": "Menifee",
+      "state": "CA",
+      "country": "USA",
+      "zip": "92586"
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "open",
+    "description": "Australian-format pairs tournament hosted by Sun City Lawn Bowling Club.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-006",
+    "event_name": "2026 SWD Mixed Pairs",
+    "dates": {
+      "start": "2026-03-28",
+      "end": "2026-03-28"
+    },
+    "location": {
+      "club_name": "Laguna Woods Lawn Bowling Club",
+      "address": null,
+      "city": "Laguna Woods",
+      "state": "CA",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "mixed",
+    "description": "Southwest Division official mixed pairs championship.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-007",
+    "event_name": "2026 Newport Classic - Mixed Triples",
+    "dates": {
+      "start": "2026-03-29",
+      "end": "2026-03-29",
+      "time": "09:00-17:00"
+    },
+    "location": {
+      "club_name": "Newport Harbor Lawn Bowling Club",
+      "address": "1550 Crown Drive North",
+      "city": "Newport Beach",
+      "state": "CA",
+      "country": "USA",
+      "zip": "92625"
+    },
+    "event_type": "tournament",
+    "format": ["triples"],
+    "gender": "mixed",
+    "description": "Newport Classic mixed triples tournament at Newport Harbor Lawn Bowling Club.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-008",
+    "event_name": "2026 SWD Men's Murray-Allison Singles",
+    "dates": {
+      "start": "2026-04-11",
+      "end": "2026-04-12"
+    },
+    "location": {
+      "club_name": "Riverside Lawn Bowling Club",
+      "address": "2601 Fairmount Boulevard",
+      "city": "Riverside",
+      "state": "CA",
+      "country": "USA",
+      "zip": "92501"
+    },
+    "event_type": "tournament",
+    "format": ["singles"],
+    "gender": "men",
+    "description": "Two-day Southwest Division men's singles championship named in honor of Murray-Allison.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-009",
+    "event_name": "2026 SWD Women's Vet/Novice Triples",
+    "dates": {
+      "start": "2026-04-11",
+      "end": "2026-04-11",
+      "time": "09:00-17:00"
+    },
+    "location": {
+      "club_name": "Oaks North Lawn Bowls Club",
+      "address": null,
+      "city": "San Diego",
+      "state": "CA",
+      "country": "USA",
+      "zip": "92128"
+    },
+    "event_type": "tournament",
+    "format": ["triples"],
+    "gender": "women",
+    "description": "Southwest Division women's veteran/novice triples, pairing experienced players with newcomers.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-010",
+    "event_name": "2026 SWD Women's Heidi Rittner Australian Pairs",
+    "dates": {
+      "start": "2026-04-12",
+      "end": "2026-04-12",
+      "time": "09:00-17:00"
+    },
+    "location": {
+      "club_name": "Long Beach Lawn Bowling Club",
+      "address": "1109 Federation Drive",
+      "city": "Long Beach",
+      "state": "CA",
+      "country": "USA",
+      "zip": "90804"
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "women",
+    "description": "Southwest Division women's Australian format pairs tournament, named in honor of Heidi Rittner.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-011",
+    "event_name": "2026 Joe Siegman Pairs",
+    "dates": {
+      "start": "2026-05-03",
+      "end": "2026-05-03",
+      "time": "09:00-17:00"
+    },
+    "location": {
+      "club_name": "Beverly Hills Lawn Bowling Club",
+      "address": "401 South Roxbury Drive",
+      "city": "Beverly Hills",
+      "state": "CA",
+      "country": "USA",
+      "zip": "90212"
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "open",
+    "description": "Annual Joe Siegman Pairs tournament at Beverly Hills Lawn Bowling Club with cash prizes.",
+    "entry_fee": "$100 per team",
+    "prize_pool": "$2,000 total",
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "swd-012",
+    "event_name": "24th Jack Beckley Friendship Tournament",
+    "dates": {
+      "start": "2026-05-17",
+      "end": "2026-05-17"
+    },
+    "location": {
+      "club_name": "Santa Monica Lawn Bowls Club",
+      "address": "2439 Wilshire Boulevard",
+      "city": "Santa Monica",
+      "state": "CA",
+      "country": "USA",
+      "zip": "90403"
+    },
+    "event_type": "tournament",
+    "format": ["mixed"],
+    "gender": "open",
+    "description": "24th edition of the Jack Beckley Friendship Tournament, a social competitive event celebrating the sport.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "source_url": "https://www.swlawnbowls.org/2026-tournaments-events",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "ned-001",
+    "event_name": "36th New York State Masters Championship",
+    "dates": {
+      "rounds": [
+        {"start": "2026-04-10", "end": "2026-04-12"},
+        {"start": "2026-04-17", "end": "2026-04-19"},
+        {"start": "2026-04-24", "end": "2026-04-26"},
+        {"start": "2026-05-15", "end": "2026-05-17"}
+      ]
+    },
+    "location": {
+      "club_name": "Northeast Division",
+      "address": null,
+      "city": "New York",
+      "state": "NY",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "tournament",
+    "format": ["singles", "pairs", "triples", "fours"],
+    "gender": "open",
+    "description": "36th edition of the New York State Masters Championship, played across multiple weekends in April and May.",
+    "entry_fee": null,
+    "contact": null,
+    "registration_url": "https://www.bowlsnortheast.com/",
+    "source_url": "https://www.bowlsnortheast.com/",
+    "region": "Northeast Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-001",
+    "event_name": "JP Team Tournament",
+    "dates": {
+      "start": "2026-05-16",
+      "end": "2026-05-17"
+    },
+    "location": {
+      "club_name": "Jefferson Park Lawn Bowling Club",
+      "address": "4103 Beacon Avenue S.",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA",
+      "zip": "98108"
+    },
+    "event_type": "tournament",
+    "format": ["fives team"],
+    "gender": "open",
+    "description": "Jefferson Park Club team tournament. Teams of 5 compete in 3 twelve-end games per day over two days.",
+    "entry_fee": "$10 per person per day",
+    "eligibility": "JPLBC members and associates",
+    "contact": "tournaments@seattlebowls.org",
+    "registration_url": "https://seattlebowls.org/tournaments",
+    "source_url": "https://seattlebowls.org/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-002",
+    "event_name": "JP Singles Championship",
+    "dates": {
+      "start": "2026-06-13",
+      "end": "2026-06-14"
+    },
+    "location": {
+      "club_name": "Jefferson Park Lawn Bowling Club",
+      "address": "4103 Beacon Avenue S.",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA",
+      "zip": "98108"
+    },
+    "event_type": "tournament",
+    "format": ["singles"],
+    "gender": "open",
+    "description": "Jefferson Park Club two-day singles championship.",
+    "entry_fee": "$20 per person",
+    "eligibility": "JPLBC members",
+    "contact": "tournaments@seattlebowls.org",
+    "registration_url": "https://seattlebowls.org/tournaments",
+    "source_url": "https://seattlebowls.org/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-003",
+    "event_name": "Mixed Pairs Open",
+    "dates": {
+      "start": "2026-06-20",
+      "end": "2026-06-20"
+    },
+    "location": {
+      "club_name": "Jefferson Park Lawn Bowling Club",
+      "address": "4103 Beacon Avenue S.",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA",
+      "zip": "98108"
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "mixed",
+    "description": "One-day mixed pairs open event. 4 games. Teams must include one player of each gender. Open to all NW Division members.",
+    "entry_fee": "$40 per team",
+    "eligibility": "NW Division members",
+    "contact": "tournaments@seattlebowls.org",
+    "registration_url": "https://seattlebowls.org/tournaments",
+    "source_url": "https://seattlebowls.org/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-004",
+    "event_name": "JP Pairs Championship",
+    "dates": {
+      "start": "2026-07-11",
+      "end": "2026-07-12"
+    },
+    "location": {
+      "club_name": "Jefferson Park Lawn Bowling Club",
+      "address": "4103 Beacon Avenue S.",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA",
+      "zip": "98108"
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "open (separate men's and women's divisions)",
+    "description": "Two-day Jefferson Park pairs championship with separate men's and women's divisions.",
+    "entry_fee": "$40 per team",
+    "eligibility": "JPLBC members",
+    "contact": "tournaments@seattlebowls.org",
+    "registration_url": "https://seattlebowls.org/tournaments",
+    "source_url": "https://seattlebowls.org/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-005",
+    "event_name": "Veteran-Novice Open",
+    "dates": {
+      "start": "2026-08-08",
+      "end": "2026-08-08"
+    },
+    "location": {
+      "club_name": "Jefferson Park Lawn Bowling Club",
+      "address": "4103 Beacon Avenue S.",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA",
+      "zip": "98108"
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "open",
+    "description": "Pairs combining novice and veteran bowlers. 4 games. Novice defined as anyone who has never bowled a game before 2023.",
+    "entry_fee": "$40 per team",
+    "eligibility": "NW Division members",
+    "contact": "tournaments@seattlebowls.org",
+    "registration_url": "https://seattlebowls.org/tournaments",
+    "source_url": "https://seattlebowls.org/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-006",
+    "event_name": "Senior Singles Open",
+    "dates": {
+      "start": "2026-08-15",
+      "end": "2026-08-15"
+    },
+    "location": {
+      "club_name": "Jefferson Park Lawn Bowling Club",
+      "address": "4103 Beacon Avenue S.",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA",
+      "zip": "98108"
+    },
+    "event_type": "tournament",
+    "format": ["singles"],
+    "gender": "open",
+    "description": "Senior singles open. 3 games plus playoff for top 4 players. For NW Division members turning 65 in 2026.",
+    "entry_fee": "$20 per person",
+    "eligibility": "NW Division members who turn 65 in 2026",
+    "contact": "tournaments@seattlebowls.org",
+    "registration_url": "https://seattlebowls.org/tournaments",
+    "source_url": "https://seattlebowls.org/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-007",
+    "event_name": "Fast-Twitch Match Play Singles",
+    "dates": {
+      "start": "2026-08-28",
+      "end": "2026-08-28",
+      "time": "09:30-16:00"
+    },
+    "location": {
+      "club_name": "Jefferson Park Lawn Bowling Club",
+      "address": "4103 Beacon Avenue S.",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA",
+      "zip": "98108"
+    },
+    "event_type": "tournament",
+    "format": ["singles"],
+    "gender": "open",
+    "description": "Short-game singles format — first to 5 ends wins each match. Practice-focused competitive event with prizes for top 3.",
+    "entry_fee": "$20 per person",
+    "eligibility": "All club members",
+    "contact": "tournaments@seattlebowls.org",
+    "registration_url": "https://seattlebowls.org/tournaments",
+    "source_url": "https://seattlebowls.org/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-008",
+    "event_name": "JP Mixed Triples",
+    "dates": {
+      "start": "2026-09-12",
+      "end": "2026-09-12"
+    },
+    "location": {
+      "club_name": "Jefferson Park Lawn Bowling Club",
+      "address": "4103 Beacon Avenue S.",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA",
+      "zip": "98108"
+    },
+    "event_type": "tournament",
+    "format": ["triples"],
+    "gender": "mixed",
+    "description": "Mixed triples with randomly drawn teams. 4 ten-end games.",
+    "entry_fee": "$20 per person",
+    "eligibility": "NW Division members",
+    "contact": "tournaments@seattlebowls.org",
+    "registration_url": "https://seattlebowls.org/tournaments",
+    "source_url": "https://seattlebowls.org/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-009",
+    "event_name": "Rose Jug Singles Open",
+    "dates": {
+      "start": "2026-07-05",
+      "end": "2026-09-15",
+      "notes": "Flexible completion; matches scheduled between July 5 and mid-September"
+    },
+    "location": {
+      "club_name": "Portland Lawn Bowling Club",
+      "address": null,
+      "city": "Portland",
+      "state": "OR",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "tournament",
+    "format": ["singles"],
+    "gender": "open",
+    "description": "6th annual Rose Jug Singles Open. Double-elimination bracket tournament. Open to Portland area players with lawn bowling experience.",
+    "entry_fee": null,
+    "eligibility": "Portland area bowlers with experience",
+    "contact": null,
+    "registration_url": "https://www.portlandlawnbowling.com/compete/tournaments",
+    "source_url": "https://www.portlandlawnbowling.com/compete/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-010",
+    "event_name": "Bridgetown Pairs Vet/Novice Tournament",
+    "dates": {
+      "start": "2026-08-16",
+      "end": "2026-08-16"
+    },
+    "location": {
+      "club_name": "Portland Lawn Bowling Club",
+      "address": null,
+      "city": "Portland",
+      "state": "OR",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "open",
+    "description": "Veteran/novice pairs format requiring a veteran (started bowling before 2022) to partner with a novice (started 2022 or after).",
+    "entry_fee": null,
+    "eligibility": "Veteran bowlers (pre-2022) must pair with novice bowlers (2022 or later)",
+    "contact": null,
+    "registration_url": "https://www.portlandlawnbowling.com/compete/tournaments",
+    "source_url": "https://www.portlandlawnbowling.com/compete/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "nw-011",
+    "event_name": "NWD Short Jack Pairs",
+    "dates": {
+      "start": "2026-06-01",
+      "end": "2026-06-02",
+      "notes": "Approximate — based on prior year pattern"
+    },
+    "location": {
+      "club_name": "Portland Lawn Bowling Club",
+      "address": null,
+      "city": "Portland",
+      "state": "OR",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "open",
+    "description": "Two-day Northwest Division pairs event with a modified format placing the jack at the 21-meter line.",
+    "entry_fee": null,
+    "eligibility": "NW Division members",
+    "contact": "nwdiv.tournament@gmail.com",
+    "registration_url": "https://seattlebowls.org/nw-division-tournaments-2",
+    "source_url": "https://seattlebowls.org/nw-division-tournaments-2",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "tentative"
+  },
+  {
+    "id": "usa-002",
+    "event_name": "Bowls USA National Championships",
+    "dates": {
+      "start": "2026-09-13",
+      "end": "2026-09-20"
+    },
+    "location": {
+      "club_name": "Laguna Beach Lawn Bowling Club",
+      "address": "455 Cliff Drive",
+      "city": "Laguna Beach",
+      "state": "CA",
+      "country": "USA",
+      "zip": "92651"
+    },
+    "event_type": "national_championship",
+    "format": ["singles", "pairs"],
+    "gender": "open (separate men's and women's)",
+    "description": "Premier Bowls USA national championship event crowning US champions in men's and women's singles and pairs. All play in round-robin format. Singles matches to 21 shots; pairs play 18 ends. Participants must be US citizens who won their divisional playdown.",
+    "entry_fee": null,
+    "eligibility": "Must be US citizen and win divisional qualifier (playdown)",
+    "contact": {
+      "phone": "(949) 494-1811",
+      "tournament_director": "Heather Stewart"
+    },
+    "registration_url": "https://www.bowlsusa.us/national-championship.html",
+    "source_url": "https://www.bowlsusa.us/national-championship.html",
+    "region": "National",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "usa-003",
+    "event_name": "Bowls USA US Open",
+    "dates": {
+      "start": "2026-11-01",
+      "end": "2026-11-07"
+    },
+    "location": {
+      "club_name": "Multiple clubs — Sun City and Sun City West",
+      "address": null,
+      "city": "Sun City / Sun City West",
+      "state": "AZ",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "open_championship",
+    "format": ["singles", "pairs", "fours"],
+    "gender": "open (separate men's and women's)",
+    "description": "Bowls USA's premiere event welcoming hundreds of players from across the US and around the world. Open to all World Bowls affiliate members. Six competitive divisions: women's fours, pairs, singles; men's fours, pairs, singles.",
+    "entry_fee": null,
+    "eligibility": "All World Bowls affiliate members",
+    "contact": null,
+    "registration_url": "https://www.bowlsusa.us/us-open.html",
+    "source_url": "https://www.bowlsusa.us/us-open.html",
+    "region": "National",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "fl-001",
+    "event_name": "Sarasota Lawn Bowling Club Vice and Skips Clinic",
+    "dates": {
+      "start": "2026-02-25",
+      "end": "2026-02-25",
+      "time": "13:00-16:00"
+    },
+    "location": {
+      "club_name": "Sarasota Lawn Bowling Club",
+      "address": null,
+      "city": "Sarasota",
+      "state": "FL",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "coaching",
+    "format": ["coaching clinic"],
+    "gender": "open",
+    "description": "Coaching clinic for vice and skip positions at Sarasota Lawn Bowling Club. Registration required through Cognito Forms.",
+    "entry_fee": null,
+    "eligibility": "Full SLBC members only",
+    "contact": null,
+    "registration_url": "https://www.sarasotalawnbowlingclub.com/",
+    "source_url": "https://www.sarasotalawnbowlingclub.com/",
+    "region": "Southeast Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "fl-002",
+    "event_name": "Sarasota Lawn Bowling Club Championships",
+    "dates": {
+      "start": "2026-01-27",
+      "end": "2026-04-30",
+      "notes": "Multiple divisions, ongoing through spring 2026"
+    },
+    "location": {
+      "club_name": "Sarasota Lawn Bowling Club",
+      "address": null,
+      "city": "Sarasota",
+      "state": "FL",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "tournament",
+    "format": ["singles", "pairs", "triples", "fours"],
+    "gender": "open",
+    "description": "Annual Sarasota LBC Club Championships with multiple tournament divisions for members.",
+    "entry_fee": null,
+    "eligibility": "SLBC members",
+    "contact": null,
+    "registration_url": "https://www.sarasotalawnbowlingclub.com/",
+    "source_url": "https://www.sarasotalawnbowlingclub.com/",
+    "region": "Southeast Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "fl-003",
+    "event_name": "Clearwater Lawn Bowls Club Regular Sessions",
+    "dates": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "recurring": "Tuesdays & Saturdays 9:30 AM–Noon; Thursdays 6:30 PM–9:00 PM"
+    },
+    "location": {
+      "club_name": "Clearwater Lawn Bowls Club",
+      "address": "1040 Calumet Street",
+      "city": "Clearwater",
+      "state": "FL",
+      "country": "USA",
+      "zip": "33755"
+    },
+    "event_type": "social_roll_up",
+    "format": ["open social play"],
+    "gender": "open",
+    "description": "Regular open bowling sessions at Clearwater Lawn Bowls Club. New bowlers welcome with free instruction and use of club bowls. Thursday evenings are under lights.",
+    "entry_fee": null,
+    "eligibility": "Open to all",
+    "contact": {
+      "phone": "727-641-9144"
+    },
+    "registration_url": "https://clearwaterlawnbowlingclub.org/",
+    "source_url": "https://clearwaterlawnbowlingclub.org/",
+    "region": "Southeast Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "az-001",
+    "event_name": "Grand Lawn Bowling Club Regular Sessions",
+    "dates": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "recurring": "Tuesdays, Thursdays, and Saturdays mornings — 7:00 AM (June-September) to 10:00 AM (Jan-Mar, Dec)"
+    },
+    "location": {
+      "club_name": "Grand Lawn Bowling Club",
+      "address": null,
+      "city": "Sun City",
+      "state": "AZ",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "social_roll_up",
+    "format": ["open social play", "competitive"],
+    "gender": "open",
+    "description": "Regular bowling sessions and inter-club competitions during the winter season at Grand Lawn Bowling Club, Sun City AZ.",
+    "entry_fee": null,
+    "eligibility": "Open — free lessons available",
+    "contact": {
+      "email": "scgbowls@gmail.com"
+    },
+    "registration_url": "https://www.grandlawnbowling.org",
+    "source_url": "https://www.grandlawnbowling.org",
+    "region": "South Central Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "az-002",
+    "event_name": "Johnson Lawn Bowls Club Daily Draw",
+    "dates": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "recurring": "Monday-Saturday, draw times vary seasonally"
+    },
+    "location": {
+      "club_name": "Johnson Lawn Bowls Club",
+      "address": "RH Johnson Recreation Center",
+      "city": "Sun City West",
+      "state": "AZ",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "social_roll_up",
+    "format": ["open social play"],
+    "gender": "open",
+    "description": "Daily draw at Johnson Lawn Bowls with regular competitions against local clubs and visiting players from across the US and internationally.",
+    "entry_fee": null,
+    "eligibility": "Sun City West residents",
+    "contact": {
+      "contact_name": "Val Tilton",
+      "phone": "253-381-3928",
+      "email": "updraft9772@gmail.com"
+    },
+    "registration_url": "https://lawnbowls.scwclubs.com/",
+    "source_url": "https://lawnbowls.scwclubs.com/",
+    "region": "South Central Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "ca-001",
+    "event_name": "Berkeley Lawn Bowling Club 4-3-2-1 Tournament 2026",
+    "dates": {
+      "start": "2026-03-11",
+      "end": "2026-03-11"
+    },
+    "location": {
+      "club_name": "Berkeley Lawn Bowling Club",
+      "address": null,
+      "city": "Berkeley",
+      "state": "CA",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "tournament",
+    "format": ["mixed format"],
+    "gender": "open",
+    "description": "4-3-2-1 progressive format tournament at Berkeley Lawn Bowling Club, part of PIMD (Pacific Intermountain Division).",
+    "entry_fee": null,
+    "eligibility": null,
+    "contact": null,
+    "registration_url": "https://berkeleylawnbowling.org/events/",
+    "source_url": "https://berkeleylawnbowling.org/events/",
+    "region": "Pacific Intermountain Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "ca-002",
+    "event_name": "Coronado Lawn Bowling South League 2026",
+    "dates": {
+      "start": "2026-01-01",
+      "end": "2026-05-31",
+      "notes": "League season — specific match dates on club calendar"
+    },
+    "location": {
+      "club_name": "Coronado Lawn Bowling Club",
+      "address": "7th & D Ave",
+      "city": "Coronado",
+      "state": "CA",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "league",
+    "format": ["triples"],
+    "gender": "open",
+    "description": "South League triples competition. Two teams each playing two 14-end games per match day, morning (9:00 AM) and afternoon sessions.",
+    "entry_fee": null,
+    "eligibility": "League members",
+    "contact": {
+      "phone": "619-319-5509"
+    },
+    "registration_url": "https://coronadolawnbowling.com/calendar/",
+    "source_url": "https://coronadolawnbowling.com/calendar/",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "wi-001",
+    "event_name": "Central Division Open 2026",
+    "dates": {
+      "start": "2026-08-07",
+      "end": "2026-08-10",
+      "notes": "Estimated based on 2025 pattern — 2026 dates TBC"
+    },
+    "location": {
+      "club_name": "Milwaukee Lake Park Lawn Bowling Association",
+      "address": "3131 E Newberry Blvd",
+      "city": "Milwaukee",
+      "state": "WI",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "tournament",
+    "format": ["fours", "pairs"],
+    "gender": "open (mixed gender teams allowed)",
+    "description": "Annual Central Division Open at Milwaukee Lake Park. Features team (4-person) and pairs events. Open to Bowls USA and affiliated organization members.",
+    "entry_fee": null,
+    "eligibility": "Bowls USA members and affiliated organization members",
+    "contact": null,
+    "registration_url": "https://www.lawnbowlscentral.com/central-division-open",
+    "source_url": "https://www.lawnbowlscentral.com/central-division-open",
+    "region": "Central Division",
+    "national_body": "Bowls USA",
+    "status": "tentative"
+  },
+  {
+    "id": "ny-001",
+    "event_name": "New York Lawn Bowling Club Summer Season 2026",
+    "dates": {
+      "start": "2026-05-01",
+      "end": "2026-09-30",
+      "notes": "Season includes competitive summer league, Memorial Day, July 4th, and Labor Day events"
+    },
+    "location": {
+      "club_name": "New York Lawn Bowling Club",
+      "address": "Central Park Lawn Sports Center, near West 69th Street entrance",
+      "city": "New York",
+      "state": "NY",
+      "country": "USA",
+      "zip": "10023"
+    },
+    "event_type": "league",
+    "format": ["singles", "pairs", "social"],
+    "gender": "open",
+    "description": "2026 season at the historic New York Lawn Bowling Club in Central Park (founded 1926). Includes competitive summer league, several tournaments, and holiday social events.",
+    "entry_fee": null,
+    "eligibility": "Club members; membership required",
+    "contact": null,
+    "registration_url": "https://www.nybowls.com/events",
+    "source_url": "https://www.nybowls.com/events",
+    "region": "Northeast Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "intl-001",
+    "event_name": "2026 World Indoor Bowls Championships",
+    "dates": {
+      "start": "2026-01-09",
+      "end": "2026-01-25"
+    },
+    "location": {
+      "club_name": "Potters Resorts",
+      "address": "Hopton-on-Sea",
+      "city": "Great Yarmouth",
+      "state": null,
+      "country": "England",
+      "zip": null
+    },
+    "event_type": "world_championship",
+    "format": ["singles", "pairs", "masters"],
+    "gender": "open (separate men's and women's plus mixed pairs)",
+    "description": "48th edition of the World Indoor Bowls Championships, organized by World Bowls Tour. Televised by BBC and World Bowls Tour. Robert Paxton (England) won open singles; Katherine Rednall (England) won ladies singles; Russell Bewick won the four-player masters.",
+    "entry_fee": null,
+    "eligibility": "Elite international players by invitation/qualification",
+    "contact": null,
+    "registration_url": "https://www.worldbowls.com/",
+    "source_url": "https://en.wikipedia.org/wiki/2026_World_Indoor_Bowls_Championship",
+    "region": "International",
+    "national_body": "World Bowls Tour",
+    "status": "completed"
+  },
+  {
+    "id": "aus-001",
+    "event_name": "2026 Australian Open",
+    "dates": {
+      "start": "2026-06-05",
+      "end": "2026-06-19",
+      "entry_deadline": "2026-04-08"
+    },
+    "location": {
+      "club_name": "Multiple Gold Coast host clubs",
+      "address": null,
+      "city": "Gold Coast",
+      "state": "QLD",
+      "country": "Australia",
+      "zip": null
+    },
+    "event_type": "open_championship",
+    "format": ["singles", "pairs", "fours", "mixed_pairs"],
+    "gender": "open (18 disciplines including Under-18, Over-60, Para, Intellectual Disability, Deaf/Hearing Impaired, Mixed Pairs)",
+    "description": "11th staging of the Australian Open on the Gold Coast. Mass-participation event with 3,550+ competitors over 14 days. First time including 18 disciplines with new Mixed Pairs, Intellectual Open Singles, and Deaf/Hearing Impaired Open Singles formats. Entry via BowlsLink account required.",
+    "entry_fee": null,
+    "eligibility": "Open — entries via BowlsLink account",
+    "contact": null,
+    "registration_url": "https://australianopen.bowls.com.au/bowls-australian-open-entries/online-entry/",
+    "source_url": "https://bowls.com.au/2026-australian-open/",
+    "region": "International",
+    "national_body": "Bowls Australia",
+    "status": "confirmed"
+  },
+  {
+    "id": "aus-002",
+    "event_name": "The 2026 Nationals — Australian Multi-Discipline Championships",
+    "dates": {
+      "start": "2026-10-02",
+      "end": "2026-10-22",
+      "schedule": {
+        "multi_disability": {"start": "2026-10-02", "end": "2026-10-05", "venue": "North Beach Bowling Club"},
+        "champion_of_champions": {"start": "2026-10-06", "end": "2026-10-09", "venue": "North Beach Bowling Club"},
+        "under_18": {"start": "2026-10-08", "end": "2026-10-11", "venue": "North Beach Bowling Club"},
+        "senior_sides": {"start": "2026-10-10", "end": "2026-10-13", "venue": "Osborne Park Bowling Club"},
+        "sides": {"start": "2026-10-15", "end": "2026-10-18", "venue": "Osborne Park Bowling Club"},
+        "australian_championships": {"start": "2026-10-19", "end": "2026-10-22", "venue": "Mount Lawley Bowling Club"}
+      }
+    },
+    "location": {
+      "club_name": "City of Stirling — Osborne Park, North Beach, and Mount Lawley Bowling Clubs",
+      "address": null,
+      "city": "Perth",
+      "state": "WA",
+      "country": "Australia",
+      "zip": null
+    },
+    "event_type": "national_championship",
+    "format": ["singles", "pairs", "triples", "fours", "sides"],
+    "gender": "open (separate men's and women's)",
+    "description": "21-day national championships festival across three Perth venues comprising 6 competitions and 31 national titles: Australian Multi-Disability Championships, Champion of Champions, Under-18 Championships, Senior Sides Championships (over-60), Sides Championships (state teams), and Australian Championships.",
+    "entry_fee": null,
+    "eligibility": "State/territory champions and qualifiers",
+    "contact": null,
+    "registration_url": "https://bowls.com.au/events-page/national-events/the-nationals/",
+    "source_url": "https://bowls.com.au/perth-to-welcome-2026-nationals-across-three-host-venues/",
+    "region": "International",
+    "national_body": "Bowls Australia",
+    "status": "confirmed"
+  },
+  {
+    "id": "aus-003",
+    "event_name": "2026 Australian Para Nationals",
+    "dates": {
+      "start": "2026-11-06",
+      "end": "2026-11-10"
+    },
+    "location": {
+      "club_name": "North Beach Bowling Club",
+      "address": null,
+      "city": "Perth",
+      "state": "WA",
+      "country": "Australia",
+      "zip": null
+    },
+    "event_type": "national_championship",
+    "format": ["singles", "pairs", "triples"],
+    "gender": "open",
+    "description": "Annual Australian Para Nationals lawn bowling championship for bowlers with physical disabilities.",
+    "entry_fee": null,
+    "eligibility": "Para-classified bowlers",
+    "contact": null,
+    "registration_url": "https://bowls.com.au/events-page/national-events/australian-para-nationals/",
+    "source_url": "https://bowls.com.au/events-page/national-events/australian-para-nationals/",
+    "region": "International",
+    "national_body": "Bowls Australia",
+    "status": "confirmed"
+  },
+  {
+    "id": "eng-001",
+    "event_name": "Bowls England 2026 National Bowls Finals",
+    "dates": {
+      "start": "2026-08-12",
+      "end": "2026-08-30",
+      "entry_deadline": "2026-08-03"
+    },
+    "location": {
+      "club_name": "Victoria Park",
+      "address": null,
+      "city": "Royal Leamington Spa",
+      "state": "Warwickshire",
+      "country": "England",
+      "zip": null
+    },
+    "event_type": "national_championship",
+    "format": ["singles", "pairs", "triples", "fours", "mixed"],
+    "gender": "open (separate men's, women's, and mixed)",
+    "description": "42 competitions across 19 days at the home of English lawn bowls. Tens of thousands of spectators and thousands of competitors. Early bird tickets available until March 2026. Ticketing enquiries: ticketing@bowlsengland.com.",
+    "entry_fee": "Varies — early bird general admission discounted until March 2026",
+    "eligibility": "County champions and qualifiers",
+    "contact": {
+      "email": "ticketing@bowlsengland.com"
+    },
+    "registration_url": "https://www.bowlsengland.com/aviva-national-bowls-finals/",
+    "source_url": "https://www.bowlsengland.com/aviva-national-bowls-finals/",
+    "region": "International",
+    "national_body": "Bowls England",
+    "status": "confirmed"
+  },
+  {
+    "id": "eng-002",
+    "event_name": "British Bowls Championships 2026",
+    "dates": {
+      "start": "2026-06-22",
+      "end": "2026-06-28",
+      "notes": "Includes Para Series and U18 Series events"
+    },
+    "location": {
+      "club_name": null,
+      "address": null,
+      "city": "Ayr",
+      "state": "Scotland",
+      "country": "United Kingdom",
+      "zip": null
+    },
+    "event_type": "international_championship",
+    "format": ["singles", "pairs", "triples", "fours"],
+    "gender": "open (separate men's and women's)",
+    "description": "British Bowls Championships bringing together national champions from England, Scotland, Ireland, Wales, and Jersey. Includes Para Series and youth competitions during the same week.",
+    "entry_fee": null,
+    "eligibility": "National champions from British Isles nations",
+    "contact": null,
+    "registration_url": "https://www.bowlsengland.com/international-events/",
+    "source_url": "https://www.bowlsengland.com/international-events/",
+    "region": "International",
+    "national_body": "Bowls England / British Bowls",
+    "status": "confirmed"
+  },
+  {
+    "id": "eng-003",
+    "event_name": "Bowls England 2026 — Middleton Cup and Johns Trophy",
+    "dates": {
+      "rounds": [
+        {"date": "2026-06-06", "description": "Round 1"},
+        {"date": "2026-06-13", "description": "Round 2"},
+        {"date": "2026-06-20", "description": "Round 3"},
+        {"date": "2026-07-04", "description": "Round 4"},
+        {"date": "2026-07-11", "description": "Quarterfinals"},
+        {"date": "2026-08-04", "description": "Semifinals"}
+      ]
+    },
+    "location": {
+      "club_name": "Multiple county venues",
+      "address": null,
+      "city": "England",
+      "state": null,
+      "country": "England",
+      "zip": null
+    },
+    "event_type": "inter_county_championship",
+    "format": ["sides (teams)"],
+    "gender": "men (Middleton Cup) / women (Johns Trophy)",
+    "description": "Premier English inter-county outdoor bowls championships. Men compete for the Middleton Cup; women for the Johns Trophy. Multiple rounds from June through finals in August.",
+    "entry_fee": null,
+    "eligibility": "County representative teams",
+    "contact": null,
+    "registration_url": "https://www.bowlsengland.com/national-competitions/",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "International",
+    "national_body": "Bowls England",
+    "status": "confirmed"
+  },
+  {
+    "id": "eng-004",
+    "event_name": "Bowls England 2026 — British Bowls U18 Series",
+    "dates": {
+      "start": "2026-07-18",
+      "end": "2026-07-20"
+    },
+    "location": {
+      "club_name": "Victoria Park",
+      "address": null,
+      "city": "Royal Leamington Spa",
+      "state": "Warwickshire",
+      "country": "England",
+      "zip": null
+    },
+    "event_type": "youth_championship",
+    "format": ["singles", "pairs"],
+    "gender": "open (under 18)",
+    "description": "British Isles Under-18 bowls series at Victoria Park, Royal Leamington Spa.",
+    "entry_fee": null,
+    "eligibility": "Under-18 players from British Isles nations",
+    "contact": null,
+    "registration_url": "https://www.bowlsengland.com/national-championship-events/",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "International",
+    "national_body": "Bowls England",
+    "status": "confirmed"
+  },
+  {
+    "id": "eng-005",
+    "event_name": "Bowls England 2026 — British Bowls U25 Series",
+    "dates": {
+      "start": "2026-09-11",
+      "end": "2026-09-13"
+    },
+    "location": {
+      "club_name": "Victoria Park",
+      "address": null,
+      "city": "Royal Leamington Spa",
+      "state": "Warwickshire",
+      "country": "England",
+      "zip": null
+    },
+    "event_type": "youth_championship",
+    "format": ["singles", "pairs"],
+    "gender": "open (under 25)",
+    "description": "British Isles Under-25 bowls series at Victoria Park, Royal Leamington Spa.",
+    "entry_fee": null,
+    "eligibility": "Under-25 players from British Isles nations",
+    "contact": null,
+    "registration_url": "https://www.bowlsengland.com/national-championship-events/",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "International",
+    "national_body": "Bowls England",
+    "status": "confirmed"
+  },
+  {
+    "id": "eng-006",
+    "event_name": "Bowls England 2026 — Balcomb Trophy and Walker Cup",
+    "dates": {
+      "preliminary": "2026-05-17",
+      "finals": [
+        {"event": "Balcomb Trophy", "date": "2026-05-30"},
+        {"event": "Walker Cup", "date": "2026-05-31"}
+      ]
+    },
+    "location": {
+      "club_name": "Multiple county venues",
+      "address": null,
+      "city": "England",
+      "state": null,
+      "country": "England",
+      "zip": null
+    },
+    "event_type": "inter_county_championship",
+    "format": ["pairs"],
+    "gender": "open",
+    "description": "Inter-county pairs competitions. The Balcomb Trophy for men and Walker Cup for women, played over preliminary and final rounds in May.",
+    "entry_fee": null,
+    "eligibility": "County representative players",
+    "contact": null,
+    "registration_url": "https://www.bowlsengland.com/national-competitions/",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "International",
+    "national_body": "Bowls England",
+    "status": "confirmed"
+  },
+  {
+    "id": "ca-003",
+    "event_name": "Santa Anita Lawn Bowling Club — Open Play and Free Lessons",
+    "dates": {
+      "start": "2026-01-01",
+      "end": "2026-12-31",
+      "recurring": "Year-round; contact club for schedule"
+    },
+    "location": {
+      "club_name": "Santa Anita Lawn Bowling Club",
+      "address": null,
+      "city": "Arcadia",
+      "state": "CA",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "social_roll_up",
+    "format": ["open play", "coaching"],
+    "gender": "open",
+    "description": "Year-round open play and free beginner lessons at Santa Anita Lawn Bowling Club. After one or two lessons players are welcome for social bowling.",
+    "entry_fee": null,
+    "eligibility": "Open to all",
+    "contact": {
+      "email": "info@SantaAnitaLawnBowling.com"
+    },
+    "registration_url": "https://santaanitalawnbowling.com/",
+    "source_url": "https://santaanitalawnbowling.com/",
+    "region": "Southwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "ca-004",
+    "event_name": "Berkeley Lawn Bowling Club — Free Sunday Lessons",
+    "dates": {
+      "start": "2026-04-01",
+      "end": "2026-10-31",
+      "recurring": "Sundays 10:00 AM–12:00 PM (weather permitting)"
+    },
+    "location": {
+      "club_name": "Berkeley Lawn Bowling Club",
+      "address": null,
+      "city": "Berkeley",
+      "state": "CA",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "open_day",
+    "format": ["coaching", "social play"],
+    "gender": "open",
+    "description": "Free beginner lessons every Sunday with coaches on hand. Groups or individuals welcome. Part of PIMD / Bowls USA.",
+    "entry_fee": null,
+    "eligibility": "Open to all",
+    "contact": null,
+    "registration_url": "https://berkeleylawnbowling.org/free-lessons/",
+    "source_url": "https://berkeleylawnbowling.org/free-lessons/",
+    "region": "Pacific Intermountain Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "pdx-001",
+    "event_name": "Portland Lawn Bowling Club — Bowls and Boules",
+    "dates": {
+      "start": "2026-05-01",
+      "end": "2026-09-30",
+      "notes": "Specific date TBC from club calendar"
+    },
+    "location": {
+      "club_name": "Portland Lawn Bowling Club",
+      "address": null,
+      "city": "Portland",
+      "state": "OR",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "social_roll_up",
+    "format": ["mixed bowls and petanque"],
+    "gender": "open",
+    "description": "Social joint event combining lawn bowls and petanque/boules. Random team draws; two games of each sport. Register as a single and meet neighbors.",
+    "entry_fee": null,
+    "eligibility": "Open to all",
+    "contact": null,
+    "registration_url": "https://www.portlandlawnbowling.com/compete/tournaments",
+    "source_url": "https://www.portlandlawnbowling.com/compete/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "pdx-002",
+    "event_name": "Portland Lawn Bowling Club — Ultimate Pairs",
+    "dates": {
+      "start": "2026-05-01",
+      "end": "2026-09-30",
+      "notes": "Specific date TBC from club calendar"
+    },
+    "location": {
+      "club_name": "Portland Lawn Bowling Club",
+      "address": null,
+      "city": "Portland",
+      "state": "OR",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "tournament",
+    "format": ["pairs"],
+    "gender": "open",
+    "description": "One-day pairs tournament with five games. Non-members may participate. Random pairings.",
+    "entry_fee": null,
+    "eligibility": "Open — non-members welcome",
+    "contact": null,
+    "registration_url": "https://www.portlandlawnbowling.com/compete/tournaments",
+    "source_url": "https://www.portlandlawnbowling.com/compete/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "pdx-003",
+    "event_name": "Portland Lawn Bowling Club — Retro Rinks",
+    "dates": {
+      "start": "2026-05-01",
+      "end": "2026-09-30",
+      "notes": "Specific date TBC from club calendar"
+    },
+    "location": {
+      "club_name": "Portland Lawn Bowling Club",
+      "address": null,
+      "city": "Portland",
+      "state": "OR",
+      "country": "USA",
+      "zip": null
+    },
+    "event_type": "tournament",
+    "format": ["fours"],
+    "gender": "open",
+    "description": "Teams of 4 in retro theme. Includes cocktail hour and dinner after play. Matching tops with collars required; whites encouraged.",
+    "entry_fee": null,
+    "eligibility": "Open to all",
+    "contact": null,
+    "registration_url": "https://www.portlandlawnbowling.com/compete/tournaments",
+    "source_url": "https://www.portlandlawnbowling.com/compete/tournaments",
+    "region": "Northwest Division",
+    "national_body": "Bowls USA",
+    "status": "confirmed"
+  },
+  {
+    "id": "aus-004",
+    "event_name": "2026 Australian Indoor Championships",
+    "dates": {
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "notes": "Approximate — exact dates TBC from Bowls Australia"
+    },
+    "location": {
+      "club_name": "Club Tweed",
+      "address": null,
+      "city": "Tweed Heads",
+      "state": "NSW",
+      "country": "Australia",
+      "zip": null
+    },
+    "event_type": "national_championship",
+    "format": ["singles"],
+    "gender": "open",
+    "description": "Premier Australian indoor bowls singles championship at Club Tweed.",
+    "entry_fee": null,
+    "eligibility": "State/territory champions and qualifiers",
+    "contact": null,
+    "registration_url": "https://bowls.com.au/events-page/national-events/",
+    "source_url": "https://bowls.com.au/events-page/national-events/",
+    "region": "International",
+    "national_body": "Bowls Australia",
+    "status": "tentative"
+  }
+]
