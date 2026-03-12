@@ -17,6 +17,7 @@ import { IncomingRequest, IncomingRequestProvider } from "@/components/partner/I
 import { SentRequestToast } from "@/components/partner/SentRequestToast";
 import { MatchQueue } from "@/components/partner/MatchQueue";
 import { CourtStatusBoard } from "@/components/courts/CourtStatusBoard";
+import { ActiveMatchCard } from "@/components/match/ActiveMatchCard";
 import { SuggestedPartners } from "@/components/board/SuggestedPartners";
 import { VenueSelector } from "@/components/venue/VenueSelector";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
@@ -273,6 +274,18 @@ export default function BoardPage() {
                 venueId={venue?.id ?? null}
                 onToggle={handleCheckInToggle}
               />
+            </motion.div>
+          )}
+
+          {/* Active Match Card */}
+          {!loadingPlayer && currentPlayer && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.06 }}
+              className="mb-6"
+            >
+              <ActiveMatchCard playerId={currentPlayer.id} />
             </motion.div>
           )}
 

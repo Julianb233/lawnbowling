@@ -190,19 +190,18 @@ export default function MatchPage() {
         (matchData.match_players as unknown as MatchPlayerInfo[]) || []
       );
 
-      // Load stored ends from match_ends table (local state for now)
-      // We store ends in match_results metadata or local state
-      const { data: resultData } = await supabase
-        .from("match_results")
-        .select("*")
-        .eq("match_id", matchId)
-        .single();
-
-      if (resultData?.metadata && typeof resultData.metadata === "object") {
-        const meta = resultData.metadata as Record<string, unknown>;
-        if (Array.isArray(meta.ends)) {
-          setEnds(meta.ends as EndScore[]);
+      // Load stored end-by-end data from localStorage
+      // (the match_results table stores aggregate scores only)
+      try {
+        const stored = localStorage.getItem(`match-ends-${matchId}`);
+        if (stored) {
+          const parsed = JSON.parse(stored) as EndScore[];
+          if (Array.isArray(parsed)) {
+            setEnds(parsed);
+          }
         }
+      } catch {
+        // ignore parse errors
       }
     } catch {
       // ignore
@@ -259,6 +258,13 @@ export default function MatchPage() {
     const updatedEnds = [...ends, newEnd];
     setEnds(updatedEnds);
 
+    // Persist ends to localStorage
+    try {
+      localStorage.setItem(`match-ends-${matchId}`, JSON.stringify(updatedEnds));
+    } catch {
+      // storage full or unavailable
+    }
+
     // Calculate totals
     const t1Total = updatedEnds.reduce((s, e) => s + e.team1Shots, 0);
     const t2Total = updatedEnds.reduce((s, e) => s + e.team2Shots, 0);
@@ -271,28 +277,24 @@ export default function MatchPage() {
         .eq("id", matchId);
     }
 
-    // Upsert match_results with ends data
+    // Upsert match_results with aggregate scores
     const { data: existing } = await supabase
       .from("match_results")
       .select("id")
       .eq("match_id", matchId)
       .single();
 
-    const resultPayload = {
-      match_id: matchId,
-      team1_score: t1Total,
-      team2_score: t2Total,
-      winner_team: null as (1 | 2 | null),
-      metadata: { ends: updatedEnds },
-    };
-
     if (existing) {
       await supabase
         .from("match_results")
-        .update(resultPayload)
+        .update({ team1_score: t1Total, team2_score: t2Total })
         .eq("id", existing.id);
     } else {
-      await supabase.from("match_results").insert(resultPayload);
+      await supabase.from("match_results").insert({
+        match_id: matchId,
+        team1_score: t1Total,
+        team2_score: t2Total,
+      });
     }
 
     // Reload
@@ -312,28 +314,25 @@ export default function MatchPage() {
       .update({ status: "completed", ended_at: new Date().toISOString() })
       .eq("id", matchId);
 
-    // Update result
+    // Update result with final scores
     const { data: existing } = await supabase
       .from("match_results")
       .select("id")
       .eq("match_id", matchId)
       .single();
 
-    const resultPayload = {
-      match_id: matchId,
-      team1_score: t1,
-      team2_score: t2,
-      winner_team: winner,
-      metadata: { ends },
-    };
-
     if (existing) {
       await supabase
         .from("match_results")
-        .update(resultPayload)
+        .update({ team1_score: t1, team2_score: t2, winner_team: winner })
         .eq("id", existing.id);
     } else {
-      await supabase.from("match_results").insert(resultPayload);
+      await supabase.from("match_results").insert({
+        match_id: matchId,
+        team1_score: t1,
+        team2_score: t2,
+        winner_team: winner,
+      });
     }
 
     setCompleting(false);
@@ -347,17 +346,20 @@ export default function MatchPage() {
     const updated = ends.slice(0, -1);
     setEnds(updated);
 
-    // Update DB
+    // Persist to localStorage
+    try {
+      localStorage.setItem(`match-ends-${matchId}`, JSON.stringify(updated));
+    } catch {
+      // ignore
+    }
+
+    // Update DB aggregate scores
     const t1 = updated.reduce((s, e) => s + e.team1Shots, 0);
     const t2 = updated.reduce((s, e) => s + e.team2Shots, 0);
 
     supabase
       .from("match_results")
-      .update({
-        team1_score: t1,
-        team2_score: t2,
-        metadata: { ends: updated },
-      })
+      .update({ team1_score: t1, team2_score: t2 })
       .eq("match_id", matchId)
       .then();
   }
