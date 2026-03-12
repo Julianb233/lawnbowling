@@ -1,4 +1,4 @@
--- Storage buckets for player avatars and game gallery images
+-- Storage buckets for player avatars, game gallery, and club logos
 -- AI-2461: Set up Supabase Storage buckets
 -- Idempotent: safe to run multiple times
 
@@ -25,7 +25,20 @@ VALUES (
   'game-gallery',
   true,
   10485760,  -- 10 MB
-  ARRAY['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+  ARRAY['image/jpeg', 'image/png', 'image/webp']
+)
+ON CONFLICT (id) DO UPDATE SET
+  public = EXCLUDED.public,
+  file_size_limit = EXCLUDED.file_size_limit,
+  allowed_mime_types = EXCLUDED.allowed_mime_types;
+
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES (
+  'club-logos',
+  'club-logos',
+  true,
+  2097152,  -- 2 MB
+  ARRAY['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml']
 )
 ON CONFLICT (id) DO UPDATE SET
   public = EXCLUDED.public,
@@ -45,6 +58,10 @@ DROP POLICY IF EXISTS "Anyone can view gallery images" ON storage.objects;
 DROP POLICY IF EXISTS "Admins can upload gallery images" ON storage.objects;
 DROP POLICY IF EXISTS "Admins can update gallery images" ON storage.objects;
 DROP POLICY IF EXISTS "Admins can delete gallery images" ON storage.objects;
+DROP POLICY IF EXISTS "Anyone can view club logos" ON storage.objects;
+DROP POLICY IF EXISTS "Club admins can upload logos" ON storage.objects;
+DROP POLICY IF EXISTS "Club admins can update logos" ON storage.objects;
+DROP POLICY IF EXISTS "Club admins can delete logos" ON storage.objects;
 
 -- Public read access for all avatars
 CREATE POLICY "Anyone can view avatars"
@@ -87,41 +104,95 @@ CREATE POLICY "Anyone can view gallery images"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'game-gallery');
 
--- Only admins (players with role 'admin' or 'club_manager') can upload to gallery
+-- Only club admins/managers/owners can upload to gallery
 CREATE POLICY "Admins can upload gallery images"
   ON storage.objects FOR INSERT
   TO authenticated
   WITH CHECK (
     bucket_id = 'game-gallery'
     AND EXISTS (
-      SELECT 1 FROM public.club_memberships
-      WHERE club_memberships.user_id = auth.uid()
-        AND club_memberships.role IN ('admin', 'club_manager', 'owner')
+      SELECT 1 FROM public.club_memberships cm
+      JOIN public.players p ON p.id = cm.player_id
+      WHERE p.user_id = auth.uid()
+        AND cm.role IN ('admin', 'manager', 'owner')
     )
   );
 
--- Only admins can update gallery images
+-- Only club admins can update gallery images
 CREATE POLICY "Admins can update gallery images"
   ON storage.objects FOR UPDATE
   TO authenticated
   USING (
     bucket_id = 'game-gallery'
     AND EXISTS (
-      SELECT 1 FROM public.club_memberships
-      WHERE club_memberships.user_id = auth.uid()
-        AND club_memberships.role IN ('admin', 'club_manager', 'owner')
+      SELECT 1 FROM public.club_memberships cm
+      JOIN public.players p ON p.id = cm.player_id
+      WHERE p.user_id = auth.uid()
+        AND cm.role IN ('admin', 'manager', 'owner')
     )
   );
 
--- Only admins can delete gallery images
+-- Only club admins can delete gallery images
 CREATE POLICY "Admins can delete gallery images"
   ON storage.objects FOR DELETE
   TO authenticated
   USING (
     bucket_id = 'game-gallery'
     AND EXISTS (
-      SELECT 1 FROM public.club_memberships
-      WHERE club_memberships.user_id = auth.uid()
-        AND club_memberships.role IN ('admin', 'club_manager', 'owner')
+      SELECT 1 FROM public.club_memberships cm
+      JOIN public.players p ON p.id = cm.player_id
+      WHERE p.user_id = auth.uid()
+        AND cm.role IN ('admin', 'manager', 'owner')
+    )
+  );
+
+-- ============================================================
+-- 4. RLS policies for club-logos bucket
+-- ============================================================
+
+-- Public read access for all club logos
+CREATE POLICY "Anyone can view club logos"
+  ON storage.objects FOR SELECT
+  USING (bucket_id = 'club-logos');
+
+-- Club admins/owners can upload logos
+CREATE POLICY "Club admins can upload logos"
+  ON storage.objects FOR INSERT
+  TO authenticated
+  WITH CHECK (
+    bucket_id = 'club-logos'
+    AND EXISTS (
+      SELECT 1 FROM public.club_memberships cm
+      JOIN public.players p ON p.id = cm.player_id
+      WHERE p.user_id = auth.uid()
+        AND cm.role IN ('admin', 'owner')
+    )
+  );
+
+-- Club admins/owners can update logos
+CREATE POLICY "Club admins can update logos"
+  ON storage.objects FOR UPDATE
+  TO authenticated
+  USING (
+    bucket_id = 'club-logos'
+    AND EXISTS (
+      SELECT 1 FROM public.club_memberships cm
+      JOIN public.players p ON p.id = cm.player_id
+      WHERE p.user_id = auth.uid()
+        AND cm.role IN ('admin', 'owner')
+    )
+  );
+
+-- Club admins/owners can delete logos
+CREATE POLICY "Club admins can delete logos"
+  ON storage.objects FOR DELETE
+  TO authenticated
+  USING (
+    bucket_id = 'club-logos'
+    AND EXISTS (
+      SELECT 1 FROM public.club_memberships cm
+      JOIN public.players p ON p.id = cm.player_id
+      WHERE p.user_id = auth.uid()
+        AND cm.role IN ('admin', 'owner')
     )
   );
