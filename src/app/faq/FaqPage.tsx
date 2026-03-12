@@ -15,6 +15,7 @@ import {
   Wrench,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { PublicNav } from "@/components/PublicNav";
 
 interface FaqCategory {
   name: string;
@@ -197,38 +198,8 @@ export function FaqPage() {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-white/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-lg">
-              <CircleDot className="h-5 w-5 text-[#1B5E20]" />
-            </div>
-            <span className="text-lg font-bold text-[#0A2E12]">
-              Lawnbowling
-            </span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/about"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
-            >
-              About
-            </Link>
-            <Link
-              href="/insurance"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
-            >
-              Insurance
-            </Link>
-            <Link
-              href="/signup"
-              className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/15 transition hover:bg-emerald-500 hover:shadow-emerald-500/25"
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
+
+      <PublicNav />
 
       {/* Hero */}
       <section className="relative mx-auto max-w-4xl px-6 pt-20 pb-12 md:pt-28 md:pb-16">

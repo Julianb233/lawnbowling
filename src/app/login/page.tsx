@@ -1,42 +1,98 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { Mail, Lock } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Mail, Lock, AlertTriangle, Loader2 } from "lucide-react";
 import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
+/**
+ * Map Supabase error messages to user-friendly text.
+ * Supabase returns terse developer-facing strings; we translate them here
+ * so users see something helpful instead of cryptic API errors.
+ */
+function friendlyError(raw: string): string {
+  const lower = raw.toLowerCase();
+  if (lower.includes("invalid login credentials") || lower.includes("invalid_credentials")) {
+    return "Invalid email or password. Please check your credentials and try again.";
+  }
+  if (lower.includes("email not confirmed")) {
+    return "Your email is not confirmed yet. Please check your inbox for a confirmation link.";
+  }
+  if (lower.includes("too many requests") || lower.includes("rate limit")) {
+    return "Too many login attempts. Please wait a moment and try again.";
+  }
+  if (lower.includes("user not found") || lower.includes("no user found")) {
+    return "No account found with that email address. Please sign up first.";
+  }
+  if (lower.includes("network") || lower.includes("fetch")) {
+    return "Unable to connect. Please check your internet connection and try again.";
+  }
+  // Fallback — return the original message
+  return raw;
+}
+
 export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: "#FEFCF9" }}>
+          <Loader2 className="h-8 w-8 animate-spin text-[#1B5E20]" />
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
-  const returnTo = typeof window !== "undefined"
-    ? new URLSearchParams(window.location.search).get("returnTo") || "/board"
-    : "/board";
+  const returnTo = searchParams.get("returnTo") || "/board";
+
+  // Pick up error passed via query string (e.g. from auth/callback redirect)
+  useEffect(() => {
+    const qError = searchParams.get("error");
+    if (qError === "auth") {
+      setError("Authentication failed. Please sign in again.");
+    } else if (qError) {
+      setError(friendlyError(qError));
+    }
+  }, [searchParams]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) {
-      setError(error.message);
+      if (signInError) {
+        setError(friendlyError(signInError.message));
+        setLoading(false);
+        return;
+      }
+
+      router.push(returnTo);
+      router.refresh();
+    } catch (err) {
+      setError(
+        friendlyError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
+      );
       setLoading(false);
-      return;
     }
-
-    router.push(returnTo);
-    router.refresh();
   }
 
   return (
@@ -186,8 +242,12 @@ export default function LoginPage() {
               </div>
 
               {error && (
-                <div className="rounded-lg bg-red-50 px-4 py-4 text-base text-red-700">
-                  {error}
+                <div
+                  className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-4 text-base text-red-700 shadow-sm"
+                  role="alert"
+                >
+                  <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
+                  <span>{error}</span>
                 </div>
               )}
 

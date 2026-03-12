@@ -11,6 +11,7 @@ import {
   MapPin,
   BookOpen,
 } from "lucide-react";
+import { PublicNav } from "@/components/PublicNav";
 
 export const metadata: Metadata = {
   title: "About | Lawnbowling",
@@ -37,38 +38,8 @@ export default function AboutPage() {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-lg">
-              <CircleDot className="h-5 w-5 text-[#1B5E20]" />
-            </div>
-            <span className="text-lg font-bold text-zinc-900">
-              Lawnbowling
-            </span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/clubs"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
-            >
-              Clubs
-            </Link>
-            <Link
-              href="/learn"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
-            >
-              Learn
-            </Link>
-            <Link
-              href="/signup"
-              className="rounded-xl bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-emerald-700"
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
+
+      <PublicNav />
 
       {/* Hero */}
       <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-20 md:pt-28 md:pb-24">

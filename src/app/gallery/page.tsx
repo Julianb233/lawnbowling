@@ -6,6 +6,7 @@ import { Camera, Users, ChevronRight, ImageIcon } from "lucide-react";
 import { galleryImages, galleryCategories, type GalleryCategory } from "@/lib/gallery-data";
 import { ImageGrid } from "@/components/gallery/ImageGrid";
 import { ImageLightbox } from "@/components/gallery/ImageLightbox";
+import { PublicNav } from "@/components/PublicNav";
 
 export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState<GalleryCategory | "All">(
@@ -40,33 +41,9 @@ export default function GalleryPage() {
 
   return (
     <div className="min-h-screen bg-[#FEFCF9]">
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-white/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-[#2E7D32] shadow-lg shadow-green-900/15">
-              <Users className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-lg font-bold text-[#0A2E12]">
-              Lawnbowling
-            </span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/learn"
-              className="hidden rounded-lg px-4 py-2 text-sm font-medium text-[#1B5E20] transition hover:bg-green-50 sm:block"
-            >
-              Learning Hub
-            </Link>
-            <Link
-              href="/signup"
-              className="rounded-xl bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-green-900/15 transition hover:bg-[#2E7D32] hover:shadow-green-900/25"
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
+      {/* Navigation */}
+
+      <PublicNav />
 
       {/* Hero */}
       <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-12 md:pt-28 md:pb-16">

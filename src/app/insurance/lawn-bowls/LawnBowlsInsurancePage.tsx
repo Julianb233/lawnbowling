@@ -21,6 +21,7 @@ import {
   Phone,
   ArrowRight,
 } from "lucide-react";
+import { PublicNav } from "@/components/PublicNav";
 
 const TIERS = [
   {
@@ -171,34 +172,8 @@ export function LawnBowlsInsurancePage() {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-white/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#1B5E20] to-[#1B5E20] shadow-lg shadow-[#1B5E20]/15">
-              <Users className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-lg font-bold text-[#0A2E12]">
-              Lawnbowling
-            </span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/insurance"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
-            >
-              All Insurance
-            </Link>
-            <a
-              href="https://dailyeventinsurance.com/m/lawnbowling/quote/new"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#1B5E20]/15 transition hover:bg-[#1B5E20] hover:shadow-[#1B5E20]/25"
-            >
-              Get a Quote
-            </a>
-          </div>
-        </div>
-      </nav>
+
+      <PublicNav />
 
       {/* Hero Section */}
       <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-20 md:pt-28 md:pb-24">

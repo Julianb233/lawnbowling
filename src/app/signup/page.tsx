@@ -1,24 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { Mail, Lock, User } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Mail, Lock, User, AlertTriangle, CheckCircle, Loader2 } from "lucide-react";
 import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
+function friendlySignupError(raw: string): string {
+  const lower = raw.toLowerCase();
+  if (lower.includes("already registered") || lower.includes("already been registered")) {
+    return "An account with this email already exists. Please sign in instead.";
+  }
+  if (lower.includes("password") && lower.includes("least")) {
+    return "Password must be at least 6 characters long.";
+  }
+  if (lower.includes("valid email") || lower.includes("invalid email")) {
+    return "Please enter a valid email address.";
+  }
+  if (lower.includes("rate limit") || lower.includes("too many")) {
+    return "Too many attempts. Please wait a moment and try again.";
+  }
+  if (lower.includes("network") || lower.includes("fetch")) {
+    return "Unable to connect. Please check your internet connection and try again.";
+  }
+  return raw;
+}
+
 export default function SignupPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: "#FEFCF9" }}>
+          <Loader2 className="h-8 w-8 animate-spin text-[#1B5E20]" />
+        </div>
+      }
+    >
+      <SignupForm />
+    </Suspense>
+  );
+}
+
+function SignupForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
-  const returnTo = typeof window !== "undefined"
-    ? new URLSearchParams(window.location.search).get("returnTo") || "/"
-    : "/";
+  const returnTo = searchParams.get("returnTo") || "/";
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
@@ -28,37 +62,45 @@ export default function SignupPage() {
     }
     setLoading(true);
     setError(null);
+    setSuccess(null);
 
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback`,
-        data: { name },
-      },
-    });
-
-    if (signUpError) {
-      setError(signUpError.message);
-      setLoading(false);
-      return;
-    }
-
-    // If email confirmation is required
-    if (data.user && !data.session) {
-      setError("Please check your email to confirm your account, then come back and sign in.");
-      setLoading(false);
-      return;
-    }
-
-    // Auto-confirmed — create player profile and go to onboarding
-    if (data.user && data.session) {
-      await supabase.from("players").insert({
-        user_id: data.user.id,
-        display_name: name,
+    try {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback`,
+          data: { name },
+        },
       });
-      router.push("/onboarding/player");
-      router.refresh();
+
+      if (signUpError) {
+        setError(friendlySignupError(signUpError.message));
+        setLoading(false);
+        return;
+      }
+
+      // If email confirmation is required
+      if (data.user && !data.session) {
+        setSuccess("Check your email for a confirmation link, then come back and sign in.");
+        setLoading(false);
+        return;
+      }
+
+      // Auto-confirmed — create player profile and go to onboarding
+      if (data.user && data.session) {
+        await supabase.from("players").insert({
+          user_id: data.user.id,
+          display_name: name,
+        });
+        router.push("/onboarding/player");
+        router.refresh();
+      }
+    } catch (err) {
+      setError(
+        friendlySignupError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
+      );
+      setLoading(false);
     }
   }
 
@@ -164,14 +206,28 @@ export default function SignupPage() {
               </div>
 
               {error && (
-                <div className="rounded-lg bg-red-50 px-4 py-4 text-base text-red-700">
-                  {error}
+                <div
+                  className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-4 text-base text-red-700 shadow-sm"
+                  role="alert"
+                >
+                  <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
+                  <span>{error}</span>
+                </div>
+              )}
+
+              {success && (
+                <div
+                  className="flex items-start gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-4 text-base text-green-700 shadow-sm"
+                  role="status"
+                >
+                  <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500" />
+                  <span>{success}</span>
                 </div>
               )}
 
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !!success}
                 className="w-full rounded-xl py-4 text-lg font-semibold text-white shadow-md transition hover:brightness-110 disabled:opacity-50 active:scale-[0.98]"
                 style={{ backgroundColor: "#1B5E20" }}
               >
