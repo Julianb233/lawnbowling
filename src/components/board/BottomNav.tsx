@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Home, Trophy, CircleDot, Calendar, User, Shield, type LucideIcon } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { NotificationBellNav } from "@/components/notifications/NotificationBellNav";
 
 const NAV_ITEMS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/board", label: "Home", icon: Home },
@@ -50,6 +51,7 @@ export function BottomNav() {
             </Link>
           );
         })}
+        <NotificationBellNav />
         <ThemeToggle />
       </div>
     </nav>

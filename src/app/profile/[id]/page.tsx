@@ -132,17 +132,17 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
                 alt={player.display_name}
                 className="h-full w-full object-cover"
               />
-              <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-zinc-500 dark:text-zinc-400">
+              <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-[#3D5A3E]">
                 {initials}
               </Avatar.Fallback>
             </Avatar.Root>
 
-            <h1 className="flex items-center gap-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+            <h1 className="flex items-center gap-2 font-[family-name:var(--font-display)] text-2xl font-bold text-[#0A2E12]">
               {player.display_name}
               {player.insurance_status === "active" ? (
                 <ShieldCheck className="h-5 w-5 text-green-600" />
               ) : (
-                <Shield className="h-5 w-5 text-zinc-300" />
+                <Shield className="h-5 w-5 text-[#0A2E12]/20" />
               )}
             </h1>
 
@@ -172,14 +172,14 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
 
           {player.bio && (
             <div>
-              <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">About</h2>
-              <p className="text-sm text-zinc-700 whitespace-pre-line">{player.bio}</p>
+              <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">About</h2>
+              <p className="text-sm text-[#2D4A30] whitespace-pre-line">{player.bio}</p>
             </div>
           )}
 
           {(player.preferred_position || player.preferred_hand || player.years_experience !== null) && (
             <div>
-              <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">Preferences</h2>
+              <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Preferences</h2>
               <div className="flex flex-wrap gap-2">
                 {player.preferred_position && (
                   <span className="inline-flex items-center rounded-full bg-[#1B5E20]/10 px-3 py-1 text-xs font-medium text-[#1B5E20]">
@@ -202,7 +202,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
 
           {player.sports.length > 0 && (
             <div>
-              <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">Sports</h2>
+              <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Sports</h2>
               <SportsTags sports={player.sports} />
             </div>
           )}
@@ -232,7 +232,7 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
           <ContactInfo prefs={contactPrefs} />
 
           <div>
-            <h2 className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">Waiver Status</h2>
+            <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Waiver Status</h2>
             <WaiverStatus waiver={waiver} />
           </div>
 

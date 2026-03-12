@@ -72,6 +72,21 @@ export function NotificationSettings({ preferences }: NotificationSettingsProps)
       ],
     },
     {
+      title: "Events & Tournaments",
+      items: [
+        { key: "event_reminders" as const, label: "Event reminders" },
+        { key: "new_events" as const, label: "New events at your club" },
+        { key: "tournament_results" as const, label: "Tournament results" },
+      ],
+    },
+    {
+      title: "Chat & Announcements",
+      items: [
+        { key: "chat_messages" as const, label: "Chat messages (Premium)" },
+        { key: "club_announcements" as const, label: "Club announcements" },
+      ],
+    },
+    {
       title: "Email Notifications",
       items: [
         { key: "email_weekly_summary" as const, label: "Weekly summary" },
