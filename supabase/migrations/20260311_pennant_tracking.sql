@@ -1,4 +1,7 @@
 -- Pennant Season & Tracking tables (PRD 14)
+-- NOTE: This migration duplicates 20260311_pennant_season.sql.
+-- All CREATE TABLE / CREATE INDEX use IF NOT EXISTS.
+-- All policies use DROP IF EXISTS + CREATE to prevent conflicts.
 
 -- REQ-14-01: Pennant Seasons
 create table if not exists pennant_seasons (
@@ -105,6 +108,27 @@ alter table pennant_teams enable row level security;
 alter table pennant_team_members enable row level security;
 alter table pennant_fixtures enable row level security;
 alter table pennant_fixture_results enable row level security;
+
+-- Drop policies first to avoid "already exists" errors when both pennant migrations run
+drop policy if exists "pennant_seasons_select" on pennant_seasons;
+drop policy if exists "pennant_divisions_select" on pennant_divisions;
+drop policy if exists "pennant_teams_select" on pennant_teams;
+drop policy if exists "pennant_team_members_select" on pennant_team_members;
+drop policy if exists "pennant_fixtures_select" on pennant_fixtures;
+drop policy if exists "pennant_fixture_results_select" on pennant_fixture_results;
+drop policy if exists "pennant_seasons_admin_insert" on pennant_seasons;
+drop policy if exists "pennant_seasons_admin_update" on pennant_seasons;
+drop policy if exists "pennant_divisions_admin_insert" on pennant_divisions;
+drop policy if exists "pennant_divisions_admin_update" on pennant_divisions;
+drop policy if exists "pennant_teams_admin_insert" on pennant_teams;
+drop policy if exists "pennant_teams_admin_update" on pennant_teams;
+drop policy if exists "pennant_fixtures_admin_insert" on pennant_fixtures;
+drop policy if exists "pennant_fixtures_admin_update" on pennant_fixtures;
+drop policy if exists "pennant_fixture_results_admin_insert" on pennant_fixture_results;
+drop policy if exists "pennant_fixture_results_admin_update" on pennant_fixture_results;
+drop policy if exists "pennant_team_members_captain_insert" on pennant_team_members;
+drop policy if exists "pennant_team_members_captain_update" on pennant_team_members;
+drop policy if exists "pennant_team_members_captain_delete" on pennant_team_members;
 
 -- Read access for all authenticated users
 create policy "pennant_seasons_select" on pennant_seasons for select using (true);
