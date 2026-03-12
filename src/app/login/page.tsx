@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CircleDot, Zap, MapPin, Trophy, Mail, Lock } from "lucide-react";
+import { CircleDot, Zap, MapPin, Trophy, Mail, Lock, Users } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");

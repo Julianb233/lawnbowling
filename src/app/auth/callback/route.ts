@@ -18,7 +18,7 @@ export async function GET(request: Request) {
       // Ensure player profile exists
       const { data: existingPlayer } = await supabase
         .from("players")
-        .select("id, role")
+        .select("id, role, onboarding_completed")
         .eq("user_id", data.user.id)
         .single();
 
@@ -28,6 +28,11 @@ export async function GET(request: Request) {
           display_name: data.user.user_metadata?.name || email?.split("@")[0] || "Player",
           role,
         });
+        // New player — send them to onboarding
+        return NextResponse.redirect(`${origin}/onboarding/player`);
+      } else if (!existingPlayer.onboarding_completed) {
+        // Existing player who hasn't finished onboarding
+        return NextResponse.redirect(`${origin}/onboarding/player`);
       } else if (role === "admin" && existingPlayer.role !== "admin") {
         // Promote existing player if their email is in ADMIN_EMAILS
         await supabase

@@ -32,6 +32,13 @@ export interface Player {
   venue_id: string | null;
   role: PlayerRole;
   insurance_status: InsuranceStatus;
+  preferred_position: 'skip' | 'vice' | 'second' | 'lead' | 'any';
+  years_playing: number;
+  experience_level: 'brand_new' | 'learning' | 'social' | 'competitive' | 'representative';
+  bio: string | null;
+  home_club_name: string | null;
+  bowling_formats: string[];
+  onboarding_completed: boolean;
   created_at: string;
   updated_at: string;
 }
