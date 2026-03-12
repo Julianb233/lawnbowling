@@ -4,6 +4,7 @@ import { sendPushToPlayer } from "@/lib/push";
 import { createNotification } from "@/lib/db/notifications";
 import type { PushNotificationType, PushPayload } from "@/lib/push";
 import type { NotificationType } from "@/lib/types";
+import { logger } from "@/lib/logger";
 
 /** Map push notification types to in-app notification types */
 function toNotificationType(type: PushNotificationType): NotificationType {
@@ -144,7 +145,7 @@ export async function POST(request: NextRequest) {
         totalSent += result.sent;
         totalFailed += result.failed;
       } catch (err) {
-        console.error(`Failed to notify player ${pid}:`, err);
+        logger.error("Failed to notify player", { route: "notifications/send", playerId: pid, error: err });
         totalFailed++;
       }
     }
@@ -156,7 +157,7 @@ export async function POST(request: NextRequest) {
       targets: targetPlayerIds.length,
     });
   } catch (err) {
-    console.error("Notification send error:", err);
+    logger.error("Notification send error", { route: "notifications/send", error: err });
     return NextResponse.json(
       { error: "Failed to send notifications" },
       { status: 500 }

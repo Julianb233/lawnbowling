@@ -7,6 +7,7 @@ import {
   sendToProduction,
 } from "@/lib/printify";
 import Stripe from "stripe";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -84,7 +85,7 @@ export async function POST(req: NextRequest) {
  */
 async function handleShopOrder(session: Stripe.Checkout.Session) {
   if (!isPrintifyConfigured() || !stripe) {
-    console.log("[Shop] Printify not configured — skipping order fulfillment");
+    logger.info("Printify not configured — skipping order fulfillment", { route: "stripe/webhook" });
     return;
   }
 
@@ -98,7 +99,7 @@ async function handleShopOrder(session: Stripe.Checkout.Session) {
     const collected = session.collected_information;
     const shipping = collected?.shipping_details;
     if (!shipping?.address) {
-      console.error("[Shop] No shipping address on session", session.id);
+      logger.error("No shipping address on session", { route: "stripe/webhook", sessionId: session.id });
       return;
     }
 
@@ -123,7 +124,7 @@ async function handleShopOrder(session: Stripe.Checkout.Session) {
       );
 
     if (items.length === 0) {
-      console.log("[Shop] No valid line items for Printify order");
+      logger.warn("No valid line items for Printify order", { route: "stripe/webhook", sessionId: session.id });
       return;
     }
 
@@ -145,11 +146,13 @@ async function handleShopOrder(session: Stripe.Checkout.Session) {
 
     // Automatically send to production since payment is confirmed
     await sendToProduction(order.id);
-    console.log(
-      `[Shop] Printify order ${order.id} created and sent to production for session ${session.id}`
-    );
+    logger.info("Printify order created and sent to production", {
+      route: "stripe/webhook",
+      orderId: order.id,
+      sessionId: session.id,
+    });
   } catch (err) {
-    console.error("[Shop] Failed to create Printify order:", err);
+    logger.error("Failed to create Printify order", { route: "stripe/webhook", error: err, sessionId: session.id });
     // In production: queue for retry, alert admin
   }
 }

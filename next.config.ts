@@ -1,3 +1,4 @@
+import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
 const PRODUCTION_DOMAIN = "lawnbowl.app";
@@ -61,4 +62,18 @@ try {
   // Serwist not available, continue without PWA
 }
 
-export default config;
+export default withSentryConfig(config, {
+  // Suppress source map upload logs during build
+  silent: true,
+
+  // Upload source maps only when SENTRY_AUTH_TOKEN is set
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+
+  // Source map settings
+  sourcemaps: {
+    // Prevent source maps from being sent to the client
+    deleteSourcemapsAfterUpload: true,
+  },
+});
