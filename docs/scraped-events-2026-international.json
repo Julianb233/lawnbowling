@@ -1,0 +1,2198 @@
+[
+  {
+    "id": "intl-001",
+    "event_name": "2026 World Indoor Bowls Championships",
+    "dates": "2026-01-09 to 2026-01-25",
+    "location": {
+      "club_name": "Potters Resorts",
+      "city": "Hopton-on-Sea, Great Yarmouth",
+      "state": "Norfolk",
+      "country": "England"
+    },
+    "event_type": "international",
+    "format": "singles|pairs|mixed",
+    "description": "48th World Indoor Bowls Championships. Open Singles, Ladies Singles, Open Pairs, Mixed Pairs and Masters events. Robert Paxton won the open singles; Katherine Rednall won her 7th ladies title.",
+    "entry_fee": "",
+    "source_url": "https://en.wikipedia.org/wiki/2026_World_Indoor_Bowls_Championship",
+    "region": "International",
+    "national_body": "World Bowls"
+  },
+  {
+    "id": "intl-002",
+    "event_name": "European 5 Nations Test Series",
+    "dates": "2026-03-09 to 2026-03-13",
+    "location": {
+      "club_name": "",
+      "city": "",
+      "state": "Cyprus",
+      "country": "Cyprus"
+    },
+    "event_type": "international",
+    "format": "mixed",
+    "description": "European 5 Nations Test Series featuring top European lawn bowls nations.",
+    "entry_fee": "",
+    "source_url": "https://www.worldbowls.com/upcoming-events/",
+    "region": "Europe",
+    "national_body": "World Bowls"
+  },
+  {
+    "id": "intl-003",
+    "event_name": "Asian Lawn Bowls Championship 2026",
+    "dates": "2026-04-05 to 2026-04-12",
+    "location": {
+      "club_name": "",
+      "city": "New Delhi",
+      "state": "",
+      "country": "India"
+    },
+    "event_type": "international",
+    "format": "singles|pairs|triples|fours",
+    "description": "Asian Lawn Bowls Championships serving as a key qualifying and selection event for Commonwealth Games. Teams from Malaysia, Singapore, India, Hong Kong, China, New Zealand and more.",
+    "entry_fee": "",
+    "source_url": "https://www.worldbowls.com/upcoming-events/",
+    "region": "Asia Pacific",
+    "national_body": "World Bowls"
+  },
+  {
+    "id": "intl-004",
+    "event_name": "World Bowls Indoor Championship 2026",
+    "dates": "2026-05-11 to 2026-05-16",
+    "location": {
+      "club_name": "",
+      "city": "Ocean Grove",
+      "state": "Victoria",
+      "country": "Australia"
+    },
+    "event_type": "international",
+    "format": "singles|pairs",
+    "description": "World Bowls Indoor Championship held in Victoria, Australia.",
+    "entry_fee": "",
+    "source_url": "https://www.worldbowls.com/upcoming-events/",
+    "region": "International",
+    "national_body": "World Bowls"
+  },
+  {
+    "id": "intl-005",
+    "event_name": "2026 Commonwealth Games - Lawn Bowls",
+    "dates": "2026-07-23 to 2026-08-02",
+    "location": {
+      "club_name": "Indoor Stadium (TBC)",
+      "city": "Glasgow",
+      "state": "Scotland",
+      "country": "United Kingdom"
+    },
+    "event_type": "international",
+    "format": "singles|pairs",
+    "description": "Glasgow 2026 Commonwealth Games lawn bowls and para bowls. First ever indoor Commonwealth Games bowls with portable rinks and sets play format. 7 medal events across all 10 days of the Games. Triples and fours removed, replaced by innovative short format.",
+    "entry_fee": "",
+    "source_url": "https://www.glasgow2026.com/sports/bowls",
+    "region": "International",
+    "national_body": "Commonwealth Games Federation"
+  },
+  {
+    "id": "intl-006",
+    "event_name": "European Championships & World Championship Qualifier",
+    "dates": "2026-09-19 to 2026-09-26",
+    "location": {
+      "club_name": "Llandrindod Wells Bowls Club",
+      "city": "Llandrindod Wells",
+      "state": "Powys",
+      "country": "Wales"
+    },
+    "event_type": "international",
+    "format": "singles|pairs|triples|fours",
+    "description": "European Bowls Championships doubling as a World Championship Qualifier for the 2027 World Bowls Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.worldbowls.com/upcoming-events/",
+    "region": "Europe",
+    "national_body": "World Bowls"
+  },
+  {
+    "id": "intl-007",
+    "event_name": "African States Championships & World Championship Qualifier",
+    "dates": "2026-09-20 to 2026-09-27",
+    "location": {
+      "club_name": "",
+      "city": "Lusaka",
+      "state": "",
+      "country": "Zambia"
+    },
+    "event_type": "international",
+    "format": "singles|pairs|triples|fours",
+    "description": "African States Championships doubling as a World Championship Qualifier for the 2027 World Bowls Championships at Leamington Spa.",
+    "entry_fee": "",
+    "source_url": "https://www.worldbowls.com/upcoming-events/",
+    "region": "Africa",
+    "national_body": "World Bowls"
+  },
+  {
+    "id": "intl-008",
+    "event_name": "2026 World Bowls Champion of Champions",
+    "dates": "2026-10-06 to 2026-10-10",
+    "location": {
+      "club_name": "CluBarham",
+      "city": "Barham",
+      "state": "NSW",
+      "country": "Australia"
+    },
+    "event_type": "international",
+    "format": "singles",
+    "description": "World Bowls Champion of Champions Singles event. Approximately 60 bowlers from over 20 nations compete on two canopy-covered greens at CluBarham.",
+    "entry_fee": "",
+    "source_url": "https://www.worldbowls.com/event/2026-world-bowls-champion-of-champions/",
+    "region": "International",
+    "national_body": "World Bowls"
+  },
+  {
+    "id": "intl-009",
+    "event_name": "World Bowls Cup 2026",
+    "dates": "2026-11-04 to 2026-11-08",
+    "location": {
+      "club_name": "Bukit Kiara National Lawn Bowl Centre",
+      "city": "Kuala Lumpur",
+      "state": "",
+      "country": "Malaysia"
+    },
+    "event_type": "international",
+    "format": "mixed",
+    "description": "World Bowls Cup held at the prestigious Bukit Kiara National Lawn Bowl Centre in Kuala Lumpur.",
+    "entry_fee": "",
+    "source_url": "https://www.worldbowls.com/upcoming-events/",
+    "region": "International",
+    "national_body": "World Bowls"
+  },
+  {
+    "id": "intl-010",
+    "event_name": "Hong Kong International Bowls Classic 2026",
+    "dates": "2026-11-07 to 2026-11-15",
+    "location": {
+      "club_name": "",
+      "city": "Hong Kong",
+      "state": "",
+      "country": "China"
+    },
+    "event_type": "international",
+    "format": "singles|pairs",
+    "description": "Prestigious international bowls classic featuring world champions and top-ranked players from across the globe. Singles qualifying begins with finals weekend.",
+    "entry_fee": "",
+    "source_url": "https://www.bowls.org.hk/category/events/hk-international-classic/",
+    "region": "Asia Pacific",
+    "national_body": "World Bowls"
+  },
+  {
+    "id": "intl-011",
+    "event_name": "World Bowls Junior Indoor Championship 2026",
+    "dates": "2026-11-30 to 2026-12-06",
+    "location": {
+      "club_name": "",
+      "city": "Hong Kong",
+      "state": "",
+      "country": "China"
+    },
+    "event_type": "international",
+    "format": "singles|pairs",
+    "description": "World Bowls Junior Indoor Championship for under-25 bowlers from around the world.",
+    "entry_fee": "",
+    "source_url": "https://www.worldbowls.com/upcoming-events/",
+    "region": "International",
+    "national_body": "World Bowls"
+  },
+  {
+    "id": "au-001",
+    "event_name": "2026 Australian Open",
+    "dates": "2026-06-05 to 2026-06-19",
+    "location": {
+      "club_name": "Various Gold Coast Clubs",
+      "city": "Gold Coast",
+      "state": "Queensland",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|fours|mixed",
+    "description": "11th staging of the Australian Open on the Gold Coast. 18 disciplines including Singles, Pairs, Fours, Under-18, Over-60, Mixed Pairs, Intellectual Open Singles, Deaf/Hearing Impaired Open Singles and para divisions. Over $350,000 prize money. Entry deadline April 8 via BowlsLink.",
+    "entry_fee": "Frozen from 2025 levels",
+    "source_url": "https://australianopen.bowls.com.au/",
+    "region": "Queensland",
+    "national_body": "Bowls Australia"
+  },
+  {
+    "id": "au-002",
+    "event_name": "2026 The Nationals - Under-18 Championships",
+    "dates": "2026-10-02 to 2026-10-05",
+    "location": {
+      "club_name": "Osborne Park Bowling Club",
+      "city": "Perth",
+      "state": "Western Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Under-18 National Championships as part of The Nationals festival. Perth hosts across three venues: Osborne Park, North Beach and Mount Lawley Bowling Clubs.",
+    "entry_fee": "",
+    "source_url": "https://bowls.com.au/perth-to-welcome-2026-nationals-across-three-host-venues/",
+    "region": "Western Australia",
+    "national_body": "Bowls Australia"
+  },
+  {
+    "id": "au-003",
+    "event_name": "2026 The Nationals - Champion of Champions",
+    "dates": "2026-10-06 to 2026-10-09",
+    "location": {
+      "club_name": "North Beach Bowling Club",
+      "city": "Perth",
+      "state": "Western Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "National Champion of Champions Singles as part of The Nationals in Perth.",
+    "entry_fee": "",
+    "source_url": "https://bowls.com.au/events-page/national-events/the-nationals/",
+    "region": "Western Australia",
+    "national_body": "Bowls Australia"
+  },
+  {
+    "id": "au-004",
+    "event_name": "2026 The Nationals - Australian Senior Sides Championships",
+    "dates": "2026-10-10 to 2026-10-13",
+    "location": {
+      "club_name": "Osborne Park Bowling Club",
+      "city": "Perth",
+      "state": "Western Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Australian Senior Sides Championships as part of The Nationals. State/territory teams compete in the over-60 sides format.",
+    "entry_fee": "",
+    "source_url": "https://bowls.com.au/perth-to-welcome-2026-nationals-across-three-host-venues/",
+    "region": "Western Australia",
+    "national_body": "Bowls Australia"
+  },
+  {
+    "id": "au-005",
+    "event_name": "2026 The Nationals - Australian Sides Championships",
+    "dates": "2026-10-15 to 2026-10-18",
+    "location": {
+      "club_name": "Osborne Park Bowling Club",
+      "city": "Perth",
+      "state": "Western Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Australian Sides Championships as part of The Nationals. Open-age state/territory sides compete.",
+    "entry_fee": "",
+    "source_url": "https://bowls.com.au/perth-to-welcome-2026-nationals-across-three-host-venues/",
+    "region": "Western Australia",
+    "national_body": "Bowls Australia"
+  },
+  {
+    "id": "au-006",
+    "event_name": "2026 The Nationals - Australian Championships",
+    "dates": "2026-10-19 to 2026-10-22",
+    "location": {
+      "club_name": "Mount Lawley Bowling Club",
+      "city": "Perth",
+      "state": "Western Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Australian Championships — the pinnacle of domestic lawn bowls. 31 national titles across all disciplines, held at Mount Lawley Bowling Club. Free entry for spectators with daily live-streaming.",
+    "entry_fee": "",
+    "source_url": "https://bowls.com.au/perth-to-welcome-2026-nationals-across-three-host-venues/",
+    "region": "Western Australia",
+    "national_body": "Bowls Australia"
+  },
+  {
+    "id": "au-007",
+    "event_name": "2026 Australian Para Nationals",
+    "dates": "2026-11-06 to 2026-11-10",
+    "location": {
+      "club_name": "TBC Perth Venue",
+      "city": "Perth",
+      "state": "Western Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Australian Para Nationals as part of The Nationals festival in Perth.",
+    "entry_fee": "",
+    "source_url": "https://bowls.com.au/events-page/national-events/the-nationals/",
+    "region": "Western Australia",
+    "national_body": "Bowls Australia"
+  },
+  {
+    "id": "au-008",
+    "event_name": "2026 Australian Indoor Championships",
+    "dates": "2026-05-01 to 2026-05-07",
+    "location": {
+      "club_name": "Club Tweed",
+      "city": "Tweed Heads",
+      "state": "New South Wales",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Australian Indoor Championships at Club Tweed on the NSW-Queensland border, hosted for over 35 years at this venue.",
+    "entry_fee": "",
+    "source_url": "https://bowls.com.au/events-page/national-events/",
+    "region": "New South Wales",
+    "national_body": "Bowls Australia"
+  },
+  {
+    "id": "au-009",
+    "event_name": "BPL Cup National Final 2026",
+    "dates": "2026-11-09 to 2026-11-13",
+    "location": {
+      "club_name": "TBC",
+      "city": "TBC",
+      "state": "TBC",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Bowls Premier League Cup National Final played in conjunction with BPL24. Club-based teams progress through various rounds to the National Finals.",
+    "entry_fee": "",
+    "source_url": "https://bowls.com.au/bpl-cup-season-launched-for-2026/",
+    "region": "National",
+    "national_body": "Bowls Australia"
+  },
+  {
+    "id": "au-010",
+    "event_name": "Bowls NSW State Championships 2026",
+    "dates": "2026-06-22 to 2026-07-08",
+    "location": {
+      "club_name": "Club Dubbo / Dubbo RSL Sporties / Macquarie Club",
+      "city": "Dubbo",
+      "state": "New South Wales",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours|mixed",
+    "description": "Bowls NSW TAB State Championships Finals. Over 850 competitors across 3 venues in Dubbo over 13+ days. 52 State Titles on offer including Para Singles, Mixed Pairs, Triples, Pairs, Singles across men's, women's, senior, and reserve divisions.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnsw.com.au/state-championships/",
+    "region": "New South Wales",
+    "national_body": "Bowls NSW"
+  },
+  {
+    "id": "au-011",
+    "event_name": "Henselite Victorian Open 2026",
+    "dates": "2026-03-20 to 2026-03-29",
+    "location": {
+      "club_name": "Traralgon Bowls Club / Morwell Bowling Club (hubs) + 13 other venues",
+      "city": "Gippsland Region",
+      "state": "Victoria",
+      "country": "Australia"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs|triples|fours",
+    "description": "Victoria's largest bowls event. Held across approximately 15 venues in the Gippsland region with Traralgon and Morwell as major hubs and finals venues.",
+    "entry_fee": "",
+    "source_url": "https://vicopen.com.au/",
+    "region": "Victoria",
+    "national_body": "Bowls Victoria"
+  },
+  {
+    "id": "au-012",
+    "event_name": "Bowls Victoria State Championships 2026",
+    "dates": "2026-04-14 to 2026-04-22",
+    "location": {
+      "club_name": "Bendigo East Bowling Club",
+      "city": "Bendigo",
+      "state": "Victoria",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours|mixed",
+    "description": "Bowls Victoria Open State Championships including Singles, Pairs, Mixed Pairs, Triples, Fours and Champion of Champions Singles.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsvic.org.au/bv-events/state-events/state-championships/",
+    "region": "Victoria",
+    "national_body": "Bowls Victoria"
+  },
+  {
+    "id": "au-013",
+    "event_name": "Bowls Victoria U18 State Championships 2026",
+    "dates": "2026-04-07 to 2026-04-12",
+    "location": {
+      "club_name": "Club Sunbury",
+      "city": "Sunbury",
+      "state": "Victoria",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Under-18 State Championships for Bowls Victoria junior bowlers.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsvic.org.au/bv-events/state-events/under-18-championships/",
+    "region": "Victoria",
+    "national_body": "Bowls Victoria"
+  },
+  {
+    "id": "au-014",
+    "event_name": "Bowls Victoria Para State Championships 2026",
+    "dates": "2026-04-20 to 2026-04-23",
+    "location": {
+      "club_name": "Kangaroo Flat Bowls Club",
+      "city": "Kangaroo Flat",
+      "state": "Victoria",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Para State Championships (Multi-Disability) for Bowls Victoria.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsvic.org.au/bv-events/state-events/para-state-champs/",
+    "region": "Victoria",
+    "national_body": "Bowls Victoria"
+  },
+  {
+    "id": "au-015",
+    "event_name": "Victorian Indoor Championships 2026",
+    "dates": "2026-07-01 to 2026-07-31",
+    "location": {
+      "club_name": "TBC",
+      "city": "TBC",
+      "state": "Victoria",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "2026 Victorian Indoor Championships and Australian Indoor Championship Qualifiers. Held during July.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsvic.org.au/bv-events/state-events/victorian-indoor-championships/",
+    "region": "Victoria",
+    "national_body": "Bowls Victoria"
+  },
+  {
+    "id": "au-016",
+    "event_name": "Bowls Queensland State Championships 2026",
+    "dates": "2026-05-11 to 2026-05-24",
+    "location": {
+      "club_name": "Club Musgrave (finals) / Club Helensvale / Club Broadbeach / Club Robina / Paradise Point / Club Mermaid",
+      "city": "Gold Coast",
+      "state": "Queensland",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Bowls Queensland State Championships played across Gold Coast clubs with all finals at Club Musgrave. Two weeks of elite competition bringing together the best bowlers from across Queensland.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsqld.org/events/2026-state-championships/",
+    "region": "Queensland",
+    "national_body": "Bowls Queensland"
+  },
+  {
+    "id": "au-017",
+    "event_name": "Bowls Queensland Junior State Championships 2026",
+    "dates": "2026-04-12 to 2026-04-18",
+    "location": {
+      "club_name": "TBC",
+      "city": "Moreton Bay Region",
+      "state": "Queensland",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Queensland Junior State Championships for under-18 bowlers in the Moreton Bay Region.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsqld.org/2025/11/28/2026-state-junior-championships-entries-open/",
+    "region": "Queensland",
+    "national_body": "Bowls Queensland"
+  },
+  {
+    "id": "au-018",
+    "event_name": "Taylor Bowls State Challenge Queensland 2026",
+    "dates": "2026-02-01 to 2026-03-29",
+    "location": {
+      "club_name": "Various Queensland Clubs",
+      "city": "Statewide",
+      "state": "Queensland",
+      "country": "Australia"
+    },
+    "event_type": "tournament",
+    "format": "mixed",
+    "description": "Taylor Bowls State Challenge — a statewide club-based competition running from February through March.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsqld.org/events-calendar/",
+    "region": "Queensland",
+    "national_body": "Bowls Queensland"
+  },
+  {
+    "id": "au-019",
+    "event_name": "Bowls SA State Pairs Championships 2026",
+    "dates": "2026-02-01 to 2026-02-28",
+    "location": {
+      "club_name": "TBC",
+      "city": "Adelaide region",
+      "state": "South Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "pairs",
+    "description": "Bowls SA State Pairs Championships. Open to all full members of Bowls SA clubs.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.com.au/state-event-registration/",
+    "region": "South Australia",
+    "national_body": "Bowls SA"
+  },
+  {
+    "id": "au-020",
+    "event_name": "Bowls SA State Singles Championships 2026",
+    "dates": "2026-03-01 to 2026-03-31",
+    "location": {
+      "club_name": "TBC",
+      "city": "Adelaide region",
+      "state": "South Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Bowls SA State Singles Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.com.au/state-event-registration/",
+    "region": "South Australia",
+    "national_body": "Bowls SA"
+  },
+  {
+    "id": "au-021",
+    "event_name": "Bowls SA State Mixed Pairs 2026",
+    "dates": "2026-02-01 to 2026-03-31",
+    "location": {
+      "club_name": "TBC",
+      "city": "Adelaide region",
+      "state": "South Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Bowls SA State Mixed Pairs Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.com.au/state-event-registration/",
+    "region": "South Australia",
+    "national_body": "Bowls SA"
+  },
+  {
+    "id": "au-022",
+    "event_name": "Bowls SA State Triples Championships 2026",
+    "dates": "2026-03-01 to 2026-04-30",
+    "location": {
+      "club_name": "TBC",
+      "city": "Adelaide region",
+      "state": "South Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "triples",
+    "description": "Bowls SA State Triples Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.com.au/state-event-registration/",
+    "region": "South Australia",
+    "national_body": "Bowls SA"
+  },
+  {
+    "id": "au-023",
+    "event_name": "Bowls SA State Fours Championships 2026",
+    "dates": "2026-01-01 to 2026-02-28",
+    "location": {
+      "club_name": "TBC",
+      "city": "Adelaide region",
+      "state": "South Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Bowls SA State Fours Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.com.au/state-event-registration/",
+    "region": "South Australia",
+    "national_body": "Bowls SA"
+  },
+  {
+    "id": "au-024",
+    "event_name": "Bowls SA Under 18 Championships 2026",
+    "dates": "2026-04-01 to 2026-04-30",
+    "location": {
+      "club_name": "TBC",
+      "city": "Adelaide region",
+      "state": "South Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Bowls SA Under 18 Championships for junior South Australian bowlers.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.com.au/state-event-registration/",
+    "region": "South Australia",
+    "national_body": "Bowls SA"
+  },
+  {
+    "id": "au-025",
+    "event_name": "Bowls SA State Over 60s Pairs 2026",
+    "dates": "2026-02-01 to 2026-03-31",
+    "location": {
+      "club_name": "TBC",
+      "city": "Adelaide region",
+      "state": "South Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "pairs",
+    "description": "Bowls SA State Over 60s Pairs Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.com.au/state-event-registration/",
+    "region": "South Australia",
+    "national_body": "Bowls SA"
+  },
+  {
+    "id": "au-026",
+    "event_name": "Bowls SA Champion of Champions 2026",
+    "dates": "2026-04-01 to 2026-05-31",
+    "location": {
+      "club_name": "TBC",
+      "city": "Adelaide region",
+      "state": "South Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Bowls SA Champion of Champions — club champions compete for the state title.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.com.au/state-event-registration/",
+    "region": "South Australia",
+    "national_body": "Bowls SA"
+  },
+  {
+    "id": "au-027",
+    "event_name": "Bowls WA All Abilities State Championships 2026",
+    "dates": "2026-04-11 to 2026-04-12",
+    "location": {
+      "club_name": "Kardinya Bowling Club",
+      "city": "Kardinya",
+      "state": "Western Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Bowls WA All Abilities State Championships. Entry fee $25 includes both Singles and Pairs events.",
+    "entry_fee": "$25",
+    "source_url": "https://www.bowlswa.com.au/2026/02/27/2026-all-abilities-state-championships-entries-open/",
+    "region": "Western Australia",
+    "national_body": "Bowls WA"
+  },
+  {
+    "id": "au-028",
+    "event_name": "Bowls Tasmania State Senior Championships 2026",
+    "dates": "2026-02-04 to 2026-02-11",
+    "location": {
+      "club_name": "TBC Hobart Clubs",
+      "city": "Hobart",
+      "state": "Tasmania",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|fours",
+    "description": "Bowls Tasmania State Senior Championships including Senior Pairs and Senior Fours. Southern teams dominated the 2026 edition.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlstasmania.com.au/2026/02/04/live-streaming-state-senior-championships/",
+    "region": "Tasmania",
+    "national_body": "Bowls Tasmania"
+  },
+  {
+    "id": "au-029",
+    "event_name": "Bowls Tasmania State Junior Championships 2026",
+    "dates": "2026-01-15 to 2026-01-20",
+    "location": {
+      "club_name": "Longford Bowls Club",
+      "city": "Longford",
+      "state": "Tasmania",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Bowls Tasmania State Junior Championships for under-18 bowlers.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlstasmania.com.au/",
+    "region": "Tasmania",
+    "national_body": "Bowls Tasmania"
+  },
+  {
+    "id": "au-030",
+    "event_name": "Bowls Tasmania Open State Championships 2026 (Gala Week)",
+    "dates": "2026-03-08 to 2026-03-14",
+    "location": {
+      "club_name": "Various North West Coast Clubs",
+      "city": "North West Coast",
+      "state": "Tasmania",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|fours",
+    "description": "Final week of Bowls Tasmania Open State Championships including Open Men's and Women's Fours, Pairs and Singles, Para Pairs and Singles, and Bowling Arm events. Winners qualify for the Australian Championships (The Nationals) in Perth.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlstasmania.com.au/2026/03/07/tasmanian-state-lawn-bowls-championships-underway-2/",
+    "region": "Tasmania",
+    "national_body": "Bowls Tasmania"
+  },
+  {
+    "id": "au-031",
+    "event_name": "Bowls ACT Fours Championships 2026",
+    "dates": "2026-01-25 to 2026-02-08",
+    "location": {
+      "club_name": "Canberra Bowling Club / Queanbeyan Bowls Club / Queanbeyan RSL Memorial Bowling Club",
+      "city": "Canberra",
+      "state": "Australian Capital Territory",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "ACT Fours Championships played across Canberra and Queanbeyan clubs.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsact.org.au/2026/01/23/act-2026-fours-championships-draws-now-online/",
+    "region": "ACT",
+    "national_body": "Bowls ACT"
+  },
+  {
+    "id": "au-032",
+    "event_name": "Bowls ACT Pairs Championships 2026",
+    "dates": "2026-02-28 to 2026-03-15",
+    "location": {
+      "club_name": "Queanbeyan RSL Memorial Bowling Club / Bungendore Bowling Club",
+      "city": "Canberra region",
+      "state": "Australian Capital Territory",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "pairs",
+    "description": "ACT Pairs Championships. Winners represent ACT at the 2026 Nationals in Perth.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsact.org.au/2026/02/27/act-2026-pairs-championships-draws-now-online/",
+    "region": "ACT",
+    "national_body": "Bowls ACT"
+  },
+  {
+    "id": "au-033",
+    "event_name": "Bowls ACT Over 60 Pairs 2026",
+    "dates": "2026-03-01 to 2026-03-31",
+    "location": {
+      "club_name": "TBC",
+      "city": "Canberra",
+      "state": "Australian Capital Territory",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "pairs",
+    "description": "ACT Over 60 Pairs — Men's and Women's round robin on Day 1 with top 8 teams qualifying for finals Day 2.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsact.org.au/2026/02/16/2026-act-over-60-pairs-nominations-now-open/",
+    "region": "ACT",
+    "national_body": "Bowls ACT"
+  },
+  {
+    "id": "au-034",
+    "event_name": "Bowls ACT Junior Carnival 2026",
+    "dates": "2026-01-20 to 2026-01-25",
+    "location": {
+      "club_name": "TBC",
+      "city": "Canberra",
+      "state": "Australian Capital Territory",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "ACT Junior Carnival including Junior Capital Pairs and ACT Junior Singles.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsact.org.au/2026/02/23/2026-act-junior-carnival-junior-bpl-wrap/",
+    "region": "ACT",
+    "national_body": "Bowls ACT"
+  },
+  {
+    "id": "au-035",
+    "event_name": "Bowls NT Fours Championships 2026",
+    "dates": "2026-04-04 to 2026-04-05",
+    "location": {
+      "club_name": "TBC",
+      "city": "Darwin",
+      "state": "Northern Territory",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "NT Fours Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsnt.com.au/events-entry-page/",
+    "region": "Northern Territory",
+    "national_body": "Bowls NT"
+  },
+  {
+    "id": "au-036",
+    "event_name": "Bowls NT Pairs Championships 2026",
+    "dates": "2026-04-06 to 2026-04-07",
+    "location": {
+      "club_name": "TBC",
+      "city": "Darwin",
+      "state": "Northern Territory",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "pairs",
+    "description": "NT Pairs Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsnt.com.au/events-entry-page/",
+    "region": "Northern Territory",
+    "national_body": "Bowls NT"
+  },
+  {
+    "id": "au-037",
+    "event_name": "Bowls NT Triples Championships 2026",
+    "dates": "2026-04-13 to 2026-04-14",
+    "location": {
+      "club_name": "TBC",
+      "city": "Darwin",
+      "state": "Northern Territory",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "triples",
+    "description": "NT Triples Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsnt.com.au/events-entry-page/",
+    "region": "Northern Territory",
+    "national_body": "Bowls NT"
+  },
+  {
+    "id": "au-038",
+    "event_name": "Bowls NT Over 60s Championships 2026",
+    "dates": "2026-06-06 to 2026-06-09",
+    "location": {
+      "club_name": "TBC",
+      "city": "Darwin",
+      "state": "Northern Territory",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|mixed",
+    "description": "NT Over 60s Championships including Men's and Ladies Singles, Mixed Pairs, and Men's and Ladies Pairs.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsnt.com.au/events-entry-page/",
+    "region": "Northern Territory",
+    "national_body": "Bowls NT"
+  },
+  {
+    "id": "au-039",
+    "event_name": "Desert to Darwin Bowls Tour 2026",
+    "dates": "2026-06-01 to 2026-06-30",
+    "location": {
+      "club_name": "Various NT Clubs",
+      "city": "Alice Springs to Darwin",
+      "state": "Northern Territory",
+      "country": "Australia"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "description": "Inaugural Festival of Bowls touring from Alice Springs to Darwin, launched in 2026 by Bowls NT.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsnt.com.au/2026/01/15/2026-desert-to-darwin-bowls-tour/",
+    "region": "Northern Territory",
+    "national_body": "Bowls NT"
+  },
+  {
+    "id": "au-040",
+    "event_name": "Bowls SA Multi-Disability Singles & Pairs 2026",
+    "dates": "2026-03-01 to 2026-04-30",
+    "location": {
+      "club_name": "TBC",
+      "city": "Adelaide region",
+      "state": "South Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Bowls SA State Multi-Disability Singles and Pairs Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.com.au/state-event-registration/",
+    "region": "South Australia",
+    "national_body": "Bowls SA"
+  },
+  {
+    "id": "au-041",
+    "event_name": "Bowls SA Finals Week 2026",
+    "dates": "2026-04-01 to 2026-04-07",
+    "location": {
+      "club_name": "TBC",
+      "city": "Adelaide",
+      "state": "South Australia",
+      "country": "Australia"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Bowls SA Finals Week where state championship finals across all disciplines are played.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.com.au/state-event-registration/",
+    "region": "South Australia",
+    "national_body": "Bowls SA"
+  },
+  {
+    "id": "eng-001",
+    "event_name": "Bowls England - Balcomb Trophy Preliminary Round",
+    "dates": "2026-05-17",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Balcomb Trophy & Walker Cup preliminary round — inter-county women's team competition.",
+    "entry_fee": "Free for inter-county events",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-002",
+    "event_name": "Mixed Over 60 Inter County (Round of 35)",
+    "dates": "2026-05-19",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Mixed Over 60 Inter County competition, Round of 35.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-003",
+    "event_name": "Bowls England - Balcomb Trophy Final",
+    "dates": "2026-05-30",
+    "location": {
+      "club_name": "TBC",
+      "city": "TBC",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Balcomb Trophy Final — inter-county women's team competition.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-004",
+    "event_name": "Bowls England - Walker Cup Final",
+    "dates": "2026-05-31",
+    "location": {
+      "club_name": "TBC",
+      "city": "TBC",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Walker Cup Final — inter-county men's team competition.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-005",
+    "event_name": "Middleton Cup & Johns Trophy - Round 1",
+    "dates": "2026-06-06",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Middleton Cup (men's) and Johns Trophy (women's) inter-county team championship, Round 1. All groups play.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-006",
+    "event_name": "Middleton Cup & Johns Trophy - Round 2",
+    "dates": "2026-06-13",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Middleton Cup and Johns Trophy Round 2 (groups of 5 play).",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-007",
+    "event_name": "Amy Rose Bowl Regionals",
+    "dates": "2026-06-14",
+    "location": {
+      "club_name": "Various Regional Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Amy Rose Bowl regional rounds — junior women's singles competition.",
+    "entry_fee": "Free for u17 and u24 players",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-008",
+    "event_name": "Para Singles Regional",
+    "dates": "2026-06-14",
+    "location": {
+      "club_name": "Various Regional Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Para Singles regional qualifying rounds.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-009",
+    "event_name": "Mixed Over 60 Inter County (Round of 32)",
+    "dates": "2026-06-16",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Mixed Over 60 Inter County, Round of 32.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-010",
+    "event_name": "Middleton Cup & Johns Trophy - Round 3",
+    "dates": "2026-06-20",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Middleton Cup and Johns Trophy Round 3. All groups play.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-011",
+    "event_name": "White Rose Trophy Regionals",
+    "dates": "2026-06-21",
+    "location": {
+      "club_name": "Various Regional Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "White Rose Trophy regional rounds — junior men's team competition.",
+    "entry_fee": "Free for u17 and u24 players",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-012",
+    "event_name": "Para Open Pairs",
+    "dates": "2026-06-21",
+    "location": {
+      "club_name": "Victoria Park",
+      "city": "Royal Leamington Spa",
+      "state": "Warwickshire",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "pairs",
+    "description": "Para Open Pairs competition at Victoria Park, Royal Leamington Spa.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-013",
+    "event_name": "British Bowls Championships & Internationals 2026",
+    "dates": "2026-06-22 to 2026-06-28",
+    "location": {
+      "club_name": "National Centre for Bowling",
+      "city": "Ayr",
+      "state": "Scotland",
+      "country": "United Kingdom"
+    },
+    "event_type": "international",
+    "format": "singles|pairs|triples|fours",
+    "description": "British Bowls Championship bringing together national champions from England, Scotland, Ireland, Wales and Jersey. Includes British Bowls Internationals, Para Series and Championships.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "United Kingdom",
+    "national_body": "Bowls England / Bowls Scotland / Welsh Bowls / Bowls Ireland"
+  },
+  {
+    "id": "eng-014",
+    "event_name": "Middleton Cup & Johns Trophy - Round 4",
+    "dates": "2026-07-04",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Middleton Cup and Johns Trophy Round 4 (groups of 5 play).",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-015",
+    "event_name": "Bowls England Junior National Development Day",
+    "dates": "2026-07-05",
+    "location": {
+      "club_name": "Victoria Park",
+      "city": "Royal Leamington Spa",
+      "state": "Warwickshire",
+      "country": "England"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "description": "Bowls England Junior National Development Day at the home of bowls.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-016",
+    "event_name": "Middleton Cup & Johns Trophy - Round 5",
+    "dates": "2026-07-11",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Middleton Cup and Johns Trophy Round 5. All groups play.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-017",
+    "event_name": "Mixed Over 60 Inter County (Round of 16)",
+    "dates": "2026-07-14",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Mixed Over 60 Inter County, Round of 16.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-018",
+    "event_name": "British Bowls U18 Series",
+    "dates": "2026-07-18 to 2026-07-20",
+    "location": {
+      "club_name": "Victoria Park",
+      "city": "Royal Leamington Spa",
+      "state": "Warwickshire",
+      "country": "England"
+    },
+    "event_type": "international",
+    "format": "singles|pairs",
+    "description": "British Bowls U18 Series at Victoria Park, Royal Leamington Spa.",
+    "entry_fee": "Free for u17 and u24 players",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "United Kingdom",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-019",
+    "event_name": "Mixed Over 60 Inter County (Quarter-Finals)",
+    "dates": "2026-08-04",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Mixed Over 60 Inter County quarter-finals.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-020",
+    "event_name": "Middleton Cup & Johns Trophy Quarter-Finals",
+    "dates": "2026-08-08",
+    "location": {
+      "club_name": "Various County Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Middleton Cup and Johns Trophy quarter-finals.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-021",
+    "event_name": "Men's & Women's Top Club Final Qualifying (Round of 16)",
+    "dates": "2026-08-09",
+    "location": {
+      "club_name": "Various",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Men's and Women's Top Club Final Qualifying Round, Round of 16.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-022",
+    "event_name": "Aviva National Bowls Finals 2026",
+    "dates": "2026-08-12 to 2026-08-30",
+    "location": {
+      "club_name": "Victoria Park",
+      "city": "Royal Leamington Spa",
+      "state": "Warwickshire",
+      "country": "England"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours|mixed",
+    "description": "The National Bowls Finals — the largest national bowls event in the world. 42 competitions over 19 days across 5 greens and 30 rinks. Singles, pairs, triples, fours, mixed events across men, women, para, junior, and senior categories. Thousands of competitors and tens of thousands of spectators.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsengland.com/aviva-national-bowls-finals/",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-023",
+    "event_name": "British Bowls U25 Series",
+    "dates": "2026-09-11 to 2026-09-13",
+    "location": {
+      "club_name": "Victoria Park",
+      "city": "Royal Leamington Spa",
+      "state": "Warwickshire",
+      "country": "England"
+    },
+    "event_type": "international",
+    "format": "singles|pairs",
+    "description": "British Bowls U25 Series at Victoria Park, Royal Leamington Spa.",
+    "entry_fee": "Free for u17 and u24 players",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "United Kingdom",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "eng-024",
+    "event_name": "Junior Regional Talent ID",
+    "dates": "2026-05-10",
+    "location": {
+      "club_name": "Various Regional Venues",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "social",
+    "format": "mixed",
+    "description": "Bowls England Junior Regional Talent Identification sessions.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsenglandcomps.com/calendar-of-events-2026",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "scot-001",
+    "event_name": "Bowls Scotland National Championships 2026",
+    "dates": "2026-08-08 to 2026-08-15",
+    "location": {
+      "club_name": "National Centre for Bowling",
+      "city": "Ayr",
+      "state": "Scotland",
+      "country": "United Kingdom"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Bowls Scotland National Championships — the main event in the Scottish bowls calendar. Held following the Glasgow 2026 Commonwealth Games to continue the excitement surrounding bowls.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsscotland.com/competitions/national/national-championships",
+    "region": "Scotland",
+    "national_body": "Bowls Scotland"
+  },
+  {
+    "id": "wales-001",
+    "event_name": "Welsh Bowls National Championships 2026",
+    "dates": "2026-06-24 to 2026-06-29",
+    "location": {
+      "club_name": "Llandrindod Wells Bowls Club",
+      "city": "Llandrindod Wells",
+      "state": "Powys",
+      "country": "Wales"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "British Bowls Championships and Internationals hosted in Wales. National champions from England, Scotland, Ireland, Wales and Jersey compete.",
+    "entry_fee": "",
+    "source_url": "https://www.welshbowls.co.uk/about/calendar",
+    "region": "Wales",
+    "national_body": "Welsh Bowls"
+  },
+  {
+    "id": "nz-001",
+    "event_name": "Summerset National Singles 2026 (Men)",
+    "dates": "2026-01-02 to 2026-01-05",
+    "location": {
+      "club_name": "TBC Canterbury Clubs",
+      "city": "Christchurch",
+      "state": "Canterbury",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Bowls New Zealand Summerset National Men's Singles Championship.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Canterbury",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-002",
+    "event_name": "Summerset National Pairs 2026 (Women & Open Disability)",
+    "dates": "2026-01-02 to 2026-01-05",
+    "location": {
+      "club_name": "TBC Canterbury Clubs",
+      "city": "Christchurch",
+      "state": "Canterbury",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "pairs",
+    "description": "Bowls New Zealand Summerset National Women's & Open Disability Pairs Championship.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Canterbury",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-003",
+    "event_name": "Summerset National Singles 2026 (Women & Open Disability)",
+    "dates": "2026-01-06 to 2026-01-09",
+    "location": {
+      "club_name": "TBC Canterbury Clubs",
+      "city": "Christchurch",
+      "state": "Canterbury",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Bowls New Zealand Summerset National Women's & Open Disability Singles Championship.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Canterbury",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-004",
+    "event_name": "Summerset National Pairs 2026 (Men)",
+    "dates": "2026-01-06 to 2026-01-09",
+    "location": {
+      "club_name": "TBC Canterbury Clubs",
+      "city": "Christchurch",
+      "state": "Canterbury",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "pairs",
+    "description": "Bowls New Zealand Summerset National Men's Pairs Championship.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Canterbury",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-005",
+    "event_name": "Summerset National Fours 2026",
+    "dates": "2026-02-19 to 2026-02-22",
+    "location": {
+      "club_name": "TBC Bay of Plenty Clubs",
+      "city": "Bay of Plenty",
+      "state": "Bay of Plenty",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Bowls New Zealand Summerset National Fours Championship.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Bay of Plenty",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-006",
+    "event_name": "Summerset National Mixed Pairs 2026",
+    "dates": "2026-02-23 to 2026-02-26",
+    "location": {
+      "club_name": "TBC Bay of Plenty Clubs",
+      "city": "Bay of Plenty",
+      "state": "Bay of Plenty",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Bowls New Zealand Summerset National Mixed Pairs Championship.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Bay of Plenty",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-007",
+    "event_name": "National Intercentre 2026",
+    "dates": "2026-03-12 to 2026-03-15",
+    "location": {
+      "club_name": "Various Auckland & North Harbour Clubs",
+      "city": "Auckland",
+      "state": "Auckland",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "National Intercentre competition — centres from around New Zealand compete in team events.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Auckland",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-008",
+    "event_name": "Kittyhawk National U21 Singles 2026",
+    "dates": "2026-04-03 to 2026-04-05",
+    "location": {
+      "club_name": "TBC Wellington Clubs",
+      "city": "Wellington",
+      "state": "Wellington",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Kittyhawk National Under-21 Singles Championship.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Wellington",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-009",
+    "event_name": "National Interclub Sevens 2026",
+    "dates": "2026-04-09 to 2026-04-12",
+    "location": {
+      "club_name": "TBC Wellington Clubs",
+      "city": "Wellington",
+      "state": "Wellington",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "National Interclub Sevens — club teams compete in a sevens format.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Wellington",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-010",
+    "event_name": "Champ of Champs Men's Singles 2026",
+    "dates": "2026-07-10 to 2026-07-12",
+    "location": {
+      "club_name": "Royal Oak Bowling Club",
+      "city": "Auckland",
+      "state": "Auckland",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Champion of Champions Men's Singles — club champions from across New Zealand compete.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Auckland",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-011",
+    "event_name": "Champ of Champs Women's Singles 2026",
+    "dates": "2026-07-17 to 2026-07-19",
+    "location": {
+      "club_name": "Dunedin Lawn Bowls Stadium",
+      "city": "Dunedin",
+      "state": "Otago",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Champion of Champions Women's Singles.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Otago",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-012",
+    "event_name": "Champ of Champs Men's Fours 2026",
+    "dates": "2026-07-24 to 2026-07-26",
+    "location": {
+      "club_name": "Dunedin Lawn Bowls Stadium",
+      "city": "Dunedin",
+      "state": "Otago",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Champion of Champions Men's Fours.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Otago",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-013",
+    "event_name": "Champ of Champs Women's Fours 2026",
+    "dates": "2026-07-31 to 2026-08-02",
+    "location": {
+      "club_name": "Bowls Hastings",
+      "city": "Hastings",
+      "state": "Hawke's Bay",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Champion of Champions Women's Fours.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Hawke's Bay",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-014",
+    "event_name": "Champ of Champs Men's Pairs 2026",
+    "dates": "2026-08-07 to 2026-08-09",
+    "location": {
+      "club_name": "Bowls Hastings",
+      "city": "Hastings",
+      "state": "Hawke's Bay",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "pairs",
+    "description": "Champion of Champions Men's Pairs.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Hawke's Bay",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-015",
+    "event_name": "Champ of Champs Women's Pairs 2026",
+    "dates": "2026-08-14 to 2026-08-16",
+    "location": {
+      "club_name": "Bowls Hastings",
+      "city": "Hastings",
+      "state": "Hawke's Bay",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "pairs",
+    "description": "Champion of Champions Women's Pairs.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Hawke's Bay",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-016",
+    "event_name": "Champ of Champs Men's Triples 2026",
+    "dates": "2026-08-21 to 2026-08-23",
+    "location": {
+      "club_name": "Pukekohe Cosmopolitan Club",
+      "city": "Pukekohe",
+      "state": "Auckland",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "triples",
+    "description": "Champion of Champions Men's Triples.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Auckland",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-017",
+    "event_name": "Champ of Champs Women's Triples 2026",
+    "dates": "2026-08-28 to 2026-08-30",
+    "location": {
+      "club_name": "Pukekohe Cosmopolitan Club",
+      "city": "Pukekohe",
+      "state": "Auckland",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "triples",
+    "description": "Champion of Champions Women's Triples.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Auckland",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-018",
+    "event_name": "Champ of Champs Mixed Pairs 2026",
+    "dates": "2026-09-04 to 2026-09-06",
+    "location": {
+      "club_name": "Pukekohe Cosmopolitan Club",
+      "city": "Pukekohe",
+      "state": "Auckland",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Champion of Champions Mixed Pairs.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Auckland",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-019",
+    "event_name": "Living House Burnside National U26 Singles 2026",
+    "dates": "2026-10-02 to 2026-10-04",
+    "location": {
+      "club_name": "TBC Canterbury Clubs",
+      "city": "Christchurch",
+      "state": "Canterbury",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Living House Burnside National Under-26 Singles Championship.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Canterbury",
+    "national_body": "Bowls New Zealand"
+  },
+  {
+    "id": "nz-020",
+    "event_name": "Clubs New Zealand National Men's Outdoor Bowls Tournament 2026",
+    "dates": "2026-03-01 to 2026-03-07",
+    "location": {
+      "club_name": "TBC",
+      "city": "TBC",
+      "state": "",
+      "country": "New Zealand"
+    },
+    "event_type": "tournament",
+    "format": "fours",
+    "description": "Clubs New Zealand National Men's Outdoor Bowls Tournament — a major club-based national competition.",
+    "entry_fee": "",
+    "source_url": "https://www.clubsnz.org.nz/tournaments/outdoor-bowls/tournament/clubs-new-zealand-2026-national-mens-outdoor-bowls-tournament",
+    "region": "National",
+    "national_body": "Clubs New Zealand"
+  },
+  {
+    "id": "nz-021",
+    "event_name": "Trans-Tasman 2026",
+    "dates": "2026-03-19 to 2026-03-22",
+    "location": {
+      "club_name": "TBC",
+      "city": "TBC",
+      "state": "",
+      "country": "New Zealand"
+    },
+    "event_type": "international",
+    "format": "mixed",
+    "description": "Trans-Tasman series between New Zealand and Australia.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "International",
+    "national_body": "Bowls New Zealand / Bowls Australia"
+  },
+  {
+    "id": "ca-001",
+    "event_name": "2026 Commonwealth Games - Canada Lawn Bowls Team",
+    "dates": "2026-07-23 to 2026-08-02",
+    "location": {
+      "club_name": "Indoor Stadium (TBC)",
+      "city": "Glasgow",
+      "state": "Scotland",
+      "country": "United Kingdom"
+    },
+    "event_type": "international",
+    "format": "singles|pairs",
+    "description": "Canadian bowls team competing at the 2026 Glasgow Commonwealth Games. Four athletes selected to represent Canada.",
+    "entry_fee": "",
+    "source_url": "https://bowlscanada.com/en/canadian-bowls-team-named-for-2026-commonwealth-games/",
+    "region": "International",
+    "national_body": "Bowls Canada Boulingrin"
+  },
+  {
+    "id": "ca-002",
+    "event_name": "Canadian Bowler Open 2026",
+    "dates": "2026-09-04 to 2026-09-07",
+    "location": {
+      "club_name": "Stanley Park Lawn Bowling Club",
+      "city": "Calgary",
+      "state": "Alberta",
+      "country": "Canada"
+    },
+    "event_type": "tournament",
+    "format": "singles|pairs",
+    "description": "Canadian Bowler Open featuring pairs and singles competitions at Stanley Park Lawn Bowling Club in Calgary.",
+    "entry_fee": "",
+    "source_url": "https://www.canadianbowler.ca/canadianbowleropen",
+    "region": "Alberta",
+    "national_body": "Bowls Canada Boulingrin"
+  },
+  {
+    "id": "ca-003",
+    "event_name": "Canadian Lawn Bowling Championships 2026",
+    "dates": "2026-08-18 to 2026-08-23",
+    "location": {
+      "club_name": "TBC (Expression of Interest open)",
+      "city": "TBC",
+      "state": "TBC",
+      "country": "Canada"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Canadian Lawn Bowling National Championships. Dates estimated based on 2025 pattern (August 18-23). Host club selection in progress with EOIs due Feb 27, 2026.",
+    "entry_fee": "",
+    "source_url": "https://bowlscanada.com/en/",
+    "region": "National",
+    "national_body": "Bowls Canada Boulingrin"
+  },
+  {
+    "id": "ca-004",
+    "event_name": "Canadian Para-Bowls Championships 2026",
+    "dates": "2026-08-05 to 2026-08-10",
+    "location": {
+      "club_name": "TBC",
+      "city": "TBC",
+      "state": "TBC",
+      "country": "Canada"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Canadian Para-Bowls Championships. Dates estimated based on 2025 pattern.",
+    "entry_fee": "",
+    "source_url": "https://bowlscanada.com/en/",
+    "region": "National",
+    "national_body": "Bowls Canada Boulingrin"
+  },
+  {
+    "id": "ca-005",
+    "event_name": "Canadian Youth Championships 2026",
+    "dates": "2026-08-11 to 2026-08-16",
+    "location": {
+      "club_name": "TBC",
+      "city": "TBC",
+      "state": "TBC",
+      "country": "Canada"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Canadian Youth Championships. Dates estimated based on 2025 pattern.",
+    "entry_fee": "",
+    "source_url": "https://bowlscanada.com/en/",
+    "region": "National",
+    "national_body": "Bowls Canada Boulingrin"
+  },
+  {
+    "id": "ca-006",
+    "event_name": "Bowls BC Provincial Championships 2026",
+    "dates": "2026-07-01 to 2026-08-31",
+    "location": {
+      "club_name": "Various BC Clubs",
+      "city": "Various",
+      "state": "British Columbia",
+      "country": "Canada"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Bowls BC Provincial Championships including outdoor teams, singles, junior & youth, and indoor singles. All registrations online at bowlsbc.com.",
+    "entry_fee": "",
+    "source_url": "http://bowlsbc.com/provincialevents/",
+    "region": "British Columbia",
+    "national_body": "Bowls BC"
+  },
+  {
+    "id": "ca-007",
+    "event_name": "Ontario Lawn Bowls Association Provincial Championships 2026",
+    "dates": "2026-07-01 to 2026-08-31",
+    "location": {
+      "club_name": "Various Ontario Clubs",
+      "city": "Various",
+      "state": "Ontario",
+      "country": "Canada"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "OLBA Provincial Championships and District Playdowns. Registration through SAM (Sports Association Manager).",
+    "entry_fee": "",
+    "source_url": "https://olba.ca/competitions/championship-events/",
+    "region": "Ontario",
+    "national_body": "Ontario Lawn Bowls Association"
+  },
+  {
+    "id": "sa-001",
+    "event_name": "BSA Tournament Committees 2026",
+    "dates": "2026-02-06 to 2026-02-08",
+    "location": {
+      "club_name": "Wingate Park Country Club",
+      "city": "Pretoria",
+      "state": "Gauteng North",
+      "country": "South Africa"
+    },
+    "event_type": "tournament",
+    "format": "mixed",
+    "description": "Bowls South Africa Tournament Committees event at Wingate Park.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/national-events/",
+    "region": "Gauteng North",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "sa-002",
+    "event_name": "2026 BSA Masters",
+    "dates": "2026-03-09 to 2026-03-13",
+    "location": {
+      "club_name": "Western Province Bowls Association",
+      "city": "Cape Town",
+      "state": "Western Cape",
+      "country": "South Africa"
+    },
+    "event_type": "championship",
+    "format": "singles",
+    "description": "Bowls South Africa Masters Championship at Western Province Bowls.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/2026-bsa-masters/",
+    "region": "Western Cape",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "sa-003",
+    "event_name": "2026 Perfect Delivery Open Inter Districts",
+    "dates": "2026-03-09 to 2026-03-13",
+    "location": {
+      "club_name": "Ekurhuleni Bowls",
+      "city": "Ekurhuleni",
+      "state": "Gauteng",
+      "country": "South Africa"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Perfect Delivery Open Inter Districts — district teams compete at Ekurhuleni Bowls.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/national-events/",
+    "region": "Gauteng",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "sa-004",
+    "event_name": "2026 Perfect Delivery 'B' Inter Districts",
+    "dates": "2026-03-09 to 2026-03-13",
+    "location": {
+      "club_name": "Johannesburg Bowls Association",
+      "city": "Johannesburg",
+      "state": "Gauteng",
+      "country": "South Africa"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Perfect Delivery 'B' Inter Districts — second-tier district teams competition.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/national-events/",
+    "region": "Gauteng",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "sa-005",
+    "event_name": "2026 Perfect Delivery Vets Inter-Districts",
+    "dates": "2026-04-11 to 2026-04-18",
+    "location": {
+      "club_name": "Eden Bowls",
+      "city": "George",
+      "state": "Western Cape",
+      "country": "South Africa"
+    },
+    "event_type": "championship",
+    "format": "fours",
+    "description": "Perfect Delivery Veterans Inter-Districts at Eden Bowls in the Garden Route region.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/national-events/",
+    "region": "Western Cape",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "sa-006",
+    "event_name": "2026 BSA Disability Open",
+    "dates": "2026-05-02 to 2026-05-10",
+    "location": {
+      "club_name": "Port Natal Bowls",
+      "city": "Durban",
+      "state": "KwaZulu-Natal",
+      "country": "South Africa"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Bowls South Africa Disability Open Championship at Port Natal Bowls.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/national-events/",
+    "region": "KwaZulu-Natal",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "sa-007",
+    "event_name": "2026 BSA Open - Women",
+    "dates": "2026-05-16 to 2026-05-24",
+    "location": {
+      "club_name": "TBC Gauteng North Venue",
+      "city": "Pretoria",
+      "state": "Gauteng North",
+      "country": "South Africa"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Bowls South Africa Women's Open Championship hosted by Bowls Gauteng North.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/national-events/",
+    "region": "Gauteng North",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "sa-008",
+    "event_name": "2026 BSA Open - Men",
+    "dates": "2026-08-20 to 2026-08-23",
+    "location": {
+      "club_name": "TBC Mpumalanga Venue",
+      "city": "Mpumalanga",
+      "state": "Mpumalanga",
+      "country": "South Africa"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Bowls South Africa Men's Open Championship hosted in Mpumalanga.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/national-events/",
+    "region": "Mpumalanga",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "sa-009",
+    "event_name": "2026 BSA Mixed Pairs",
+    "dates": "2026-09-24 to 2026-09-27",
+    "location": {
+      "club_name": "TBC Northern Free State Venue",
+      "city": "Northern Free State",
+      "state": "Free State",
+      "country": "South Africa"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Bowls South Africa Mixed Pairs Championship.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/national-events/",
+    "region": "Free State",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "sa-010",
+    "event_name": "2026 SA Junior Nationals",
+    "dates": "2026-06-01 to 2026-06-07",
+    "location": {
+      "club_name": "TBC",
+      "city": "TBC",
+      "state": "",
+      "country": "South Africa"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs",
+    "description": "Bowls South Africa Junior Nationals.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/national-events/",
+    "region": "National",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "sa-011",
+    "event_name": "2026 BSA U35 Inter Districts",
+    "dates": "2026-07-01 to 2026-07-07",
+    "location": {
+      "club_name": "TBC",
+      "city": "TBC",
+      "state": "",
+      "country": "South Africa"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Bowls South Africa Under-35 Inter Districts competition.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlssa.co.za/national-events/",
+    "region": "National",
+    "national_body": "Bowls South Africa"
+  },
+  {
+    "id": "intl-012",
+    "event_name": "7 Nations Lawn Bowls Invitation 2026",
+    "dates": "2026-05-01 to 2026-05-07",
+    "location": {
+      "club_name": "TBC",
+      "city": "Kuala Lumpur",
+      "state": "",
+      "country": "Malaysia"
+    },
+    "event_type": "international",
+    "format": "mixed",
+    "description": "7 Nations Lawn Bowls Invitation event in Kuala Lumpur featuring players from Malaysia, Singapore, India, Hong Kong, China, Australia (NT) and New Zealand.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsnt.com.au/2026/02/11/7-nations-tournament-invitation/",
+    "region": "Asia Pacific",
+    "national_body": "Various"
+  },
+  {
+    "id": "intl-013",
+    "event_name": "Lion City Cup 2026",
+    "dates": "2026-06-15 to 2026-06-20",
+    "location": {
+      "club_name": "TBC",
+      "city": "Singapore",
+      "state": "",
+      "country": "Singapore"
+    },
+    "event_type": "international",
+    "format": "pairs",
+    "description": "Lion City Cup pairs event in Singapore with Open Men's, Open Women's, Men's U25 and Women's U25 competitions.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsnt.com.au/2026/03/04/lion-city-cup-2026-nominations/",
+    "region": "Asia Pacific",
+    "national_body": "Various"
+  },
+  {
+    "id": "eng-025",
+    "event_name": "Bowls England International Events 2026 - England Home Tests",
+    "dates": "2026-06-01 to 2026-09-30",
+    "location": {
+      "club_name": "Various",
+      "city": "Various",
+      "state": "England",
+      "country": "England"
+    },
+    "event_type": "international",
+    "format": "singles|pairs|triples|fours",
+    "description": "Bowls England international test match programme for 2026 season. Schedule includes home and away test series.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsengland.com/international-events/",
+    "region": "England",
+    "national_body": "Bowls England"
+  },
+  {
+    "id": "intl-014",
+    "event_name": "US Open Bowls 2026",
+    "dates": "2026-11-02 to 2026-11-08",
+    "location": {
+      "club_name": "Sun City / Sun City West Clubs",
+      "city": "Sun City",
+      "state": "Arizona",
+      "country": "USA"
+    },
+    "event_type": "championship",
+    "format": "singles|pairs|triples|fours",
+    "description": "Bowls USA US Open — major international open tournament in Arizona attracting competitors from around the world.",
+    "entry_fee": "",
+    "source_url": "https://www.bowlsusa.us/us-open.html",
+    "region": "USA",
+    "national_body": "Bowls USA"
+  },
+  {
+    "id": "nz-022",
+    "event_name": "Aotearoa National Bowls 2026",
+    "dates": "2026-02-06 to 2026-02-09",
+    "location": {
+      "club_name": "TBC Rotorua Clubs",
+      "city": "Rotorua",
+      "state": "Bay of Plenty",
+      "country": "New Zealand"
+    },
+    "event_type": "championship",
+    "format": "mixed",
+    "description": "Aotearoa National Bowls event in Rotorua.",
+    "entry_fee": "",
+    "source_url": "https://bowlsnewzealand.co.nz/2026-events/",
+    "region": "Bay of Plenty",
+    "national_body": "Bowls New Zealand"
+  }
+]
