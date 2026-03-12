@@ -9,13 +9,32 @@ import { createClient as createServerClient } from "@/lib/supabase/server";
  * Delete activity_feed entries older than 90 days.
  * Runs weekly on Sundays at 5am UTC.
  */
+function verifyCronAuth(request: NextRequest): boolean {
+  const expectedSecret = process.env.CRON_SECRET;
+  if (!expectedSecret) return false;
+  // Vercel cron sends Authorization: Bearer <secret>
+  const bearer = request.headers.get("authorization")?.replace("Bearer ", "");
+  if (bearer === expectedSecret) return true;
+  // Also accept x-cron-secret header for manual/local calls
+  const cronSecret = request.headers.get("x-cron-secret");
+  return cronSecret === expectedSecret;
+}
+
+// GET handler for Vercel cron (sends GET with Authorization: Bearer)
+export async function GET(request: NextRequest) {
+  return handleCleanup(request);
+}
+
 export async function POST(request: NextRequest) {
+  return handleCleanup(request);
+}
+
+async function handleCleanup(request: NextRequest) {
   try {
-    // Verify cron secret OR admin auth fallback
     const cronSecret = request.headers.get("x-cron-secret");
     const expectedSecret = process.env.CRON_SECRET;
 
-    if (!cronSecret || !expectedSecret || cronSecret !== expectedSecret) {
+    if (!verifyCronAuth(request)) {
       const supabase = await createServerClient();
       const {
         data: { user },

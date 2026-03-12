@@ -9,13 +9,28 @@ import { createClient as createServerClient } from "@/lib/supabase/server";
  * Expire stale visit requests where expires_at (or requested_date) has passed.
  * Runs hourly via Vercel cron.
  */
+function verifyCronAuth(request: NextRequest): boolean {
+  const expectedSecret = process.env.CRON_SECRET;
+  if (!expectedSecret) return false;
+  const bearer = request.headers.get("authorization")?.replace("Bearer ", "");
+  if (bearer === expectedSecret) return true;
+  const cronSecret = request.headers.get("x-cron-secret");
+  return cronSecret === expectedSecret;
+}
+
+export async function GET(request: NextRequest) {
+  return handleExpire(request);
+}
+
 export async function POST(request: NextRequest) {
+  return handleExpire(request);
+}
+
+async function handleExpire(request: NextRequest) {
   try {
-    // Verify cron secret OR admin auth fallback
-    const cronSecret = request.headers.get("x-cron-secret");
     const expectedSecret = process.env.CRON_SECRET;
 
-    if (!cronSecret || !expectedSecret || cronSecret !== expectedSecret) {
+    if (!verifyCronAuth(request)) {
       const supabase = await createServerClient();
       const {
         data: { user },

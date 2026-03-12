@@ -9,13 +9,28 @@ import { createClient as createServerClient } from "@/lib/supabase/server";
  * Mark tournaments still in 'registration' status whose starts_at is more than
  * 24 hours in the past as 'cancelled'. Runs daily at 4am UTC.
  */
+function verifyCronAuth(request: NextRequest): boolean {
+  const expectedSecret = process.env.CRON_SECRET;
+  if (!expectedSecret) return false;
+  const bearer = request.headers.get("authorization")?.replace("Bearer ", "");
+  if (bearer === expectedSecret) return true;
+  const cronSecret = request.headers.get("x-cron-secret");
+  return cronSecret === expectedSecret;
+}
+
+export async function GET(request: NextRequest) {
+  return handleCleanup(request);
+}
+
 export async function POST(request: NextRequest) {
+  return handleCleanup(request);
+}
+
+async function handleCleanup(request: NextRequest) {
   try {
-    // Verify cron secret OR admin auth fallback
-    const cronSecret = request.headers.get("x-cron-secret");
     const expectedSecret = process.env.CRON_SECRET;
 
-    if (!cronSecret || !expectedSecret || cronSecret !== expectedSecret) {
+    if (!verifyCronAuth(request)) {
       const supabase = await createServerClient();
       const {
         data: { user },

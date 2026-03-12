@@ -9,13 +9,28 @@ import { createClient as createServerClient } from "@/lib/supabase/server";
  * Recalculate player_stats from matches, match_results, and match_players
  * for players active in the last 30 days. Runs daily at 3am UTC.
  */
+function verifyCronAuth(request: NextRequest): boolean {
+  const expectedSecret = process.env.CRON_SECRET;
+  if (!expectedSecret) return false;
+  const bearer = request.headers.get("authorization")?.replace("Bearer ", "");
+  if (bearer === expectedSecret) return true;
+  const cronSecret = request.headers.get("x-cron-secret");
+  return cronSecret === expectedSecret;
+}
+
+export async function GET(request: NextRequest) {
+  return handleRefresh(request);
+}
+
 export async function POST(request: NextRequest) {
+  return handleRefresh(request);
+}
+
+async function handleRefresh(request: NextRequest) {
   try {
-    // Verify cron secret OR admin auth fallback
-    const cronSecret = request.headers.get("x-cron-secret");
     const expectedSecret = process.env.CRON_SECRET;
 
-    if (!cronSecret || !expectedSecret || cronSecret !== expectedSecret) {
+    if (!verifyCronAuth(request)) {
       const supabase = await createServerClient();
       const {
         data: { user },
