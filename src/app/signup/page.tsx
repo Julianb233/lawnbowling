@@ -85,7 +85,7 @@ export default function SignupPage() {
         user_id: data.user.id,
         display_name: name,
       });
-      router.push(returnTo);
+      router.push("/onboarding/player");
       router.refresh();
     }
   }
