@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 const navLinks = [
   { href: "/clubs", label: "Clubs" },
   { href: "/learn", label: "Learn" },
+  { href: "/gallery", label: "Gallery" },
   { href: "/shop", label: "Shop" },
   { href: "/login", label: "Sign In" },
 ];
@@ -43,6 +44,12 @@ export function HomeNav() {
             className="hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
           >
             Learn
+          </Link>
+          <Link
+            href="/gallery"
+            className="hidden md:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
+          >
+            Gallery
           </Link>
           <Link
             href="/shop"

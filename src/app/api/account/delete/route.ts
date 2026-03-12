@@ -6,11 +6,11 @@ export async function DELETE() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  // Delete player record (cascades)
+  // Delete player record using user_id (auth UID), not id (player UUID)
   const { error } = await supabase
     .from("players")
     .delete()
-    .eq("id", user.id);
+    .eq("user_id", user.id);
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
 

@@ -44,6 +44,10 @@ export async function updateSession(request: NextRequest) {
     "/sitemap.xml", "/robots.txt",
     // API routes for public pages
     "/api/clubs", "/api/shop/products", "/api/stats/leaderboard",
+    "/api/waitlist/status", "/api/bowls/tournament",
+    "/api/tv/announcements", "/api/search",
+    // Stripe webhook endpoints — must be publicly reachable
+    "/api/stripe/webhook", "/api/membership/webhook",
   ];
 
   // Root path is public (landing page)

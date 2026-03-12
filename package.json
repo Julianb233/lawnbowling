@@ -9,6 +9,8 @@
     "lint": "eslint",
     "seed:demo": "tsx scripts/seed-demo.ts",
     "seed:demo:clean": "tsx scripts/seed-demo.ts --clean",
+    "seed:500": "tsx scripts/seed-500-users.ts",
+    "seed:500:clean": "tsx scripts/seed-500-users.ts --clean",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
@@ -61,6 +63,7 @@
     "@types/web-push": "^3.6.4",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "jsdom": "^28.1.0",
     "typescript": "^5",
     "vitest": "^4.0.18"
   }

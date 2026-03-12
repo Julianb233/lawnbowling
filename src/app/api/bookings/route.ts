@@ -3,6 +3,9 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function GET(req: NextRequest) {
   const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const courtId = req.nextUrl.searchParams.get("court_id");
   const playerId = req.nextUrl.searchParams.get("player_id");
 

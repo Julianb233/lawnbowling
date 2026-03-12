@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { listTournaments, createTournament } from "@/lib/db/tournaments";
+import { logger } from "@/lib/logger";
 
 export async function GET() {
   try {
@@ -13,7 +14,7 @@ export async function GET() {
     const tournaments = await listTournaments();
     return NextResponse.json({ tournaments });
   } catch (error) {
-    console.error("Get tournaments error:", error);
+    logger.error("Get tournaments error", { route: "tournament", error });
     return NextResponse.json({ error: "Failed to fetch tournaments" }, { status: 500 });
   }
 }
@@ -55,7 +56,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ tournament }, { status: 201 });
   } catch (error) {
-    console.error("Create tournament error:", error);
+    logger.error("Create tournament error", { route: "tournament", error });
     return NextResponse.json({ error: "Failed to create tournament" }, { status: 500 });
   }
 }
