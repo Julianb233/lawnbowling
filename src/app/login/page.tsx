@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Trophy, MapPin, BarChart3, Users, Mail, Lock } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -38,108 +38,101 @@ export default function LoginPage() {
     router.refresh();
   }
 
-  const features = [
-    {
-      icon: Trophy,
-      title: "Tournament Draws",
-      desc: "Enter and track club tournaments",
-      color: "#1B5E20",
-      bg: "#F0FFF4",
-    },
-    {
-      icon: BarChart3,
-      title: "Live Scoring",
-      desc: "Score games right from your phone",
-      color: "#1B5E20",
-      bg: "#F0FFF4",
-    },
-    {
-      icon: MapPin,
-      title: "Club Directory",
-      desc: "Find clubs and members near you",
-      color: "#1B5E20",
-      bg: "#F0FFF4",
-    },
-    {
-      icon: Users,
-      title: "Your Stats",
-      desc: "See your games, wins, and history",
-      color: "#1B5E20",
-      bg: "#F0FFF4",
-    },
-  ];
-
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#FEFCF9" }}>
-      <div className="relative flex min-h-screen flex-col lg:flex-row">
-        {/* Left: Hero / Features */}
-        <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-16 lg:py-0">
-          <div className="mx-auto w-full max-w-lg">
-            {/* Brand */}
-            <div className="mb-8 flex items-center gap-3">
-              <Image
-                src="/images/logo/bowls-icon.png"
-                alt="Lawnbowling"
-                width={40}
-                height={40}
-              />
-              <span className="text-xl font-bold" style={{ color: "#0A2E12" }}>
-                Lawnbowling
-              </span>
-            </div>
+    <div className="flex min-h-screen">
+      {/* Left: Full-bleed photo with overlay */}
+      <div className="relative hidden lg:flex lg:w-[55%]">
+        <Image
+          src="/images/scenery-golden-hour-green.jpg"
+          alt="Lawn bowling green at golden hour"
+          fill
+          priority
+          className="object-cover"
+        />
+        {/* Dark green gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A2E12]/80 via-[#0A2E12]/60 to-[#0A2E12]/40" />
 
-            {/* Headline */}
+        {/* Content over the image */}
+        <div className="relative z-10 flex flex-col justify-between p-12">
+          {/* Brand top-left */}
+          <div className="flex items-center gap-3">
+            <Image
+              src="/images/logo/bowls-icon.png"
+              alt="Lawnbowling"
+              width={40}
+              height={40}
+              className="rounded-full shadow-lg"
+            />
+            <span className="text-xl font-bold text-white">
+              Lawnbowling
+            </span>
+          </div>
+
+          {/* Headline centered */}
+          <div className="max-w-md">
             <h1
-              className="text-4xl font-extrabold leading-tight tracking-tight lg:text-5xl"
-              style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+              className="text-5xl font-extrabold leading-tight tracking-tight text-white"
+              style={{ fontFamily: "var(--font-display)" }}
             >
               Welcome Back
               <br />
-              <span style={{ color: "#1B5E20" }}>to the Green</span>
+              <span className="text-[#A8D5BA]">to the Green</span>
             </h1>
-
-            <p className="mt-4 text-lg leading-relaxed" style={{ color: "#3D5A3E" }}>
+            <p className="mt-4 text-lg leading-relaxed text-white/80">
               Sign in to check scores, enter tournaments, and connect with your club.
             </p>
+          </div>
 
-            {/* Feature Cards */}
-            <div className="mt-10 grid grid-cols-2 gap-3">
-              {features.map((f) => (
-                <div
-                  key={f.title}
-                  className="flex items-start gap-3 rounded-xl border border-[#0A2E12]/10 bg-white p-4"
-                >
-                  <div
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
-                    style={{ backgroundColor: f.bg }}
-                  >
-                    <f.icon className="h-5 w-5" style={{ color: f.color }} />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-semibold" style={{ color: "#0A2E12" }}>
-                      {f.title}
-                    </h3>
-                    <p className="mt-0.5 text-sm" style={{ color: "#3D5A3E" }}>
-                      {f.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
+          {/* Bottom quote */}
+          <p className="text-sm text-white/50">
+            &ldquo;The best game you can play is the next one.&rdquo;
+          </p>
+        </div>
+      </div>
+
+      {/* Right: Login Form */}
+      <div className="flex flex-1 flex-col" style={{ backgroundColor: "#FEFCF9" }}>
+        {/* Mobile header with background image */}
+        <div className="relative lg:hidden">
+          <div className="relative h-48 w-full overflow-hidden">
+            <Image
+              src="/images/scenery-golden-hour-green.jpg"
+              alt="Lawn bowling green"
+              fill
+              priority
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0A2E12]/60 to-[#0A2E12]/80" />
+            <div className="relative z-10 flex h-full flex-col items-center justify-center">
+              <Image
+                src="/images/logo/bowls-icon.png"
+                alt="Lawnbowling"
+                width={48}
+                height={48}
+                className="rounded-full shadow-lg"
+              />
+              <h1
+                className="mt-3 text-2xl font-bold text-white"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                Welcome Back
+              </h1>
             </div>
           </div>
         </div>
 
-        {/* Right: Login Form */}
-        <div className="flex flex-1 items-center justify-center px-6 py-12 lg:px-16">
-          <div className="w-full max-w-md rounded-2xl border border-[#0A2E12]/10 bg-white p-8 shadow-sm">
-            <div className="mb-8 text-center">
+        {/* Form */}
+        <div className="flex flex-1 items-center justify-center px-6 py-12">
+          <div className="w-full max-w-md">
+            {/* Desktop heading (hidden on mobile since it's in the hero) */}
+            <div className="mb-8 hidden lg:block">
               <h2
                 className="text-3xl font-bold"
                 style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
               >
                 Sign In
               </h2>
-              <p className="mt-3 text-base" style={{ color: "#3D5A3E" }}>
+              <p className="mt-2 text-base" style={{ color: "#3D5A3E" }}>
                 Good to see you again
               </p>
             </div>
@@ -210,7 +203,7 @@ export default function LoginPage() {
             <p className="mt-6 text-center text-base" style={{ color: "#3D5A3E" }}>
               No account yet?{" "}
               <Link
-                href={returnTo !== "/" ? `/signup?returnTo=${encodeURIComponent(returnTo)}` : "/signup"}
+                href={returnTo !== "/board" ? `/signup?returnTo=${encodeURIComponent(returnTo)}` : "/signup"}
                 className="font-semibold underline"
                 style={{ color: "#1B5E20" }}
               >
