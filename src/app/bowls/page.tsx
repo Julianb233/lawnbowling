@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
@@ -26,6 +27,7 @@ interface BowlsTournament {
 }
 
 export default function BowlsPage() {
+  const router = useRouter();
   const [tournaments, setTournaments] = useState<BowlsTournament[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
@@ -37,7 +39,10 @@ export default function BowlsPage() {
     async function loadPlayer() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      if (!user) {
+        router.replace("/login?returnTo=/bowls");
+        return;
+      }
       const { data: player } = await supabase
         .from("players")
         .select("home_club_id")
