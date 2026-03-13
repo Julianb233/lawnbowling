@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Mail, Lock, AlertTriangle, Loader2 } from "lucide-react";
-import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 /**
  * Map Supabase error messages to user-friendly text.
@@ -114,7 +113,7 @@ function LoginForm() {
           {/* Brand top-left */}
           <div className="flex items-center gap-3">
             <Image
-              src={bowlsIconImg}
+              src="/images/logo/bowls-icon.png"
               alt="Lawnbowling"
               width={40}
               height={40}
@@ -162,7 +161,7 @@ function LoginForm() {
             <div className="absolute inset-0 bg-gradient-to-b from-[#0A2E12]/60 to-[#0A2E12]/80" />
             <div className="relative z-10 flex h-full flex-col items-center justify-center">
               <Image
-                src={bowlsIconImg}
+                src="/images/logo/bowls-icon.png"
                 alt="Lawnbowling"
                 width={48}
                 height={48}
