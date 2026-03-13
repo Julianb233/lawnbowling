@@ -17,12 +17,32 @@ const serwist = new Serwist({
   clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: [
+    // Profile & friends API — cache for offline viewing
+    {
+      urlPattern: /^\/api\/(profile|friends|messages\/conversations)/i,
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "social-api-cache",
+        networkTimeoutSeconds: 3,
+        expiration: { maxEntries: 50, maxAgeSeconds: 7 * 24 * 60 * 60 },
+      },
+    },
+    // Other API routes
     {
       urlPattern: /^\/api\/.*/i,
       handler: "NetworkFirst",
       options: {
         cacheName: "api-cache",
         networkTimeoutSeconds: 5,
+      },
+    },
+    // Profile pages — StaleWhileRevalidate for fast offline access
+    {
+      urlPattern: /^\/(profile|friends)(\/.*)?$/i,
+      handler: "StaleWhileRevalidate",
+      options: {
+        cacheName: "social-pages-cache",
+        expiration: { maxEntries: 30, maxAgeSeconds: 24 * 60 * 60 },
       },
     },
     {
