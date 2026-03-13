@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Mail, Lock, User, AlertTriangle, CheckCircle, Loader2 } from "lucide-react";
-import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 function friendlySignupError(raw: string): string {
   const lower = raw.toLowerCase();
@@ -111,7 +110,7 @@ function SignupForm() {
           {/* Brand */}
           <div className="mb-8 flex items-center justify-center gap-3">
             <Image
-              src={bowlsIconImg}
+              src="/images/logo/bowls-icon.png"
               alt="Lawnbowling"
               width={40}
               height={40}

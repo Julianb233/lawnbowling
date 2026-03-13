@@ -23,7 +23,6 @@ import { VenueSelector } from "@/components/venue/VenueSelector";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import Link from "next/link";
 import Image from "next/image";
-import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 import {
   Trophy,
   Calendar,
@@ -206,7 +205,7 @@ export default function BoardPage() {
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 lg:px-8">
             <div className="flex items-center gap-3">
               <Image
-                src={bowlsIconImg}
+                src="/images/logo/bowls-icon.png"
                 alt="Lawnbowling"
                 width={36}
                 height={36}
