@@ -287,7 +287,7 @@ export function FaqPage() {
             within 24 hours.
           </p>
           <Link
-            href="/(public)/contact"
+            href="/contact"
             className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/15 transition hover:bg-emerald-500 active:scale-[0.98]"
           >
             Contact Us
@@ -318,13 +318,13 @@ export function FaqPage() {
               FAQ
             </Link>
             <Link
-              href="/(public)/terms"
+              href="/terms"
               className="hover:text-[#2D4A30] transition"
             >
               Terms
             </Link>
             <Link
-              href="/(public)/privacy"
+              href="/privacy"
               className="hover:text-[#2D4A30] transition"
             >
               Privacy
