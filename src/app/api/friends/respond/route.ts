@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { getPlayerByUserId } from "@/lib/db/players";
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
@@ -7,11 +8,39 @@ export async function POST(request: NextRequest) {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { request_id, accept } = await request.json();
+
+  // Get the friendship to know both player IDs
+  const { data: friendship } = await supabase
+    .from("friendships")
+    .select("player_id, friend_id")
+    .eq("id", request_id)
+    .single();
+
   const { error } = await supabase
     .from("friendships")
     .update({ status: accept ? "accepted" : "blocked" })
     .eq("id", request_id)
     .eq("friend_id", user.id);
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+
+  // Log social activity when a friend request is accepted
+  if (accept && friendship) {
+    const player = await getPlayerByUserId(user.id);
+    if (player) {
+      try {
+        await supabase.from("activity_feed").insert({
+          player_id: player.id,
+          venue_id: null,
+          type: "friend_accepted",
+          metadata: {
+            friend_id: friendship.player_id,
+          },
+        });
+      } catch {
+        // activity_feed table may not exist in all environments
+      }
+    }
+  }
+
   return NextResponse.json({ ok: true });
 }
