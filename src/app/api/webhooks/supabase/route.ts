@@ -207,7 +207,7 @@ async function handleCheckin(record: Record<string, unknown>) {
         title: "Friend Checked In",
         body: `${playerName} just checked in — head to the green!`,
         tag: `checkin-${record.id}`,
-        url: `/checkin`,
+        url: `/board`,
       })
     )
   );
