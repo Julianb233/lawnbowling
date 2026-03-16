@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, Trophy, Play, Users } from "lucide-react";
+import { ArrowLeft, Trophy, Play, Users, Tv } from "lucide-react";
 import Link from "next/link";
 import { BottomNav } from "@/components/board/BottomNav";
 import { TournamentBracket } from "@/components/tournament/TournamentBracket";
@@ -159,6 +159,17 @@ export default function TournamentDetailPage() {
               </div>
             </div>
             <div className="flex items-center gap-2 shrink-0">
+              {tournament.status === "in_progress" && (
+                <Link
+                  href={`/tournament/${tournament.id}/live`}
+                  target="_blank"
+                  className="flex items-center gap-2 rounded-xl border border-emerald-500/30 dark:border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-sm font-semibold text-emerald-700 dark:text-emerald-400 transition-colors hover:bg-emerald-500/20 min-h-[44px] touch-manipulation"
+                  title="Open live TV dashboard"
+                >
+                  <Tv className="h-4 w-4" />
+                  <span className="hidden sm:inline">Live TV</span>
+                </Link>
+              )}
               {canStart && (
                 <button
                   onClick={handleStartTournament}
