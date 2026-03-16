@@ -1,0 +1,25 @@
+{
+  "iterations": [
+    {
+      "timestamp": "2026-03-16T20:47:00.000Z",
+      "iteration": 1,
+      "score": 92,
+      "passed": 11,
+      "total": 12,
+      "issues": [
+        "[Self-Request Prevention] no explicit self-request prevention (relies on DB constraint)"
+      ],
+      "fix_applied": "Added playerId === friend_id guard to POST /api/friends"
+    },
+    {
+      "timestamp": "2026-03-16T20:48:03.770Z",
+      "iteration": 2,
+      "score": 100,
+      "passed": 12,
+      "total": 12,
+      "issues": []
+    }
+  ],
+  "current_score": 100,
+  "status": "all_evals_passing"
+}
