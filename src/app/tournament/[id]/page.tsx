@@ -105,9 +105,9 @@ export default function TournamentDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FEFCF9]">
+      <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518]">
         <div className="mx-auto max-w-3xl px-4 py-8">
-          <div className="h-48 animate-pulse rounded-2xl bg-[#0A2E12]/5" />
+          <div className="h-48 animate-pulse rounded-2xl bg-[#0A2E12]/5 dark:bg-white/5" />
         </div>
       </div>
     );
@@ -115,10 +115,10 @@ export default function TournamentDetailPage() {
 
   if (!tournament) {
     return (
-      <div className="min-h-screen bg-[#FEFCF9]">
+      <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518]">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-          <p className="text-[#3D5A3E]">Tournament not found</p>
-          <Link href="/tournament" className="mt-4 inline-block text-sm text-[#1B5E20] hover:underline">
+          <p className="text-[#3D5A3E] dark:text-[#a8c8b4]">Tournament not found</p>
+          <Link href="/tournament" className="mt-4 inline-block text-sm text-[#1B5E20] dark:text-[#4ade80] hover:underline">
             Back to tournaments
           </Link>
         </div>
@@ -137,16 +137,16 @@ export default function TournamentDetailPage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 dark:border-white/10 bg-white/95 dark:bg-[#0f2518]/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <Link href="/tournament" className="mb-2 flex items-center gap-1 text-sm text-[#3D5A3E] hover:text-[#3D5A3E]">
+          <Link href="/tournament" className="mb-2 flex items-center gap-1 text-sm text-[#3D5A3E] dark:text-[#a8c8b4] hover:text-[#2D4A30] dark:hover:text-white">
             <ArrowLeft className="h-4 w-4" />
             Tournaments
           </Link>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
-              <h1 className="text-lg font-bold text-[#0A2E12] sm:text-xl truncate">{tournament.name}</h1>
+              <h1 className="text-lg font-bold text-[#0A2E12] dark:text-[#e8f0eb] sm:text-xl truncate">{tournament.name}</h1>
               <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[#3D5A3E]">
                 <span style={{ color: sportColor.primary }}>
                   <SportIcon sport={tournament.sport as Sport} className="w-4 h-4 inline-block" /> {sportLabel?.label ?? tournament.sport}
@@ -182,7 +182,7 @@ export default function TournamentDetailPage() {
 
       <div className="mx-auto max-w-3xl px-4 py-6">
         <Tabs.Root defaultValue="bracket">
-          <Tabs.List className="mb-6 flex gap-1 rounded-xl bg-white/80 p-1">
+          <Tabs.List className="mb-6 flex gap-1 rounded-xl bg-white/80 dark:bg-white/5 p-1">
             <Tabs.Trigger
               value="bracket"
               className="flex-1 rounded-lg px-3 py-3 text-sm font-medium text-[#3D5A3E] transition-colors data-[state=active]:bg-[#0A2E12]/5 data-[state=active]:text-[#0A2E12] min-h-[44px] touch-manipulation"
@@ -234,9 +234,9 @@ export default function TournamentDetailPage() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-sm rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-2xl"
+              className="w-full max-w-sm rounded-2xl border border-[#0A2E12]/10 dark:border-white/10 bg-white dark:bg-[#1a3d28] p-6 shadow-2xl"
             >
-              <h3 className="mb-4 text-lg font-bold text-[#0A2E12]">Report Result</h3>
+              <h3 className="mb-4 text-lg font-bold text-[#0A2E12] dark:text-[#e8f0eb]">Report Result</h3>
               <form onSubmit={handleReportResult} className="space-y-4">
                 <div>
                   <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">Winner</label>
