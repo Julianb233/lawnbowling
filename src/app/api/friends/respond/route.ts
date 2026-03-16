@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerByUserId } from "@/lib/db/players";
+import { getPlayerIdFromAuth } from "@/lib/db/get-player-id";
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  // Resolve auth UID to player UUID — friend_id references players.id, not auth UID
+  const playerId = await getPlayerIdFromAuth(supabase, user.id);
+  if (!playerId) return NextResponse.json({ error: "Player not found" }, { status: 404 });
 
   const { request_id, accept } = await request.json();
 
@@ -20,7 +25,7 @@ export async function POST(request: NextRequest) {
     .from("friendships")
     .update({ status: accept ? "accepted" : "blocked" })
     .eq("id", request_id)
-    .eq("friend_id", user.id);
+    .eq("friend_id", playerId);
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
 
   // Log social activity when a friend request is accepted
