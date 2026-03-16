@@ -101,6 +101,11 @@ export async function getLeaderboard(
       entries.sort((a, b) => b.win_rate - a.win_rate || b.wins - a.wins);
     }
 
+    // Fallback: if player_sport_skills is empty, use player_stats for this sport
+    if (entries.length === 0) {
+      return getLeaderboard({ ...options, sport: undefined });
+    }
+
     return entries;
   }
 
