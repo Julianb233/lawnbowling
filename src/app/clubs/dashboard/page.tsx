@@ -19,6 +19,7 @@ import {
   TrendingUp,
   Loader2,
   ExternalLink,
+  MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -442,6 +443,13 @@ function ClubDashboardContent() {
               title="View History"
               description="Past matches, scores, and stats"
               color="bg-blue-50 text-[#1B5E20]"
+            />
+            <QuickLink
+              href="/clubs/chat"
+              icon={<MessageCircle className="h-5 w-5" />}
+              title="Club Chat"
+              description="Group messages with your club"
+              color="bg-teal-50 text-teal-600"
             />
             <QuickLink
               href="/schedule"

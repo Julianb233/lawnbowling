@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { WifiOff } from "lucide-react";
-import type { Friendship } from "@/lib/types";
+import type { Friendship, Player } from "@/lib/types";
 import { FriendsList } from "@/components/social/FriendsList";
 import { FriendRequests } from "@/components/social/FriendRequests";
+import { PlayerSearch } from "@/components/social/PlayerSearch";
 
 interface FriendsPageClientProps {
   friends: Friendship[];
@@ -33,6 +34,13 @@ export function FriendsPageClient({
     };
   }, []);
 
+  // Extract friend IDs for the search filter
+  const friendIds = friends.map((f) => {
+    const friendPlayer: Player | undefined =
+      f.player_id === currentPlayerId ? f.friend : f.player;
+    return friendPlayer?.id ?? "";
+  }).filter(Boolean);
+
   return (
     <>
       {isOffline && (
@@ -43,6 +51,18 @@ export function FriendsPageClient({
           </p>
         </div>
       )}
+
+      {/* Player discovery search */}
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider mb-2">
+          Find Players
+        </h3>
+        <PlayerSearch
+          currentPlayerId={currentPlayerId}
+          friendIds={friendIds}
+        />
+      </div>
+
       <FriendRequests
         requests={pendingRequests}
         onRespond={() => router.refresh()}
