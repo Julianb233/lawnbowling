@@ -76,7 +76,11 @@ export async function getLeaderboard(
     query = query.limit(limit);
 
     const { data, error } = await query;
-    if (error) throw error;
+
+    // If player_sport_skills table doesn't exist or is empty, fall back to player_stats
+    if (error || !data || data.length === 0) {
+      return getLeaderboard({ ...options, sport: undefined });
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const entries: LeaderboardEntry[] = (data ?? []).map((row: any) => {
@@ -99,11 +103,6 @@ export async function getLeaderboard(
 
     if (sortBy === "win_rate") {
       entries.sort((a, b) => b.win_rate - a.win_rate || b.wins - a.wins);
-    }
-
-    // Fallback: if player_sport_skills is empty, use player_stats for this sport
-    if (entries.length === 0) {
-      return getLeaderboard({ ...options, sport: undefined });
     }
 
     return entries;
