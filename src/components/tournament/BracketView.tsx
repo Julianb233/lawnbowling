@@ -119,7 +119,7 @@ function MatchCard({
   return (
     <div
       className={cn(
-        "relative flex flex-col overflow-hidden rounded-lg border bg-white shadow-sm",
+        "relative flex flex-col overflow-hidden rounded-lg border bg-white dark:bg-[#1a3d28] shadow-sm",
         isActive
           ? "border-[#1B5E20] ring-1 ring-[#1B5E20]/30 animate-[bracket-pulse_2s_ease-in-out_infinite]"
           : "border-[#0A2E12]/10",

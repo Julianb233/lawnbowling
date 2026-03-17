@@ -34,7 +34,38 @@ function getSupabaseAdmin() {
  */
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    // Verify webhook signature if PRINTIFY_WEBHOOK_SECRET is configured
+    const webhookSecret = process.env.PRINTIFY_WEBHOOK_SECRET;
+    const rawBody = await request.text();
+
+    if (webhookSecret) {
+      const signature = request.headers.get("x-pfy-signature");
+      if (!signature) {
+        console.error("[printify-webhook] Missing x-pfy-signature header");
+        return NextResponse.json({ error: "Missing signature" }, { status: 401 });
+      }
+
+      // Printify HMAC-SHA256 signature verification
+      const encoder = new TextEncoder();
+      const key = await crypto.subtle.importKey(
+        "raw",
+        encoder.encode(webhookSecret),
+        { name: "HMAC", hash: "SHA-256" },
+        false,
+        ["sign"]
+      );
+      const signatureBytes = await crypto.subtle.sign("HMAC", key, encoder.encode(rawBody));
+      const expectedSignature = Array.from(new Uint8Array(signatureBytes))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+
+      if (signature !== expectedSignature) {
+        console.error("[printify-webhook] Invalid webhook signature");
+        return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
+      }
+    }
+
+    const body = JSON.parse(rawBody);
     const eventType = body?.type ?? body?.event;
 
     console.log(`[printify-webhook] Received event: ${eventType}`, {

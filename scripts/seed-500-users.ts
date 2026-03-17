@@ -1,6 +1,15 @@
 /**
  * Seed 500 test users with realistic profiles, skill levels, team memberships,
- * friendships, and player stats.
+ * friendships, player stats, bowls position ratings, and club memberships.
+ *
+ * Creates:
+ *   - 500 auth users + player profiles with bowls-specific fields
+ *   - Position-specific ELO ratings (skip/vice/second/lead/singles)
+ *   - Player stats with realistic win/loss records
+ *   - 50 teams with 4-8 members each
+ *   - 750 friendships
+ *   - Club memberships (players distributed across existing clubs)
+ *   - Notification preferences
  *
  * Usage:
  *   npx tsx scripts/seed-500-users.ts
@@ -125,6 +134,82 @@ function winRateForSkill(skill: "beginner" | "intermediate" | "advanced"): numbe
   }
 }
 
+// ── Bowls-specific constants ──────────────────────────────────────────
+
+const POSITIONS = ["skip", "vice", "second", "lead"] as const;
+const EXPERIENCE_LEVELS = ["brand_new", "learning", "social", "competitive", "representative"] as const;
+const BOWLING_FORMATS = ["fours", "triples", "pairs", "singles"] as const;
+
+const CLUB_NAMES_FOR_BIO = [
+  "Beverly Hills Lawn Bowling Club", "San Francisco Lawn Bowling Club",
+  "Santa Monica Bowls Club", "Laguna Beach LBC", "Palo Alto LBC",
+  "Seattle Lawn Bowling Club", "Portland Lawn Bowling Club",
+  "Denver Lawn Bowling Club", "Chicago Lakeside LBC", "New York Lawn Bowling Club",
+  "Sun City Lawn Bowls", "Clearwater LBC", "Pinehurst Resort LBC",
+  "Williamsburg Inn LBC", "Buck Hill Falls LBC",
+];
+
+const BIOS = [
+  "Love getting outdoors and rolling a few ends with friends.",
+  "Competitive bowler focusing on singles and pairs.",
+  "Weekend social bowler. Always up for a friendly game!",
+  "Recently retired and picked up lawn bowling. Hooked!",
+  "Skip looking for regular pairs and triples partners.",
+  "Vice-skip with 10+ years experience. Love pennant season.",
+  "New to the sport but learning fast. Open to any format.",
+  "Tournament regular — traveled to nationals twice.",
+  "Social player who enjoys the community aspect most.",
+  "Lead specialist — accurate draw is my strength.",
+  "Been bowling since I was a kid in the UK.",
+  "Moved from indoor bowls to outdoor and never looked back.",
+  "Looking to join a competitive pennant team.",
+  "Casual player, here mostly for the BBQ and beers afterwards.",
+  "Coaching badge holder — happy to help newcomers.",
+  null, null, null, null, null, // 25% chance of no bio
+];
+
+function generatePosition(index: number): "skip" | "vice" | "second" | "lead" | "any" {
+  const r = (index * 11 + 3) % 100;
+  if (r < 15) return "skip";
+  if (r < 30) return "vice";
+  if (r < 45) return "second";
+  if (r < 60) return "lead";
+  return "any";
+}
+
+function generateExperienceLevel(skill: string, index: number): string {
+  if (skill === "beginner") return pick(["brand_new", "learning"]);
+  if (skill === "intermediate") return pick(["learning", "social", "competitive"]);
+  return pick(["competitive", "representative"]);
+}
+
+function generateYearsPlaying(skill: string): number {
+  if (skill === "beginner") return randInt(0, 2);
+  if (skill === "intermediate") return randInt(2, 10);
+  return randInt(5, 35);
+}
+
+function generateBowlingFormats(skill: string): string[] {
+  if (skill === "beginner") {
+    return [pick(["pairs", "triples", "fours"])];
+  }
+  if (skill === "intermediate") {
+    const count = randInt(2, 3);
+    const shuffled = [...BOWLING_FORMATS].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, count);
+  }
+  // Advanced — play most formats
+  return [...BOWLING_FORMATS].sort(() => Math.random() - 0.5).slice(0, randInt(3, 4));
+}
+
+function eloForSkillAndPosition(skill: string, position: string): number {
+  const base = skill === "beginner" ? 900 : skill === "intermediate" ? 1200 : 1500;
+  // Add position-specific variance
+  const variance = randInt(-100, 100);
+  // Preferred positions get a bonus
+  return Math.max(600, Math.min(2000, base + variance));
+}
+
 // ── Main ───────────────────────────────────────────────────────────────
 
 async function main() {
@@ -181,19 +266,31 @@ async function main() {
   console.log(`     Total: ${created} created, ${skipped} already existed`);
 
   // 3. Player stats
-  console.log("3/6  Creating player stats...");
+  console.log("3/9  Creating player stats...");
   await createPlayerStats(playerIds, playerSkills);
 
-  // 4. Teams + memberships
-  console.log("4/6  Creating teams and team memberships...");
+  // 4. Bowls position ratings (ELO per position)
+  console.log("4/9  Creating bowls position ratings...");
+  await createPositionRatings(playerIds, playerSkills);
+
+  // 5. Teams + memberships
+  console.log("5/9  Creating teams and team memberships...");
   await createTeams(playerIds, venueId);
 
-  // 5. Friendships
-  console.log("5/6  Creating friendships...");
+  // 6. Club memberships
+  console.log("6/9  Creating club memberships...");
+  await createClubMemberships(playerIds);
+
+  // 7. Friendships
+  console.log("7/9  Creating friendships...");
   await createFriendships(playerIds);
 
-  // 6. Summary
-  console.log("6/6  Done!\n");
+  // 8. Notification preferences
+  console.log("8/9  Creating notification preferences...");
+  await createNotificationPreferences(playerIds);
+
+  // 9. Summary
+  console.log("9/9  Done!\n");
   console.log("=== Seed Summary ===");
   console.log(`  Users created: ${created}`);
   console.log(`  Users existing: ${skipped}`);
@@ -249,6 +346,13 @@ async function createUserAndPlayer(
     .maybeSingle();
 
   let playerId: string;
+  const preferredPosition = generatePosition(index);
+  const yearsPlaying = generateYearsPlaying(skill);
+  const experienceLevel = generateExperienceLevel(skill, index);
+  const bowlingFormats = generateBowlingFormats(skill);
+  const bio = pick(BIOS);
+  const homeClubName = Math.random() > 0.3 ? pick(CLUB_NAMES_FOR_BIO) : null;
+
   if (existingPlayer) {
     playerId = existingPlayer.id;
     wasCreated = false;
@@ -264,6 +368,13 @@ async function createUserAndPlayer(
         is_available: Math.random() > 0.6,
         venue_id: venueId,
         role: "player",
+        preferred_position: preferredPosition,
+        years_playing: yearsPlaying,
+        experience_level: experienceLevel,
+        bowling_formats: bowlingFormats,
+        bio: bio,
+        home_club_name: homeClubName,
+        onboarding_completed: true,
       })
       .select("id")
       .single();
@@ -450,6 +561,191 @@ async function createFriendships(playerIds: string[]) {
     }
   }
   console.log(`     ${inserted} friendships created`);
+}
+
+// ── Bowls Position Ratings ─────────────────────────────────────────────
+
+async function createPositionRatings(
+  playerIds: string[],
+  playerSkills: ("beginner" | "intermediate" | "advanced")[]
+) {
+  const SEASON = "2026";
+  const allPositions = ["skip", "vice", "second", "lead", "singles"] as const;
+  const rows: {
+    player_id: string;
+    position: string;
+    season: string;
+    elo_rating: number;
+    games_played: number;
+    wins: number;
+    losses: number;
+    draws: number;
+    shot_differential: number;
+    ends_won: number;
+    ends_played: number;
+    ends_won_pct: number;
+  }[] = [];
+
+  for (let i = 0; i < playerIds.length; i++) {
+    const skill = playerSkills[i];
+    // Each player gets ratings for 1-4 positions (more experienced = more positions)
+    const numPositions = skill === "beginner" ? randInt(1, 2) : skill === "intermediate" ? randInt(2, 3) : randInt(3, 5);
+    const shuffledPositions = [...allPositions].sort(() => Math.random() - 0.5);
+    const chosenPositions = shuffledPositions.slice(0, numPositions);
+
+    for (const pos of chosenPositions) {
+      const elo = eloForSkillAndPosition(skill, pos);
+      const gamesPlayed = skill === "beginner" ? randInt(2, 15) : skill === "intermediate" ? randInt(10, 40) : randInt(25, 100);
+      const winRate = winRateForSkill(skill) / 100;
+      const wins = Math.round(gamesPlayed * winRate);
+      const draws = Math.round(gamesPlayed * 0.05);
+      const losses = gamesPlayed - wins - draws;
+      const endsPlayed = gamesPlayed * randInt(14, 21); // avg ends per game
+      const endsWon = Math.round(endsPlayed * (winRate * 0.8 + 0.1)); // correlated with win rate
+      const shotDiff = skill === "beginner" ? randInt(-50, 10) : skill === "intermediate" ? randInt(-20, 40) : randInt(10, 120);
+
+      rows.push({
+        player_id: playerIds[i],
+        position: pos,
+        season: SEASON,
+        elo_rating: elo,
+        games_played: gamesPlayed,
+        wins,
+        losses,
+        draws,
+        shot_differential: shotDiff,
+        ends_won: endsWon,
+        ends_played: endsPlayed,
+        ends_won_pct: endsPlayed > 0 ? Math.round((endsWon / endsPlayed) * 10000) / 100 : 0,
+      });
+    }
+  }
+
+  const INSERT_BATCH = 200;
+  let inserted = 0;
+  for (let i = 0; i < rows.length; i += INSERT_BATCH) {
+    const batch = rows.slice(i, i + INSERT_BATCH);
+    const { error } = await supabase
+      .from("bowls_position_ratings")
+      .upsert(batch, { onConflict: "player_id,position,season", ignoreDuplicates: true });
+    if (error) {
+      console.warn(`     Position ratings batch error: ${error.message}`);
+    } else {
+      inserted += batch.length;
+    }
+  }
+  console.log(`     ${inserted} position ratings created across ${playerIds.length} players`);
+}
+
+// ── Club Memberships ──────────────────────────────────────────────────
+
+async function createClubMemberships(playerIds: string[]) {
+  // Fetch existing clubs from the database
+  const { data: clubs, error: clubErr } = await supabase
+    .from("clubs")
+    .select("id, name")
+    .limit(100);
+
+  if (clubErr || !clubs || clubs.length === 0) {
+    console.log("     No clubs found in database, skipping club memberships");
+    return;
+  }
+
+  const ROLES = ["member", "member", "member", "member", "visitor"] as const; // 80% member, 20% visitor
+  const rows: {
+    club_id: string;
+    player_id: string;
+    role: string;
+    status: string;
+    joined_at: string;
+  }[] = [];
+
+  // Each player joins 1-3 clubs
+  for (let i = 0; i < playerIds.length; i++) {
+    const numClubs = randInt(1, 3);
+    const shuffledClubs = [...clubs].sort(() => Math.random() - 0.5);
+    const chosenClubs = shuffledClubs.slice(0, Math.min(numClubs, clubs.length));
+
+    for (const club of chosenClubs) {
+      rows.push({
+        club_id: club.id,
+        player_id: playerIds[i],
+        role: pick([...ROLES]),
+        status: "active",
+        joined_at: daysAgo(randInt(1, 365)),
+      });
+    }
+  }
+
+  const INSERT_BATCH = 200;
+  let inserted = 0;
+  for (let i = 0; i < rows.length; i += INSERT_BATCH) {
+    const batch = rows.slice(i, i + INSERT_BATCH);
+    const { error } = await supabase
+      .from("club_memberships")
+      .upsert(batch, { onConflict: "club_id,player_id", ignoreDuplicates: true });
+    if (error) {
+      console.warn(`     Club membership batch error: ${error.message}`);
+    } else {
+      inserted += batch.length;
+    }
+  }
+  console.log(`     ${inserted} club memberships across ${clubs.length} clubs`);
+}
+
+// ── Notification Preferences ──────────────────────────────────────────
+
+async function createNotificationPreferences(playerIds: string[]) {
+  const rows: {
+    player_id: string;
+    push_partner_requests: boolean;
+    push_match_ready: boolean;
+    push_friend_checkin: boolean;
+    push_scheduled_reminder: boolean;
+    email_weekly_summary: boolean;
+    email_upcoming_games: boolean;
+    profile_public: boolean;
+    stats_public: boolean;
+    event_reminders: boolean;
+    new_events: boolean;
+    tournament_results: boolean;
+    chat_messages: boolean;
+    club_announcements: boolean;
+  }[] = [];
+
+  for (const playerId of playerIds) {
+    rows.push({
+      player_id: playerId,
+      push_partner_requests: Math.random() > 0.2,
+      push_match_ready: Math.random() > 0.15,
+      push_friend_checkin: Math.random() > 0.4,
+      push_scheduled_reminder: Math.random() > 0.1,
+      email_weekly_summary: Math.random() > 0.5,
+      email_upcoming_games: Math.random() > 0.3,
+      profile_public: Math.random() > 0.15,
+      stats_public: Math.random() > 0.25,
+      event_reminders: Math.random() > 0.2,
+      new_events: Math.random() > 0.3,
+      tournament_results: Math.random() > 0.15,
+      chat_messages: Math.random() > 0.2,
+      club_announcements: Math.random() > 0.15,
+    });
+  }
+
+  const INSERT_BATCH = 200;
+  let inserted = 0;
+  for (let i = 0; i < rows.length; i += INSERT_BATCH) {
+    const batch = rows.slice(i, i + INSERT_BATCH);
+    const { error } = await supabase
+      .from("notification_preferences")
+      .upsert(batch, { onConflict: "player_id", ignoreDuplicates: true });
+    if (error) {
+      console.warn(`     Notification prefs batch error: ${error.message}`);
+    } else {
+      inserted += batch.length;
+    }
+  }
+  console.log(`     ${inserted} notification preferences created`);
 }
 
 // ── Clean ──────────────────────────────────────────────────────────────

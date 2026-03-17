@@ -433,13 +433,13 @@ export function InsurancePage() {
               FAQ
             </Link>
             <Link
-              href="/(public)/terms"
+              href="/terms"
               className="hover:text-[#2D4A30] transition"
             >
               Terms
             </Link>
             <Link
-              href="/(public)/privacy"
+              href="/privacy"
               className="hover:text-[#2D4A30] transition"
             >
               Privacy

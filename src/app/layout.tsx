@@ -7,9 +7,9 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { DesktopThemeToggle } from "@/components/DesktopThemeToggle";
 import "./globals.css";
 
-// Inline script to set dark class before first paint — default to light mode
-// Only go dark if user explicitly chose dark (not based on OS preference)
-const themeInitScript = `(function(){try{if(localStorage.getItem('lb-color-scheme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})();`;
+// Inline script to set dark class before first paint (REQ-DM-07)
+// Respects system preference on first visit, persists manual toggle (REQ-DM-05, REQ-DM-06)
+const themeInitScript = `(function(){try{var s=localStorage.getItem('lb-color-scheme');if(s==='dark'){document.documentElement.classList.add('dark')}else if(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}}catch(e){}})();`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

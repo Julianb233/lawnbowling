@@ -87,9 +87,18 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
       : ("none" as const),
     getPlayerStats(player.id),
     getFavoritePartners(player.id, { limit: 5 }),
-    getPlayerPhotos(player.id),
-    getPlayerAchievements(player.id),
-    getContactPreferences(player.id),
+    getPlayerPhotos(player.id).catch(() => []),
+    getPlayerAchievements(player.id).catch(() => []),
+    getContactPreferences(player.id).catch(() => ({
+      player_id: player.id,
+      show_email: false,
+      show_phone: false,
+      preferred_contact: "in_app" as const,
+      email: null,
+      phone: null,
+      allow_messages_from: "everyone" as const,
+      updated_at: new Date().toISOString(),
+    })),
   ]);
 
   const initials = player.display_name

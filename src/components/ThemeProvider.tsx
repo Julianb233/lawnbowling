@@ -22,6 +22,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Read the class that was set by the inline script in <head>
     const isDark = document.documentElement.classList.contains("dark");
     setThemeState(isDark ? "dark" : "light");
+
+    // If no manual override stored, respect system preference (REQ-DM-05)
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setThemeState("dark");
+      document.documentElement.classList.add("dark");
+    }
+
     setMounted(true);
   }, []);
 

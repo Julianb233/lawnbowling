@@ -7,12 +7,14 @@ interface AddFriendButtonProps {
   targetId: string;
   status?: "none" | "pending" | "accepted" | "blocked";
   className?: string;
+  size?: "sm" | "default";
 }
 
 export function AddFriendButton({
   targetId,
   status = "none",
   className,
+  size = "default",
 }: AddFriendButtonProps) {
   const [currentStatus, setCurrentStatus] = useState(status);
   const [isPending, startTransition] = useTransition();

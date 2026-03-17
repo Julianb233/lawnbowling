@@ -6,13 +6,12 @@ function escapeCsv(value: unknown): string {
   if (value === null || value === undefined) return "";
   let str = String(value);
   // Strip formula-triggering prefixes to prevent spreadsheet injection
-  if (/^[=+\-@\t\r]/.test(str)) {
+  // Covers: =, +, -, @, tab, carriage return, and pipe (|) which some spreadsheets interpret
+  if (/^[=+\-@\t\r|]/.test(str)) {
     str = "'" + str;
   }
   // If the value contains quotes, commas, or newlines, wrap in quotes and escape internal quotes
   if (str.includes('"') || str.includes(",") || str.includes("\n") || str.includes("\r")) {
-    str = '"' + str.replace(/"/g, '""') + '"';
-  } else if (str.includes('"')) {
     str = '"' + str.replace(/"/g, '""') + '"';
   }
   return str;

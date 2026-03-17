@@ -42,7 +42,7 @@ export function TournamentCard({ tournament }: TournamentCardProps) {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className={cn(
-          "rounded-2xl border border-[#0A2E12]/10 bg-white/80 p-4 transition-colors hover:border-[#0A2E12]/10",
+          "rounded-2xl border border-[#0A2E12]/10 dark:border-white/10 bg-white/80 dark:bg-white/5 p-4 transition-colors hover:border-[#0A2E12]/10 dark:hover:border-white/20",
           "cursor-pointer"
         )}
       >
@@ -58,7 +58,7 @@ export function TournamentCard({ tournament }: TournamentCardProps) {
           </span>
         </div>
 
-        <h3 className="mb-1 font-bold text-[#0A2E12]">{tournament.name}</h3>
+        <h3 className="mb-1 font-bold text-[#0A2E12] dark:text-[#e8f0eb]">{tournament.name}</h3>
         <p className="mb-3 text-sm text-[#3D5A3E]">
           {TOURNAMENT_FORMAT_LABELS[tournament.format]}
         </p>

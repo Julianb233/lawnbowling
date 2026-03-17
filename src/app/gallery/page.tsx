@@ -6,6 +6,7 @@ import { Camera, Users, ChevronRight, ImageIcon } from "lucide-react";
 import { galleryImages, galleryCategories, type GalleryCategory } from "@/lib/gallery-data";
 import { ImageGrid } from "@/components/gallery/ImageGrid";
 import { ImageLightbox } from "@/components/gallery/ImageLightbox";
+import { CommunityGallery } from "@/components/gallery/CommunityGallery";
 import { PublicNav } from "@/components/PublicNav";
 
 export default function GalleryPage() {
@@ -107,6 +108,9 @@ export default function GalleryPage() {
       <section className="mx-auto max-w-6xl px-6 pb-20">
         <ImageGrid images={filteredImages} onImageClick={handleImageClick} />
       </section>
+
+      {/* Community Submissions */}
+      <CommunityGallery isAuthenticated={false} />
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-6 pb-24">

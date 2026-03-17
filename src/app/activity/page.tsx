@@ -8,7 +8,7 @@ import NoticeboardFeed from "@/components/noticeboard/NoticeboardFeed";
 import { BottomNav } from "@/components/board/BottomNav";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, MessageCircle, Users, Trophy, UserPlus } from "lucide-react";
+import { ArrowLeft, MessageCircle, Users, Trophy, UserPlus, Award, Handshake } from "lucide-react";
 
 export default async function ActivityPage() {
   const supabase = await createClient();
@@ -122,12 +122,16 @@ export default async function ActivityPage() {
                   match_complete: Trophy,
                   new_player: UserPlus,
                   scheduled_game: Users,
+                  friend_accepted: Handshake,
+                  achievement_unlocked: Award,
                 };
                 const verbMap: Record<string, string> = {
                   check_in: "checked in",
                   match_complete: "finished a match",
                   new_player: "joined the club",
                   scheduled_game: "scheduled a game",
+                  friend_accepted: "made a new friend",
+                  achievement_unlocked: "unlocked an achievement",
                 };
                 const Icon = iconMap[item.type] ?? Users;
 

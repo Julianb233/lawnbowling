@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerByUserId } from "@/lib/db/players";
+import { getConversations } from "@/lib/db/messages";
 import { ChatPageClient } from "./ChatPageClient";
 
 export default async function ChatPage() {
@@ -29,5 +30,19 @@ export default async function ChatPage() {
     return friend as unknown as { id: string; display_name: string; avatar_url: string | null };
   }).filter(Boolean);
 
-  return <ChatPageClient currentPlayer={player} friends={friends} />;
+  // Fetch existing conversations with last messages
+  let initialConversations: Awaited<ReturnType<typeof getConversations>> = [];
+  try {
+    initialConversations = await getConversations(player.id);
+  } catch {
+    // Table may not exist yet — chat will still work, just no history
+  }
+
+  return (
+    <ChatPageClient
+      currentPlayer={player}
+      friends={friends}
+      initialConversations={initialConversations}
+    />
+  );
 }
