@@ -6,7 +6,8 @@ import type { PushPayload } from "@/lib/push";
 export type BowlsNotificationType =
   | "draw_announcement"
   | "score_update"
-  | "tournament_start";
+  | "tournament_start"
+  | "result_announcement";
 
 interface NotifyRequest {
   tournament_id: string;
@@ -77,6 +78,19 @@ export async function POST(request: NextRequest) {
           url: `/bowls/${tournament_id}`,
           actions: [
             { action: "view", title: "View Tournament" },
+            { action: "dismiss", title: "Dismiss" },
+          ],
+        };
+        break;
+
+      case "result_announcement":
+        payload = {
+          title: `Round ${round ?? "?"} Results`,
+          body: message ?? `${tournamentName} - Round ${round ?? "?"} results are in! Check the standings.`,
+          tag: `bowls-results-${tournament_id}-${round}`,
+          url: `/bowls/${tournament_id}/results`,
+          actions: [
+            { action: "view", title: "View Results" },
             { action: "dismiss", title: "Dismiss" },
           ],
         };

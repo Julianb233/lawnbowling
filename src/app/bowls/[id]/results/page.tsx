@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { cn } from "@/lib/utils";
 import { ShareSheet } from "@/components/bowls/ShareSheet";
-import { Share2 } from "lucide-react";
+import { Share2, Bell, Check } from "lucide-react";
 import type { TournamentScore, ScoreWinner } from "@/lib/types";
 
 interface RoundSummary {
@@ -63,6 +63,11 @@ export default function ResultsPage() {
   const [advancing, setAdvancing] = useState(false);
   const [showStandings, setShowStandings] = useState(false);
   const [showShareSheet, setShowShareSheet] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [checkinCount, setCheckinCount] = useState(0);
+  const [announceSending, setAnnounceSending] = useState(false);
+  const [announceSent, setAnnounceSent] = useState<Record<number, boolean>>({});
+  const [showAnnounceConfirm, setShowAnnounceConfirm] = useState(false);
 
   const loadTournament = useCallback(async () => {
     const supabase = createClient();
@@ -73,6 +78,76 @@ export default function ResultsPage() {
       .single();
     if (data) setTournamentName(data.name);
   }, [tournamentId]);
+
+  // Check if current user is admin
+  useEffect(() => {
+    async function checkAdmin() {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data: player } = await supabase
+        .from("players")
+        .select("role")
+        .eq("user_id", user.id)
+        .single();
+      if (player?.role === "admin") setIsAdmin(true);
+    }
+    checkAdmin();
+  }, []);
+
+  // Load check-in count for this tournament
+  const loadCheckinCount = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/bowls/checkin?tournament_id=${tournamentId}`);
+      if (res.ok) {
+        const data = await res.json();
+        setCheckinCount(Array.isArray(data) ? data.length : 0);
+      }
+    } catch {
+      // Non-critical
+    }
+  }, [tournamentId]);
+
+  // Restore sent state from localStorage
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(`announce-results-${tournamentId}`);
+      if (stored) {
+        setAnnounceSent(JSON.parse(stored));
+      }
+    } catch {
+      // Ignore parse errors
+    }
+  }, [tournamentId]);
+
+  async function handleAnnounceResults() {
+    if (!selectedRound) return;
+    setAnnounceSending(true);
+    try {
+      const res = await fetch("/api/bowls/notifications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tournament_id: tournamentId,
+          type: "result_announcement",
+          round: selectedRound,
+        }),
+      });
+      if (res.ok) {
+        const newSent = { ...announceSent, [selectedRound]: true };
+        setAnnounceSent(newSent);
+        try {
+          localStorage.setItem(`announce-results-${tournamentId}`, JSON.stringify(newSent));
+        } catch {
+          // Ignore storage errors
+        }
+      }
+    } catch {
+      // Handle error silently
+    }
+    setAnnounceSending(false);
+    setShowAnnounceConfirm(false);
+  }
 
   const loadProgression = useCallback(async () => {
     try {
@@ -220,7 +295,8 @@ export default function ResultsPage() {
     loadAllScores();
     loadResults();
     loadProgression();
-  }, [loadTournament, loadAllScores, loadResults, loadProgression]);
+    loadCheckinCount();
+  }, [loadTournament, loadAllScores, loadResults, loadProgression, loadCheckinCount]);
 
   async function handleNextRound() {
     setAdvancing(true);
@@ -297,6 +373,26 @@ export default function ResultsPage() {
               <p className="text-sm text-[#3D5A3E]">{tournamentName}</p>
             </div>
             <div className="flex items-center gap-2 print:hidden">
+              {isAdmin && selectedRound !== null && (
+                announceSent[selectedRound] ? (
+                  <button
+                    disabled
+                    className="flex items-center gap-2 rounded-xl bg-[#1B5E20]/20 px-5 text-sm font-bold text-[#1B5E20] min-h-[56px] h-14 touch-manipulation cursor-default"
+                  >
+                    <Check className="h-5 w-5" />
+                    Sent!
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setShowAnnounceConfirm(true)}
+                    disabled={announceSending}
+                    className="flex items-center gap-2 rounded-xl bg-[#1B5E20] px-5 text-sm font-bold text-white hover:bg-[#145218] disabled:opacity-50 min-h-[56px] h-14 touch-manipulation shadow-lg"
+                  >
+                    <Bell className="h-5 w-5" />
+                    Announce Results
+                  </button>
+                )
+              )}
               {progression?.current_state === "complete" && (
                 <button
                   onClick={() => setShowShareSheet(true)}
@@ -829,6 +925,55 @@ export default function ResultsPage() {
           </>
         )}
       </main>
+
+      {/* Announce Results Confirmation Modal */}
+      {showAnnounceConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl"
+          >
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#1B5E20]/10 mx-auto">
+              <Bell className="h-6 w-6 text-[#1B5E20]" />
+            </div>
+            <h3 className="text-center text-lg font-bold text-[#0A2E12]">
+              Announce Results
+            </h3>
+            <p className="mt-2 text-center text-sm text-[#3D5A3E]">
+              Send results to {checkinCount} checked-in player{checkinCount !== 1 ? "s" : ""}?
+            </p>
+            <p className="mt-1 text-center text-xs text-[#3D5A3E]/70">
+              Round {selectedRound} &mdash; {tournamentName}
+            </p>
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={() => setShowAnnounceConfirm(false)}
+                className="flex-1 rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[48px] touch-manipulation"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAnnounceResults}
+                disabled={announceSending}
+                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#1B5E20] px-4 py-3 text-sm font-bold text-white hover:bg-[#145218] disabled:opacity-50 min-h-[48px] touch-manipulation"
+              >
+                {announceSending ? (
+                  <>
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Bell className="h-4 w-4" />
+                    Send
+                  </>
+                )}
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
 
       <ShareSheet
         open={showShareSheet}
