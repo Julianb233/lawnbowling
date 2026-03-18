@@ -52,6 +52,8 @@ export function KioskBowlsCheckIn({
   const [undoCountdown, setUndoCountdown] = useState(UNDO_WINDOW_SECONDS);
   const [showUndo, setShowUndo] = useState(true);
   const [existingCheckin, setExistingCheckin] = useState<BowlsCheckin | null>(null);
+  const [preSelectedPosition, setPreSelectedPosition] = useState<BowlsPosition | "any" | null>(null);
+  const [preSelectSource, setPreSelectSource] = useState<"preferred" | "last_used" | null>(null);
   const autoResetRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const undoTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -118,6 +120,8 @@ export function KioskBowlsCheckIn({
     setStep("welcome");
     setSelectedPlayer(null);
     setSelectedPosition(null);
+    setPreSelectedPosition(null);
+    setPreSelectSource(null);
     setActiveLetter(null);
     setShowUndo(true);
     setExistingCheckin(null);
@@ -162,17 +166,49 @@ export function KioskBowlsCheckIn({
     return () => clearInterval(interval);
   }, [step]);
 
-  function handlePlayerTap(player: Player) {
+  async function handlePlayerTap(player: Player) {
     // UCI-07: If already checked in, show their existing check-in with option to change position
     const existing = checkins.find((c) => c.player_id === player.id);
     if (existing) {
       setSelectedPlayer(player);
       setExistingCheckin(existing);
+      setPreSelectedPosition(null);
+      setPreSelectSource(null);
       setStep("position");
       return;
     }
+
     setSelectedPlayer(player);
     setExistingCheckin(null);
+
+    // US-005: Pre-select position from profile preference or last check-in
+    // Guest players (no profile preferred_position) default to no selection
+    if (player.preferred_position) {
+      setPreSelectedPosition(player.preferred_position);
+      setPreSelectSource("preferred");
+    } else {
+      // Fallback: check last bowls_checkins record for this player
+      try {
+        const supabase = createClient();
+        const { data: lastCheckins } = await supabase
+          .from("bowls_checkins")
+          .select("preferred_position")
+          .eq("player_id", player.id)
+          .order("checked_in_at", { ascending: false })
+          .limit(1);
+        if (lastCheckins && lastCheckins.length > 0) {
+          setPreSelectedPosition(lastCheckins[0].preferred_position as BowlsPosition);
+          setPreSelectSource("last_used");
+        } else {
+          setPreSelectedPosition(null);
+          setPreSelectSource(null);
+        }
+      } catch {
+        setPreSelectedPosition(null);
+        setPreSelectSource(null);
+      }
+    }
+
     setStep("position");
   }
 
@@ -564,41 +600,67 @@ export function KioskBowlsCheckIn({
           What position would you like to play in {tournamentName}?
         </KioskText>
         <div className="flex flex-col gap-4">
-          {POSITION_OPTIONS.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => handlePositionSelect(option.value as BowlsPosition)}
-              className="w-full rounded-2xl touch-manipulation transition-all active:scale-[0.97]"
-              style={{
-                minHeight: "88px",
-                padding: "20px 32px",
-                backgroundColor: "var(--kiosk-surface, #fff)",
-                border: "3px solid var(--kiosk-primary, #1B5E20)",
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "4px",
-              }}
-              aria-label={`Select position: ${option.label}`}
-            >
-              <span
-                className="font-bold"
-                style={{ fontSize: "26px", color: "var(--kiosk-primary, #1B5E20)" }}
-              >
-                {option.label.toUpperCase()}
-              </span>
-              <span
+          {POSITION_OPTIONS.map((option) => {
+            const isPreSelected = !existingCheckin && preSelectedPosition === option.value;
+            return (
+              <button
+                key={option.value}
+                onClick={() => handlePositionSelect(option.value as BowlsPosition)}
+                className="w-full rounded-2xl touch-manipulation transition-all active:scale-[0.97]"
                 style={{
-                  fontSize: "var(--kiosk-text-label, 18px)",
-                  color: "var(--kiosk-text-secondary, #666)",
+                  minHeight: "88px",
+                  padding: "20px 32px",
+                  backgroundColor: isPreSelected
+                    ? "#E8F5E9"
+                    : "var(--kiosk-surface, #fff)",
+                  border: isPreSelected
+                    ? "4px solid var(--kiosk-primary, #1B5E20)"
+                    : "3px solid var(--kiosk-primary, #1B5E20)",
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "4px",
+                  boxShadow: isPreSelected
+                    ? "0 0 0 2px var(--kiosk-primary, #1B5E20)"
+                    : "none",
                 }}
+                aria-label={
+                  isPreSelected
+                    ? `Select position: ${option.label} (${preSelectSource === "preferred" ? "Preferred" : "Last used"})`
+                    : `Select position: ${option.label}`
+                }
               >
-                {option.description}
-              </span>
-            </button>
-          ))}
+                <span
+                  className="font-bold"
+                  style={{ fontSize: "26px", color: "var(--kiosk-primary, #1B5E20)" }}
+                >
+                  {option.label.toUpperCase()}
+                </span>
+                <span
+                  style={{
+                    fontSize: "var(--kiosk-text-label, 18px)",
+                    color: "var(--kiosk-text-secondary, #666)",
+                  }}
+                >
+                  {option.description}
+                </span>
+                {isPreSelected && preSelectSource && (
+                  <span
+                    className="mt-1 rounded-full px-3 py-1 font-semibold"
+                    style={{
+                      fontSize: "14px",
+                      backgroundColor: "var(--kiosk-primary, #1B5E20)",
+                      color: "var(--kiosk-on-primary, #fff)",
+                    }}
+                  >
+                    {preSelectSource === "preferred" ? "Preferred" : "Last used"}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
         <div className="mt-8 flex justify-center">
           <KioskButton
@@ -606,6 +668,8 @@ export function KioskBowlsCheckIn({
             onClick={() => {
               setSelectedPlayer(null);
               setExistingCheckin(null);
+              setPreSelectedPosition(null);
+              setPreSelectSource(null);
               setStep("list");
             }}
             ariaLabel="Go back to player list"
