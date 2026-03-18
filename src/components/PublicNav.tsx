@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn, User } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { createClient } from "@/lib/supabase/client";
 import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 const navLinks = [
@@ -31,6 +32,14 @@ export function PublicNav({
   variant?: "transparent" | "light";
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState<{ email?: string } | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => {
+      if (data?.user) setUser(data.user);
+    });
+  }, []);
 
   const isTransparent = variant === "transparent";
 
@@ -78,6 +87,33 @@ export function PublicNav({
               {link.label}
             </Link>
           ))}
+
+          {/* Sign In / My Club */}
+          {user ? (
+            <Link
+              href="/board"
+              className={
+                isTransparent
+                  ? "hidden sm:flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold text-white/90 transition hover:text-white hover:bg-white/10"
+                  : "hidden sm:flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold text-[#1B5E20] transition hover:bg-[#1B5E20]/5"
+              }
+            >
+              <User className="h-4 w-4" />
+              My Club
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className={
+                isTransparent
+                  ? "hidden sm:flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
+                  : "hidden sm:flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
+              }
+            >
+              <LogIn className="h-4 w-4" />
+              Sign In
+            </Link>
+          )}
 
           {/* CTA */}
           <Link
@@ -163,12 +199,12 @@ export function PublicNav({
                     </Link>
                   ))}
                   <Link
-                    href="/login"
+                    href={user ? "/board" : "/login"}
                     onClick={() => setMenuOpen(false)}
                     className="block rounded-xl px-4 py-4 text-lg font-semibold text-[#0A2E12] transition hover:bg-[#0A2E12]/5"
                     style={{ minHeight: 48, fontSize: 18 }}
                   >
-                    Sign In
+                    {user ? "My Club" : "Sign In"}
                   </Link>
                 </div>
 

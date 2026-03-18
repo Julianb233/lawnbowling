@@ -15,8 +15,8 @@ import {
 // Leaflet types (loaded dynamically)
 type LeafletModule = typeof import("leaflet");
 
-const DEFAULT_CENTER: [number, number] = [30, -20]; // World view
-const DEFAULT_ZOOM = 3;
+const DEFAULT_CENTER: [number, number] = [39.8283, -98.5795]; // US center
+const DEFAULT_ZOOM = 4;
 
 const COUNTRY_COLORS: Record<string, string> = {
   US: "#1B5E20",
@@ -183,6 +183,18 @@ export function ClubMap({
         showCoverageOnHover: false,
       }).addTo(map);
       leafletRef.current = L;
+
+      // Try browser geolocation to center on user's location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            map.setView([pos.coords.latitude, pos.coords.longitude], 7, { animate: true });
+          },
+          () => { /* denied or unavailable — keep US center default */ },
+          { timeout: 5000, maximumAge: 300000 }
+        );
+      }
+
       setReady(true);
     });
 

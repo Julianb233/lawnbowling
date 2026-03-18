@@ -38,16 +38,43 @@ function KioskPageContent() {
     tournamentIdParam
   );
   const [detectingTournament, setDetectingTournament] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
 
-  // Load venue
+  // Load venue with 10-second timeout
   useEffect(() => {
-    fetch("/api/venue/default")
+    setLoadError(false);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => {
+      controller.abort();
+      setLoadError(true);
+      setDetectingTournament(false);
+    }, 10000);
+
+    fetch("/api/venue/default", { signal: controller.signal })
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
-        if (data && !data.error) setVenue(data);
+        clearTimeout(timeout);
+        if (data && !data.error) {
+          setVenue(data);
+        } else {
+          setLoadError(true);
+          setDetectingTournament(false);
+        }
       })
-      .catch(() => {});
-  }, []);
+      .catch((err) => {
+        clearTimeout(timeout);
+        if (err.name !== "AbortError") {
+          setLoadError(true);
+          setDetectingTournament(false);
+        }
+      });
+
+    return () => {
+      clearTimeout(timeout);
+      controller.abort();
+    };
+  }, [retryCount]);
 
   // Auto-detect active bowls tournaments for the venue (UCI-01)
   useEffect(() => {
@@ -115,17 +142,17 @@ function KioskPageContent() {
         venueName={venue?.name}
         subtitle={
           selectedTournament
-            ? `${selectedTournament.name} -- Tournament Check-In`
+            ? `${selectedTournament.name} -- Tournament Sign-In`
             : isBowlsMode && activeTournaments.length > 1
               ? "Select Tournament"
-              : "Tournament Day Check-In"
+              : "Tournament Day Sign-In"
         }
         activeTab={view}
         onTabChange={setView}
         playerCount={players.length}
       >
         {/* Loading state */}
-        {(!venue || detectingTournament) && (
+        {(!venue || detectingTournament) && !loadError && (
           <div
             className="flex items-center justify-center py-24"
             role="status"
@@ -135,6 +162,46 @@ function KioskPageContent() {
               className="h-16 w-16 animate-spin rounded-full border-4 border-t-transparent"
               style={{ borderColor: "#1B5E20", borderTopColor: "transparent" }}
             />
+          </div>
+        )}
+
+        {/* Error state with retry */}
+        {loadError && !venue && (
+          <div className="flex flex-col items-center justify-center py-24 text-center px-6">
+            <div
+              className="mb-6 flex h-20 w-20 items-center justify-center rounded-full"
+              style={{ backgroundColor: "#FEF2F2" }}
+            >
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </div>
+            <h2
+              className="mb-2 text-2xl font-bold"
+              style={{ color: "var(--kiosk-text, #1A1A1A)" }}
+            >
+              Having trouble loading
+            </h2>
+            <p
+              className="mb-8 max-w-md text-lg"
+              style={{ color: "var(--kiosk-text-secondary, #666)" }}
+            >
+              Check your connection and try again.
+            </p>
+            <button
+              onClick={() => {
+                setVenue(null);
+                setLoadError(false);
+                setDetectingTournament(true);
+                setRetryCount((c) => c + 1);
+              }}
+              className="rounded-2xl px-10 py-4 text-xl font-bold text-white shadow-lg transition active:scale-[0.97] touch-manipulation"
+              style={{ backgroundColor: "#1B5E20", minHeight: "64px" }}
+            >
+              Try Again
+            </button>
           </div>
         )}
 
