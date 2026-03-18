@@ -108,7 +108,7 @@ export default function DrawSheetPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-screen items-center justify-center bg-[#FEFCF9]">
         <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
@@ -116,7 +116,7 @@ export default function DrawSheetPage() {
 
   if (!data) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-screen items-center justify-center bg-[#FEFCF9]">
         <p className="text-[#3D5A3E]">Tournament not found</p>
       </div>
     );
@@ -132,13 +132,13 @@ export default function DrawSheetPage() {
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#FEFCF9]">
       {/* Screen-only toolbar */}
-      <div className="no-print sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] px-4 py-3">
+      <div className="no-print sticky top-0 z-50 border-b border-[#0A2E12]/10 bg-white/90 backdrop-blur-md px-4 py-3">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
           <Link
             href={`/bowls/${tournamentId}`}
-            className="rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-medium text-[#2D4A30] hover:bg-[#0A2E12]/[0.03]"
+            className="rounded-xl border border-[#0A2E12]/10 bg-white px-6 py-3 text-sm font-bold text-[#0A2E12] hover:bg-[#0A2E12]/5 min-h-[44px] flex items-center"
           >
             Back to Tournament
           </Link>
@@ -149,7 +149,7 @@ export default function DrawSheetPage() {
             </span>
             <button
               onClick={() => window.print()}
-              className="rounded-lg bg-[#1B5E20] px-4 py-2 text-sm font-bold text-white hover:bg-[#145218]"
+              className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px]"
             >
               Print Draw Sheet
             </button>
@@ -157,18 +157,51 @@ export default function DrawSheetPage() {
         </div>
       </div>
 
+      {/* Green layout diagram */}
+      {data.rounds.length > 0 && (
+        <div className="no-print mx-auto max-w-4xl px-6 pt-6">
+          <div className="rounded-2xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-5 sm:p-6">
+            <h3
+              className="text-sm font-bold text-[#0A2E12] mb-3"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Green Layout
+            </h3>
+            <div className="flex flex-wrap gap-3 justify-center">
+              {data.rounds[data.rounds.length - 1].scores.map((score) => (
+                <div
+                  key={score.id}
+                  className="rounded-xl bg-white border border-[#0A2E12]/10 p-3 text-center min-w-[80px]"
+                >
+                  <span
+                    className="text-xl font-bold tabular-nums"
+                    style={{ color: "#B8860B", fontFamily: "var(--font-display)" }}
+                  >
+                    {score.rink}
+                  </span>
+                  <p className="text-[10px] font-medium text-[#3D5A3E] mt-0.5">Rink</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Printable content */}
       <div className="mx-auto max-w-4xl px-6 py-8 print:max-w-none print:px-0 print:py-0">
         {/* Header */}
         <div className="mb-6 border-b-2 border-[#1B5E20] pb-4 print:mb-4 print:pb-2">
-          <h1 className="text-2xl font-black tracking-tight text-[#0A2E12] print:text-xl">
+          <h1
+            className="text-2xl font-bold tracking-tight text-[#0A2E12] print:text-xl"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
             {data.tournamentName}
           </h1>
           <div className="mt-1 flex items-center gap-3 text-sm text-[#3D5A3E]">
-            <span>{formatLabel}</span>
-            <span className="text-[#3D5A3E]">|</span>
+            <span className="rounded-full bg-[#0A2E12]/5 px-2.5 py-1 text-xs font-bold">{formatLabel}</span>
+            <span className="text-[#3D5A3E]/40">|</span>
             <span>{dateStr}</span>
-            <span className="text-[#3D5A3E]">|</span>
+            <span className="text-[#3D5A3E]/40">|</span>
             <span>
               {data.rounds.length} Round{data.rounds.length !== 1 ? "s" : ""}
             </span>
@@ -178,109 +211,115 @@ export default function DrawSheetPage() {
         {/* Rounds */}
         {data.rounds.map((round) => (
           <div key={round.round} className="mb-8 print:mb-4 print:break-inside-avoid">
-            <h2 className="mb-3 text-lg font-bold text-[#0A2E12] print:text-base print:mb-2">
+            <h2
+              className="mb-3 text-lg font-bold text-[#0A2E12] print:text-base print:mb-2"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               Round {round.round}
             </h2>
 
-            <table className="w-full border-collapse text-sm print:text-xs">
-              <thead>
-                <tr className="border-b-2 border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] print:bg-[#0A2E12]/5">
-                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    Rink
-                  </th>
-                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    Team A
-                  </th>
-                  <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    Score
-                  </th>
-                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    Team B
-                  </th>
-                  <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    Score
-                  </th>
-                  <th className="px-3 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    Result
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {round.scores.map((score) => (
-                  <tr
-                    key={score.id}
-                    className="border-b border-[#0A2E12]/10 print:border-[#0A2E12]/10"
-                  >
-                    <td className="px-3 py-2 font-bold text-[#2D4A30]">
-                      {score.rink}
-                    </td>
-                    <td className="px-3 py-2">
-                      <div className="space-y-0.5">
-                        {score.team_a_players.map((p) => (
-                          <div key={p.player_id} className="text-[#0A2E12]">
-                            {p.display_name}
-                          </div>
-                        ))}
-                      </div>
-                    </td>
-                    <td
-                      className={cn(
-                        "px-3 py-2 text-center font-bold tabular-nums",
-                        score.winner === "team_a"
-                          ? "text-emerald-700"
-                          : "text-[#3D5A3E]"
-                      )}
-                    >
-                      {score.is_finalized ? score.total_a : "-"}
-                    </td>
-                    <td className="px-3 py-2">
-                      <div className="space-y-0.5">
-                        {score.team_b_players.map((p) => (
-                          <div key={p.player_id} className="text-[#0A2E12]">
-                            {p.display_name}
-                          </div>
-                        ))}
-                      </div>
-                    </td>
-                    <td
-                      className={cn(
-                        "px-3 py-2 text-center font-bold tabular-nums",
-                        score.winner === "team_b"
-                          ? "text-emerald-700"
-                          : "text-[#3D5A3E]"
-                      )}
-                    >
-                      {score.is_finalized ? score.total_b : "-"}
-                    </td>
-                    <td className="px-3 py-2 text-center text-xs font-semibold">
-                      {score.is_finalized ? (
-                        <span
-                          className={cn(
-                            score.winner === "team_a"
-                              ? "text-blue-700"
-                              : score.winner === "team_b"
-                                ? "text-purple-700"
-                                : score.winner === "draw"
-                                  ? "text-amber-700"
-                                  : "text-[#3D5A3E]"
-                          )}
-                        >
-                          {score.winner === "team_a"
-                            ? "A wins"
-                            : score.winner === "team_b"
-                              ? "B wins"
-                              : score.winner === "draw"
-                                ? "Draw"
-                                : "-"}
-                        </span>
-                      ) : (
-                        <span className="text-[#3D5A3E]">Pending</span>
-                      )}
-                    </td>
+            <div className="rounded-2xl bg-white border border-[#0A2E12]/10 overflow-hidden print:rounded-none print:border">
+              <table className="w-full border-collapse text-sm print:text-xs">
+                <thead>
+                  <tr className="border-b-2 border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] print:bg-[#0A2E12]/5">
+                    <th className="px-3 py-2.5 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      Rink
+                    </th>
+                    <th className="px-3 py-2.5 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      Team A
+                    </th>
+                    <th className="px-3 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      Score
+                    </th>
+                    <th className="px-3 py-2.5 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      Team B
+                    </th>
+                    <th className="px-3 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      Score
+                    </th>
+                    <th className="px-3 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      Result
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {round.scores.map((score) => (
+                    <tr
+                      key={score.id}
+                      className="border-b border-[#0A2E12]/10 last:border-0"
+                    >
+                      <td className="px-3 py-2.5 font-bold tabular-nums" style={{ color: "#B8860B" }}>
+                        {score.rink}
+                      </td>
+                      <td className="px-3 py-2.5">
+                        <div className="space-y-0.5">
+                          {score.team_a_players.map((p) => (
+                            <div key={p.player_id} className="text-[#0A2E12]">
+                              {p.display_name}
+                            </div>
+                          ))}
+                        </div>
+                      </td>
+                      <td
+                        className={cn(
+                          "px-3 py-2.5 text-center font-bold tabular-nums",
+                          score.winner === "team_a"
+                            ? "text-[#1B5E20]"
+                            : "text-[#3D5A3E]"
+                        )}
+                      >
+                        {score.is_finalized ? score.total_a : "-"}
+                      </td>
+                      <td className="px-3 py-2.5">
+                        <div className="space-y-0.5">
+                          {score.team_b_players.map((p) => (
+                            <div key={p.player_id} className="text-[#0A2E12]">
+                              {p.display_name}
+                            </div>
+                          ))}
+                        </div>
+                      </td>
+                      <td
+                        className={cn(
+                          "px-3 py-2.5 text-center font-bold tabular-nums",
+                          score.winner === "team_b"
+                            ? "text-[#1B5E20]"
+                            : "text-[#3D5A3E]"
+                        )}
+                      >
+                        {score.is_finalized ? score.total_b : "-"}
+                      </td>
+                      <td className="px-3 py-2.5 text-center text-xs font-bold">
+                        {score.is_finalized ? (
+                          <span
+                            className={cn(
+                              "rounded-full px-2.5 py-1",
+                              score.winner === "team_a"
+                                ? "bg-[#1B5E20]/10 text-[#1B5E20]"
+                                : score.winner === "team_b"
+                                  ? "bg-purple-100 text-purple-700"
+                                  : score.winner === "draw"
+                                    ? "bg-[#B8860B]/10 text-[#B8860B]"
+                                    : "text-[#3D5A3E]"
+                            )}
+                          >
+                            {score.winner === "team_a"
+                              ? "A wins"
+                              : score.winner === "team_b"
+                                ? "B wins"
+                                : score.winner === "draw"
+                                  ? "Draw"
+                                  : "-"}
+                          </span>
+                        ) : (
+                          <span className="rounded-full bg-[#0A2E12]/5 px-2.5 py-1 text-[#3D5A3E]">Pending</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
             {/* End-by-end for each rink in this round */}
             {round.scores.some(
@@ -294,74 +333,76 @@ export default function DrawSheetPage() {
                   .map((score) => (
                     <div
                       key={`ends-${score.id}`}
-                      className="print:break-inside-avoid"
+                      className="print:break-inside-avoid rounded-2xl bg-white border border-[#0A2E12]/10 overflow-hidden print:rounded-none"
                     >
-                      <p className="mb-1 text-xs font-bold text-[#3D5A3E]">
-                        Rink {score.rink} &mdash; End-by-End
-                      </p>
+                      <div className="bg-[#0A2E12]/[0.03] border-b border-[#0A2E12]/10 px-4 py-2">
+                        <p className="text-xs font-bold text-[#3D5A3E]">
+                          Rink <span style={{ color: "#B8860B" }}>{score.rink}</span> &mdash; End-by-End
+                        </p>
+                      </div>
                       <table className="w-full border-collapse text-xs print:text-[10px]">
                         <thead>
                           <tr className="border-b border-[#0A2E12]/10">
-                            <th className="px-2 py-1 text-left text-[10px] font-bold text-[#3D5A3E] w-12">
+                            <th className="px-2 py-1.5 text-left text-[10px] font-bold text-[#3D5A3E] w-12">
                               &nbsp;
                             </th>
                             {score.team_a_scores.map((_, i) => (
                               <th
                                 key={i}
-                                className="px-1.5 py-1 text-center text-[10px] font-bold text-[#3D5A3E]"
+                                className="px-1.5 py-1.5 text-center text-[10px] font-bold text-[#3D5A3E]"
                               >
                                 {i + 1}
                               </th>
                             ))}
-                            <th className="px-2 py-1 text-center text-[10px] font-bold text-[#2D4A30] border-l border-[#0A2E12]/10">
+                            <th className="px-2 py-1.5 text-center text-[10px] font-bold text-[#0A2E12] border-l border-[#0A2E12]/10">
                               Tot
                             </th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr className="border-b border-[#0A2E12]/10">
-                            <td className="px-2 py-1 font-semibold text-blue-600">
+                            <td className="px-2 py-1.5 font-semibold text-[#1B5E20]">
                               A
                             </td>
                             {score.team_a_scores.map((s, i) => (
                               <td
                                 key={i}
                                 className={cn(
-                                  "px-1.5 py-1 text-center font-bold tabular-nums",
+                                  "px-1.5 py-1.5 text-center font-bold tabular-nums",
                                   s > score.team_b_scores[i]
-                                    ? "text-emerald-600"
+                                    ? "text-[#1B5E20]"
                                     : s === 0
-                                      ? "text-[#3D5A3E]"
+                                      ? "text-[#3D5A3E]/50"
                                       : "text-[#3D5A3E]"
                                 )}
                               >
                                 {s}
                               </td>
                             ))}
-                            <td className="px-2 py-1 text-center font-black text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
+                            <td className="px-2 py-1.5 text-center font-bold text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
                               {score.total_a}
                             </td>
                           </tr>
                           <tr>
-                            <td className="px-2 py-1 font-semibold text-purple-600">
+                            <td className="px-2 py-1.5 font-semibold text-purple-600">
                               B
                             </td>
                             {score.team_b_scores.map((s, i) => (
                               <td
                                 key={i}
                                 className={cn(
-                                  "px-1.5 py-1 text-center font-bold tabular-nums",
+                                  "px-1.5 py-1.5 text-center font-bold tabular-nums",
                                   s > score.team_a_scores[i]
-                                    ? "text-emerald-600"
+                                    ? "text-[#1B5E20]"
                                     : s === 0
-                                      ? "text-[#3D5A3E]"
+                                      ? "text-[#3D5A3E]/50"
                                       : "text-[#3D5A3E]"
                                 )}
                               >
                                 {s}
                               </td>
                             ))}
-                            <td className="px-2 py-1 text-center font-black text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
+                            <td className="px-2 py-1.5 text-center font-bold text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
                               {score.total_b}
                             </td>
                           </tr>
@@ -377,108 +418,117 @@ export default function DrawSheetPage() {
         {/* Player Standings */}
         {data.playerStandings.length > 0 && (
           <div className="mt-8 print:mt-4 print:break-before-auto">
-            <h2 className="mb-3 text-lg font-bold text-[#0A2E12] print:text-base print:mb-2">
+            <h2
+              className="mb-3 text-lg font-bold text-[#0A2E12] print:text-base print:mb-2"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               Player Standings
             </h2>
-            <table className="w-full border-collapse text-sm print:text-xs">
-              <thead>
-                <tr className="border-b-2 border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] print:bg-[#0A2E12]/5">
-                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    #
-                  </th>
-                  <th className="px-3 py-2 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    Player
-                  </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    P
-                  </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    W
-                  </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    L
-                  </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    D
-                  </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    SF
-                  </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    SA
-                  </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    +/-
-                  </th>
-                  <th className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
-                    EW
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.playerStandings.map((p, idx) => {
-                  const diff =
-                    p.total_shots_for - p.total_shots_against;
-                  return (
-                    <tr
-                      key={p.player_id}
-                      className={cn(
-                        "border-b border-[#0A2E12]/10",
-                        idx === 0 && "bg-amber-50 print:bg-amber-50"
-                      )}
-                    >
-                      <td className="px-3 py-2 font-bold text-[#3D5A3E]">
-                        {idx + 1}
-                      </td>
-                      <td className="px-3 py-2 font-semibold text-[#0A2E12] whitespace-nowrap">
-                        {p.display_name}
-                      </td>
-                      <td className="px-2 py-2 text-center text-[#2D4A30]">
-                        {p.games_played}
-                      </td>
-                      <td className="px-2 py-2 text-center font-bold text-emerald-700">
-                        {p.wins}
-                      </td>
-                      <td className="px-2 py-2 text-center text-red-600">
-                        {p.losses}
-                      </td>
-                      <td className="px-2 py-2 text-center text-amber-600">
-                        {p.draws}
-                      </td>
-                      <td className="px-2 py-2 text-center tabular-nums text-[#3D5A3E]">
-                        {p.total_shots_for}
-                      </td>
-                      <td className="px-2 py-2 text-center tabular-nums text-[#3D5A3E]">
-                        {p.total_shots_against}
-                      </td>
-                      <td
+            <div className="rounded-2xl bg-white border border-[#0A2E12]/10 overflow-hidden print:rounded-none">
+              <table className="w-full border-collapse text-sm print:text-xs">
+                <thead>
+                  <tr className="border-b-2 border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] print:bg-[#0A2E12]/5">
+                    <th className="px-3 py-2.5 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      #
+                    </th>
+                    <th className="px-3 py-2.5 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      Player
+                    </th>
+                    <th className="px-2 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      P
+                    </th>
+                    <th className="px-2 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      W
+                    </th>
+                    <th className="px-2 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      L
+                    </th>
+                    <th className="px-2 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      D
+                    </th>
+                    <th className="px-2 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      SF
+                    </th>
+                    <th className="px-2 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      SA
+                    </th>
+                    <th className="px-2 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      +/-
+                    </th>
+                    <th className="px-2 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                      EW
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.playerStandings.map((p, idx) => {
+                    const diff =
+                      p.total_shots_for - p.total_shots_against;
+                    return (
+                      <tr
+                        key={p.player_id}
                         className={cn(
-                          "px-2 py-2 text-center font-bold tabular-nums",
-                          diff > 0
-                            ? "text-emerald-700"
-                            : diff < 0
-                              ? "text-red-600"
-                              : "text-[#3D5A3E]"
+                          "border-b border-[#0A2E12]/10 last:border-0",
+                          idx === 0 && "bg-[#B8860B]/5 print:bg-[#B8860B]/5"
                         )}
                       >
-                        {diff > 0 ? "+" : ""}
-                        {diff}
-                      </td>
-                      <td className="px-2 py-2 text-center tabular-nums text-[#3D5A3E]">
-                        {p.total_ends_won}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        <td className="px-3 py-2.5 font-bold text-[#3D5A3E] tabular-nums">
+                          {idx + 1}
+                        </td>
+                        <td className="px-3 py-2.5 font-semibold text-[#0A2E12] whitespace-nowrap">
+                          {idx === 0 && <span className="mr-1" style={{ color: "#B8860B" }}>&#9733;</span>}
+                          {p.display_name}
+                        </td>
+                        <td className="px-2 py-2.5 text-center text-[#3D5A3E] tabular-nums">
+                          {p.games_played}
+                        </td>
+                        <td className="px-2 py-2.5 text-center font-bold text-[#1B5E20] tabular-nums">
+                          {p.wins}
+                        </td>
+                        <td className="px-2 py-2.5 text-center text-red-600 tabular-nums">
+                          {p.losses}
+                        </td>
+                        <td className="px-2 py-2.5 text-center tabular-nums" style={{ color: "#B8860B" }}>
+                          {p.draws}
+                        </td>
+                        <td className="px-2 py-2.5 text-center tabular-nums text-[#3D5A3E]">
+                          {p.total_shots_for}
+                        </td>
+                        <td className="px-2 py-2.5 text-center tabular-nums text-[#3D5A3E]">
+                          {p.total_shots_against}
+                        </td>
+                        <td
+                          className={cn(
+                            "px-2 py-2.5 text-center font-bold tabular-nums",
+                            diff > 0
+                              ? "text-[#1B5E20]"
+                              : diff < 0
+                                ? "text-red-600"
+                                : "text-[#3D5A3E]"
+                          )}
+                        >
+                          {diff > 0 ? "+" : ""}
+                          {diff}
+                        </td>
+                        <td className="px-2 py-2.5 text-center tabular-nums text-[#3D5A3E]">
+                          {p.total_ends_won}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
         {/* No data state */}
         {data.rounds.length === 0 && (
           <div className="py-16 text-center">
-            <p className="text-lg font-semibold text-[#3D5A3E]">
+            <p
+              className="text-lg font-bold text-[#0A2E12]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               No draw data yet
             </p>
             <p className="mt-1 text-sm text-[#3D5A3E]">

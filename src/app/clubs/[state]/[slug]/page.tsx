@@ -118,7 +118,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
   const clubSchema = getLocalBusinessSchema(club);
 
   return (
-    <div className="min-h-screen bg-[#0A2E12]/[0.03]">
+    <div className="min-h-screen bg-[#FEFCF9]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }}
@@ -176,7 +176,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                 className="-mt-10 ring-4 ring-white shadow-lg"
               />
               <div>
-                <h1 className="text-2xl font-black tracking-tight text-[#0A2E12] sm:text-3xl">
+                <h1 className="text-2xl font-black tracking-tight text-[#0A2E12] sm:text-3xl font-display" style={{ fontFamily: "var(--font-display)" }}>
                   {club.name}
                 </h1>
                 <div className="mt-1 flex items-center gap-1.5 text-sm text-[#3D5A3E]">
@@ -223,8 +223,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
           <div className="space-y-6 lg:col-span-2">
             {/* Description */}
             {club.description && (
-              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
-                <h2 className="mb-3 text-lg font-bold text-[#0A2E12]">About</h2>
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
+                <h2 className="mb-3 text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>About</h2>
                 <p className="text-sm leading-relaxed text-[#3D5A3E]">
                   {club.description}
                 </p>
@@ -232,8 +232,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
             )}
 
             {/* Club Details */}
-            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
-              <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
+              <h2 className="mb-4 text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
                 Club Details
               </h2>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -272,8 +272,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
 
             {/* Activities */}
             {club.activities.length > 0 && (
-              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
-                <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
+                <h2 className="mb-4 text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
                   Activities
                 </h2>
                 <div className="flex flex-wrap gap-2">
@@ -290,14 +290,14 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
             )}
 
             {/* Event Calendar */}
-            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
               <ClubEventCalendar clubId={club.id} />
             </section>
 
             {/* Facilities */}
             {club.facilities.length > 0 && (
-              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
-                <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
+                <h2 className="mb-4 text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
                   Facilities
                 </h2>
                 <div className="flex flex-wrap gap-2">
@@ -314,8 +314,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
             )}
 
             {/* Location Map */}
-            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
-              <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
+              <h2 className="mb-4 text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
                 Location
               </h2>
               <SingleClubMap
@@ -330,8 +330,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
           {/* Sidebar — right col */}
           <div className="space-y-6">
             {/* Contact Card */}
-            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
-              <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
+              <h2 className="mb-4 text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
                 Contact Info
               </h2>
               <div className="space-y-3">
@@ -398,8 +398,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
 
             {/* Club Contacts / Leadership */}
             {club.contacts && club.contacts.length > 0 && (
-              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
-                <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
+                <h2 className="mb-4 text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
                   Leadership
                 </h2>
                 <div className="space-y-4">
@@ -412,8 +412,8 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
 
             {/* Social Links */}
             {(club.facebookUrl || club.instagramUrl || club.youtubeUrl || club.twitterUrl) && (
-              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
-                <h2 className="mb-4 text-lg font-bold text-[#0A2E12]">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
+                <h2 className="mb-4 text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
                   Social Media
                 </h2>
                 <div className="flex flex-wrap gap-2">
@@ -442,9 +442,9 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
             )}
 
             {/* Claim CTA */}
-            <section className="rounded-2xl border-2 border-dashed border-[#0A2E12]/10 bg-white p-6 text-center">
+            <section className="rounded-2xl border-2 border-dashed border-[#0A2E12]/10 bg-white p-5 sm:p-6 text-center">
               <Building2 className="mx-auto h-8 w-8 text-[#3D5A3E]" />
-              <h3 className="mt-3 text-base font-bold text-[#0A2E12]">
+              <h3 className="mt-3 text-base font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
                 Is this your club?
               </h3>
               <p className="mt-1 text-sm text-[#3D5A3E]">
@@ -453,16 +453,15 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
               </p>
               <Link
                 href="/clubs/claim"
-                className="mt-4 inline-block w-full rounded-xl px-4 py-3 text-sm font-bold text-white transition-colors hover:opacity-90"
-                style={{ backgroundColor: "#1B5E20" }}
+                className="mt-4 inline-block w-full rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white text-center transition-colors hover:bg-[#145218] min-h-[44px]"
               >
-                Claim This Club
+                Join This Club
               </Link>
             </section>
 
             {/* Tags */}
             {club.tags.length > 0 && (
-              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6">
+              <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
                 <h2 className="mb-3 text-sm font-bold text-[#0A2E12]">Tags</h2>
                 <div className="flex flex-wrap gap-1.5">
                   {club.tags.map((tag) => (
@@ -483,7 +482,7 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
         {nearbyClubs.length > 0 && (
           <section className="mt-10">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-[#0A2E12]">
+              <h2 className="text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
                 Nearby Clubs
               </h2>
               <Link

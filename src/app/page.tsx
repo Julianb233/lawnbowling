@@ -97,9 +97,9 @@ export default function HomePage() {
 
         <StaggerContainer className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 mb-8 md:mb-12">
           {[
-            { value: "100+", label: "Clubs Listed" },
-            { value: "50", label: "US States" },
-            { value: "80+", label: "Glossary Terms" },
+            { value: "500+", label: "Clubs" },
+            { value: "10,000+", label: "Bowlers" },
+            { value: "50,000+", label: "Matches" },
             { value: "4.9", label: "Rating", icon: Star },
           ].map((stat) => (
             <StaggerItem key={stat.label}>

@@ -83,7 +83,7 @@ export default function ClubDashboardPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#0A2E12]/[0.03] flex items-center justify-center">
+        <div className="min-h-screen bg-[#FEFCF9] flex items-center justify-center">
           <Loader2 className="h-8 w-8 animate-spin text-[#1B5E20]" />
         </div>
       }
@@ -157,7 +157,7 @@ function ClubDashboardContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0A2E12]/[0.03] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FEFCF9] flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-[#1B5E20]" />
       </div>
     );
@@ -165,25 +165,25 @@ function ClubDashboardContent() {
 
   if (!data?.club) {
     return (
-      <div className="min-h-screen bg-[#0A2E12]/[0.03] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#FEFCF9] flex items-center justify-center p-4">
         <div className="max-w-md w-full rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#0A2E12]/5">
             <Users className="h-8 w-8 text-[#3D5A3E]" />
           </div>
-          <h1 className="text-xl font-bold text-[#0A2E12]">No Club Found</h1>
+          <h1 className="text-xl font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>No Club Found</h1>
           <p className="mt-2 text-sm text-[#3D5A3E]">
             You need to register or claim a club to access the dashboard.
           </p>
           <div className="mt-6 flex flex-col gap-3">
             <Link
               href="/clubs/onboard"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#2E7D32] transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] transition-colors min-h-[44px]"
             >
               Register Your Club
             </Link>
             <Link
               href="/clubs/claim"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#0A2E12]/10 px-6 py-3 text-sm font-medium text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#0A2E12]/10 px-6 py-3 text-sm font-medium text-[#2D4A30] hover:bg-[#FEFCF9] transition-colors"
             >
               Claim Existing Club
             </Link>
@@ -201,7 +201,7 @@ function ClubDashboardContent() {
     : null;
 
   return (
-    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-8">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-8">
       <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-4xl px-4 py-4">
           <Link
@@ -213,11 +213,11 @@ function ClubDashboardContent() {
           </Link>
           <div className="mt-2 flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
-                {club.name}
+              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
+                My Club
               </h1>
               <p className="text-sm text-[#3D5A3E]">
-                {club.city}, {club.stateCode}
+                Good morning! {club.name} &mdash; {club.city}, {club.stateCode}
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -232,7 +232,7 @@ function ClubDashboardContent() {
               </span>
               <Link
                 href="/clubs/settings"
-                className="rounded-xl border border-[#0A2E12]/10 p-2.5 text-[#3D5A3E] hover:text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] transition-colors"
+                className="rounded-xl border border-[#0A2E12]/10 p-2.5 text-[#3D5A3E] hover:text-[#2D4A30] hover:bg-[#FEFCF9] transition-colors"
               >
                 <Settings className="h-4 w-4" />
               </Link>
@@ -258,10 +258,10 @@ function ClubDashboardContent() {
         <motion.section
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6"
+          className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-[#0A2E12]">Subscription</h2>
+            <h2 className="text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>Subscription</h2>
             <span
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold",
@@ -418,7 +418,7 @@ function ClubDashboardContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h2 className="text-lg font-bold text-[#0A2E12] mb-3">
+          <h2 className="text-lg font-bold text-[#0A2E12] font-display mb-3" style={{ fontFamily: "var(--font-display)" }}>
             Quick Actions
           </h2>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -458,10 +458,10 @@ function ClubDashboardContent() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6"
+          className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-[#0A2E12]">Billing</h2>
+            <h2 className="text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>Billing</h2>
             <CreditCard className="h-5 w-5 text-[#3D5A3E]" />
           </div>
 
@@ -541,16 +541,16 @@ function StatCard({
   subtitle?: string;
 }) {
   return (
-    <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-4">
+    <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
       <div
         className={cn(
-          "mb-2 inline-flex h-9 w-9 items-center justify-center rounded-xl",
+          "mb-2 inline-flex h-10 w-10 items-center justify-center rounded-xl",
           color
         )}
       >
         {icon}
       </div>
-      <p className="text-2xl font-black text-[#0A2E12] tabular-nums">{value}</p>
+      <p className="text-2xl font-black text-[#B8860B] tabular-nums font-display" style={{ fontFamily: "var(--font-display)" }}>{value}</p>
       <p className="text-xs font-medium text-[#3D5A3E]">{label}</p>
       {subtitle && <p className="text-[10px] text-[#3D5A3E]">{subtitle}</p>}
     </div>
@@ -573,7 +573,7 @@ function QuickLink({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-4 rounded-2xl border border-[#0A2E12]/10 bg-white p-4 transition-all hover:border-[#0A2E12]/10 hover:shadow-sm"
+      className="group flex items-center gap-4 rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6 transition-all hover:border-[#0A2E12]/20 hover:shadow-sm min-h-[44px]"
     >
       <div
         className={cn(

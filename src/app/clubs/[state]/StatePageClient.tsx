@@ -45,7 +45,7 @@ export default function StatePageClient({ clubs, stateName, stateCode }: StatePa
 
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12] sm:text-3xl" style={{ fontFamily: "var(--font-display)" }}>
+              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12] sm:text-3xl font-display" style={{ fontFamily: "var(--font-display)" }}>
                 Lawn Bowls Clubs in {stateName}
               </h1>
               <p className="mt-1 text-sm text-[#3D5A3E]">
@@ -79,8 +79,7 @@ export default function StatePageClient({ clubs, stateName, stateCode }: StatePa
               </div>
               <Link
                 href="/clubs/claim"
-                className="hidden shrink-0 rounded-xl px-4 py-2.5 text-sm font-bold text-white transition-colors hover:opacity-90 sm:block"
-                style={{ backgroundColor: "#1B5E20" }}
+                className="hidden shrink-0 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] sm:block"
               >
                 + Add Club
               </Link>
@@ -108,7 +107,7 @@ export default function StatePageClient({ clubs, stateName, stateCode }: StatePa
 
         {/* CTA */}
         <div className="mt-10 rounded-2xl border border-dashed border-[#0A2E12]/10 bg-white p-8 text-center">
-          <h3 className="text-lg font-bold text-[#0A2E12]">
+          <h3 className="text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
             Know a club in {stateName} we&apos;re missing?
           </h3>
           <p className="mt-1 text-sm text-[#3D5A3E]">
@@ -116,8 +115,7 @@ export default function StatePageClient({ clubs, stateName, stateCode }: StatePa
           </p>
           <Link
             href="/clubs/claim"
-            className="mt-4 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-white transition-colors hover:opacity-90"
-            style={{ backgroundColor: "#1B5E20" }}
+            className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px]"
           >
             <MapPin className="h-4 w-4" />
             Add Your Club
@@ -151,9 +149,9 @@ function ClubListCard({ club }: { club: ClubData }) {
               <ClubLogo name={club.name} stateCode={club.stateCode} country={club.country ?? club.countryCode} logoUrl={club.logoUrl} size="xs" />
             </div>
           </div>
-          <div className="flex-1 min-w-0 p-4 flex items-start justify-between gap-3">
+          <div className="flex-1 min-w-0 p-5 sm:p-6 flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
-              <h3 className="text-base font-bold text-[#0A2E12] group-hover:text-[#1B5E20] transition-colors truncate">
+              <h3 className="text-base font-semibold text-[#0A2E12] group-hover:text-[#1B5E20] transition-colors truncate">
                 {club.name}
               </h3>
               <div className="mt-1 flex items-center gap-1.5 text-sm text-[#3D5A3E]">

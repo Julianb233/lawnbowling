@@ -101,35 +101,38 @@ export default function BowlsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-screen items-center justify-center bg-[#FEFCF9]">
         <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/90 backdrop-blur-md">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <h1 className="text-xl font-black tracking-tight text-[#0A2E12] sm:text-2xl">
+              <h1
+                className="text-xl font-bold tracking-tight text-[#0A2E12] sm:text-2xl"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
                 Lawn Bowls
               </h1>
               <div className="flex items-center gap-2 sm:gap-3">
-                <Link href="/bowls/about" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
+                <Link href="/bowls/about" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1 min-h-[44px] flex items-center">
                   About
                 </Link>
-                <span className="text-[#3D5A3E]">|</span>
-                <Link href="/bowls/history" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
+                <span className="text-[#3D5A3E]/40">|</span>
+                <Link href="/bowls/history" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1 min-h-[44px] flex items-center">
                   History
                 </Link>
-                <span className="text-[#3D5A3E]">|</span>
-                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
+                <span className="text-[#3D5A3E]/40">|</span>
+                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1 min-h-[44px] flex items-center">
                   Stats
                 </Link>
-                <span className="text-[#3D5A3E]">|</span>
-                <Link href="/pennant" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
+                <span className="text-[#3D5A3E]/40">|</span>
+                <Link href="/pennant" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1 min-h-[44px] flex items-center">
                   Pennant
                 </Link>
               </div>
@@ -137,7 +140,7 @@ export default function BowlsPage() {
             <button
               onClick={() => setShowCreate(true)}
               data-onboarding-target="create-tournament"
-              className="shrink-0 rounded-xl bg-[#1B5E20] px-3 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation sm:px-4"
+              className="shrink-0 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation"
             >
               <span className="hidden sm:inline">+ New Tournament</span>
               <span className="sm:hidden">+ New</span>
@@ -158,7 +161,10 @@ export default function BowlsPage() {
       <main className="mx-auto max-w-3xl px-4 py-6">
         {activeTournaments.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]">
+            <h2
+              className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               Active Tournaments
             </h2>
             <div className="space-y-3">
@@ -171,7 +177,10 @@ export default function BowlsPage() {
 
         {pastTournaments.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]">
+            <h2
+              className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               Past Tournaments
             </h2>
             <div className="space-y-3">
@@ -187,7 +196,10 @@ export default function BowlsPage() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
               <CircleDot className="w-8 h-8 text-[#1B5E20]" strokeWidth={1.5} />
             </div>
-            <h3 className="text-lg font-bold text-[#0A2E12]">
+            <h3
+              className="text-lg font-bold text-[#0A2E12]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               {scope === "club" ? "No club tournaments yet" : "No bowls tournaments yet"}
             </h3>
             <p className="mt-1 text-sm text-[#3D5A3E]">
@@ -199,7 +211,7 @@ export default function BowlsPage() {
               onClick={() => setShowCreate(true)}
               className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
             >
-              New Tournament
+              Create Tournament
             </button>
           </div>
         )}
@@ -219,6 +231,15 @@ export default function BowlsPage() {
 function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament; index: number }) {
   const formatLabel = BOWLS_FORMAT_LABELS[t.format as BowlsGameFormat]?.label ?? t.format;
   const isActive = t.status !== "completed";
+  const isLive = t.status === "in_progress";
+
+  const dateStr = t.starts_at
+    ? new Date(t.starts_at).toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+      })
+    : null;
 
   return (
     <Link href={`/bowls/${t.id}`}>
@@ -226,42 +247,44 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
-        className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 transition-all hover:border-[#0A2E12]/10:border-white/20 hover:shadow-sm"
+        className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 sm:p-6 transition-all hover:shadow-md"
       >
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
-            <h3 className="text-base font-bold text-[#0A2E12] truncate">
+            <div className="flex items-center gap-2 mb-1">
+              {dateStr && (
+                <span className="rounded-full bg-[#B8860B]/10 px-2.5 py-1 text-xs font-bold text-[#B8860B]">
+                  {dateStr}
+                </span>
+              )}
+              <span className="rounded-full bg-[#0A2E12]/5 px-2.5 py-1 text-xs font-bold text-[#3D5A3E]">
+                {formatLabel}
+              </span>
+            </div>
+            <h3
+              className="text-base font-bold text-[#0A2E12] truncate"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               {t.name}
             </h3>
-            <p className="mt-0.5 text-sm text-[#3D5A3E]">
-              {formatLabel}
-              {t.starts_at && (
-                <>
-                  {" \u00B7 "}
-                  {new Date(t.starts_at).toLocaleDateString(undefined, {
-                    weekday: "short",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </>
-              )}
-            </p>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-3 shrink-0 ml-3">
             <div className="text-right">
-              <p className="text-lg font-black text-[#1B5E20]">
+              <p className="text-lg font-bold text-[#B8860B] tabular-nums">
                 {t.checkin_count ?? 0}
               </p>
-              <p className="text-sm text-[#3D5A3E]">signed in</p>
+              <p className="text-xs text-[#3D5A3E]">checked in</p>
             </div>
             <span
               className={`rounded-full px-2.5 py-1 text-sm font-bold ${
-                isActive
-                  ? "bg-[#1B5E20]/10 text-[#2E7D32]"
-                  : "bg-[#0A2E12]/5 text-[#3D5A3E]"
+                isLive
+                  ? "bg-red-100 text-red-700"
+                  : isActive
+                    ? "bg-[#1B5E20]/10 text-[#1B5E20]"
+                    : "bg-[#0A2E12]/5 text-[#3D5A3E]"
               }`}
             >
-              {isActive ? "Active" : "Done"}
+              {isLive ? "LIVE" : isActive ? "UPCOMING" : "COMPLETED"}
             </span>
           </div>
         </div>

@@ -17,6 +17,7 @@ import {
   Headphones,
   X,
   Star,
+  Zap,
 } from "lucide-react";
 
 type MembershipTier = "free" | "monthly" | "annual";
@@ -39,6 +40,7 @@ export default function PricingPageClient() {
   const [currentTier, setCurrentTier] = useState<MembershipTier>("free");
   const [loading, setLoading] = useState(true);
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
   const success = searchParams?.get("success");
   const cancelled = searchParams?.get("cancelled");
 
@@ -82,7 +84,7 @@ export default function PricingPageClient() {
 
   return (
     <div className="min-h-screen bg-[#FEFCF9] px-4 py-8 pb-24">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-5xl">
         {/* Back button */}
         <button
           onClick={() => router.back()}
@@ -117,11 +119,40 @@ export default function PricingPageClient() {
             className="mb-3 text-4xl font-black tracking-tight text-[#0A2E12] sm:text-5xl"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Membership Plans
+            Simple, Fair Pricing
           </h1>
           <p className="text-lg text-[#3D5A3E] max-w-xl mx-auto">
             Get the most out of your lawn bowling experience with a membership
           </p>
+        </div>
+
+        {/* Monthly / Annual Toggle */}
+        <div className="flex justify-center mb-10">
+          <div className="inline-flex items-center rounded-full border border-[#0A2E12]/10 bg-white p-1 shadow-sm">
+            <button
+              onClick={() => setBillingPeriod("monthly")}
+              className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-all ${
+                billingPeriod === "monthly"
+                  ? "bg-[#1B5E20] text-white shadow-md"
+                  : "text-[#3D5A3E] hover:text-[#0A2E12]"
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setBillingPeriod("annual")}
+              className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-all ${
+                billingPeriod === "annual"
+                  ? "bg-[#1B5E20] text-white shadow-md"
+                  : "text-[#3D5A3E] hover:text-[#0A2E12]"
+              }`}
+            >
+              Annual
+              <span className="ml-1.5 inline-flex items-center rounded-full bg-[#B8860B]/20 px-2 py-0.5 text-[10px] font-bold text-[#B8860B]">
+                Save 75%
+              </span>
+            </button>
+          </div>
         </div>
 
         {loading ? (
@@ -130,9 +161,9 @@ export default function PricingPageClient() {
           </div>
         ) : (
           <>
-            {/* Pricing cards */}
-            <div className="grid gap-6 md:grid-cols-2 mb-16 max-w-2xl mx-auto">
-              {/* Monthly */}
+            {/* Pricing cards — 3 tier layout */}
+            <div className="grid gap-6 md:grid-cols-3 mb-16 max-w-4xl mx-auto">
+              {/* Free */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -144,19 +175,24 @@ export default function PricingPageClient() {
                     className="text-2xl font-bold text-[#0A2E12]"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Monthly
+                    Free
                   </h3>
                   <div className="mt-3 flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-[#0A2E12]">$5</span>
-                    <span className="text-lg text-[#3D5A3E]">/month</span>
+                    <span
+                      className="text-4xl font-black text-[#0A2E12]"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      $0
+                    </span>
+                    <span className="text-lg text-[#3D5A3E]">/forever</span>
                   </div>
                   <p className="mt-2 text-base text-[#3D5A3E]">
-                    Flexible month-to-month access
+                    Get started with the basics
                   </p>
                 </div>
 
                 <ul className="mb-8 flex-1 space-y-3">
-                  {FEATURES.filter((f) => f.paid).map((feature) => (
+                  {FEATURES.filter((f) => f.free).map((feature) => (
                     <li key={feature.label} className="flex items-center gap-3 text-base text-[#3D5A3E]">
                       <Check className="h-5 w-5 shrink-0 text-[#1B5E20]" />
                       {feature.label}
@@ -165,50 +201,110 @@ export default function PricingPageClient() {
                 </ul>
 
                 <button
-                  onClick={() => handleCheckout("monthly")}
-                  disabled={currentTier === "monthly" || checkoutLoading === "monthly"}
-                  className={`w-full rounded-xl px-6 py-4 text-lg font-bold transition-all min-h-[56px] ${
-                    currentTier === "monthly"
+                  disabled={currentTier === "free"}
+                  className={`w-full rounded-full px-6 py-4 text-base font-bold transition-all min-h-[56px] ${
+                    currentTier === "free"
                       ? "bg-[#0A2E12]/5 text-[#3D5A3E] cursor-default"
                       : "border-2 border-[#1B5E20] text-[#1B5E20] hover:bg-[#1B5E20] hover:text-white"
                   }`}
                 >
-                  {checkoutLoading === "monthly" ? (
-                    <Loader2 className="mx-auto h-6 w-6 animate-spin" />
-                  ) : currentTier === "monthly" ? (
-                    "Current Plan"
-                  ) : (
-                    "Subscribe Monthly"
-                  )}
+                  {currentTier === "free" ? "Current Plan" : "Downgrade"}
                 </button>
               </motion.div>
 
-              {/* Annual — highlighted */}
+              {/* Club — MOST POPULAR */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="relative flex flex-col rounded-2xl border-2 border-[#1B5E20] bg-white p-8 shadow-lg shadow-[#1B5E20]/10"
+                className="relative flex flex-col rounded-2xl border-2 border-[#1B5E20] bg-[#1B5E20] p-8 shadow-xl shadow-emerald-500/10"
               >
                 {/* Badge */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full bg-[#1B5E20] px-4 py-1.5 text-sm font-bold text-white shadow-md">
-                  <Crown className="h-4 w-4" />
-                  Save 75%
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full bg-[#B8860B] px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-md">
+                  <Crown className="h-3.5 w-3.5" />
+                  Most Popular
                 </div>
 
+                <div className="mb-6">
+                  <h3
+                    className="text-2xl font-bold text-white"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    Club
+                  </h3>
+                  <div className="mt-3 flex items-baseline gap-1">
+                    <span
+                      className="text-4xl font-black text-white"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      {billingPeriod === "monthly" ? "$29" : "$15"}
+                    </span>
+                    <span className="text-lg text-emerald-200">
+                      /{billingPeriod === "monthly" ? "mo" : "year"}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-base text-emerald-100/80">
+                    {billingPeriod === "annual"
+                      ? "Just $1.25/month — best value"
+                      : "Full access for your club"}
+                  </p>
+                </div>
+
+                <ul className="mb-8 flex-1 space-y-3">
+                  {FEATURES.filter((f) => f.paid).map((feature) => (
+                    <li key={feature.label} className="flex items-center gap-3 text-base text-emerald-100">
+                      <Check className="h-5 w-5 shrink-0 text-emerald-300" />
+                      {feature.label}
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  onClick={() => handleCheckout(billingPeriod)}
+                  disabled={currentTier === billingPeriod || checkoutLoading === billingPeriod}
+                  className={`w-full rounded-full px-6 py-4 text-base font-bold transition-all min-h-[56px] ${
+                    currentTier === billingPeriod
+                      ? "bg-white/20 text-white/80 cursor-default"
+                      : "bg-white text-[#1B5E20] hover:bg-[#F0FFF4] shadow-md"
+                  }`}
+                >
+                  {checkoutLoading === billingPeriod ? (
+                    <Loader2 className="mx-auto h-6 w-6 animate-spin" />
+                  ) : currentTier === billingPeriod ? (
+                    "Current Plan"
+                  ) : (
+                    "Subscribe"
+                  )}
+                </button>
+              </motion.div>
+
+              {/* Pro */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="relative flex flex-col rounded-2xl border border-[#0A2E12]/10 bg-white p-8"
+              >
                 <div className="mb-6">
                   <h3
                     className="text-2xl font-bold text-[#0A2E12]"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Annual
+                    Pro
                   </h3>
                   <div className="mt-3 flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-[#0A2E12]">$15</span>
-                    <span className="text-lg text-[#3D5A3E]">/year</span>
+                    <span
+                      className="text-4xl font-black text-[#0A2E12]"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      {billingPeriod === "monthly" ? "$79" : "$49"}
+                    </span>
+                    <span className="text-lg text-[#3D5A3E]">
+                      /{billingPeriod === "monthly" ? "mo" : "year"}
+                    </span>
                   </div>
-                  <p className="mt-2 text-base text-[#1B5E20] font-medium">
-                    Just $1.25/month — best value
+                  <p className="mt-2 text-base text-[#3D5A3E]">
+                    For competitive clubs & leagues
                   </p>
                 </div>
 
@@ -219,24 +315,18 @@ export default function PricingPageClient() {
                       {feature.label}
                     </li>
                   ))}
+                  <li className="flex items-center gap-3 text-base text-[#3D5A3E]">
+                    <Zap className="h-5 w-5 shrink-0 text-[#B8860B]" />
+                    Advanced analytics
+                  </li>
                 </ul>
 
                 <button
-                  onClick={() => handleCheckout("annual")}
-                  disabled={currentTier === "annual" || checkoutLoading === "annual"}
-                  className={`w-full rounded-xl px-6 py-4 text-lg font-bold transition-all min-h-[56px] ${
-                    currentTier === "annual"
-                      ? "bg-[#0A2E12]/5 text-[#3D5A3E] cursor-default"
-                      : "bg-[#1B5E20] text-white hover:bg-[#2E7D32] shadow-md"
-                  }`}
+                  onClick={() => handleCheckout(billingPeriod)}
+                  disabled={checkoutLoading !== null}
+                  className="w-full rounded-full px-6 py-4 text-base font-bold transition-all min-h-[56px] border-2 border-[#1B5E20] text-[#1B5E20] hover:bg-[#1B5E20] hover:text-white"
                 >
-                  {checkoutLoading === "annual" ? (
-                    <Loader2 className="mx-auto h-6 w-6 animate-spin" />
-                  ) : currentTier === "annual" ? (
-                    "Current Plan"
-                  ) : (
-                    "Subscribe Annually"
-                  )}
+                  Contact Sales
                 </button>
               </motion.div>
             </div>
@@ -245,7 +335,7 @@ export default function PricingPageClient() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.4 }}
               className="rounded-2xl border border-[#0A2E12]/10 bg-white overflow-hidden"
             >
               <div className="px-6 py-5 border-b border-[#0A2E12]/10">
@@ -262,7 +352,8 @@ export default function PricingPageClient() {
                     <tr className="border-b border-[#0A2E12]/10 bg-[#FEFCF9]">
                       <th className="px-6 py-4 text-base font-bold text-[#0A2E12]">Feature</th>
                       <th className="px-6 py-4 text-center text-base font-bold text-[#3D5A3E]">Free</th>
-                      <th className="px-6 py-4 text-center text-base font-bold text-[#1B5E20]">Member</th>
+                      <th className="px-6 py-4 text-center text-base font-bold text-[#1B5E20]">Club</th>
+                      <th className="px-6 py-4 text-center text-base font-bold text-[#0A2E12]">Pro</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -291,6 +382,13 @@ export default function PricingPageClient() {
                             <X className="mx-auto h-5 w-5 text-[#0A2E12]/20" />
                           )}
                         </td>
+                        <td className="px-6 py-4 text-center">
+                          {feature.paid ? (
+                            <Check className="mx-auto h-5 w-5 text-[#1B5E20]" />
+                          ) : (
+                            <X className="mx-auto h-5 w-5 text-[#0A2E12]/20" />
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -303,11 +401,11 @@ export default function PricingPageClient() {
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.5 }}
                 className="mt-8 text-center text-base text-[#3D5A3E]"
               >
                 Currently on the <span className="font-semibold text-[#0A2E12]">Free</span> plan.{" "}
-                <Link href="/clubs" className="text-[#1B5E20] underline hover:text-[#2E7D32]">
+                <Link href="/clubs" className="text-[#1B5E20] underline hover:text-[#145218]">
                   Browse clubs
                 </Link>{" "}
                 or upgrade above to unlock everything.

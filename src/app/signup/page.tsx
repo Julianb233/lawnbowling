@@ -1,20 +1,17 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useState, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Mail, Lock, User, AlertTriangle, CheckCircle, Loader2 } from "lucide-react";
+import { Phone, User, Camera, AlertTriangle, CheckCircle, Loader2, ChevronDown } from "lucide-react";
 import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 function friendlySignupError(raw: string): string {
   const lower = raw.toLowerCase();
   if (lower.includes("already registered") || lower.includes("already been registered")) {
-    return "An account with this email already exists. Please sign in instead.";
-  }
-  if (lower.includes("password") && lower.includes("least")) {
-    return "Password must be at least 6 characters long.";
+    return "An account with this phone number already exists. Please sign in instead.";
   }
   if (lower.includes("valid email") || lower.includes("invalid email")) {
     return "Please enter a valid email address.";
@@ -27,6 +24,15 @@ function friendlySignupError(raw: string): string {
   }
   return raw;
 }
+
+const COUNTRY_CODES = [
+  { code: "+1", label: "US +1" },
+  { code: "+44", label: "UK +44" },
+  { code: "+61", label: "AU +61" },
+  { code: "+64", label: "NZ +64" },
+  { code: "+27", label: "ZA +27" },
+  { code: "+91", label: "IN +91" },
+];
 
 export default function SignupPage() {
   return (
@@ -44,15 +50,29 @@ export default function SignupPage() {
 
 function SignupForm() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [countryCode, setCountryCode] = useState("+1");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [selectedClub, setSelectedClub] = useState("");
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
   const returnTo = searchParams.get("returnTo") || "/";
+
+  function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAvatarFile(file);
+      const reader = new FileReader();
+      reader.onload = () => setAvatarPreview(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  }
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
@@ -60,17 +80,22 @@ function SignupForm() {
       setError("Please enter your name.");
       return;
     }
+    if (!phoneNumber.trim()) {
+      setError("Please enter your phone number.");
+      return;
+    }
     setLoading(true);
     setError(null);
     setSuccess(null);
 
+    const fullPhone = `${countryCode}${phoneNumber.replace(/\D/g, "")}`;
+
     try {
       const { data, error: signUpError } = await supabase.auth.signUp({
-        email,
-        password,
+        phone: fullPhone,
+        password: Math.random().toString(36).slice(-12), // temp password for phone-first flow
         options: {
-          emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback`,
-          data: { name },
+          data: { name, club: selectedClub || undefined },
         },
       });
 
@@ -80,9 +105,9 @@ function SignupForm() {
         return;
       }
 
-      // If email confirmation is required
+      // If phone confirmation is required
       if (data.user && !data.session) {
-        setSuccess("Check your email for a confirmation link, then come back and sign in.");
+        setSuccess("We sent a verification code to your phone. Please check and verify.");
         setLoading(false);
         return;
       }
@@ -93,6 +118,14 @@ function SignupForm() {
           user_id: data.user.id,
           display_name: name,
         });
+
+        // Upload avatar if provided
+        if (avatarFile) {
+          const formData = new FormData();
+          formData.append("file", avatarFile);
+          await fetch("/api/profile/avatar", { method: "POST", body: formData });
+        }
+
         router.push("/onboarding/player");
         router.refresh();
       }
@@ -112,29 +145,71 @@ function SignupForm() {
           <div className="mb-8 flex items-center justify-center gap-3">
             <Image
               src={bowlsIconImg}
-              alt="Lawnbowling"
+              alt="LawnBowl"
               width={40}
               height={40}
             />
             <span className="text-xl font-bold" style={{ color: "#0A2E12" }}>
-              Lawnbowling
+              LawnBowl
             </span>
           </div>
 
           <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-8 shadow-sm">
+            {/* Step indicator */}
+            <div className="mb-6 flex items-center justify-center">
+              <span
+                className="rounded-full bg-[#1B5E20]/10 px-4 py-1 text-sm font-medium"
+                style={{ color: "#1B5E20" }}
+              >
+                Step 1 of 3
+              </span>
+            </div>
+
             <div className="mb-8 text-center">
               <h1
                 className="text-3xl font-bold"
                 style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
               >
-                Join your local bowling club
+                Create Your Account
               </h1>
               <p className="mt-3 text-base" style={{ color: "#3D5A3E" }}>
-                Create your free account in seconds
+                Join your local bowling club
               </p>
             </div>
 
+            {/* Avatar upload */}
+            <div className="mb-8 flex justify-center">
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="group relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-[#0A2E12]/20 bg-[#FEFCF9] transition hover:border-[#1B5E20]/40"
+              >
+                {avatarPreview ? (
+                  <img
+                    src={avatarPreview}
+                    alt="Avatar preview"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center gap-1">
+                    <Camera className="h-6 w-6" style={{ color: "#3D5A3E" }} />
+                    <span className="text-xs" style={{ color: "#3D5A3E" }}>
+                      Add Photo
+                    </span>
+                  </div>
+                )}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  className="hidden"
+                />
+              </button>
+            </div>
+
             <form onSubmit={handleSignup} className="space-y-5">
+              {/* Name */}
               <div>
                 <label
                   htmlFor="name"
@@ -151,57 +226,76 @@ function SignupForm() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20 min-h-[44px]"
                     style={{ color: "#0A2E12" }}
                     placeholder="Your name"
                   />
                 </div>
               </div>
 
+              {/* Phone number */}
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="phone"
                   className="mb-2 block text-base font-medium"
                   style={{ color: "#0A2E12" }}
                 >
-                  Email Address
+                  Phone Number
                 </label>
-                <div className="relative">
-                  <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
-                  <input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                <div className="flex gap-2">
+                  <select
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className="h-14 rounded-xl border border-[#0A2E12]/10 bg-white px-3 text-base shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20 min-h-[44px]"
                     style={{ color: "#0A2E12" }}
-                    placeholder="you@example.com"
-                  />
+                  >
+                    {COUNTRY_CODES.map((cc) => (
+                      <option key={cc.code} value={cc.code}>
+                        {cc.label}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="relative flex-1">
+                    <Phone className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
+                    <input
+                      id="phone"
+                      type="tel"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      required
+                      className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20 min-h-[44px]"
+                      style={{ color: "#0A2E12" }}
+                      placeholder="(555) 555-5555"
+                    />
+                  </div>
                 </div>
               </div>
 
+              {/* Club selection */}
               <div>
                 <label
-                  htmlFor="password"
+                  htmlFor="club"
                   className="mb-2 block text-base font-medium"
                   style={{ color: "#0A2E12" }}
                 >
-                  Password
+                  Select Your Club
                 </label>
                 <div className="relative">
-                  <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
-                  <input
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    minLength={6}
-                    className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                    style={{ color: "#0A2E12" }}
-                    placeholder="At least 6 characters"
-                  />
+                  <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
+                  <select
+                    id="club"
+                    value={selectedClub}
+                    onChange={(e) => setSelectedClub(e.target.value)}
+                    className="block h-14 w-full appearance-none rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-4 pr-10 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20 min-h-[44px]"
+                    style={{ color: selectedClub ? "#0A2E12" : "#3D5A3E" }}
+                  >
+                    <option value="">Choose a club (optional)</option>
+                    <option value="sunset">Sunset Lawn Bowling Club</option>
+                    <option value="san-francisco">San Francisco LBC</option>
+                    <option value="palo-alto">Palo Alto LBC</option>
+                    <option value="berkeley">Berkeley LBC</option>
+                    <option value="other">Other</option>
+                  </select>
                 </div>
               </div>
 
@@ -228,10 +322,9 @@ function SignupForm() {
               <button
                 type="submit"
                 disabled={loading || !!success}
-                className="w-full rounded-xl py-4 text-lg font-semibold text-white shadow-md transition hover:brightness-110 disabled:opacity-50 active:scale-[0.98]"
-                style={{ backgroundColor: "#1B5E20" }}
+                className="w-full rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-[#145218] disabled:opacity-50 active:scale-[0.98] min-h-[44px]"
               >
-                {loading ? "Creating account..." : "Create Account"}
+                {loading ? "Creating account..." : "Continue"}
               </button>
             </form>
 
