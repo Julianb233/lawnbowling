@@ -507,26 +507,41 @@ export function TournamentWizard({
                   )}
                 </div>
 
-                {/* TWZ-10: Next Round preview */}
-                <div className="rounded-xl border border-[#1B5E20]/20 bg-[#1B5E20]/5 p-4">
-                  <div className="flex items-center gap-2">
-                    <SkipForward className="h-4 w-4 text-[#1B5E20]" />
-                    <p className="text-sm font-semibold text-[#1B5E20]">
-                      Next: Generate draw for Round {progression.current_round + 1}
+                {/* US-008: Round summary + prominent Start Next Round CTA */}
+                <div className="rounded-xl border border-[#22c55e]/20 bg-[#22c55e]/5 p-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <SkipForward className="h-4 w-4 text-[#22c55e]" />
+                    <p className="text-sm font-bold text-[#0A2E12]">
+                      Round {progression.current_round} Complete
+                      {rinkScores.length > 0 && (
+                        <span className="font-normal text-[#3D5A3E]">
+                          {" "}&mdash; {rinkScores.length} game{rinkScores.length !== 1 ? "s" : ""} played
+                        </span>
+                      )}
                     </p>
                   </div>
+                  <p className="text-xs text-[#3D5A3E] ml-6">
+                    Ready to generate the draw for Round {progression.current_round + 1}
+                  </p>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <CTAButton
-                    label={`Next Round (Round ${progression.current_round + 1})`}
-                    loading={actionLoading}
-                    onClick={() => performAction("next_round")}
-                  />
+                  <div className="relative group flex-1">
+                    <button
+                      onClick={() => performAction("next_round")}
+                      disabled={actionLoading}
+                      className="flex items-center justify-center gap-2 rounded-xl bg-[#22c55e] px-6 text-base font-bold text-white transition-colors hover:bg-[#16a34a] disabled:opacity-50 disabled:cursor-not-allowed w-full shadow-lg shadow-[#22c55e]/25"
+                      style={{ minHeight: "56px" }}
+                    >
+                      {actionLoading && <Loader2 className="h-5 w-5 animate-spin" />}
+                      Start Round {progression.current_round + 1}
+                    </button>
+                  </div>
                   <button
                     onClick={() => performAction("complete")}
                     disabled={actionLoading}
-                    className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-50"
+                    className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-50"
+                    style={{ minHeight: "56px" }}
                   >
                     End Tournament
                   </button>
