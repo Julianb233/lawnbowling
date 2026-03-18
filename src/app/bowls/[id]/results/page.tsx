@@ -448,7 +448,7 @@ export default function ResultsPage() {
                 </p>
                 <p className="text-xs text-[#3D5A3E] mt-1">Highest Score</p>
                 {stats.highestRinkScore && (
-                  <p className="text-[10px] text-[#3D5A3E]">
+                  <p className="text-xs text-[#3D5A3E]">
                     {stats.highestRinkScore.team}, Rink{" "}
                     <span style={{ color: "#B8860B" }}>{stats.highestRinkScore.rink}</span> R
                     {stats.highestRinkScore.round}
@@ -564,7 +564,7 @@ export default function ResultsPage() {
                       {r.allFinalized && (
                         <span
                           className={cn(
-                            "rounded-full px-2.5 py-1 text-[10px] font-bold",
+                            "rounded-full px-2.5 py-1 text-xs font-bold",
                             selectedRound === r.round
                               ? "bg-white/20 text-white"
                               : "bg-[#1B5E20]/10 text-[#1B5E20]"
@@ -603,7 +603,7 @@ export default function ResultsPage() {
                               {getWinnerLabel(score.winner)}
                             </span>
                             {score.is_finalized && (
-                              <span className="rounded-full bg-[#1B5E20]/10 px-2.5 py-1 text-[10px] font-bold text-[#1B5E20]">
+                              <span className="rounded-full bg-[#1B5E20]/10 px-2.5 py-1 text-xs font-bold text-[#1B5E20]">
                                 Final
                               </span>
                             )}

@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
+import { BottomNav } from "@/components/board/BottomNav";
 
 export default async function FavoritesPage() {
   const supabase = await createClient();
@@ -18,7 +19,7 @@ export default async function FavoritesPage() {
     .order("created_at", { ascending: false });
 
   return (
-    <div className="min-h-screen bg-animated-gradient">
+    <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
       <header className="sticky top-0 z-40 glass border-b border-[#0A2E12]/10">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
           <h1 className="text-xl font-bold text-[#0A2E12]">
@@ -87,6 +88,7 @@ export default async function FavoritesPage() {
           </div>
         )}
       </main>
+      <BottomNav />
     </div>
   );
 }

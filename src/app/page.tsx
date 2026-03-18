@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "LawnBowl — Where Friendships Roll | Lawn Bowling Club Management",
+  description:
+    "Tournament management, live scoring, and club tools for lawn bowling clubs. Replace the paper draw sheet with a digital clubhouse experience. Free for clubs.",
+  openGraph: {
+    title: "LawnBowl — Where Friendships Roll | Lawn Bowling Club Management",
+    description:
+      "Tournament management, live scoring, and club tools for lawn bowling clubs. Replace the paper draw sheet with a digital clubhouse experience. Free for clubs.",
+    url: "https://www.lawnbowling.app",
+  },
+};
 import {
   Users,
   Trophy,

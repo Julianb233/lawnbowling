@@ -179,7 +179,7 @@ export default function DrawSheetPage() {
                   >
                     {score.rink}
                   </span>
-                  <p className="text-[10px] font-medium text-[#3D5A3E] mt-0.5">Rink</p>
+                  <p className="text-xs font-medium text-[#3D5A3E] mt-0.5">Rink</p>
                 </div>
               ))}
             </div>
@@ -343,18 +343,18 @@ export default function DrawSheetPage() {
                       <table className="w-full border-collapse text-xs print:text-[10px]">
                         <thead>
                           <tr className="border-b border-[#0A2E12]/10">
-                            <th className="px-2 py-1.5 text-left text-[10px] font-bold text-[#3D5A3E] w-12">
+                            <th className="px-2 py-1.5 text-left text-xs font-bold text-[#3D5A3E] w-12">
                               &nbsp;
                             </th>
                             {score.team_a_scores.map((_, i) => (
                               <th
                                 key={i}
-                                className="px-1.5 py-1.5 text-center text-[10px] font-bold text-[#3D5A3E]"
+                                className="px-1.5 py-1.5 text-center text-xs font-bold text-[#3D5A3E]"
                               >
                                 {i + 1}
                               </th>
                             ))}
-                            <th className="px-2 py-1.5 text-center text-[10px] font-bold text-[#0A2E12] border-l border-[#0A2E12]/10">
+                            <th className="px-2 py-1.5 text-center text-xs font-bold text-[#0A2E12] border-l border-[#0A2E12]/10">
                               Tot
                             </th>
                           </tr>

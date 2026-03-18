@@ -37,7 +37,7 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "relative flex flex-col items-center justify-center gap-0.5 px-3 py-2 text-[11px] transition-colors min-h-[44px]",
+                "relative flex flex-col items-center justify-center gap-0.5 px-3 py-2 text-sm transition-colors min-h-[44px]",
                 active ? "font-semibold" : ""
               )}
               style={{ color: active ? "#1B5E20" : "#3D5A3E" }}

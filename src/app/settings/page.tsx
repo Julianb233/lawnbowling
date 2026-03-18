@@ -7,6 +7,7 @@ import type { SkillLevel } from "@/lib/db/players";
 import type { NotificationPreferences } from "@/lib/types";
 import { NotificationSettings } from "@/components/settings/NotificationSettings";
 import { MyVisitRequests } from "@/components/clubs/MyVisitRequests";
+import { BottomNav } from "@/components/board/BottomNav";
 
 const SKILL_LEVELS: { value: SkillLevel; label: string }[] = [
   { value: "beginner", label: "Beginner" },
@@ -263,6 +264,7 @@ export default function SettingsPage() {
           </button>
         </div>
       </div>
+      <BottomNav />
     </div>
   );
 }

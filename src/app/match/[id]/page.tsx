@@ -591,7 +591,7 @@ export default function MatchPage() {
                     className="flex-shrink-0 rounded-xl bg-white border border-[#0A2E12]/10 p-3 text-center"
                     style={{ minWidth: "72px" }}
                   >
-                    <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-[#3D5A3E]">
+                    <p className="text-xs font-semibold uppercase tracking-wider mb-1 text-[#3D5A3E]">
                       End {end.endNumber}
                     </p>
                     <p

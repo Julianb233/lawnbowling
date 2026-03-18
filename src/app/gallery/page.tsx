@@ -73,7 +73,7 @@ export default function GalleryPage() {
           <button
             type="button"
             onClick={() => setActiveCategory("All")}
-            className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+            className={`rounded-full border px-4 py-2.5 text-sm font-medium transition min-h-[44px] ${
               activeCategory === "All"
                 ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
                 : "border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-[#1B5E20]/30 hover:bg-[#1B5E20]/5 hover:text-[#1B5E20]"
@@ -90,7 +90,7 @@ export default function GalleryPage() {
                 type="button"
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+                className={`rounded-full border px-4 py-2.5 text-sm font-medium transition min-h-[44px] ${
                   activeCategory === category
                     ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
                     : "border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-[#1B5E20]/30 hover:bg-[#1B5E20]/5 hover:text-[#1B5E20]"
