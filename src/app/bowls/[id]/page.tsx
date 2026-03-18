@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import { GreenConditionsWidget } from "@/components/bowls/GreenConditionsWidget";
 import { GreenConditionsForm } from "@/components/bowls/GreenConditionsForm";
 import { GuestPlayerBadge } from "@/components/bowls/GuestPlayerBadge";
+import { QRCheckInPoster } from "@/components/bowls/QRCheckInPoster";
 import Link from "next/link";
 
 type PageView = "checkin" | "board" | "draw";
@@ -639,6 +640,18 @@ export default function BowlsTournamentPage() {
                       Consider adjusting check-ins to match a supported count, or choose Random Draw.
                     </p>
                   </div>
+                </div>
+              )}
+
+              {/* US-003: QR Check-In Poster */}
+              {isAdmin && (
+                <div className="mt-4 flex justify-end">
+                  <QRCheckInPoster
+                    tournamentId={tournamentId}
+                    tournamentName={tournamentName}
+                    format={BOWLS_FORMAT_LABELS[format].label}
+                    date={tournamentDate}
+                  />
                 </div>
               )}
             </div>
