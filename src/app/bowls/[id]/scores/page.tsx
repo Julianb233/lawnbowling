@@ -49,9 +49,32 @@ export default function ScoreEntryPage() {
   const [confirmFinalize, setConfirmFinalize] = useState(false);
   const [matchWonRink, setMatchWonRink] = useState<{ show: boolean; teamName: string } | null>(null);
   const [lastSavedEnd, setLastSavedEnd] = useState<{ rink: number; endIdx: number } | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
   const autoSaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastSavedRef = useRef<string>(""); // JSON of last saved state
+
+  // Debounce search query by 300ms
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery.trim().toLowerCase());
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Filter rinks by search query (rink number or player name)
+  const filteredRinkScores = debouncedSearch
+    ? rinkScores.filter((entry) => {
+        // Match rink number
+        if (String(entry.rink).includes(debouncedSearch)) return true;
+        // Match player names
+        const allPlayers = [...entry.teamAPlayers, ...entry.teamBPlayers];
+        return allPlayers.some((p) =>
+          p.display_name.toLowerCase().includes(debouncedSearch)
+        );
+      })
+    : rinkScores;
 
   function addToast(message: string, type: ToastType = "info") {
     const id = ++toastId;
@@ -524,9 +547,58 @@ export default function ScoreEntryPage() {
       </header>
 
       <main className="mx-auto max-w-5xl px-4 py-6">
+        {/* Rink search filter */}
+        {rinkScores.length > 0 && (
+          <div className="mb-4 relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg
+                className="h-5 w-5 text-[#3D5A3E]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by rink number or player name..."
+              className="w-full min-h-[48px] rounded-lg border border-[#0A2E12]/10 bg-white pl-10 pr-4 text-base text-[#0A2E12] placeholder:text-[#3D5A3E]/50 focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#3D5A3E] hover:text-[#0A2E12]"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+        )}
+
         {/* Rink grid overview */}
+        {filteredRinkScores.length === 0 && debouncedSearch ? (
+          <div className="mb-6 rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
+            <p className="text-base font-semibold text-[#3D5A3E]">
+              No rinks match your search
+            </p>
+            <p className="mt-1 text-sm text-[#3D5A3E]/70">
+              Try a different rink number or player name
+            </p>
+          </div>
+        ) : (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-          {rinkScores.map((entry, idx) => {
+          {filteredRinkScores.map((entry) => {
+            const idx = rinkScores.findIndex((r) => r.rink === entry.rink);
             const totalA = getTotal(entry.teamAScores);
             const totalB = getTotal(entry.teamBScores);
             const hasScores = entry.teamAScores.length > 0;
@@ -617,7 +689,7 @@ export default function ScoreEntryPage() {
           })}
 
           {/* Add rink button */}
-          {!allFinalized && (
+          {!allFinalized && !debouncedSearch && (
             <button
               onClick={addRink}
               className="flex min-h-[120px] items-center justify-center rounded-2xl border-2 border-dashed border-[#0A2E12]/10 text-[#3D5A3E] hover:border-[#0A2E12]/10:border-white/20 hover:text-[#3D5A3E]:text-[#3D5A3E] transition-colors touch-manipulation"
@@ -626,6 +698,7 @@ export default function ScoreEntryPage() {
             </button>
           )}
         </div>
+        )}
 
         {/* Active rink score entry */}
         <AnimatePresence mode="wait">
@@ -657,13 +730,13 @@ export default function ScoreEntryPage() {
                           disabled={
                             rinkScores[activeRink].teamAScores.length === 0
                           }
-                          className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-30 min-h-[44px] touch-manipulation"
+                          className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-base font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-30 min-h-[56px] min-w-[56px] touch-manipulation"
                         >
                           - End
                         </button>
                         <button
                           onClick={() => addEnd(activeRink)}
-                          className="rounded-xl bg-[#1B5E20] px-3 py-2 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
+                          className="rounded-xl bg-[#1B5E20] px-3 py-2 text-base font-bold text-white hover:bg-[#145218] min-h-[56px] min-w-[56px] touch-manipulation"
                         >
                           + End
                         </button>
@@ -671,7 +744,7 @@ export default function ScoreEntryPage() {
                     )}
                     <button
                       onClick={() => setActiveRink(null)}
-                      className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
+                      className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-base font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] min-h-[56px] min-w-[56px] touch-manipulation"
                     >
                       Close
                     </button>
@@ -980,10 +1053,10 @@ function ScoreInput({
       {!disabled && (
         <button
           onClick={() => onChange(Math.min(value + 1, 9))}
-          className="flex h-8 w-12 items-center justify-center rounded-lg bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15 active:bg-[#0A2E12]/10:bg-white/20 touch-manipulation"
+          className="flex min-h-[56px] min-w-[56px] items-center justify-center rounded-lg bg-[#0A2E12]/5 text-xl text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15 active:bg-[#0A2E12]/10:bg-white/20 touch-manipulation"
         >
           <svg
-            className="h-4 w-4"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -999,7 +1072,7 @@ function ScoreInput({
       )}
       <div
         className={cn(
-          "flex h-12 w-12 items-center justify-center rounded-xl text-lg font-black tabular-nums transition-colors",
+          "flex h-14 w-14 items-center justify-center rounded-xl text-xl font-black tabular-nums transition-colors",
           disabled
             ? "bg-[#0A2E12]/[0.03] text-[#3D5A3E]"
             : isWinning
@@ -1015,10 +1088,10 @@ function ScoreInput({
       {!disabled && (
         <button
           onClick={() => onChange(Math.max(value - 1, 0))}
-          className="flex h-8 w-12 items-center justify-center rounded-lg bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15 active:bg-[#0A2E12]/10:bg-white/20 touch-manipulation"
+          className="flex min-h-[56px] min-w-[56px] items-center justify-center rounded-lg bg-[#0A2E12]/5 text-xl text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15 active:bg-[#0A2E12]/10:bg-white/20 touch-manipulation"
         >
           <svg
-            className="h-4 w-4"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
