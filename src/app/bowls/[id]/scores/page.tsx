@@ -502,19 +502,19 @@ export default function ScoreEntryPage() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}`)}
-                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[56px] min-w-[56px] touch-manipulation"
               >
                 Back
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/live`)}
-                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 min-h-[56px] min-w-[56px] touch-manipulation"
               >
                 Live View
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/results`)}
-                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-blue-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-blue-50 min-h-[56px] min-w-[56px] touch-manipulation"
               >
                 Results
               </button>
@@ -533,7 +533,7 @@ export default function ScoreEntryPage() {
                   setLoading(true);
                 }}
                 className={cn(
-                  "flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-colors touch-manipulation",
+                  "flex h-12 w-12 items-center justify-center rounded-full text-sm font-bold transition-colors touch-manipulation",
                   round === r
                     ? "bg-[#1B5E20] text-white"
                     : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15"
@@ -619,7 +619,7 @@ export default function ScoreEntryPage() {
                 )}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                  <span className="text-lg font-bold uppercase tracking-wider text-[#3D5A3E]">
                     Rink {entry.rink}
                   </span>
                   <div className="flex items-center gap-1">
@@ -974,13 +974,13 @@ export default function ScoreEntryPage() {
                 <div className="mt-6 flex items-center gap-3 justify-end">
                   <button
                     onClick={() => setConfirmFinalize(false)}
-                    className="rounded-xl border border-[#0A2E12]/10 px-5 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
+                    className="rounded-xl border border-[#0A2E12]/10 px-5 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[48px] touch-manipulation"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={finalizeRound}
-                    className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-600 min-h-[44px] touch-manipulation"
+                    className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-600 min-h-[48px] touch-manipulation"
                   >
                     Finalize
                   </button>
