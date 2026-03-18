@@ -16,9 +16,34 @@ import { LearnBreadcrumb } from "@/components/learn/LearnBreadcrumb";
 import { getArticleSchema, getBreadcrumbSchema, jsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Lawn Bowling Rules | Complete Guide | Lawnbowling",
+  title: "Lawn Bowls Rules | Complete Rules of Lawn Bowling Guide | Lawnbowling",
   description:
-    "Complete guide to lawn bowling rules. Learn about the green, the jack, bias, delivery, scoring, and the sequence of play in each end. Perfect for beginners.",
+    "Complete guide to lawn bowls rules. Learn about the green, the jack, bias, delivery, scoring, and the sequence of play in each end. Perfect for beginners and experienced bowlers.",
+  keywords: [
+    "lawn bowls rules",
+    "lawn bowling rules",
+    "rules of lawn bowls",
+    "how to play lawn bowls",
+    "lawn bowls scoring rules",
+    "lawn bowling rules for beginners",
+    "bowls rules explained",
+    "lawn bowls how to play",
+  ],
+  alternates: { canonical: "/learn/rules" },
+  openGraph: {
+    title: "Lawn Bowls Rules | Complete Guide to the Rules of Lawn Bowling",
+    description:
+      "Complete guide to lawn bowls rules. The green, the jack, bias, delivery, scoring, and sequence of play explained.",
+    url: "https://lawnbowl.app/learn/rules",
+    type: "article",
+    siteName: "Lawnbowling",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lawn Bowls Rules | Complete Guide",
+    description:
+      "Learn the rules of lawn bowls — the green, jack, bias, delivery, scoring, and more.",
+  },
 };
 
 export default function RulesPage() {
