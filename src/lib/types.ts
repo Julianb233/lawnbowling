@@ -546,6 +546,7 @@ export interface TournamentScore {
   ends_won_b: number;
   winner: ScoreWinner;
   is_finalized: boolean;
+  correction_log: { timestamp: string; unlocked_by: string; rink: number }[] | null;
   created_at: string;
   updated_at: string;
 }

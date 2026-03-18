@@ -220,6 +220,102 @@ export async function POST(req: NextRequest) {
 }
 
 /**
+ * PUT /api/bowls/scores
+ * Unlock a specific finalized rink for score correction.
+ * Only the tournament creator can unlock rinks.
+ */
+export async function PUT(req: NextRequest) {
+  try {
+    const supabase = await createClient();
+
+    // Auth check
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { tournament_id, round, rink } = await req.json();
+
+    if (!tournament_id || !round || !rink) {
+      return NextResponse.json(
+        { error: "tournament_id, round, and rink are required" },
+        { status: 400 }
+      );
+    }
+
+    // Verify user is the tournament creator
+    const { data: tournament } = await supabase
+      .from("tournaments")
+      .select("created_by")
+      .eq("id", tournament_id)
+      .single();
+
+    if (!tournament) {
+      return NextResponse.json({ error: "Tournament not found" }, { status: 404 });
+    }
+
+    // Check if the authenticated user has a player record that matches the creator
+    const { data: player } = await supabase
+      .from("players")
+      .select("id, display_name")
+      .eq("id", user.id)
+      .single();
+
+    if (!player || player.id !== tournament.created_by) {
+      return NextResponse.json(
+        { error: "Only the tournament creator can unlock finalized scores" },
+        { status: 403 }
+      );
+    }
+
+    // Get the existing score record
+    const { data: existing } = await supabase
+      .from("tournament_scores")
+      .select("id, is_finalized, correction_log")
+      .eq("tournament_id", tournament_id)
+      .eq("round", round)
+      .eq("rink", rink)
+      .maybeSingle();
+
+    if (!existing) {
+      return NextResponse.json({ error: "Score record not found" }, { status: 404 });
+    }
+
+    if (!existing.is_finalized) {
+      return NextResponse.json({ error: "This rink is not finalized" }, { status: 400 });
+    }
+
+    // Build correction log entry
+    const logEntry = {
+      timestamp: new Date().toISOString(),
+      unlocked_by: player.display_name ?? player.id,
+      rink,
+    };
+    const existingLog = (existing.correction_log as { timestamp: string; unlocked_by: string; rink: number }[]) ?? [];
+    const updatedLog = [...existingLog, logEntry];
+
+    // Unlock only this rink
+    const { data, error } = await supabase
+      .from("tournament_scores")
+      .update({ is_finalized: false, correction_log: updatedLog })
+      .eq("id", existing.id)
+      .select()
+      .single();
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(data);
+  } catch (err) {
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "Unlock failed" },
+      { status: 500 }
+    );
+  }
+}
+
+/**
  * PATCH /api/bowls/scores
  * Finalize all scores for a round. Requires authentication.
  */

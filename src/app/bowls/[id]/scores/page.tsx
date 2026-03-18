@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { cn } from "@/lib/utils";
 import { NumberFlip, EndPulse, MatchWon, MatchPoint } from "@/components/animations";
+import { Lock, LockOpen } from "lucide-react";
 import type { TournamentScore } from "@/lib/types";
 
 interface RinkScoreEntry {
@@ -51,6 +52,10 @@ export default function ScoreEntryPage() {
   const [lastSavedEnd, setLastSavedEnd] = useState<{ rink: number; endIdx: number } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [currentPlayerId, setCurrentPlayerId] = useState<string | null>(null);
+  const [tournamentCreatorId, setTournamentCreatorId] = useState<string | null>(null);
+  const [unlockConfirmRink, setUnlockConfirmRink] = useState<number | null>(null);
+  const [unlocking, setUnlocking] = useState(false);
 
   const autoSaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastSavedRef = useRef<string>(""); // JSON of last saved state
@@ -88,10 +93,16 @@ export default function ScoreEntryPage() {
     const supabase = createClient();
     const { data } = await supabase
       .from("tournaments")
-      .select("name")
+      .select("name, created_by")
       .eq("id", tournamentId)
       .single();
-    if (data) setTournamentName(data.name);
+    if (data) {
+      setTournamentName(data.name);
+      setTournamentCreatorId(data.created_by);
+    }
+    // Get current authenticated user
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) setCurrentPlayerId(user.id);
   }, [tournamentId]);
 
   const loadScores = useCallback(async () => {
@@ -396,6 +407,35 @@ export default function ScoreEntryPage() {
     setFinalizing(false);
   }
 
+  const isCreator = currentPlayerId != null && currentPlayerId === tournamentCreatorId;
+
+  async function unlockRink(rinkNumber: number) {
+    setUnlocking(true);
+    setUnlockConfirmRink(null);
+    try {
+      const res = await fetch("/api/bowls/scores", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tournament_id: tournamentId,
+          round,
+          rink: rinkNumber,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        addToast(err.error || "Failed to unlock rink", "error");
+      } else {
+        addToast(`Rink ${rinkNumber} unlocked for correction`, "success");
+        await loadScores();
+      }
+    } catch {
+      addToast("Network error unlocking rink", "error");
+    }
+    setUnlocking(false);
+  }
+
   function addRink() {
     const maxRink = rinkScores.reduce((max, r) => Math.max(max, r.rink), 0);
     setRinkScores((prev) => [
@@ -627,7 +667,8 @@ export default function ScoreEntryPage() {
                       <span className="h-2 w-2 rounded-full bg-amber-400" title="Unsaved changes" />
                     )}
                     {entry.isFinalized && (
-                      <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-xs font-bold text-[#2E7D32]">
+                      <span className="flex items-center gap-1 rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-xs font-bold text-[#2E7D32]">
+                        <Lock className="h-3 w-3" />
                         Final
                       </span>
                     )}
@@ -741,6 +782,17 @@ export default function ScoreEntryPage() {
                           + End
                         </button>
                       </>
+                    )}
+                    {rinkScores[activeRink].isFinalized && isCreator && (
+                      <button
+                        onClick={() => setUnlockConfirmRink(rinkScores[activeRink].rink)}
+                        disabled={unlocking}
+                        className="flex items-center gap-1.5 rounded-xl border border-amber-300 px-3 py-2 text-sm font-semibold text-amber-700 hover:bg-amber-50 disabled:opacity-50 min-h-[48px] touch-manipulation"
+                        title="Unlock this rink for score correction"
+                      >
+                        <LockOpen className="h-4 w-4" />
+                        Unlock for Correction
+                      </button>
                     )}
                     <button
                       onClick={() => setActiveRink(null)}
@@ -983,6 +1035,53 @@ export default function ScoreEntryPage() {
                     className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-600 min-h-[48px] touch-manipulation"
                   >
                     Finalize
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Unlock confirmation dialog */}
+        <AnimatePresence>
+          {unlockConfirmRink !== null && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+              onClick={() => setUnlockConfirmRink(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.95 }}
+                onClick={(e) => e.stopPropagation()}
+                className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <LockOpen className="h-5 w-5 text-amber-600" />
+                  <h3 className="text-lg font-black text-[#0A2E12]">
+                    Unlock Rink {unlockConfirmRink}?
+                  </h3>
+                </div>
+                <p className="mt-2 text-sm text-[#3D5A3E]">
+                  Unlock Rink {unlockConfirmRink} for score correction? This will allow editing scores for this rink. You can re-finalize after making changes.
+                </p>
+                <div className="mt-6 flex items-center gap-3 justify-end">
+                  <button
+                    onClick={() => setUnlockConfirmRink(null)}
+                    className="rounded-xl border border-[#0A2E12]/10 px-5 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[48px] touch-manipulation"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => unlockRink(unlockConfirmRink)}
+                    disabled={unlocking}
+                    className="flex items-center gap-1.5 rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-600 disabled:opacity-50 min-h-[48px] touch-manipulation"
+                  >
+                    <LockOpen className="h-4 w-4" />
+                    {unlocking ? "Unlocking..." : "Unlock"}
                   </button>
                 </div>
               </motion.div>
