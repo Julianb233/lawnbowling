@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// useRouter removed — no longer redirecting unauthenticated users
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
@@ -27,7 +27,6 @@ interface BowlsTournament {
 }
 
 export default function BowlsPage() {
-  const router = useRouter();
   const [tournaments, setTournaments] = useState<BowlsTournament[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
@@ -35,14 +34,19 @@ export default function BowlsPage() {
   const [homeClubId, setHomeClubId] = useState<string | null>(null);
   const [clubName, setClubName] = useState<string>("");
 
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
   useEffect(() => {
     async function loadPlayer() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        router.replace("/login?returnTo=/bowls");
+        // Show public view instead of redirecting
+        setIsAuthenticated(false);
+        setScope("all");
         return;
       }
+      setIsAuthenticated(true);
       const { data: player } = await supabase
         .from("players")
         .select("home_club_id")
@@ -101,50 +105,56 @@ export default function BowlsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#FEFCF9]">
+      <div className="flex min-h-screen items-center justify-center bg-white">
         <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/90 backdrop-blur-md">
+    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <h1
-                className="text-xl font-bold tracking-tight text-[#0A2E12] sm:text-2xl"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
+              <h1 className="text-xl font-black tracking-tight text-[#0A2E12] sm:text-2xl">
                 Lawn Bowls
               </h1>
               <div className="flex items-center gap-2 sm:gap-3">
-                <Link href="/bowls/about" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1 min-h-[44px] flex items-center">
+                <Link href="/bowls/about" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
                   About
                 </Link>
-                <span className="text-[#3D5A3E]/40">|</span>
-                <Link href="/bowls/history" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1 min-h-[44px] flex items-center">
+                <span className="text-[#3D5A3E]">|</span>
+                <Link href="/bowls/history" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
                   History
                 </Link>
-                <span className="text-[#3D5A3E]/40">|</span>
-                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1 min-h-[44px] flex items-center">
+                <span className="text-[#3D5A3E]">|</span>
+                <Link href="/bowls/stats" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
                   Stats
                 </Link>
-                <span className="text-[#3D5A3E]/40">|</span>
-                <Link href="/pennant" className="text-sm text-[#1B5E20] hover:text-[#145218] py-1 min-h-[44px] flex items-center">
+                <span className="text-[#3D5A3E]">|</span>
+                <Link href="/pennant" className="text-sm text-[#1B5E20] hover:text-[#145218]:text-emerald-300 py-1">
                   Pennant
                 </Link>
               </div>
             </div>
-            <button
-              onClick={() => setShowCreate(true)}
-              data-onboarding-target="create-tournament"
-              className="shrink-0 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation"
-            >
-              <span className="hidden sm:inline">+ New Tournament</span>
-              <span className="sm:hidden">+ New</span>
-            </button>
+            {isAuthenticated ? (
+              <button
+                onClick={() => setShowCreate(true)}
+                data-onboarding-target="create-tournament"
+                className="shrink-0 rounded-xl bg-[#1B5E20] px-3 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation sm:px-4"
+              >
+                <span className="hidden sm:inline">+ New Tournament</span>
+                <span className="sm:hidden">+ New</span>
+              </button>
+            ) : (
+              <Link
+                href="/login?returnTo=/bowls"
+                className="shrink-0 rounded-xl bg-[#1B5E20] px-3 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation sm:px-4 flex items-center"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
           {homeClubId && (
             <div className="mt-3">
@@ -161,10 +171,7 @@ export default function BowlsPage() {
       <main className="mx-auto max-w-3xl px-4 py-6">
         {activeTournaments.length > 0 && (
           <section className="mb-8">
-            <h2
-              className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]">
               Active Tournaments
             </h2>
             <div className="space-y-3">
@@ -177,10 +184,7 @@ export default function BowlsPage() {
 
         {pastTournaments.length > 0 && (
           <section className="mb-8">
-            <h2
-              className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#3D5A3E]">
               Past Tournaments
             </h2>
             <div className="space-y-3">
@@ -196,23 +200,31 @@ export default function BowlsPage() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1B5E20]/10">
               <CircleDot className="w-8 h-8 text-[#1B5E20]" strokeWidth={1.5} />
             </div>
-            <h3
-              className="text-lg font-bold text-[#0A2E12]"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
+            <h3 className="text-lg font-bold text-[#0A2E12]">
               {scope === "club" ? "No club tournaments yet" : "No bowls tournaments yet"}
             </h3>
             <p className="mt-1 text-sm text-[#3D5A3E]">
-              {scope === "club"
-                ? "Create a tournament for your club or switch to All Clubs"
-                : "Create your first lawn bowling tournament to get started"}
+              {!isAuthenticated
+                ? "Sign in to create and enter lawn bowling tournaments"
+                : scope === "club"
+                  ? "Create a tournament for your club or switch to All Clubs"
+                  : "Create your first lawn bowling tournament to get started"}
             </p>
-            <button
-              onClick={() => setShowCreate(true)}
-              className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
-            >
-              Create Tournament
-            </button>
+            {isAuthenticated ? (
+              <button
+                onClick={() => setShowCreate(true)}
+                className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
+              >
+                Create Tournament
+              </button>
+            ) : (
+              <Link
+                href="/login?returnTo=/bowls"
+                className="mt-4 inline-block rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
+              >
+                Sign in to enter tournaments
+              </Link>
+            )}
           </div>
         )}
       </main>
@@ -231,15 +243,6 @@ export default function BowlsPage() {
 function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament; index: number }) {
   const formatLabel = BOWLS_FORMAT_LABELS[t.format as BowlsGameFormat]?.label ?? t.format;
   const isActive = t.status !== "completed";
-  const isLive = t.status === "in_progress";
-
-  const dateStr = t.starts_at
-    ? new Date(t.starts_at).toLocaleDateString(undefined, {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-      })
-    : null;
 
   return (
     <Link href={`/bowls/${t.id}`}>
@@ -247,44 +250,42 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
-        className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 sm:p-6 transition-all hover:shadow-md"
+        className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 transition-all hover:border-[#0A2E12]/10:border-white/20 hover:shadow-sm"
       >
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
-              {dateStr && (
-                <span className="rounded-full bg-[#B8860B]/10 px-2.5 py-1 text-xs font-bold text-[#B8860B]">
-                  {dateStr}
-                </span>
-              )}
-              <span className="rounded-full bg-[#0A2E12]/5 px-2.5 py-1 text-xs font-bold text-[#3D5A3E]">
-                {formatLabel}
-              </span>
-            </div>
-            <h3
-              className="text-base font-bold text-[#0A2E12] truncate"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
+            <h3 className="text-base font-bold text-[#0A2E12] truncate">
               {t.name}
             </h3>
+            <p className="mt-0.5 text-sm text-[#3D5A3E]">
+              {formatLabel}
+              {t.starts_at && (
+                <>
+                  {" \u00B7 "}
+                  {new Date(t.starts_at).toLocaleDateString(undefined, {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </>
+              )}
+            </p>
           </div>
-          <div className="flex items-center gap-3 shrink-0 ml-3">
+          <div className="flex items-center gap-3 shrink-0">
             <div className="text-right">
-              <p className="text-lg font-bold text-[#B8860B] tabular-nums">
+              <p className="text-lg font-black text-[#1B5E20]">
                 {t.checkin_count ?? 0}
               </p>
-              <p className="text-xs text-[#3D5A3E]">checked in</p>
+              <p className="text-sm text-[#3D5A3E]">checked in</p>
             </div>
             <span
               className={`rounded-full px-2.5 py-1 text-sm font-bold ${
-                isLive
-                  ? "bg-red-100 text-red-700"
-                  : isActive
-                    ? "bg-[#1B5E20]/10 text-[#1B5E20]"
-                    : "bg-[#0A2E12]/5 text-[#3D5A3E]"
+                isActive
+                  ? "bg-[#1B5E20]/10 text-[#2E7D32]"
+                  : "bg-[#0A2E12]/5 text-[#3D5A3E]"
               }`}
             >
-              {isLive ? "LIVE" : isActive ? "UPCOMING" : "COMPLETED"}
+              {isActive ? "Active" : "Done"}
             </span>
           </div>
         </div>

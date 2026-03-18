@@ -39,7 +39,7 @@ export async function updateSession(request: NextRequest) {
     "/for-venues", "/for-players", "/learn",
     "/checkin", "/api/qr",
     // Public content pages — no login required for discovery & SEO
-    "/clubs", "/shop", "/blog", "/bowls/about", "/bowls/history",
+    "/clubs", "/shop", "/blog", "/pricing", "/bowls",
     "/gallery", "/leaderboard", "/tv", "/kiosk",
     // Profile pages — show 404 for nonexistent profiles instead of login redirect
     "/profile",

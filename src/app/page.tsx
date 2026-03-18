@@ -54,7 +54,7 @@ export default function HomePage() {
                 <span className="italic text-[#A8D5BA]">roll.</span>
               </h1>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-white/75 sm:mt-6 sm:text-lg md:text-xl">
-                Tournament management, live scoring, and club tools — all from the clubhouse iPad.
+                Tournament management, live scoring, and club tools — from the clubhouse or your pocket.
               </p>
             </FadeIn>
 
@@ -97,9 +97,9 @@ export default function HomePage() {
 
         <StaggerContainer className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 mb-8 md:mb-12">
           {[
-            { value: "500+", label: "Clubs" },
-            { value: "10,000+", label: "Bowlers" },
-            { value: "50,000+", label: "Matches" },
+            { value: "100+", label: "Clubs Listed" },
+            { value: "50", label: "US States" },
+            { value: "80+", label: "Glossary Terms" },
             { value: "4.9", label: "Rating", icon: Star },
           ].map((stat) => (
             <StaggerItem key={stat.label}>
@@ -247,13 +247,13 @@ export default function HomePage() {
           {[
             {
               step: "01",
-              title: "Sign In",
-              desc: "Players sign in at the clubhouse iPad or on their phone. Select your preferred position.",
+              title: "Check In",
+              desc: "Players check in at the clubhouse iPad or on their phone. Select your preferred position.",
               icon: MapPin,
             },
             {
               step: "02",
-              title: "Do the Draw",
+              title: "Generate Draw",
               desc: "The drawmaster taps one button. Teams are formed, rinks assigned, positions balanced.",
               icon: Users,
             },
@@ -344,7 +344,7 @@ export default function HomePage() {
             },
             {
               quote:
-                "Being able to sign in on my phone and see my rink assignment right away is brilliant. No more crowding the noticeboard.",
+                "Being able to check in on my phone and see my rink assignment right away is brilliant. No more crowding the noticeboard.",
               name: "Bob T.",
               role: "Club Bowler",
               avatarBg: "bg-blue-100 text-blue-600",
@@ -411,7 +411,7 @@ export default function HomePage() {
                   <span className="text-[#3D5A3E]/40 dark:text-[#a8c8b4]/40">Phone Personal.</span>
                 </h2>
                 <p className="mt-3 text-base leading-relaxed text-[#3D5A3E] dark:text-[#a8c8b4] sm:mt-4 sm:text-lg">
-                  Set up an iPad at the clubhouse as a shared sign-in kiosk.
+                  Set up an iPad at the clubhouse as a shared check-in kiosk.
                   Players can also use their own phones — install the PWA for an
                   app-like experience with no download required.
                 </p>

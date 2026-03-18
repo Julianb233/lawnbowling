@@ -4,16 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Home, Trophy, CircleDot, Calendar, User, Shield, type LucideIcon } from "lucide-react";
-import { NotificationBellNav } from "@/components/notifications/NotificationBellNav";
+import { Home, CircleDot, Calendar, User, Settings, type LucideIcon } from "lucide-react";
 
 const NAV_ITEMS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/board", label: "Home", icon: Home },
-  { href: "/tournament", label: "Tourney", icon: Trophy },
   { href: "/bowls", label: "Bowls", icon: CircleDot },
-  { href: "/pennant", label: "Pennant", icon: Shield },
   { href: "/schedule", label: "Schedule", icon: Calendar },
-  { href: "/profile", label: "Me", icon: User },
+  { href: "/profile", label: "Profile", icon: User },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export function BottomNav() {
@@ -57,7 +55,6 @@ export function BottomNav() {
             </Link>
           );
         })}
-        <NotificationBellNav />
       </div>
     </nav>
   );
