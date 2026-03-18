@@ -93,7 +93,7 @@ export function SetupFlowClient({ userId }: { userId: string }) {
 
   if (step === "complete") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-animated-gradient px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[#FEFCF9] px-4">
         <div className="text-center">
           <CheckCircle2 className="mx-auto mb-4 h-16 w-16 text-green-600" />
           <h1 className="text-2xl font-bold text-[#0A2E12]">You&apos;re All Set!</h1>
@@ -112,7 +112,7 @@ export function SetupFlowClient({ userId }: { userId: string }) {
   const currentIndex = steps.findIndex((s) => s.key === step);
 
   return (
-    <div className="min-h-screen bg-animated-gradient px-4 py-8">
+    <div className="min-h-screen bg-[#FEFCF9] px-4 py-8">
       <div className="mx-auto max-w-md">
         <h1 className="mb-2 text-2xl font-bold text-[#0A2E12]">Welcome!</h1>
         <p className="mb-6 text-[#3D5A3E]">Let&apos;s get you set up to play.</p>

@@ -52,7 +52,7 @@ export default function GalleryPage() {
             <Camera className="h-4 w-4 text-[#1B5E20]" />
             <span className="text-sm font-medium text-[#1B5E20]">Gallery</span>
           </div>
-          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
+          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl" style={{ fontFamily: "var(--font-display)" }}>
             Lawn Bowling{" "}
             <span className="text-[#1B5E20]">Gallery</span>
           </h1>
@@ -111,7 +111,7 @@ export default function GalleryPage() {
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-6 pb-24">
         <div className="rounded-3xl bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] p-8 text-center shadow-2xl shadow-green-900/15 md:p-16">
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
+          <h2 className="text-3xl font-bold text-white md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
             Inspired to Play?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-green-100/80">

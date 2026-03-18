@@ -26,7 +26,7 @@ export function QueuePageClient({
   const displayName = player.display_name || "Player";
 
   return (
-    <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
       {/* Header */}
       <header className="sticky top-0 z-40 glass border-b border-[#0A2E12]/10">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-3">

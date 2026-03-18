@@ -55,7 +55,7 @@ export default function PennantSeasonsPage() {
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">Pennant Seasons</h1>
+              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Pennant Seasons</h1>
               <p className="text-sm text-[#3D5A3E]">League competitions and standings</p>
             </div>
             <Link
@@ -80,7 +80,7 @@ export default function PennantSeasonsPage() {
 
         {grouped.map((group) => (
           <div key={group.status}>
-            <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+            <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-[#3D5A3E]" style={{ fontFamily: "var(--font-display)" }}>
               {group.label}
             </h2>
             <div className="space-y-3">

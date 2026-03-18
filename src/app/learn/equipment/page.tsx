@@ -285,7 +285,7 @@ export default function EquipmentGuidePage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }} />
       <LearnNav />
@@ -308,7 +308,7 @@ export default function EquipmentGuidePage() {
             Buying Guide
           </span>
         </div>
-        <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-zinc-900 md:text-5xl">
+        <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-zinc-900 md:text-5xl" style={{ fontFamily: "var(--font-display)" }}>
           Equipment & Gear Guide
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600">
@@ -343,7 +343,7 @@ export default function EquipmentGuidePage() {
                 {cat.icon}
               </div>
               <div>
-                <h2 className="text-xl font-bold text-zinc-900">{cat.label}</h2>
+                <h2 className="text-xl font-bold text-zinc-900" style={{ fontFamily: "var(--font-display)" }}>{cat.label}</h2>
                 <p className="mt-1 text-[15px] text-zinc-600">
                   {cat.description}
                 </p>
@@ -402,7 +402,7 @@ export default function EquipmentGuidePage() {
 
       {/* Authorized Dealers */}
       <section className="mx-auto max-w-4xl px-6 pb-16">
-        <h2 className="mb-6 text-center text-xl font-bold text-zinc-900">
+        <h2 className="mb-6 text-center text-xl font-bold text-zinc-900" style={{ fontFamily: "var(--font-display)" }}>
           Authorized Dealers & Retailers
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
