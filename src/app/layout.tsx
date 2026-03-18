@@ -9,7 +9,8 @@ import "./globals.css";
 
 // Inline script to set dark class before first paint — default to light mode
 // Only go dark if user explicitly chose dark (not based on OS preference)
-const themeInitScript = `(function(){try{if(localStorage.getItem('lb-color-scheme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})();`;
+// Explicitly remove 'dark' class first to ensure light is the default
+const themeInitScript = `(function(){try{var t=localStorage.getItem('lb-color-scheme');if(t==='dark'){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark'}else{document.documentElement.classList.remove('dark');document.documentElement.style.colorScheme='light'}}catch(e){document.documentElement.classList.remove('dark');document.documentElement.style.colorScheme='light'}})();`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -587,6 +587,16 @@ function LoginForm() {
                 Sign up free
               </Link>
             </p>
+
+            <p className="mt-3 text-center text-sm" style={{ color: "#3D5A3E" }}>
+              <Link
+                href="/forgot-password"
+                className="font-medium hover:underline"
+                style={{ color: "#1B5E20" }}
+              >
+                Forgot your password?
+              </Link>
+            </p>
           </div>
         </div>
       </div>
