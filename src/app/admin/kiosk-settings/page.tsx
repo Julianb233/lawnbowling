@@ -20,7 +20,7 @@ export default function KioskSettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A2E12]/[0.03] px-4 py-8">
+    <div className="min-h-screen bg-[#FEFCF9] px-4 py-8">
       <div className="mx-auto max-w-md">
         <button
           onClick={() => router.back()}
@@ -29,7 +29,7 @@ export default function KioskSettingsPage() {
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h1 className="mb-8 text-2xl font-bold text-[#0A2E12]">Kiosk Settings</h1>
+        <h1 className="mb-8 text-2xl font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Kiosk Settings</h1>
 
         {saved && (
           <div className="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
@@ -78,14 +78,14 @@ export default function KioskSettingsPage() {
           {/* Save */}
           <button
             onClick={handleSave}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-3 text-sm font-semibold text-[#0A2E12] hover:bg-green-500 min-h-[44px]"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px]"
           >
             <Save className="h-4 w-4" /> Save Settings
           </button>
 
           {/* Quick Links */}
           <div className="border-t border-[#0A2E12]/10 pt-6">
-            <h2 className="mb-4 text-sm font-medium text-[#0A2E12]/70">Launch Kiosk</h2>
+            <h2 className="mb-4 text-sm font-medium text-[#0A2E12]/70" style={{ fontFamily: "var(--font-display)" }}>Launch Kiosk</h2>
             <div className="space-y-2">
               <a
                 href="/kiosk"

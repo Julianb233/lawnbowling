@@ -14,7 +14,7 @@ interface Stats {
 
 function StatCard({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-6">
+    <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
       <p className="text-sm text-[#3D5A3E]">{label}</p>
       <p className="mt-1 text-3xl font-bold text-[#0A2E12]">{value}</p>
     </div>
@@ -79,7 +79,7 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1">Today&apos;s Overview</h1>
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1" style={{ fontFamily: "var(--font-display)" }}>Today&apos;s Overview</h1>
       {selectedVenue && (
         <p className="text-sm text-[#3D5A3E] mb-6">{selectedVenue.name}</p>
       )}

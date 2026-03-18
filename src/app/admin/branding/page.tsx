@@ -40,7 +40,7 @@ export default function BrandingPage() {
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
-        <h1 className="text-2xl font-bold text-[#0A2E12]">Venue Branding</h1>
+        <h1 className="text-2xl font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Venue Branding</h1>
         <p className="text-sm text-[#3D5A3E]">Customize how your venue appears to players</p>
       </div>
 
@@ -132,7 +132,7 @@ export default function BrandingPage() {
       </div>
 
       {/* Preview */}
-      <div className="rounded-xl border border-[#0A2E12]/10 p-6" style={{ backgroundColor: venue.secondary_color || "#0f172a" }}>
+      <div className="rounded-2xl border border-[#0A2E12]/10 p-5 sm:p-6" style={{ backgroundColor: venue.secondary_color || "#0f172a" }}>
         <p className="text-xs text-[#3D5A3E] mb-2">Preview</p>
         <div className="flex items-center gap-3">
           {venue.logo_url ? (
@@ -153,7 +153,7 @@ export default function BrandingPage() {
         <button
           onClick={save}
           disabled={isPending}
-          className="rounded-lg bg-[#1B5E20] px-6 py-2.5 text-sm font-bold text-[#0A2E12] hover:bg-[#1B5E20] transition-colors"
+          className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] transition-colors"
         >
           {isPending ? "Saving..." : "Save Changes"}
         </button>

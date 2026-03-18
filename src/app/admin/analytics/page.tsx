@@ -21,7 +21,7 @@ export default async function AnalyticsPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#0A2E12]">Analytics</h1>
+          <h1 className="text-2xl font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Analytics</h1>
           <p className="text-sm text-[#3D5A3E]">Venue performance overview</p>
         </div>
         <div className="flex gap-2">
@@ -39,14 +39,14 @@ export default async function AnalyticsPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-6">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
           <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider mb-4">
             Sport Popularity
           </h3>
           <SportBreakdown breakdown={analytics.sportBreakdown} />
         </div>
 
-        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-6">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
           <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider mb-4">
             Peak Hours & Days
           </h3>

@@ -56,26 +56,26 @@ export default function AdminInsurancePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1">Insurance Coverage</h1>
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1" style={{ fontFamily: "var(--font-display)" }}>Insurance Coverage</h1>
       {selectedVenue && (
         <p className="text-sm text-[#3D5A3E] mb-6">{selectedVenue.name}</p>
       )}
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 mb-6">
-        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-5 text-center">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 text-center">
           <p className="text-3xl font-black text-[#1B5E20]">{activeCount}</p>
           <p className="text-xs text-[#3D5A3E] mt-1">Active Coverage</p>
         </div>
-        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-5 text-center">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 text-center">
           <p className="text-3xl font-black text-amber-500">{expiredCount}</p>
           <p className="text-xs text-[#3D5A3E] mt-1">Expired</p>
         </div>
-        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-5 text-center">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 text-center">
           <p className="text-3xl font-black text-[#3D5A3E]">{noneCount}</p>
           <p className="text-xs text-[#3D5A3E] mt-1">No Coverage</p>
         </div>
-        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-5 text-center">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 text-center">
           <p className="text-3xl font-black text-[#1B5E20]">{coverageRate}%</p>
           <p className="text-xs text-[#3D5A3E] mt-1">Coverage Rate</p>
         </div>
@@ -103,7 +103,7 @@ export default function AdminInsurancePage() {
       </div>
 
       {/* Player list */}
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white overflow-hidden">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]">

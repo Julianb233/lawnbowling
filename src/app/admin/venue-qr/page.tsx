@@ -32,7 +32,7 @@ export default function VenueQRPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#0A2E12] mb-2">
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-2" style={{ fontFamily: "var(--font-display)" }}>
         Venue QR Codes
       </h1>
       <p className="text-sm text-[#3D5A3E] mb-8">

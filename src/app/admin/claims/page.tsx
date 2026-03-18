@@ -76,7 +76,7 @@ export default function AdminClaimsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1">Club Claims</h1>
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1" style={{ fontFamily: "var(--font-display)" }}>Club Claims</h1>
       <p className="text-sm text-[#3D5A3E] mb-6">
         Review and manage club ownership claims
       </p>
@@ -184,7 +184,7 @@ export default function AdminClaimsPage() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleAction(claim.id, "approve")}
-                        className="rounded-lg bg-[#1B5E20] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#1B5E20] transition-colors"
+                        className="rounded-xl bg-[#1B5E20] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#145218] min-h-[44px] transition-colors"
                       >
                         Approve
                       </button>

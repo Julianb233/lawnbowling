@@ -49,7 +49,7 @@ export function MonitoringDashboard({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#0A2E12]">
+        <h1 className="text-2xl font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>
           Database Monitoring
         </h1>
         <p className="text-sm text-[#3D5A3E]">
@@ -120,7 +120,7 @@ function SummaryCard({
   variant?: "default" | "danger";
 }) {
   return (
-    <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4">
+    <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
       <p className="text-xs text-[#3D5A3E] uppercase tracking-wider">
         {label}
       </p>
@@ -148,7 +148,7 @@ function OverviewPanel({
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-6">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
         <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider mb-4">
           Active Connections
         </h3>
@@ -173,7 +173,7 @@ function OverviewPanel({
         )}
       </div>
 
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-6">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
         <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider mb-4">
           Recent Alerts
         </h3>
@@ -213,7 +213,7 @@ function SlowQueriesPanel({
 }) {
   if (queries.length === 0) {
     return (
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-8 text-center">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
         <p className="text-[#3D5A3E]">No slow queries detected. Looking good!</p>
       </div>
     );
@@ -224,7 +224,7 @@ function SlowQueriesPanel({
       {queries.map((q, i) => (
         <div
           key={i}
-          className="rounded-xl border border-[#0A2E12]/10 bg-white p-4"
+          className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6"
         >
           <div className="flex items-start justify-between gap-4">
             <pre className="flex-1 text-xs text-[#0A2E12] overflow-x-auto whitespace-pre-wrap font-mono bg-[#0A2E12]/[0.03] rounded p-2">
@@ -260,7 +260,7 @@ function TablesPanel({
 }) {
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-6">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
         <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider mb-4">
           Table Sizes
         </h3>
@@ -285,7 +285,7 @@ function TablesPanel({
         )}
       </div>
 
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-6">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
         <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider mb-4">
           Index Usage
         </h3>
@@ -340,7 +340,7 @@ function TablesPanel({
 function RlsPanel({ rlsStatus }: { rlsStatus: Record<string, unknown>[] }) {
   if (rlsStatus.length === 0) {
     return (
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-8 text-center">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
         <p className="text-[#3D5A3E]">No RLS data available</p>
       </div>
     );
@@ -366,7 +366,7 @@ function RlsPanel({ rlsStatus }: { rlsStatus: Record<string, unknown>[] }) {
         </div>
       )}
 
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-6">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
         <h3 className="text-sm font-semibold text-[#3D5A3E] uppercase tracking-wider mb-3">
           Tables WITH RLS ({withRls.length})
         </h3>
@@ -387,14 +387,14 @@ function RlsPanel({ rlsStatus }: { rlsStatus: Record<string, unknown>[] }) {
 function AuditPanel({ auditLog }: { auditLog: Record<string, unknown>[] }) {
   if (auditLog.length === 0) {
     return (
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-8 text-center">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
         <p className="text-[#3D5A3E]">No audit log entries</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-[#0A2E12]/10 bg-white overflow-hidden">
+    <div className="rounded-2xl border border-[#0A2E12]/10 bg-white overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
@@ -445,7 +445,7 @@ function AuditPanel({ auditLog }: { auditLog: Record<string, unknown>[] }) {
 function AlertsPanel({ alerts }: { alerts: Record<string, unknown>[] }) {
   if (alerts.length === 0) {
     return (
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-8 text-center">
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
         <p className="text-[#3D5A3E]">No monitoring alerts</p>
       </div>
     );
