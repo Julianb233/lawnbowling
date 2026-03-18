@@ -17,12 +17,14 @@ import {
 import { cn } from "@/lib/utils";
 import { WizardStepRail } from "./WizardStepRail";
 import { ConfirmRedrawModal } from "./ConfirmRedrawModal";
+import { DrawPreview } from "./DrawPreview";
+import type { DrawPreviewData } from "./DrawPreview";
 import {
   BOWLS_FORMAT_LABELS,
 } from "@/lib/types";
 import type { BowlsGameFormat, BowlsCheckin, BowlsTeamAssignment } from "@/lib/types";
 import type { DrawStyle } from "@/lib/bowls-draw";
-import { DRAW_STYLE_LABELS, validateDrawCompatibility } from "@/lib/bowls-draw";
+import { DRAW_STYLE_LABELS, validateDrawCompatibility, generateBowlsDraw } from "@/lib/bowls-draw";
 import { AlertTriangle } from "lucide-react";
 
 type TournamentState =
@@ -144,6 +146,9 @@ export function TournamentWizard({
   const [standings, setStandings] = useState<PlayerStanding[]>([]);
   const [totalRoundsPlayed, setTotalRoundsPlayed] = useState(0);
   const [drawStyle, setDrawStyle] = useState<DrawStyle>("random");
+  const [drawPreview, setDrawPreview] = useState<DrawPreviewData | null>(null);
+  const [confirmDrawLoading, setConfirmDrawLoading] = useState(false);
+  const [regenerateLoading, setRegenerateLoading] = useState(false);
 
   const fetchProgression = useCallback(async () => {
     try {
@@ -397,20 +402,47 @@ export function TournamentWizard({
                   </div>
                 )}
 
-                <CTAButton
-                  label="Generate Draw"
-                  loading={actionLoading}
-                  disabled={!hasEnoughPlayers}
-                  tooltip={
-                    !hasEnoughPlayers
-                      ? `Need at least ${playersPerRink} players for ${BOWLS_FORMAT_LABELS[format].label}`
-                      : undefined
-                  }
-                  onClick={async () => {
-                    await onGenerateDraw(format);
-                    await performAction("generate_draw");
-                  }}
-                />
+                {!drawPreview && (
+                  <CTAButton
+                    label="Generate Draw"
+                    loading={actionLoading}
+                    disabled={!hasEnoughPlayers}
+                    tooltip={
+                      !hasEnoughPlayers
+                        ? `Need at least ${playersPerRink} players for ${BOWLS_FORMAT_LABELS[format].label}`
+                        : undefined
+                    }
+                    onClick={() => {
+                      const result = generateBowlsDraw(checkins, format);
+                      setDrawPreview(result);
+                    }}
+                  />
+                )}
+
+                {drawPreview && (
+                  <DrawPreview
+                    preview={drawPreview}
+                    confirmLoading={confirmDrawLoading}
+                    regenerateLoading={regenerateLoading}
+                    onConfirm={async (finalPreview) => {
+                      setConfirmDrawLoading(true);
+                      try {
+                        await onGenerateDraw(format);
+                        await performAction("generate_draw");
+                        setDrawPreview(null);
+                      } catch {
+                        setActionError("Failed to save draw");
+                      }
+                      setConfirmDrawLoading(false);
+                    }}
+                    onRegenerate={() => {
+                      setRegenerateLoading(true);
+                      const result = generateBowlsDraw(checkins, format);
+                      setDrawPreview(result);
+                      setRegenerateLoading(false);
+                    }}
+                  />
+                )}
               </div>
             )}
 
