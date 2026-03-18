@@ -26,10 +26,10 @@ export default function LeaderboardPage() {
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-2">
             <Trophy className="h-5 w-5 text-amber-400" />
-            <h1 className="text-xl font-bold text-[#0A2E12]">Leaderboard</h1>
+            <h1 className="text-xl font-bold text-[#0A2E12]">Standings</h1>
           </div>
           <p className="mt-0.5 text-sm text-[#3D5A3E]">
-            Top players ranked by performance. Filter by sport and skill level.
+            Top players ranked by performance. Filter by sport and experience.
           </p>
         </div>
       </header>

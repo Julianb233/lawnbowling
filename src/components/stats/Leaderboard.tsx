@@ -189,7 +189,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
     <div className="space-y-4">
       {/* Skill level filter */}
       <div>
-        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-[#3D5A3E]">Skill Level</p>
+        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-[#3D5A3E]">Experience</p>
         <div className="flex gap-2">
           <button
             onClick={() => setSkillFilter("all")}
@@ -380,7 +380,7 @@ export function Leaderboard({ currentUserId }: LeaderboardProps) {
           <Trophy className="mx-auto mb-3 h-10 w-10 text-[#3D5A3E]" />
           <p className="text-sm font-medium text-[#3D5A3E]">No players ranked yet</p>
           <p className="mt-1 text-xs text-[#3D5A3E]">
-            Play at least 3 games to appear on the leaderboard
+            Play at least 3 games to appear in the standings
           </p>
         </div>
       ) : (

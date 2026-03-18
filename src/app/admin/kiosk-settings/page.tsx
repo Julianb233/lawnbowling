@@ -94,8 +94,8 @@ export default function KioskSettingsPage() {
               >
                 <Monitor className="h-5 w-5 text-green-700" />
                 <div>
-                  <p className="font-medium">Check-In Kiosk</p>
-                  <p className="text-xs text-[#0A2E12]/40">Full-screen board with tap check-in</p>
+                  <p className="font-medium">Sign-In Kiosk</p>
+                  <p className="text-xs text-[#0A2E12]/40">Full-screen board with tap sign-in</p>
                 </div>
               </a>
               <a
@@ -106,7 +106,7 @@ export default function KioskSettingsPage() {
                 <QrCode className="h-5 w-5 text-[#1B5E20]" />
                 <div>
                   <p className="font-medium">QR Scanner Kiosk</p>
-                  <p className="text-xs text-[#0A2E12]/40">Camera-based QR code check-in</p>
+                  <p className="text-xs text-[#0A2E12]/40">Camera-based QR code sign-in</p>
                 </div>
               </a>
             </div>

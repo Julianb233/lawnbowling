@@ -41,7 +41,7 @@ export function CheckInButton({ playerId, isAvailable, venueId, onToggle }: Chec
     <motion.button
       onClick={handleToggle}
       disabled={loading}
-      aria-label={available ? "Check out from venue" : "Check in as available"}
+      aria-label={available ? "Sign out from venue" : "Sign in as available"}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.95 }}
       className={cn(

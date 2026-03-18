@@ -199,7 +199,7 @@ export default function BowlsPage() {
               onClick={() => setShowCreate(true)}
               className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
             >
-              Create Tournament
+              New Tournament
             </button>
           </div>
         )}
@@ -252,7 +252,7 @@ function TournamentCard({ tournament: t, index }: { tournament: BowlsTournament;
               <p className="text-lg font-black text-[#1B5E20]">
                 {t.checkin_count ?? 0}
               </p>
-              <p className="text-sm text-[#3D5A3E]">checked in</p>
+              <p className="text-sm text-[#3D5A3E]">signed in</p>
             </div>
             <span
               className={`rounded-full px-2.5 py-1 text-sm font-bold ${

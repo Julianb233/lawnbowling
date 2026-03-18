@@ -263,7 +263,7 @@ export default function FixtureDetailPage() {
                 onClick={handleGenerateDraw}
                 className="rounded-xl bg-[#1B5E20] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#145218] transition-colors min-h-[44px] touch-manipulation"
               >
-                Generate Draw for This Fixture
+                Do the Draw for This Fixture
               </button>
             )}
             {fixture.tournament_id && (

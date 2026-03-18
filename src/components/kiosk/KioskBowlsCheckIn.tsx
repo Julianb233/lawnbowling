@@ -173,11 +173,11 @@ export function KioskBowlsCheckIn({
       return;
     }
     if (!guestForm.skillLevel) {
-      setGuestError("Please select a skill level.");
+      setGuestError("Please select an experience level.");
       return;
     }
     if (!guestForm.position) {
-      setGuestError("Please select a position preference.");
+      setGuestError("Please select a position.");
       return;
     }
 
@@ -414,24 +414,24 @@ export function KioskBowlsCheckIn({
         </div>
 
         <KioskHeading level={1} align="center" className="mb-4">
-          Tournament Check-In
+          Tournament Sign-In
         </KioskHeading>
 
         <KioskText size="body" color="secondary" align="center" className="mb-4">
-          Tap the button below to check in and select your position.
+          Tap the button below to sign in and select your position.
         </KioskText>
 
         {/* Player count (UCI-08) */}
         <KioskText size="label" color="secondary" align="center" className="mb-8">
-          {checkedInCount} player{checkedInCount !== 1 ? "s" : ""} checked in
+          {checkedInCount} player{checkedInCount !== 1 ? "s" : ""} signed in
         </KioskText>
 
         <KioskButton
           onClick={() => setStep("list")}
           fullWidth
-          ariaLabel="Begin check-in - find your name"
+          ariaLabel="Begin sign-in - find your name"
         >
-          Check In Now
+          Sign In Now
         </KioskButton>
 
         <div className="mt-6">
@@ -459,14 +459,14 @@ export function KioskBowlsCheckIn({
             className="font-bold"
             style={{ fontSize: "18px", color: "var(--kiosk-primary, #1B5E20)" }}
           >
-            {tournamentName} -- {checkedInCount} checked in
+            {tournamentName} -- {checkedInCount} signed in
           </span>
         </div>
 
         <div className="mb-6">
           <div className="mb-2 flex items-center justify-between">
             <KioskText size="label" color="secondary">
-              {checkedInCount} of {totalCount} players checked in
+              {checkedInCount} of {totalCount} players signed in
             </KioskText>
             <KioskText size="label" color="secondary">
               {progressPercent}%
@@ -626,8 +626,8 @@ export function KioskBowlsCheckIn({
                   }}
                   aria-label={
                     isCheckedIn
-                      ? `${player.display_name} is checked in -- tap to change position`
-                      : `Check in ${player.display_name}`
+                      ? `${player.display_name} is signed in -- tap to change position`
+                      : `Sign in ${player.display_name}`
                   }
                 >
                   <span
@@ -657,7 +657,7 @@ export function KioskBowlsCheckIn({
                       >
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      Checked In -- Tap to Change
+                      Signed In -- Tap to Change
                     </span>
                   ) : (
                     <span
@@ -671,7 +671,7 @@ export function KioskBowlsCheckIn({
                         alignItems: "center",
                       }}
                     >
-                      Check In
+                      Sign In
                     </span>
                   )}
                 </button>
@@ -823,7 +823,7 @@ export function KioskBowlsCheckIn({
 
     return (
       <section
-        aria-label="Check-in confirmation"
+        aria-label="Sign-in confirmation"
         className="mx-auto flex max-w-2xl flex-col items-center py-8"
         aria-live="polite"
       >
@@ -855,7 +855,7 @@ export function KioskBowlsCheckIn({
         </div>
 
         <KioskHeading level={1} align="center" className="mb-3">
-          You&apos;re checked in, {firstName}!
+          You&apos;re signed in, {firstName}!
         </KioskHeading>
 
         {/* UCI-06: Show tournament name and position */}
@@ -875,9 +875,9 @@ export function KioskBowlsCheckIn({
               variant="danger"
               fullWidth
               onClick={handleUndo}
-              ariaLabel={`Undo check-in. ${undoCountdown} seconds remaining.`}
+              ariaLabel={`Undo sign-in. ${undoCountdown} seconds remaining.`}
             >
-              Undo Check-In ({undoCountdown}s)
+              Undo Sign-In ({undoCountdown}s)
             </KioskButton>
           )}
           <KioskButton
@@ -1036,7 +1036,7 @@ export function KioskBowlsCheckIn({
           {/* Skill Level */}
           <div className="mb-6">
             <KioskText size="label" className="mb-3 font-bold">
-              Skill Level *
+              Experience *
             </KioskText>
             <div className="flex gap-3">
               {SKILL_OPTIONS.map((opt) => {
@@ -1066,7 +1066,7 @@ export function KioskBowlsCheckIn({
           {/* Position Preference */}
           <div className="mb-8">
             <KioskText size="label" className="mb-3 font-bold">
-              Position Preference *
+              Your Position *
             </KioskText>
             <div className="grid grid-cols-2 gap-3">
               {GUEST_POSITION_OPTIONS.map((opt) => {
@@ -1108,9 +1108,9 @@ export function KioskBowlsCheckIn({
                 cursor: canSubmit && !guestSubmitting ? "pointer" : "not-allowed",
                 opacity: guestSubmitting ? 0.7 : 1,
               }}
-              aria-label="Check in guest player"
+              aria-label="Sign in guest player"
             >
-              {guestSubmitting ? "Checking In..." : "Check In Guest"}
+              {guestSubmitting ? "Signing In..." : "Sign In Guest"}
             </button>
             <KioskButton
               variant="secondary"

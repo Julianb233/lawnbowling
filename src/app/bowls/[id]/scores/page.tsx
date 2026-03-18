@@ -382,9 +382,9 @@ export default function ScoreEntryPage() {
 
       if (!res.ok) {
         const err = await res.json();
-        addToast(err.error || "Failed to finalize round", "error");
+        addToast(err.error || "Failed to post results", "error");
       } else {
-        addToast(`Round ${round} finalized`, "success");
+        addToast(`Round ${round} results posted`, "success");
         await loadScores();
         // Show celebration for the first finalized rink with a winner
         const winningRink = rinkScores.find((r) => {
@@ -519,7 +519,7 @@ export default function ScoreEntryPage() {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
-                  Score Entry
+                  Scorecard
                 </h1>
                 {/* Realtime connection indicator */}
                 <span
@@ -983,10 +983,10 @@ export default function ScoreEntryPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-amber-800">
-                  Finalize Round {round}
+                  Close Round {round}
                 </h3>
                 <p className="text-sm text-amber-600 mt-1">
-                  Lock all scores for this round. This action cannot be undone.
+                  Post all scores for this round. This action cannot be undone.
                 </p>
               </div>
               <button
@@ -994,7 +994,7 @@ export default function ScoreEntryPage() {
                 disabled={finalizing}
                 className="rounded-xl bg-amber-500 px-6 py-3 text-sm font-bold text-white hover:bg-amber-600 disabled:opacity-50 min-h-[48px] touch-manipulation"
               >
-                {finalizing ? "Finalizing..." : "Finalize Round"}
+                {finalizing ? "Posting..." : "Post Results"}
               </button>
             </div>
           </div>
@@ -1018,10 +1018,10 @@ export default function ScoreEntryPage() {
                 className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
               >
                 <h3 className="text-lg font-black text-[#0A2E12]">
-                  Finalize Round {round}?
+                  Post Results for Round {round}?
                 </h3>
                 <p className="mt-2 text-sm text-[#3D5A3E]">
-                  All scores for {rinkScores.length} rink{rinkScores.length !== 1 ? "s" : ""} will be locked permanently. This cannot be undone.
+                  All scores for {rinkScores.length} rink{rinkScores.length !== 1 ? "s" : ""} will be posted permanently. This cannot be undone.
                 </p>
                 <div className="mt-6 flex items-center gap-3 justify-end">
                   <button
@@ -1034,7 +1034,7 @@ export default function ScoreEntryPage() {
                     onClick={finalizeRound}
                     className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-600 min-h-[48px] touch-manipulation"
                   >
-                    Finalize
+                    Post Results
                   </button>
                 </div>
               </motion.div>
@@ -1066,7 +1066,7 @@ export default function ScoreEntryPage() {
                   </h3>
                 </div>
                 <p className="mt-2 text-sm text-[#3D5A3E]">
-                  Unlock Rink {unlockConfirmRink} for score correction? This will allow editing scores for this rink. You can re-finalize after making changes.
+                  Unlock Rink {unlockConfirmRink} for score correction? This will allow editing scores for this rink. You can re-post results after making changes.
                 </p>
                 <div className="mt-6 flex items-center gap-3 justify-end">
                   <button
@@ -1092,7 +1092,7 @@ export default function ScoreEntryPage() {
         {allFinalized && (
           <div className="mt-8 rounded-2xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-6 text-center">
             <p className="text-lg font-bold text-[#2E7D32]">
-              Round {round} is finalized
+              Round {round} results are posted
             </p>
             <p className="text-sm text-[#1B5E20] mt-1">
               All scores have been locked.

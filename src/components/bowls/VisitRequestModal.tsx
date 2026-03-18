@@ -125,10 +125,10 @@ export function VisitRequestModal({ clubId, clubName, open, onClose }: VisitRequ
               />
             </div>
 
-            {/* Skill Level */}
+            {/* Experience */}
             <div>
               <label className="block text-sm font-semibold text-[#2D4A30] mb-1">
-                Skill Level
+                Experience
               </label>
               <div className="flex gap-2">
                 {(["beginner", "intermediate", "advanced"] as SkillLevel[]).map(

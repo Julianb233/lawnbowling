@@ -24,7 +24,7 @@ export default function KioskScanPage() {
     <KioskWrapper>
       <KioskLayout
         venueName={venue?.name}
-        subtitle="Scan your QR code to check in"
+        subtitle="Scan your QR code to sign in"
       >
         {venue ? (
           <div className="mx-auto max-w-md text-center">

@@ -247,13 +247,13 @@ export default function HomePage() {
           {[
             {
               step: "01",
-              title: "Check In",
-              desc: "Players check in at the clubhouse iPad or on their phone. Select your preferred position.",
+              title: "Sign In",
+              desc: "Players sign in at the clubhouse iPad or on their phone. Select your preferred position.",
               icon: MapPin,
             },
             {
               step: "02",
-              title: "Generate Draw",
+              title: "Do the Draw",
               desc: "The drawmaster taps one button. Teams are formed, rinks assigned, positions balanced.",
               icon: Users,
             },
@@ -344,7 +344,7 @@ export default function HomePage() {
             },
             {
               quote:
-                "Being able to check in on my phone and see my rink assignment right away is brilliant. No more crowding the noticeboard.",
+                "Being able to sign in on my phone and see my rink assignment right away is brilliant. No more crowding the noticeboard.",
               name: "Bob T.",
               role: "Club Bowler",
               avatarBg: "bg-blue-100 text-blue-600",
@@ -411,7 +411,7 @@ export default function HomePage() {
                   <span className="text-[#3D5A3E]/40 dark:text-[#a8c8b4]/40">Phone Personal.</span>
                 </h2>
                 <p className="mt-3 text-base leading-relaxed text-[#3D5A3E] dark:text-[#a8c8b4] sm:mt-4 sm:text-lg">
-                  Set up an iPad at the clubhouse as a shared check-in kiosk.
+                  Set up an iPad at the clubhouse as a shared sign-in kiosk.
                   Players can also use their own phones — install the PWA for an
                   app-like experience with no download required.
                 </p>

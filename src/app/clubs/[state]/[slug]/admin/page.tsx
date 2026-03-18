@@ -297,7 +297,7 @@ export default function ClubAdminDashboard() {
     { key: "overview", label: "Overview", icon: <BarChart3 className="h-4 w-4" /> },
     { key: "members", label: "Members", icon: <Users className="h-4 w-4" /> },
     { key: "tournaments", label: "Tournaments", icon: <Trophy className="h-4 w-4" /> },
-    { key: "settings", label: "Settings", icon: <Settings className="h-4 w-4" /> },
+    { key: "settings", label: "Preferences", icon: <Settings className="h-4 w-4" /> },
   ];
 
   const pendingMembers = members.filter((m) => m.status === "pending");
@@ -324,7 +324,7 @@ export default function ClubAdminDashboard() {
                 <h1 className="text-xl font-black tracking-tight text-[#0A2E12]">
                   {club?.name}
                 </h1>
-                <p className="text-xs text-[#3D5A3E]">Club Admin Dashboard</p>
+                <p className="text-xs text-[#3D5A3E]">Club Admin</p>
               </div>
             </div>
             <Link

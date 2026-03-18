@@ -941,7 +941,7 @@ export default function ResultsPage() {
               Announce Results
             </h3>
             <p className="mt-2 text-center text-sm text-[#3D5A3E]">
-              Send results to {checkinCount} checked-in player{checkinCount !== 1 ? "s" : ""}?
+              Send results to {checkinCount} signed-in player{checkinCount !== 1 ? "s" : ""}?
             </p>
             <p className="mt-1 text-center text-xs text-[#3D5A3E]/70">
               Round {selectedRound} &mdash; {tournamentName}

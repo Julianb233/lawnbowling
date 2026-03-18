@@ -35,7 +35,7 @@ export default function MatchHistoryPage() {
               <ArrowLeft className="h-5 w-5" />
             </Link>
             <div>
-              <h1 className="text-xl font-bold text-[#0A2E12]">Match History</h1>
+              <h1 className="text-xl font-bold text-[#0A2E12]">Game History</h1>
               <p className="text-sm text-[#3D5A3E]">
                 Your past games and results
               </p>

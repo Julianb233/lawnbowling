@@ -55,7 +55,7 @@ export default function MatchesAdminPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold text-[#0A2E12] mb-6">
-        Match History ({total})
+        Game History ({total})
       </h1>
 
       {/* Filters */}

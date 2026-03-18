@@ -74,12 +74,12 @@ export default function AdminDashboard() {
   }, [selectedVenueId]);
 
   if (venueLoading || loading || !stats) {
-    return <div className="text-[#3D5A3E]">Loading dashboard...</div>;
+    return <div className="text-[#3D5A3E]">Loading...</div>;
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1">Dashboard</h1>
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-1">Today&apos;s Overview</h1>
       {selectedVenue && (
         <p className="text-sm text-[#3D5A3E] mb-6">{selectedVenue.name}</p>
       )}
@@ -87,7 +87,7 @@ export default function AdminDashboard() {
         <StatCard label="Players Online" value={stats.playersOnline} />
         <StatCard label="Matches Today" value={stats.matchesToday} />
         <StatCard
-          label="Courts In Use"
+          label="Rinks In Use"
           value={`${stats.courtsInUse} / ${stats.totalCourts}`}
         />
         <StatCard label="Total Players" value={stats.totalPlayers} />

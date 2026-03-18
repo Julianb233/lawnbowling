@@ -139,7 +139,7 @@ function AssignTeamsContent() {
 
       if (!res.ok) {
         const errData = await res.json();
-        setError(errData.error ?? "Failed to generate teams");
+        setError(errData.error ?? "Failed to do the draw");
         return;
       }
 
@@ -147,7 +147,7 @@ function AssignTeamsContent() {
       setResult(data);
       setSelectedPlayerId(null);
     } catch {
-      setError("Failed to generate teams. Please try again.");
+      setError("Failed to do the draw. Please try again.");
     } finally {
       setGenerating(false);
     }
@@ -237,7 +237,7 @@ function AssignTeamsContent() {
           </div>
           <div className="flex-1">
             <p className="text-sm font-semibold text-[#0A2E12]">
-              {checkins.length} Player{checkins.length !== 1 ? "s" : ""} Checked In
+              {checkins.length} Player{checkins.length !== 1 ? "s" : ""} Signed In
             </p>
             <p className="text-xs text-[#3D5A3E]">
               {possibleRinks} rink{possibleRinks !== 1 ? "s" : ""} possible
@@ -296,7 +296,7 @@ function AssignTeamsContent() {
               ? "Loading Players..."
               : checkins.length < playersPerRink
               ? `Need at least ${playersPerRink} players`
-              : "Generate Teams"}
+              : "Do the Draw"}
           </button>
         )}
 
@@ -400,7 +400,7 @@ function AssignTeamsContent() {
         {/* Checked-in players list (when no result) */}
         {!result && !loading && checkins.length > 0 && (
           <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4">
-            <h3 className="mb-3 text-sm font-bold text-[#0A2E12]">Checked-In Players</h3>
+            <h3 className="mb-3 text-sm font-bold text-[#0A2E12]">Signed-In Players</h3>
             <div className="space-y-2">
               {checkins.map((c) => (
                 <div
@@ -440,9 +440,9 @@ function AssignTeamsContent() {
         {!loading && checkins.length === 0 && (
           <div className="rounded-2xl border border-dashed border-[#0A2E12]/20 bg-[#F5F0E8]/30 p-8 text-center">
             <Users className="mx-auto mb-3 h-8 w-8 text-[#3D5A3E]/40" />
-            <p className="text-sm font-semibold text-[#0A2E12]">No Players Checked In</p>
+            <p className="text-sm font-semibold text-[#0A2E12]">No Players Signed In</p>
             <p className="mt-1 text-xs text-[#3D5A3E]">
-              Players need to check in before teams can be assigned.
+              Players need to sign in before teams can be assigned.
             </p>
             {tournamentId && (
               <Link

@@ -133,7 +133,7 @@ export default function SettingsPage() {
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h1 className="mb-8 text-2xl font-bold text-[#0A2E12]">Settings</h1>
+        <h1 className="mb-8 text-2xl font-bold text-[#0A2E12]">Preferences</h1>
 
         {error && (
           <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
@@ -166,10 +166,10 @@ export default function SettingsPage() {
             />
           </div>
 
-          {/* Skill Level */}
+          {/* Experience */}
           <div>
             <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">
-              Skill Level
+              Experience
             </label>
             <div className="flex gap-2">
               {SKILL_LEVELS.map((level) => (

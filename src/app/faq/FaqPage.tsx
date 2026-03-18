@@ -34,11 +34,11 @@ const categories: FaqCategory[] = [
       },
       {
         q: "How do I create an account?",
-        a: "Tap 'Get Started' on the home page or visit the signup page. You can sign up with your email and a password. Once registered, you can set your preferred position, skill level, and profile details.",
+        a: "Tap 'Get Started' on the home page or visit the signup page. You can sign up with your email and a password. Once registered, you can set your preferred position, experience level, and profile details.",
       },
       {
         q: "Is Lawnbowling free for players?",
-        a: "Yes. Lawnbowling is completely free for players. You can check in for tournament days, view your draw, enter scores, and track your stats at no cost.",
+        a: "Yes. Lawnbowling is completely free for players. You can sign in for tournament days, view your draw, enter scores, and track your stats at no cost.",
       },
       {
         q: "Do I need to download an app?",
@@ -126,7 +126,7 @@ const categories: FaqCategory[] = [
     questions: [
       {
         q: "How do I update my profile?",
-        a: "Go to Settings > Profile to update your display name, avatar, preferred position, and skill level.",
+        a: "Go to Preferences > Profile to update your display name, avatar, preferred position, and experience level.",
       },
       {
         q: "How do I delete my account?",
@@ -144,7 +144,7 @@ const categories: FaqCategory[] = [
     questions: [
       {
         q: "Does it work offline?",
-        a: "Lawnbowling caches key data for offline access, but real-time features (live board, partner requests, court assignment) require an internet connection.",
+        a: "Lawnbowling caches key data for offline access, but real-time features (live board, partner requests, rink assignment) require an internet connection.",
       },
       {
         q: "What browsers are supported?",

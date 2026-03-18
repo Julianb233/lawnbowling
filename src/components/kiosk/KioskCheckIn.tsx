@@ -259,7 +259,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
         </KioskHeading>
 
         <KioskText size="body" color="secondary" align="center" className="mb-4">
-          Tap the button below to check in for today&apos;s session.
+          Tap the button below to sign in for today&apos;s session.
         </KioskText>
 
         {checkedInCount > 0 && (
@@ -273,9 +273,9 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
         <KioskButton
           onClick={() => setStep("list")}
           fullWidth
-          ariaLabel="Begin check-in - find your name"
+          ariaLabel="Begin sign-in - find your name"
         >
-          Check In Now
+          Sign In Now
         </KioskButton>
 
         <div className="mt-6">
@@ -300,7 +300,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             <KioskText size="label" color="secondary">
-              {checkedInCount} of {totalCount} players checked in
+              {checkedInCount} of {totalCount} players signed in
             </KioskText>
             <KioskText size="label" color="secondary">
               {progressPercent}%
@@ -313,7 +313,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
             aria-valuenow={progressPercent}
             aria-valuemin={0}
             aria-valuemax={100}
-            aria-label={`${checkedInCount} of ${totalCount} players checked in`}
+            aria-label={`${checkedInCount} of ${totalCount} players signed in`}
           >
             <div
               className="h-full rounded-full transition-all duration-500"
@@ -412,8 +412,8 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                   }}
                   aria-label={
                     isCheckedIn
-                      ? `${player.display_name} is already checked in`
-                      : `Check in ${player.display_name}`
+                      ? `${player.display_name} is already signed in`
+                      : `Sign in ${player.display_name}`
                   }
                 >
                   {/* Player name */}
@@ -447,7 +447,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                       >
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      Checked In
+                      Signed In
                     </span>
                   ) : (
                     <span
@@ -461,7 +461,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
                         alignItems: "center",
                       }}
                     >
-                      Check In
+                      Sign In
                     </span>
                   )}
                 </button>
@@ -575,7 +575,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
 
     return (
       <section
-        aria-label="Check-in confirmation"
+        aria-label="Sign-in confirmation"
         className="mx-auto flex max-w-2xl flex-col items-center py-8"
         aria-live="polite"
       >
@@ -604,7 +604,7 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
         </div>
 
         <KioskHeading level={1} align="center" className="mb-3">
-          You&apos;re checked in, {firstName}!
+          You&apos;re signed in, {firstName}!
         </KioskHeading>
 
         <KioskText size="body" align="center" className="mb-2">
@@ -623,9 +623,9 @@ export function KioskCheckIn({ venueId, onCheckIn }: KioskCheckInProps) {
               variant="danger"
               fullWidth
               onClick={handleUndo}
-              ariaLabel={`Undo check-in. ${undoCountdown} seconds remaining.`}
+              ariaLabel={`Undo sign-in. ${undoCountdown} seconds remaining.`}
             >
-              Undo Check-In ({undoCountdown}s)
+              Undo Sign-In ({undoCountdown}s)
             </KioskButton>
           )}
 

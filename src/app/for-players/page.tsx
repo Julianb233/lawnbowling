@@ -104,8 +104,8 @@ export default function ForPlayersPage() {
             },
             {
               icon: Trophy,
-              title: "Tournament Check-In",
-              desc: "Check in from your phone or the clubhouse iPad. Select your preferred position and see your rink assignment instantly.",
+              title: "Tournament Sign-In",
+              desc: "Sign in from your phone or the clubhouse iPad. Select your preferred position and see your rink assignment instantly.",
               gradient: "from-blue-500 to-indigo-500",
               glow: "shadow-blue-500/15",
             },
@@ -174,8 +174,8 @@ export default function ForPlayersPage() {
             {
               step: "01",
               icon: Smartphone,
-              title: "Check In",
-              desc: "Arrive at the clubhouse. Check in on the iPad kiosk or your own phone. Select your preferred position — lead, second, third, or skip.",
+              title: "Sign In",
+              desc: "Arrive at the clubhouse. Sign in on the iPad kiosk or your own phone. Select your preferred position — lead, second, third, or skip.",
             },
             {
               step: "02",
@@ -229,7 +229,7 @@ export default function ForPlayersPage() {
             },
             {
               quote:
-                "Being able to check in on my phone and see my rink assignment right away is brilliant. No more crowding the noticeboard.",
+                "Being able to sign in on my phone and see my rink assignment right away is brilliant. No more crowding the noticeboard.",
               name: "Bob T.",
               role: "Club Bowler",
               avatarBg: "bg-blue-100 text-blue-600",
@@ -293,7 +293,7 @@ export default function ForPlayersPage() {
                 <span className="text-[#3D5A3E]">Phone Personal.</span>
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-[#3D5A3E]">
-                Set up an iPad at the clubhouse as a shared check-in kiosk.
+                Set up an iPad at the clubhouse as a shared sign-in kiosk.
                 Players can also use their own phones — install the PWA for an
                 app-like experience with no download required.
               </p>

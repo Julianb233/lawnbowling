@@ -55,8 +55,8 @@ export default async function AnalyticsPage() {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <StatsCard label="Avg Match Duration" value={`${analytics.avgMatchDuration} min`} />
-        <StatsCard label="Court Utilization" value={`${analytics.courtUtilization}%`} />
+        <StatsCard label="Avg Game Duration" value={`${analytics.avgMatchDuration} min`} />
+        <StatsCard label="Rink Utilization" value={`${analytics.courtUtilization}%`} />
       </div>
     </div>
   );

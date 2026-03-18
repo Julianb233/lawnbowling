@@ -88,8 +88,8 @@ interface TournamentWizardProps {
 
 const STEP_LABELS: Record<TournamentState, string> = {
   registration: "Tournament Setup",
-  checkin: "Check In Players",
-  draw: "Generate Draw",
+  checkin: "Sign In Players",
+  draw: "Do the Draw",
   scoring: "Play & Score",
   results: "Round Results",
   complete: "Tournament Complete",
@@ -97,8 +97,8 @@ const STEP_LABELS: Record<TournamentState, string> = {
 
 const STEP_DESCRIPTIONS: Record<TournamentState, string> = {
   registration: "Set up your tournament and open registration for players.",
-  checkin: "Players check in and select their preferred positions.",
-  draw: "Generate the rink draw from checked-in players.",
+  checkin: "Players sign in and select their preferred positions.",
+  draw: "Make the rink draw from signed-in players.",
   scoring: "Players play their games and scores are entered.",
   results: "Review round results and decide whether to play another round.",
   complete: "The tournament is finished. View final results and standings.",
@@ -322,11 +322,11 @@ export function TournamentWizard({
                 <div className="rounded-xl bg-[#0A2E12]/[0.03] p-4">
                   <p className="text-sm text-[#3D5A3E]">
                     <span className="font-semibold">{tournamentName}</span> is ready
-                    to begin. Start check-in to allow players to register.
+                    to begin. Start sign-in to allow players to join.
                   </p>
                 </div>
                 <CTAButton
-                  label="Open Check-In"
+                  label="Open Sign-In"
                   loading={actionLoading}
                   onClick={() => performAction("start_checkin")}
                 />
@@ -341,7 +341,7 @@ export function TournamentWizard({
                     <p className="text-2xl font-black text-[#0A2E12]">
                       {progression.checkin_count}
                     </p>
-                    <p className="text-xs text-[#3D5A3E]">players checked in</p>
+                    <p className="text-xs text-[#3D5A3E]">players signed in</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-[#3D5A3E]">
@@ -404,7 +404,7 @@ export function TournamentWizard({
 
                 {!drawPreview && (
                   <CTAButton
-                    label="Generate Draw"
+                    label="Do the Draw"
                     loading={actionLoading}
                     disabled={!hasEnoughPlayers}
                     tooltip={
@@ -478,7 +478,7 @@ export function TournamentWizard({
                     disabled={!canRedraw}
                     title={
                       hasLiveScores
-                        ? "Cannot re-draw while scores are in progress. Finalize or clear all scores first."
+                        ? "Cannot re-draw while scores are in progress. Post results or clear all scores first."
                         : undefined
                     }
                     className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-40 disabled:cursor-not-allowed"
@@ -507,7 +507,7 @@ export function TournamentWizard({
                             r.is_finalized ? "text-[#1B5E20]" : "text-amber-600"
                           )}>
                             {r.is_finalized
-                              ? `${r.total_a} - ${r.total_b} (Finalized)`
+                              ? `${r.total_a} - ${r.total_b} (Posted)`
                               : r.team_a_scores?.length > 0
                                 ? `${r.total_a} - ${r.total_b} (In progress)`
                                 : "No scores yet"}
@@ -521,14 +521,14 @@ export function TournamentWizard({
                 <CTAButton
                   label={
                     allFinalized
-                      ? "Finalize Round"
-                      : `Waiting for ${unfinalizedRinks.length} rink${unfinalizedRinks.length !== 1 ? "s" : ""} to be finalized`
+                      ? "Post Results"
+                      : `Waiting for ${unfinalizedRinks.length} rink${unfinalizedRinks.length !== 1 ? "s" : ""} to be posted`
                   }
                   loading={actionLoading}
                   disabled={!allFinalized}
                   tooltip={
                     !allFinalized
-                      ? `Waiting for ${unfinalizedRinks.length} rink${unfinalizedRinks.length !== 1 ? "s" : ""} to be finalized.`
+                      ? `Waiting for ${unfinalizedRinks.length} rink${unfinalizedRinks.length !== 1 ? "s" : ""} to be posted.`
                       : undefined
                   }
                   onClick={() => performAction("finalize_round")}
@@ -543,7 +543,7 @@ export function TournamentWizard({
                   disabled={hasLiveScores}
                   title={
                     hasLiveScores
-                      ? "Cannot re-draw while scores are in progress. Finalize or clear all scores first."
+                      ? "Cannot re-draw while scores are in progress. Post results or clear all scores first."
                       : undefined
                   }
                   className="text-sm text-[#3D5A3E] hover:text-[#3D5A3E] disabled:cursor-not-allowed disabled:hover:text-[#3D5A3E]"
@@ -595,7 +595,7 @@ export function TournamentWizard({
                     </p>
                   </div>
                   <p className="text-xs text-[#3D5A3E] ml-6">
-                    Ready to generate the draw for Round {progression.current_round + 1}
+                    Ready to do the draw for Round {progression.current_round + 1}
                   </p>
                 </div>
 
@@ -715,7 +715,7 @@ export function TournamentWizard({
                 <div className="flex gap-1 p-2 border-b border-[#0A2E12]/10">
                   {(
                     [
-                      { key: "checkin" as const, label: "Check In" },
+                      { key: "checkin" as const, label: "Sign In" },
                       { key: "board" as const, label: "Board" },
                       { key: "draw" as const, label: "Draw" },
                     ] as const

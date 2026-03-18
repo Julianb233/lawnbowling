@@ -388,7 +388,7 @@ export default function BowlsTournamentPage() {
           <div className="mt-3 flex gap-1 no-print">
             {(
               [
-                { key: "checkin" as PageView, label: "Check In" },
+                { key: "checkin" as PageView, label: "Sign In" },
                 { key: "board" as PageView, label: `Board (${checkins.length})` },
                 { key: "draw" as PageView, label: "Draw" },
               ] as const
@@ -592,7 +592,7 @@ export default function BowlsTournamentPage() {
                   <p className="text-2xl font-black text-[#0A2E12]">
                     {checkins.length}
                   </p>
-                  <p className="text-xs text-[#3D5A3E]">players checked in</p>
+                  <p className="text-xs text-[#3D5A3E]">players signed in</p>
                 </div>
                 <div className="text-right">
                   <p className="text-2xl font-black text-[#1B5E20]">
@@ -621,7 +621,7 @@ export default function BowlsTournamentPage() {
                     disabled={possibleRinks < 1 || generatingDraw}
                     className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] disabled:opacity-40 min-h-[48px] touch-manipulation"
                   >
-                    {generatingDraw ? "Generating..." : "Generate Draw"}
+                    {generatingDraw ? "Drawing..." : "Do the Draw"}
                   </button>
                 </div>
               </div>
