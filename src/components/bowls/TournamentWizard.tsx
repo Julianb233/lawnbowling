@@ -21,6 +21,9 @@ import {
   BOWLS_FORMAT_LABELS,
 } from "@/lib/types";
 import type { BowlsGameFormat, BowlsCheckin, BowlsTeamAssignment } from "@/lib/types";
+import type { DrawStyle } from "@/lib/bowls-draw";
+import { DRAW_STYLE_LABELS, validateDrawCompatibility } from "@/lib/bowls-draw";
+import { AlertTriangle } from "lucide-react";
 
 type TournamentState =
   | "registration"
@@ -140,6 +143,7 @@ export function TournamentWizard({
   const [rinkScores, setRinkScores] = useState<RinkScore[]>([]);
   const [standings, setStandings] = useState<PlayerStanding[]>([]);
   const [totalRoundsPlayed, setTotalRoundsPlayed] = useState(0);
+  const [drawStyle, setDrawStyle] = useState<DrawStyle>("random");
 
   const fetchProgression = useCallback(async () => {
     try {
@@ -259,6 +263,10 @@ export function TournamentWizard({
   const playersPerRink = BOWLS_FORMAT_LABELS[format].playersPerTeam * 2;
   const hasEnoughPlayers = checkins.length >= playersPerRink;
 
+  // Mead Draw compatibility check
+  const meadCompatibility = validateDrawCompatibility(checkins.length, format, drawStyle);
+  const showMeadWarning = drawStyle === "mead" && !meadCompatibility.compatible;
+
   return (
     <div>
       {/* Step Rail */}
@@ -354,6 +362,40 @@ export function TournamentWizard({
                     )}
                   </select>
                 </div>
+
+                <div className="flex items-center gap-3">
+                  <label className="text-sm font-medium text-[#3D5A3E]">Draw Style:</label>
+                  <select
+                    value={drawStyle}
+                    onChange={(e) => setDrawStyle(e.target.value as DrawStyle)}
+                    className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-medium text-[#2D4A30] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+                  >
+                    {(Object.entries(DRAW_STYLE_LABELS) as [DrawStyle, string][]).map(
+                      ([key, label]) => (
+                        <option key={key} value={key}>
+                          {label}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+
+                {/* US-009: Mead Draw player count warning */}
+                {showMeadWarning && (
+                  <div className="flex items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 p-4">
+                    <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-semibold text-amber-800">
+                        Mead Draw supports {meadCompatibility.supported_counts?.join(", ")} players.
+                        You have {checkins.length} checked in.
+                        The system will use Random Draw instead.
+                      </p>
+                      <p className="mt-1 text-xs text-amber-700">
+                        Consider adjusting check-ins to match a supported count, or choose Random Draw.
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 <CTAButton
                   label="Generate Draw"
