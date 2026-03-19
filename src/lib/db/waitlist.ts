@@ -3,6 +3,20 @@ import { createClient } from "@/lib/supabase/server";
 export async function joinWaitlist(venueId: string, sport: string, playerId: string, partnerId?: string) {
   const supabase = await createClient();
 
+  // Check if player already has an active waitlist entry (prevents duplicate from concurrent requests)
+  const { data: existing } = await supabase
+    .from("court_waitlist")
+    .select("id")
+    .eq("venue_id", venueId)
+    .eq("sport", sport)
+    .eq("player_id", playerId)
+    .eq("status", "waiting")
+    .limit(1);
+
+  if (existing && existing.length > 0) {
+    throw new Error("You are already on the waitlist");
+  }
+
   // Get next position
   const { count } = await supabase
     .from("court_waitlist")
@@ -13,16 +27,25 @@ export async function joinWaitlist(venueId: string, sport: string, playerId: str
 
   const position = (count ?? 0) + 1;
 
+  // Use upsert to prevent duplicates if two requests pass the check simultaneously.
+  // The unique constraint on (player_id, venue_id, sport, status) where status='waiting'
+  // ensures only one active entry per player per venue+sport.
   const { data, error } = await supabase
     .from("court_waitlist")
-    .insert({
-      venue_id: venueId,
-      sport,
-      player_id: playerId,
-      partner_id: partnerId || null,
-      position,
-      status: "waiting",
-    })
+    .upsert(
+      {
+        venue_id: venueId,
+        sport,
+        player_id: playerId,
+        partner_id: partnerId || null,
+        position,
+        status: "waiting",
+      },
+      {
+        onConflict: "player_id,venue_id,sport,status",
+        ignoreDuplicates: true,
+      }
+    )
     .select()
     .single();
 
