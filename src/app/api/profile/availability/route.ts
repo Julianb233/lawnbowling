@@ -70,14 +70,31 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "slots array required" }, { status: 400 });
     }
 
-    // Delete existing availability and replace with new slots
-    const { error: deleteError } = await supabase
-      .from("player_availability")
-      .delete()
-      .eq("player_id", player.id);
+    // Scoped delete + upsert to prevent race conditions.
+    // Only delete slots for the specific days being updated, then upsert new ones.
+    const updatedDays = [...new Set(slots.map((s) => s.day_of_week))];
 
-    if (deleteError) {
-      return apiError(deleteError, "POST /api/profile/availability", 500);
+    if (updatedDays.length > 0) {
+      // Delete only the days being replaced (not all availability)
+      const { error: deleteError } = await supabase
+        .from("player_availability")
+        .delete()
+        .eq("player_id", player.id)
+        .in("day_of_week", updatedDays);
+
+      if (deleteError) {
+        return apiError(deleteError, "POST /api/profile/availability", 500);
+      }
+    } else {
+      // Empty slots array = clear all availability
+      const { error: deleteError } = await supabase
+        .from("player_availability")
+        .delete()
+        .eq("player_id", player.id);
+
+      if (deleteError) {
+        return apiError(deleteError, "POST /api/profile/availability", 500);
+      }
     }
 
     if (slots.length > 0) {
@@ -91,7 +108,10 @@ export async function POST(req: NextRequest) {
 
       const { error: insertError } = await supabase
         .from("player_availability")
-        .insert(rows);
+        .upsert(rows, {
+          onConflict: "player_id,day_of_week,start_time",
+          ignoreDuplicates: false,
+        });
 
       if (insertError) {
         return apiError(insertError, "POST /api/profile/availability", 500);
