@@ -9,8 +9,9 @@ import { AnimatePresence, motion } from "framer-motion";
 const navLinks = [
   { href: "/clubs", label: "Clubs" },
   { href: "/learn", label: "Learn" },
+  { href: "/blog", label: "Blog" },
+  { href: "/leaderboard", label: "Leaderboard" },
   { href: "/shop", label: "Shop" },
-  { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
 ];
 
@@ -78,14 +79,15 @@ export function PublicNav({
             </Link>
           ))}
 
-          {/* Sign In */}
+          {/* Sign In — outline/secondary style */}
           <Link
             href="/login"
             className={
               isTransparent
-                ? "hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
-                : "hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
+                ? "hidden sm:flex items-center justify-center rounded-xl border border-white/30 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
+                : "hidden sm:flex items-center justify-center rounded-xl border-2 border-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-[#1B5E20] transition hover:bg-[#1B5E20]/5"
             }
+            style={{ minHeight: 48 }}
           >
             Sign In
           </Link>
@@ -95,9 +97,10 @@ export function PublicNav({
             href="/signup"
             className={
               isTransparent
-                ? "rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#1B5E20] shadow-lg transition hover:bg-[#0A2E12]/[0.03] sm:px-5 sm:py-2.5"
-                : "rounded-xl bg-[#1B5E20] px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-green-900/15 transition hover:bg-[#2E7D32] hover:shadow-green-900/25 sm:px-5 sm:py-2.5"
+                ? "hidden sm:flex items-center justify-center rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-[#1B5E20] shadow-lg transition hover:bg-[#0A2E12]/[0.03]"
+                : "hidden sm:flex items-center justify-center rounded-xl bg-[#1B5E20] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-green-900/15 transition hover:bg-[#2E7D32] hover:shadow-green-900/25"
             }
+            style={{ minHeight: 48 }}
           >
             Get Started
           </Link>
