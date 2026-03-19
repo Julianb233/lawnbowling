@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
@@ -216,114 +216,99 @@ function LoginForm() {
     setError(null);
   }
 
+  const formRef = useRef<HTMLDivElement>(null);
+
+  // Staggered entrance animation
+  useEffect(() => {
+    const el = formRef.current;
+    if (!el) return;
+    el.style.opacity = "0";
+    el.style.transform = "translateY(24px)";
+    const t = setTimeout(() => {
+      el.style.transition = "opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)";
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+    }, 200);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
-    <div className="flex min-h-screen">
-      {/* Left: Full-bleed photo with overlay */}
-      <div className="relative hidden lg:flex lg:w-[55%]">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
+      {/* Full-screen background image with Ken Burns */}
+      <div className="absolute inset-0">
         <Image
           src="/images/scenery-golden-hour-green.jpg"
           alt="Lawn bowling green at golden hour"
           fill
           priority
-          className="object-cover"
+          className="object-cover login-ken-burns"
         />
-        {/* Dark green gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0A2E12]/80 via-[#0A2E12]/60 to-[#0A2E12]/40" />
-
-        {/* Content over the image */}
-        <div className="relative z-10 flex flex-col justify-between p-12">
-          {/* Brand top-left */}
-          <div className="flex items-center gap-3">
-            <Image
-              src={bowlsIconImg}
-              alt="Lawnbowling"
-              width={40}
-              height={40}
-              className="rounded-full shadow-lg"
-            />
-            <span className="text-xl font-bold text-white">
-              Lawnbowling
-            </span>
-          </div>
-
-          {/* Headline centered */}
-          <div className="max-w-md">
-            <h1
-              className="text-5xl font-extrabold leading-tight tracking-tight text-white"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              Welcome Back
-              <br />
-              <span className="text-[#A8D5BA]">to the Green</span>
-            </h1>
-            <p className="mt-4 text-lg leading-relaxed text-white/80">
-              Sign in to check scores, enter tournaments, and connect with your club.
-            </p>
-          </div>
-
-          {/* Bottom quote */}
-          <p className="text-sm text-white/50">
-            &ldquo;The best game you can play is the next one.&rdquo;
-          </p>
-        </div>
+        {/* Multi-layer gradient fade */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A2E12]/95 via-[#0A2E12]/50 to-[#0A2E12]/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A2E12]/40 to-transparent" />
+        {/* Soft vignette */}
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(10,46,18,0.5) 100%)" }} />
       </div>
 
-      {/* Right: Login Form */}
-      <div className="flex flex-1 flex-col" style={{ backgroundColor: "#FEFCF9" }}>
-        {/* Mobile header with background image */}
-        <div className="relative lg:hidden">
-          <div className="relative h-48 w-full overflow-hidden">
-            <Image
-              src="/images/scenery-golden-hour-green.jpg"
-              alt="Lawn bowling green"
-              fill
-              priority
-              className="object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0A2E12]/60 to-[#0A2E12]/80" />
-            <div className="relative z-10 flex h-full flex-col items-center justify-center">
-              <Image
-                src={bowlsIconImg}
-                alt="Lawnbowling"
-                width={48}
-                height={48}
-                className="rounded-full shadow-lg"
-              />
-              <h1
-                className="mt-3 text-2xl font-bold text-white"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Welcome Back
-              </h1>
-            </div>
-          </div>
+      {/* Brand top-left */}
+      <div className="absolute left-6 top-6 z-20 flex items-center gap-3 sm:left-8 sm:top-8">
+        <Image
+          src={bowlsIconImg}
+          alt="Lawnbowling"
+          width={40}
+          height={40}
+          className="rounded-full shadow-lg"
+        />
+        <span className="text-xl font-bold text-white drop-shadow-md">
+          Lawnbowling
+        </span>
+      </div>
+
+      {/* Bottom quote */}
+      <p className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 text-sm text-white/40 hidden sm:block">
+        &ldquo;The best game you can play is the next one.&rdquo;
+      </p>
+
+      {/* Glassmorphic login card */}
+      <div ref={formRef} className="relative z-10 mx-4 w-full max-w-md">
+        {/* Headline above card */}
+        <div className="mb-6 text-center sm:mb-8">
+          <h1
+            className="text-4xl font-extrabold leading-tight tracking-tight text-white drop-shadow-lg sm:text-5xl"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            Welcome Back
+            <br />
+            <span className="text-[#A8D5BA]">to the Green</span>
+          </h1>
+          <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
+            Sign in to check scores, enter tournaments, and connect with your club.
+          </p>
         </div>
 
-        {/* Form */}
-        <div className="flex flex-1 items-center justify-center px-6 py-12">
-          <div className="w-full max-w-md">
-            {/* Desktop heading (hidden on mobile since it's in the hero) */}
-            <div className="mb-8 hidden lg:block">
+        <div className="login-glass rounded-2xl p-6 sm:rounded-3xl sm:p-8">
+          <div className="w-full">
+            <div className="mb-6">
               <h2
-                className="text-3xl font-bold"
-                style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+                className="text-2xl font-bold text-white sm:text-3xl"
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 Sign In
               </h2>
-              <p className="mt-2 text-base" style={{ color: "#3D5A3E" }}>
+              <p className="mt-1.5 text-sm text-white/60">
                 Good to see you again
               </p>
             </div>
 
             {/* Phone / Email mode toggle */}
-            <div className="mb-6 flex rounded-xl border border-[#0A2E12]/10 bg-white p-1">
+            <div className="mb-6 flex rounded-xl border border-white/15 bg-white/10 p-1 backdrop-blur-sm">
               <button
                 type="button"
                 onClick={() => { setMode("phone"); resetOtp(); }}
-                className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
+                className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-200 ${
                   mode === "phone"
-                    ? "bg-[#1B5E20] text-white shadow-sm"
-                    : "text-[#3D5A3E] hover:text-[#0A2E12]"
+                    ? "bg-white text-[#1B5E20] shadow-md"
+                    : "text-white/70 hover:text-white hover:bg-white/10"
                 }`}
               >
                 <Phone className="mr-1.5 inline h-4 w-4" />
@@ -332,10 +317,10 @@ function LoginForm() {
               <button
                 type="button"
                 onClick={() => { setMode("email"); resetOtp(); }}
-                className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
+                className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-200 ${
                   mode === "email"
-                    ? "bg-[#1B5E20] text-white shadow-sm"
-                    : "text-[#3D5A3E] hover:text-[#0A2E12]"
+                    ? "bg-white text-[#1B5E20] shadow-md"
+                    : "text-white/70 hover:text-white hover:bg-white/10"
                 }`}
               >
                 <Mail className="mr-1.5 inline h-4 w-4" />
@@ -350,8 +335,7 @@ function LoginForm() {
                   <div>
                     <label
                       htmlFor="phone"
-                      className="mb-2 block text-base font-medium"
-                      style={{ color: "#0A2E12" }}
+                      className="mb-2 block text-base font-medium text-white/90"
                     >
                       Phone Number
                     </label>
@@ -359,30 +343,28 @@ function LoginForm() {
                       <select
                         value={countryCode}
                         onChange={(e) => setCountryCode(e.target.value)}
-                        className="h-14 rounded-xl border border-[#0A2E12]/10 bg-white px-3 text-base shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                        style={{ color: "#0A2E12" }}
+                        className="h-14 rounded-xl border border-white/20 bg-white/10 px-3 text-base text-white shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                       >
                         {COUNTRY_CODES.map((c) => (
-                          <option key={c.code} value={c.code}>
+                          <option key={c.code} value={c.code} className="text-[#0A2E12] bg-white">
                             {c.label}
                           </option>
                         ))}
                       </select>
                       <div className="relative flex-1">
-                        <Phone className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
+                        <Phone className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/50" />
                         <input
                           id="phone"
                           type="tel"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           required
-                          className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                          style={{ color: "#0A2E12" }}
+                          className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-4 text-lg text-white placeholder:text-white/35 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                           placeholder="(555) 123-4567"
                         />
                       </div>
                     </div>
-                    <p className="mt-2 text-sm text-[#3D5A3E]">
+                    <p className="mt-2 text-sm text-white/50">
                       We&apos;ll text you a code to sign in. No password needed.
                     </p>
                   </div>
@@ -390,8 +372,7 @@ function LoginForm() {
                   <div>
                     <label
                       htmlFor="otp"
-                      className="mb-2 block text-base font-medium"
-                      style={{ color: "#0A2E12" }}
+                      className="mb-2 block text-base font-medium text-white/90"
                     >
                       Enter Code
                     </label>
@@ -405,14 +386,13 @@ function LoginForm() {
                       onChange={(e) => setOtp(e.target.value)}
                       required
                       maxLength={6}
-                      className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                      style={{ color: "#0A2E12" }}
+                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] text-white placeholder:text-white/35 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                       placeholder="000000"
                     />
                     <button
                       type="button"
                       onClick={resetOtp}
-                      className="mt-2 text-sm font-medium text-[#1B5E20] hover:underline"
+                      className="mt-2 text-sm font-medium text-[#A8D5BA] hover:text-white hover:underline transition"
                     >
                       Use a different number
                     </button>
@@ -421,7 +401,7 @@ function LoginForm() {
 
                 {info && (
                   <div
-                    className="flex items-start gap-3 rounded-xl border border-blue-200 bg-blue-50 px-4 py-4 text-base text-blue-700 shadow-sm"
+                    className="flex items-start gap-3 rounded-xl border border-blue-400/30 bg-blue-500/15 px-4 py-4 text-base text-blue-200 shadow-sm backdrop-blur-sm"
                     role="status"
                   >
                     <span>{info}</span>
@@ -430,10 +410,10 @@ function LoginForm() {
 
                 {error && (
                   <div
-                    className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-4 text-base text-red-700 shadow-sm"
+                    className="flex items-start gap-3 rounded-xl border border-red-400/30 bg-red-500/15 px-4 py-4 text-base text-red-200 shadow-sm backdrop-blur-sm"
                     role="alert"
                   >
-                    <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
+                    <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-300" />
                     <span>{error}</span>
                   </div>
                 )}
@@ -441,8 +421,7 @@ function LoginForm() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full rounded-xl py-4 text-lg font-semibold text-white shadow-md transition hover:brightness-110 disabled:opacity-50 active:scale-[0.98]"
-                  style={{ backgroundColor: "#1B5E20" }}
+                  className="login-cta-btn w-full rounded-xl py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:brightness-110 disabled:opacity-50 active:scale-[0.97]"
                 >
                   {loading ? "Please wait..." : otpSent ? "Verify Code" : "Send Code"}
                 </button>
@@ -456,25 +435,23 @@ function LoginForm() {
                   <div>
                     <label
                       htmlFor="email"
-                      className="mb-2 block text-base font-medium"
-                      style={{ color: "#0A2E12" }}
+                      className="mb-2 block text-base font-medium text-white/90"
                     >
                       Email Address
                     </label>
                     <div className="relative">
-                      <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
+                      <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/50" />
                       <input
                         id="email"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                        style={{ color: "#0A2E12" }}
+                        className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-4 text-lg text-white placeholder:text-white/35 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                         placeholder="you@example.com"
                       />
                     </div>
-                    <p className="mt-2 text-sm text-[#3D5A3E]">
+                    <p className="mt-2 text-sm text-white/50">
                       We&apos;ll send a sign-in link to your email. No password needed.
                     </p>
                   </div>
@@ -482,8 +459,7 @@ function LoginForm() {
                   <div>
                     <label
                       htmlFor="email-otp"
-                      className="mb-2 block text-base font-medium"
-                      style={{ color: "#0A2E12" }}
+                      className="mb-2 block text-base font-medium text-white/90"
                     >
                       Enter Code (or check email for link)
                     </label>
@@ -497,14 +473,13 @@ function LoginForm() {
                       onChange={(e) => setOtp(e.target.value)}
                       required
                       maxLength={6}
-                      className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                      style={{ color: "#0A2E12" }}
+                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] text-white placeholder:text-white/35 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                       placeholder="000000"
                     />
                     <button
                       type="button"
                       onClick={resetOtp}
-                      className="mt-2 text-sm font-medium text-[#1B5E20] hover:underline"
+                      className="mt-2 text-sm font-medium text-[#A8D5BA] hover:text-white hover:underline transition"
                     >
                       Use a different email
                     </button>
@@ -513,7 +488,7 @@ function LoginForm() {
 
                 {info && (
                   <div
-                    className="flex items-start gap-3 rounded-xl border border-blue-200 bg-blue-50 px-4 py-4 text-base text-blue-700 shadow-sm"
+                    className="flex items-start gap-3 rounded-xl border border-blue-400/30 bg-blue-500/15 px-4 py-4 text-base text-blue-200 shadow-sm backdrop-blur-sm"
                     role="status"
                   >
                     <span>{info}</span>
@@ -522,10 +497,10 @@ function LoginForm() {
 
                 {error && (
                   <div
-                    className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-4 text-base text-red-700 shadow-sm"
+                    className="flex items-start gap-3 rounded-xl border border-red-400/30 bg-red-500/15 px-4 py-4 text-base text-red-200 shadow-sm backdrop-blur-sm"
                     role="alert"
                   >
-                    <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
+                    <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-300" />
                     <span>{error}</span>
                   </div>
                 )}
@@ -533,8 +508,7 @@ function LoginForm() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full rounded-xl py-4 text-lg font-semibold text-white shadow-md transition hover:brightness-110 disabled:opacity-50 active:scale-[0.98]"
-                  style={{ backgroundColor: "#1B5E20" }}
+                  className="login-cta-btn w-full rounded-xl py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:brightness-110 disabled:opacity-50 active:scale-[0.97]"
                 >
                   {loading ? "Please wait..." : otpSent ? "Verify Code" : "Send Sign-In Link"}
                 </button>
@@ -543,9 +517,9 @@ function LoginForm() {
 
             {/* Divider */}
             <div className="my-6 flex items-center gap-4">
-              <div className="flex-1 border-t border-[#0A2E12]/10" />
-              <span className="text-sm font-medium text-[#3D5A3E]">or continue with</span>
-              <div className="flex-1 border-t border-[#0A2E12]/10" />
+              <div className="flex-1 border-t border-white/15" />
+              <span className="text-sm font-medium text-white/50">or continue with</span>
+              <div className="flex-1 border-t border-white/15" />
             </div>
 
             {/* Social login buttons */}
@@ -553,8 +527,7 @@ function LoginForm() {
               <button
                 type="button"
                 onClick={() => handleSocialLogin("google")}
-                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-[#0A2E12]/10 bg-white text-base font-medium shadow-sm transition hover:bg-gray-50 active:scale-[0.98]"
-                style={{ color: "#0A2E12" }}
+                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 text-base font-medium text-white shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-white/20 active:scale-[0.97]"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
@@ -567,8 +540,7 @@ function LoginForm() {
               <button
                 type="button"
                 onClick={() => handleSocialLogin("apple")}
-                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-[#0A2E12]/10 bg-white text-base font-medium shadow-sm transition hover:bg-gray-50 active:scale-[0.98]"
-                style={{ color: "#0A2E12" }}
+                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 text-base font-medium text-white shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-white/20 active:scale-[0.97]"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
@@ -577,22 +549,20 @@ function LoginForm() {
               </button>
             </div>
 
-            <p className="mt-6 text-center text-base" style={{ color: "#3D5A3E" }}>
+            <p className="mt-6 text-center text-base text-white/60">
               No account yet?{" "}
               <Link
                 href={returnTo !== "/board" ? `/signup?returnTo=${encodeURIComponent(returnTo)}` : "/signup"}
-                className="font-semibold underline"
-                style={{ color: "#1B5E20" }}
+                className="font-semibold text-[#A8D5BA] hover:text-white underline transition"
               >
                 Sign up free
               </Link>
             </p>
 
-            <p className="mt-3 text-center text-sm" style={{ color: "#3D5A3E" }}>
+            <p className="mt-3 text-center text-sm">
               <Link
                 href="/forgot-password"
-                className="font-medium hover:underline"
-                style={{ color: "#1B5E20" }}
+                className="font-medium text-white/50 hover:text-white/80 hover:underline transition"
               >
                 Forgot your password?
               </Link>
