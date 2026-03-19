@@ -91,7 +91,7 @@ export function ProfileForm({ player, onSubmit, onAvatarUpload, submitLabel = "S
       </div>
 
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-[#2D4A30]">Skill Level</label>
+        <label className="mb-1.5 block text-sm font-medium text-[#2D4A30]">Experience</label>
         <Select.Root value={skillLevel} onValueChange={(v) => setSkillLevel(v as SkillLevel)}>
           <Select.Trigger className="inline-flex w-full items-center justify-between rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20] min-h-[44px]">
             <Select.Value />

@@ -268,10 +268,10 @@ export default function ClubSettingsPage() {
             className="inline-flex items-center gap-1.5 text-sm text-[#3D5A3E] hover:text-[#2D4A30] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            Dashboard
+            My Club
           </Link>
           <h1 className="mt-2 text-2xl font-black tracking-tight text-[#0A2E12]">
-            Club Settings
+            Club Preferences
           </h1>
           <p className="text-sm text-[#3D5A3E]">
             Manage your club profile and billing

@@ -64,7 +64,7 @@ export function InsurancePage() {
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#3D5A3E] md:text-xl">
             A bowler takes a fall on the green. Without coverage, that&apos;s
             a $15K problem. With Lawnbowling, every participant is covered
-            the moment they check in. No paperwork. No monthly fees. No cost to
+            the moment they sign in. No paperwork. No monthly fees. No cost to
             your venue at all.
           </p>
           <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2">
@@ -141,7 +141,7 @@ export function InsurancePage() {
             {
               step: "01",
               icon: ClipboardCheck,
-              title: "Check In and Sign the Waiver",
+              title: "Sign In and Complete the Waiver",
               desc: "Walk up, scan in, sign. The digital waiver takes about 30 seconds and lives in your profile forever. No clipboards, no lost paperwork.",
             },
             {

@@ -7,6 +7,7 @@ import type { SkillLevel } from "@/lib/db/players";
 import type { NotificationPreferences } from "@/lib/types";
 import { NotificationSettings } from "@/components/settings/NotificationSettings";
 import { MyVisitRequests } from "@/components/clubs/MyVisitRequests";
+import { BottomNav } from "@/components/board/BottomNav";
 
 const SKILL_LEVELS: { value: SkillLevel; label: string }[] = [
   { value: "beginner", label: "Beginner" },
@@ -117,116 +118,142 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-animated-gradient">
-        <Loader2 className="h-8 w-8 animate-spin text-green-500" />
+      <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: "#FEFCF9" }}>
+        <Loader2 className="h-8 w-8 animate-spin text-[#1B5E20]" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-animated-gradient px-4 py-8 pb-24">
+    <div className="min-h-screen px-4 py-8 pb-24" style={{ backgroundColor: "#FEFCF9" }}>
       <div className="mx-auto max-w-md">
         <button
           onClick={() => router.back()}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-[#3D5A3E] hover:text-[#0A2E12] min-h-[44px]"
+          className="mb-6 inline-flex items-center gap-1 text-sm hover:opacity-70 min-h-[44px]"
+          style={{ color: "#3D5A3E" }}
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h1 className="mb-8 text-2xl font-bold text-[#0A2E12]">Settings</h1>
+        <h1
+          className="mb-8 text-2xl font-bold"
+          style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+        >
+          Settings
+        </h1>
 
         {error && (
-          <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+          <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-600">
+          <div className="mb-4 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-600">
             Settings saved
           </div>
         )}
 
         <div className="space-y-6">
-          {/* Display Name */}
-          <div>
-            <label
-              htmlFor="display-name"
-              className="mb-2 block text-sm font-medium text-[#3D5A3E]"
+          {/* Profile Settings Card */}
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-sm">
+            <h2
+              className="mb-4 text-lg font-bold"
+              style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
             >
-              Display Name
-            </label>
-            <input
-              id="display-name"
-              type="text"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3 text-[#0A2E12] placeholder-[#3D5A3E] outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 min-h-[44px]"
-              placeholder="Your display name"
-            />
-          </div>
+              Profile
+            </h2>
 
-          {/* Skill Level */}
-          <div>
-            <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">
-              Skill Level
-            </label>
-            <div className="flex gap-2">
-              {SKILL_LEVELS.map((level) => (
-                <button
-                  key={level.value}
-                  onClick={() => setSkillLevel(level.value)}
-                  className={`flex-1 rounded-lg border px-3 py-3 text-sm font-medium transition-colors min-h-[44px] ${
-                    skillLevel === level.value
-                      ? "border-green-500 bg-green-50 text-green-600"
-                      : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
-                  }`}
+            <div className="space-y-5">
+              {/* Display Name */}
+              <div>
+                <label
+                  htmlFor="display-name"
+                  className="mb-2 block text-sm font-medium"
+                  style={{ color: "#3D5A3E" }}
                 >
-                  {level.label}
-                </button>
-              ))}
+                  Display Name
+                </label>
+                <input
+                  id="display-name"
+                  type="text"
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                  className="w-full rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 outline-none focus:border-[#1B5E20] focus:ring-2 focus:ring-[#1B5E20]/20 min-h-[44px] transition"
+                  style={{ color: "#0A2E12" }}
+                  placeholder="Your display name"
+                />
+              </div>
+
+              {/* Skill Level */}
+              <div>
+                <label
+                  className="mb-2 block text-sm font-medium"
+                  style={{ color: "#3D5A3E" }}
+                >
+                  Skill Level
+                </label>
+                <div className="flex gap-2">
+                  {SKILL_LEVELS.map((level) => (
+                    <button
+                      key={level.value}
+                      onClick={() => setSkillLevel(level.value)}
+                      className={`flex-1 rounded-xl border px-3 py-3 text-sm font-medium transition-colors min-h-[44px] ${
+                        skillLevel === level.value
+                          ? "border-[#1B5E20] bg-[#1B5E20]/10 text-[#1B5E20]"
+                          : "border-[#0A2E12]/10 bg-white hover:bg-[#0A2E12]/[0.03]"
+                      }`}
+                      style={skillLevel !== level.value ? { color: "#3D5A3E" } : undefined}
+                    >
+                      {level.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Save Button */}
+              <button
+                onClick={handleSave}
+                disabled={saving || !displayName.trim()}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] transition-colors"
+              >
+                {saving ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Save className="h-4 w-4" />
+                )}
+                {saving ? "Saving..." : "Save Changes"}
+              </button>
             </div>
           </div>
 
-          {/* Save Button */}
-          <button
-            onClick={handleSave}
-            disabled={saving || !displayName.trim()}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-3 text-sm font-semibold text-white hover:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] transition-colors"
-          >
-            {saving ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Save className="h-4 w-4" />
-            )}
-            {saving ? "Saving..." : "Save Changes"}
-          </button>
-
-          {/* Divider */}
-          <div className="border-t border-[#0A2E12]/10" />
-
-          {/* Visit Requests */}
-          <div>
-            <label className="mb-2 block text-sm font-medium text-[#3D5A3E]">
+          {/* Visit Requests Card */}
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-sm">
+            <h2
+              className="mb-4 text-lg font-bold"
+              style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+            >
               My Visit Requests
-            </label>
+            </h2>
             <MyVisitRequests />
           </div>
 
-          {/* Divider */}
-          <div className="border-t border-[#0A2E12]/10" />
-
-          {/* Notification Preferences */}
-          <NotificationSettings preferences={notifPrefs} />
-
-          {/* Divider */}
-          <div className="border-t border-[#0A2E12]/10" />
+          {/* Notification Preferences Card */}
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-sm">
+            <h2
+              className="mb-4 text-lg font-bold"
+              style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+            >
+              Notifications
+            </h2>
+            <NotificationSettings preferences={notifPrefs} />
+          </div>
 
           {/* Sign Out */}
           <button
             onClick={handleSignOut}
             disabled={signingOut}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 disabled:opacity-50 min-h-[44px] transition-colors"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 px-6 py-3 text-sm font-bold text-red-600 hover:bg-red-50 disabled:opacity-50 min-h-[44px] transition-colors"
           >
             {signingOut ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -237,6 +264,7 @@ export default function SettingsPage() {
           </button>
         </div>
       </div>
+      <BottomNav />
     </div>
   );
 }

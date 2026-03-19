@@ -85,7 +85,7 @@ export default function LawnBowlingVsBoccePage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }} />
       <LearnNav />
@@ -108,7 +108,7 @@ export default function LawnBowlingVsBoccePage() {
             Sport Comparison
           </span>
         </div>
-        <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-zinc-900 md:text-5xl lg:text-6xl">
+        <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-zinc-900 md:text-5xl lg:text-6xl" style={{ fontFamily: "var(--font-display)" }}>
           Lawn Bowling vs Bocce Ball
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600">

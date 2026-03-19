@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200, height=630">
+<title>LawnBowl OG Image</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .og-card {
+    width: 1200px;
+    height: 630px;
+    background-color: #1B5E20;
+    background-image:
+      radial-gradient(ellipse at 20% 80%, rgba(46, 125, 50, 0.5) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(27, 94, 32, 0.8) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Subtle grass-like texture lines at the bottom */
+  .og-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(to right,
+      #2E7D32 0%, #1B5E20 20%, #2E7D32 40%, #1B5E20 60%, #2E7D32 80%, #1B5E20 100%
+    );
+  }
+
+  /* Top accent line */
+  .og-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(to right, #A5D6A7, #66BB6A, #A5D6A7);
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .logo-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -1px;
+  }
+
+  .tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    font-style: italic;
+    color: #A5D6A7;
+    margin-bottom: 40px;
+    letter-spacing: 0.5px;
+  }
+
+  .features {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .feature-pill {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    padding: 10px 22px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.3px;
+  }
+
+  .dot-separator {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  .url {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+  <div class="og-card">
+    <div class="logo-container">
+      <img src="../logo/bowls-icon.png" alt="LawnBowl" class="logo-img">
+      <span class="logo-text">LawnBowl</span>
+    </div>
+
+    <div class="tagline">Where friendships roll.</div>
+
+    <div class="features">
+      <span class="feature-pill">Tournament Management</span>
+      <span class="dot-separator"></span>
+      <span class="feature-pill">Live Scoring</span>
+      <span class="dot-separator"></span>
+      <span class="feature-pill">Club Directory</span>
+    </div>
+
+    <div class="url">www.lawnbowling.app</div>
+  </div>
+</body>
+</html>

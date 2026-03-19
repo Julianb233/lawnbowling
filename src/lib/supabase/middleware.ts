@@ -33,41 +33,23 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const publicPaths = [
-    "/login", "/signup", "/auth/callback", "/onboarding", "/offline",
-    "/insurance", "/terms", "/privacy", "/contact", "/about", "/faq",
-    "/for-venues", "/for-players", "/learn",
-    "/checkin", "/api/qr",
-    // Public content pages — no login required for discovery & SEO
-    "/clubs", "/shop", "/blog", "/bowls/about", "/bowls/history",
-    "/gallery", "/leaderboard", "/tv", "/kiosk",
-    // Profile pages — show 404 for nonexistent profiles instead of login redirect
-    "/profile",
-    "/sitemap.xml", "/robots.txt",
-    // API routes for public pages
-    "/api/clubs", "/api/shop/products", "/api/stats/leaderboard",
-    "/api/waitlist/status", "/api/bowls/tournament",
-    "/api/tv/announcements", "/api/search",
-    // Stripe webhook endpoints — must be publicly reachable
-    "/api/stripe/webhook", "/api/membership/webhook",
-    // External webhook endpoints — called by third-party services without cookies
-    "/api/webhooks/supabase", "/api/webhooks/printify",
-    "/api/shop/webhooks/printify",
-    // Cron endpoints — called by Vercel cron without cookies (auth via CRON_SECRET header)
-    "/api/cron",
-    // Waitlist signup — public form submission
-    "/api/waitlist",
+  // Routes that REQUIRE authentication — only these redirect to login
+  const protectedPaths = [
+    "/board", "/admin", "/settings", "/favorites",
+    "/friends", "/chat", "/activity", "/queue",
+    "/schedule", "/teams", "/stats", "/match-history",
   ];
 
   // Root path is public (landing page)
   if (request.nextUrl.pathname === "/") {
     return supabaseResponse;
   }
-  const isPublicPath = publicPaths.some((path) =>
+
+  const isProtectedPath = protectedPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   );
 
-  if (!user && !isPublicPath) {
+  if (!user && isProtectedPath) {
     const url = request.nextUrl.clone();
     const returnTo = request.nextUrl.pathname;
     url.pathname = "/login";

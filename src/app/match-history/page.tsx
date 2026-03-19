@@ -24,7 +24,7 @@ export default function MatchHistoryPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
       <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-4">
           <div className="flex items-center gap-3">
@@ -35,7 +35,7 @@ export default function MatchHistoryPage() {
               <ArrowLeft className="h-5 w-5" />
             </Link>
             <div>
-              <h1 className="text-xl font-bold text-[#0A2E12]">Match History</h1>
+              <h1 className="text-xl font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Game History</h1>
               <p className="text-sm text-[#3D5A3E]">
                 Your past games and results
               </p>

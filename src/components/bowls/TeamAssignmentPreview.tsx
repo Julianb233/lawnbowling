@@ -145,7 +145,7 @@ export function TeamAssignmentPreview({
     return (
       <div className="rounded-2xl border border-dashed border-[#0A2E12]/20 bg-[#F5F0E8]/30 p-8 text-center">
         <p className="text-sm text-[#3D5A3E]">
-          No team assignments yet. Click &quot;Generate Teams&quot; to create balanced matchups.
+          No team assignments yet. Click &quot;Do the Draw&quot; to create balanced matchups.
         </p>
       </div>
     );

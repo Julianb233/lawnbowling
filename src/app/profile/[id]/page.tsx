@@ -27,7 +27,7 @@ import { BowlsRatingsCard } from "@/components/stats/BowlsRatingsCard";
 import * as Avatar from "@radix-ui/react-avatar";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ShieldCheck, Shield } from "lucide-react";
+import { ArrowLeft, ShieldCheck, Shield, MessageCircle } from "lucide-react";
 
 const CLUB_BANNERS = [
   "/images/scenery-clubhouse-dusk.jpg",
@@ -109,11 +109,12 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
     .slice(0, 2);
 
   const bannerSrc = getBannerForPlayer(player.display_name);
+  const memberSinceYear = new Date(player.created_at).getFullYear();
 
   return (
     <div className="min-h-screen bg-[#FEFCF9]">
       {/* Club photo hero banner */}
-      <div className="relative h-44 w-full overflow-hidden">
+      <div className="relative h-48 w-full overflow-hidden">
         <Image
           src={bannerSrc}
           alt="Club banner"
@@ -132,21 +133,32 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
         </div>
       </div>
 
-      <div className="mx-auto max-w-md px-4 -mt-12 relative z-10 pb-8">
-        <div className="space-y-6">
-          <div className="flex flex-col items-center text-center">
-            <Avatar.Root className="mb-4 inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-[#0A2E12]/5 ring-4 ring-[#FEFCF9] shadow-lg">
-              <Avatar.Image
-                src={player.avatar_url ?? undefined}
-                alt={player.display_name}
-                className="h-full w-full object-cover"
-              />
-              <Avatar.Fallback className="flex h-full w-full items-center justify-center text-2xl font-bold text-[#3D5A3E]">
-                {initials}
-              </Avatar.Fallback>
-            </Avatar.Root>
+      <div className="mx-auto max-w-md px-4 -mt-16 relative z-10 pb-8">
+        <div className="space-y-4">
+          {/* Baseball-card style profile header */}
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-sm text-center">
+            {/* Large circular photo with gold border ring */}
+            <div className="mx-auto -mt-16 mb-4">
+              <Avatar.Root
+                className="inline-flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-[#FEFCF9] shadow-lg"
+                style={{ border: "4px solid #B8860B" }}
+              >
+                <Avatar.Image
+                  src={player.avatar_url ?? undefined}
+                  alt={player.display_name}
+                  className="h-full w-full object-cover"
+                />
+                <Avatar.Fallback className="flex h-full w-full items-center justify-center text-3xl font-bold text-[#3D5A3E]">
+                  {initials}
+                </Avatar.Fallback>
+              </Avatar.Root>
+            </div>
 
-            <h1 className="flex items-center gap-2 font-[family-name:var(--font-display)] text-2xl font-bold text-[#0A2E12]">
+            {/* Name in Playfair Display */}
+            <h1
+              className="flex items-center justify-center gap-2 text-2xl font-bold"
+              style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+            >
               {player.display_name}
               {player.insurance_status === "active" ? (
                 <ShieldCheck className="h-5 w-5 text-green-600" />
@@ -155,21 +167,95 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
               )}
             </h1>
 
-            <div className="mt-2">
-              <SkillBadge level={player.skill_level} />
-            </div>
-
+            {/* Club badge */}
             <ProfileClubBadge
               clubId={player.home_club_id ?? null}
               isOwnProfile={isOwnProfile}
             />
 
+            {/* Member since */}
+            <p className="mt-1 text-xs" style={{ color: "#3D5A3E" }}>
+              Member since {memberSinceYear}
+            </p>
+
+            {/* Skill badge */}
+            <div className="mt-3">
+              <SkillBadge level={player.skill_level} />
+            </div>
+
+            {/* Position badges */}
+            {(player.preferred_position || player.preferred_hand || player.years_experience !== null) && (
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+                {player.preferred_position && (
+                  <span className="inline-flex items-center rounded-full bg-[#1B5E20] px-3 py-1 text-xs font-medium text-white">
+                    {player.preferred_position.charAt(0).toUpperCase() + player.preferred_position.slice(1)}
+                  </span>
+                )}
+                {player.preferred_hand && (
+                  <span className="inline-flex items-center rounded-full bg-[#1B5E20] px-3 py-1 text-xs font-medium text-white">
+                    {player.preferred_hand.charAt(0).toUpperCase() + player.preferred_hand.slice(1)}-handed
+                  </span>
+                )}
+                {player.years_experience !== null && (
+                  <span className="inline-flex items-center rounded-full bg-[#1B5E20] px-3 py-1 text-xs font-medium text-white">
+                    {player.years_experience} {player.years_experience === 1 ? "year" : "years"} exp
+                  </span>
+                )}
+              </div>
+            )}
+
+            {/* Stats card */}
+            {stats && (
+              <div className="mt-6 grid grid-cols-3 gap-4 rounded-xl border border-[#0A2E12]/10 bg-[#FEFCF9] p-4">
+                <div className="text-center">
+                  <p
+                    className="text-2xl font-bold"
+                    style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+                  >
+                    {stats.games_played ?? 0}
+                  </p>
+                  <p className="text-xs" style={{ color: "#3D5A3E" }}>
+                    Matches
+                  </p>
+                </div>
+                <div className="text-center">
+                  <p
+                    className="text-2xl font-bold"
+                    style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+                  >
+                    {stats.win_rate != null ? `${Math.round(stats.win_rate)}%` : "--"}
+                  </p>
+                  <p className="text-xs" style={{ color: "#3D5A3E" }}>
+                    Win Rate
+                  </p>
+                </div>
+                <div className="text-center">
+                  <p
+                    className="text-2xl font-bold"
+                    style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+                  >
+                    {stats.wins ?? 0}
+                  </p>
+                  <p className="text-xs" style={{ color: "#3D5A3E" }}>
+                    Wins
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Add Friend and Message buttons */}
             {currentPlayer && !isOwnProfile && (
-              <div className="mt-4 flex items-center gap-3">
+              <div className="mt-6 flex items-center gap-3">
                 <AddFriendButton
                   targetId={player.id}
                   status={friendStatus}
                 />
+                <Link
+                  href={`/chat?to=${player.id}`}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#145218] min-h-[44px]"
+                >
+                  <MessageCircle className="h-4 w-4" /> Message
+                </Link>
                 <FavoriteButton
                   playerId={currentPlayer.id}
                   favoriteId={player.id}
@@ -179,39 +265,45 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
             )}
           </div>
 
+          {/* Bio */}
           {player.bio && (
-            <div>
-              <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">About</h2>
-              <p className="text-sm text-[#2D4A30] whitespace-pre-line">{player.bio}</p>
+            <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 shadow-sm">
+              <h2
+                className="mb-2 text-lg font-bold"
+                style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+              >
+                About
+              </h2>
+              <p className="text-sm whitespace-pre-line" style={{ color: "#3D5A3E" }}>{player.bio}</p>
             </div>
           )}
 
-          {(player.preferred_position || player.preferred_hand || player.years_experience !== null) && (
-            <div>
-              <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Preferences</h2>
-              <div className="flex flex-wrap gap-2">
-                {player.preferred_position && (
-                  <span className="inline-flex items-center rounded-full bg-[#1B5E20]/10 px-3 py-1 text-xs font-medium text-[#1B5E20]">
-                    {player.preferred_position.charAt(0).toUpperCase() + player.preferred_position.slice(1)}
-                  </span>
-                )}
-                {player.preferred_hand && (
-                  <span className="inline-flex items-center rounded-full bg-[#1B5E20]/10 px-3 py-1 text-xs font-medium text-[#1B5E20]">
-                    {player.preferred_hand.charAt(0).toUpperCase() + player.preferred_hand.slice(1)}
-                  </span>
-                )}
-                {player.years_experience !== null && (
-                  <span className="inline-flex items-center rounded-full bg-[#1B5E20]/10 px-3 py-1 text-xs font-medium text-[#1B5E20]">
-                    {player.years_experience} {player.years_experience === 1 ? "year" : "years"} experience
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
+          {/* Skill Endorsements */}
+          <Endorsements
+            playerId={player.id}
+            isOwnProfile={isOwnProfile}
+            currentPlayerId={currentPlayer?.id ?? null}
+          />
+
+          {/* Honours & Badges (Achievements) */}
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 shadow-sm">
+            <h2
+              className="mb-3 text-lg font-bold"
+              style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+            >
+              Honours & Badges
+            </h2>
+            <AchievementBadges achievements={achievements} />
+          </div>
 
           {player.sports.length > 0 && (
-            <div>
-              <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Sports</h2>
+            <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 shadow-sm">
+              <h2
+                className="mb-2 text-lg font-bold"
+                style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+              >
+                Sports
+              </h2>
               <SportsTags sports={player.sports} />
             </div>
           )}
@@ -221,14 +313,6 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
           {player.sports.includes("lawn_bowling") && (
             <BowlsRatingsCard playerId={player.id} />
           )}
-
-          <AchievementBadges achievements={achievements} />
-
-          <Endorsements
-            playerId={player.id}
-            isOwnProfile={isOwnProfile}
-            currentPlayerId={currentPlayer?.id ?? null}
-          />
 
           <PhotoGalleryReadonly photos={photos} />
 
@@ -240,12 +324,17 @@ export default async function PlayerProfilePage({ params }: { params: Promise<{ 
 
           <ContactInfo prefs={contactPrefs} />
 
-          <div>
-            <h2 className="mb-2 text-sm font-medium text-[#3D5A3E]">Waiver Status</h2>
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 shadow-sm">
+            <h2
+              className="mb-2 text-lg font-bold"
+              style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+            >
+              Waiver Status
+            </h2>
             <WaiverStatus waiver={waiver} />
           </div>
 
-          <p className="text-center text-xs text-[#3D5A3E]">
+          <p className="text-center text-xs" style={{ color: "#3D5A3E" }}>
             Member since {new Date(player.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long" })}
           </p>
         </div>

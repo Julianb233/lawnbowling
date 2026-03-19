@@ -55,10 +55,10 @@ function calculateItems(
     },
     {
       key: "skill_level",
-      label: "Skill level",
+      label: "Experience",
       weight: 10,
       completed: !!player.skill_level && player.skill_level !== "beginner",
-      suggestion: "Set your skill level",
+      suggestion: "Set your experience level",
     },
     {
       key: "preferred_position",

@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "LawnBowl — Where Friendships Roll | Lawn Bowling Club Management",
+  description:
+    "Tournament management, live scoring, and club tools for lawn bowling clubs. Replace the paper draw sheet with a digital clubhouse experience. Free for clubs.",
+  openGraph: {
+    title: "LawnBowl — Where Friendships Roll | Lawn Bowling Club Management",
+    description:
+      "Tournament management, live scoring, and club tools for lawn bowling clubs. Replace the paper draw sheet with a digital clubhouse experience. Free for clubs.",
+    url: "https://www.lawnbowling.app",
+  },
+};
 import {
   Users,
   Trophy,
@@ -14,6 +27,9 @@ import {
 } from "lucide-react";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
 import { HomeNav } from "@/components/home/HomeNav";
+import { HeroParallax } from "@/components/home/HeroParallax";
+import celebrationWinImg from "@/../public/images/celebration-win.png";
+import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 export default function HomePage() {
   return (
@@ -21,25 +37,27 @@ export default function HomePage() {
       {/* Navigation — overlays hero */}
       <HomeNav />
 
-      {/* Hero — Full-bleed emotional image */}
+      {/* Hero — Full-bleed emotional image with parallax */}
       <section className="relative">
-        <div className="relative h-[75vh] min-h-[500px] max-h-[800px] w-full overflow-hidden">
-          <Image
-            src="/images/hero-friends-wide.png"
-            alt="Friends laughing together on a bowling green at golden hour"
-            fill
-            priority
-            className="object-cover object-top"
-            sizes="100vw"
-          />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A2E12]/90 via-[#0A2E12]/30 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A2E12]/40 to-transparent" />
+        <div className="relative h-[80vh] min-h-[550px] max-h-[900px] w-full overflow-hidden">
+          <HeroParallax>
+            <Image
+              src="/images/hero-friends-wide.png"
+              alt="Friends laughing together on a bowling green at golden hour"
+              fill
+              priority
+              className="object-cover object-top login-ken-burns"
+              sizes="100vw"
+            />
+          </HeroParallax>
+          {/* Gradient overlay — deeper fade at bottom */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A2E12] via-[#0A2E12]/40 to-[#0A2E12]/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A2E12]/50 to-transparent" />
         </div>
 
         {/* Hero content */}
         <div className="absolute inset-0 flex items-end">
-          <div className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 sm:pb-16 lg:px-8 lg:pb-20">
+          <div className="mx-auto w-full max-w-7xl px-4 pb-14 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24">
             <FadeIn>
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#A8D5BA] sm:mb-4 sm:text-base">
                 The #1 Lawn Bowling Platform
@@ -52,7 +70,7 @@ export default function HomePage() {
                 <span className="italic text-[#A8D5BA]">roll.</span>
               </h1>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-white/75 sm:mt-6 sm:text-lg md:text-xl">
-                Tournament management, live scoring, and club tools — all from the clubhouse iPad.
+                Tournament management, live scoring, and club tools — from the clubhouse or your pocket.
               </p>
             </FadeIn>
 
@@ -60,14 +78,14 @@ export default function HomePage() {
               <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
                 <Link
                   href="/signup"
-                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-base font-semibold text-[#1B5E20] dark:text-[#4ade80] shadow-2xl transition-all hover:bg-[#F0FFF4] hover:shadow-3xl active:scale-[0.97]"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-base font-semibold text-[#1B5E20] dark:text-[#4ade80] shadow-2xl transition-all hover:bg-[#F0FFF4] hover:shadow-3xl hover:-translate-y-0.5 active:scale-[0.97]"
                 >
                   Start Free{" "}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/clubs"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/30 px-7 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:border-white/60 hover:bg-white/10 active:scale-[0.97]"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/30 px-7 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:border-white/60 hover:bg-white/10 hover:-translate-y-0.5 active:scale-[0.97]"
                 >
                   <MapPin className="h-4 w-4" /> Find a Club
                 </Link>
@@ -204,9 +222,9 @@ export default function HomePage() {
             },
           ].map((feature) => (
             <StaggerItem key={feature.title}>
-              <div className="group rounded-xl border border-[#0A2E12]/10 dark:border-white/10 bg-white dark:bg-[#1a3d28] p-5 transition-all hover:shadow-lg sm:rounded-2xl sm:p-6">
+              <div className="group rounded-xl border border-[#0A2E12]/10 dark:border-white/10 bg-white dark:bg-[#1a3d28] p-5 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 sm:rounded-2xl sm:p-6">
                 <div
-                  className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg ${feature.glow}`}
+                  className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg ${feature.glow} transition-transform duration-300 group-hover:scale-110`}
                 >
                   <feature.icon className="h-6 w-6 text-white" />
                 </div>

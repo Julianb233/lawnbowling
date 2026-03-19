@@ -4,7 +4,7 @@ import { useState, useMemo, useCallback, lazy, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Search, MapPin, Users, ChevronRight, Globe, Leaf, Map as MapIcon, List, CircleDot, CheckCircle, Navigation, Home } from "lucide-react";
+import { Search, MapPin, Users, ChevronRight, ChevronDown, Globe, Leaf, Map as MapIcon, List, CircleDot, CheckCircle, Navigation, Home, SlidersHorizontal } from "lucide-react";
 import { BottomNav } from "@/components/board/BottomNav";
 import { ClubLogo, getClubCoverImage } from "@/components/clubs/ClubLogo";
 import {
@@ -37,6 +37,7 @@ export default function ClubDirectoryPage() {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [nearMeActive, setNearMeActive] = useState(false);
   const [geoLoading, setGeoLoading] = useState(false);
+  const [locationFiltersOpen, setLocationFiltersOpen] = useState(false);
   const stats = getClubStats();
 
   const allClubs = useMemo(() => getAllClubs(), []);
@@ -133,7 +134,7 @@ export default function ClubDirectoryPage() {
           </nav>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-[var(--font-display)] text-2xl font-black tracking-tight text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Club Directory</h1>
+              <h1 className="font-display text-2xl font-black tracking-tight text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Find a Club</h1>
               <p className="text-sm text-[#3D5A3E]">{stats.totalClubs} clubs{stats.totalCountries > 1 ? ` across ${stats.totalCountries} countries` : " across the USA"}</p>
             </div>
             <div className="flex items-center gap-2">
@@ -163,6 +164,7 @@ export default function ClubDirectoryPage() {
           <StatCard value={stats.activeClubs} label="Active Clubs" icon={<CheckCircle className="w-6 h-6 text-[#1B5E20]" strokeWidth={1.5} />} />
         </motion.div>
 
+        {/* Search + Near Me */}
         <div className="relative mb-4 flex gap-2">
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#3D5A3E]" />
@@ -171,48 +173,91 @@ export default function ClubDirectoryPage() {
           <button
             onClick={handleNearMe}
             disabled={geoLoading}
-            className={`shrink-0 flex items-center gap-1.5 rounded-2xl border px-4 py-3.5 text-sm font-medium transition-colors touch-manipulation ${
+            className={`shrink-0 flex items-center gap-2 rounded-2xl border px-5 py-3.5 text-sm font-bold transition-colors touch-manipulation min-h-[48px] ${
               nearMeActive
-                ? "border-[#1B5E20] bg-[#1B5E20] text-white"
-                : "border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#0A2E12]/10 hover:bg-[#0A2E12]/[0.03]"
+                ? "border-[#1B5E20] bg-[#1B5E20] text-white shadow-lg shadow-[#1B5E20]/20"
+                : "border-[#1B5E20] bg-[#1B5E20] text-white hover:bg-[#145218] shadow-md shadow-[#1B5E20]/15"
             } ${geoLoading ? "opacity-60" : ""}`}
           >
-            <Navigation className="h-4 w-4" />
-            <span className="hidden sm:inline">{geoLoading ? "Locating..." : "Near Me"}</span>
+            <Navigation className="h-5 w-5" />
+            <span>{geoLoading ? "Locating..." : "Near Me"}</span>
           </button>
         </div>
 
-        {/* Country tabs */}
-        {stats.totalCountries > 1 && (
-          <div className="mb-3 flex gap-2 overflow-x-auto scrollbar-hide">
-            <FilterPill active={activeCountry === "all"} onClick={() => { setActiveCountry("all"); setActiveRegion("all"); setActiveState("all"); }} label={`All (${stats.totalClubs})`} />
-            {(Object.keys(COUNTRIES) as CountryCode[]).filter((c) => allClubs.some((cl) => (cl.country ?? cl.countryCode ?? "US") === c)).map((c) => {
-              const count = allClubs.filter((cl) => (cl.country ?? cl.countryCode ?? "US") === c).length;
-              return <FilterPill key={c} active={activeCountry === c} onClick={() => { setActiveCountry(c); setActiveRegion("all"); setActiveState("all"); }} label={`${COUNTRIES[c].flag} ${COUNTRIES[c].name} (${count})`} />;
-            })}
-          </div>
-        )}
+        {/* Collapsible location filters */}
+        <div className="mb-4">
+          <button
+            onClick={() => setLocationFiltersOpen(!locationFiltersOpen)}
+            className="flex w-full items-center justify-between rounded-2xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm font-medium text-[#3D5A3E] transition-colors hover:bg-[#0A2E12]/[0.03] touch-manipulation min-h-[44px]"
+          >
+            <span className="flex items-center gap-2">
+              <SlidersHorizontal className="h-4 w-4" />
+              Filter by location
+              {(activeCountry !== "all" || activeRegion !== "all" || activeState !== "all") && (
+                <span className="rounded-full bg-[#1B5E20] px-2 py-0.5 text-xs font-bold text-white">
+                  {[activeCountry !== "all" && COUNTRIES[activeCountry as CountryCode]?.name, activeRegion !== "all" && REGION_LABELS[activeRegion as USRegion]?.label, activeState !== "all" && activeState].filter(Boolean).join(" / ")}
+                </span>
+              )}
+            </span>
+            <ChevronDown className={`h-4 w-4 transition-transform ${locationFiltersOpen ? "rotate-180" : ""}`} />
+          </button>
 
-        {/* Region filters (US-only) */}
-        {(activeCountry === "all" || activeCountry === "US") && (
-          <div className="mb-3 flex gap-2 overflow-x-auto scrollbar-hide">
-            <FilterPill active={activeRegion === "all"} onClick={() => { setActiveRegion("all"); setActiveState("all"); }} label="All Regions" />
-            {(Object.keys(REGION_LABELS) as USRegion[]).map((r) => (
-              <FilterPill key={r} active={activeRegion === r} onClick={() => { setActiveRegion(r); setActiveState("all"); }} label={REGION_LABELS[r].label} />
-            ))}
-          </div>
-        )}
+          {locationFiltersOpen && (
+            <div className="mt-2 space-y-2 rounded-2xl border border-[#0A2E12]/10 bg-white p-4">
+              {/* Country tabs */}
+              {stats.totalCountries > 1 && (
+                <div>
+                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]">Country</p>
+                  <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                    <FilterPill active={activeCountry === "all"} onClick={() => { setActiveCountry("all"); setActiveRegion("all"); setActiveState("all"); }} label={`All (${stats.totalClubs})`} />
+                    {(Object.keys(COUNTRIES) as CountryCode[]).filter((c) => allClubs.some((cl) => (cl.country ?? cl.countryCode ?? "US") === c)).map((c) => {
+                      const count = allClubs.filter((cl) => (cl.country ?? cl.countryCode ?? "US") === c).length;
+                      return <FilterPill key={c} active={activeCountry === c} onClick={() => { setActiveCountry(c); setActiveRegion("all"); setActiveState("all"); }} label={`${COUNTRIES[c].flag} ${COUNTRIES[c].name} (${count})`} />;
+                    })}
+                  </div>
+                </div>
+              )}
 
-        {/* State/Province filter */}
-        {(activeCountry === "all" || activeCountry === "US") && (
-          <div className="mb-4 flex gap-2 overflow-x-auto scrollbar-hide">
-            <FilterPill active={activeState === "all"} onClick={() => setActiveState("all")} label="All States" />
-            {availableStates.map((s) => (
-              <FilterPill key={s} active={activeState === s} onClick={() => setActiveState(s)} label={s} />
-            ))}
-          </div>
-        )}
+              {/* Region filters (US-only) */}
+              {(activeCountry === "all" || activeCountry === "US") && (
+                <div>
+                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]">Region</p>
+                  <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                    <FilterPill active={activeRegion === "all"} onClick={() => { setActiveRegion("all"); setActiveState("all"); }} label="All Regions" />
+                    {(Object.keys(REGION_LABELS) as USRegion[]).map((r) => (
+                      <FilterPill key={r} active={activeRegion === r} onClick={() => { setActiveRegion(r); setActiveState("all"); }} label={REGION_LABELS[r].label} />
+                    ))}
+                  </div>
+                </div>
+              )}
 
+              {/* State/Province filter */}
+              {(activeCountry === "all" || activeCountry === "US") && (
+                <div>
+                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-[#3D5A3E]">State</p>
+                  <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                    <FilterPill active={activeState === "all"} onClick={() => setActiveState("all")} label="All States" />
+                    {availableStates.map((s) => (
+                      <FilterPill key={s} active={activeState === s} onClick={() => setActiveState(s)} label={s} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Clear location filters */}
+              {(activeCountry !== "all" || activeRegion !== "all" || activeState !== "all") && (
+                <button
+                  onClick={() => { setActiveCountry("all"); setActiveRegion("all"); setActiveState("all"); }}
+                  className="text-xs font-medium text-[#1B5E20] hover:underline"
+                >
+                  Clear location filters
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Activity filters — horizontally scrollable on one line */}
         <div className="mb-6 flex gap-2 overflow-x-auto scrollbar-hide">
           <FilterPill active={activeActivity === "all"} onClick={() => setActiveActivity("all")} label="All Activities" small />
           {activities.map((a) => (
@@ -236,7 +281,7 @@ export default function ClubDirectoryPage() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#0A2E12]/5">
               <MapPin className="h-8 w-8 text-[#3D5A3E]" />
             </div>
-            <h3 className="text-lg font-bold text-[#0A2E12]">No clubs found</h3>
+            <h3 className="text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>No clubs found</h3>
             <p className="mt-1 text-sm text-[#3D5A3E]">Try adjusting your search or filters</p>
           </div>
         ) : nearMeActive && userLocation ? (
@@ -254,9 +299,9 @@ export default function ClubDirectoryPage() {
         )}
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-12 rounded-2xl border border-dashed border-[#0A2E12]/10 bg-white p-8 text-center">
-          <h3 className="text-lg font-bold text-[#0A2E12]">Don&apos;t see your club?</h3>
+          <h3 className="text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>Don&apos;t see your club?</h3>
           <p className="mt-1 text-sm text-[#3D5A3E]">Help us build the most complete lawn bowls directory in the world</p>
-          <Link href="/clubs/claim" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#1B5E20] transition-colors">
+          <Link href="/clubs/claim" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] transition-colors min-h-[44px]">
             <MapPin className="h-4 w-4" />
             Add Your Club
           </Link>
@@ -270,9 +315,9 @@ export default function ClubDirectoryPage() {
 
 function StatCard({ value, label, icon }: { value: string | number; label: string; icon: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-4 text-center">
+    <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6 text-center">
       <div className="flex justify-center mb-1">{icon}</div>
-      <p className="mt-1 text-2xl font-black text-[#0A2E12] tabular-nums">{value}</p>
+      <p className="mt-1 text-2xl font-black text-[#B8860B] tabular-nums font-display" style={{ fontFamily: "var(--font-display)" }}>{value}</p>
       <p className="text-xs font-medium text-[#3D5A3E]">{label}</p>
     </div>
   );
@@ -294,7 +339,7 @@ function StateSection({ stateCode, clubs, distanceMap }: { stateCode: string; cl
     <section>
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h2 className="text-lg font-black text-[#0A2E12]">{stateName}</h2>
+          <h2 className="text-lg font-black text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>{stateName}</h2>
           <span className="rounded-full bg-[#0A2E12]/5 px-2.5 py-0.5 text-xs font-bold text-[#3D5A3E] tabular-nums">{clubs.length}</span>
         </div>
         <Link href={`/clubs/${stateCode.toLowerCase()}`} className="text-sm font-medium text-[#1B5E20] hover:text-[#1B5E20]">View all →</Link>
@@ -322,10 +367,10 @@ function ClubCard({ club, index, distanceMi }: { club: ClubData; index: number; 
                 <ClubLogo name={club.name} stateCode={club.stateCode} country={club.country ?? club.countryCode} logoUrl={club.logoUrl} size="xs" />
               </div>
             </div>
-            <div className="flex-1 min-w-0 p-4 flex items-start justify-between gap-3">
+            <div className="flex-1 min-w-0 p-5 sm:p-6 flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base font-bold text-[#0A2E12] group-hover:text-[#1B5E20] transition-colors truncate">{club.name}</h3>
+                  <h3 className="text-base font-semibold text-[#0A2E12] group-hover:text-[#1B5E20] transition-colors truncate">{club.name}</h3>
                   {distanceMi != null && (
                     <span className="shrink-0 rounded-full bg-blue-50 px-2 py-0.5 text-xs font-semibold text-blue-700 tabular-nums">
                       {distanceMi < 1 ? "<1" : Math.round(distanceMi)} mi

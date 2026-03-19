@@ -113,7 +113,7 @@ export default function AdminWaiverTemplatesPage() {
 
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#0A2E12]">Waiver Templates</h1>
+          <h1 className="text-2xl font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Waiver Templates</h1>
           <p className="text-sm text-[#3D5A3E]">
             Configure the waiver text shown to players during sign-up.
           </p>
@@ -121,7 +121,7 @@ export default function AdminWaiverTemplatesPage() {
         {!creating && !editing && (
           <button
             onClick={startCreate}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#1B5E20] px-4 py-2 text-sm font-medium text-[#0A2E12] hover:bg-[#1B5E20] transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] transition-colors"
           >
             <Plus className="h-4 w-4" /> New Template
           </button>
@@ -141,8 +141,8 @@ export default function AdminWaiverTemplatesPage() {
       )}
 
       {(creating || editing) && (
-        <div className="mb-6 rounded-xl border border-[#0A2E12]/10 bg-white p-6 space-y-4">
-          <h2 className="text-lg font-semibold text-[#0A2E12]">
+        <div className="mb-6 rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6 space-y-4">
+          <h2 className="text-lg font-semibold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>
             {creating ? "Create Template" : "Edit Template"}
           </h2>
 
@@ -186,7 +186,7 @@ export default function AdminWaiverTemplatesPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="inline-flex items-center gap-2 rounded-lg bg-[#1B5E20] px-4 py-2 text-sm font-medium text-[#0A2E12] hover:bg-[#1B5E20] disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] disabled:opacity-50 transition-colors"
             >
               {saving ? "Saving..." : "Save Template"}
             </button>
@@ -205,7 +205,7 @@ export default function AdminWaiverTemplatesPage() {
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#0A2E12]/10 border-t-[#1B5E20]" />
         </div>
       ) : templates.length === 0 ? (
-        <div className="rounded-xl border border-[#0A2E12]/10 bg-white py-12 text-center">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white py-12 text-center">
           <p className="text-[#3D5A3E]">No waiver templates yet.</p>
           <p className="mt-1 text-sm text-[#3D5A3E]">
             The default waiver text will be used until you create a custom template.

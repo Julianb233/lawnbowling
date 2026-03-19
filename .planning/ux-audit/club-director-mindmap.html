@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lawn Bowl Club Director UX Mind Map — 500 Member Day</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0a0f1a;
+    color: #e0e6ed;
+    overflow-x: auto;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a472a 0%, #2d5a3f 50%, #1a3a2a 100%);
+    padding: 32px 40px;
+    border-bottom: 3px solid #4ade80;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header h1 { font-size: 28px; color: #4ade80; margin-bottom: 8px; }
+  .header p { font-size: 16px; color: #a3c9b0; }
+  .legend {
+    display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px; font-size: 13px;
+  }
+  .legend-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+  }
+  .mindmap-container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  /* Phase row */
+  .phase {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+    margin-bottom: 0;
+  }
+  .phase-connector {
+    width: 4px;
+    background: linear-gradient(to bottom, #4ade80, #22c55e);
+    min-height: 40px;
+    margin-left: 80px;
+    flex-shrink: 0;
+  }
+  .phase-node {
+    flex-shrink: 0;
+    width: 164px;
+    background: linear-gradient(135deg, #1a472a, #2d6b44);
+    border: 2px solid #4ade80;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
+  }
+  .phase-node .phase-number {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #4ade80;
+    margin-bottom: 4px;
+  }
+  .phase-node .phase-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .phase-node .phase-subtitle {
+    font-size: 11px;
+    color: #a3c9b0;
+    margin-top: 4px;
+  }
+  /* Branch area */
+  .branches {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 40px;
+    position: relative;
+    flex: 1;
+  }
+  .branches::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 40px;
+    height: 2px;
+    background: #4ade80;
+  }
+  .branch-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  /* Cards */
+  .card {
+    border-radius: 12px;
+    padding: 14px 16px;
+    min-width: 220px;
+    max-width: 320px;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .card-good {
+    background: linear-gradient(135deg, #052e16, #14532d);
+    border: 1px solid #22c55e;
+  }
+  .card-problem {
+    background: linear-gradient(135deg, #451a03, #7c2d12);
+    border: 1px solid #f97316;
+  }
+  .card-critical {
+    background: linear-gradient(135deg, #450a0a, #7f1d1d);
+    border: 1px solid #ef4444;
+  }
+  .card-config {
+    background: linear-gradient(135deg, #172554, #1e3a5f);
+    border: 1px solid #3b82f6;
+  }
+  .card-idea {
+    background: linear-gradient(135deg, #3b0764, #581c87);
+    border: 1px solid #a855f7;
+  }
+  .card .card-id {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+  .card-good .card-id { color: #4ade80; }
+  .card-problem .card-id { color: #fb923c; }
+  .card-critical .card-id { color: #f87171; }
+  .card-config .card-id { color: #60a5fa; }
+  .card-idea .card-id { color: #c084fc; }
+  .card .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .card .card-desc {
+    font-size: 12px;
+    color: #d1d5db;
+    line-height: 1.5;
+  }
+  .card .card-file {
+    font-size: 10px;
+    color: #9ca3af;
+    margin-top: 8px;
+    font-family: monospace;
+    background: rgba(0,0,0,0.3);
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  .card .priority-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .priority-p1 { background: #ef4444; color: #fff; }
+  .priority-p2 { background: #f97316; color: #fff; }
+  .priority-p3 { background: #eab308; color: #000; }
+
+  .stats-bar {
+    display: flex;
+    gap: 24px;
+    padding: 20px 40px;
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-value { font-size: 28px; font-weight: 800; }
+  .stat-label { font-size: 12px; color: #9ca3af; margin-top: 4px; }
+  .stat-good .stat-value { color: #4ade80; }
+  .stat-problem .stat-value { color: #f97316; }
+  .stat-critical .stat-value { color: #ef4444; }
+  .stat-config .stat-value { color: #60a5fa; }
+  .stat-idea .stat-value { color: #a855f7; }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    padding: 12px 40px;
+    gap: 16px;
+  }
+  .section-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #4ade80, transparent);
+  }
+  .section-divider .arrow {
+    font-size: 20px;
+    color: #4ade80;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .config-section {
+    padding: 24px 40px;
+    background: rgba(59, 130, 246, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: 16px;
+    margin: 0 40px 24px;
+  }
+  .config-section h3 {
+    color: #60a5fa;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+  .config-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .config-item {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .config-item h4 { color: #93c5fd; font-size: 14px; margin-bottom: 6px; }
+  .config-item p { color: #d1d5db; font-size: 12px; line-height: 1.5; }
+  .config-item .config-detail { color: #60a5fa; font-size: 11px; font-style: italic; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Club Director UX Mind Map — "Lon Bolin's 500-Member Saturday"</h1>
+  <p>Simulated walkthrough as a 70-year-old managing a full tournament day. Every phase, every tap, every frustration.</p>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div> Working Well</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f97316"></div> Needs Improvement</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div> Critical Blocker</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> LB Configuration</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div> Feature Idea</div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat stat-good"><div class="stat-value">8</div><div class="stat-label">Working Well</div></div>
+  <div class="stat stat-problem"><div class="stat-value">12</div><div class="stat-label">Needs Improvement</div></div>
+  <div class="stat stat-critical"><div class="stat-value">5</div><div class="stat-label">Critical Blockers</div></div>
+  <div class="stat stat-config"><div class="stat-value">4</div><div class="stat-label">LB Configs Referenced</div></div>
+  <div class="stat stat-idea"><div class="stat-value">6</div><div class="stat-label">Feature Ideas</div></div>
+</div>
+
+<!-- ===== LAWN BOWLING CONFIGURATIONS REFERENCE ===== -->
+<div class="config-section">
+  <h3>Lawn Bowling Configurations Reference (All Formats)</h3>
+  <div class="config-grid">
+    <div class="config-item">
+      <h4>Fours (Rinks) — 4v4</h4>
+      <p>2 bowls per player. 4 positions: Lead, Second, Vice/Third, Skip. Standard competitive format used in Pennant leagues.</p>
+      <div class="config-detail">8 players/rink. 500 members = 62 rinks needed. Draw: Mead or Gavel rotation tables.</div>
+    </div>
+    <div class="config-item">
+      <h4>Triples — 3v3</h4>
+      <p>3 bowls per player. 3 positions: Lead, Second, Skip. Most popular social format worldwide.</p>
+      <div class="config-detail">6 players/rink. 500 members = 83 rinks. Draw: Random or Seeded.</div>
+    </div>
+    <div class="config-item">
+      <h4>Pairs — 2v2</h4>
+      <p>4 bowls per player. 2 positions: Lead, Skip. Faster games, great for beginners.</p>
+      <div class="config-detail">4 players/rink. 500 members = 125 rinks. Draw: Random.</div>
+    </div>
+    <div class="config-item">
+      <h4>Singles — 1v1</h4>
+      <p>4 bowls per player. No positions. Practice or competitive ranking format.</p>
+      <div class="config-detail">2 players/rink. 500 members = 250 rinks. Usually limited entry.</div>
+    </div>
+    <div class="config-item">
+      <h4>Mead Draw System</h4>
+      <p>Pre-computed rotation tables ensuring every player faces different opponents across rounds. Best for multi-round social bowls.</p>
+      <div class="config-detail">Supports specific player counts (16, 20, 24, etc.). Falls back to random for unsupported counts.</div>
+    </div>
+    <div class="config-item">
+      <h4>Gavel Draw System</h4>
+      <p>Fours-only rotation tables. Used in formal competition and championship qualifying events.</p>
+      <div class="config-detail">Limited to Fours format. Pre-defined rotation patterns.</div>
+    </div>
+    <div class="config-item">
+      <h4>Seeded Draw</h4>
+      <p>Position-based assignment using skill ratings. Balances rinks by distributing experienced Skips evenly.</p>
+      <div class="config-detail">Uses ELO ratings per position. Skill Balance weighs 40% in team-assignment-engine.</div>
+    </div>
+    <div class="config-item">
+      <h4>Pennant League (Round Robin)</h4>
+      <p>Competitive season play: Divisions, fixtures, home/away. Circle method scheduling. Points: W=2, D=1, L=0.</p>
+      <div class="config-detail">Standings: Points > Shot Diff > Shots For > Rink Wins. Season states: draft/reg/in-progress/complete.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PHASE 1: PRE-DAY SETUP ===== -->
+<div class="mindmap-container">
+
+  <div class="phase">
+    <div class="phase-node">
+      <div class="phase-number">Phase 1</div>
+      <div class="phase-title">Pre-Day Setup</div>
+      <div class="phase-subtitle">Create Tournament</div>
+    </div>
+    <div class="branches">
+      <div class="branch-row">
+        <div class="card card-good">
+          <div class="card-id">Strength</div>
+          <div class="card-title">Clean 5-Field Create Form</div>
+          <div class="card-desc">Name, format (4 buttons), max players, date, inter-club toggle. Manageable for any age.</div>
+          <div class="card-file">CreateBowlsTournamentModal.tsx</div>
+        </div>
+        <div class="card card-critical">
+          <span class="priority-badge priority-p1">P1</span>
+          <div class="card-id">Issue #1</div>
+          <div class="card-title">No Mixed Format Support</div>
+          <div class="card-desc">500 members can't all play Fours (need 62 rinks, only have ~72 max). Must create 4 SEPARATE tournaments for mixed formats. Exhausting for a 70-year-old.</div>
+          <div class="card-file">CreateBowlsTournamentModal.tsx</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #2</div>
+          <div class="card-title">No Tournament Templates</div>
+          <div class="card-desc">Every Saturday is the same format. No "Repeat Last Week" or saved presets. Re-enter everything from scratch.</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p3">P3</span>
+          <div class="card-id">Issue #3</div>
+          <div class="card-title">No Max Player Validation</div>
+          <div class="card-desc">Text input for max players. Fat-finger 50 vs 500 with no warning. Should validate against club size.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="line"></div>
+    <div class="arrow">&#9660;</div>
+    <div class="line" style="background:linear-gradient(to left, #4ade80, transparent)"></div>
+  </div>
+
+  <!-- ===== PHASE 2: CHECK-IN ===== -->
+  <div class="phase">
+    <div class="phase-node">
+      <div class="phase-number">Phase 2</div>
+      <div class="phase-title">Check-In</div>
+      <div class="phase-subtitle">500 Members Arriving</div>
+    </div>
+    <div class="branches">
+      <div class="branch-row">
+        <div class="card card-good">
+          <div class="card-id">Strength</div>
+          <div class="card-title">Excellent Kiosk Touch Targets</div>
+          <div class="card-desc">56-88px buttons on iPad kiosk. A-Z letter filter. 10-second undo. Position selection 88px tall. Perfect for arthritis.</div>
+          <div class="card-file">KioskBowlsCheckIn.tsx:369-520</div>
+        </div>
+        <div class="card card-critical">
+          <span class="priority-badge priority-p1">P1</span>
+          <div class="card-id">Issue #4</div>
+          <div class="card-title">Single iPad = 4-Hour Queue</div>
+          <div class="card-desc">500 x 30sec = 250 min on 1 device. Need multi-kiosk guidance, QR self-check-in poster generator, and bulk pre-check.</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #5</div>
+          <div class="card-title">No QR Code Self-Check-In</div>
+          <div class="card-desc">Phone check-in exists at /bowls/[id] but no QR poster to display on the wall. Members must know the URL.</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #6</div>
+          <div class="card-title">No Quick Add Guest</div>
+          <div class="card-desc">20-30 guests per event have no fast path. Must go to admin panel to add them. Need "Quick Add Guest" on kiosk.</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #7</div>
+          <div class="card-title">No Bulk Pre-Check-In</div>
+          <div class="card-desc">200 RSVPed members should check in with one tap. Currently each must walk up individually.</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p3">P3</span>
+          <div class="card-id">Issue #8</div>
+          <div class="card-title">Position Not Remembered</div>
+          <div class="card-desc">Each player re-selects their position every time. System should default to their last-used or profile position.</div>
+          <div class="card-file">KioskBowlsCheckIn.tsx:520</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="line"></div>
+    <div class="arrow">&#9660;</div>
+    <div class="line" style="background:linear-gradient(to left, #4ade80, transparent)"></div>
+  </div>
+
+  <!-- ===== PHASE 3: DRAW GENERATION ===== -->
+  <div class="phase">
+    <div class="phase-node">
+      <div class="phase-number">Phase 3</div>
+      <div class="phase-title">Draw Generation</div>
+      <div class="phase-subtitle">Split 500 into Teams</div>
+    </div>
+    <div class="branches">
+      <div class="branch-row">
+        <div class="card card-good">
+          <div class="card-id">Strength</div>
+          <div class="card-title">Sophisticated Team Engine</div>
+          <div class="card-desc">Skill Balance 40%, Position Pref 30%, Variety 20%, Social 10%. Odd-number sit-out rotation. One-tap generation.</div>
+          <div class="card-file">team-assignment-engine.ts</div>
+        </div>
+        <div class="card card-config">
+          <div class="card-id">Config</div>
+          <div class="card-title">4 Draw Algorithms Available</div>
+          <div class="card-desc">Random (social), Seeded (ELO-balanced), Mead (multi-round rotation), Gavel (fours competition). Algorithm selected per tournament.</div>
+          <div class="card-file">bowls-draw.ts</div>
+        </div>
+        <div class="card card-critical">
+          <span class="priority-badge priority-p1">P1</span>
+          <div class="card-id">Issue #9</div>
+          <div class="card-title">No Draw Preview</div>
+          <div class="card-desc">Clicking "Generate Draw" immediately commits all 500 players to rinks with no preview. Can't swap individuals before confirming.</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #10</div>
+          <div class="card-title">No Physical Green Mapping</div>
+          <div class="card-desc">3 greens at the club but rinks numbered 1-60 sequentially. Need "Green A: Rinks 1-20, Green B: Rinks 21-40" mapping.</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #11</div>
+          <div class="card-title">Mead Draw Player Limits</div>
+          <div class="card-desc">Pre-computed tables only work for specific counts (16, 20, 24). Falls back to random for 500 with no warning.</div>
+          <div class="card-file">bowls-draw.ts</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p3">P3</span>
+          <div class="card-id">Issue #12</div>
+          <div class="card-title">No Couple/Group Lock</div>
+          <div class="card-desc">Married couples (common in 70+ demographic) can't be locked together. Social factor is only 10% weight — not deterministic.</div>
+        </div>
+        <div class="card card-idea">
+          <div class="card-id">Idea</div>
+          <div class="card-title">Redraw Impact Preview</div>
+          <div class="card-desc">ConfirmRedrawModal says "Are you sure?" Show: "12 players move, 48 stay" so director can decide.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="line"></div>
+    <div class="arrow">&#9660;</div>
+    <div class="line" style="background:linear-gradient(to left, #4ade80, transparent)"></div>
+  </div>
+
+  <!-- ===== PHASE 4: SCORING ===== -->
+  <div class="phase">
+    <div class="phase-node">
+      <div class="phase-number">Phase 4</div>
+      <div class="phase-title">Live Scoring</div>
+      <div class="phase-subtitle">60 Rinks Playing</div>
+    </div>
+    <div class="branches">
+      <div class="branch-row">
+        <div class="card card-good">
+          <div class="card-id">Strength</div>
+          <div class="card-title">Auto-Save + Realtime Sync</div>
+          <div class="card-desc">Scores save after 1.5s delay. Supabase realtime pushes to all devices. TV display updates live. No "submit" to forget.</div>
+          <div class="card-file">scores/page.tsx</div>
+        </div>
+        <div class="card card-good">
+          <div class="card-id">Strength</div>
+          <div class="card-title">End-by-End +/- Buttons</div>
+          <div class="card-desc">Increment/decrement for each end. Clear, simple. Visual rink cards with team names and running totals.</div>
+        </div>
+        <div class="card card-critical">
+          <span class="priority-badge priority-p1">P1</span>
+          <div class="card-id">Issue #13</div>
+          <div class="card-title">60 Rinks = Scroll Nightmare</div>
+          <div class="card-desc">2-column grid with 60 rinks = 30 rows of scrolling on iPad. No search, no filter by rink # or green. Finding Rink 47 is a hunt.</div>
+          <div class="card-file">scores/page.tsx</div>
+        </div>
+        <div class="card card-critical">
+          <span class="priority-badge priority-p1">P1</span>
+          <div class="card-id">Issue #14</div>
+          <div class="card-title">Score Buttons Too Small (44px)</div>
+          <div class="card-desc">Main app score +/- buttons are 44px (min-h-[44px]). Kiosk uses 56-88px. Score entry needs kiosk-sized buttons for outdoor use.</div>
+          <div class="card-file">scores/page.tsx:483-495</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #15</div>
+          <div class="card-title">No Delegated Scoring</div>
+          <div class="card-desc">Only admin can enter scores. Each rink's Skip should get a per-rink QR/link to enter their own scores on their phone.</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #16</div>
+          <div class="card-title">Finalize Is Permanent</div>
+          <div class="card-desc">Once finalized, scores are locked forever. Typo on 1 rink means wrong results. Need admin "Unlock for Correction" button.</div>
+          <div class="card-file">scores/page.tsx:866-876</div>
+        </div>
+        <div class="card card-idea">
+          <div class="card-id">Idea</div>
+          <div class="card-title">Voice Score Entry</div>
+          <div class="card-desc">"Rink 12, end 5, team A 3 points" — spoken input for outdoor scoring. Web Speech API integration.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="line"></div>
+    <div class="arrow">&#9660;</div>
+    <div class="line" style="background:linear-gradient(to left, #4ade80, transparent)"></div>
+  </div>
+
+  <!-- ===== PHASE 5: RESULTS ===== -->
+  <div class="phase">
+    <div class="phase-node">
+      <div class="phase-number">Phase 5</div>
+      <div class="phase-title">Results</div>
+      <div class="phase-subtitle">Post-Game</div>
+    </div>
+    <div class="branches">
+      <div class="branch-row">
+        <div class="card card-good">
+          <div class="card-id">Strength</div>
+          <div class="card-title">Auto Standings Calculation</div>
+          <div class="card-desc">Wins > Shot Diff > Ends Won > Points For. Tiebreakers handled automatically. Print-friendly draw sheet.</div>
+        </div>
+        <div class="card card-good">
+          <div class="card-id">Strength</div>
+          <div class="card-title">TV Live Display Mode</div>
+          <div class="card-desc">/tv route shows rotating slides: scores, standings, next draw, announcements. Members watch from the bar.</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #17</div>
+          <div class="card-title">No "Announce Results" Button</div>
+          <div class="card-desc">Push notification system exists but no one-tap "Announce Results to All" from results page. Must manually compose.</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p3">P3</span>
+          <div class="card-id">Issue #18</div>
+          <div class="card-title">No Awards/Highlights</div>
+          <div class="card-desc">No "Best Rink," "Top Scorer," "Biggest Comeback" feature. Data exists in tournament_scores but no highlight UI.</div>
+        </div>
+        <div class="card card-idea">
+          <div class="card-id">Idea</div>
+          <div class="card-title">Large-Font Print Poster</div>
+          <div class="card-desc">Physical noticeboard-ready printout of results in poster format. Big text, bold standings. Pin on the clubhouse wall.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="line"></div>
+    <div class="arrow">&#9660;</div>
+    <div class="line" style="background:linear-gradient(to left, #4ade80, transparent)"></div>
+  </div>
+
+  <!-- ===== PHASE 6: MULTI-ROUND ===== -->
+  <div class="phase">
+    <div class="phase-node">
+      <div class="phase-number">Phase 6</div>
+      <div class="phase-title">Multi-Round</div>
+      <div class="phase-subtitle">Round 2+ Cycle</div>
+    </div>
+    <div class="branches">
+      <div class="branch-row">
+        <div class="card card-good">
+          <div class="card-id">Strength</div>
+          <div class="card-title">State Machine Flow</div>
+          <div class="card-desc">6-step wizard: Registration > Checkin > Draw > Scoring > Results > Complete. Linear, clear, can't get lost.</div>
+          <div class="card-file">TournamentWizard.tsx</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #19</div>
+          <div class="card-title">Round Transition Unclear</div>
+          <div class="card-desc">No clear "Start Round 2" CTA. Director must understand wizard cycling. Need a big, obvious "Next Round" button.</div>
+        </div>
+        <div class="card card-idea">
+          <div class="card-id">Idea</div>
+          <div class="card-title">Inter-Round Analytics</div>
+          <div class="card-desc">Between rounds: "Round 1 avg score per rink: 18, fastest game: Rink 7 (45min)." Conversation starter for the bar.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="line"></div>
+    <div class="arrow">&#9660;</div>
+    <div class="line" style="background:linear-gradient(to left, #4ade80, transparent)"></div>
+  </div>
+
+  <!-- ===== PHASE 7: POST-TOURNAMENT ===== -->
+  <div class="phase">
+    <div class="phase-node">
+      <div class="phase-number">Phase 7</div>
+      <div class="phase-title">Post-Tournament</div>
+      <div class="phase-subtitle">Wrap Up + Report</div>
+    </div>
+    <div class="branches">
+      <div class="branch-row">
+        <div class="card card-good">
+          <div class="card-id">Strength</div>
+          <div class="card-title">Auto ELO Rating Updates</div>
+          <div class="card-desc">Position-specific (Skip/Vice/Second/Lead/Singles) ratings update automatically. Season-scoped leaderboards.</div>
+          <div class="card-file">bowls-ratings.ts</div>
+        </div>
+        <div class="card card-problem">
+          <span class="priority-badge priority-p2">P2</span>
+          <div class="card-id">Issue #20</div>
+          <div class="card-title">No Email/SMS Results Blast</div>
+          <div class="card-desc">500 members want their scores emailed. No "Email Results to Participants" feature. Must be done manually outside app.</div>
+        </div>
+        <div class="card card-idea">
+          <div class="card-id">Idea</div>
+          <div class="card-title">Tournament Report PDF</div>
+          <div class="card-desc">Export full tournament report (draw, scores, standings, conditions) as PDF for bowling association submission.</div>
+        </div>
+        <div class="card card-idea">
+          <div class="card-id">Idea</div>
+          <div class="card-title">Accessibility Presets</div>
+          <div class="card-desc">Font size toggle (100%/125%/150%/200%). Dark mode. High contrast. Keyboard shortcuts (Enter=confirm, Esc=cancel).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Summary footer -->
+<div class="stats-bar" style="background: rgba(74,222,128,0.03); border-top: 2px solid #22c55e;">
+  <div style="flex:1;">
+    <h3 style="color:#4ade80; font-size:18px; margin-bottom:12px;">Priority Fix Order for 500-Member Club</h3>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:12px;">
+      <div style="background:rgba(239,68,68,0.1); border:1px solid #ef4444; border-radius:10px; padding:14px;">
+        <div style="color:#f87171; font-weight:700; font-size:13px; margin-bottom:6px;">P1 CRITICAL (Fix This Week)</div>
+        <div style="color:#d1d5db; font-size:12px; line-height:1.8;">
+          #1 Mixed format tournaments<br>
+          #4 Multi-kiosk + QR self-check-in<br>
+          #9 Draw preview before committing<br>
+          #13 Rink search/filter in scoring<br>
+          #14 Larger score entry buttons
+        </div>
+      </div>
+      <div style="background:rgba(249,115,22,0.1); border:1px solid #f97316; border-radius:10px; padding:14px;">
+        <div style="color:#fb923c; font-weight:700; font-size:13px; margin-bottom:6px;">P2 IMPORTANT (Fix This Month)</div>
+        <div style="color:#d1d5db; font-size:12px; line-height:1.8;">
+          #2 Tournament templates<br>
+          #5 QR poster generator<br>
+          #6 Quick add guest on kiosk<br>
+          #7 Bulk pre-check-in<br>
+          #10 Physical green mapping<br>
+          #11 Mead draw limit warning<br>
+          #15 Delegated rink scoring<br>
+          #16 Unlock finalized scores<br>
+          #17 Announce results button<br>
+          #19 Round transition CTA<br>
+          #20 Email results blast
+        </div>
+      </div>
+      <div style="background:rgba(168,85,247,0.1); border:1px solid #a855f7; border-radius:10px; padding:14px;">
+        <div style="color:#c084fc; font-weight:700; font-size:13px; margin-bottom:6px;">P3 NICE-TO-HAVE (Backlog)</div>
+        <div style="color:#d1d5db; font-size:12px; line-height:1.8;">
+          #3 Max player validation<br>
+          #8 Remember position preference<br>
+          #12 Couple/group lock<br>
+          #18 Awards/highlights<br>
+          Voice entry, PDF export, Print poster, Accessibility presets, Inter-round analytics
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

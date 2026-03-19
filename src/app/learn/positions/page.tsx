@@ -161,7 +161,7 @@ export default function PositionsPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }} />
       <LearnNav />
@@ -171,7 +171,7 @@ export default function PositionsPage() {
 
         {/* Page Header */}
         <header className="mb-12">
-          <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 md:text-5xl">
+          <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 md:text-5xl" style={{ fontFamily: "var(--font-display)" }}>
             Player <span className="text-[#1B5E20]">Positions</span>
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600">
@@ -184,7 +184,7 @@ export default function PositionsPage() {
 
         {/* Team Layout Diagram */}
         <div className="mb-14 rounded-xl border border-[#1B5E20]/20 bg-[#1B5E20]/5 p-6">
-          <h2 className="mb-4 text-sm font-bold uppercase tracking-wide text-[#1B5E20]">
+          <h2 className="mb-4 text-sm font-bold uppercase tracking-wide text-[#1B5E20]" style={{ fontFamily: "var(--font-display)" }}>
             Bowling Order on the Rink
           </h2>
           <div className="relative mx-auto max-w-lg">
@@ -245,7 +245,7 @@ export default function PositionsPage() {
                   <div className="flex items-center gap-3">
                     <pos.icon className="h-7 w-7" />
                     <div>
-                      <h2 className="text-2xl font-bold">{pos.name}</h2>
+                      <h2 className="text-2xl font-bold" style={{ fontFamily: "var(--font-display)" }}>{pos.name}</h2>
                       <p className="text-sm opacity-90">{pos.order}</p>
                     </div>
                   </div>
@@ -340,7 +340,7 @@ export default function PositionsPage() {
 
         {/* Summary Table */}
         <div className="mt-14">
-          <h2 className="mb-4 text-2xl font-bold text-zinc-900">
+          <h2 className="mb-4 text-2xl font-bold text-zinc-900" style={{ fontFamily: "var(--font-display)" }}>
             Position Summary
           </h2>
           <div className="overflow-x-auto rounded-xl border border-zinc-200">

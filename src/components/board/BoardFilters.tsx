@@ -17,7 +17,7 @@ export function BoardFilters({
     <select
       value={selectedSkill ?? ""}
       onChange={(e) => onSkillChange((e.target.value || null) as SkillLevel | null)}
-      aria-label="Filter by skill level"
+      aria-label="Filter by experience"
       className={cn(
         "rounded-full border bg-white/80 px-4 py-2 text-sm font-medium",
         "focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20",

@@ -565,7 +565,7 @@ export default function MembersPage() {
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
-                    aria-label={`Skill level: ${member.skill_level}`}
+                    aria-label={`Experience: ${member.skill_level}`}
                   >
                     {member.skill_level === "expert" ? "EXP" : "NOV"}
                   </span>
@@ -732,7 +732,7 @@ export default function MembersPage() {
                   className="block font-semibold mb-2"
                   style={{ fontSize: "16px", color: "#4A4A4A" }}
                 >
-                  Skill Level
+                  Experience
                 </label>
                 <div className="flex gap-3">
                   <button
@@ -933,7 +933,7 @@ export default function MembersPage() {
               Bulk Import Members
             </h2>
             <p className="mb-4" style={{ fontSize: "18px", color: "#4A4A4A" }}>
-              Paste one name per line. All imported members will be set to Novice skill level.
+              Paste one name per line. All imported members will be set to Novice experience level.
             </p>
 
             <textarea

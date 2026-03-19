@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// useRouter removed — no longer redirecting unauthenticated users
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
@@ -27,7 +27,6 @@ interface BowlsTournament {
 }
 
 export default function BowlsPage() {
-  const router = useRouter();
   const [tournaments, setTournaments] = useState<BowlsTournament[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
@@ -35,14 +34,19 @@ export default function BowlsPage() {
   const [homeClubId, setHomeClubId] = useState<string | null>(null);
   const [clubName, setClubName] = useState<string>("");
 
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
   useEffect(() => {
     async function loadPlayer() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        router.replace("/login?returnTo=/bowls");
+        // Show public view instead of redirecting
+        setIsAuthenticated(false);
+        setScope("all");
         return;
       }
+      setIsAuthenticated(true);
       const { data: player } = await supabase
         .from("players")
         .select("home_club_id")
@@ -134,14 +138,23 @@ export default function BowlsPage() {
                 </Link>
               </div>
             </div>
-            <button
-              onClick={() => setShowCreate(true)}
-              data-onboarding-target="create-tournament"
-              className="shrink-0 rounded-xl bg-[#1B5E20] px-3 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation sm:px-4"
-            >
-              <span className="hidden sm:inline">+ New Tournament</span>
-              <span className="sm:hidden">+ New</span>
-            </button>
+            {isAuthenticated ? (
+              <button
+                onClick={() => setShowCreate(true)}
+                data-onboarding-target="create-tournament"
+                className="shrink-0 rounded-xl bg-[#1B5E20] px-3 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation sm:px-4"
+              >
+                <span className="hidden sm:inline">+ New Tournament</span>
+                <span className="sm:hidden">+ New</span>
+              </button>
+            ) : (
+              <Link
+                href="/login?returnTo=/bowls"
+                className="shrink-0 rounded-xl bg-[#1B5E20] px-3 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#145218] min-h-[44px] touch-manipulation sm:px-4 flex items-center"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
           {homeClubId && (
             <div className="mt-3">
@@ -191,16 +204,27 @@ export default function BowlsPage() {
               {scope === "club" ? "No club tournaments yet" : "No bowls tournaments yet"}
             </h3>
             <p className="mt-1 text-sm text-[#3D5A3E]">
-              {scope === "club"
-                ? "Create a tournament for your club or switch to All Clubs"
-                : "Create your first lawn bowling tournament to get started"}
+              {!isAuthenticated
+                ? "Sign in to create and enter lawn bowling tournaments"
+                : scope === "club"
+                  ? "Create a tournament for your club or switch to All Clubs"
+                  : "Create your first lawn bowling tournament to get started"}
             </p>
-            <button
-              onClick={() => setShowCreate(true)}
-              className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
-            >
-              Create Tournament
-            </button>
+            {isAuthenticated ? (
+              <button
+                onClick={() => setShowCreate(true)}
+                className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
+              >
+                Create Tournament
+              </button>
+            ) : (
+              <Link
+                href="/login?returnTo=/bowls"
+                className="mt-4 inline-block rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
+              >
+                Sign in to enter tournaments
+              </Link>
+            )}
           </div>
         )}
       </main>

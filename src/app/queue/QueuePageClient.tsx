@@ -26,7 +26,7 @@ export function QueuePageClient({
   const displayName = player.display_name || "Player";
 
   return (
-    <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
       {/* Header */}
       <header className="sticky top-0 z-40 glass border-b border-[#0A2E12]/10">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-3">
@@ -35,7 +35,7 @@ export function QueuePageClient({
             animate={{ opacity: 1, x: 0 }}
           >
             <h1 className="text-xl font-black text-[#0A2E12]">
-              <span className="flex items-center gap-2"><ClipboardList className="w-5 h-5 text-[#1B5E20]" strokeWidth={1.5} /><span className="text-gradient">Match Queue</span></span>
+              <span className="flex items-center gap-2"><ClipboardList className="w-5 h-5 text-[#1B5E20]" strokeWidth={1.5} /><span className="text-gradient">Game Queue</span></span>
             </h1>
             <p className="text-sm text-[#3D5A3E]">Waiting to play</p>
           </motion.div>
@@ -62,8 +62,8 @@ export function QueuePageClient({
               {displayName} &mdash;{" "}
               {SPORT_LABELS[activeMatch.sport as Sport]?.label || activeMatch.sport}
               {activeMatch.courts
-                ? ` \u2022 Court: ${Array.isArray(activeMatch.courts) ? activeMatch.courts[0]?.name : activeMatch.courts.name}`
-                : " \u2022 Waiting for court assignment"}
+                ? ` \u2022 Rink: ${Array.isArray(activeMatch.courts) ? activeMatch.courts[0]?.name : activeMatch.courts.name}`
+                : " \u2022 Waiting for rink assignment"}
             </p>
           </motion.div>
         ) : (

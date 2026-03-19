@@ -21,7 +21,7 @@ export default async function GameDetailPage({
   const game = await getGameById(id);
 
   return (
-    <div className="min-h-screen bg-animated-gradient">
+    <div className="min-h-screen bg-[#FEFCF9]">
       <header className="sticky top-0 z-40 glass border-b border-[#0A2E12]/10">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
           <Link

@@ -96,7 +96,7 @@ export default function CourtsAdminPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6">Court Management</h1>
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6" style={{ fontFamily: "var(--font-display)" }}>Court Management</h1>
 
       {/* Add court */}
       <div className="flex gap-2 mb-6">
@@ -137,7 +137,7 @@ export default function CourtsAdminPage() {
         {courts.map((court) => (
           <div
             key={court.id}
-            className="flex items-center justify-between rounded-lg border border-[#0A2E12]/10 bg-white px-4 py-3"
+            className="flex items-center justify-between rounded-2xl border border-[#0A2E12]/10 bg-white px-4 py-3"
           >
             {editing === court.id ? (
               <div className="flex items-center gap-2 flex-1">

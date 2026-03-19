@@ -18,10 +18,14 @@ import type {
   BowlsTeamAssignment,
   GreenConditions,
 } from "@/lib/types";
+import type { DrawStyle } from "@/lib/bowls-draw";
+import { DRAW_STYLE_LABELS, validateDrawCompatibility } from "@/lib/bowls-draw";
+import { AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { GreenConditionsWidget } from "@/components/bowls/GreenConditionsWidget";
 import { GreenConditionsForm } from "@/components/bowls/GreenConditionsForm";
 import { GuestPlayerBadge } from "@/components/bowls/GuestPlayerBadge";
+import { QRCheckInPoster } from "@/components/bowls/QRCheckInPoster";
 import Link from "next/link";
 
 type PageView = "checkin" | "board" | "draw";
@@ -62,6 +66,7 @@ export default function BowlsTournamentPage() {
   const [justCheckedIn, setJustCheckedIn] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [generatingDraw, setGeneratingDraw] = useState(false);
+  const [drawStyle, setDrawStyle] = useState<DrawStyle>("random");
   const [tournamentName, setTournamentName] = useState("Lawn Bowls");
   const [showInsuranceOffer, setShowInsuranceOffer] = useState(false);
   const [insuranceOfferPlayer, setInsuranceOfferPlayer] = useState<string | null>(null);
@@ -280,9 +285,15 @@ export default function BowlsTournamentPage() {
     }
   }
 
+  // Mead Draw compatibility check
+  const meadCompatibility = validateDrawCompatibility(checkins.length, format, drawStyle);
+  const showMeadWarning = drawStyle === "mead" && !meadCompatibility.compatible;
+
   async function handleGenerateDraw(targetRound?: number) {
     setGeneratingDraw(true);
     const round = targetRound ?? activeRound;
+    // If Mead Draw is selected but incompatible, fall back to random
+    const effectiveStyle = (drawStyle === "mead" && showMeadWarning) ? "random" : drawStyle;
     try {
       const res = await fetch("/api/bowls/draw", {
         method: "POST",
@@ -290,6 +301,7 @@ export default function BowlsTournamentPage() {
         body: JSON.stringify({
           tournament_id: tournamentId,
           format,
+          draw_style: effectiveStyle,
         }),
       });
       if (res.ok) {
@@ -376,7 +388,7 @@ export default function BowlsTournamentPage() {
           <div className="mt-3 flex gap-1 no-print">
             {(
               [
-                { key: "checkin" as PageView, label: "Check In" },
+                { key: "checkin" as PageView, label: "Sign In" },
                 { key: "board" as PageView, label: `Board (${checkins.length})` },
                 { key: "draw" as PageView, label: "Draw" },
               ] as const
@@ -580,7 +592,7 @@ export default function BowlsTournamentPage() {
                   <p className="text-2xl font-black text-[#0A2E12]">
                     {checkins.length}
                   </p>
-                  <p className="text-xs text-[#3D5A3E]">players checked in</p>
+                  <p className="text-xs text-[#3D5A3E]">players signed in</p>
                 </div>
                 <div className="text-right">
                   <p className="text-2xl font-black text-[#1B5E20]">
@@ -590,14 +602,58 @@ export default function BowlsTournamentPage() {
                     rinks possible ({BOWLS_FORMAT_LABELS[format].label})
                   </p>
                 </div>
-                <button
-                  onClick={() => handleGenerateDraw()}
-                  disabled={possibleRinks < 1 || generatingDraw}
-                  className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] disabled:opacity-40 min-h-[48px] touch-manipulation"
-                >
-                  {generatingDraw ? "Generating..." : "Generate Draw"}
-                </button>
+                <div className="flex items-center gap-3">
+                  <select
+                    value={drawStyle}
+                    onChange={(e) => setDrawStyle(e.target.value as DrawStyle)}
+                    className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-medium text-[#2D4A30] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+                  >
+                    {(Object.entries(DRAW_STYLE_LABELS) as [DrawStyle, string][]).map(
+                      ([key, label]) => (
+                        <option key={key} value={key}>
+                          {label}
+                        </option>
+                      )
+                    )}
+                  </select>
+                  <button
+                    onClick={() => handleGenerateDraw()}
+                    disabled={possibleRinks < 1 || generatingDraw}
+                    className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#145218] disabled:opacity-40 min-h-[48px] touch-manipulation"
+                  >
+                    {generatingDraw ? "Drawing..." : "Do the Draw"}
+                  </button>
+                </div>
               </div>
+
+              {/* US-009: Mead Draw player count warning */}
+              {showMeadWarning && (
+                <div className="mt-4 flex items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 p-4">
+                  <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold text-amber-800">
+                      Mead Draw supports {meadCompatibility.supported_counts?.join(", ")} players.
+                      You have {checkins.length} checked in.
+                      The system will use Random Draw instead.
+                    </p>
+                    <p className="mt-1 text-xs text-amber-700">
+                      Consider adjusting check-ins to match a supported count, or choose Random Draw.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* US-003: QR Check-In Poster */}
+              {isAdmin && (
+                <div className="mt-4 flex justify-end">
+                  <QRCheckInPoster
+                    tournamentId={tournamentId}
+                    tournamentName={tournamentName}
+                    format={BOWLS_FORMAT_LABELS[format].label}
+                    date={tournamentDate}
+                  />
+                </div>
+              )}
             </div>
 
             <div className="space-y-2">

@@ -47,7 +47,7 @@ export function TournamentList() {
           className="flex items-center gap-2 rounded-xl bg-[#1B5E20] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1B5E20]"
         >
           <Plus className="h-4 w-4" />
-          Create Tournament
+          New Tournament
         </button>
       </div>
 

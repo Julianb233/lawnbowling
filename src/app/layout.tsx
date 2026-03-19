@@ -9,7 +9,8 @@ import "./globals.css";
 
 // Inline script to set dark class before first paint (REQ-DM-07)
 // Respects system preference on first visit, persists manual toggle (REQ-DM-05, REQ-DM-06)
-const themeInitScript = `(function(){try{var s=localStorage.getItem('lb-color-scheme');if(s==='dark'){document.documentElement.classList.add('dark')}else if(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}}catch(e){}})();`;
+// Sets colorScheme for native element theming
+const themeInitScript = `(function(){try{var s=localStorage.getItem('lb-color-scheme');if(s==='dark'){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark'}else if(s==='light'){document.documentElement.classList.remove('dark');document.documentElement.style.colorScheme='light'}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark'}else{document.documentElement.classList.remove('dark');document.documentElement.style.colorScheme='light'}}catch(e){document.documentElement.classList.remove('dark');document.documentElement.style.colorScheme='light'}})();`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

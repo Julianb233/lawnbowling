@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import * as Accordion from "@radix-ui/react-accordion";
 import {
-  CircleDot,
   ChevronDown,
   Search,
   Rocket,
@@ -13,9 +13,12 @@ import {
   Building2,
   UserCircle,
   Wrench,
+  Plus,
+  Minus,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { PublicNav } from "@/components/PublicNav";
+import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 interface FaqCategory {
   name: string;
@@ -34,11 +37,11 @@ const categories: FaqCategory[] = [
       },
       {
         q: "How do I create an account?",
-        a: "Tap 'Get Started' on the home page or visit the signup page. You can sign up with your email and a password. Once registered, you can set your preferred position, skill level, and profile details.",
+        a: "Tap 'Get Started' on the home page or visit the signup page. You can sign up with your email and a password. Once registered, you can set your preferred position, experience level, and profile details.",
       },
       {
         q: "Is Lawnbowling free for players?",
-        a: "Yes. Lawnbowling is completely free for players. You can check in for tournament days, view your draw, enter scores, and track your stats at no cost.",
+        a: "Yes. Lawnbowling is completely free for players. You can sign in for tournament days, view your draw, enter scores, and track your stats at no cost.",
       },
       {
         q: "Do I need to download an app?",
@@ -126,7 +129,7 @@ const categories: FaqCategory[] = [
     questions: [
       {
         q: "How do I update my profile?",
-        a: "Go to Settings > Profile to update your display name, avatar, preferred position, and skill level.",
+        a: "Go to Preferences > Profile to update your display name, avatar, preferred position, and experience level.",
       },
       {
         q: "How do I delete my account?",
@@ -144,7 +147,7 @@ const categories: FaqCategory[] = [
     questions: [
       {
         q: "Does it work offline?",
-        a: "Lawnbowling caches key data for offline access, but real-time features (live board, partner requests, court assignment) require an internet connection.",
+        a: "Lawnbowling caches key data for offline access, but real-time features (live board, partner requests, rink assignment) require an internet connection.",
       },
       {
         q: "What browsers are supported?",
@@ -164,6 +167,7 @@ const categories: FaqCategory[] = [
 
 export function FaqPage() {
   const [search, setSearch] = useState("");
+  const [activeTab, setActiveTab] = useState<string | null>(null);
 
   const filteredCategories = categories
     .map((cat) => ({
@@ -174,39 +178,23 @@ export function FaqPage() {
           item.a.toLowerCase().includes(search.toLowerCase())
       ),
     }))
-    .filter((cat) => cat.questions.length > 0);
+    .filter((cat) => cat.questions.length > 0)
+    .filter((cat) => !activeTab || cat.name === activeTab);
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
-      {/* Floating glowing orbs */}
-      <div
-        className="orb orb-emerald"
-        style={{ top: "-5%", left: "-5%", width: "400px", height: "400px" }}
-      />
-      <div
-        className="orb orb-blue"
-        style={{
-          bottom: "-10%",
-          right: "-5%",
-          width: "350px",
-          height: "350px",
-        }}
-      />
-      <div
-        className="orb orb-amber"
-        style={{ top: "40%", right: "5%", width: "250px", height: "250px" }}
-      />
-
+    <div className="min-h-screen bg-[#FEFCF9] overflow-hidden">
       {/* Navigation */}
-
       <PublicNav />
 
       {/* Hero */}
       <section className="relative mx-auto max-w-4xl px-6 pt-20 pb-12 md:pt-28 md:pb-16">
         <div className="flex flex-col items-center text-center">
-          <h1 className="text-5xl font-extrabold leading-[1.1] tracking-tight text-[#0A2E12] md:text-6xl">
+          <h1
+            className="text-4xl font-extrabold leading-[1.1] tracking-tight text-[#0A2E12] sm:text-5xl md:text-6xl"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
             Frequently Asked{" "}
-            <span className="text-gradient">Questions</span>
+            <span className="italic text-[#1B5E20]">Questions</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#3D5A3E]">
             Everything you need to know about Lawnbowling — for players and
@@ -221,14 +209,44 @@ export function FaqPage() {
               placeholder="Search questions..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-2xl border border-[#0A2E12]/10 bg-white py-4 pl-12 pr-4 text-[#0A2E12] shadow-sm outline-none transition-all placeholder:text-[#3D5A3E] focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+              className="w-full rounded-full border border-[#0A2E12]/10 bg-white py-4 pl-12 pr-4 text-[#0A2E12] shadow-sm outline-none transition-all placeholder:text-[#3D5A3E]/60 focus:border-[#1B5E20] focus:ring-2 focus:ring-[#1B5E20]/20"
             />
           </div>
         </div>
       </section>
 
+      {/* Category Tabs */}
+      <section className="relative mx-auto max-w-4xl px-6 pb-6">
+        <div className="flex flex-wrap justify-center gap-2">
+          <button
+            onClick={() => setActiveTab(null)}
+            className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+              activeTab === null
+                ? "bg-[#1B5E20] text-white shadow-md"
+                : "border border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#1B5E20]/30 hover:text-[#0A2E12]"
+            }`}
+          >
+            All
+          </button>
+          {categories.map((cat) => (
+            <button
+              key={cat.name}
+              onClick={() => setActiveTab(activeTab === cat.name ? null : cat.name)}
+              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+                activeTab === cat.name
+                  ? "bg-[#1B5E20] text-white shadow-md"
+                  : "border border-[#0A2E12]/10 bg-white text-[#3D5A3E] hover:border-[#1B5E20]/30 hover:text-[#0A2E12]"
+              }`}
+            >
+              <cat.icon className="h-3.5 w-3.5" />
+              {cat.name}
+            </button>
+          ))}
+        </div>
+      </section>
+
       {/* FAQ Categories */}
-      <section className="relative mx-auto max-w-4xl px-6 pb-24">
+      <section className="relative mx-auto max-w-4xl px-6 pb-14 sm:pb-20 md:pb-28">
         {filteredCategories.length === 0 ? (
           <div className="py-16 text-center">
             <p className="text-lg text-[#3D5A3E]">
@@ -241,10 +259,13 @@ export function FaqPage() {
             {filteredCategories.map((category) => (
               <div key={category.name}>
                 <div className="mb-4 flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10">
-                    <category.icon className="h-5 w-5 text-emerald-600" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#1B5E20]/10">
+                    <category.icon className="h-5 w-5 text-[#1B5E20]" />
                   </div>
-                  <h2 className="text-xl font-bold text-[#0A2E12]">
+                  <h2
+                    className="text-xl font-bold text-[#0A2E12]"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
                     {category.name}
                   </h2>
                 </div>
@@ -256,9 +277,12 @@ export function FaqPage() {
                       value={`${category.name}-${i}`}
                       className="overflow-hidden rounded-xl border border-[#0A2E12]/10 bg-white shadow-sm"
                     >
-                      <Accordion.Trigger className="flex w-full items-center justify-between px-5 py-4 text-left text-[#0A2E12] hover:bg-[#0A2E12]/[0.03] transition-colors min-h-[44px] group">
+                      <Accordion.Trigger className="flex w-full items-center justify-between px-5 py-4 text-left text-[#0A2E12] hover:bg-[#1B5E20]/[0.03] transition-colors min-h-[44px] group">
                         <span className="pr-4 font-medium">{item.q}</span>
-                        <ChevronDown className="h-4 w-4 shrink-0 text-[#3D5A3E] transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#1B5E20]/10 shrink-0 transition-colors group-data-[state=open]:bg-[#1B5E20] group-data-[state=open]:text-white">
+                          <Plus className="h-3.5 w-3.5 text-[#1B5E20] group-data-[state=open]:hidden" />
+                          <Minus className="h-3.5 w-3.5 text-white hidden group-data-[state=open]:block" />
+                        </div>
                       </Accordion.Trigger>
                       <Accordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
                         <div className="border-t border-[#0A2E12]/10 px-5 py-4">
@@ -277,9 +301,12 @@ export function FaqPage() {
       </section>
 
       {/* Still Have Questions CTA */}
-      <section className="relative mx-auto max-w-4xl px-6 pb-24">
-        <div className="glass rounded-2xl p-8 text-center md:p-12">
-          <h2 className="text-2xl font-bold text-[#0A2E12]">
+      <section className="relative mx-auto max-w-4xl px-6 pb-14 sm:pb-20 md:pb-28">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center shadow-sm md:p-12">
+          <h2
+            className="text-2xl font-bold text-[#0A2E12]"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
             Still Have Questions?
           </h2>
           <p className="mt-3 text-[#3D5A3E]">
@@ -288,7 +315,7 @@ export function FaqPage() {
           </p>
           <Link
             href="/contact"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/15 transition hover:bg-emerald-500 active:scale-[0.98]"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1B5E20] px-7 py-4 text-base font-semibold text-white shadow-lg shadow-[#1B5E20]/15 transition hover:bg-[#145218] active:scale-[0.98]"
           >
             Contact Us
           </Link>
@@ -296,36 +323,43 @@ export function FaqPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]">
+      <footer className="border-t border-[#0A2E12]/10 bg-[#FEFCF9]">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1B5E20]">
-              <CircleDot className="h-4 w-4 text-white" />
-            </div>
-            <span className="font-semibold text-[#0A2E12]">Lawnbowling</span>
+            <Image
+              src={bowlsIconImg}
+              alt="Lawnbowling logo"
+              width={32}
+              height={32}
+              className="rounded-full"
+              placeholder="blur"
+            />
+            <span className="font-semibold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>
+              Lawnbowling
+            </span>
           </Link>
-          <div className="flex items-center gap-6 text-sm text-[#3D5A3E]">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[#3D5A3E]">
             <Link
               href="/insurance"
-              className="hover:text-[#2D4A30] transition"
+              className="hover:text-[#0A2E12] transition"
             >
               Insurance
             </Link>
-            <Link href="/about" className="hover:text-[#2D4A30] transition">
+            <Link href="/about" className="hover:text-[#0A2E12] transition">
               About
             </Link>
-            <Link href="/faq" className="hover:text-[#2D4A30] transition">
+            <Link href="/faq" className="hover:text-[#0A2E12] transition">
               FAQ
             </Link>
             <Link
               href="/terms"
-              className="hover:text-[#2D4A30] transition"
+              className="hover:text-[#0A2E12] transition"
             >
               Terms
             </Link>
             <Link
               href="/privacy"
-              className="hover:text-[#2D4A30] transition"
+              className="hover:text-[#0A2E12] transition"
             >
               Privacy
             </Link>

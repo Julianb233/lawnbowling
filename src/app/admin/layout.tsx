@@ -6,9 +6,9 @@ const navItems = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/venues", label: "Venues" },
   { href: "/admin/venue", label: "Venue Settings" },
-  { href: "/admin/courts", label: "Courts" },
+  { href: "/admin/courts", label: "Rinks" },
   { href: "/admin/players", label: "Players" },
-  { href: "/admin/matches", label: "Matches" },
+  { href: "/admin/matches", label: "Games" },
   { href: "/admin/waivers", label: "Waivers" },
   { href: "/admin/waiver-templates", label: "Templates" },
   { href: "/admin/claims", label: "Claims" },
@@ -29,7 +29,7 @@ export default async function AdminLayout({
   await requireAdmin();
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-[#0A2E12]/[0.03]">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-[#FEFCF9]">
       {/* Mobile: horizontal scrollable nav */}
       <nav
         className="flex lg:hidden overflow-x-auto gap-1 p-2 border-b border-[#0A2E12]/10 bg-white scrollbar-hide"

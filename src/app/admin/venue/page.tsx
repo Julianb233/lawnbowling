@@ -129,11 +129,11 @@ export default function VenueSettingsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6">Venue Settings</h1>
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6" style={{ fontFamily: "var(--font-display)" }}>Venue Settings</h1>
       <div className="max-w-lg space-y-6">
         {/* Basic Info */}
         <section>
-          <h2 className="text-lg font-semibold text-[#2D4A30] mb-3">Basic Info</h2>
+          <h2 className="text-lg font-semibold text-[#0A2E12] mb-3" style={{ fontFamily: "var(--font-display)" }}>Basic Info</h2>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-[#3D5A3E] mb-1">
@@ -190,7 +190,7 @@ export default function VenueSettingsPage() {
 
         {/* Sports Management (ADMIN-03) */}
         <section>
-          <h2 className="text-lg font-semibold text-[#2D4A30] mb-3">
+          <h2 className="text-lg font-semibold text-[#0A2E12] mb-3" style={{ fontFamily: "var(--font-display)" }}>
             Available Sports
           </h2>
           <p className="text-sm text-[#3D5A3E] mb-3">
@@ -271,7 +271,7 @@ export default function VenueSettingsPage() {
 
         {/* Contact Info */}
         <section>
-          <h2 className="text-lg font-semibold text-[#2D4A30] mb-3">
+          <h2 className="text-lg font-semibold text-[#0A2E12] mb-3" style={{ fontFamily: "var(--font-display)" }}>
             Contact Information
           </h2>
           <div className="space-y-4">
@@ -322,7 +322,7 @@ export default function VenueSettingsPage() {
 
         {/* Waiver Text Configuration (WAIV-05) */}
         <section>
-          <h2 className="text-lg font-semibold text-[#2D4A30] mb-3">
+          <h2 className="text-lg font-semibold text-[#0A2E12] mb-3" style={{ fontFamily: "var(--font-display)" }}>
             Waiver Text
           </h2>
           <p className="text-sm text-[#3D5A3E] mb-3">
@@ -379,7 +379,7 @@ export default function VenueSettingsPage() {
 
         {/* QR Code Check-in (VENUE-02) */}
         <section>
-          <h2 className="text-lg font-semibold text-[#2D4A30] mb-3">
+          <h2 className="text-lg font-semibold text-[#0A2E12] mb-3" style={{ fontFamily: "var(--font-display)" }}>
             Check-in QR Code
           </h2>
           <p className="text-sm text-[#3D5A3E] mb-4">

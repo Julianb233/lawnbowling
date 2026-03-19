@@ -78,6 +78,18 @@ export function PublicNav({
             </Link>
           ))}
 
+          {/* Sign In */}
+          <Link
+            href="/login"
+            className={
+              isTransparent
+                ? "hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white"
+                : "hidden sm:block rounded-lg px-4 py-2 text-sm font-medium text-[#3D5A3E] transition hover:text-[#0A2E12]"
+            }
+          >
+            Sign In
+          </Link>
+
           {/* CTA */}
           <Link
             href="/signup"

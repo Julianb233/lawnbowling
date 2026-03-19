@@ -208,9 +208,9 @@ export default function BoardPage() {
 
   return (
     <IncomingRequestProvider>
-      <div className="min-h-screen pb-20 lg:pb-0" style={{ background: "linear-gradient(135deg, #f0fdf4 0%, #fefcf9 40%, #fef9ee 100%)" }}>
+      <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
         {/* Header */}
-        <header className="sticky top-0 z-40 border-b" style={{ backgroundColor: "rgba(255,255,255,0.85)", backdropFilter: "blur(12px)", borderColor: "rgba(10,46,18,0.08)" }}>
+        <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/90 backdrop-blur-md">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 lg:px-8">
             <div className="flex items-center gap-3">
               <Image
@@ -222,14 +222,14 @@ export default function BoardPage() {
               />
               <div>
                 <h1
-                  className="text-xl font-bold lg:text-2xl"
-                  style={{ color: "#0A2E12", fontFamily: "var(--font-display)" }}
+                  className="text-xl font-bold text-[#0A2E12] lg:text-2xl"
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   Lawnbowling
                 </h1>
                 <div className="flex items-center gap-1.5">
-                  <MapPin className="h-3 w-3" style={{ color: "#3D5A3E" }} />
-                  <span className="text-xs" style={{ color: "#3D5A3E" }}>{venue?.name ?? "Select venue"}</span>
+                  <MapPin className="h-3 w-3 text-[#3D5A3E]" />
+                  <span className="text-xs text-[#3D5A3E]">{venue?.name ?? "Select venue"}</span>
                   <VenueSelector
                     venues={venues}
                     selectedVenueId={selectedVenueId}
@@ -243,9 +243,9 @@ export default function BoardPage() {
               <NotificationCenter playerId={currentPlayer?.id ?? null} />
               <Link
                 href="/profile"
-                className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#0A2E12]/5"
+                className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[#0A2E12]/5 min-h-[44px]"
               >
-                <User className="h-5 w-5" style={{ color: "#3D5A3E" }} />
+                <User className="h-5 w-5 text-[#3D5A3E]" />
               </Link>
             </div>
           </div>
@@ -259,12 +259,12 @@ export default function BoardPage() {
             className="mb-6 space-y-1"
           >
             <h2
-              className="text-2xl font-bold lg:text-3xl"
-              style={{ color: "#0A2E12", fontFamily: "var(--font-display)" }}
+              className="text-2xl font-bold text-[#0A2E12] lg:text-3xl"
+              style={{ fontFamily: "var(--font-display)" }}
             >
               Welcome back, {displayName}!
             </h2>
-            <p className="text-base" style={{ color: "#3D5A3E" }}>
+            <p className="text-base text-[#3D5A3E]" style={{ fontFamily: "var(--font-body)" }}>
               Ready for a game today?
             </p>
           </motion.div>
@@ -313,13 +313,13 @@ export default function BoardPage() {
                     <motion.div
                       whileHover={{ scale: 1.04, y: -2 }}
                       whileTap={{ scale: 0.97 }}
-                      className={`cursor-pointer rounded-2xl border-0 p-5 text-center shadow-sm transition-all ${link.bg}`}
+                      className="cursor-pointer rounded-2xl border border-[#0A2E12]/10 bg-white p-5 text-center shadow-sm transition-all hover:shadow-md min-h-[44px]"
                     >
                       <div className={`mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br ${link.color} shadow-md`}>
                         <Icon className="h-7 w-7 text-white" strokeWidth={1.8} />
                       </div>
-                      <h3 className="text-sm font-semibold" style={{ color: "#0A2E12" }}>{link.label}</h3>
-                      <p className="mt-0.5 text-xs" style={{ color: "#3D5A3E" }}>{link.description}</p>
+                      <h3 className="text-sm font-semibold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>{link.label}</h3>
+                      <p className="mt-0.5 text-xs text-[#3D5A3E]">{link.description}</p>
                     </motion.div>
                   </Link>
                 );
@@ -334,23 +334,23 @@ export default function BoardPage() {
             transition={{ delay: 0.15 }}
             className="mb-8 grid grid-cols-3 gap-3"
           >
-            <div className="rounded-2xl bg-white/80 p-4 text-center shadow-sm" style={{ backdropFilter: "blur(8px)" }}>
-              <div className="text-2xl font-bold" style={{ color: "#1B5E20" }}>
+            <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
+              <div className="text-2xl font-bold text-[#B8860B] tabular-nums">
                 <LiveIndicator count={players.length} inline />
               </div>
-              <div className="mt-1 text-xs font-medium" style={{ color: "#3D5A3E" }}>Players Online</div>
+              <div className="mt-1 text-xs font-medium text-[#3D5A3E]">Players Online</div>
             </div>
-            <div className="rounded-2xl bg-white/80 p-4 text-center shadow-sm" style={{ backdropFilter: "blur(8px)" }}>
-              <div className="text-2xl font-bold" style={{ color: "#1B5E20" }}>
+            <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
+              <div className="text-2xl font-bold text-[#B8860B] tabular-nums">
                 {pendingSent.length}
               </div>
-              <div className="mt-1 text-xs font-medium" style={{ color: "#3D5A3E" }}>Pending Requests</div>
+              <div className="mt-1 text-xs font-medium text-[#3D5A3E]">Pending Requests</div>
             </div>
-            <div className="rounded-2xl bg-white/80 p-4 text-center shadow-sm" style={{ backdropFilter: "blur(8px)" }}>
-              <div className="text-2xl font-bold" style={{ color: "#1B5E20" }}>
+            <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
+              <div className="text-2xl font-bold text-[#B8860B] tabular-nums">
                 {venues.length}
               </div>
-              <div className="mt-1 text-xs font-medium" style={{ color: "#3D5A3E" }}>Venues</div>
+              <div className="mt-1 text-xs font-medium text-[#3D5A3E]">Venues</div>
             </div>
           </motion.div>
 
@@ -379,8 +379,8 @@ export default function BoardPage() {
           >
             <div className="mb-4 flex items-center justify-between">
               <h3
-                className="text-lg font-bold"
-                style={{ color: "#0A2E12", fontFamily: "var(--font-display)" }}
+                className="text-lg font-bold text-[#0A2E12]"
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 Available Players ({players.length})
               </h3>
@@ -404,12 +404,11 @@ export default function BoardPage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="rounded-2xl bg-white/80 p-5 shadow-sm"
-              style={{ backdropFilter: "blur(8px)" }}
+              className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 sm:p-6"
             >
               <h3
-                className="mb-3 text-base font-bold"
-                style={{ color: "#0A2E12", fontFamily: "var(--font-display)" }}
+                className="mb-3 text-base font-bold text-[#0A2E12]"
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 Match Queue
               </h3>
@@ -420,12 +419,11 @@ export default function BoardPage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35 }}
-              className="rounded-2xl bg-white/80 p-5 shadow-sm"
-              style={{ backdropFilter: "blur(8px)" }}
+              className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 sm:p-6"
             >
               <h3
-                className="mb-3 text-base font-bold"
-                style={{ color: "#0A2E12", fontFamily: "var(--font-display)" }}
+                className="mb-3 text-base font-bold text-[#0A2E12]"
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 Court Status
               </h3>

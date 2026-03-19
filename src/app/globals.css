@@ -251,6 +251,41 @@ textarea,
   100% { transform: scale(1.15) translate(-2%, -1%); }
 }
 
+/* === LOGIN PAGE === */
+.login-ken-burns {
+  animation: loginKenBurns 25s ease-in-out infinite alternate;
+}
+@keyframes loginKenBurns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-1.5%, -1%); }
+}
+
+.login-glass {
+  background: rgba(10, 46, 18, 0.45);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.login-cta-btn {
+  background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 50%, #1B5E20 100%);
+  background-size: 200% 200%;
+  animation: loginBtnShimmer 3s ease-in-out infinite;
+}
+@keyframes loginBtnShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* === HOME PAGE PARALLAX === */
+.hero-parallax {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
 /* === SHIMMER SKELETON === */
 @keyframes shimmer {
   0% { background-position: -200% 0; }

@@ -69,7 +69,7 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
         <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-2xl">
           <div className="mb-4 flex items-center justify-between">
             <Dialog.Title className="text-lg font-bold text-[#0A2E12]">
-              Create Tournament
+              New Tournament
             </Dialog.Title>
             <Dialog.Close className="rounded-full p-1 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30]">
               <X className="h-5 w-5" />
@@ -143,7 +143,7 @@ export function CreateTournamentModal({ open, onOpenChange, onCreated }: CreateT
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#1B5E20] px-4 py-3 font-semibold text-white transition-colors hover:bg-[#1B5E20] disabled:opacity-50"
             >
               <Plus className="h-4 w-4" />
-              {loading ? "Creating..." : "Create Tournament"}
+              {loading ? "Creating..." : "Set Up Tournament"}
             </button>
           </form>
         </Dialog.Content>

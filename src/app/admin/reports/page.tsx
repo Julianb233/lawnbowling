@@ -10,12 +10,12 @@ export default async function ReportsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#0A2E12]">Player Reports</h1>
+        <h1 className="text-2xl font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Player Reports</h1>
         <p className="text-sm text-[#3D5A3E]">{reports.length} reports total</p>
       </div>
 
       {reports.length === 0 ? (
-        <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-8 text-center">
+        <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
           <p className="text-[#3D5A3E]">No reports filed yet.</p>
         </div>
       ) : (
@@ -23,7 +23,7 @@ export default async function ReportsPage() {
           {reports.map((report) => (
             <div
               key={report.id}
-              className="rounded-xl border border-[#0A2E12]/10 bg-white p-4"
+              className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6"
             >
               <div className="flex items-start justify-between">
                 <div>

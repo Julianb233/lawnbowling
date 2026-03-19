@@ -272,26 +272,29 @@ export default function ResultsPage() {
   function getWinnerColor(winner: ScoreWinner): string {
     if (winner === "team_a") return "text-[#1B5E20]";
     if (winner === "team_b") return "text-purple-600";
-    if (winner === "draw") return "text-amber-600";
+    if (winner === "draw") return "text-[#B8860B]";
     return "text-[#3D5A3E]";
   }
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-screen items-center justify-center bg-[#FEFCF9]">
         <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0A2E12]/[0.03] pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/95 backdrop-blur print:static print:border-0">
+      <header className="sticky top-0 z-40 border-b border-[#0A2E12]/10 bg-white/90 backdrop-blur-md print:static print:border-0">
         <div className="mx-auto max-w-5xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
+              <h1
+                className="text-2xl font-bold tracking-tight text-[#0A2E12]"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
                 Results
               </h1>
               <p className="text-sm text-[#3D5A3E]">{tournamentName}</p>
@@ -300,7 +303,7 @@ export default function ResultsPage() {
               {progression?.current_state === "complete" && (
                 <button
                   onClick={() => setShowShareSheet(true)}
-                  className="flex items-center gap-2 rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/10 min-h-[44px] touch-manipulation"
+                  className="flex items-center gap-2 rounded-xl border border-[#1B5E20]/30 bg-[#1B5E20]/5 px-6 py-3 text-sm font-bold text-[#1B5E20] hover:bg-[#1B5E20]/10 min-h-[44px] touch-manipulation"
                 >
                   <Share2 className="h-4 w-4" />
                   Share Results
@@ -308,25 +311,25 @@ export default function ResultsPage() {
               )}
               <button
                 onClick={() => window.print()}
-                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-6 py-3 text-sm font-bold text-[#0A2E12] hover:bg-[#0A2E12]/5 min-h-[44px] touch-manipulation"
               >
                 Print Results
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}`)}
-                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-6 py-3 text-sm font-bold text-[#0A2E12] hover:bg-[#0A2E12]/5 min-h-[44px] touch-manipulation"
               >
                 Back
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/draw-sheet`)}
-                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-6 py-3 text-sm font-bold text-[#0A2E12] hover:bg-[#0A2E12]/5 min-h-[44px] touch-manipulation"
               >
                 Draw Sheet
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/scores`)}
-                className="rounded-xl bg-[#1B5E20] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
+                className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
               >
                 Enter Scores
               </button>
@@ -339,7 +342,12 @@ export default function ResultsPage() {
         {/* Print-only results header */}
         <div className="hidden print:block print:mb-6">
           <div className="border-b-2 border-[#1B5E20] pb-3 mb-4">
-            <h1 className="text-2xl font-black text-[#0A2E12]">{tournamentName}</h1>
+            <h1
+              className="text-2xl font-bold text-[#0A2E12]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              {tournamentName}
+            </h1>
             <div className="flex justify-between text-sm text-[#3D5A3E] mt-1">
               <span>Tournament Results</span>
               <span>
@@ -354,7 +362,7 @@ export default function ResultsPage() {
           {/* Print-only player standings table */}
           {playerStandings.length > 0 && (
             <div className="mb-6">
-              <h2 className="text-sm font-bold text-[#2D4A30] mb-2">Player Standings</h2>
+              <h2 className="text-sm font-bold text-[#0A2E12] mb-2" style={{ fontFamily: "var(--font-display)" }}>Player Standings</h2>
               <table className="w-full border-collapse text-xs">
                 <thead>
                   <tr>
@@ -394,7 +402,10 @@ export default function ResultsPage() {
 
         {rounds.length === 0 ? (
           <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-12 text-center">
-            <p className="text-lg font-semibold text-[#3D5A3E]">
+            <p
+              className="text-lg font-bold text-[#0A2E12]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               No scores recorded yet
             </p>
             <p className="mt-1 text-sm text-[#3D5A3E]">
@@ -402,7 +413,7 @@ export default function ResultsPage() {
             </p>
             <button
               onClick={() => router.push(`/bowls/${tournamentId}/scores`)}
-              className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[48px] touch-manipulation"
+              className="mt-4 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
             >
               Enter Scores
             </button>
@@ -411,35 +422,35 @@ export default function ResultsPage() {
           <>
             {/* Stats overview */}
             <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
-                <p className="text-3xl font-black text-[#0A2E12]">
+              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 sm:p-6 text-center">
+                <p className="text-3xl font-bold text-[#0A2E12] tabular-nums" style={{ fontFamily: "var(--font-display)" }}>
                   {rounds.length}
                 </p>
                 <p className="text-xs text-[#3D5A3E] mt-1">
                   Round{rounds.length !== 1 ? "s" : ""} Played
                 </p>
               </div>
-              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
-                <p className="text-3xl font-black text-[#1B5E20]">
+              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 sm:p-6 text-center">
+                <p className="text-3xl font-bold tabular-nums" style={{ color: "#B8860B", fontFamily: "var(--font-display)" }}>
                   {stats.totalShots}
                 </p>
                 <p className="text-xs text-[#3D5A3E] mt-1">Total Shots</p>
               </div>
-              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
-                <p className="text-3xl font-black text-purple-600">
+              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 sm:p-6 text-center">
+                <p className="text-3xl font-bold tabular-nums" style={{ color: "#B8860B", fontFamily: "var(--font-display)" }}>
                   {stats.totalEnds}
                 </p>
                 <p className="text-xs text-[#3D5A3E] mt-1">Total Ends</p>
               </div>
-              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-4 text-center">
-                <p className="text-3xl font-black text-[#1B5E20]">
+              <div className="rounded-2xl bg-white border border-[#0A2E12]/10 p-5 sm:p-6 text-center">
+                <p className="text-3xl font-bold text-[#1B5E20] tabular-nums" style={{ fontFamily: "var(--font-display)" }}>
                   {stats.highestRinkScore?.score ?? 0}
                 </p>
                 <p className="text-xs text-[#3D5A3E] mt-1">Highest Score</p>
                 {stats.highestRinkScore && (
-                  <p className="text-[10px] text-[#3D5A3E]">
+                  <p className="text-xs text-[#3D5A3E]">
                     {stats.highestRinkScore.team}, Rink{" "}
-                    {stats.highestRinkScore.rink} R
+                    <span style={{ color: "#B8860B" }}>{stats.highestRinkScore.rink}</span> R
                     {stats.highestRinkScore.round}
                   </p>
                 )}
@@ -451,10 +462,10 @@ export default function ResultsPage() {
               <button
                 onClick={() => setShowStandings(false)}
                 className={cn(
-                  "rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors min-h-[44px] touch-manipulation",
+                  "rounded-xl px-6 py-3 text-sm font-bold transition-colors min-h-[44px] touch-manipulation",
                   !showStandings
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
+                    : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/5"
                 )}
               >
                 Round Results
@@ -462,10 +473,10 @@ export default function ResultsPage() {
               <button
                 onClick={() => setShowStandings(true)}
                 className={cn(
-                  "rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors min-h-[44px] touch-manipulation",
+                  "rounded-xl px-6 py-3 text-sm font-bold transition-colors min-h-[44px] touch-manipulation",
                   showStandings
                     ? "bg-[#1B5E20] text-white"
-                    : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
+                    : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/5"
                 )}
               >
                 Player Standings
@@ -476,14 +487,17 @@ export default function ResultsPage() {
             {showStandings && playerStandings.length > 0 && (
               <div className="mb-6 rounded-2xl bg-white border border-[#0A2E12]/10 overflow-hidden">
                 <div className="bg-[#0A2E12]/[0.03] border-b border-[#0A2E12]/10 px-5 py-3">
-                  <h3 className="text-sm font-bold text-[#2D4A30]">
+                  <h3
+                    className="text-sm font-bold text-[#0A2E12]"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
                     Player Standings (All Rounds)
                   </h3>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]/50">
+                      <tr className="border-b border-[#0A2E12]/10 bg-[#0A2E12]/[0.02]">
                         <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">#</th>
                         <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">Player</th>
                         <th className="px-3 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">P</th>
@@ -497,15 +511,22 @@ export default function ResultsPage() {
                     </thead>
                     <tbody>
                       {playerStandings.map((p, idx) => (
-                        <tr key={p.player_id} className="border-b border-[#0A2E12]/10 last:border-0">
-                          <td className="px-4 py-3 text-sm font-bold text-[#3D5A3E]">{idx + 1}</td>
+                        <tr
+                          key={p.player_id}
+                          className={cn(
+                            "border-b border-[#0A2E12]/10 last:border-0",
+                            idx === 0 && "bg-[#B8860B]/5"
+                          )}
+                        >
+                          <td className="px-4 py-3 text-sm font-bold text-[#3D5A3E] tabular-nums">{idx + 1}</td>
                           <td className="px-4 py-3 text-sm font-semibold text-[#0A2E12] whitespace-nowrap">
+                            {idx === 0 && <span className="mr-1" style={{ color: "#B8860B" }}>&#9733;</span>}
                             {p.display_name}
                           </td>
-                          <td className="px-3 py-3 text-center font-medium text-[#2D4A30]">{p.games_played}</td>
-                          <td className="px-3 py-3 text-center font-bold text-[#1B5E20]">{p.wins}</td>
-                          <td className="px-3 py-3 text-center font-medium text-red-500">{p.losses}</td>
-                          <td className="px-3 py-3 text-center font-medium text-amber-600">{p.draws}</td>
+                          <td className="px-3 py-3 text-center font-medium text-[#3D5A3E] tabular-nums">{p.games_played}</td>
+                          <td className="px-3 py-3 text-center font-bold text-[#1B5E20] tabular-nums">{p.wins}</td>
+                          <td className="px-3 py-3 text-center font-medium text-red-500 tabular-nums">{p.losses}</td>
+                          <td className="px-3 py-3 text-center font-medium tabular-nums" style={{ color: "#B8860B" }}>{p.draws}</td>
                           <td className="px-3 py-3 text-center font-medium text-[#3D5A3E] tabular-nums">{p.total_shots_for}</td>
                           <td className="px-3 py-3 text-center font-medium text-[#3D5A3E] tabular-nums">{p.total_shots_against}</td>
                           <td className={cn(
@@ -533,20 +554,20 @@ export default function ResultsPage() {
                       key={r.round}
                       onClick={() => setSelectedRound(r.round)}
                       className={cn(
-                        "flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors whitespace-nowrap min-h-[44px] touch-manipulation",
+                        "flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold transition-colors whitespace-nowrap min-h-[44px] touch-manipulation",
                         selectedRound === r.round
                           ? "bg-[#1B5E20] text-white"
-                          : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03]"
+                          : "bg-white border border-[#0A2E12]/10 text-[#3D5A3E] hover:bg-[#0A2E12]/5"
                       )}
                     >
                       Round {r.round}
                       {r.allFinalized && (
                         <span
                           className={cn(
-                            "rounded-full px-1.5 py-0.5 text-[10px] font-bold",
+                            "rounded-full px-2.5 py-1 text-xs font-bold",
                             selectedRound === r.round
                               ? "bg-white/20 text-white"
-                              : "bg-[#1B5E20]/10 text-[#2E7D32]"
+                              : "bg-[#1B5E20]/10 text-[#1B5E20]"
                           )}
                         >
                           Final
@@ -569,8 +590,8 @@ export default function ResultsPage() {
                       >
                         {/* Rink header */}
                         <div className="bg-[#0A2E12]/[0.03] border-b border-[#0A2E12]/10 px-5 py-3 flex items-center justify-between">
-                          <h3 className="text-sm font-bold text-[#2D4A30]">
-                            Rink {score.rink}
+                          <h3 className="text-sm font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>
+                            Rink <span style={{ color: "#B8860B" }}>{score.rink}</span>
                           </h3>
                           <div className="flex items-center gap-2">
                             <span
@@ -582,21 +603,21 @@ export default function ResultsPage() {
                               {getWinnerLabel(score.winner)}
                             </span>
                             {score.is_finalized && (
-                              <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-[10px] font-bold text-[#2E7D32]">
+                              <span className="rounded-full bg-[#1B5E20]/10 px-2.5 py-1 text-xs font-bold text-[#1B5E20]">
                                 Final
                               </span>
                             )}
                           </div>
                         </div>
 
-                        <div className="p-5">
+                        <div className="p-5 sm:p-6">
                           {/* Score summary */}
                           <div className="grid grid-cols-3 gap-4 mb-4">
                             <div
                               className={cn(
                                 "text-center p-3 rounded-xl",
                                 score.winner === "team_a"
-                                  ? "bg-blue-50 ring-2 ring-blue-200"
+                                  ? "bg-[#1B5E20]/5 ring-2 ring-[#1B5E20]/20"
                                   : "bg-[#0A2E12]/[0.03]"
                               )}
                             >
@@ -605,11 +626,12 @@ export default function ResultsPage() {
                               </p>
                               <p
                                 className={cn(
-                                  "text-3xl font-black tabular-nums",
+                                  "text-3xl font-bold tabular-nums",
                                   score.winner === "team_a"
                                     ? "text-[#1B5E20]"
-                                    : "text-[#2D4A30]"
+                                    : "text-[#0A2E12]"
                                 )}
+                                style={{ fontFamily: "var(--font-display)", fontVariantNumeric: "tabular-nums" }}
                               >
                                 {score.total_a}
                               </p>
@@ -620,7 +642,7 @@ export default function ResultsPage() {
                             </div>
 
                             <div className="flex items-center justify-center">
-                              <span className="text-2xl font-black text-[#3D5A3E]">
+                              <span className="text-2xl font-bold text-[#3D5A3E]/30">
                                 vs
                               </span>
                             </div>
@@ -638,11 +660,12 @@ export default function ResultsPage() {
                               </p>
                               <p
                                 className={cn(
-                                  "text-3xl font-black tabular-nums",
+                                  "text-3xl font-bold tabular-nums",
                                   score.winner === "team_b"
                                     ? "text-purple-600"
-                                    : "text-[#2D4A30]"
+                                    : "text-[#0A2E12]"
                                 )}
+                                style={{ fontFamily: "var(--font-display)", fontVariantNumeric: "tabular-nums" }}
                               >
                                 {score.total_b}
                               </p>
@@ -670,7 +693,7 @@ export default function ResultsPage() {
                                         {i + 1}
                                       </th>
                                     ))}
-                                    <th className="px-3 py-2 text-center text-xs font-bold text-[#2D4A30] border-l border-[#0A2E12]/10">
+                                    <th className="px-3 py-2 text-center text-xs font-bold text-[#0A2E12] border-l border-[#0A2E12]/10">
                                       Tot
                                     </th>
                                   </tr>
@@ -688,14 +711,14 @@ export default function ResultsPage() {
                                           s > score.team_b_scores[i]
                                             ? "text-[#1B5E20]"
                                             : s === 0
-                                              ? "text-[#3D5A3E]"
+                                              ? "text-[#3D5A3E]/50"
                                               : "text-[#3D5A3E]"
                                         )}
                                       >
                                         {s}
                                       </td>
                                     ))}
-                                    <td className="px-3 py-2 text-center font-black text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
+                                    <td className="px-3 py-2 text-center font-bold text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
                                       {score.total_a}
                                     </td>
                                   </tr>
@@ -711,14 +734,14 @@ export default function ResultsPage() {
                                           s > score.team_a_scores[i]
                                             ? "text-[#1B5E20]"
                                             : s === 0
-                                              ? "text-[#3D5A3E]"
+                                              ? "text-[#3D5A3E]/50"
                                               : "text-[#3D5A3E]"
                                         )}
                                       >
                                         {s}
                                       </td>
                                     ))}
-                                    <td className="px-3 py-2 text-center font-black text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
+                                    <td className="px-3 py-2 text-center font-bold text-[#0A2E12] border-l border-[#0A2E12]/10 tabular-nums">
                                       {score.total_b}
                                     </td>
                                   </tr>
@@ -732,7 +755,7 @@ export default function ResultsPage() {
                             score.team_b_players?.length > 0) && (
                             <div className="mt-4 grid grid-cols-2 gap-4 text-xs text-[#3D5A3E]">
                               <div>
-                                <p className="font-bold text-[#3D5A3E] mb-1">
+                                <p className="font-bold text-[#0A2E12] mb-1">
                                   Team A Players
                                 </p>
                                 {score.team_a_players.map((p) => (
@@ -740,7 +763,7 @@ export default function ResultsPage() {
                                 ))}
                               </div>
                               <div>
-                                <p className="font-bold text-[#3D5A3E] mb-1">
+                                <p className="font-bold text-[#0A2E12] mb-1">
                                   Team B Players
                                 </p>
                                 {score.team_b_players.map((p) => (
@@ -762,10 +785,13 @@ export default function ResultsPage() {
               <div className="mt-8 space-y-4 print:hidden">
                 {/* Next Round */}
                 {progression.available_actions.includes("next_round") && (
-                  <div className="rounded-2xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-6">
+                  <div className="rounded-2xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-5 sm:p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-base font-bold text-[#1B5E20]">
+                        <h3
+                          className="text-base font-bold text-[#1B5E20]"
+                          style={{ fontFamily: "var(--font-display)" }}
+                        >
                           Start Next Round
                         </h3>
                         <p className="text-sm text-[#1B5E20]/70 mt-1">
@@ -775,7 +801,7 @@ export default function ResultsPage() {
                       <button
                         onClick={handleNextRound}
                         disabled={advancing}
-                        className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] disabled:opacity-50 min-h-[48px] touch-manipulation"
+                        className="rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] disabled:opacity-50 min-h-[44px] touch-manipulation"
                       >
                         {advancing ? "Advancing..." : "Next Round"}
                       </button>
@@ -785,20 +811,24 @@ export default function ResultsPage() {
 
                 {/* Complete Tournament */}
                 {progression.available_actions.includes("complete") && (
-                  <div className="rounded-2xl bg-amber-50 border border-amber-200 p-6">
+                  <div className="rounded-2xl border border-[#B8860B]/30 p-5 sm:p-6" style={{ backgroundColor: "rgba(184,134,11,0.05)" }}>
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-base font-bold text-amber-800">
+                        <h3
+                          className="text-base font-bold"
+                          style={{ color: "#B8860B", fontFamily: "var(--font-display)" }}
+                        >
                           Complete Tournament
                         </h3>
-                        <p className="text-sm text-amber-600 mt-1">
+                        <p className="text-sm mt-1" style={{ color: "#B8860B", opacity: 0.7 }}>
                           Mark this tournament as finished after {progression.total_rounds_played} round{progression.total_rounds_played !== 1 ? "s" : ""}
                         </p>
                       </div>
                       <button
                         onClick={handleComplete}
                         disabled={advancing}
-                        className="rounded-xl bg-amber-500 px-6 py-3 text-sm font-bold text-white hover:bg-amber-600 disabled:opacity-50 min-h-[48px] touch-manipulation"
+                        className="rounded-xl px-6 py-3 text-sm font-bold text-white hover:opacity-90 disabled:opacity-50 min-h-[44px] touch-manipulation"
+                        style={{ backgroundColor: "#B8860B" }}
                       >
                         {advancing ? "Completing..." : "Complete"}
                       </button>
@@ -810,16 +840,19 @@ export default function ResultsPage() {
 
             {/* Tournament completed banner */}
             {progression?.current_state === "complete" && (
-              <div className="mt-8 rounded-2xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-6 text-center print:hidden">
-                <p className="text-lg font-bold text-[#2E7D32]">
+              <div className="mt-8 rounded-2xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-5 sm:p-6 text-center print:hidden">
+                <p
+                  className="text-lg font-bold text-[#1B5E20]"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
                   Tournament Complete
                 </p>
-                <p className="text-sm text-[#1B5E20] mt-1">
+                <p className="text-sm text-[#1B5E20]/70 mt-1">
                   {progression.total_rounds_played} round{progression.total_rounds_played !== 1 ? "s" : ""} played
                 </p>
                 <button
                   onClick={() => setShowShareSheet(true)}
-                  className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[48px] touch-manipulation"
+                  className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
                 >
                   <Share2 className="h-4 w-4" />
                   Share Results

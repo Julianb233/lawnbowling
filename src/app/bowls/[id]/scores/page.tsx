@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { BottomNav } from "@/components/board/BottomNav";
 import { cn } from "@/lib/utils";
 import { NumberFlip, EndPulse, MatchWon, MatchPoint } from "@/components/animations";
+import { Lock, LockOpen } from "lucide-react";
 import type { TournamentScore } from "@/lib/types";
 
 interface RinkScoreEntry {
@@ -49,9 +50,36 @@ export default function ScoreEntryPage() {
   const [confirmFinalize, setConfirmFinalize] = useState(false);
   const [matchWonRink, setMatchWonRink] = useState<{ show: boolean; teamName: string } | null>(null);
   const [lastSavedEnd, setLastSavedEnd] = useState<{ rink: number; endIdx: number } | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [currentPlayerId, setCurrentPlayerId] = useState<string | null>(null);
+  const [tournamentCreatorId, setTournamentCreatorId] = useState<string | null>(null);
+  const [unlockConfirmRink, setUnlockConfirmRink] = useState<number | null>(null);
+  const [unlocking, setUnlocking] = useState(false);
 
   const autoSaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastSavedRef = useRef<string>(""); // JSON of last saved state
+
+  // Debounce search query by 300ms
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery.trim().toLowerCase());
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Filter rinks by search query (rink number or player name)
+  const filteredRinkScores = debouncedSearch
+    ? rinkScores.filter((entry) => {
+        // Match rink number
+        if (String(entry.rink).includes(debouncedSearch)) return true;
+        // Match player names
+        const allPlayers = [...entry.teamAPlayers, ...entry.teamBPlayers];
+        return allPlayers.some((p) =>
+          p.display_name.toLowerCase().includes(debouncedSearch)
+        );
+      })
+    : rinkScores;
 
   function addToast(message: string, type: ToastType = "info") {
     const id = ++toastId;
@@ -65,10 +93,16 @@ export default function ScoreEntryPage() {
     const supabase = createClient();
     const { data } = await supabase
       .from("tournaments")
-      .select("name")
+      .select("name, created_by")
       .eq("id", tournamentId)
       .single();
-    if (data) setTournamentName(data.name);
+    if (data) {
+      setTournamentName(data.name);
+      setTournamentCreatorId(data.created_by);
+    }
+    // Get current authenticated user
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) setCurrentPlayerId(user.id);
   }, [tournamentId]);
 
   const loadScores = useCallback(async () => {
@@ -348,9 +382,9 @@ export default function ScoreEntryPage() {
 
       if (!res.ok) {
         const err = await res.json();
-        addToast(err.error || "Failed to finalize round", "error");
+        addToast(err.error || "Failed to post results", "error");
       } else {
-        addToast(`Round ${round} finalized`, "success");
+        addToast(`Round ${round} results posted`, "success");
         await loadScores();
         // Show celebration for the first finalized rink with a winner
         const winningRink = rinkScores.find((r) => {
@@ -371,6 +405,35 @@ export default function ScoreEntryPage() {
       addToast("Network error finalizing round", "error");
     }
     setFinalizing(false);
+  }
+
+  const isCreator = currentPlayerId != null && currentPlayerId === tournamentCreatorId;
+
+  async function unlockRink(rinkNumber: number) {
+    setUnlocking(true);
+    setUnlockConfirmRink(null);
+    try {
+      const res = await fetch("/api/bowls/scores", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tournament_id: tournamentId,
+          round,
+          rink: rinkNumber,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        addToast(err.error || "Failed to unlock rink", "error");
+      } else {
+        addToast(`Rink ${rinkNumber} unlocked for correction`, "success");
+        await loadScores();
+      }
+    } catch {
+      addToast("Network error unlocking rink", "error");
+    }
+    setUnlocking(false);
   }
 
   function addRink() {
@@ -456,7 +519,7 @@ export default function ScoreEntryPage() {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
-                  Score Entry
+                  Scorecard
                 </h1>
                 {/* Realtime connection indicator */}
                 <span
@@ -479,19 +542,19 @@ export default function ScoreEntryPage() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}`)}
-                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[56px] min-w-[56px] touch-manipulation"
               >
                 Back
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/live`)}
-                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-[#1B5E20]/5 min-h-[56px] min-w-[56px] touch-manipulation"
               >
                 Live View
               </button>
               <button
                 onClick={() => router.push(`/bowls/${tournamentId}/results`)}
-                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-blue-50 min-h-[44px] touch-manipulation"
+                className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-2.5 text-sm font-semibold text-[#1B5E20] hover:bg-blue-50 min-h-[56px] min-w-[56px] touch-manipulation"
               >
                 Results
               </button>
@@ -510,7 +573,7 @@ export default function ScoreEntryPage() {
                   setLoading(true);
                 }}
                 className={cn(
-                  "flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-colors touch-manipulation",
+                  "flex h-12 w-12 items-center justify-center rounded-full text-sm font-bold transition-colors touch-manipulation",
                   round === r
                     ? "bg-[#1B5E20] text-white"
                     : "bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15"
@@ -524,9 +587,58 @@ export default function ScoreEntryPage() {
       </header>
 
       <main className="mx-auto max-w-5xl px-4 py-6">
+        {/* Rink search filter */}
+        {rinkScores.length > 0 && (
+          <div className="mb-4 relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg
+                className="h-5 w-5 text-[#3D5A3E]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by rink number or player name..."
+              className="w-full min-h-[48px] rounded-lg border border-[#0A2E12]/10 bg-white pl-10 pr-4 text-base text-[#0A2E12] placeholder:text-[#3D5A3E]/50 focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#3D5A3E] hover:text-[#0A2E12]"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+        )}
+
         {/* Rink grid overview */}
+        {filteredRinkScores.length === 0 && debouncedSearch ? (
+          <div className="mb-6 rounded-2xl border border-[#0A2E12]/10 bg-white p-8 text-center">
+            <p className="text-base font-semibold text-[#3D5A3E]">
+              No rinks match your search
+            </p>
+            <p className="mt-1 text-sm text-[#3D5A3E]/70">
+              Try a different rink number or player name
+            </p>
+          </div>
+        ) : (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-          {rinkScores.map((entry, idx) => {
+          {filteredRinkScores.map((entry) => {
+            const idx = rinkScores.findIndex((r) => r.rink === entry.rink);
             const totalA = getTotal(entry.teamAScores);
             const totalB = getTotal(entry.teamBScores);
             const hasScores = entry.teamAScores.length > 0;
@@ -547,7 +659,7 @@ export default function ScoreEntryPage() {
                 )}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#3D5A3E]">
+                  <span className="text-lg font-bold uppercase tracking-wider text-[#3D5A3E]">
                     Rink {entry.rink}
                   </span>
                   <div className="flex items-center gap-1">
@@ -555,7 +667,8 @@ export default function ScoreEntryPage() {
                       <span className="h-2 w-2 rounded-full bg-amber-400" title="Unsaved changes" />
                     )}
                     {entry.isFinalized && (
-                      <span className="rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-xs font-bold text-[#2E7D32]">
+                      <span className="flex items-center gap-1 rounded-full bg-[#1B5E20]/10 px-2 py-0.5 text-xs font-bold text-[#2E7D32]">
+                        <Lock className="h-3 w-3" />
                         Final
                       </span>
                     )}
@@ -617,7 +730,7 @@ export default function ScoreEntryPage() {
           })}
 
           {/* Add rink button */}
-          {!allFinalized && (
+          {!allFinalized && !debouncedSearch && (
             <button
               onClick={addRink}
               className="flex min-h-[120px] items-center justify-center rounded-2xl border-2 border-dashed border-[#0A2E12]/10 text-[#3D5A3E] hover:border-[#0A2E12]/10:border-white/20 hover:text-[#3D5A3E]:text-[#3D5A3E] transition-colors touch-manipulation"
@@ -626,6 +739,7 @@ export default function ScoreEntryPage() {
             </button>
           )}
         </div>
+        )}
 
         {/* Active rink score entry */}
         <AnimatePresence mode="wait">
@@ -657,21 +771,32 @@ export default function ScoreEntryPage() {
                           disabled={
                             rinkScores[activeRink].teamAScores.length === 0
                           }
-                          className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-30 min-h-[44px] touch-manipulation"
+                          className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-base font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-30 min-h-[56px] min-w-[56px] touch-manipulation"
                         >
                           - End
                         </button>
                         <button
                           onClick={() => addEnd(activeRink)}
-                          className="rounded-xl bg-[#1B5E20] px-3 py-2 text-sm font-bold text-white hover:bg-[#145218] min-h-[44px] touch-manipulation"
+                          className="rounded-xl bg-[#1B5E20] px-3 py-2 text-base font-bold text-white hover:bg-[#145218] min-h-[56px] min-w-[56px] touch-manipulation"
                         >
                           + End
                         </button>
                       </>
                     )}
+                    {rinkScores[activeRink].isFinalized && isCreator && (
+                      <button
+                        onClick={() => setUnlockConfirmRink(rinkScores[activeRink].rink)}
+                        disabled={unlocking}
+                        className="flex items-center gap-1.5 rounded-xl border border-amber-300 px-3 py-2 text-sm font-semibold text-amber-700 hover:bg-amber-50 disabled:opacity-50 min-h-[48px] touch-manipulation"
+                        title="Unlock this rink for score correction"
+                      >
+                        <LockOpen className="h-4 w-4" />
+                        Unlock for Correction
+                      </button>
+                    )}
                     <button
                       onClick={() => setActiveRink(null)}
-                      className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
+                      className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-base font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] min-h-[56px] min-w-[56px] touch-manipulation"
                     >
                       Close
                     </button>
@@ -858,10 +983,10 @@ export default function ScoreEntryPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-amber-800">
-                  Finalize Round {round}
+                  Close Round {round}
                 </h3>
                 <p className="text-sm text-amber-600 mt-1">
-                  Lock all scores for this round. This action cannot be undone.
+                  Post all scores for this round. This action cannot be undone.
                 </p>
               </div>
               <button
@@ -869,7 +994,7 @@ export default function ScoreEntryPage() {
                 disabled={finalizing}
                 className="rounded-xl bg-amber-500 px-6 py-3 text-sm font-bold text-white hover:bg-amber-600 disabled:opacity-50 min-h-[48px] touch-manipulation"
               >
-                {finalizing ? "Finalizing..." : "Finalize Round"}
+                {finalizing ? "Posting..." : "Post Results"}
               </button>
             </div>
           </div>
@@ -893,23 +1018,70 @@ export default function ScoreEntryPage() {
                 className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
               >
                 <h3 className="text-lg font-black text-[#0A2E12]">
-                  Finalize Round {round}?
+                  Post Results for Round {round}?
                 </h3>
                 <p className="mt-2 text-sm text-[#3D5A3E]">
-                  All scores for {rinkScores.length} rink{rinkScores.length !== 1 ? "s" : ""} will be locked permanently. This cannot be undone.
+                  All scores for {rinkScores.length} rink{rinkScores.length !== 1 ? "s" : ""} will be posted permanently. This cannot be undone.
                 </p>
                 <div className="mt-6 flex items-center gap-3 justify-end">
                   <button
                     onClick={() => setConfirmFinalize(false)}
-                    className="rounded-xl border border-[#0A2E12]/10 px-5 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[44px] touch-manipulation"
+                    className="rounded-xl border border-[#0A2E12]/10 px-5 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[48px] touch-manipulation"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={finalizeRound}
-                    className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-600 min-h-[44px] touch-manipulation"
+                    className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-600 min-h-[48px] touch-manipulation"
                   >
-                    Finalize
+                    Post Results
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Unlock confirmation dialog */}
+        <AnimatePresence>
+          {unlockConfirmRink !== null && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+              onClick={() => setUnlockConfirmRink(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.95 }}
+                onClick={(e) => e.stopPropagation()}
+                className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <LockOpen className="h-5 w-5 text-amber-600" />
+                  <h3 className="text-lg font-black text-[#0A2E12]">
+                    Unlock Rink {unlockConfirmRink}?
+                  </h3>
+                </div>
+                <p className="mt-2 text-sm text-[#3D5A3E]">
+                  Unlock Rink {unlockConfirmRink} for score correction? This will allow editing scores for this rink. You can re-post results after making changes.
+                </p>
+                <div className="mt-6 flex items-center gap-3 justify-end">
+                  <button
+                    onClick={() => setUnlockConfirmRink(null)}
+                    className="rounded-xl border border-[#0A2E12]/10 px-5 py-2.5 text-sm font-semibold text-[#2D4A30] hover:bg-[#0A2E12]/[0.03] min-h-[48px] touch-manipulation"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => unlockRink(unlockConfirmRink)}
+                    disabled={unlocking}
+                    className="flex items-center gap-1.5 rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-600 disabled:opacity-50 min-h-[48px] touch-manipulation"
+                  >
+                    <LockOpen className="h-4 w-4" />
+                    {unlocking ? "Unlocking..." : "Unlock"}
                   </button>
                 </div>
               </motion.div>
@@ -920,7 +1092,7 @@ export default function ScoreEntryPage() {
         {allFinalized && (
           <div className="mt-8 rounded-2xl bg-[#1B5E20]/5 border border-[#1B5E20]/20 p-6 text-center">
             <p className="text-lg font-bold text-[#2E7D32]">
-              Round {round} is finalized
+              Round {round} results are posted
             </p>
             <p className="text-sm text-[#1B5E20] mt-1">
               All scores have been locked.
@@ -980,10 +1152,10 @@ function ScoreInput({
       {!disabled && (
         <button
           onClick={() => onChange(Math.min(value + 1, 9))}
-          className="flex h-8 w-12 items-center justify-center rounded-lg bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15 active:bg-[#0A2E12]/10:bg-white/20 touch-manipulation"
+          className="flex min-h-[56px] min-w-[56px] items-center justify-center rounded-lg bg-[#0A2E12]/5 text-xl text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15 active:bg-[#0A2E12]/10:bg-white/20 touch-manipulation"
         >
           <svg
-            className="h-4 w-4"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -999,7 +1171,7 @@ function ScoreInput({
       )}
       <div
         className={cn(
-          "flex h-12 w-12 items-center justify-center rounded-xl text-lg font-black tabular-nums transition-colors",
+          "flex h-14 w-14 items-center justify-center rounded-xl text-xl font-black tabular-nums transition-colors",
           disabled
             ? "bg-[#0A2E12]/[0.03] text-[#3D5A3E]"
             : isWinning
@@ -1015,10 +1187,10 @@ function ScoreInput({
       {!disabled && (
         <button
           onClick={() => onChange(Math.max(value - 1, 0))}
-          className="flex h-8 w-12 items-center justify-center rounded-lg bg-[#0A2E12]/5 text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15 active:bg-[#0A2E12]/10:bg-white/20 touch-manipulation"
+          className="flex min-h-[56px] min-w-[56px] items-center justify-center rounded-lg bg-[#0A2E12]/5 text-xl text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-white/15 active:bg-[#0A2E12]/10:bg-white/20 touch-manipulation"
         >
           <svg
-            className="h-4 w-4"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

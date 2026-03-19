@@ -169,7 +169,7 @@ export default function LearnHubPage() {
               Learning Hub
             </span>
           </div>
-          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
+          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl" style={{ fontFamily: "var(--font-display)" }}>
             Learn{" "}
             <span className="text-[#1B5E20]">Lawn Bowling</span>
           </h1>
@@ -203,7 +203,7 @@ export default function LearnHubPage() {
       {/* Topic Cards */}
       <section className="relative mx-auto max-w-6xl px-6 pb-20">
         <div className="mb-10 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+          <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
             Choose a Topic
           </h2>
           <p className="mt-3 text-lg text-zinc-600 dark:text-zinc-400">
@@ -243,7 +243,7 @@ export default function LearnHubPage() {
       {/* New to Bowls CTA */}
       <section className="relative mx-auto max-w-6xl px-6 pb-24">
         <div className="rounded-3xl bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] p-8 text-center shadow-2xl shadow-green-900/15 md:p-16">
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
+          <h2 className="text-3xl font-bold text-white md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
             New to Lawn Bowling?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-green-100/80">

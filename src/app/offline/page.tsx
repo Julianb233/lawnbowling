@@ -21,7 +21,7 @@ export default function OfflinePage() {
       <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6">
         <div className="text-center max-w-md">
           <div className="mb-6 flex justify-center" role="img" aria-label="Connected"><PartyPopper className="w-16 h-16 text-green-400" strokeWidth={1.5} /></div>
-          <h1 className="text-3xl font-bold text-white mb-3">
+          <h1 className="text-3xl font-bold text-white mb-3" style={{ fontFamily: "var(--font-display)" }}>
             You&apos;re Back Online!
           </h1>
           <p className="text-slate-400">Redirecting you to the board...</p>
@@ -34,7 +34,7 @@ export default function OfflinePage() {
     <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6">
       <div className="text-center max-w-md">
         <div className="mb-6 flex justify-center" role="img" aria-label="No connection"><WifiOff className="w-16 h-16 text-slate-500" strokeWidth={1.5} /></div>
-        <h1 className="text-3xl font-bold text-white mb-3">
+        <h1 className="text-3xl font-bold text-white mb-3" style={{ fontFamily: "var(--font-display)" }}>
           You&apos;re Offline
         </h1>
         <p className="text-slate-400 mb-8">

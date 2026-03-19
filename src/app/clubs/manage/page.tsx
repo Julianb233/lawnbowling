@@ -253,7 +253,7 @@ export default function ClubManagerDashboard() {
           </Link>
           <div className="mt-2 flex items-center justify-between">
             <h1 className="text-2xl font-black tracking-tight text-[#0A2E12]">
-              Club Dashboard
+              My Club
             </h1>
             {selectedClub && (
               <Link

@@ -4,17 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Home, Trophy, CircleDot, Calendar, User, Shield, type LucideIcon } from "lucide-react";
+import { Home, CircleDot, Calendar, User, Settings, type LucideIcon } from "lucide-react";
 import { NotificationBellNav } from "@/components/notifications/NotificationBellNav";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const NAV_ITEMS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/board", label: "Home", icon: Home },
-  { href: "/tournament", label: "Tourney", icon: Trophy },
   { href: "/bowls", label: "Bowls", icon: CircleDot },
-  { href: "/pennant", label: "Pennant", icon: Shield },
   { href: "/schedule", label: "Schedule", icon: Calendar },
-  { href: "/profile", label: "Me", icon: User },
+  { href: "/profile", label: "Profile", icon: User },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export function BottomNav() {
@@ -39,7 +38,7 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "relative flex flex-col items-center justify-center gap-0.5 px-3 py-2 text-[11px] transition-colors min-h-[44px]",
+                "relative flex flex-col items-center justify-center gap-0.5 px-3 py-2 text-sm transition-colors min-h-[44px]",
                 active ? "font-semibold" : ""
               )}
               style={{ color: active ? "var(--nav-active, #1B5E20)" : "var(--nav-muted, #3D5A3E)" }}

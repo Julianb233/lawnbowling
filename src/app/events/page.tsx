@@ -488,7 +488,7 @@ function FeaturedEventCard({
             <button
               onClick={() => onRsvp(event.id)}
               disabled={spotsLeft === 0 && !rsvpd}
-              className={`rounded-xl px-4 py-2 text-sm font-bold transition-colors min-h-[36px] touch-manipulation ${
+              className={`rounded-xl px-4 py-2 text-sm font-bold transition-colors min-h-[44px] touch-manipulation ${
                 rsvpd
                   ? "bg-[#1B5E20] text-white"
                   : spotsLeft === 0
@@ -591,7 +591,7 @@ function EventCard({
           <div className="relative w-28 sm:w-36 shrink-0">
             <Image src={event.image} alt={event.title} fill className="object-cover" sizes="(max-width: 640px) 112px, 144px" />
             {daysUntil >= 0 && daysUntil <= 3 && (
-              <div className="absolute top-2 left-2 rounded-full bg-amber-400 px-2 py-0.5 text-[10px] font-bold text-[#0A2E12]">
+              <div className="absolute top-2 left-2 rounded-full bg-amber-400 px-2 py-0.5 text-xs font-bold text-[#0A2E12]">
                 {daysUntil === 0 ? "Today" : daysUntil === 1 ? "Tomorrow" : `${daysUntil}d`}
               </div>
             )}
@@ -632,7 +632,7 @@ function EventCard({
               <button
                 onClick={() => onRsvp(event.id)}
                 disabled={spotsLeft === 0 && !rsvpd}
-                className={`shrink-0 rounded-xl px-4 py-2 text-sm font-bold transition-colors min-h-[36px] touch-manipulation ${
+                className={`shrink-0 rounded-xl px-4 py-2 text-sm font-bold transition-colors min-h-[44px] touch-manipulation ${
                   rsvpd
                     ? "bg-[#1B5E20] text-white"
                     : spotsLeft === 0

@@ -15,13 +15,13 @@ export default function PrivacyPage() {
       <PublicNav />
 
       <main className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-3xl font-bold text-[#0A2E12] mb-8">
+        <h1 className="text-3xl font-bold text-[#0A2E12] mb-8" style={{ fontFamily: "var(--font-display)" }}>
           Privacy Policy
         </h1>
         <div className="prose prose-zinc max-w-none space-y-6 text-[#3D5A3E] text-sm leading-relaxed">
           <p>Last updated: March 10, 2026</p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             1. Information We Collect
           </h2>
           <p>
@@ -30,7 +30,7 @@ export default function PrivacyPage() {
             as check-in times, match history, and device information.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             2. How We Use Your Information
           </h2>
           <p>
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
             platform. Venue owners see aggregated analytics data.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             3. Data Sharing
           </h2>
           <p>
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
             history for their venue.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             4. Data Security
           </h2>
           <p>
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
             secure authentication, and Row-Level Security to protect your data.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             5. Your Rights
           </h2>
           <p>
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
             CCPA, and other applicable privacy regulations.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             6. Cookies
           </h2>
           <p>
@@ -74,7 +74,7 @@ export default function PrivacyPage() {
             We do not use tracking cookies or third-party advertising cookies.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             7. Data Retention
           </h2>
           <p>
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
             days.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             8. Contact
           </h2>
           <p>

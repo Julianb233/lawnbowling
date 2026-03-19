@@ -57,7 +57,7 @@ export function AdminWaiversClient() {
     : waivers;
 
   return (
-    <div className="min-h-screen bg-[#0A2E12]/[0.03] px-4 py-8">
+    <div className="min-h-screen bg-[#FEFCF9] px-4 py-8">
       <div className="mx-auto max-w-4xl">
         <Link
           href="/admin"
@@ -68,7 +68,7 @@ export function AdminWaiversClient() {
 
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-[#0A2E12]">Signed Waivers</h1>
+            <h1 className="text-2xl font-bold text-[#0A2E12]" style={{ fontFamily: "var(--font-display)" }}>Signed Waivers</h1>
             <p className="text-sm text-[#0A2E12]/60">{total} total waivers</p>
           </div>
           <FileText className="h-8 w-8 text-[#0A2E12]/20" />
@@ -90,12 +90,12 @@ export function AdminWaiversClient() {
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#0A2E12]/10 border-t-[#1B5E20]" />
           </div>
         ) : filtered.length === 0 ? (
-          <div className="rounded-xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] py-12 text-center">
+          <div className="rounded-2xl border border-[#0A2E12]/10 bg-[#0A2E12]/[0.03] py-12 text-center">
             <p className="text-[#0A2E12]/40">No waivers found.</p>
           </div>
         ) : (
           <>
-            <div className="overflow-hidden rounded-xl border border-[#0A2E12]/10">
+            <div className="overflow-hidden rounded-2xl border border-[#0A2E12]/10">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-[#0A2E12]/10 bg-[#0A2E12]/[0.03]">

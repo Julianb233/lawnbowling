@@ -1,6 +1,8 @@
 // Blog post data for SEO-optimized lawn bowling content
 // Each post targets a specific high-value keyword from the SEO strategy
 
+import { seoBlogPosts } from "./blog-posts-seo";
+
 export interface BlogPost {
   title: string;
   slug: string;
@@ -2049,11 +2051,14 @@ Now that you understand how scoring works, learn the full [rules of lawn bowling
   },
 ];
 
+// Merge SEO blog posts into the main array
+const allPosts: BlogPost[] = [...blogPosts, ...seoBlogPosts];
+
 /**
  * Get all blog posts sorted by date (newest first).
  */
 export function getAllBlogPosts(): BlogPost[] {
-  return [...blogPosts].sort(
+  return [...allPosts].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 }
@@ -2062,7 +2067,7 @@ export function getAllBlogPosts(): BlogPost[] {
  * Get a single blog post by slug.
  */
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find((post) => post.slug === slug);
+  return allPosts.find((post) => post.slug === slug);
 }
 
 /**
@@ -2075,7 +2080,7 @@ export function getRelatedPosts(
   const current = getBlogPostBySlug(currentSlug);
   if (!current) return [];
 
-  return blogPosts
+  return allPosts
     .filter(
       (post) =>
         post.slug !== currentSlug &&
@@ -2089,12 +2094,12 @@ export function getRelatedPosts(
  * Get all unique categories.
  */
 export function getAllCategories(): string[] {
-  return [...new Set(blogPosts.map((post) => post.category))];
+  return [...new Set(allPosts.map((post) => post.category))];
 }
 
 /**
  * Get all unique tags.
  */
 export function getAllTags(): string[] {
-  return [...new Set(blogPosts.flatMap((post) => post.tags))];
+  return [...new Set(allPosts.flatMap((post) => post.tags))];
 }

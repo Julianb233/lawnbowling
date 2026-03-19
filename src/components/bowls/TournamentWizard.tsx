@@ -17,10 +17,15 @@ import {
 import { cn } from "@/lib/utils";
 import { WizardStepRail } from "./WizardStepRail";
 import { ConfirmRedrawModal } from "./ConfirmRedrawModal";
+import { DrawPreview } from "./DrawPreview";
+import type { DrawPreviewData } from "./DrawPreview";
 import {
   BOWLS_FORMAT_LABELS,
 } from "@/lib/types";
 import type { BowlsGameFormat, BowlsCheckin, BowlsTeamAssignment } from "@/lib/types";
+import type { DrawStyle } from "@/lib/bowls-draw";
+import { DRAW_STYLE_LABELS, validateDrawCompatibility, generateBowlsDraw } from "@/lib/bowls-draw";
+import { AlertTriangle } from "lucide-react";
 
 type TournamentState =
   | "registration"
@@ -83,8 +88,8 @@ interface TournamentWizardProps {
 
 const STEP_LABELS: Record<TournamentState, string> = {
   registration: "Tournament Setup",
-  checkin: "Check In Players",
-  draw: "Generate Draw",
+  checkin: "Sign In Players",
+  draw: "Do the Draw",
   scoring: "Play & Score",
   results: "Round Results",
   complete: "Tournament Complete",
@@ -92,8 +97,8 @@ const STEP_LABELS: Record<TournamentState, string> = {
 
 const STEP_DESCRIPTIONS: Record<TournamentState, string> = {
   registration: "Set up your tournament and open registration for players.",
-  checkin: "Players check in and select their preferred positions.",
-  draw: "Generate the rink draw from checked-in players.",
+  checkin: "Players sign in and select their preferred positions.",
+  draw: "Make the rink draw from signed-in players.",
   scoring: "Players play their games and scores are entered.",
   results: "Review round results and decide whether to play another round.",
   complete: "The tournament is finished. View final results and standings.",
@@ -140,6 +145,10 @@ export function TournamentWizard({
   const [rinkScores, setRinkScores] = useState<RinkScore[]>([]);
   const [standings, setStandings] = useState<PlayerStanding[]>([]);
   const [totalRoundsPlayed, setTotalRoundsPlayed] = useState(0);
+  const [drawStyle, setDrawStyle] = useState<DrawStyle>("random");
+  const [drawPreview, setDrawPreview] = useState<DrawPreviewData | null>(null);
+  const [confirmDrawLoading, setConfirmDrawLoading] = useState(false);
+  const [regenerateLoading, setRegenerateLoading] = useState(false);
 
   const fetchProgression = useCallback(async () => {
     try {
@@ -259,6 +268,10 @@ export function TournamentWizard({
   const playersPerRink = BOWLS_FORMAT_LABELS[format].playersPerTeam * 2;
   const hasEnoughPlayers = checkins.length >= playersPerRink;
 
+  // Mead Draw compatibility check
+  const meadCompatibility = validateDrawCompatibility(checkins.length, format, drawStyle);
+  const showMeadWarning = drawStyle === "mead" && !meadCompatibility.compatible;
+
   return (
     <div>
       {/* Step Rail */}
@@ -309,11 +322,11 @@ export function TournamentWizard({
                 <div className="rounded-xl bg-[#0A2E12]/[0.03] p-4">
                   <p className="text-sm text-[#3D5A3E]">
                     <span className="font-semibold">{tournamentName}</span> is ready
-                    to begin. Start check-in to allow players to register.
+                    to begin. Start sign-in to allow players to join.
                   </p>
                 </div>
                 <CTAButton
-                  label="Open Check-In"
+                  label="Open Sign-In"
                   loading={actionLoading}
                   onClick={() => performAction("start_checkin")}
                 />
@@ -328,7 +341,7 @@ export function TournamentWizard({
                     <p className="text-2xl font-black text-[#0A2E12]">
                       {progression.checkin_count}
                     </p>
-                    <p className="text-xs text-[#3D5A3E]">players checked in</p>
+                    <p className="text-xs text-[#3D5A3E]">players signed in</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-[#3D5A3E]">
@@ -355,20 +368,81 @@ export function TournamentWizard({
                   </select>
                 </div>
 
-                <CTAButton
-                  label="Generate Draw"
-                  loading={actionLoading}
-                  disabled={!hasEnoughPlayers}
-                  tooltip={
-                    !hasEnoughPlayers
-                      ? `Need at least ${playersPerRink} players for ${BOWLS_FORMAT_LABELS[format].label}`
-                      : undefined
-                  }
-                  onClick={async () => {
-                    await onGenerateDraw(format);
-                    await performAction("generate_draw");
-                  }}
-                />
+                <div className="flex items-center gap-3">
+                  <label className="text-sm font-medium text-[#3D5A3E]">Draw Style:</label>
+                  <select
+                    value={drawStyle}
+                    onChange={(e) => setDrawStyle(e.target.value as DrawStyle)}
+                    className="rounded-xl border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm font-medium text-[#2D4A30] focus:border-[#1B5E20] focus:outline-none focus:ring-1 focus:ring-[#1B5E20]"
+                  >
+                    {(Object.entries(DRAW_STYLE_LABELS) as [DrawStyle, string][]).map(
+                      ([key, label]) => (
+                        <option key={key} value={key}>
+                          {label}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+
+                {/* US-009: Mead Draw player count warning */}
+                {showMeadWarning && (
+                  <div className="flex items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 p-4">
+                    <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-semibold text-amber-800">
+                        Mead Draw supports {meadCompatibility.supported_counts?.join(", ")} players.
+                        You have {checkins.length} checked in.
+                        The system will use Random Draw instead.
+                      </p>
+                      <p className="mt-1 text-xs text-amber-700">
+                        Consider adjusting check-ins to match a supported count, or choose Random Draw.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {!drawPreview && (
+                  <CTAButton
+                    label="Do the Draw"
+                    loading={actionLoading}
+                    disabled={!hasEnoughPlayers}
+                    tooltip={
+                      !hasEnoughPlayers
+                        ? `Need at least ${playersPerRink} players for ${BOWLS_FORMAT_LABELS[format].label}`
+                        : undefined
+                    }
+                    onClick={() => {
+                      const result = generateBowlsDraw(checkins, format);
+                      setDrawPreview(result);
+                    }}
+                  />
+                )}
+
+                {drawPreview && (
+                  <DrawPreview
+                    preview={drawPreview}
+                    confirmLoading={confirmDrawLoading}
+                    regenerateLoading={regenerateLoading}
+                    onConfirm={async (finalPreview) => {
+                      setConfirmDrawLoading(true);
+                      try {
+                        await onGenerateDraw(format);
+                        await performAction("generate_draw");
+                        setDrawPreview(null);
+                      } catch {
+                        setActionError("Failed to save draw");
+                      }
+                      setConfirmDrawLoading(false);
+                    }}
+                    onRegenerate={() => {
+                      setRegenerateLoading(true);
+                      const result = generateBowlsDraw(checkins, format);
+                      setDrawPreview(result);
+                      setRegenerateLoading(false);
+                    }}
+                  />
+                )}
               </div>
             )}
 
@@ -404,7 +478,7 @@ export function TournamentWizard({
                     disabled={!canRedraw}
                     title={
                       hasLiveScores
-                        ? "Cannot re-draw while scores are in progress. Finalize or clear all scores first."
+                        ? "Cannot re-draw while scores are in progress. Post results or clear all scores first."
                         : undefined
                     }
                     className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-40 disabled:cursor-not-allowed"
@@ -433,7 +507,7 @@ export function TournamentWizard({
                             r.is_finalized ? "text-[#1B5E20]" : "text-amber-600"
                           )}>
                             {r.is_finalized
-                              ? `${r.total_a} - ${r.total_b} (Finalized)`
+                              ? `${r.total_a} - ${r.total_b} (Posted)`
                               : r.team_a_scores?.length > 0
                                 ? `${r.total_a} - ${r.total_b} (In progress)`
                                 : "No scores yet"}
@@ -447,14 +521,14 @@ export function TournamentWizard({
                 <CTAButton
                   label={
                     allFinalized
-                      ? "Finalize Round"
-                      : `Waiting for ${unfinalizedRinks.length} rink${unfinalizedRinks.length !== 1 ? "s" : ""} to be finalized`
+                      ? "Post Results"
+                      : `Waiting for ${unfinalizedRinks.length} rink${unfinalizedRinks.length !== 1 ? "s" : ""} to be posted`
                   }
                   loading={actionLoading}
                   disabled={!allFinalized}
                   tooltip={
                     !allFinalized
-                      ? `Waiting for ${unfinalizedRinks.length} rink${unfinalizedRinks.length !== 1 ? "s" : ""} to be finalized.`
+                      ? `Waiting for ${unfinalizedRinks.length} rink${unfinalizedRinks.length !== 1 ? "s" : ""} to be posted.`
                       : undefined
                   }
                   onClick={() => performAction("finalize_round")}
@@ -469,7 +543,7 @@ export function TournamentWizard({
                   disabled={hasLiveScores}
                   title={
                     hasLiveScores
-                      ? "Cannot re-draw while scores are in progress. Finalize or clear all scores first."
+                      ? "Cannot re-draw while scores are in progress. Post results or clear all scores first."
                       : undefined
                   }
                   className="text-sm text-[#3D5A3E] hover:text-[#3D5A3E] disabled:cursor-not-allowed disabled:hover:text-[#3D5A3E]"
@@ -507,26 +581,41 @@ export function TournamentWizard({
                   )}
                 </div>
 
-                {/* TWZ-10: Next Round preview */}
-                <div className="rounded-xl border border-[#1B5E20]/20 bg-[#1B5E20]/5 p-4">
-                  <div className="flex items-center gap-2">
-                    <SkipForward className="h-4 w-4 text-[#1B5E20]" />
-                    <p className="text-sm font-semibold text-[#1B5E20]">
-                      Next: Generate draw for Round {progression.current_round + 1}
+                {/* US-008: Round summary + prominent Start Next Round CTA */}
+                <div className="rounded-xl border border-[#22c55e]/20 bg-[#22c55e]/5 p-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <SkipForward className="h-4 w-4 text-[#22c55e]" />
+                    <p className="text-sm font-bold text-[#0A2E12]">
+                      Round {progression.current_round} Complete
+                      {rinkScores.length > 0 && (
+                        <span className="font-normal text-[#3D5A3E]">
+                          {" "}&mdash; {rinkScores.length} game{rinkScores.length !== 1 ? "s" : ""} played
+                        </span>
+                      )}
                     </p>
                   </div>
+                  <p className="text-xs text-[#3D5A3E] ml-6">
+                    Ready to do the draw for Round {progression.current_round + 1}
+                  </p>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <CTAButton
-                    label={`Next Round (Round ${progression.current_round + 1})`}
-                    loading={actionLoading}
-                    onClick={() => performAction("next_round")}
-                  />
+                  <div className="relative group flex-1">
+                    <button
+                      onClick={() => performAction("next_round")}
+                      disabled={actionLoading}
+                      className="flex items-center justify-center gap-2 rounded-xl bg-[#22c55e] px-6 text-base font-bold text-white transition-colors hover:bg-[#16a34a] disabled:opacity-50 disabled:cursor-not-allowed w-full shadow-lg shadow-[#22c55e]/25"
+                      style={{ minHeight: "56px" }}
+                    >
+                      {actionLoading && <Loader2 className="h-5 w-5 animate-spin" />}
+                      Start Round {progression.current_round + 1}
+                    </button>
+                  </div>
                   <button
                     onClick={() => performAction("complete")}
                     disabled={actionLoading}
-                    className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 py-3 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-50"
+                    className="rounded-xl border border-[#0A2E12]/10 bg-white px-4 text-sm font-semibold text-[#3D5A3E] hover:bg-[#0A2E12]/[0.03] disabled:opacity-50"
+                    style={{ minHeight: "56px" }}
                   >
                     End Tournament
                   </button>
@@ -626,7 +715,7 @@ export function TournamentWizard({
                 <div className="flex gap-1 p-2 border-b border-[#0A2E12]/10">
                   {(
                     [
-                      { key: "checkin" as const, label: "Check In" },
+                      { key: "checkin" as const, label: "Sign In" },
                       { key: "board" as const, label: "Board" },
                       { key: "draw" as const, label: "Draw" },
                     ] as const

@@ -46,11 +46,11 @@ export default function VenuesAdminPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6">Venue Management</h1>
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6" style={{ fontFamily: "var(--font-display)" }}>Venue Management</h1>
 
       {/* Create venue */}
-      <div className="rounded-xl border border-[#0A2E12]/10 bg-white p-4 mb-6">
-        <h2 className="text-sm font-semibold text-[#3D5A3E] mb-3">Add New Venue</h2>
+      <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6 mb-6">
+        <h2 className="text-sm font-semibold text-[#0A2E12] mb-3" style={{ fontFamily: "var(--font-display)" }}>Add New Venue</h2>
         <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"

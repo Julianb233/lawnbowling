@@ -45,7 +45,7 @@ export default function BlogIndexPage() {
             <BookOpen className="h-4 w-4 text-[#1B5E20]" />
             <span className="text-sm font-medium text-[#1B5E20]">Blog</span>
           </div>
-          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl">
+          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl" style={{ fontFamily: "var(--font-display)" }}>
             The Lawn Bowling{" "}
             <span className="text-[#1B5E20]">Blog</span>
           </h1>
@@ -95,7 +95,7 @@ export default function BlogIndexPage() {
                   {featuredPost.readTime} min read
                 </span>
               </div>
-              <h2 className="text-3xl font-bold text-zinc-900 group-hover:text-[#1B5E20] transition md:text-4xl">
+              <h2 className="text-3xl font-bold text-zinc-900 group-hover:text-[#1B5E20] transition md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
                 {featuredPost.title}
               </h2>
               <p className="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
@@ -131,7 +131,7 @@ export default function BlogIndexPage() {
 
       {/* Post Grid */}
       <section className="mx-auto max-w-6xl px-6 pb-20">
-        <h2 className="mb-8 text-2xl font-bold text-zinc-900 md:text-3xl">
+        <h2 className="mb-8 text-2xl font-bold text-zinc-900 md:text-3xl" style={{ fontFamily: "var(--font-display)" }}>
           All Articles
         </h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -182,7 +182,7 @@ export default function BlogIndexPage() {
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-6 pb-24">
         <div className="rounded-3xl bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] p-8 text-center shadow-2xl shadow-green-900/15 md:p-16">
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
+          <h2 className="text-3xl font-bold text-white md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
             Ready to Get on the Green?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-green-100/80">

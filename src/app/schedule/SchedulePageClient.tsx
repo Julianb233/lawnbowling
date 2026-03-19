@@ -23,7 +23,7 @@ export function SchedulePageClient({ games, currentPlayerId }: SchedulePageClien
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-animated-gradient pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
       <header className="sticky top-0 z-40 glass border-b border-[#0A2E12]/10">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
           <motion.div

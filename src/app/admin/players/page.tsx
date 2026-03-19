@@ -51,7 +51,7 @@ export default function PlayersAdminPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6">
+      <h1 className="text-2xl font-bold text-[#0A2E12] mb-6" style={{ fontFamily: "var(--font-display)" }}>
         Players ({total})
       </h1>
 
@@ -69,7 +69,7 @@ export default function PlayersAdminPage() {
           onChange={(e) => setSkillFilter(e.target.value)}
           className="rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-[#0A2E12]"
         >
-          <option value="">All Skill Levels</option>
+          <option value="">All Experience Levels</option>
           <option value="beginner">Beginner</option>
           <option value="intermediate">Intermediate</option>
           <option value="advanced">Advanced</option>

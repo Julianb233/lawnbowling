@@ -15,13 +15,13 @@ export default function TermsPage() {
       <PublicNav />
 
       <main className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-3xl font-bold text-[#0A2E12] mb-8">
+        <h1 className="text-3xl font-bold text-[#0A2E12] mb-8" style={{ fontFamily: "var(--font-display)" }}>
           Terms of Service
         </h1>
         <div className="prose prose-zinc max-w-none space-y-6 text-[#3D5A3E] text-sm leading-relaxed">
           <p>Last updated: March 10, 2026</p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             1. Acceptance of Terms
           </h2>
           <p>
@@ -30,7 +30,7 @@ export default function TermsPage() {
             agree, do not use the Service.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             2. Description of Service
           </h2>
           <p>
@@ -39,7 +39,7 @@ export default function TermsPage() {
             partners, schedule games, and track match statistics.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             3. User Accounts
           </h2>
           <p>
@@ -49,7 +49,7 @@ export default function TermsPage() {
             Service.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             4. Acceptable Use
           </h2>
           <p>
@@ -59,7 +59,7 @@ export default function TermsPage() {
             Service.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             5. Content
           </h2>
           <p>
@@ -68,7 +68,7 @@ export default function TermsPage() {
             content that violates these terms.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             6. Venue Partnerships
           </h2>
           <p>
@@ -77,7 +77,7 @@ export default function TermsPage() {
             does not replace venue-specific waivers or safety protocols.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             7. Limitation of Liability
           </h2>
           <p>
@@ -87,7 +87,7 @@ export default function TermsPage() {
             activities.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             8. Termination
           </h2>
           <p>
@@ -96,7 +96,7 @@ export default function TermsPage() {
             Settings page.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             9. Changes
           </h2>
           <p>
@@ -104,7 +104,7 @@ export default function TermsPage() {
             Service constitutes acceptance of updated terms.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8">
+          <h2 className="text-xl font-semibold text-[#0A2E12] mt-8" style={{ fontFamily: "var(--font-display)" }}>
             10. Contact
           </h2>
           <p>
