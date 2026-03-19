@@ -8,32 +8,32 @@ export async function GET(
 ) {
   const { id: playerId } = await params;
   const limit = parseInt(req.nextUrl.searchParams.get("limit") ?? "20", 10);
+  const offset = parseInt(req.nextUrl.searchParams.get("offset") ?? "0", 10);
 
   try {
     const supabase = await createClient();
 
-    // Get all finalized tournament scores where this player participated
-    const { data: scores, error } = await supabase
+    // Query only finalized scores where this player participated using
+    // containedBy filter on the JSONB team arrays. This avoids fetching
+    // ALL tournament_scores and filtering client-side (N+1 pattern).
+    const { data: scores, error, count } = await supabase
       .from("tournament_scores")
       .select(
-        "id, tournament_id, round, rink, team_a_players, team_b_players, total_a, total_b, winner, is_finalized, created_at"
+        "id, tournament_id, round, rink, team_a_players, team_b_players, total_a, total_b, winner, is_finalized, created_at",
+        { count: "exact" }
       )
       .eq("is_finalized", true)
-      .order("created_at", { ascending: false });
+      .or(
+        `team_a_players.cs.[{"player_id":"${playerId}"}],team_b_players.cs.[{"player_id":"${playerId}"}]`
+      )
+      .order("created_at", { ascending: false })
+      .range(offset, offset + limit - 1);
 
     if (error) {
       return apiError(error, "GET /api/profile/[id]/matches", 500);
     }
 
-    // Filter to scores where this player participated
-    const playerScores = (scores ?? []).filter((s) => {
-      const teamA = (s.team_a_players as { player_id: string }[]) ?? [];
-      const teamB = (s.team_b_players as { player_id: string }[]) ?? [];
-      return (
-        teamA.some((p) => p.player_id === playerId) ||
-        teamB.some((p) => p.player_id === playerId)
-      );
-    });
+    const playerScores = scores ?? [];
 
     // Get tournament details for the scores
     const tournamentIds = [
@@ -49,7 +49,7 @@ export async function GET(
     );
 
     // Build match history entries
-    const matches = playerScores.slice(0, limit).map((s) => {
+    const matches = playerScores.map((s) => {
       const teamA = (s.team_a_players as { player_id: string; display_name: string }[]) ?? [];
       const teamB = (s.team_b_players as { player_id: string; display_name: string }[]) ?? [];
       const isTeamA = teamA.some((p) => p.player_id === playerId);
@@ -97,10 +97,11 @@ export async function GET(
       };
     });
 
+    const total = count ?? playerScores.length;
     return NextResponse.json({
       matches,
-      total: playerScores.length,
-      has_more: playerScores.length > limit,
+      total,
+      has_more: offset + limit < total,
     });
   } catch (err) {
     return apiError(err, "GET /api/profile/[id]/matches", 500);
