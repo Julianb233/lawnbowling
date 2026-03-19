@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Home, CircleDot, Calendar, User, Settings, type LucideIcon } from "lucide-react";
+import { NotificationBellNav } from "@/components/notifications/NotificationBellNav";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const NAV_ITEMS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/board", label: "Home", icon: Home },
@@ -19,11 +21,10 @@ export function BottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-50 border-t lg:hidden"
+      className="fixed bottom-0 left-0 right-0 z-50 border-t lg:hidden bg-white/92 dark:bg-[#0f2518]/92 border-[#0A2E12]/8 dark:border-white/10"
       style={{
-        backgroundColor: "rgba(255,255,255,0.92)",
         backdropFilter: "blur(12px)",
-        borderColor: "rgba(10,46,18,0.08)",
+        WebkitBackdropFilter: "blur(12px)",
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
       aria-label="Main navigation"
@@ -40,7 +41,7 @@ export function BottomNav() {
                 "relative flex flex-col items-center justify-center gap-0.5 px-3 py-2 text-sm transition-colors min-h-[44px]",
                 active ? "font-semibold" : ""
               )}
-              style={{ color: active ? "#1B5E20" : "#3D5A3E" }}
+              style={{ color: active ? "var(--nav-active, #1B5E20)" : "var(--nav-muted, #3D5A3E)" }}
             >
               <item.icon className="w-5 h-5" strokeWidth={1.5} />
               <span>{item.label}</span>
@@ -55,6 +56,8 @@ export function BottomNav() {
             </Link>
           );
         })}
+        <NotificationBellNav />
+        <ThemeToggle />
       </div>
     </nav>
   );

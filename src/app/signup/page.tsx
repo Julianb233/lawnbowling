@@ -235,7 +235,7 @@ function SignupForm() {
           {/* Brand */}
           <div className="mb-8 flex items-center justify-center gap-3">
             <Image
-              src={bowlsIconImg}
+              src="/images/logo/bowls-icon.png"
               alt="Lawnbowling"
               width={40}
               height={40}

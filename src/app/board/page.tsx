@@ -23,7 +23,6 @@ import { VenueSelector } from "@/components/venue/VenueSelector";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import Link from "next/link";
 import Image from "next/image";
-import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 import {
   Trophy,
   Calendar,
@@ -36,6 +35,7 @@ import {
   MapPin,
   Star,
   TrendingUp,
+  Activity,
 } from "lucide-react";
 import type { SkillLevel, Player } from "@/lib/types";
 
@@ -79,6 +79,14 @@ const QUICK_LINKS = [
     icon: Users,
     color: "from-violet-500 to-purple-600",
     bg: "bg-violet-50 hover:bg-violet-100",
+  },
+  {
+    href: "/activity",
+    label: "Activity",
+    description: "Social feed",
+    icon: Activity,
+    color: "from-teal-500 to-cyan-600",
+    bg: "bg-teal-50 hover:bg-teal-100",
   },
 ];
 
@@ -206,7 +214,7 @@ export default function BoardPage() {
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 lg:px-8">
             <div className="flex items-center gap-3">
               <Image
-                src={bowlsIconImg}
+                src="/images/logo/bowls-icon.png"
                 alt="Lawnbowling"
                 width={36}
                 height={36}

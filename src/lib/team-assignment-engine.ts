@@ -371,7 +371,8 @@ export function generateSmartAssignment(
   let bestScore = scoreAllRinks(bestRinks, historyMap, partnerMap, weights);
 
   // Stochastic optimization: try swaps for N iterations
-  const ITERATIONS = 500;
+  // Scale iterations with pool size — more players need more optimization passes
+  const ITERATIONS = Math.min(2000, Math.max(500, rinkCount * 100));
   for (let i = 0; i < ITERATIONS; i++) {
     const candidate = tryRandomSwap(bestRinks, lockedIds, positions);
     if (!candidate) continue;
@@ -716,6 +717,127 @@ export function swapPlayers(
     },
     flatAssignments,
   };
+}
+
+// ── Fairness Report ──────────────────────────────────────────────────
+
+export interface FairnessReport {
+  /** Average ELO difference between teams across all rinks */
+  avgEloDiff: number;
+  /** Maximum ELO difference between teams in any single rink */
+  maxEloDiff: number;
+  /** Percentage of players in their preferred position */
+  positionSatisfaction: number;
+  /** Number of partner preferences honored (same team) */
+  partnerPrefsHonored: number;
+  /** Total partner preferences requested */
+  partnerPrefsTotal: number;
+  /** Number of players sitting out */
+  sitOutCount: number;
+  /** Overall fairness grade */
+  grade: "A" | "B" | "C" | "D" | "F";
+}
+
+/**
+ * Generate a fairness report for an assignment result.
+ * Useful for displaying balance metrics in the UI.
+ */
+export function generateFairnessReport(
+  result: AssignmentResult,
+  partnerPreferences?: PartnerPreference[]
+): FairnessReport {
+  let totalEloDiff = 0;
+  let maxEloDiff = 0;
+  let posMatches = 0;
+  let posTotal = 0;
+
+  for (const rink of result.rinks) {
+    const eloA = teamElo(rink.teamA);
+    const eloB = teamElo(rink.teamB);
+    const diff = Math.abs(eloA - eloB);
+    totalEloDiff += diff;
+    maxEloDiff = Math.max(maxEloDiff, diff);
+
+    for (const slot of [...rink.teamA, ...rink.teamB]) {
+      posTotal++;
+      if (slot.preferred_position === "any" || slot.position === slot.preferred_position) {
+        posMatches++;
+      }
+    }
+  }
+
+  const avgEloDiff = result.rinks.length > 0
+    ? Math.round(totalEloDiff / result.rinks.length)
+    : 0;
+
+  // Check partner preferences
+  let partnerPrefsHonored = 0;
+  const partnerPrefsTotal = partnerPreferences?.length ?? 0;
+  if (partnerPreferences) {
+    for (const pref of partnerPreferences) {
+      for (const rink of result.rinks) {
+        const teamAIds = rink.teamA.map((s) => s.player_id);
+        const teamBIds = rink.teamB.map((s) => s.player_id);
+        if (
+          (teamAIds.includes(pref.requester_id) && teamAIds.includes(pref.target_id)) ||
+          (teamBIds.includes(pref.requester_id) && teamBIds.includes(pref.target_id))
+        ) {
+          partnerPrefsHonored++;
+        }
+      }
+    }
+  }
+
+  const positionSatisfaction = posTotal > 0 ? Math.round((posMatches / posTotal) * 100) : 100;
+
+  // Grade based on overall quality
+  const score = result.totalScore;
+  const grade: FairnessReport["grade"] =
+    score >= 80 ? "A" :
+    score >= 65 ? "B" :
+    score >= 50 ? "C" :
+    score >= 35 ? "D" : "F";
+
+  return {
+    avgEloDiff: Math.round(avgEloDiff),
+    maxEloDiff: Math.round(maxEloDiff),
+    positionSatisfaction,
+    partnerPrefsHonored,
+    partnerPrefsTotal,
+    sitOutCount: result.sitOuts.length,
+    grade,
+  };
+}
+
+// ── Quick Assignment ─────────────────────────────────────────────────
+
+/**
+ * Simplified entry point for generating team assignments from a raw player list.
+ * Converts basic player data into AssignmentPlayers and runs the engine.
+ * Ideal for API routes that don't have full checkin/rating data.
+ */
+export function quickAssign(
+  players: { id: string; name: string; elo?: number; preferred_position?: string; avatar_url?: string | null }[],
+  format: BowlsGameFormat = "fours",
+  options?: { partnerPreferences?: PartnerPreference[]; matchHistory?: MatchHistoryRecord[] }
+): AssignmentResult {
+  const assignmentPlayers: AssignmentPlayer[] = players.map((p) => ({
+    player_id: p.id,
+    display_name: p.name,
+    avatar_url: p.avatar_url ?? null,
+    preferred_position: (p.preferred_position as BowlsPosition | "any") ?? "any",
+    elo_rating: p.elo ?? DEFAULT_ELO,
+    position_ratings: {},
+    skill_level: p.elo
+      ? (p.elo < 1000 ? "beginner" : p.elo < 1400 ? "intermediate" : "advanced")
+      : "intermediate",
+  }));
+
+  return generateSmartAssignment(assignmentPlayers, {
+    format,
+    partnerPreferences: options?.partnerPreferences,
+    matchHistory: options?.matchHistory,
+  });
 }
 
 /**

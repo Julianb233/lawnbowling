@@ -11,6 +11,9 @@ export async function POST(request: NextRequest) {
   if (!playerId) return NextResponse.json({ error: "Player not found" }, { status: 404 });
 
   const { friend_id } = await request.json();
+  if (!friend_id || playerId === friend_id) {
+    return NextResponse.json({ error: "Invalid friend request" }, { status: 400 });
+  }
   const { error } = await supabase
     .from("friendships")
     .insert({ player_id: playerId, friend_id, status: "pending" });

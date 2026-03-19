@@ -117,6 +117,10 @@ textarea,
 /* Based on UX research at .planning/research/LAWN_BOWLING_UX.md */
 
 :root {
+  /* Navigation colors */
+  --nav-active: #1B5E20;
+  --nav-muted: #3D5A3E;
+
   /* Kiosk touch targets */
   --kiosk-touch-target-min: 56px;
   --kiosk-touch-target-primary: 72px;
@@ -554,6 +558,79 @@ a,
   --kiosk-text-secondary: #94b8a0;
   --kiosk-primary: #4ade80;
   --kiosk-on-primary: #0f2518;
+  --nav-active: #4ade80;
+  --nav-muted: #a8c8b4;
+}
+
+/* === DARK MODE: page backgrounds === */
+.dark .bg-\[\#FEFCF9\] {
+  background-color: #0f2518 !important;
+}
+
+/* Dark mode: input & form elements (REQ-DM-11) */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #1a3d28;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #e8f0eb;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #94b8a0;
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #4ade80;
+  box-shadow: 0 0 0 1px #4ade80;
+}
+
+/* Dark mode: modal/dialog backgrounds */
+.dark .bg-white {
+  background-color: #1a3d28;
+}
+
+/* Dark mode: text color overrides */
+.dark .text-\[\#0A2E12\] {
+  color: #e8f0eb;
+}
+
+.dark .text-\[\#2D4A30\] {
+  color: #d1e7d8;
+}
+
+.dark .text-\[\#3D5A3E\] {
+  color: #a8c8b4;
+}
+
+/* Dark mode: border overrides */
+.dark .border-\[\#0A2E12\]\/10 {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .border-\[\#0A2E12\]\/8 {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Dark mode: bg opacity overrides */
+.dark .bg-\[\#0A2E12\]\/5,
+.dark .bg-\[\#0A2E12\]\/\[0\.03\] {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark .bg-white\/80 {
+  background-color: rgba(26, 61, 40, 0.8);
+}
+
+.dark .bg-white\/95 {
+  background-color: rgba(15, 37, 24, 0.95);
+}
+
+.dark .bg-white\/92 {
+  background-color: rgba(15, 37, 24, 0.92);
 }
 
 /* === SCORE ANIMATION KEYFRAMES === */

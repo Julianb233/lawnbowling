@@ -86,6 +86,10 @@ export async function POST(request: NextRequest) {
         if (type === "INSERT") await handleNewMembership(record);
         break;
 
+      case "activity_feed":
+        if (type === "INSERT") await handleActivityFeedItem(record);
+        break;
+
       default:
         logger.info("Supabase webhook — unhandled table", { table, type });
     }
@@ -203,7 +207,7 @@ async function handleCheckin(record: Record<string, unknown>) {
         title: "Friend Checked In",
         body: `${playerName} just checked in — head to the green!`,
         tag: `checkin-${record.id}`,
-        url: `/checkin`,
+        url: `/board`,
       })
     )
   );
@@ -247,6 +251,84 @@ async function handleMatchCompleted(
         body: "Your match results are in — check the scoreboard!",
         tag: `match-complete-${matchId}`,
         url: `/match/${matchId}`,
+      })
+    )
+  );
+}
+
+/**
+ * Activity feed item created — notify relevant players (friends).
+ */
+async function handleActivityFeedItem(record: Record<string, unknown>) {
+  const playerId = record.player_id as string | undefined;
+  const type = record.type as string | undefined;
+
+  if (!playerId || !type) return;
+
+  const supabase = getSupabaseAdmin();
+
+  // Get the player's name
+  const { data: player } = await supabase
+    .from("players")
+    .select("display_name")
+    .eq("id", playerId)
+    .single();
+
+  const playerName = player?.display_name ?? "Someone";
+
+  // Build notification content based on activity type
+  const notifMap: Record<string, { title: string; body: string }> = {
+    match_complete: {
+      title: "Match Result",
+      body: `${playerName} just finished a match!`,
+    },
+    friend_accepted: {
+      title: "New Connection",
+      body: `${playerName} accepted a friend request`,
+    },
+    achievement_unlocked: {
+      title: "Achievement Unlocked",
+      body: `${playerName} earned a new achievement!`,
+    },
+    new_player: {
+      title: "New Member",
+      body: `${playerName} joined the club!`,
+    },
+    scheduled_game: {
+      title: "Game Scheduled",
+      body: `${playerName} scheduled a new game`,
+    },
+  };
+
+  const notif = notifMap[type];
+  if (!notif) return; // Not a type we send push for
+
+  // Get friends to notify
+  const { data: friendships } = await supabase
+    .from("friendships")
+    .select("friend_id, player_id")
+    .or(`player_id.eq.${playerId},friend_id.eq.${playerId}`)
+    .eq("status", "accepted");
+
+  if (!friendships || friendships.length === 0) return;
+
+  const friendIds = friendships.map((f) =>
+    f.player_id === playerId ? f.friend_id : f.player_id
+  );
+
+  logger.info("Sending activity feed notifications", {
+    type,
+    playerId,
+    friendCount: friendIds.length,
+  });
+
+  await Promise.allSettled(
+    friendIds.map((friendId: string) =>
+      sendPushToPlayer(friendId, "club_announcement", {
+        title: notif.title,
+        body: notif.body,
+        tag: `activity-${record.id}`,
+        url: "/activity",
       })
     )
   );

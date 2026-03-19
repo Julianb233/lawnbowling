@@ -3,6 +3,8 @@ import {
   generateSmartAssignment,
   swapPlayers,
   checkinsToAssignmentPlayers,
+  generateFairnessReport,
+  quickAssign,
   type AssignmentPlayer,
   type AssignmentConfig,
   type AssignmentResult,
@@ -671,6 +673,102 @@ describe("Team Assignment Engine", () => {
       expect(result[0].preferred_position).toBe("skip");
       expect(result[0].elo_rating).toBe(1450);
       expect(result[0].position_ratings["skip"]).toBe(1450);
+    });
+  });
+
+  // ── H. Fairness Report ──────────────────────────────────────────────
+
+  describe("H. Fairness Report", () => {
+    it("generates a valid fairness report", () => {
+      const players = makePlayers(16, (i) => ({
+        elo_rating: 1000 + i * 50,
+        preferred_position: (["skip", "vice", "second", "lead"] as const)[i % 4],
+      }));
+      const result = generateSmartAssignment(players, makeConfig({ format: "fours" }));
+      const report = generateFairnessReport(result);
+
+      expect(report.avgEloDiff).toBeGreaterThanOrEqual(0);
+      expect(report.maxEloDiff).toBeGreaterThanOrEqual(report.avgEloDiff);
+      expect(report.positionSatisfaction).toBeGreaterThanOrEqual(0);
+      expect(report.positionSatisfaction).toBeLessThanOrEqual(100);
+      expect(report.sitOutCount).toBe(0);
+      expect(["A", "B", "C", "D", "F"]).toContain(report.grade);
+    });
+
+    it("reports partner preferences correctly", () => {
+      const players = makePlayers(8);
+      const prefs: PartnerPreference[] = [
+        { requester_id: players[0].player_id, target_id: players[1].player_id },
+      ];
+      const result = generateSmartAssignment(players, makeConfig({
+        format: "fours",
+        partnerPreferences: prefs,
+      }));
+      const report = generateFairnessReport(result, prefs);
+
+      expect(report.partnerPrefsTotal).toBe(1);
+      expect(report.partnerPrefsHonored).toBeGreaterThanOrEqual(0);
+      expect(report.partnerPrefsHonored).toBeLessThanOrEqual(1);
+    });
+
+    it("empty result gives clean report", () => {
+      const result = generateSmartAssignment([], makeConfig({ format: "fours" }));
+      const report = generateFairnessReport(result);
+
+      expect(report.avgEloDiff).toBe(0);
+      expect(report.maxEloDiff).toBe(0);
+      expect(report.positionSatisfaction).toBe(100);
+      expect(report.sitOutCount).toBe(0);
+    });
+  });
+
+  // ── I. Quick Assignment ─────────────────────────────────────────────
+
+  describe("I. Quick Assignment (quickAssign)", () => {
+    it("creates valid assignment from minimal player data", () => {
+      const players = Array.from({ length: 8 }, (_, i) => ({
+        id: `q-${i}`,
+        name: `Quick Player ${i}`,
+        elo: 1000 + i * 100,
+      }));
+
+      const result = quickAssign(players, "fours");
+
+      expect(result.rinks.length).toBe(1);
+      expect(result.rinks[0].teamA.length).toBe(4);
+      expect(result.rinks[0].teamB.length).toBe(4);
+      expect(result.sitOuts.length).toBe(0);
+    });
+
+    it("handles players without ELO — defaults to 1200", () => {
+      const players = Array.from({ length: 4 }, (_, i) => ({
+        id: `noelo-${i}`,
+        name: `No ELO ${i}`,
+      }));
+
+      const result = quickAssign(players, "pairs");
+
+      expect(result.rinks.length).toBe(1);
+      // All should have defaulted to 1200 ELO
+      for (const slot of [...result.rinks[0].teamA, ...result.rinks[0].teamB]) {
+        expect(slot.elo_rating).toBe(1200);
+      }
+    });
+
+    it("accepts partner preferences", () => {
+      const players = Array.from({ length: 8 }, (_, i) => ({
+        id: `qp-${i}`,
+        name: `Quick ${i}`,
+        elo: 1200,
+      }));
+
+      const prefs: PartnerPreference[] = [
+        { requester_id: "qp-0", target_id: "qp-1" },
+      ];
+
+      const result = quickAssign(players, "fours", { partnerPreferences: prefs });
+      expect(result.rinks.length).toBe(1);
+      expect(result.scoreBreakdown.social).toBeDefined();
     });
   });
 });

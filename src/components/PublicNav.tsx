@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 const navLinks = [
   { href: "/clubs", label: "Clubs" },
@@ -46,7 +45,7 @@ export function PublicNav({
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 sm:gap-3">
           <Image
-            src={bowlsIconImg}
+            src="/images/logo/bowls-icon.png"
             alt="Lawnbowling logo"
             width={36}
             height={36}
@@ -140,7 +139,7 @@ export function PublicNav({
               <div className="flex h-16 items-center justify-between px-4">
                 <div className="flex items-center gap-2">
                   <Image
-                    src={bowlsIconImg}
+                    src="/images/logo/bowls-icon.png"
                     alt="Lawnbowling logo"
                     width={36}
                     height={36}

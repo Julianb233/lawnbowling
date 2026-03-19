@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createClient as createServiceClient } from "@supabase/supabase-js";
 
 export async function DELETE() {
   const supabase = await createClient();
@@ -14,6 +15,26 @@ export async function DELETE() {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
 
-  await supabase.auth.signOut();
+  // Delete the auth.users record using service role client (GDPR compliance)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (supabaseUrl && serviceRoleKey) {
+    try {
+      const adminClient = createServiceClient(supabaseUrl, serviceRoleKey);
+      const { error: authDeleteError } = await adminClient.auth.admin.deleteUser(user.id);
+      if (authDeleteError) {
+        console.error("Failed to delete auth user:", authDeleteError.message);
+        // Still return success — player data is deleted, auth cleanup is best-effort
+      }
+    } catch (err) {
+      console.error("Auth user deletion error:", err);
+    }
+  } else {
+    // Fallback: sign out only (service role key not configured)
+    console.warn("SUPABASE_SERVICE_ROLE_KEY not configured — auth user not deleted");
+    await supabase.auth.signOut();
+  }
+
   return NextResponse.json({ ok: true });
 }
