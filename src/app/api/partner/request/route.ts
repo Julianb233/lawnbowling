@@ -107,6 +107,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ request: partnerRequest }, { status: 201 });
   } catch (error) {
+    const message = error instanceof Error ? error.message : "";
+    if (message === "DUPLICATE_PENDING_REQUEST") {
+      return NextResponse.json(
+        { error: "You already have a pending request to this player" },
+        { status: 409 }
+      );
+    }
     console.error("Partner request error:", error);
     return NextResponse.json(
       { error: "Failed to create partner request" },

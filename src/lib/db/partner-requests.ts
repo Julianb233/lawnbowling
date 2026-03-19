@@ -10,6 +10,23 @@ export type PartnerRequestInsert = {
 
 export async function createPartnerRequest(request: PartnerRequestInsert) {
   const supabase = await createClient();
+
+  // Atomic check: verify no pending request exists between these players
+  // This prevents race conditions where two concurrent requests both pass
+  // the hasPendingRequest check and both insert.
+  const { data: existing } = await supabase
+    .from("partner_requests")
+    .select("id")
+    .eq("requester_id", request.requester_id)
+    .eq("target_id", request.target_id)
+    .eq("status", "pending")
+    .gt("expires_at", new Date().toISOString())
+    .limit(1);
+
+  if (existing && existing.length > 0) {
+    throw new Error("DUPLICATE_PENDING_REQUEST");
+  }
+
   const { data, error } = await supabase
     .from("partner_requests")
     .insert({ ...request, status: "pending" as RequestStatus })
