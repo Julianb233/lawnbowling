@@ -51,19 +51,19 @@ export async function GET(request: NextRequest) {
       query = query.eq("position", positionFilter);
     }
 
+    // Filter by club at the database level instead of client-side
+    if (clubId) {
+      query = query.eq("player.home_club_id", clubId);
+    }
+
     const { data, error } = await query;
     if (error) throw error;
 
-    let results = data ?? [];
-
-    // Filter by club if needed
-    if (clubId) {
-      results = results.filter(
-        (entry: Record<string, unknown>) =>
-          entry.player != null &&
-          (entry.player as Record<string, unknown>).home_club_id === clubId
-      );
-    }
+    // When filtering by club via joined table, Supabase returns rows with
+    // player: null for non-matching clubs. Filter those out.
+    const results = clubId
+      ? (data ?? []).filter((entry: Record<string, unknown>) => entry.player != null)
+      : (data ?? []);
 
     return NextResponse.json({ leaderboard: results });
   } catch (error) {
