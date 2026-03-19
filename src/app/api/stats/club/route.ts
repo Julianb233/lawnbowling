@@ -30,12 +30,14 @@ export async function GET(request: NextRequest) {
       .eq("home_club_id", clubId);
 
     // Get club stats (aggregated from player_stats for club members)
+    // Use !inner join to filter at the database level — only returns rows
+    // where the player belongs to this club, eliminating client-side null filtering.
     const { data: memberStats } = await supabase
       .from("player_stats")
-      .select("games_played, wins, losses, player:players!player_stats_player_id_fkey(display_name, home_club_id)")
+      .select("games_played, wins, losses, player:players!player_stats_player_id_fkey!inner(display_name, home_club_id)")
       .eq("player.home_club_id", clubId);
 
-    const validStats = (memberStats ?? []).filter((s: Record<string, unknown>) => s.player != null);
+    const validStats = memberStats ?? [];
 
     const totalGames = validStats.reduce((sum: number, s: Record<string, unknown>) => sum + (s.games_played as number), 0);
     const totalWins = validStats.reduce((sum: number, s: Record<string, unknown>) => sum + (s.wins as number), 0);
