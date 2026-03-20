@@ -366,7 +366,7 @@ function LoginForm() {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           required
-                          className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-4 text-lg text-white placeholder:text-white/35 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
+                          className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-4 text-lg text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                           placeholder="(555) 123-4567"
                         />
                       </div>
@@ -393,7 +393,7 @@ function LoginForm() {
                       onChange={(e) => setOtp(e.target.value)}
                       required
                       maxLength={6}
-                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] text-white placeholder:text-white/35 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
+                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                       placeholder="000000"
                     />
                     <button
@@ -454,7 +454,7 @@ function LoginForm() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-4 text-lg text-white placeholder:text-white/35 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
+                        className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-4 text-lg text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                         placeholder="you@example.com"
                       />
                     </div>
@@ -480,7 +480,7 @@ function LoginForm() {
                       onChange={(e) => setOtp(e.target.value)}
                       required
                       maxLength={6}
-                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] text-white placeholder:text-white/35 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
+                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                       placeholder="000000"
                     />
                     <button
