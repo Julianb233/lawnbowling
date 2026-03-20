@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { reportMatchResult } from "@/lib/db/stats";
 import { getPlayerByUserId } from "@/lib/db/players";
+import { isAdmin } from "@/lib/auth/admin";
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -27,8 +28,8 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       .limit(1)
       .maybeSingle();
 
-    const isAdmin = player.role === "admin" || player.role === "club_director";
-    if (!matchPlayer && !isAdmin) {
+    const userIsAdmin = await isAdmin(user.id);
+    if (!matchPlayer && !userIsAdmin) {
       return NextResponse.json({ error: "You are not a participant in this match" }, { status: 403 });
     }
 
