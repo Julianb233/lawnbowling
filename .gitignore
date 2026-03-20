@@ -40,8 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# serwist generated service worker
-/public/sw.js
+# serwist generated service worker (sw.js is now tracked — it's a self-destructing cleanup script)
 /public/sw.js.map
 /public/swe-worker-*.js
 .env*.local

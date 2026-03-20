@@ -10,9 +10,17 @@ export function RegisterPushSW() {
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
 
-    // Check if a service worker is already controlling the page (e.g. Serwist)
-    // If not, register the lightweight push-only SW
-    navigator.serviceWorker.getRegistration().then((reg) => {
+    // If the old Serwist SW (sw.js) is registered, it will self-destruct on
+    // next fetch (see public/sw.js). After that clears, register push-only SW.
+    navigator.serviceWorker.getRegistration("/sw.js").then((oldReg) => {
+      if (oldReg) {
+        // Force the self-destructing sw.js to activate immediately
+        oldReg.update().catch(() => {});
+      }
+    });
+
+    // Register the lightweight push-only SW
+    navigator.serviceWorker.getRegistration("/push-sw.js").then((reg) => {
       if (!reg) {
         navigator.serviceWorker.register("/push-sw.js").catch(() => {
           // Registration failed — push won't work but app continues normally
