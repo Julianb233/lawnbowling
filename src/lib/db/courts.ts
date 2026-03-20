@@ -132,6 +132,10 @@ export async function completeMatch(matchId: string) {
 
   if (fetchError) throw fetchError;
 
+  if (match.status === "completed") {
+    throw new Error("Match is already completed");
+  }
+
   // Mark match completed
   const { error: matchError } = await supabase
     .from("matches")

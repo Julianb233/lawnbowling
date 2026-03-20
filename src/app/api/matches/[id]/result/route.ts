@@ -18,6 +18,20 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       return NextResponse.json({ error: "Player profile not found" }, { status: 404 });
     }
 
+    // Verify the player is a participant in this match or is an admin
+    const { data: matchPlayer } = await supabase
+      .from("match_players")
+      .select("id")
+      .eq("match_id", matchId)
+      .eq("player_id", player.id)
+      .limit(1)
+      .maybeSingle();
+
+    const isAdmin = player.role === "admin" || player.role === "club_director";
+    if (!matchPlayer && !isAdmin) {
+      return NextResponse.json({ error: "You are not a participant in this match" }, { status: 403 });
+    }
+
     const body = await request.json();
     const { winner_team, team1_score, team2_score } = body;
 

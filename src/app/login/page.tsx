@@ -102,7 +102,14 @@ function LoginForm() {
         });
 
         if (otpError) {
-          // TODO: If Supabase phone auth is not configured, fall back to email
+          const msg = otpError.message.toLowerCase();
+          if (msg.includes("phone") || msg.includes("sms") || msg.includes("provider") || msg.includes("not enabled")) {
+            setMode("email");
+            setError(null);
+            setInfo("Phone sign-in is not available yet. Please use email instead.");
+            setLoading(false);
+            return;
+          }
           setError(friendlyError(otpError.message));
           setLoading(false);
           return;
@@ -151,7 +158,7 @@ function LoginForm() {
         const { error: otpError } = await supabase.auth.signInWithOtp({
           email,
           options: {
-            emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback?returnTo=${encodeURIComponent(returnTo)}`,
+            emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback?next=${encodeURIComponent(returnTo)}`,
           },
         });
 
@@ -198,7 +205,7 @@ function LoginForm() {
       const { error: socialError } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback?returnTo=${encodeURIComponent(returnTo)}`,
+          redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback?next=${encodeURIComponent(returnTo)}`,
         },
       });
       if (socialError) {
@@ -343,7 +350,7 @@ function LoginForm() {
                       <select
                         value={countryCode}
                         onChange={(e) => setCountryCode(e.target.value)}
-                        className="h-14 rounded-xl border border-white/20 bg-white/10 px-3 text-base text-white shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
+                        className="h-14 w-[100px] shrink-0 rounded-xl border border-white/20 bg-white/10 px-2 text-base text-white shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                       >
                         {COUNTRY_CODES.map((c) => (
                           <option key={c.code} value={c.code} className="text-[#0A2E12] bg-white">
