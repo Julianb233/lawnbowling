@@ -99,6 +99,14 @@ function SignupForm() {
         });
 
         if (otpError) {
+          const msg = otpError.message.toLowerCase();
+          if (msg.includes("phone") || msg.includes("sms") || msg.includes("provider") || msg.includes("not enabled")) {
+            setMode("email");
+            setError(null);
+            setSuccess("Phone sign-up is not available yet. Please use email instead.");
+            setLoading(false);
+            return;
+          }
           setError(friendlySignupError(otpError.message));
           setLoading(false);
           return;
@@ -326,7 +334,7 @@ function SignupForm() {
                       <select
                         value={countryCode}
                         onChange={(e) => setCountryCode(e.target.value)}
-                        className="h-14 rounded-xl border border-[#0A2E12]/10 bg-white px-3 text-base shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                        className="h-14 w-[100px] shrink-0 rounded-xl border border-[#0A2E12]/10 bg-white px-2 text-base shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                         style={{ color: "#0A2E12" }}
                       >
                         {COUNTRY_CODES.map((c) => (
