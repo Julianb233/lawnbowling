@@ -38,6 +38,7 @@ export async function updateSession(request: NextRequest) {
     "/board", "/admin", "/settings", "/favorites",
     "/friends", "/chat", "/activity", "/queue",
     "/schedule", "/teams", "/stats", "/match-history",
+    "/profile", "/clubs/dashboard", "/clubs/manage",
   ];
 
   // Root path is public (landing page)
