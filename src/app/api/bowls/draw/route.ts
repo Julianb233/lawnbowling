@@ -9,25 +9,20 @@ import {
 import type { DrawStyle } from "@/lib/bowls-draw";
 import type { BowlsCheckin, BowlsGameFormat } from "@/lib/types";
 import { apiError } from "@/lib/api-error-handler";
+import { validateBody, isValidationError } from "@/lib/schemas/validate";
+import { drawCreateSchema } from "@/lib/schemas";
 
 /**
  * POST /api/bowls/draw
  * Generate a tournament draw from checked-in players.
- * Body: { tournament_id: string, format: BowlsGameFormat, draw_style?: DrawStyle }
  */
 export async function POST(req: NextRequest) {
   try {
-    const { tournament_id, format, draw_style } = (await req.json()) as {
-      tournament_id: string;
-      format: BowlsGameFormat;
-      draw_style?: DrawStyle;
-    };
+    const result = await validateBody(req, drawCreateSchema);
+    if (isValidationError(result)) return result;
 
-    if (!tournament_id || !format) {
-      return NextResponse.json({ error: "tournament_id and format required" }, { status: 400 });
-    }
-
-    const style: DrawStyle = draw_style ?? "random";
+    const { tournament_id, format, draw_style } = result;
+    const style: DrawStyle = (draw_style as DrawStyle) ?? "random";
 
     const supabase = await createClient();
 
@@ -46,7 +41,7 @@ export async function POST(req: NextRequest) {
 
     // For mead/gavel, validate player count compatibility first
     if (style === "mead" || style === "gavel") {
-      const validation = validateDrawCompatibility(playerCount, format, style);
+      const validation = validateDrawCompatibility(playerCount, format as BowlsGameFormat, style);
       if (!validation.compatible) {
         return NextResponse.json(
           {
@@ -63,12 +58,12 @@ export async function POST(req: NextRequest) {
 
     // Generate multi-round draw for mead/gavel, single-round for random/seeded
     if (style === "mead" || style === "gavel") {
-      const multiDraw = generateMultiRoundDraw(checkins as BowlsCheckin[], format, style);
+      const multiDraw = generateMultiRoundDraw(checkins as BowlsCheckin[], format as BowlsGameFormat, style);
       return NextResponse.json(multiDraw);
     }
 
     // Legacy single-round draw for backward compatibility
-    const draw = generateBowlsDraw(checkins as BowlsCheckin[], format);
+    const draw = generateBowlsDraw(checkins as BowlsCheckin[], format as BowlsGameFormat);
     return NextResponse.json(draw);
   } catch (err) {
     if (err instanceof DrawCompatibilityError) {

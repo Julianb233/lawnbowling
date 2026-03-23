@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { isAdmin } from "@/lib/auth/admin";
 import { getVenue, updateVenue } from "@/lib/db/venues";
 import type { Venue } from "@/lib/types";
+import { validateBody, isValidationError } from "@/lib/schemas/validate";
+import { venueUpdateSchema } from "@/lib/schemas";
 
 export async function GET() {
   try {
@@ -38,11 +40,10 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const body = await request.json();
-    const { id } = body;
-    if (!id) {
-      return NextResponse.json({ error: "id is required" }, { status: 400 });
-    }
+    const result = await validateBody(request, venueUpdateSchema);
+    if (isValidationError(result)) return result;
+
+    const { id, ...rest } = result;
 
     // Pick only allowed fields
     const allowedFields = [
@@ -53,8 +54,8 @@ export async function PUT(request: NextRequest) {
 
     const updates: Partial<Venue> = {};
     for (const field of allowedFields) {
-      if (body[field] !== undefined) {
-        (updates as Record<string, unknown>)[field] = body[field];
+      if ((rest as Record<string, unknown>)[field] !== undefined) {
+        (updates as Record<string, unknown>)[field] = (rest as Record<string, unknown>)[field];
       }
     }
 

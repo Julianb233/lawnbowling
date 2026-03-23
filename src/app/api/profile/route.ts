@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { createPlayer, updatePlayer, getPlayerByUserId } from "@/lib/db/players";
 import type { SkillLevel } from "@/lib/db/players";
 import { logger } from "@/lib/logger";
+import { validateBody, isValidationError } from "@/lib/schemas/validate";
+import { profileCreateSchema, profilePatchSchema } from "@/lib/schemas";
 
 export async function GET() {
   try {
@@ -39,23 +41,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Profile already exists" }, { status: 409 });
     }
 
-    const body = await request.json();
-    const { display_name, skill_level, avatar_url } = body as {
-      display_name: string;
-      skill_level: SkillLevel;
-      avatar_url: string | null;
-    };
-
-    if (!display_name?.trim()) {
-      return NextResponse.json({ error: "Display name is required" }, { status: 400 });
-    }
+    const result = await validateBody(request, profileCreateSchema);
+    if (isValidationError(result)) return result;
 
     const player = await createPlayer({
       user_id: user.id,
-      display_name: display_name.trim(),
-      skill_level: skill_level || "beginner",
+      display_name: result.display_name.trim(),
+      skill_level: (result.skill_level as SkillLevel) || "beginner",
       sports: ["lawn_bowling"],
-      avatar_url: avatar_url || null,
+      avatar_url: result.avatar_url || null,
       insurance_status: "none",
       home_club_id: null,
       preferred_position: null,
@@ -80,26 +74,22 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { display_name, skill_level, sports, avatar_url, bio, preferred_position, preferred_hand, years_experience, home_club_id } = body;
+    const result = await validateBody(request, profilePatchSchema);
+    if (isValidationError(result)) return result;
 
     const updates: Record<string, unknown> = {};
-    if (display_name !== undefined) {
-      const trimmed = display_name.trim();
-      if (!trimmed) {
-        return NextResponse.json({ error: "Display name cannot be empty" }, { status: 400 });
-      }
-      updates.display_name = trimmed;
+    if (result.display_name !== undefined) {
+      updates.display_name = result.display_name.trim();
     }
-    if (skill_level !== undefined) updates.skill_level = skill_level;
-    if (sports !== undefined) updates.sports = ["lawn_bowling"];
-    if (avatar_url !== undefined) updates.avatar_url = avatar_url;
-    if (bio !== undefined) updates.bio = bio ? String(bio).slice(0, 500) : null;
-    if (preferred_position !== undefined) updates.preferred_position = preferred_position;
-    if (preferred_hand !== undefined) updates.preferred_hand = preferred_hand;
-    if (years_experience !== undefined) updates.years_experience = years_experience;
-    if (home_club_id !== undefined) updates.home_club_id = home_club_id;
-    if (body.onboarding_state !== undefined) updates.onboarding_state = body.onboarding_state;
+    if (result.skill_level !== undefined) updates.skill_level = result.skill_level;
+    if (result.sports !== undefined) updates.sports = ["lawn_bowling"];
+    if (result.avatar_url !== undefined) updates.avatar_url = result.avatar_url;
+    if (result.bio !== undefined) updates.bio = result.bio ? String(result.bio).slice(0, 500) : null;
+    if (result.preferred_position !== undefined) updates.preferred_position = result.preferred_position;
+    if (result.preferred_hand !== undefined) updates.preferred_hand = result.preferred_hand;
+    if (result.years_experience !== undefined) updates.years_experience = result.years_experience;
+    if (result.home_club_id !== undefined) updates.home_club_id = result.home_club_id;
+    if (result.onboarding_state !== undefined) updates.onboarding_state = result.onboarding_state;
 
     const player = await updatePlayer(user.id, updates);
     return NextResponse.json(player);

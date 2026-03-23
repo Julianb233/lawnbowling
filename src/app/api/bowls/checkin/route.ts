@@ -2,30 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import type { BowlsPosition, CheckinSource } from "@/lib/types";
 import { apiError } from "@/lib/api-error-handler";
+import { validateBody, isValidationError } from "@/lib/schemas/validate";
+import { checkinCreateSchema, checkinDeleteSchema } from "@/lib/schemas";
 
 /**
  * POST /api/bowls/checkin
  * Check in a player for a bowls tournament with position preference.
- * Body: { player_id, tournament_id, preferred_position, checkin_source?, visit_token? }
  * Idempotent: upserts on (player_id, tournament_id) — no duplicate rows (UCI-13).
  * REQ-12-07: When visit_token is provided, validates and marks the player as a guest.
  */
 export async function POST(req: NextRequest) {
   try {
-    const { player_id, tournament_id, preferred_position, checkin_source, visit_token } = (await req.json()) as {
-      player_id: string;
-      tournament_id: string;
-      preferred_position: BowlsPosition;
-      checkin_source?: CheckinSource;
-      visit_token?: string;
-    };
+    const result = await validateBody(req, checkinCreateSchema);
+    if (isValidationError(result)) return result;
 
-    if (!player_id || !tournament_id || !preferred_position) {
-      return NextResponse.json(
-        { error: "player_id, tournament_id, and preferred_position required" },
-        { status: 400 }
-      );
-    }
+    const { player_id, tournament_id, preferred_position, checkin_source, visit_token } = result;
 
     const supabase = await createClient();
     let isGuest = false;
@@ -64,8 +55,8 @@ export async function POST(req: NextRequest) {
         {
           player_id,
           tournament_id,
-          preferred_position,
-          checkin_source: checkin_source ?? "manual",
+          preferred_position: preferred_position as BowlsPosition,
+          checkin_source: (checkin_source as CheckinSource) ?? "manual",
           checked_in_at: new Date().toISOString(),
           is_guest: isGuest,
         },
@@ -87,21 +78,18 @@ export async function POST(req: NextRequest) {
 /**
  * DELETE /api/bowls/checkin
  * Remove a player's check-in.
- * Body: { player_id, tournament_id }
  */
 export async function DELETE(req: NextRequest) {
   try {
-    const { player_id, tournament_id } = (await req.json()) as {
-      player_id: string;
-      tournament_id: string;
-    };
+    const result = await validateBody(req, checkinDeleteSchema);
+    if (isValidationError(result)) return result;
 
     const supabase = await createClient();
     const { error } = await supabase
       .from("bowls_checkins")
       .delete()
-      .eq("player_id", player_id)
-      .eq("tournament_id", tournament_id);
+      .eq("player_id", result.player_id)
+      .eq("tournament_id", result.tournament_id);
 
     if (error) {
       return apiError(error, "DELETE /api/bowls/checkin", 500);
