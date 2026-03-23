@@ -95,7 +95,7 @@ export function RequestModal({
                 </motion.div>
               ) : (
                 <motion.div key="form">
-                  <Dialog.Close className="absolute right-4 top-4 rounded-full p-1 text-[#3D5A3E] hover:text-[#3D5A3E] transition-colors">
+                  <Dialog.Close aria-label="Close dialog" className="absolute right-4 top-4 rounded-full p-1 text-[#3D5A3E] hover:text-[#3D5A3E] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">
                     <X className="h-5 w-5" />
                   </Dialog.Close>
 

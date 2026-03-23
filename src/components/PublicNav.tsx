@@ -153,7 +153,7 @@ export function PublicNav({
                   type="button"
                   aria-label="Close menu"
                   onClick={() => setMenuOpen(false)}
-                  className="flex h-12 w-12 items-center justify-center rounded-lg text-[#2D4A30] transition hover:bg-[#0A2E12]/5"
+                  className="flex h-12 w-12 items-center justify-center rounded-lg text-[#2D4A30] transition hover:bg-[#0A2E12]/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
                 >
                   <X className="h-7 w-7" />
                 </button>
@@ -167,7 +167,7 @@ export function PublicNav({
                       key={link.href}
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="block rounded-xl px-4 py-4 text-lg font-semibold text-[#0A2E12] transition hover:bg-[#0A2E12]/5"
+                      className="block rounded-xl px-4 py-4 text-lg font-semibold text-[#0A2E12] transition hover:bg-[#0A2E12]/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
                       style={{ minHeight: 48, fontSize: 18 }}
                     >
                       {link.label}
@@ -176,7 +176,7 @@ export function PublicNav({
                   <Link
                     href="/login"
                     onClick={() => setMenuOpen(false)}
-                    className="block rounded-xl px-4 py-4 text-lg font-semibold text-[#0A2E12] transition hover:bg-[#0A2E12]/5"
+                    className="block rounded-xl px-4 py-4 text-lg font-semibold text-[#0A2E12] transition hover:bg-[#0A2E12]/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
                     style={{ minHeight: 48, fontSize: 18 }}
                   >
                     Sign In
