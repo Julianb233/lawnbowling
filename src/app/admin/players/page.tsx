@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
+import { Pagination } from "@/components/ui/Pagination";
 import { SkillBadge } from "@/components/profile/SkillBadge";
 import type { SkillLevel } from "@/lib/db/players";
 
@@ -17,27 +18,45 @@ interface Player {
   created_at: string;
 }
 
+const PAGE_SIZE = 20;
+
 export default function PlayersAdminPage() {
   const [players, setPlayers] = useState<Player[]>([]);
   const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [skillFilter, setSkillFilter] = useState("");
 
-  const fetchPlayers = async () => {
-    const params = new URLSearchParams();
-    if (search) params.set("search", search);
-    if (skillFilter) params.set("skill", skillFilter);
-    const res = await fetch(`/api/admin/players?${params}`);
-    const data = await res.json();
-    setPlayers(data.players ?? []);
-    setTotal(data.total ?? 0);
-    setLoading(false);
-  };
+  const fetchPlayers = useCallback(
+    async (pageNum: number) => {
+      setLoading(true);
+      const params = new URLSearchParams();
+      params.set("page", String(pageNum));
+      params.set("limit", String(PAGE_SIZE));
+      if (search) params.set("search", search);
+      if (skillFilter) params.set("skill", skillFilter);
+      const res = await fetch(`/api/admin/players?${params}`);
+      const data = await res.json();
+      setPlayers(data.players ?? []);
+      setTotal(data.total ?? 0);
+      setTotalPages(data.totalPages ?? 1);
+      setLoading(false);
+    },
+    [search, skillFilter]
+  );
 
   useEffect(() => {
-    fetchPlayers();
-  }, [search, skillFilter]);
+    setPage(1);
+    fetchPlayers(1);
+  }, [search, skillFilter, fetchPlayers]);
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    fetchPlayers(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const toggleRole = async (player: Player) => {
     const newRole = player.role === "admin" ? "player" : "admin";
@@ -46,7 +65,7 @@ export default function PlayersAdminPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: player.id, role: newRole }),
     });
-    fetchPlayers();
+    fetchPlayers(page);
   };
 
   return (
@@ -148,6 +167,15 @@ export default function PlayersAdminPage() {
               No players found.
             </p>
           )}
+
+          {/* Pagination controls */}
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            total={total}
+            onPageChange={handlePageChange}
+            loading={loading}
+          />
         </div>
       )}
     </div>

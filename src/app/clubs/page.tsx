@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useMemo, useCallback, lazy, Suspense } from "react";
+import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Search, MapPin, Users, ChevronRight, ChevronDown, Globe, Leaf, Map as MapIcon, List, CircleDot, CheckCircle, Navigation, Home, SlidersHorizontal } from "lucide-react";
 import { BottomNav } from "@/components/board/BottomNav";
+import { Pagination } from "@/components/ui/Pagination";
 import { ClubLogo, getClubCoverImage } from "@/components/clubs/ClubLogo";
 import {
   getAllClubs,
@@ -23,9 +24,8 @@ import {
 
 const ClubMapLazy = lazy(() => import("@/components/clubs/ClubMap").then((m) => ({ default: m.ClubMap })));
 
-// Cover images now sourced from ClubLogo module (region-aware rotation)
-
 const STATE_ORDER: string[] = Object.keys(US_STATES);
+const CLUBS_PER_PAGE = 20;
 
 export default function ClubDirectoryPage() {
   const [query, setQuery] = useState("");
@@ -38,6 +38,7 @@ export default function ClubDirectoryPage() {
   const [nearMeActive, setNearMeActive] = useState(false);
   const [geoLoading, setGeoLoading] = useState(false);
   const [locationFiltersOpen, setLocationFiltersOpen] = useState(false);
+  const [clubPage, setClubPage] = useState(1);
   const stats = getClubStats();
 
   const allClubs = useMemo(() => getAllClubs(), []);
@@ -97,14 +98,28 @@ export default function ClubDirectoryPage() {
     return clubs;
   }, [allClubs, query, activeCountry, activeRegion, activeState, activeActivity, nearMeActive, userLocation, distanceMap]);
 
+  // Reset to page 1 whenever any filter changes
+  useEffect(() => {
+    setClubPage(1);
+  }, [query, activeCountry, activeRegion, activeState, activeActivity, nearMeActive]);
+
+  const totalClubPages = Math.ceil(filteredClubs.length / CLUBS_PER_PAGE);
+
+  // Paginated slice of filtered clubs
+  const paginatedClubs = useMemo(() => {
+    const start = (clubPage - 1) * CLUBS_PER_PAGE;
+    return filteredClubs.slice(start, start + CLUBS_PER_PAGE);
+  }, [filteredClubs, clubPage]);
+
   const availableStates = useMemo(() => {
     if (activeRegion === "all") return STATE_ORDER;
     return STATE_ORDER.filter((s) => US_STATES[s]?.region === activeRegion);
   }, [activeRegion]);
 
+  // Group paginated clubs by state for the list view
   const clubsByState = useMemo(() => {
     const grouped: Record<string, ClubData[]> = {};
-    for (const club of filteredClubs) {
+    for (const club of paginatedClubs) {
       if (!grouped[club.stateCode]) grouped[club.stateCode] = [];
       grouped[club.stateCode].push(club);
     }
@@ -113,13 +128,18 @@ export default function ClubDirectoryPage() {
       const idxB = STATE_ORDER.indexOf(b as string);
       return idxA - idxB;
     });
-  }, [filteredClubs]);
+  }, [paginatedClubs]);
 
   const activities = useMemo(() => {
     const set = new Set<string>();
     allClubs.forEach((c) => c.activities.forEach((a) => set.add(a)));
     return [...set].sort();
   }, [allClubs]);
+
+  const handleClubPageChange = (newPage: number) => {
+    setClubPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="min-h-screen bg-[#FEFCF9] pb-20 lg:pb-0">
@@ -257,7 +277,7 @@ export default function ClubDirectoryPage() {
           )}
         </div>
 
-        {/* Activity filters — horizontally scrollable on one line */}
+        {/* Activity filters */}
         <div className="mb-6 flex gap-2 overflow-x-auto scrollbar-hide">
           <FilterPill active={activeActivity === "all"} onClick={() => setActiveActivity("all")} label="All Activities" small />
           {activities.map((a) => (
@@ -286,15 +306,27 @@ export default function ClubDirectoryPage() {
           </div>
         ) : nearMeActive && userLocation ? (
           <div className="space-y-3">
-            {filteredClubs.map((club, i) => (
+            {paginatedClubs.map((club, i) => (
               <ClubCard key={club.id} club={club} index={i} distanceMi={distanceMap.get(club.id)} />
             ))}
+            <Pagination
+              page={clubPage}
+              totalPages={totalClubPages}
+              total={filteredClubs.length}
+              onPageChange={handleClubPageChange}
+            />
           </div>
         ) : (
           <div className="space-y-8">
             {clubsByState.map(([stateCode, clubs]) => (
               <StateSection key={stateCode} stateCode={stateCode} clubs={clubs} distanceMap={distanceMap} />
             ))}
+            <Pagination
+              page={clubPage}
+              totalPages={totalClubPages}
+              total={filteredClubs.length}
+              onPageChange={handleClubPageChange}
+            />
           </div>
         )}
 
@@ -342,7 +374,7 @@ function StateSection({ stateCode, clubs, distanceMap }: { stateCode: string; cl
           <h2 className="text-lg font-black text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>{stateName}</h2>
           <span className="rounded-full bg-[#0A2E12]/5 px-2.5 py-0.5 text-xs font-bold text-[#3D5A3E] tabular-nums">{clubs.length}</span>
         </div>
-        <Link href={`/clubs/${stateCode.toLowerCase()}`} className="text-sm font-medium text-[#1B5E20] hover:text-[#1B5E20]">View all →</Link>
+        <Link href={`/clubs/${stateCode.toLowerCase()}`} className="text-sm font-medium text-[#1B5E20] hover:text-[#1B5E20]">View all &#x2192;</Link>
       </div>
       <div className="space-y-3">
         {clubs.map((club, i) => (
@@ -385,7 +417,7 @@ function ClubCard({ club, index, distanceMi }: { club: ClubData; index: number; 
                       <> {COUNTRIES[(club.country ?? club.countryCode) as CountryCode]?.flag}</>
                     )}
                   </span>
-                  {club.founded && <span className="text-[#0A2E12]/20">·</span>}
+                  {club.founded && <span className="text-[#0A2E12]/20">&#xB7;</span>}
                   {club.founded && <span>Est. {club.founded}</span>}
                 </div>
                 {club.description && <p className="mt-2 text-sm text-[#3D5A3E] line-clamp-2">{club.description}</p>}
@@ -397,7 +429,7 @@ function ClubCard({ club, index, distanceMi }: { club: ClubData; index: number; 
                   )}
                   {club.greens && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-[#1B5E20]/5 px-2.5 py-1 text-xs font-medium text-[#2E7D32]">
-                      <Leaf className="h-3 w-3" />{club.greens} {club.greens === 1 ? "green" : "greens"}{club.rinks && ` · ${club.rinks} rinks`}
+                      <Leaf className="h-3 w-3" />{club.greens} {club.greens === 1 ? "green" : "greens"}{club.rinks && ` \u00B7 ${club.rinks} rinks`}
                     </span>
                   )}
                   {club.surfaceType !== "unknown" && (

@@ -18,7 +18,8 @@ import { createClient } from "@/lib/supabase/server";
  *   featured - if "true", return only featured clubs
  *   sort     - sort field (name, state, member_count, founded, created_at). Default: state
  *   order    - sort order (asc, desc). Default: asc
- *   limit    - page size (default 100, max 500)
+ *   page     - 1-based page number (takes precedence over offset)
+ *   limit    - page size (default 20, max 500)
  *   offset   - pagination offset (default 0)
  */
 export async function GET(req: NextRequest) {
@@ -35,8 +36,12 @@ export async function GET(req: NextRequest) {
   const featured = searchParams.get("featured");
   const sort = searchParams.get("sort") ?? "state";
   const order = searchParams.get("order") ?? "asc";
-  const limit = Math.min(parseInt(searchParams.get("limit") ?? "100"), 500);
-  const offset = parseInt(searchParams.get("offset") ?? "0");
+  const limit = Math.min(Math.max(1, parseInt(searchParams.get("limit") ?? "20")), 500);
+  const pageParam = searchParams.get("page");
+  const page = pageParam ? Math.max(1, parseInt(pageParam)) : null;
+  const offset = page
+    ? (page - 1) * limit
+    : Math.max(0, parseInt(searchParams.get("offset") ?? "0"));
 
   const supabase = await createClient();
 
@@ -68,11 +73,18 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  const total = count ?? 0;
+  const totalPages = Math.ceil(total / limit);
+  const currentPage = Math.floor(offset / limit) + 1;
+
   return NextResponse.json({
     clubs: data ?? [],
-    total: count ?? 0,
+    total,
+    page: currentPage,
     limit,
     offset,
+    totalPages,
+    hasMore: offset + limit < total,
   });
 }
 
@@ -82,8 +94,6 @@ export async function GET(req: NextRequest) {
  */
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
-
-  // Check auth
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -92,8 +102,6 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-
-  // Generate slug if not provided
   if (!body.slug) {
     body.slug = `${body.name}-${body.city}-${body.state_code}`
       .toLowerCase()
@@ -117,11 +125,9 @@ export async function POST(req: NextRequest) {
 /**
  * PATCH /api/clubs
  * Update a club by id (admin or club manager).
- * Requires { id, ...fields } in the body.
  */
 export async function PATCH(req: NextRequest) {
   const supabase = await createClient();
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -131,12 +137,8 @@ export async function PATCH(req: NextRequest) {
 
   const body = await req.json();
   const { id, ...updates } = body;
-
   if (!id) {
-    return NextResponse.json(
-      { error: "Club id is required" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Club id is required" }, { status: 400 });
   }
 
   const { data, error } = await supabase
@@ -156,11 +158,9 @@ export async function PATCH(req: NextRequest) {
 /**
  * DELETE /api/clubs
  * Delete a club by id (admin only).
- * Requires { id } in the body.
  */
 export async function DELETE(req: NextRequest) {
   const supabase = await createClient();
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -170,16 +170,11 @@ export async function DELETE(req: NextRequest) {
 
   const body = await req.json();
   const { id } = body;
-
   if (!id) {
-    return NextResponse.json(
-      { error: "Club id is required" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Club id is required" }, { status: 400 });
   }
 
   const { error } = await supabase.from("clubs").delete().eq("id", id);
-
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
