@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isAdmin } from "@/lib/auth/admin";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function GET(request: NextRequest) {
   try {
@@ -40,7 +41,7 @@ export async function GET(request: NextRequest) {
 
     const { data, error, count } = await query;
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "GET /api/admin/players", 500);
     }
 
     return NextResponse.json({ players: data, total: count ?? 0 });
@@ -87,7 +88,7 @@ export async function PUT(request: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "PUT /api/admin/players", 500);
     }
 
     return NextResponse.json({ player: data });

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { syncProducts } from "@/lib/shop/sync";
 import { isPrintifyConfigured } from "@/lib/shop/printify";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * POST /api/shop/sync
@@ -29,14 +30,7 @@ export async function POST() {
     });
   } catch (error) {
     console.error("[shop/sync] Sync error:", error);
-    return NextResponse.json(
-      {
-        success: false,
-        error: "Product sync failed",
-        details: error instanceof Error ? error.message : "Unknown error",
-      },
-      { status: 500 }
-    );
+    return apiError(error, "POST /api/shop/sync", 500);
   }
 }
 

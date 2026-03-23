@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/clubs/contacts
@@ -28,7 +29,7 @@ export async function GET(req: NextRequest) {
     .order("name", { ascending: true });
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "GET /api/clubs/contacts", 500);
   }
 
   return NextResponse.json({ contacts: data ?? [] });
@@ -66,7 +67,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "POST /api/clubs/contacts", 400);
   }
 
   return NextResponse.json({ contact: data }, { status: 201 });
@@ -106,7 +107,7 @@ export async function PATCH(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "PATCH /api/clubs/contacts", 400);
   }
 
   return NextResponse.json({ contact: data });
@@ -144,7 +145,7 @@ export async function DELETE(req: NextRequest) {
     .eq("id", id);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "DELETE /api/clubs/contacts", 400);
   }
 
   return NextResponse.json({ success: true });

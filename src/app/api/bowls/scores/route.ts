@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { calculateRatingUpdates, applyUpdates } from "@/lib/bowls-ratings";
 import type { TournamentScore, BowlsCheckin, BowlsPositionRating } from "@/lib/types";
+import { apiError } from "@/lib/api-error-handler";
 
 const MAX_SCORE_PER_END = 9;
 const MAX_ENDS = 30;
@@ -53,7 +54,7 @@ export async function GET(req: NextRequest) {
   const { data, error } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "GET /api/bowls/scores", 500);
   }
 
   return NextResponse.json(data ?? []);
@@ -207,15 +208,12 @@ export async function POST(req: NextRequest) {
     }
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "POST /api/bowls/scores", 500);
     }
 
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Score update failed" },
-      { status: 500 }
-    );
+    return apiError(err, "POST /api/bowls/scores", 500);
   }
 }
 
@@ -303,15 +301,12 @@ export async function PUT(req: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "PUT /api/bowls/scores", 500);
     }
 
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Unlock failed" },
-      { status: 500 }
-    );
+    return apiError(err, "PUT /api/bowls/scores", 500);
   }
 }
 
@@ -380,7 +375,7 @@ export async function PATCH(req: NextRequest) {
       .select();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "PATCH /api/bowls/scores", 500);
     }
 
     // REQ-11-05: Auto-trigger rating recalculation on finalization
@@ -460,9 +455,6 @@ export async function PATCH(req: NextRequest) {
 
     return NextResponse.json({ finalized: data?.length ?? 0, scores: data });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Finalize failed" },
-      { status: 500 }
-    );
+    return apiError(err, "PATCH /api/bowls/scores", 500);
   }
 }

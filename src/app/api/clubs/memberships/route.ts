@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { requireClubRole, hasHigherOrEqualRole } from "@/lib/club-auth";
 import type { ClubRole } from "@/lib/types";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/clubs/memberships?club_id=xxx&status=active
@@ -29,7 +30,7 @@ export async function GET(req: NextRequest) {
 
   const { data, error } = await query;
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "GET /api/clubs/memberships", 500);
   }
 
   return NextResponse.json({ memberships: data ?? [] });
@@ -97,7 +98,7 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return apiError(error, "POST /api/clubs/memberships", 400);
     }
     return NextResponse.json({ membership: data }, { status: 200 });
   }
@@ -134,7 +135,7 @@ export async function POST(req: NextRequest) {
         .select()
         .single();
 
-      if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+      if (error) return apiError(error, "POST /api/clubs/memberships", 400);
       return NextResponse.json({ membership: data });
     }
 
@@ -151,7 +152,7 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    if (error) return apiError(error, "POST /api/clubs/memberships", 400);
     return NextResponse.json({ membership: data }, { status: 201 });
   }
 
@@ -175,7 +176,7 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    if (error) return apiError(error, "POST /api/clubs/memberships", 400);
     return NextResponse.json({ membership: data });
   }
 
@@ -190,7 +191,7 @@ export async function POST(req: NextRequest) {
     .select()
     .single();
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "POST /api/clubs/memberships", 400);
   return NextResponse.json({ membership: data }, { status: 201 });
 }
 
@@ -260,7 +261,7 @@ export async function PATCH(req: NextRequest) {
     .select()
     .single();
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "PATCH /api/clubs/memberships", 400);
   return NextResponse.json({ membership: data });
 }
 
@@ -323,6 +324,6 @@ export async function DELETE(req: NextRequest) {
     .delete()
     .eq("id", id);
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "DELETE /api/clubs/memberships", 400);
   return NextResponse.json({ success: true });
 }

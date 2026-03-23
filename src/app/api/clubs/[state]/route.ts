@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 // Valid US state codes
 const VALID_STATES = new Set([
@@ -58,7 +59,7 @@ export async function GET(
   const { data, error, count } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "GET /api/clubs/[state]", 500);
   }
 
   // Get state name from first result, or use the code

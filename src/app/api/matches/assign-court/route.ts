@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isAdmin } from "@/lib/auth/admin";
 import { assignCourtToMatch, autoAssignCourt } from "@/lib/db/courts";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function POST(request: NextRequest) {
   try {
@@ -52,9 +53,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ match });
   } catch (error) {
     console.error("Assign court error:", error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to assign court" },
-      { status: 500 }
-    );
+    return apiError(error, "POST /api/matches/assign-court", 500);
   }
 }
