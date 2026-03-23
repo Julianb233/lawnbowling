@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Phone, Mail, AlertTriangle, Loader2 } from "lucide-react";
+import { Mail, AlertTriangle, Loader2 } from "lucide-react";
 import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 /**
@@ -30,22 +30,10 @@ function friendlyError(raw: string): string {
   if (lower.includes("network") || lower.includes("fetch")) {
     return "Unable to connect. Please check your internet connection and try again.";
   }
-  if (lower.includes("phone") && lower.includes("not")) {
-    return "Phone sign-in is not available yet. Please use email below.";
-  }
   // Fallback — return the original message
   return raw;
 }
 
-/** Common country codes for phone login */
-const COUNTRY_CODES = [
-  { code: "+1", label: "US +1" },
-  { code: "+44", label: "UK +44" },
-  { code: "+61", label: "AU +61" },
-  { code: "+64", label: "NZ +64" },
-  { code: "+27", label: "ZA +27" },
-  { code: "+852", label: "HK +852" },
-];
 
 export default function LoginPage() {
   return (
@@ -62,9 +50,6 @@ export default function LoginPage() {
 }
 
 function LoginForm() {
-  const [mode, setMode] = useState<"phone" | "email">("phone");
-  const [phone, setPhone] = useState("");
-  const [countryCode, setCountryCode] = useState("+1");
   const [email, setEmail] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
@@ -85,66 +70,6 @@ function LoginForm() {
       setError(friendlyError(qError));
     }
   }, [searchParams]);
-
-  async function handlePhoneSignIn(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setInfo(null);
-
-    const fullPhone = `${countryCode}${phone.replace(/\D/g, "")}`;
-
-    if (!otpSent) {
-      // Step 1: Send OTP via SMS
-      try {
-        const { error: otpError } = await supabase.auth.signInWithOtp({
-          phone: fullPhone,
-        });
-
-        if (otpError) {
-          const msg = otpError.message.toLowerCase();
-          if (msg.includes("phone") || msg.includes("sms") || msg.includes("provider") || msg.includes("not enabled")) {
-            setMode("email");
-            setError(null);
-            setInfo("Phone sign-in is not available yet. Please use email instead.");
-            setLoading(false);
-            return;
-          }
-          setError(friendlyError(otpError.message));
-          setLoading(false);
-          return;
-        }
-
-        setOtpSent(true);
-        setInfo("We sent a code to your phone. Enter it below.");
-        setLoading(false);
-      } catch (err) {
-        setError(friendlyError(err instanceof Error ? err.message : "Something went wrong."));
-        setLoading(false);
-      }
-    } else {
-      // Step 2: Verify OTP
-      try {
-        const { error: verifyError } = await supabase.auth.verifyOtp({
-          phone: fullPhone,
-          token: otp,
-          type: "sms",
-        });
-
-        if (verifyError) {
-          setError(friendlyError(verifyError.message));
-          setLoading(false);
-          return;
-        }
-
-        router.push(returnTo);
-        router.refresh();
-      } catch (err) {
-        setError(friendlyError(err instanceof Error ? err.message : "Something went wrong."));
-        setLoading(false);
-      }
-    }
-  }
 
   async function handleEmailSignIn(e: React.FormEvent) {
     e.preventDefault();
@@ -307,137 +232,8 @@ function LoginForm() {
               </p>
             </div>
 
-            {/* Phone / Email mode toggle */}
-            <div className="mb-6 flex rounded-xl border border-white/15 bg-white/10 p-1 backdrop-blur-sm">
-              <button
-                type="button"
-                onClick={() => { setMode("phone"); resetOtp(); }}
-                className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-200 ${
-                  mode === "phone"
-                    ? "bg-white text-[#1B5E20] shadow-md"
-                    : "text-white/70 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                <Phone className="mr-1.5 inline h-4 w-4" />
-                Phone Number
-              </button>
-              <button
-                type="button"
-                onClick={() => { setMode("email"); resetOtp(); }}
-                className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-200 ${
-                  mode === "email"
-                    ? "bg-white text-[#1B5E20] shadow-md"
-                    : "text-white/70 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                <Mail className="mr-1.5 inline h-4 w-4" />
-                Email
-              </button>
-            </div>
-
-            {/* Phone sign-in form */}
-            {mode === "phone" && (
-              <form onSubmit={handlePhoneSignIn} className="space-y-5">
-                {!otpSent ? (
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="mb-2 block text-base font-medium text-white/90"
-                    >
-                      Phone Number
-                    </label>
-                    <div className="flex gap-2">
-                      <select
-                        value={countryCode}
-                        onChange={(e) => setCountryCode(e.target.value)}
-                        className="h-14 w-[100px] shrink-0 rounded-xl border border-white/20 bg-white/10 px-2 text-base text-white shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
-                      >
-                        {COUNTRY_CODES.map((c) => (
-                          <option key={c.code} value={c.code} className="text-[#0A2E12] bg-white">
-                            {c.label}
-                          </option>
-                        ))}
-                      </select>
-                      <div className="relative flex-1">
-                        <Phone className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/50" />
-                        <input
-                          id="phone"
-                          type="tel"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          required
-                          className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-4 text-lg text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
-                          placeholder="(555) 123-4567"
-                        />
-                      </div>
-                    </div>
-                    <p className="mt-2 text-sm text-white/50">
-                      We&apos;ll text you a code to sign in. No password needed.
-                    </p>
-                  </div>
-                ) : (
-                  <div>
-                    <label
-                      htmlFor="otp"
-                      className="mb-2 block text-base font-medium text-white/90"
-                    >
-                      Enter Code
-                    </label>
-                    <input
-                      id="otp"
-                      type="text"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      autoComplete="one-time-code"
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
-                      required
-                      maxLength={6}
-                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
-                      placeholder="000000"
-                    />
-                    <button
-                      type="button"
-                      onClick={resetOtp}
-                      className="mt-2 text-sm font-medium text-[#A8D5BA] hover:text-white hover:underline transition"
-                    >
-                      Use a different number
-                    </button>
-                  </div>
-                )}
-
-                {info && (
-                  <div
-                    className="flex items-start gap-3 rounded-xl border border-blue-400/30 bg-blue-500/15 px-4 py-4 text-base text-blue-200 shadow-sm backdrop-blur-sm"
-                    role="status"
-                  >
-                    <span>{info}</span>
-                  </div>
-                )}
-
-                {error && (
-                  <div
-                    className="flex items-start gap-3 rounded-xl border border-red-400/30 bg-red-500/15 px-4 py-4 text-base text-red-200 shadow-sm backdrop-blur-sm"
-                    role="alert"
-                  >
-                    <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-300" />
-                    <span>{error}</span>
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="login-cta-btn w-full rounded-xl py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:brightness-110 disabled:opacity-50 active:scale-[0.97]"
-                >
-                  {loading ? "Please wait..." : otpSent ? "Verify Code" : "Send Code"}
-                </button>
-              </form>
-            )}
-
             {/* Email sign-in form (magic link, no password) */}
-            {mode === "email" && (
-              <form onSubmit={handleEmailSignIn} className="space-y-5">
+            <form onSubmit={handleEmailSignIn} className="space-y-5">
                 {!otpSent ? (
                   <div>
                     <label
@@ -520,7 +316,6 @@ function LoginForm() {
                   {loading ? "Please wait..." : otpSent ? "Verify Code" : "Send Sign-In Link"}
                 </button>
               </form>
-            )}
 
             {/* Divider */}
             <div className="my-6 flex items-center gap-4">
