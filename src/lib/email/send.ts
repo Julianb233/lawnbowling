@@ -1,35 +1,40 @@
+import { Resend } from "resend";
+
 interface SendEmailOptions {
   to: string;
   subject: string;
   html: string;
 }
 
-export async function sendEmail({ to, subject, html }: SendEmailOptions) {
-  const apiKey = process.env.EMAIL_API_KEY;
+let resendClient: Resend | null = null;
 
-  if (!apiKey) {
-    console.warn("EMAIL_API_KEY not set, skipping email send");
+function getResend(): Resend | null {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return null;
+  if (!resendClient) {
+    resendClient = new Resend(apiKey);
+  }
+  return resendClient;
+}
+
+export async function sendEmail({ to, subject, html }: SendEmailOptions) {
+  const resend = getResend();
+
+  if (!resend) {
+    console.warn("RESEND_API_KEY not set, skipping email send");
     return { success: false, error: "No API key configured" };
   }
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: process.env.EMAIL_FROM || "Lawnbowling <noreply@lawnbowl.app>",
-      to,
-      subject,
-      html,
-    }),
+  const { error } = await resend.emails.send({
+    from: process.env.EMAIL_FROM || "Lawnbowling <noreply@lawnbowl.app>",
+    to,
+    subject,
+    html,
   });
 
-  if (!response.ok) {
-    const err = await response.text();
-    console.error("Email send failed:", err);
-    return { success: false, error: err };
+  if (error) {
+    console.error("Email send failed:", error.message);
+    return { success: false, error: error.message };
   }
 
   return { success: true };
