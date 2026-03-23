@@ -105,8 +105,9 @@ export default function BowlsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-white">
         <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#1B5E20] border-t-transparent" />
+        <span className="text-sm font-medium text-[#1B5E20]">Loading…</span>
       </div>
     );
   }

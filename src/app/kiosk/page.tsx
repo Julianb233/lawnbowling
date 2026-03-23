@@ -16,9 +16,10 @@ type KioskView = "checkin" | "board";
 export default function KioskPage() {
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex flex-col items-center justify-center min-h-screen gap-3">
         <div className="h-16 w-16 animate-spin rounded-full border-4 border-t-transparent"
           style={{ borderColor: "#1B5E20", borderTopColor: "transparent" }} />
+        <span className="text-sm font-medium" style={{ color: "#1B5E20" }}>Loading Kiosk…</span>
       </div>
     }>
       <KioskPageContent />

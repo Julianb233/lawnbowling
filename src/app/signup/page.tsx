@@ -42,8 +42,9 @@ export default function SignupPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: "#FEFCF9" }}>
+        <div className="flex min-h-screen flex-col items-center justify-center gap-3" style={{ backgroundColor: "#FEFCF9" }}>
           <Loader2 className="h-8 w-8 animate-spin text-[#1B5E20]" />
+          <span className="text-sm font-medium text-[#1B5E20]">Loading…</span>
         </div>
       }
     >
