@@ -1,7 +1,12 @@
 import { type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
+import { validateCsrf } from "@/lib/csrf";
 
 export async function middleware(request: NextRequest) {
+  // CSRF: reject cross-origin state-changing requests before anything else
+  const csrfResponse = validateCsrf(request);
+  if (csrfResponse) return csrfResponse;
+
   return await updateSession(request);
 }
 
