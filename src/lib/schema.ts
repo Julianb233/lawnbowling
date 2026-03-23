@@ -21,7 +21,7 @@ export function getSportsOrganizationSchema() {
       "Tournament management, club directory, and everything lawn bowling. The modern platform for lawn bowling clubs and players.",
     sport: "Lawn Bowling",
     sameAs: [
-      "https://lawnbowling.app",
+      "https://lawnbowl.app",
       "https://lawnbowl.camp",
     ],
     contactPoint: {
