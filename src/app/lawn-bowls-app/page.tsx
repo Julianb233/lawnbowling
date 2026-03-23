@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+
+export const revalidate = 300; // 5 minutes
+
 import {
   Smartphone,
   Trophy,

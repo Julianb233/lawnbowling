@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { FaqPage } from "./FaqPage";
 
+export const revalidate = 300; // 5 minutes
+
 export const metadata: Metadata = {
   title: "FAQ | Lawnbowling",
   description:

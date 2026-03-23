@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+
+export const revalidate = 300; // 5 minutes
+
 import {
   BookOpen,
   Users,

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+export const revalidate = 300; // 5 minutes
+
 export const metadata: Metadata = {
   title: "Find a Lawn Bowling Club Near You | LawnBowl",
   description:

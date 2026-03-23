@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
+export const revalidate = 300; // 5 minutes
+
 export const metadata: Metadata = {
   title: "Lawn Bowls Rules | Complete Guide to Rules of Lawn Bowling | Lawnbowling",
   description:
