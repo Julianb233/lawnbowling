@@ -1,15 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/clubs/members?club_id=xxx
- * List members of a club.
- * Query params: club_id (required), status (active|inactive|pending)
+ * List members of a club with pagination.
+ *
+ * Query params:
+ *   club_id  - required
+ *   status   - filter by status (active|inactive|pending)
+ *   limit    - page size (default 50, max 200)
+ *   offset   - pagination offset (default 0)
  */
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const clubId = searchParams.get("club_id");
   const status = searchParams.get("status");
+  const limit = Math.min(parseInt(searchParams.get("limit") ?? "50"), 200);
+  const offset = parseInt(searchParams.get("offset") ?? "0");
 
   if (!clubId) {
     return NextResponse.json({ error: "club_id is required" }, { status: 400 });
@@ -19,22 +27,29 @@ export async function GET(req: NextRequest) {
   let query = supabase
     .from("club_members")
     .select(
-      "*, player:players(id, display_name, avatar_url, skill_level)"
+      "*, player:players(id, display_name, avatar_url, skill_level)",
+      { count: "exact" }
     )
     .eq("club_id", clubId)
     .order("role", { ascending: true })
-    .order("joined_at", { ascending: true });
+    .order("joined_at", { ascending: true })
+    .range(offset, offset + limit - 1);
 
   if (status) {
     query = query.eq("status", status);
   }
 
-  const { data, error } = await query;
+  const { data, error, count } = await query;
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "clubs/members", 500);
   }
 
-  return NextResponse.json({ members: data ?? [] });
+  return NextResponse.json({
+    members: data ?? [],
+    total: count ?? 0,
+    limit,
+    offset,
+  });
 }
 
 /**
@@ -116,7 +131,7 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return apiError(error, "clubs/members", 400);
     }
     return NextResponse.json({ member: data }, { status: 200 });
   }
@@ -128,7 +143,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "clubs/members", 400);
   }
 
   return NextResponse.json({ member: data }, { status: 201 });
@@ -207,7 +222,7 @@ export async function PATCH(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "clubs/members", 400);
   }
 
   return NextResponse.json({ member: data });
@@ -272,7 +287,7 @@ export async function DELETE(req: NextRequest) {
     .eq("player_id", targetPlayerId);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "clubs/members", 400);
   }
 
   return NextResponse.json({ success: true });

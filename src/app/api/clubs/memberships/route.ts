@@ -2,15 +2,24 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { requireClubRole, hasHigherOrEqualRole } from "@/lib/club-auth";
 import type { ClubRole } from "@/lib/types";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/clubs/memberships?club_id=xxx&status=active
- * List memberships for a club.
+ * List memberships for a club with pagination.
+ *
+ * Query params:
+ *   club_id  - required
+ *   status   - filter by status (active|pending|inactive)
+ *   limit    - page size (default 50, max 200)
+ *   offset   - pagination offset (default 0)
  */
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const clubId = searchParams.get("club_id");
   const status = searchParams.get("status");
+  const limit = Math.min(parseInt(searchParams.get("limit") ?? "50"), 200);
+  const offset = parseInt(searchParams.get("offset") ?? "0");
 
   if (!clubId) {
     return NextResponse.json({ error: "club_id is required" }, { status: 400 });
@@ -19,20 +28,29 @@ export async function GET(req: NextRequest) {
   const supabase = await createClient();
   let query = supabase
     .from("club_memberships")
-    .select("*, player:players!club_memberships_player_id_fkey(id, display_name, avatar_url)")
+    .select(
+      "*, player:players!club_memberships_player_id_fkey(id, display_name, avatar_url)",
+      { count: "exact" }
+    )
     .eq("club_id", clubId)
-    .order("created_at", { ascending: true });
+    .order("created_at", { ascending: true })
+    .range(offset, offset + limit - 1);
 
   if (status) {
     query = query.eq("status", status);
   }
 
-  const { data, error } = await query;
+  const { data, error, count } = await query;
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "clubs/memberships", 500);
   }
 
-  return NextResponse.json({ memberships: data ?? [] });
+  return NextResponse.json({
+    memberships: data ?? [],
+    total: count ?? 0,
+    limit,
+    offset,
+  });
 }
 
 /**
@@ -97,7 +115,7 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return apiError(error, "clubs/memberships", 400);
     }
     return NextResponse.json({ membership: data }, { status: 200 });
   }
@@ -134,7 +152,7 @@ export async function POST(req: NextRequest) {
         .select()
         .single();
 
-      if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+      if (error) return apiError(error, "clubs/memberships", 400);
       return NextResponse.json({ membership: data });
     }
 
@@ -151,7 +169,7 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    if (error) return apiError(error, "clubs/memberships", 400);
     return NextResponse.json({ membership: data }, { status: 201 });
   }
 
@@ -175,7 +193,7 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    if (error) return apiError(error, "clubs/memberships", 400);
     return NextResponse.json({ membership: data });
   }
 
@@ -190,7 +208,7 @@ export async function POST(req: NextRequest) {
     .select()
     .single();
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "clubs/memberships", 400);
   return NextResponse.json({ membership: data }, { status: 201 });
 }
 
@@ -260,7 +278,7 @@ export async function PATCH(req: NextRequest) {
     .select()
     .single();
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "clubs/memberships", 400);
   return NextResponse.json({ membership: data });
 }
 
@@ -323,6 +341,6 @@ export async function DELETE(req: NextRequest) {
     .delete()
     .eq("id", id);
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "clubs/memberships", 400);
   return NextResponse.json({ success: true });
 }

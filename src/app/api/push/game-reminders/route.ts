@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { sendPushToPlayer } from "@/lib/push";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * Cron-triggered endpoint: send 15-minute reminders for upcoming scheduled games.
@@ -32,7 +33,7 @@ export async function GET(request: Request) {
 
     if (error) {
       console.error("Failed to fetch upcoming games:", error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "push/game-reminders", 500);
     }
 
     if (!games || games.length === 0) {

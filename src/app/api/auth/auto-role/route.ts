@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { shouldBeAdmin } from "@/lib/auth/auto-admin";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * POST /api/auth/auto-role
@@ -29,10 +30,7 @@ export async function POST() {
     .eq("user_id", user.id);
 
   if (error) {
-    return NextResponse.json(
-      { error: "Failed to assign role", details: error.message },
-      { status: 500 },
-    );
+    return apiError(error, "auth/auto-role", 500);
   }
 
   return NextResponse.json({ role: "admin" });

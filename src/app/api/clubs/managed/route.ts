@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/clubs/managed
@@ -31,7 +32,7 @@ export async function GET() {
     .order("name", { ascending: true });
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "clubs/managed", 500);
   }
 
   return NextResponse.json({ clubs: data ?? [] });
@@ -106,7 +107,7 @@ export async function PATCH(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "clubs/managed", 400);
   }
 
   return NextResponse.json({ club: data });

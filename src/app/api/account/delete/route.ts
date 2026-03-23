@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createClient as createServiceClient } from "@supabase/supabase-js";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function DELETE() {
   const supabase = await createClient();
@@ -13,7 +14,7 @@ export async function DELETE() {
     .delete()
     .eq("user_id", user.id);
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "account/delete", 400);
 
   // Delete the auth.users record using service role client (GDPR compliance)
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerIdFromAuth } from "@/lib/db/get-player-id";
+import { apiError } from "@/lib/api-error-handler";
 
 /** Save a push subscription for the authenticated user */
 export async function POST(request: NextRequest) {
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
     { onConflict: "player_id,endpoint" }
   );
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "notifications/subscribe", 400);
   return NextResponse.json({ ok: true });
 }
 
@@ -54,6 +55,6 @@ export async function DELETE(request: NextRequest) {
     .eq("player_id", playerId)
     .eq("endpoint", endpoint);
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "notifications/subscribe", 400);
   return NextResponse.json({ ok: true });
 }

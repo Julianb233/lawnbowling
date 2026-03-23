@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function GET(
   req: NextRequest,
@@ -21,7 +22,7 @@ export async function GET(
       .order("created_at", { ascending: false });
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "profile/[id]/matches", 500);
     }
 
     // Filter to scores where this player participated

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * POST /api/shop/checkout
@@ -110,8 +111,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         error: "Failed to create checkout session",
-        details: error instanceof Error ? error.message : "Unknown error",
-      },
+              },
       { status: 500 }
     );
   }

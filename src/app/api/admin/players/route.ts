@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isAdmin } from "@/lib/auth/admin";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function GET(request: NextRequest) {
   try {
     const supabase = await createClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
 
     if (authError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -19,8 +23,15 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get("search");
     const skill = searchParams.get("skill");
     const venueId = searchParams.get("venue_id");
-    const limit = parseInt(searchParams.get("limit") ?? "50");
-    const offset = parseInt(searchParams.get("offset") ?? "0");
+    const limit = Math.min(
+      Math.max(1, parseInt(searchParams.get("limit") ?? "20")),
+      500
+    );
+    const pageParam = searchParams.get("page");
+    const page = pageParam ? Math.max(1, parseInt(pageParam)) : null;
+    const offset = page
+      ? (page - 1) * limit
+      : Math.max(0, parseInt(searchParams.get("offset") ?? "0"));
 
     let query = supabase
       .from("players")
@@ -40,20 +51,38 @@ export async function GET(request: NextRequest) {
 
     const { data, error, count } = await query;
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "admin/players", 500);
     }
 
-    return NextResponse.json({ players: data, total: count ?? 0 });
+    const total = count ?? 0;
+    const totalPages = Math.ceil(total / limit);
+    const currentPage = Math.floor(offset / limit) + 1;
+
+    return NextResponse.json({
+      players: data,
+      total,
+      page: currentPage,
+      limit,
+      offset,
+      totalPages,
+      hasMore: offset + limit < total,
+    });
   } catch (error) {
     console.error("List players error:", error);
-    return NextResponse.json({ error: "Failed to fetch players" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch players" },
+      { status: 500 }
+    );
   }
 }
 
 export async function PUT(request: NextRequest) {
   try {
     const supabase = await createClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
 
     if (authError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -87,12 +116,15 @@ export async function PUT(request: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "admin/players", 500);
     }
 
     return NextResponse.json({ player: data });
   } catch (error) {
     console.error("Update player role error:", error);
-    return NextResponse.json({ error: "Failed to update player" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to update player" },
+      { status: 500 }
+    );
   }
 }

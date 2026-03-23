@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/clubs/venues?club_id=xxx
@@ -21,7 +22,7 @@ export async function GET(req: NextRequest) {
     .order("is_primary", { ascending: false });
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "clubs/venues", 500);
   }
 
   return NextResponse.json({ club_venues: data ?? [] });
@@ -95,7 +96,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "clubs/venues", 400);
   }
 
   return NextResponse.json({ club_venue: data }, { status: 201 });
@@ -158,7 +159,7 @@ export async function DELETE(req: NextRequest) {
     .eq("venue_id", venue_id);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "clubs/venues", 400);
   }
 
   return NextResponse.json({ success: true });

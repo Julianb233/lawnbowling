@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerByUserId } from "@/lib/db/players";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function GET(req: NextRequest) {
   const playerId = req.nextUrl.searchParams.get("player_id");
@@ -15,7 +16,7 @@ export async function GET(req: NextRequest) {
         .eq("player_id", playerId)
         .order("joined_at", { ascending: false });
 
-      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      if (error) return apiError(error, "profile/clubs", 500);
       return NextResponse.json(data);
     }
 
@@ -36,7 +37,7 @@ export async function GET(req: NextRequest) {
       .eq("player_id", player.id)
       .order("joined_at", { ascending: false });
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) return apiError(error, "profile/clubs", 500);
     return NextResponse.json(data);
   } catch (err) {
     return NextResponse.json(
@@ -79,7 +80,7 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) return apiError(error, "profile/clubs", 500);
     return NextResponse.json(data, { status: 201 });
   } catch (err) {
     return NextResponse.json(
@@ -113,7 +114,7 @@ export async function DELETE(req: NextRequest) {
       .eq("player_id", player.id)
       .eq("club_slug", clubSlug);
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) return apiError(error, "profile/clubs", 500);
     return NextResponse.json({ success: true });
   } catch (err) {
     return NextResponse.json(

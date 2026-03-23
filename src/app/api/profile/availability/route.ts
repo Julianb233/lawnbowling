@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerByUserId } from "@/lib/db/players";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function GET(req: NextRequest) {
   const playerId = req.nextUrl.searchParams.get("player_id");
@@ -18,7 +19,7 @@ export async function GET(req: NextRequest) {
         .order("day_of_week")
         .order("start_time");
 
-      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      if (error) return apiError(error, "profile/availability", 500);
       return NextResponse.json(data);
     }
 
@@ -40,7 +41,7 @@ export async function GET(req: NextRequest) {
       .order("day_of_week")
       .order("start_time");
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) return apiError(error, "profile/availability", 500);
     return NextResponse.json(data);
   } catch (err) {
     return NextResponse.json(
@@ -139,14 +140,14 @@ export async function DELETE(req: NextRequest) {
         .eq("id", slotId)
         .eq("player_id", player.id);
 
-      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      if (error) return apiError(error, "profile/availability", 500);
     } else {
       const { error } = await supabase
         .from("player_availability")
         .delete()
         .eq("player_id", player.id);
 
-      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      if (error) return apiError(error, "profile/availability", 500);
     }
 
     return NextResponse.json({ success: true });

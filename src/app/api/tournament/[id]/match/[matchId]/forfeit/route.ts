@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { forfeitMatch } from "@/lib/db/tournaments";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function POST(
   request: NextRequest,
@@ -21,7 +22,6 @@ export async function POST(
     const result = await forfeitMatch(matchId, forfeiting_player_id);
     return NextResponse.json({ result });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Failed to process forfeit";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return apiError(error, "tournament/[id]/match/[matchId]/forfeit", 500);
   }
 }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerIdFromAuth } from "@/lib/db/get-player-id";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
@@ -17,6 +18,6 @@ export async function POST(request: NextRequest) {
   const { error } = await supabase
     .from("friendships")
     .insert({ player_id: playerId, friend_id, status: "pending" });
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "friends", 400);
   return NextResponse.json({ ok: true });
 }

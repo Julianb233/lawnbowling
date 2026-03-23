@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { recordTournamentResult } from "@/lib/db/tournaments";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function POST(
   request: NextRequest,
@@ -25,7 +26,6 @@ export async function POST(
     return NextResponse.json({ result });
   } catch (error) {
     console.error("Report result error:", error);
-    const message = error instanceof Error ? error.message : "Failed to report result";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return apiError(error, "tournament/[id]/match/[matchId]/result", 500);
   }
 }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { joinTournament, leaveTournament } from "@/lib/db/tournaments";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -32,7 +33,6 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     return NextResponse.json({ participant }, { status: 201 });
   } catch (error) {
     console.error("Join tournament error:", error);
-    const message = error instanceof Error ? error.message : "Failed to join tournament";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return apiError(error, "tournament/[id]/join", 500);
   }
 }

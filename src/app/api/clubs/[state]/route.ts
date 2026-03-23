@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 // Valid US state codes
 const VALID_STATES = new Set([
@@ -21,6 +22,9 @@ const VALID_STATES = new Set([
  *   status   - filter by club status
  *   sort     - sort field (name, city, member_count, founded). Default: name
  *   order    - sort order (asc, desc). Default: asc
+ *   page     - page number (1-based). Takes precedence over offset.
+ *   limit    - page size (default 100, max 500)
+ *   offset   - pagination offset (default 0). Ignored if page is provided.
  */
 export async function GET(
   req: NextRequest,
@@ -42,6 +46,15 @@ export async function GET(
   const status = searchParams.get("status");
   const sort = searchParams.get("sort") ?? "name";
   const order = searchParams.get("order") ?? "asc";
+  const limit = Math.min(
+    Math.max(1, parseInt(searchParams.get("limit") ?? "100")),
+    500
+  );
+  const pageParam = searchParams.get("page");
+  const page = pageParam ? Math.max(1, parseInt(pageParam)) : null;
+  const offset = page
+    ? (page - 1) * limit
+    : Math.max(0, parseInt(searchParams.get("offset") ?? "0"));
 
   const supabase = await createClient();
 
@@ -49,7 +62,8 @@ export async function GET(
     .from("clubs")
     .select("*", { count: "exact" })
     .eq("state_code", stateCode)
-    .order(sort, { ascending: order === "asc" });
+    .order(sort, { ascending: order === "asc" })
+    .range(offset, offset + limit - 1);
 
   if (activity) query = query.contains("activities", [activity]);
   if (surface) query = query.eq("surface_type", surface);
@@ -58,16 +72,25 @@ export async function GET(
   const { data, error, count } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "clubs/[state]", 500);
   }
 
   // Get state name from first result, or use the code
   const stateName = data && data.length > 0 ? data[0].state : stateCode;
 
+  const total = count ?? 0;
+  const totalPages = Math.ceil(total / limit);
+  const currentPage = Math.floor(offset / limit) + 1;
+
   return NextResponse.json({
     state: stateCode,
     stateName,
     clubs: data ?? [],
-    total: count ?? 0,
+    total,
+    page: currentPage,
+    limit,
+    offset,
+    totalPages,
+    hasMore: offset + limit < total,
   });
 }

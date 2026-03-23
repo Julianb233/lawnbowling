@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { calculateRatingUpdates, applyUpdates } from "@/lib/bowls-ratings";
 import type { TournamentScore, BowlsCheckin, BowlsPositionRating } from "@/lib/types";
+import { apiError } from "@/lib/api-error-handler";
 
 const MAX_SCORE_PER_END = 9;
 const MAX_ENDS = 30;
@@ -53,7 +54,7 @@ export async function GET(req: NextRequest) {
   const { data, error } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "bowls/scores", 500);
   }
 
   return NextResponse.json(data ?? []);
@@ -207,7 +208,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "bowls/scores", 500);
     }
 
     return NextResponse.json(data);
@@ -303,7 +304,7 @@ export async function PUT(req: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "bowls/scores", 500);
     }
 
     return NextResponse.json(data);
@@ -380,7 +381,7 @@ export async function PATCH(req: NextRequest) {
       .select();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "bowls/scores", 500);
     }
 
     // REQ-11-05: Auto-trigger rating recalculation on finalization

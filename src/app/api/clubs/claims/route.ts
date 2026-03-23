@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/clubs/claims
@@ -45,7 +46,7 @@ export async function GET(req: NextRequest) {
 
   const { data, error } = await query;
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "clubs/claims", 500);
   }
 
   return NextResponse.json({ claims: data ?? [] });
@@ -127,7 +128,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "clubs/claims", 400);
   }
 
   return NextResponse.json({ claim: data }, { status: 201 });

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/clubs
@@ -18,8 +19,9 @@ import { createClient } from "@/lib/supabase/server";
  *   featured - if "true", return only featured clubs
  *   sort     - sort field (name, state, member_count, founded, created_at). Default: state
  *   order    - sort order (asc, desc). Default: asc
- *   limit    - page size (default 100, max 500)
- *   offset   - pagination offset (default 0)
+ *   page     - page number (1-based, default 1). Takes precedence over offset.
+ *   limit    - page size (default 20, max 500)
+ *   offset   - pagination offset (default 0). Ignored if page is provided.
  */
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -35,8 +37,15 @@ export async function GET(req: NextRequest) {
   const featured = searchParams.get("featured");
   const sort = searchParams.get("sort") ?? "state";
   const order = searchParams.get("order") ?? "asc";
-  const limit = Math.min(parseInt(searchParams.get("limit") ?? "100"), 500);
-  const offset = parseInt(searchParams.get("offset") ?? "0");
+  const limit = Math.min(
+    Math.max(1, parseInt(searchParams.get("limit") ?? "20")),
+    500
+  );
+  const pageParam = searchParams.get("page");
+  const page = pageParam ? Math.max(1, parseInt(pageParam)) : null;
+  const offset = page
+    ? (page - 1) * limit
+    : Math.max(0, parseInt(searchParams.get("offset") ?? "0"));
 
   const supabase = await createClient();
 
@@ -65,14 +74,21 @@ export async function GET(req: NextRequest) {
   const { data, error, count } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "clubs", 500);
   }
+
+  const total = count ?? 0;
+  const totalPages = Math.ceil(total / limit);
+  const currentPage = Math.floor(offset / limit) + 1;
 
   return NextResponse.json({
     clubs: data ?? [],
-    total: count ?? 0,
+    total,
+    page: currentPage,
     limit,
     offset,
+    totalPages,
+    hasMore: offset + limit < total,
   });
 }
 
@@ -108,7 +124,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "clubs", 400);
   }
 
   return NextResponse.json({ club: data }, { status: 201 });
@@ -147,7 +163,7 @@ export async function PATCH(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "clubs", 400);
   }
 
   return NextResponse.json({ club: data });
@@ -181,7 +197,7 @@ export async function DELETE(req: NextRequest) {
   const { error } = await supabase.from("clubs").delete().eq("id", id);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "clubs", 400);
   }
 
   return NextResponse.json({ success: true });

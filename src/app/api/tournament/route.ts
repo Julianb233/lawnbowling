@@ -1,28 +1,95 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { listTournaments, createTournament } from "@/lib/db/tournaments";
+import { createTournament } from "@/lib/db/tournaments";
 import { logger } from "@/lib/logger";
+import { apiError } from "@/lib/api-error-handler";
 
-export async function GET() {
+/**
+ * GET /api/tournament
+ * List tournaments with pagination.
+ *
+ * Query params:
+ *   page     - page number (1-based, default 1). Takes precedence over offset.
+ *   limit    - page size (default 20, max 100)
+ *   offset   - pagination offset (default 0). Ignored if page is provided.
+ *   status   - filter by tournament status (registration, in_progress, completed)
+ *   venue_id - filter by venue
+ */
+export async function GET(request: NextRequest) {
   try {
     const supabase = await createClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
     if (authError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const tournaments = await listTournaments();
-    return NextResponse.json({ tournaments });
+    const { searchParams } = new URL(request.url);
+    const limit = Math.min(
+      Math.max(1, parseInt(searchParams.get("limit") ?? "20")),
+      100
+    );
+    const pageParam = searchParams.get("page");
+    const page = pageParam ? Math.max(1, parseInt(pageParam)) : null;
+    const offset = page
+      ? (page - 1) * limit
+      : Math.max(0, parseInt(searchParams.get("offset") ?? "0"));
+    const statusFilter = searchParams.get("status");
+    const venueId = searchParams.get("venue_id");
+
+    let query = supabase
+      .from("tournaments")
+      .select(
+        "*, creator:players!tournaments_created_by_fkey(id, display_name, avatar_url), tournament_participants(count)",
+        { count: "exact" }
+      )
+      .order("created_at", { ascending: false })
+      .range(offset, offset + limit - 1);
+
+    if (statusFilter) {
+      query = query.eq("status", statusFilter);
+    }
+    if (venueId) {
+      query = query.eq("venue_id", venueId);
+    }
+
+    const { data, error, count } = await query;
+
+    if (error) {
+      return apiError(error, "tournament", 500);
+    }
+
+    const total = count ?? 0;
+    const totalPages = Math.ceil(total / limit);
+    const currentPage = Math.floor(offset / limit) + 1;
+
+    return NextResponse.json({
+      tournaments: data ?? [],
+      total,
+      page: currentPage,
+      limit,
+      offset,
+      totalPages,
+      hasMore: offset + limit < total,
+    });
   } catch (error) {
     logger.error("Get tournaments error", { route: "tournament", error });
-    return NextResponse.json({ error: "Failed to fetch tournaments" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch tournaments" },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
     if (authError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -34,14 +101,20 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (!player) {
-      return NextResponse.json({ error: "Player not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Player not found" },
+        { status: 404 }
+      );
     }
 
     const body = await request.json();
     const { name, sport, format, max_players, starts_at } = body;
 
     if (!name || !sport || !format) {
-      return NextResponse.json({ error: "Name, sport, and format are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Name, sport, and format are required" },
+        { status: 400 }
+      );
     }
 
     const tournament = await createTournament({
@@ -57,6 +130,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ tournament }, { status: 201 });
   } catch (error) {
     logger.error("Create tournament error", { route: "tournament", error });
-    return NextResponse.json({ error: "Failed to create tournament" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to create tournament" },
+      { status: 500 }
+    );
   }
 }
