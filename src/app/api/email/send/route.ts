@@ -9,6 +9,9 @@ import { weeklyDigestEmail } from "@/lib/email/templates/weekly-digest";
 import { tournamentNotificationEmail } from "@/lib/email/templates/tournament-notification";
 import { orderConfirmationEmail } from "@/lib/email/templates/order-confirmation";
 import { clubInviteEmail } from "@/lib/email/templates/club-invite";
+import { clubClaimSubmittedEmail } from "@/lib/email/templates/club-claim-submitted";
+import { clubClaimApprovedEmail, clubClaimRejectedEmail } from "@/lib/email/templates/club-claim-decision";
+import { matchResultEmail } from "@/lib/email/templates/match-result";
 import { validateBody, isValidationError } from "@/lib/schemas/validate";
 import { emailSendSchema } from "@/lib/schemas";
 
@@ -41,6 +44,20 @@ const TEMPLATES: Record<string, (data: TemplateData) => { subject: string; html:
   ),
   "club-invite": (d) => clubInviteEmail(
     d.playerName as string, d.clubName as string, d.inviterName as string, d.clubSlug as string
+  ),
+  "club-claim-submitted": (d) => clubClaimSubmittedEmail(
+    d.claimerName as string, d.clubName as string, d.clubCity as string,
+    (d.roleAtClub as string) || null, (d.message as string) || null, d.adminUrl as string
+  ),
+  "club-claim-approved": (d) => clubClaimApprovedEmail(
+    d.playerName as string, d.clubName as string, d.clubSlug as string
+  ),
+  "club-claim-rejected": (d) => clubClaimRejectedEmail(
+    d.playerName as string, d.clubName as string, (d.reason as string) || null
+  ),
+  "match-result": (d) => matchResultEmail(
+    d.playerName as string, d.sport as string,
+    (d.venueName as string) || null, d.completedAt as string
   ),
 };
 
