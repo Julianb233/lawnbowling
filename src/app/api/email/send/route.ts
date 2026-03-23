@@ -9,6 +9,8 @@ import { weeklyDigestEmail } from "@/lib/email/templates/weekly-digest";
 import { tournamentNotificationEmail } from "@/lib/email/templates/tournament-notification";
 import { orderConfirmationEmail } from "@/lib/email/templates/order-confirmation";
 import { clubInviteEmail } from "@/lib/email/templates/club-invite";
+import { validateBody, isValidationError } from "@/lib/schemas/validate";
+import { emailSendSchema } from "@/lib/schemas";
 
 type TemplateData = Record<string, string | number>;
 
@@ -49,22 +51,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { to, template, data } = await req.json();
+  const result = await validateBody(req, emailSendSchema);
+  if (isValidationError(result)) return result;
 
-  if (!to || !template) {
-    return NextResponse.json({ error: "Missing to or template" }, { status: 400 });
-  }
-
-  const templateFn = TEMPLATES[template];
+  const templateFn = TEMPLATES[result.template];
   if (!templateFn) {
     return NextResponse.json({ error: "Unknown template" }, { status: 400 });
   }
 
-  const { subject, html } = templateFn(data || {});
-  const result = await sendEmail({ to, subject, html });
+  const { subject, html } = templateFn(result.data || {});
+  const sendResult = await sendEmail({ to: result.to, subject, html });
 
-  if (!result.success) {
-    return NextResponse.json({ error: result.error }, { status: 500 });
+  if (!sendResult.success) {
+    return NextResponse.json({ error: sendResult.error }, { status: 500 });
   }
 
   return NextResponse.json({ success: true });

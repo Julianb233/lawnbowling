@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isAdmin } from "@/lib/auth/admin";
 import { listCourts, createCourt, updateCourt, deleteCourt } from "@/lib/db/courts";
+import { validateBody, isValidationError } from "@/lib/schemas/validate";
+import { courtCreateSchema, courtUpdateSchema, courtDeleteSchema } from "@/lib/schemas";
 
 async function requireAdminUser() {
   const supabase = await createClient();
@@ -36,15 +38,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: auth.error }, { status: auth.status! });
     }
 
-    const { venue_id, name, sport } = await request.json();
-    if (!venue_id || !name || !sport) {
-      return NextResponse.json(
-        { error: "venue_id, name, and sport are required" },
-        { status: 400 }
-      );
-    }
+    const result = await validateBody(request, courtCreateSchema);
+    if (isValidationError(result)) return result;
 
-    const court = await createCourt({ venue_id, name, sport });
+    const court = await createCourt(result);
     return NextResponse.json({ court }, { status: 201 });
   } catch (error) {
     console.error("Create court error:", error);
@@ -59,11 +56,10 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: auth.error }, { status: auth.status! });
     }
 
-    const { id, ...updates } = await request.json();
-    if (!id) {
-      return NextResponse.json({ error: "id is required" }, { status: 400 });
-    }
+    const result = await validateBody(request, courtUpdateSchema);
+    if (isValidationError(result)) return result;
 
+    const { id, ...updates } = result;
     const court = await updateCourt(id, updates);
     return NextResponse.json({ court });
   } catch (error) {
@@ -79,12 +75,10 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: auth.error }, { status: auth.status! });
     }
 
-    const { id } = await request.json();
-    if (!id) {
-      return NextResponse.json({ error: "id is required" }, { status: 400 });
-    }
+    const result = await validateBody(request, courtDeleteSchema);
+    if (isValidationError(result)) return result;
 
-    await deleteCourt(id);
+    await deleteCourt(result.id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Delete court error:", error);

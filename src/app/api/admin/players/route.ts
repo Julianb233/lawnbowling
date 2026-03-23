@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isAdmin } from "@/lib/auth/admin";
 import { apiError } from "@/lib/api-error-handler";
+import { validateBody, isValidationError } from "@/lib/schemas/validate";
+import { playerUpdateSchema } from "@/lib/schemas";
 
 export async function GET(request: NextRequest) {
   try {
@@ -92,26 +94,13 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const { id, role } = await request.json();
-    if (!id || !role) {
-      return NextResponse.json(
-        { error: "id and role are required" },
-        { status: 400 }
-      );
-    }
-
-    const VALID_ROLES = ["player", "admin"];
-    if (!VALID_ROLES.includes(role)) {
-      return NextResponse.json(
-        { error: `role must be one of: ${VALID_ROLES.join(", ")}` },
-        { status: 400 }
-      );
-    }
+    const result = await validateBody(request, playerUpdateSchema);
+    if (isValidationError(result)) return result;
 
     const { data, error } = await supabase
       .from("players")
-      .update({ role })
-      .eq("id", id)
+      .update({ role: result.role })
+      .eq("id", result.id)
       .select()
       .single();
 

@@ -6,6 +6,8 @@ import {
   getWaitlist,
   getPlayerPosition,
 } from "@/lib/db/waitlist";
+import { validateBody, isValidationError } from "@/lib/schemas/validate";
+import { waitlistCreateSchema } from "@/lib/schemas";
 
 export async function GET(req: NextRequest) {
   const venueId = req.nextUrl.searchParams.get("venue_id");
@@ -48,16 +50,11 @@ export async function POST(req: NextRequest) {
   if (!player)
     return NextResponse.json({ error: "Player not found" }, { status: 404 });
 
-  const { venue_id, sport, partner_id } = await req.json();
-  if (!venue_id || !sport) {
-    return NextResponse.json(
-      { error: "Missing required fields" },
-      { status: 400 },
-    );
-  }
+  const result = await validateBody(req, waitlistCreateSchema);
+  if (isValidationError(result)) return result;
 
   try {
-    const entry = await joinWaitlist(venue_id, sport, player.id, partner_id);
+    const entry = await joinWaitlist(result.venue_id, result.sport, player.id, result.partner_id);
     return NextResponse.json(entry, { status: 201 });
   } catch (e) {
     const message = (e as Error).message;

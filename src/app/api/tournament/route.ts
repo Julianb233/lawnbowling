@@ -2,17 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createTournament } from "@/lib/db/tournaments";
 import { logger } from "@/lib/logger";
+import { validateBody, isValidationError } from "@/lib/schemas/validate";
+import { tournamentCreateSchema } from "@/lib/schemas";
 
 /**
  * GET /api/tournament
  * List tournaments with pagination.
- *
- * Query params:
- *   page     - 1-based page number (takes precedence over offset)
- *   limit    - page size (default 20, max 100)
- *   offset   - pagination offset (default 0)
- *   status   - filter by tournament status
- *   venue_id - filter by venue
  */
 export async function GET(request: NextRequest) {
   try {
@@ -110,24 +105,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
-    const { name, sport, format, max_players, starts_at } = body;
-
-    if (!name || !sport || !format) {
-      return NextResponse.json(
-        { error: "Name, sport, and format are required" },
-        { status: 400 }
-      );
-    }
+    const result = await validateBody(request, tournamentCreateSchema);
+    if (isValidationError(result)) return result;
 
     const tournament = await createTournament({
-      name,
-      sport,
-      format,
-      max_players: max_players || 16,
+      name: result.name,
+      sport: result.sport,
+      format: result.format,
+      max_players: result.max_players || 16,
       created_by: player.id,
       venue_id: player.venue_id ?? undefined,
-      starts_at: starts_at || undefined,
+      starts_at: result.starts_at || undefined,
     });
 
     return NextResponse.json({ tournament }, { status: 201 });

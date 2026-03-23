@@ -1,14 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, PRICE_IDS } from "@/lib/stripe/server";
 import { createClient } from "@/lib/supabase/server";
+import { validateBody, isValidationError } from "@/lib/schemas/validate";
+import { stripeCheckoutSchema } from "@/lib/schemas";
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { plan } = await req.json();
-  const priceId = PRICE_IDS[plan];
+  const result = await validateBody(req, stripeCheckoutSchema);
+  if (isValidationError(result)) return result;
+
+  const priceId = PRICE_IDS[result.plan];
   if (!priceId) return NextResponse.json({ error: "Invalid plan" }, { status: 400 });
 
   const { data: player } = await supabase
@@ -46,7 +50,7 @@ export async function POST(req: NextRequest) {
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${req.nextUrl.origin}/pricing?success=true`,
     cancel_url: `${req.nextUrl.origin}/pricing?cancelled=true`,
-    metadata: { player_id: player.id, plan },
+    metadata: { player_id: player.id, plan: result.plan },
   });
 
   return NextResponse.json({ url: session.url });
