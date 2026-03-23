@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * PATCH /api/clubs/claims/[id]
@@ -72,7 +73,7 @@ export async function PATCH(
     .eq("id", id);
 
   if (claimError) {
-    return NextResponse.json({ error: claimError.message }, { status: 500 });
+    return apiError(claimError, "clubs-claims-[id]", 500);
   }
 
   // If approved, update the club's claimed_by field
@@ -87,7 +88,7 @@ export async function PATCH(
       .eq("id", claim.club_id);
 
     if (clubError) {
-      return NextResponse.json({ error: clubError.message }, { status: 500 });
+      return apiError(clubError, "clubs-claims-[id]", 500);
     }
   }
 

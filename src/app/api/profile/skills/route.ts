@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerSportSkills, upsertSportSkill } from "@/lib/db/sport-skills";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function GET(req: NextRequest) {
   const playerId = req.nextUrl.searchParams.get("player_id");
@@ -10,7 +11,7 @@ export async function GET(req: NextRequest) {
     const skills = await getPlayerSportSkills(playerId);
     return NextResponse.json(skills);
   } catch (e) {
-    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
+    return apiError(e, "profile-skills", 500);
   }
 }
 
@@ -36,6 +37,6 @@ export async function POST(req: NextRequest) {
     const result = await upsertSportSkill(player.id, sport, skill_level);
     return NextResponse.json(result);
   } catch (e) {
-    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
+    return apiError(e, "profile-skills", 500);
   }
 }

@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createTournamentResultPost } from "@/lib/db/noticeboard";
 import { calculateRatingUpdates, applyUpdates } from "@/lib/bowls-ratings";
 import type { TournamentScore, BowlsCheckin, BowlsPositionRating } from "@/lib/types";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * Tournament Progression State Machine
@@ -49,10 +50,7 @@ export async function GET(req: NextRequest) {
     const info = await getProgressionInfo(supabase, tournamentId);
     return NextResponse.json(info);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to get progression" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-progression", 500);
   }
 }
 
@@ -107,7 +105,7 @@ export async function POST(req: NextRequest) {
           .select();
 
         if (finalizeErr) {
-          return NextResponse.json({ error: finalizeErr.message }, { status: 500 });
+          return apiError(finalizeErr, "bowls-progression", 500);
         }
 
         // REQ-11-05: Auto-trigger rating recalculation on finalization
@@ -216,7 +214,7 @@ export async function POST(req: NextRequest) {
         .eq("id", tournament_id);
 
       if (updateErr) {
-        return NextResponse.json({ error: updateErr.message }, { status: 500 });
+        return apiError(updateErr, "bowls-progression", 500);
       }
 
       // Auto-post tournament results to noticeboard when completed (REQ-13-10)
@@ -236,10 +234,7 @@ export async function POST(req: NextRequest) {
       ...responseData,
     });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Progression failed" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-progression", 500);
   }
 }
 

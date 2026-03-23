@@ -213,10 +213,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Score update failed" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-scores", 500);
   }
 }
 
@@ -309,10 +306,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Unlock failed" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-scores", 500);
   }
 }
 
@@ -461,9 +455,6 @@ export async function PATCH(req: NextRequest) {
 
     return NextResponse.json({ finalized: data?.length ?? 0, scores: data });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Finalize failed" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-scores", 500);
   }
 }

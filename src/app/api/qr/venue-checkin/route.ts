@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * POST /api/qr/venue-checkin
@@ -67,7 +68,7 @@ export async function POST(req: NextRequest) {
     .eq("id", player.id);
 
   if (updateError) {
-    return NextResponse.json({ error: updateError.message }, { status: 500 });
+    return apiError(updateError, "qr-venue-checkin", 500);
   }
 
   return NextResponse.json({

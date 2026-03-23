@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerWaitStatus } from "@/lib/db/waitlist";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function GET() {
   const supabase = await createClient();
@@ -26,6 +27,6 @@ export async function GET() {
     const status = await getPlayerWaitStatus(player.id);
     return NextResponse.json(status);
   } catch (e) {
-    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
+    return apiError(e, "waitlist-status", 500);
   }
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function POST(req: NextRequest) {
   const { player_id, venue_id } = await req.json();
@@ -30,7 +31,7 @@ export async function POST(req: NextRequest) {
     .eq("id", player_id);
 
   if (updateError) {
-    return NextResponse.json({ error: updateError.message }, { status: 500 });
+    return apiError(updateError, "qr-checkin", 500);
   }
 
   return NextResponse.json({

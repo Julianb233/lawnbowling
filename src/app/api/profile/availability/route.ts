@@ -44,10 +44,7 @@ export async function GET(req: NextRequest) {
     if (error) return apiError(error, "profile/availability", 500);
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to fetch availability" },
-      { status: 500 }
-    );
+    return apiError(err, "profile-availability", 500);
   }
 }
 
@@ -80,7 +77,7 @@ export async function POST(req: NextRequest) {
       .eq("player_id", player.id);
 
     if (deleteError) {
-      return NextResponse.json({ error: deleteError.message }, { status: 500 });
+      return apiError(deleteError, "profile-availability", 500);
     }
 
     if (slots.length > 0) {
@@ -97,7 +94,7 @@ export async function POST(req: NextRequest) {
         .insert(rows);
 
       if (insertError) {
-        return NextResponse.json({ error: insertError.message }, { status: 500 });
+        return apiError(insertError, "profile-availability", 500);
       }
     }
 
@@ -111,10 +108,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to save availability" },
-      { status: 500 }
-    );
+    return apiError(err, "profile-availability", 500);
   }
 }
 
@@ -152,9 +146,6 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to delete availability" },
-      { status: 500 }
-    );
+    return apiError(err, "profile-availability", 500);
   }
 }

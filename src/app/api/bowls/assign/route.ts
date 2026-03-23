@@ -6,6 +6,7 @@ import {
 } from "@/lib/team-assignment-engine";
 import type { AssignmentConfig, LockedAssignment } from "@/lib/team-assignment-engine";
 import type { BowlsCheckin, BowlsGameFormat, BowlsPositionRating } from "@/lib/types";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * POST /api/bowls/assign
@@ -49,7 +50,7 @@ export async function POST(req: NextRequest) {
       .order("checked_in_at", { ascending: true });
 
     if (checkinError) {
-      return NextResponse.json({ error: checkinError.message }, { status: 500 });
+      return apiError(checkinError, "bowls-assign", 500);
     }
 
     if (!checkins || checkins.length === 0) {
@@ -130,9 +131,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(result);
   } catch (err) {
     console.error("Smart assignment error:", err);
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Assignment generation failed" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-assign", 500);
   }
 }

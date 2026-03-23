@@ -82,9 +82,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Draw generation failed" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-draw", 500);
   }
 }

@@ -80,10 +80,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Check-in failed" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-checkin", 500);
   }
 }
 
@@ -112,10 +109,7 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Undo failed" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-checkin", 500);
   }
 }
 

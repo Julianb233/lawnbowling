@@ -155,9 +155,6 @@ export async function GET(req: NextRequest) {
       tournament_winner: tournamentWinner,
     });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Results calculation failed" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-results", 500);
   }
 }

@@ -129,10 +129,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(data, { status: 201 });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to add member" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-members", 500);
   }
 }
 
@@ -169,10 +166,7 @@ export async function PATCH(req: NextRequest) {
 
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to update member" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-members", 500);
   }
 }
 
@@ -202,9 +196,6 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to delete member" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-members", 500);
   }
 }

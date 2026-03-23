@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import type { BowlsPosition, SkillLevel } from "@/lib/types";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * POST /api/bowls/guest-checkin
@@ -65,10 +66,7 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (playerError || !player) {
-      return NextResponse.json(
-        { error: playerError?.message ?? "Failed to create guest player" },
-        { status: 500 }
-      );
+      return apiError(playerError, "bowls-guest-checkin", 500);
     }
 
     // Step 2: Check them in with is_guest=true
@@ -89,17 +87,11 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (checkinError) {
-      return NextResponse.json(
-        { error: checkinError.message },
-        { status: 500 }
-      );
+      return apiError(checkinError, "bowls-guest-checkin", 500);
     }
 
     return NextResponse.json({ player, checkin });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Guest check-in failed" },
-      { status: 500 }
-    );
+    return apiError(err, "bowls-guest-checkin", 500);
   }
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 const VALID_BOWLS_FORMATS = ["fours", "triples", "pairs", "singles"] as const;
 type BowlsFormat = (typeof VALID_BOWLS_FORMATS)[number];
@@ -89,7 +90,7 @@ export async function POST(request: NextRequest) {
 
     if (insertError) {
       console.error("Supabase insert error:", insertError);
-      return NextResponse.json({ error: insertError.message }, { status: 500 });
+      return apiError(insertError, "bowls-tournament", 500);
     }
 
     return NextResponse.json({ tournament }, { status: 201 });

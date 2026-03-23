@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient as createServiceClient } from "@supabase/supabase-js";
 import { shouldBeAdmin } from "@/lib/auth/auto-admin";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * POST /api/admin/seed
@@ -50,7 +51,7 @@ export async function POST(request: Request) {
 
   if (authError) {
     return NextResponse.json(
-      { error: "Failed to list users", details: authError.message },
+      { error: "Failed to list users" },
       { status: 500 },
     );
   }
@@ -76,7 +77,7 @@ export async function POST(request: Request) {
 
   if (updateError) {
     return NextResponse.json(
-      { error: "Failed to promote players", details: updateError.message },
+      { error: "Failed to promote players" },
       { status: 500 },
     );
   }

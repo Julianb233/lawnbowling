@@ -6,6 +6,7 @@ import {
   getWaitlist,
   getPlayerPosition,
 } from "@/lib/db/waitlist";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function GET(req: NextRequest) {
   const venueId = req.nextUrl.searchParams.get("venue_id");
@@ -24,10 +25,7 @@ export async function GET(req: NextRequest) {
     const data = await getWaitlist(venueId, sport);
     return NextResponse.json(data);
   } catch (e) {
-    return NextResponse.json(
-      { error: (e as Error).message },
-      { status: 500 },
-    );
+    return apiError(e, "waitlist", 500);
   }
 }
 
@@ -60,11 +58,10 @@ export async function POST(req: NextRequest) {
     const entry = await joinWaitlist(venue_id, sport, player.id, partner_id);
     return NextResponse.json(entry, { status: 201 });
   } catch (e) {
-    const message = (e as Error).message;
-    if (message === "You are already on the waitlist") {
-      return NextResponse.json({ error: message }, { status: 409 });
+    if ((e as Error).message === "You are already on the waitlist") {
+      return NextResponse.json({ error: "You are already on the waitlist" }, { status: 409 });
     }
-    return NextResponse.json({ error: message }, { status: 500 });
+    return apiError(e, "waitlist", 500);
   }
 }
 
@@ -77,9 +74,6 @@ export async function DELETE(req: NextRequest) {
     await leaveWaitlist(waitlistId);
     return NextResponse.json({ success: true });
   } catch (e) {
-    return NextResponse.json(
-      { error: (e as Error).message },
-      { status: 500 },
-    );
+    return apiError(e, "waitlist", 500);
   }
 }

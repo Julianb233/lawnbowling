@@ -103,12 +103,6 @@ export async function GET(
       has_more: playerScores.length > limit,
     });
   } catch (err) {
-    return NextResponse.json(
-      {
-        error:
-          err instanceof Error ? err.message : "Failed to fetch match history",
-      },
-      { status: 500 }
-    );
+    return apiError(err, "profile-[id]-matches", 500);
   }
 }

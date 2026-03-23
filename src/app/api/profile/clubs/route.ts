@@ -40,10 +40,7 @@ export async function GET(req: NextRequest) {
     if (error) return apiError(error, "profile/clubs", 500);
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to fetch clubs" },
-      { status: 500 }
-    );
+    return apiError(err, "profile-clubs", 500);
   }
 }
 
@@ -83,10 +80,7 @@ export async function POST(req: NextRequest) {
     if (error) return apiError(error, "profile/clubs", 500);
     return NextResponse.json(data, { status: 201 });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to join club" },
-      { status: 500 }
-    );
+    return apiError(err, "profile-clubs", 500);
   }
 }
 
@@ -117,9 +111,6 @@ export async function DELETE(req: NextRequest) {
     if (error) return apiError(error, "profile/clubs", 500);
     return NextResponse.json({ success: true });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to leave club" },
-      { status: 500 }
-    );
+    return apiError(err, "profile-clubs", 500);
   }
 }
