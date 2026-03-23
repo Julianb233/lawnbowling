@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
@@ -14,6 +15,6 @@ export async function POST(request: NextRequest) {
     rating: body.rating,
     comment: body.comment || null,
   });
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return apiError(error, "POST /api/reviews", 400);
   return NextResponse.json({ ok: true });
 }

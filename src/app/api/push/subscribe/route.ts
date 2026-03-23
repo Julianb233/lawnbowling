@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function POST(request: NextRequest) {
   try {
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error("Failed to save push subscription:", error);
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return apiError(error, "POST /api/push/subscribe", 400);
     }
 
     return NextResponse.json({ ok: true });
@@ -81,7 +82,7 @@ export async function DELETE(request: NextRequest) {
       .eq("endpoint", endpoint);
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return apiError(error, "DELETE /api/push/subscribe", 400);
     }
 
     return NextResponse.json({ ok: true });

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import type { BowlsPosition, CheckinSource } from "@/lib/types";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * POST /api/bowls/checkin
@@ -74,15 +75,12 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "POST /api/bowls/checkin", 500);
     }
 
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Check-in failed" },
-      { status: 500 }
-    );
+    return apiError(err, "POST /api/bowls/checkin", 500);
   }
 }
 
@@ -106,15 +104,12 @@ export async function DELETE(req: NextRequest) {
       .eq("tournament_id", tournament_id);
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "DELETE /api/bowls/checkin", 500);
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Undo failed" },
-      { status: 500 }
-    );
+    return apiError(err, "DELETE /api/bowls/checkin", 500);
   }
 }
 
@@ -137,7 +132,7 @@ export async function GET(req: NextRequest) {
     .order("checked_in_at", { ascending: true });
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "GET /api/bowls/checkin", 500);
   }
 
   return NextResponse.json(data ?? []);

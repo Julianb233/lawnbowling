@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/clubs/members?club_id=xxx
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest) {
 
   const { data, error } = await query;
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "GET /api/clubs/members", 500);
   }
 
   return NextResponse.json({ members: data ?? [] });
@@ -116,7 +117,7 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return apiError(error, "POST /api/clubs/members", 400);
     }
     return NextResponse.json({ member: data }, { status: 200 });
   }
@@ -128,7 +129,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "POST /api/clubs/members", 400);
   }
 
   return NextResponse.json({ member: data }, { status: 201 });
@@ -207,7 +208,7 @@ export async function PATCH(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "PATCH /api/clubs/members", 400);
   }
 
   return NextResponse.json({ member: data });
@@ -272,7 +273,7 @@ export async function DELETE(req: NextRequest) {
     .eq("player_id", targetPlayerId);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "DELETE /api/clubs/members", 400);
   }
 
   return NextResponse.json({ success: true });

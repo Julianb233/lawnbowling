@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerByUserId } from "@/lib/db/players";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function GET(req: NextRequest) {
   const playerId = req.nextUrl.searchParams.get("player_id");
@@ -18,7 +19,7 @@ export async function GET(req: NextRequest) {
         .order("day_of_week")
         .order("start_time");
 
-      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      if (error) return apiError(error, "GET /api/profile/availability", 500);
       return NextResponse.json(data);
     }
 
@@ -40,13 +41,10 @@ export async function GET(req: NextRequest) {
       .order("day_of_week")
       .order("start_time");
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) return apiError(error, "GET /api/profile/availability", 500);
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to fetch availability" },
-      { status: 500 }
-    );
+    return apiError(err, "GET /api/profile/availability", 500);
   }
 }
 
@@ -79,7 +77,7 @@ export async function POST(req: NextRequest) {
       .eq("player_id", player.id);
 
     if (deleteError) {
-      return NextResponse.json({ error: deleteError.message }, { status: 500 });
+      return apiError(deleteError, "POST /api/profile/availability", 500);
     }
 
     if (slots.length > 0) {
@@ -96,7 +94,7 @@ export async function POST(req: NextRequest) {
         .insert(rows);
 
       if (insertError) {
-        return NextResponse.json({ error: insertError.message }, { status: 500 });
+        return apiError(insertError, "POST /api/profile/availability", 500);
       }
     }
 
@@ -110,10 +108,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to save availability" },
-      { status: 500 }
-    );
+    return apiError(err, "POST /api/profile/availability", 500);
   }
 }
 
@@ -139,21 +134,18 @@ export async function DELETE(req: NextRequest) {
         .eq("id", slotId)
         .eq("player_id", player.id);
 
-      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      if (error) return apiError(error, "DELETE /api/profile/availability", 500);
     } else {
       const { error } = await supabase
         .from("player_availability")
         .delete()
         .eq("player_id", player.id);
 
-      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      if (error) return apiError(error, "DELETE /api/profile/availability", 500);
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to delete availability" },
-      { status: 500 }
-    );
+    return apiError(err, "DELETE /api/profile/availability", 500);
   }
 }

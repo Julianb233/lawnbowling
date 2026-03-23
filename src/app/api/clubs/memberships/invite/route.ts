@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { requireClubRole } from "@/lib/club-auth";
 import type { ClubRole } from "@/lib/types";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * POST /api/clubs/memberships/invite
@@ -61,7 +62,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return apiError(error, "POST /api/clubs/memberships/invite", 400);
   }
 
   return NextResponse.json({

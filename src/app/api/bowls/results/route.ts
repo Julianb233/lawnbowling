@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { buildStandings, determineTournamentWinner } from "@/lib/tournament-engine";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/bowls/results?tournament_id=xxx&round=1
@@ -33,7 +34,7 @@ export async function GET(req: NextRequest) {
     const { data: scores, error } = await query;
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "GET /api/bowls/results", 500);
     }
 
     if (!scores || scores.length === 0) {
@@ -154,9 +155,6 @@ export async function GET(req: NextRequest) {
       tournament_winner: tournamentWinner,
     });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Results calculation failed" },
-      { status: 500 }
-    );
+    return apiError(err, "GET /api/bowls/results", 500);
   }
 }

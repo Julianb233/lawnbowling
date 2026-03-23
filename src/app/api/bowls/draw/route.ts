@@ -8,6 +8,7 @@ import {
 } from "@/lib/bowls-draw";
 import type { DrawStyle } from "@/lib/bowls-draw";
 import type { BowlsCheckin, BowlsGameFormat } from "@/lib/types";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * POST /api/bowls/draw
@@ -38,7 +39,7 @@ export async function POST(req: NextRequest) {
       .order("checked_in_at", { ascending: true });
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "POST /api/bowls/draw", 500);
     }
 
     const playerCount = checkins?.length ?? 0;
@@ -81,9 +82,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Draw generation failed" },
-      { status: 500 }
-    );
+    return apiError(err, "POST /api/bowls/draw", 500);
   }
 }

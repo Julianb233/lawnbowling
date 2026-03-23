@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { apiError } from "@/lib/api-error-handler";
 
 /**
  * GET /api/bowls/members?tournament_id=xxx&search=xxx&skill=novice|expert
@@ -33,7 +34,7 @@ export async function GET(req: NextRequest) {
   const { data, error } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error, "GET /api/bowls/members", 500);
   }
 
   return NextResponse.json(data ?? []);
@@ -86,7 +87,7 @@ export async function POST(req: NextRequest) {
         .select();
 
       if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return apiError(error, "POST /api/bowls/members", 500);
       }
 
       return NextResponse.json({ members: data, count: data?.length ?? 0 }, { status: 201 });
@@ -123,15 +124,12 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "POST /api/bowls/members", 500);
     }
 
     return NextResponse.json(data, { status: 201 });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to add member" },
-      { status: 500 }
-    );
+    return apiError(err, "POST /api/bowls/members", 500);
   }
 }
 
@@ -163,15 +161,12 @@ export async function PATCH(req: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "PATCH /api/bowls/members", 500);
     }
 
     return NextResponse.json(data);
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to update member" },
-      { status: 500 }
-    );
+    return apiError(err, "PATCH /api/bowls/members", 500);
   }
 }
 
@@ -196,14 +191,11 @@ export async function DELETE(req: NextRequest) {
       .eq("id", id);
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error, "DELETE /api/bowls/members", 500);
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to delete member" },
-      { status: 500 }
-    );
+    return apiError(err, "DELETE /api/bowls/members", 500);
   }
 }

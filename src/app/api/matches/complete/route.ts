@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isAdmin } from "@/lib/auth/admin";
 import { completeMatch } from "@/lib/db/courts";
+import { apiError } from "@/lib/api-error-handler";
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,9 +29,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ match });
   } catch (error) {
     console.error("Complete match error:", error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to complete match" },
-      { status: 500 }
-    );
+    return apiError(error, "POST /api/matches/complete", 500);
   }
 }
