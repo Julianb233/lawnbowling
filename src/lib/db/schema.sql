@@ -79,7 +79,7 @@ create table matches (
   sport text not null,
   court_id uuid references courts(id),
   venue_id uuid references venues(id),
-  status text check (status in ('queued', 'playing', 'completed')) default 'queued',
+  status text check (status in ('queued', 'playing', 'completed', 'cancelled', 'abandoned', 'disputed')) default 'queued',
   started_at timestamptz,
   ended_at timestamptz,
   created_at timestamptz default now()

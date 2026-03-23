@@ -23,7 +23,7 @@ interface ActiveMatch {
   id: string;
   court_id: string | null;
   sport: string;
-  status: "queued" | "playing" | "completed";
+  status: "queued" | "playing" | "completed" | "cancelled" | "abandoned" | "disputed";
   started_at: string | null;
   match_players: MatchPlayer[];
 }

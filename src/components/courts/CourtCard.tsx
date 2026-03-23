@@ -18,7 +18,7 @@ interface CourtCardProps {
   };
   activeMatch?: {
     id: string;
-    status: "queued" | "playing" | "completed";
+    status: "queued" | "playing" | "completed" | "cancelled" | "abandoned" | "disputed";
     started_at: string | null;
     match_players: MatchPlayer[];
   } | null;

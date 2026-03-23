@@ -2,7 +2,7 @@ export type SkillLevel = "beginner" | "intermediate" | "advanced";
 export type PlayerRole = "player" | "admin";
 export type InsuranceStatus = "none" | "active" | "expired";
 export type RequestStatus = "pending" | "accepted" | "declined" | "expired";
-export type MatchStatus = "queued" | "playing" | "completed";
+export type MatchStatus = "queued" | "playing" | "completed" | "cancelled" | "abandoned" | "disputed";
 
 export interface Venue {
   id: string;

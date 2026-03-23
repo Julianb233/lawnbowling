@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Clock, Play, Trophy, Loader2 } from "lucide-react";
+import { Clock, Play, Trophy, Loader2, XCircle, CloudRain, AlertTriangle } from "lucide-react";
 import type { MatchStatus as MatchStatusType } from "@/lib/types";
 
 interface MatchStatusProps {
@@ -30,6 +30,24 @@ const STATUS_CONFIG: Record<
     color: "#0A2E12",
     bg: "rgba(10,46,18,0.08)",
     icon: Trophy,
+  },
+  cancelled: {
+    label: "Cancelled",
+    color: "#6B7280",
+    bg: "rgba(107,114,128,0.12)",
+    icon: XCircle,
+  },
+  abandoned: {
+    label: "Abandoned",
+    color: "#B45309",
+    bg: "rgba(180,83,9,0.12)",
+    icon: CloudRain,
+  },
+  disputed: {
+    label: "Disputed",
+    color: "#DC2626",
+    bg: "rgba(220,38,38,0.12)",
+    icon: AlertTriangle,
   },
 };
 

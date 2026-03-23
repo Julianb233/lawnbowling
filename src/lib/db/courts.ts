@@ -125,8 +125,8 @@ export async function completeMatch(matchId: string) {
 
   if (fetchError) throw fetchError;
 
-  if (match.status === "completed") {
-    throw new Error("Match is already completed");
+  if (["completed", "cancelled", "abandoned", "disputed"].includes(match.status)) {
+    throw new Error(`Match cannot be completed — current status is '${match.status}'`);
   }
 
   // Mark match completed
