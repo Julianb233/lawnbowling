@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
-import { createClient as createSupabaseServiceClient } from "@supabase/supabase-js";
+import { createServiceClient } from "@/lib/supabase/service";
 import {
   isPrintifyConfigured,
   createOrder,
@@ -8,14 +8,6 @@ import {
 } from "@/lib/printify";
 import Stripe from "stripe";
 import { logger } from "@/lib/logger";
-
-// Service-role Supabase client for webhook handlers (bypasses RLS)
-function getServiceSupabase() {
-  return createSupabaseServiceClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-}
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -31,7 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  const supabase = getServiceSupabase();
+  const supabase = createServiceClient();
 
   try {
     switch (event.type) {
@@ -125,7 +117,7 @@ export async function POST(req: NextRequest) {
  */
 async function handleShopOrder(
   session: Stripe.Checkout.Session,
-  supabase: ReturnType<typeof getServiceSupabase>
+  supabase: ReturnType<typeof createServiceClient>
 ) {
   if (!stripe) return;
 
