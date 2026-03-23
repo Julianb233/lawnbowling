@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: "Sign In | LawnBowl",
     description:
       "Sign in to your LawnBowl account to manage tournaments, view scores, and connect with your club.",
-    url: "https://www.lawnbowling.app/login",
+    url: "https://www.lawnbowl.app/login",
   },
 };
 

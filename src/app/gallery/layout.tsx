@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: "Club Gallery | LawnBowl",
     description:
       "Photos from lawn bowling clubs, tournaments, and events across the community.",
-    url: "https://www.lawnbowling.app/gallery",
+    url: "https://www.lawnbowl.app/gallery",
   },
 };
 
