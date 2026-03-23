@@ -5,13 +5,13 @@ import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Phone, Mail, User, AlertTriangle, CheckCircle, Loader2 } from "lucide-react";
+import { Mail, User, AlertTriangle, CheckCircle, Loader2 } from "lucide-react";
 import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 function friendlySignupError(raw: string): string {
   const lower = raw.toLowerCase();
   if (lower.includes("already registered") || lower.includes("already been registered")) {
-    return "An account with this phone/email already exists. Please sign in instead.";
+    return "An account with this email already exists. Please sign in instead.";
   }
   if (lower.includes("password") && lower.includes("least")) {
     return "Password must be at least 6 characters long.";
@@ -28,15 +28,6 @@ function friendlySignupError(raw: string): string {
   return raw;
 }
 
-/** Common country codes */
-const COUNTRY_CODES = [
-  { code: "+1", label: "US +1" },
-  { code: "+44", label: "UK +44" },
-  { code: "+61", label: "AU +61" },
-  { code: "+64", label: "NZ +64" },
-  { code: "+27", label: "ZA +27" },
-  { code: "+852", label: "HK +852" },
-];
 
 export default function SignupPage() {
   return (
@@ -54,10 +45,7 @@ export default function SignupPage() {
 }
 
 function SignupForm() {
-  const [mode, setMode] = useState<"phone" | "email">("phone");
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [countryCode, setCountryCode] = useState("+1");
   const [email, setEmail] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
@@ -74,81 +62,6 @@ function SignupForm() {
     setOtp("");
     setSuccess(null);
     setError(null);
-  }
-
-  async function handlePhoneSignup(e: React.FormEvent) {
-    e.preventDefault();
-    if (!name.trim()) {
-      setError("Please enter your name.");
-      return;
-    }
-    setLoading(true);
-    setError(null);
-    setSuccess(null);
-
-    const fullPhone = `${countryCode}${phone.replace(/\D/g, "")}`;
-
-    if (!otpSent) {
-      try {
-        // TODO: Supabase phone auth must be enabled in the dashboard for this to work.
-        // If not configured, users should use the email tab as fallback.
-        const { error: otpError } = await supabase.auth.signInWithOtp({
-          phone: fullPhone,
-          options: {
-            data: { name },
-          },
-        });
-
-        if (otpError) {
-          const msg = otpError.message.toLowerCase();
-          if (msg.includes("phone") || msg.includes("sms") || msg.includes("provider") || msg.includes("not enabled")) {
-            setMode("email");
-            setError(null);
-            setSuccess("Phone sign-up is not available yet. Please use email instead.");
-            setLoading(false);
-            return;
-          }
-          setError(friendlySignupError(otpError.message));
-          setLoading(false);
-          return;
-        }
-
-        setOtpSent(true);
-        setSuccess("We sent a code to your phone. Enter it below.");
-        setLoading(false);
-      } catch (err) {
-        setError(friendlySignupError(err instanceof Error ? err.message : "Something went wrong."));
-        setLoading(false);
-      }
-    } else {
-      try {
-        const { data, error: verifyError } = await supabase.auth.verifyOtp({
-          phone: fullPhone,
-          token: otp,
-          type: "sms",
-        });
-
-        if (verifyError) {
-          setError(friendlySignupError(verifyError.message));
-          setLoading(false);
-          return;
-        }
-
-        // Create player profile
-        if (data.user) {
-          await supabase.from("players").insert({
-            user_id: data.user.id,
-            display_name: name,
-          });
-        }
-
-        router.push("/onboarding/player");
-        router.refresh();
-      } catch (err) {
-        setError(friendlySignupError(err instanceof Error ? err.message : "Something went wrong."));
-        setLoading(false);
-      }
-    }
   }
 
   async function handleEmailSignup(e: React.FormEvent) {
@@ -291,138 +204,8 @@ function SignupForm() {
               </div>
             </div>
 
-            {/* Phone / Email mode toggle */}
-            <div className="mb-5 flex rounded-xl border border-[#0A2E12]/10 bg-[#FEFCF9] p-1">
-              <button
-                type="button"
-                onClick={() => { setMode("phone"); resetOtp(); }}
-                className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
-                  mode === "phone"
-                    ? "bg-[#1B5E20] text-white shadow-sm"
-                    : "text-[#3D5A3E] hover:text-[#0A2E12]"
-                }`}
-              >
-                <Phone className="mr-1.5 inline h-4 w-4" />
-                Phone
-              </button>
-              <button
-                type="button"
-                onClick={() => { setMode("email"); resetOtp(); }}
-                className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
-                  mode === "email"
-                    ? "bg-[#1B5E20] text-white shadow-sm"
-                    : "text-[#3D5A3E] hover:text-[#0A2E12]"
-                }`}
-              >
-                <Mail className="mr-1.5 inline h-4 w-4" />
-                Email
-              </button>
-            </div>
-
-            {/* Phone signup */}
-            {mode === "phone" && (
-              <form onSubmit={handlePhoneSignup} className="space-y-5">
-                {!otpSent ? (
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="mb-2 block text-base font-medium"
-                      style={{ color: "#0A2E12" }}
-                    >
-                      Phone Number
-                    </label>
-                    <div className="flex gap-2">
-                      <select
-                        value={countryCode}
-                        onChange={(e) => setCountryCode(e.target.value)}
-                        className="h-14 w-[100px] shrink-0 rounded-xl border border-[#0A2E12]/10 bg-white px-2 text-base shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                        style={{ color: "#0A2E12" }}
-                      >
-                        {COUNTRY_CODES.map((c) => (
-                          <option key={c.code} value={c.code}>
-                            {c.label}
-                          </option>
-                        ))}
-                      </select>
-                      <div className="relative flex-1">
-                        <Phone className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
-                        <input
-                          id="phone"
-                          type="tel"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          required
-                          className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                          style={{ color: "#0A2E12" }}
-                          placeholder="(555) 123-4567"
-                        />
-                      </div>
-                    </div>
-                    <p className="mt-2 text-sm text-[#3D5A3E]">
-                      We&apos;ll text you a code. No password needed.
-                    </p>
-                  </div>
-                ) : (
-                  <div>
-                    <label
-                      htmlFor="signup-otp"
-                      className="mb-2 block text-base font-medium"
-                      style={{ color: "#0A2E12" }}
-                    >
-                      Enter Code
-                    </label>
-                    <input
-                      id="signup-otp"
-                      type="text"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      autoComplete="one-time-code"
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
-                      required
-                      maxLength={6}
-                      className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                      style={{ color: "#0A2E12" }}
-                      placeholder="000000"
-                    />
-                    <button
-                      type="button"
-                      onClick={resetOtp}
-                      className="mt-2 text-sm font-medium text-[#1B5E20] hover:underline"
-                    >
-                      Use a different number
-                    </button>
-                  </div>
-                )}
-
-                {error && (
-                  <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-4 text-base text-red-700 shadow-sm" role="alert">
-                    <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
-                    <span>{error}</span>
-                  </div>
-                )}
-
-                {success && (
-                  <div className="flex items-start gap-3 rounded-xl border border-blue-200 bg-blue-50 px-4 py-4 text-base text-blue-700 shadow-sm" role="status">
-                    <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-blue-500" />
-                    <span>{success}</span>
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={loading || (!!success && !otpSent)}
-                  className="w-full rounded-xl py-4 text-lg font-semibold text-white shadow-md transition hover:brightness-110 disabled:opacity-50 active:scale-[0.98]"
-                  style={{ backgroundColor: "#1B5E20" }}
-                >
-                  {loading ? "Please wait..." : otpSent ? "Verify Code" : "Send Code"}
-                </button>
-              </form>
-            )}
-
             {/* Email signup */}
-            {mode === "email" && (
-              <form onSubmit={otpSent ? handleEmailOtpVerify : handleEmailSignup} className="space-y-5">
+            <form onSubmit={otpSent ? handleEmailOtpVerify : handleEmailSignup} className="space-y-5">
                 {!otpSent ? (
                   <div>
                     <label
@@ -505,7 +288,6 @@ function SignupForm() {
                   {loading ? "Please wait..." : otpSent ? "Verify Code" : "Send Sign-In Link"}
                 </button>
               </form>
-            )}
 
             {/* Divider */}
             <div className="my-6 flex items-center gap-4">
