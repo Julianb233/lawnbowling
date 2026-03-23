@@ -139,7 +139,7 @@ export default function CreatePostSheet({
                 </h2>
                 <button
                   onClick={handleClose}
-                  className="p-1.5 rounded-lg text-[#3D5A3E] hover:text-[#3D5A3E]:text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-[#0A2E12] transition-colors"
+                  className="p-1.5 rounded-lg text-[#3D5A3E] hover:text-[#3D5A3E]:text-[#3D5A3E] hover:bg-[#0A2E12]/5:bg-[#0A2E12] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
                   aria-label="Close"
                 >
                   <X className="w-5 h-5" />

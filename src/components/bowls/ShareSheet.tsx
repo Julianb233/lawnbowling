@@ -140,7 +140,8 @@ export function ShareSheet({
               </h3>
               <button
                 onClick={onClose}
-                className="rounded-full p-1.5 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30]"
+                aria-label="Close share sheet"
+                className="rounded-full p-1.5 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
               >
                 <X className="h-5 w-5" />
               </button>

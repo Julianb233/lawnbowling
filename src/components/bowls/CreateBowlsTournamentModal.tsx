@@ -113,7 +113,7 @@ export function CreateBowlsTournamentModal({ open, onOpenChange, onCreated }: Cr
             <Dialog.Title className="text-lg font-bold text-[#0A2E12]">
               New Bowls Tournament
             </Dialog.Title>
-            <Dialog.Close className="rounded-full p-2 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30] min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation">
+            <Dialog.Close aria-label="Close dialog" className="rounded-full p-2 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30] min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">
               <X className="h-5 w-5" />
             </Dialog.Close>
           </div>

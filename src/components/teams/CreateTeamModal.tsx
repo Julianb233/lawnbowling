@@ -57,7 +57,7 @@ export function CreateTeamModal({ open, onOpenChange, onCreated }: CreateTeamMod
             <Dialog.Title className="text-lg font-bold text-[#0A2E12]">
               Create Team
             </Dialog.Title>
-            <Dialog.Close className="rounded-full p-1 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30]">
+            <Dialog.Close aria-label="Close dialog" className="rounded-full p-1 text-[#3D5A3E] hover:bg-[#0A2E12]/5 hover:text-[#2D4A30] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">
               <X className="h-5 w-5" />
             </Dialog.Close>
           </div>

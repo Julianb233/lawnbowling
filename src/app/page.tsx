@@ -543,28 +543,28 @@ export default function HomePage() {
             </span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-[#3D5A3E] dark:text-[#a8c8b4] sm:gap-x-6">
-            <Link href="/clubs" className="hover:text-[#0A2E12] dark:text-[#e8f0eb] transition">
+            <Link href="/clubs" className="hover:text-[#0A2E12] dark:hover:text-[#e8f0eb] focus-visible:text-[#0A2E12] dark:focus-visible:text-[#e8f0eb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 rounded transition">
               Clubs
             </Link>
-            <Link href="/learn" className="hover:text-[#0A2E12] dark:text-[#e8f0eb] transition">
+            <Link href="/learn" className="hover:text-[#0A2E12] dark:hover:text-[#e8f0eb] focus-visible:text-[#0A2E12] dark:focus-visible:text-[#e8f0eb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 rounded transition">
               Learn
             </Link>
-            <Link href="/shop" className="hover:text-[#0A2E12] dark:text-[#e8f0eb] transition">
+            <Link href="/shop" className="hover:text-[#0A2E12] dark:hover:text-[#e8f0eb] focus-visible:text-[#0A2E12] dark:focus-visible:text-[#e8f0eb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 rounded transition">
               Shop
             </Link>
-            <Link href="/blog" className="hover:text-[#0A2E12] dark:text-[#e8f0eb] transition">
+            <Link href="/blog" className="hover:text-[#0A2E12] dark:hover:text-[#e8f0eb] focus-visible:text-[#0A2E12] dark:focus-visible:text-[#e8f0eb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 rounded transition">
               Blog
             </Link>
-            <Link href="/insurance" className="hover:text-[#0A2E12] dark:text-[#e8f0eb] transition">
+            <Link href="/insurance" className="hover:text-[#0A2E12] dark:hover:text-[#e8f0eb] focus-visible:text-[#0A2E12] dark:focus-visible:text-[#e8f0eb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 rounded transition">
               Insurance
             </Link>
-            <Link href="/about" className="hover:text-[#0A2E12] dark:text-[#e8f0eb] transition">
+            <Link href="/about" className="hover:text-[#0A2E12] dark:hover:text-[#e8f0eb] focus-visible:text-[#0A2E12] dark:focus-visible:text-[#e8f0eb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 rounded transition">
               About
             </Link>
-            <Link href="/terms" className="hover:text-[#0A2E12] dark:text-[#e8f0eb] transition">
+            <Link href="/terms" className="hover:text-[#0A2E12] dark:hover:text-[#e8f0eb] focus-visible:text-[#0A2E12] dark:focus-visible:text-[#e8f0eb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 rounded transition">
               Terms
             </Link>
-            <Link href="/privacy" className="hover:text-[#0A2E12] dark:text-[#e8f0eb] transition">
+            <Link href="/privacy" className="hover:text-[#0A2E12] dark:hover:text-[#e8f0eb] focus-visible:text-[#0A2E12] dark:focus-visible:text-[#e8f0eb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 rounded transition">
               Privacy
             </Link>
           </div>

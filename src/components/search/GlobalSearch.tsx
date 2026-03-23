@@ -110,7 +110,7 @@ export function GlobalSearch() {
                   className="flex-1 bg-transparent text-[#0A2E12] placeholder-[#3D5A3E] outline-none"
                 />
                 {query && (
-                  <button onClick={() => setQuery("")}>
+                  <button onClick={() => setQuery("")} aria-label="Clear search" className="rounded-full p-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">
                     <X className="h-4 w-4 text-[#3D5A3E]" />
                   </button>
                 )}

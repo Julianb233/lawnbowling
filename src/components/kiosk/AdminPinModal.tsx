@@ -66,7 +66,8 @@ export function AdminPinModal({ open, onClose, onSuccess }: AdminPinModalProps) 
               </div>
               <button
                 onClick={() => { onClose(); setPin(""); }}
-                className="rounded-full p-3 hover:bg-[#0A2E12]/5 touch-manipulation"
+                aria-label="Close PIN dialog"
+                className="rounded-full p-3 hover:bg-[#0A2E12]/5 touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
                 style={{
                   minHeight: "56px",
                   minWidth: "56px",
