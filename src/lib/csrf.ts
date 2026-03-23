@@ -71,9 +71,11 @@ function getAllowedOrigins(request: NextRequest): Set<string> {
     if (proto === "http") origins.add(`https://${host}`);
   }
 
-  // Explicit production domain
+  // Explicit production domains (both lawnbowl.app and lawnbowling.app are valid)
   origins.add("https://lawnbowl.app");
   origins.add("https://www.lawnbowl.app");
+  origins.add("https://lawnbowling.app");
+  origins.add("https://www.lawnbowling.app");
 
   // Additional allowed origins from env (comma-separated)
   const extra = process.env.CSRF_ALLOWED_ORIGINS;
