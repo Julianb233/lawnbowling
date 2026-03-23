@@ -40,6 +40,7 @@
   "exclude": [
     "node_modules",
     "src/app/sw.ts",
-    "supabase/functions/**"
+    "supabase/functions/**",
+    "src/__tests__/**"
   ]
 }

@@ -19,8 +19,9 @@ export default function PricingPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-white">
+        <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-white">
           <Loader2 className="h-8 w-8 animate-spin text-green-500" />
+          <span className="text-sm font-medium text-green-700">Loading…</span>
         </div>
       }
     >

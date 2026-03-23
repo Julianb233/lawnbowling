@@ -43,6 +43,7 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
+  const [signingOutAll, setSigningOutAll] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
@@ -112,6 +113,13 @@ export default function SettingsPage() {
   async function handleSignOut() {
     setSigningOut(true);
     await fetch("/api/auth/logout", { method: "POST" });
+    router.push("/login");
+    router.refresh();
+  }
+
+  async function handleSignOutAll() {
+    setSigningOutAll(true);
+    await fetch("/api/auth/logout-all", { method: "POST" });
     router.push("/login");
     router.refresh();
   }
@@ -250,18 +258,32 @@ export default function SettingsPage() {
           </div>
 
           {/* Sign Out */}
-          <button
-            onClick={handleSignOut}
-            disabled={signingOut}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 px-6 py-3 text-sm font-bold text-red-600 hover:bg-red-50 disabled:opacity-50 min-h-[44px] transition-colors"
-          >
-            {signingOut ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <LogOut className="h-4 w-4" />
-            )}
-            {signingOut ? "Signing out..." : "Sign Out"}
-          </button>
+          <div className="space-y-3">
+            <button
+              onClick={handleSignOut}
+              disabled={signingOut || signingOutAll}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 px-6 py-3 text-sm font-bold text-red-600 hover:bg-red-50 disabled:opacity-50 min-h-[44px] transition-colors"
+            >
+              {signingOut ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <LogOut className="h-4 w-4" />
+              )}
+              {signingOut ? "Signing out..." : "Sign Out"}
+            </button>
+            <button
+              onClick={handleSignOutAll}
+              disabled={signingOut || signingOutAll}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-200/60 px-6 py-3 text-sm font-medium text-red-500 hover:bg-red-50 disabled:opacity-50 min-h-[44px] transition-colors"
+            >
+              {signingOutAll ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <LogOut className="h-4 w-4" />
+              )}
+              {signingOutAll ? "Signing out all devices..." : "Sign Out All Devices"}
+            </button>
+          </div>
         </div>
       </div>
       <BottomNav />

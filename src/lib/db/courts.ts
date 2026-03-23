@@ -61,30 +61,23 @@ export async function deleteCourt(id: string) {
 export async function assignCourtToMatch(matchId: string, courtId: string) {
   const supabase = await createClient();
 
-  // Mark match as playing on this court
-  const { data: match, error: matchError } = await supabase
-    .from("matches")
-    .update({
-      court_id: courtId,
-      status: "playing",
-      started_at: new Date().toISOString(),
+  // Atomically update both match and court inside a single DB transaction
+  // via the assign_court_to_match Postgres function (see migration
+  // 20260323_assign_court_transaction.sql).  If either UPDATE fails the
+  // whole transaction is rolled back, preventing partial state where the
+  // court appears occupied but the match is still "queued" (or vice-versa).
+  const { data: match, error } = await supabase
+    .rpc("assign_court_to_match", {
+      p_match_id: matchId,
+      p_court_id: courtId,
     })
-    .eq("id", matchId)
-    .eq("status", "queued")
-    .select()
     .single();
 
-  if (matchError) throw matchError;
+  if (error) throw error;
 
-  // Mark court as unavailable
-  const { error: courtError } = await supabase
-    .from("courts")
-    .update({ is_available: false })
-    .eq("id", courtId);
-
-  if (courtError) throw courtError;
-
-  // Notify match players that a court has been assigned
+  // Notify match players that a court has been assigned.
+  // Push notifications are fire-and-forget — failures are logged but must
+  // not roll back the already-committed court assignment.
   const { data: courtPlayersData } = await supabase
     .from("match_players").select("player_id").eq("match_id", matchId);
   const { data: courtInfoData } = await supabase
