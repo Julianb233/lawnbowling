@@ -14,6 +14,8 @@ export async function GET() {
       success: true,
       count: products.length,
       products,
+    }, {
+      headers: { "Cache-Control": "public, max-age=300, s-maxage=3600" },
     });
   } catch (error) {
     console.error("[shop/products] Error fetching products:", error);
