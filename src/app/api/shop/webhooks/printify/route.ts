@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/printify";
 import { createServiceClient } from "@/lib/supabase/service";
 import { logger } from "@/lib/logger";
+import { sendEmail } from "@/lib/email/send";
+import { orderShippedEmail } from "@/lib/email/templates/order-shipped";
+import { orderDeliveredEmail } from "@/lib/email/templates/order-delivered";
 
 /**
  * POST /api/shop/webhooks/printify
@@ -83,6 +86,13 @@ export async function POST(req: NextRequest) {
               carrier,
               tracking_number,
             });
+
+            // Send shipped notification email
+            await sendOrderNotification(supabase, orderId, "shipped", {
+              carrier,
+              tracking_number,
+              tracking_url,
+            });
           }
         }
         break;
@@ -118,6 +128,9 @@ export async function POST(req: NextRequest) {
               route: "shop/webhooks/printify",
               orderId,
             });
+
+            // Send delivered notification email
+            await sendOrderNotification(supabase, orderId, "delivered");
           }
         }
         break;
@@ -214,6 +227,78 @@ async function persistWebhookEvent(
       orderId: data.orderId,
       eventType: data.eventType,
       error,
+    });
+  }
+}
+
+/**
+ * Look up the customer email from shop_orders and send a notification email.
+ */
+async function sendOrderNotification(
+  supabase: ReturnType<typeof createServiceClient>,
+  fulfillmentId: string,
+  type: "shipped" | "delivered",
+  tracking?: {
+    carrier?: string;
+    tracking_number?: string;
+    tracking_url?: string;
+  }
+) {
+  try {
+    // Get customer email from the order's shipping address
+    const { data: order } = await supabase
+      .from("shop_orders")
+      .select("id, shipping_address, player_id")
+      .eq("fulfillment_id", fulfillmentId)
+      .single();
+
+    if (!order) {
+      logger.warn("Cannot send notification — order not found", {
+        route: "shop/webhooks/printify",
+        fulfillmentId,
+      });
+      return;
+    }
+
+    const address = order.shipping_address as Record<string, string> | null;
+    const email = address?.email;
+    const name = address?.name ?? address?.first_name ?? "Customer";
+
+    if (!email) {
+      logger.warn("Cannot send notification — no customer email", {
+        route: "shop/webhooks/printify",
+        fulfillmentId,
+      });
+      return;
+    }
+
+    const shortId = order.id.slice(0, 8).toUpperCase();
+
+    if (type === "shipped") {
+      const { subject, html } = orderShippedEmail(
+        name,
+        shortId,
+        tracking?.carrier ?? null,
+        tracking?.tracking_number ?? null,
+        tracking?.tracking_url ?? null,
+      );
+      await sendEmail({ to: email, subject, html });
+    } else {
+      const { subject, html } = orderDeliveredEmail(name, shortId);
+      await sendEmail({ to: email, subject, html });
+    }
+
+    logger.info(`Order ${type} notification sent`, {
+      route: "shop/webhooks/printify",
+      fulfillmentId,
+      email,
+    });
+  } catch (err) {
+    logger.error("Failed to send order notification email", {
+      route: "shop/webhooks/printify",
+      fulfillmentId,
+      type,
+      error: err,
     });
   }
 }
