@@ -51,6 +51,9 @@ export function IOSInstallGuide() {
   if (!visible) return null;
 
   return (
+    <>
+    {/* Spacer so fixed banner doesn't cover page content */}
+    <div className="h-64" aria-hidden="true" />
     <div
       className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-2xl"
       role="alert"
@@ -109,5 +112,6 @@ export function IOSInstallGuide() {
         Maybe later
       </button>
     </div>
+    </>
   );
 }

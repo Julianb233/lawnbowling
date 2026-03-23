@@ -35,13 +35,27 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Lawnbowling",
+  metadataBase: new URL("https://www.lawnbowl.app"),
+  title: {
+    default: "LawnBowl — The Lawn Bowling App",
+    template: "%s | LawnBowl",
+  },
   description: "The world's best lawn bowling app — tournament management, club directory, and more",
   manifest: "/manifest.json",
+  openGraph: {
+    type: "website",
+    siteName: "LawnBowl",
+    title: "LawnBowl — The Lawn Bowling App",
+    description: "Tournament management, club directory, player stats, and more for lawn bowlers worldwide.",
+    url: "https://www.lawnbowl.app",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Lawnbowling",
+    title: "LawnBowl",
   },
 };
 
