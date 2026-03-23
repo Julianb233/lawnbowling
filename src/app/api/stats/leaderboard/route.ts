@@ -32,7 +32,9 @@ export async function GET(request: NextRequest) {
       sortBy,
       limit,
     });
-    return NextResponse.json({ leaderboard });
+    return NextResponse.json({ leaderboard }, {
+      headers: { "Cache-Control": "public, max-age=300, s-maxage=3600" },
+    });
   } catch (error) {
     console.error("Leaderboard error:", error);
     return NextResponse.json(

@@ -1,3 +1,5 @@
+export const revalidate = 300; // 5 minutes
+
 import type { Metadata } from "next";
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";

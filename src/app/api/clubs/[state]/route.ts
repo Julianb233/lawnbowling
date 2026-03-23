@@ -70,5 +70,7 @@ export async function GET(
     stateName,
     clubs: data ?? [],
     total: count ?? 0,
+  }, {
+    headers: { "Cache-Control": "public, max-age=300, s-maxage=3600" },
   });
 }

@@ -21,7 +21,9 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Club not found" }, { status: 404 });
     }
 
-    return NextResponse.json(data);
+    return NextResponse.json(data, {
+      headers: { "Cache-Control": "public, max-age=300, s-maxage=3600" },
+    });
   } catch {
     return NextResponse.json({ error: "Failed to fetch club" }, { status: 500 });
   }
