@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { IOSInstallGuide } from "@/components/pwa/IOSInstallGuide";
 import { PushNotificationPrompt } from "@/components/push/PushNotificationPrompt";
@@ -106,6 +108,8 @@ export default function RootLayout({
           <IOSInstallGuide />
           <PushNotificationPrompt />
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
