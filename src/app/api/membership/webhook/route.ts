@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
-import { createClient } from "@/lib/supabase/server";
+import { createClient as createSupabaseServiceClient } from "@supabase/supabase-js";
 import Stripe from "stripe";
 import { computeExpiration } from "@/lib/membership";
 import { logger } from "@/lib/logger";
@@ -27,7 +27,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  const supabase = await createClient();
+  // Use service role client to bypass RLS — webhooks have no user session
+  const supabase = createSupabaseServiceClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
 
   switch (event.type) {
     // ---- Checkout completed: activate membership ----
