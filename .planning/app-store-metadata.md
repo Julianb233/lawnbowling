@@ -57,13 +57,13 @@ Welcome to LawnBowl! Your complete lawn bowling companion.
 - Works offline
 
 ## Privacy Policy URL
-https://lawnbowling.vercel.app/privacy
+https://www.lawnbowling.app/privacy
 
 ## Support URL
-https://lawnbowling.vercel.app/contact
+https://www.lawnbowling.app/contact
 
 ## Marketing URL
-https://lawnbowling.vercel.app
+https://www.lawnbowling.app
 
 ## Age Rating
 4+ (No objectionable content)

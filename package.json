@@ -21,7 +21,8 @@
     "test:e2e:headed": "playwright test --headed",
     "cap:sync": "npx cap sync ios",
     "cap:open": "npx cap open ios",
-    "cap:build": "npx cap sync ios && npx cap open ios"
+    "cap:build": "npx cap sync ios && npx cap open ios",
+    "cap:submit": "bash scripts/build-ios.sh"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
