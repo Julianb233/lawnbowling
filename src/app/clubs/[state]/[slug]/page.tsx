@@ -19,6 +19,9 @@ import {
   Facebook,
   Twitter,
   UserCircle,
+  Share2,
+  Clock,
+  Camera,
 } from "lucide-react";
 import {
   CLUBS,
@@ -289,6 +292,34 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
               </section>
             )}
 
+            {/* Playing Schedule */}
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
+              <h2 className="mb-4 text-lg font-bold text-[#0A2E12] font-display" style={{ fontFamily: "var(--font-display)" }}>
+                Typical Playing Schedule
+              </h2>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {[
+                  { day: "Monday", time: "Social Roll-Up, 10am" },
+                  { day: "Tuesday", time: "Ladies Bowls, 9:30am" },
+                  { day: "Wednesday", time: "Pennant / Competition, 12pm" },
+                  { day: "Thursday", time: "Twilight Bowls, 5pm" },
+                  { day: "Saturday", time: "Pennant / Competition, 12pm" },
+                  { day: "Sunday", time: "Social Bowls, 10am" },
+                ].map(({ day, time }) => (
+                  <div key={day} className="flex items-center gap-3 rounded-xl bg-[#0A2E12]/[0.03] px-3 py-2.5">
+                    <Clock className="h-4 w-4 shrink-0 text-[#1B5E20]" />
+                    <div>
+                      <p className="text-xs font-semibold text-[#0A2E12]">{day}</p>
+                      <p className="text-xs text-[#3D5A3E]">{time}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-xs text-[#3D5A3E]/70">
+                Schedule may vary. Contact the club to confirm times.
+              </p>
+            </section>
+
             {/* Event Calendar */}
             <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
               <ClubEventCalendar clubId={club.id} />
@@ -432,6 +463,35 @@ export default async function ClubDetailPage({ params }: ClubPageProps) {
                 </div>
               </section>
             )}
+
+            {/* Share & Photo Gallery */}
+            <section className="rounded-2xl border border-[#0A2E12]/10 bg-white p-5 sm:p-6">
+              <h2 className="mb-3 text-sm font-bold text-[#0A2E12]">Share This Club</h2>
+              <div className="flex gap-2">
+                <ShareButton
+                  platform="facebook"
+                  url={`https://lawnbowl.app/clubs/${club.stateCode.toLowerCase()}/${club.id}`}
+                  title={club.name}
+                />
+                <ShareButton
+                  platform="twitter"
+                  url={`https://lawnbowl.app/clubs/${club.stateCode.toLowerCase()}/${club.id}`}
+                  title={`Check out ${club.name} on Lawnbowling`}
+                />
+                <ShareButton
+                  platform="copy"
+                  url={`https://lawnbowl.app/clubs/${club.stateCode.toLowerCase()}/${club.id}`}
+                  title={club.name}
+                />
+              </div>
+              <Link
+                href="/gallery"
+                className="mt-4 flex items-center gap-2 rounded-xl border border-[#0A2E12]/10 px-4 py-2.5 text-sm font-medium text-[#3D5A3E] transition hover:bg-[#0A2E12]/5"
+              >
+                <Camera className="h-4 w-4" />
+                View Photo Gallery
+              </Link>
+            </section>
 
             {/* Visiting */}
             {(club.status === "active" || club.status === "claimed") && (
@@ -661,5 +721,52 @@ function SocialLink({ href, icon, label, color }: { href: string; icon: React.Re
       {icon}
       {label}
     </a>
+  );
+}
+
+function ShareButton({ platform, url, title }: { platform: "facebook" | "twitter" | "copy"; url: string; title: string }) {
+  const encodedUrl = encodeURIComponent(url);
+  const encodedTitle = encodeURIComponent(title);
+
+  if (platform === "facebook") {
+    return (
+      <a
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#0A2E12]/10 text-[#1877F2] transition hover:bg-[#1877F2]/5"
+        title="Share on Facebook"
+      >
+        <Facebook className="h-4 w-4" />
+      </a>
+    );
+  }
+
+  if (platform === "twitter") {
+    return (
+      <a
+        href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#0A2E12]/10 text-[#1DA1F2] transition hover:bg-[#1DA1F2]/5"
+        title="Share on Twitter"
+      >
+        <Twitter className="h-4 w-4" />
+      </a>
+    );
+  }
+
+  return (
+    <button
+      onClick={() => {
+        if (typeof navigator !== "undefined" && navigator.clipboard) {
+          navigator.clipboard.writeText(url);
+        }
+      }}
+      className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#0A2E12]/10 text-[#3D5A3E] transition hover:bg-[#0A2E12]/5"
+      title="Copy link"
+    >
+      <Share2 className="h-4 w-4" />
+    </button>
   );
 }
