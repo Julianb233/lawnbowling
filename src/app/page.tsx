@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  getSportsOrganizationSchema,
+  getSoftwareApplicationSchema,
+  getWebSiteSchema,
+  jsonLd,
+} from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "LawnBowl — Where Friendships Roll | Lawn Bowling Club Management",
@@ -16,7 +22,6 @@ export const metadata: Metadata = {
 import {
   Users,
   Trophy,
-  Shield,
   Smartphone,
   MapPin,
   Star,
@@ -28,12 +33,23 @@ import {
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
 import { HomeNav } from "@/components/home/HomeNav";
 import { HeroParallax } from "@/components/home/HeroParallax";
-import celebrationWinImg from "@/../public/images/celebration-win.png";
-import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518] overflow-hidden">
+      {/* Structured data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(getSportsOrganizationSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(getSoftwareApplicationSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(getWebSiteSchema()) }}
+      />
       {/* Navigation — overlays hero */}
       <HomeNav />
 

@@ -37,7 +37,7 @@ export default function BlogIndexPage() {
   const remainingPosts = posts.slice(1);
 
   return (
-    <div className="min-h-screen bg-[#FEFCF9]">
+    <div className="min-h-screen bg-[#FEFCF9] dark:bg-[#0f2518]">
       <LearnNav />
 
       {/* Hero */}
@@ -47,11 +47,11 @@ export default function BlogIndexPage() {
             <BookOpen className="h-4 w-4 text-[#1B5E20]" />
             <span className="text-sm font-medium text-[#1B5E20]">Blog</span>
           </div>
-          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 md:text-7xl" style={{ fontFamily: "var(--font-display)" }}>
+          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.1] tracking-tight text-zinc-900 dark:text-[#e8f0eb] md:text-7xl" style={{ fontFamily: "var(--font-display)" }}>
             The Lawn Bowling{" "}
-            <span className="text-[#1B5E20]">Blog</span>
+            <span className="text-[#1B5E20] dark:text-[#4ade80]">Blog</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-[#a8c8b4] md:text-xl">
             Guides, rules, equipment reviews, and everything you need to know
             about the sport of lawn bowls. Written for beginners and experienced
             bowlers alike.
@@ -82,7 +82,7 @@ export default function BlogIndexPage() {
         <section className="mx-auto max-w-6xl px-6 pb-16">
           <Link
             href={`/blog/${featuredPost.slug}`}
-            className="group block overflow-hidden rounded-3xl border border-zinc-200 bg-gradient-to-br from-[#1B5E20]/5 to-transparent shadow-sm transition-all hover:shadow-lg hover:border-[#1B5E20]/30"
+            className="group block overflow-hidden rounded-3xl border border-zinc-200 dark:border-white/10 bg-gradient-to-br from-[#1B5E20]/5 to-transparent shadow-sm transition-all hover:shadow-lg hover:border-[#1B5E20]/30"
           >
             <div className="p-8 md:p-12">
               <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -97,7 +97,7 @@ export default function BlogIndexPage() {
                   {featuredPost.readTime} min read
                 </span>
               </div>
-              <h2 className="text-3xl font-bold text-zinc-900 group-hover:text-[#1B5E20] transition md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+              <h2 className="text-3xl font-bold text-zinc-900 dark:text-[#e8f0eb] group-hover:text-[#1B5E20] transition md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
                 {featuredPost.title}
               </h2>
               <p className="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
@@ -133,7 +133,7 @@ export default function BlogIndexPage() {
 
       {/* Post Grid */}
       <section className="mx-auto max-w-6xl px-6 pb-20">
-        <h2 className="mb-8 text-2xl font-bold text-zinc-900 md:text-3xl" style={{ fontFamily: "var(--font-display)" }}>
+        <h2 className="mb-8 text-2xl font-bold text-zinc-900 dark:text-[#e8f0eb] md:text-3xl" style={{ fontFamily: "var(--font-display)" }}>
           All Articles
         </h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -152,7 +152,7 @@ export default function BlogIndexPage() {
                   {post.readTime} min read
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-zinc-900 group-hover:text-[#1B5E20] transition md:text-xl">
+              <h3 className="text-lg font-bold text-zinc-900 dark:text-[#e8f0eb] group-hover:text-[#1B5E20] transition md:text-xl">
                 {post.title}
               </h3>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">

@@ -3,7 +3,7 @@
  */
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_APP_URL || "https://lawnbowl.app";
+  process.env.NEXT_PUBLIC_APP_URL || "https://www.lawnbowl.app";
 
 export const SITE_NAME = "Lawnbowling";
 
