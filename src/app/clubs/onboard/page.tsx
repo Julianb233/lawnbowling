@@ -204,12 +204,22 @@ function ClubOnboardContent() {
 
   // Club info
   const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [stateCode, setStateCode] = useState("");
+  const [zip, setZip] = useState("");
   const [numRinks, setNumRinks] = useState("2");
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+
+  // Email verification
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [verifyCode, setVerifyCode] = useState("");
+  const [verifySending, setVerifySending] = useState(false);
+  const [verifyChecking, setVerifyChecking] = useState(false);
+  const [verifyError, setVerifyError] = useState("");
+  const [codeSent, setCodeSent] = useState(false);
 
   // Plan selection
   const [selectedPlan, setSelectedPlan] = useState(
@@ -260,6 +270,52 @@ function ClubOnboardContent() {
       ? 0
       : selectedPlanData.pricePerMember * memberEstimate;
 
+  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail);
+  const isValidZip = /^\d{5}(-\d{4})?$/.test(zip);
+
+  async function sendVerificationCode() {
+    if (!isValidEmail) return;
+    setVerifySending(true);
+    setVerifyError("");
+    try {
+      const res = await fetch("/api/clubs/verify-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: contactEmail }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setVerifyError(data.error || "Failed to send code");
+      } else {
+        setCodeSent(true);
+      }
+    } catch {
+      setVerifyError("Network error. Try again.");
+    }
+    setVerifySending(false);
+  }
+
+  async function checkVerificationCode() {
+    setVerifyChecking(true);
+    setVerifyError("");
+    try {
+      const res = await fetch("/api/clubs/verify-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: contactEmail, code: verifyCode }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setVerifyError(data.error || "Verification failed");
+      } else {
+        setEmailVerified(true);
+      }
+    } catch {
+      setVerifyError("Network error. Try again.");
+    }
+    setVerifyChecking(false);
+  }
+
   async function handleRegisterClub() {
     setSubmitting(true);
     setError("");
@@ -283,7 +339,8 @@ function ClubOnboardContent() {
           status: "unverified",
           description: null,
           website: null,
-          address: null,
+          address: address || null,
+          zip: zip || null,
           greens: null,
           surface_type: "unknown",
           activities: [],
@@ -477,10 +534,23 @@ function ClubOnboardContent() {
                     className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   />
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
-                      <MapPin className="h-4 w-4 text-[#3D5A3E]" />
+                <div>
+                  <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
+                    <MapPin className="h-4 w-4 text-[#3D5A3E]" />
+                    Street Address *
+                  </label>
+                  <input
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="e.g. 123 Bowling Green Rd"
+                    required
+                    className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                  />
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <div className="sm:col-span-2">
+                    <label className="text-sm font-medium text-[#2D4A30] mb-1.5 block">
                       City *
                     </label>
                     <input
@@ -502,13 +572,35 @@ function ClubOnboardContent() {
                       required
                       className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                     >
-                      <option value="">Select state...</option>
+                      <option value="">Select...</option>
                       {US_STATES.map((s) => (
                         <option key={s.code} value={s.code}>
                           {s.name}
                         </option>
                       ))}
                     </select>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-[#2D4A30] mb-1.5 block">
+                      ZIP *
+                    </label>
+                    <input
+                      type="text"
+                      value={zip}
+                      onChange={(e) => setZip(e.target.value)}
+                      placeholder="94102"
+                      required
+                      maxLength={10}
+                      className={cn(
+                        "w-full rounded-xl border py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:outline-none focus:ring-2",
+                        zip && !isValidZip
+                          ? "border-red-300 focus:border-red-400 focus:ring-red-200"
+                          : "border-[#0A2E12]/10 focus:border-[#1B5E20]/50 focus:ring-[#1B5E20]/20"
+                      )}
+                    />
+                    {zip && !isValidZip && (
+                      <p className="mt-1 text-xs text-red-500">Enter a valid 5-digit ZIP</p>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -545,33 +637,93 @@ function ClubOnboardContent() {
                     className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
                   />
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
-                      <Mail className="h-4 w-4 text-[#3D5A3E]" />
-                      Email
-                    </label>
+                <div>
+                  <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
+                    <Mail className="h-4 w-4 text-[#3D5A3E]" />
+                    Email *
+                  </label>
+                  <div className="flex gap-2">
                     <input
                       type="email"
                       value={contactEmail}
-                      onChange={(e) => setContactEmail(e.target.value)}
+                      onChange={(e) => {
+                        setContactEmail(e.target.value);
+                        if (emailVerified) {
+                          setEmailVerified(false);
+                          setCodeSent(false);
+                          setVerifyCode("");
+                        }
+                      }}
                       placeholder="info@yourclub.com"
-                      className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                      disabled={emailVerified}
+                      className={cn(
+                        "flex-1 rounded-xl border py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:outline-none focus:ring-2",
+                        contactEmail && !isValidEmail
+                          ? "border-red-300 focus:border-red-400 focus:ring-red-200"
+                          : emailVerified
+                            ? "border-[#1B5E20]/30 bg-[#1B5E20]/5"
+                            : "border-[#0A2E12]/10 focus:border-[#1B5E20]/50 focus:ring-[#1B5E20]/20"
+                      )}
                     />
+                    {emailVerified ? (
+                      <span className="inline-flex items-center gap-1 rounded-xl bg-[#1B5E20]/10 px-3 text-xs font-bold text-[#1B5E20]">
+                        <CheckCircle className="h-3.5 w-3.5" /> Verified
+                      </span>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={sendVerificationCode}
+                        disabled={!isValidEmail || verifySending}
+                        className="shrink-0 rounded-xl bg-[#1B5E20] px-4 py-2 text-xs font-bold text-white hover:bg-[#2E7D32] disabled:opacity-50 transition-colors"
+                      >
+                        {verifySending ? "Sending..." : codeSent ? "Resend" : "Verify"}
+                      </button>
+                    )}
                   </div>
-                  <div>
-                    <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
-                      <Phone className="h-4 w-4 text-[#3D5A3E]" />
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      value={contactPhone}
-                      onChange={(e) => setContactPhone(e.target.value)}
-                      placeholder="(555) 123-4567"
-                      className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                    />
-                  </div>
+                  {contactEmail && !isValidEmail && (
+                    <p className="mt-1 text-xs text-red-500">Enter a valid email address</p>
+                  )}
+                  {codeSent && !emailVerified && (
+                    <div className="mt-3 rounded-xl border border-[#1B5E20]/20 bg-[#1B5E20]/5 p-3">
+                      <p className="text-xs text-[#2D4A30] mb-2">
+                        We sent a 6-digit code to <strong>{contactEmail}</strong>
+                      </p>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={verifyCode}
+                          onChange={(e) => setVerifyCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                          placeholder="000000"
+                          maxLength={6}
+                          className="flex-1 rounded-lg border border-[#0A2E12]/10 py-2 px-3 text-center text-sm font-mono tracking-widest focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                        />
+                        <button
+                          type="button"
+                          onClick={checkVerificationCode}
+                          disabled={verifyCode.length !== 6 || verifyChecking}
+                          className="rounded-lg bg-[#1B5E20] px-4 py-2 text-xs font-bold text-white hover:bg-[#2E7D32] disabled:opacity-50 transition-colors"
+                        >
+                          {verifyChecking ? "..." : "Confirm"}
+                        </button>
+                      </div>
+                      {verifyError && (
+                        <p className="mt-1.5 text-xs text-red-500">{verifyError}</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <label className="flex items-center gap-1.5 text-sm font-medium text-[#2D4A30] mb-1.5">
+                    <Phone className="h-4 w-4 text-[#3D5A3E]" />
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    value={contactPhone}
+                    onChange={(e) => setContactPhone(e.target.value)}
+                    placeholder="(555) 123-4567"
+                    className="w-full rounded-xl border border-[#0A2E12]/10 py-3 px-4 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E] focus:border-[#1B5E20]/50 focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                  />
                 </div>
               </div>
             </section>
@@ -579,7 +731,7 @@ function ClubOnboardContent() {
             <div className="flex justify-end">
               <button
                 onClick={goNext}
-                disabled={!name || !city || !stateCode}
+                disabled={!name || !address || !city || !stateCode || !isValidZip || !emailVerified}
                 className="inline-flex items-center gap-2 rounded-xl bg-[#1B5E20] px-6 py-3 text-sm font-bold text-white hover:bg-[#2E7D32] disabled:opacity-50 transition-colors"
               >
                 Next: Choose Plan
