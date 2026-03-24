@@ -5,23 +5,44 @@
 See: .planning/PROJECT.md (updated 2026-03-11)
 
 **Core value:** The world's best lawn bowling app — national domination
-**Current focus:** ALL PHASES COMPLETE — Polish, deploy, launch
+**Current focus:** Post-launch improvements, SEO, and feature expansion
 
 ## Current Position
 
-Phase: 15 of 15 (ALL COMPLETE)
-Plan: All 35 plans executed
-Status: All phases implemented, build passes
-Last activity: 2026-03-11 — Autopilot verified all phases complete, committed club map upgrade
+Phase: 15 of 15 (ALL COMPLETE) + Post-Launch Sprint
+Plan: All 35 plans executed + post-launch enhancements
+Status: Deployed to production, build passes, all types clean
+Last activity: 2026-03-24 — Merged worktree branches, deployed improvements
 
 Progress: [██████████] 100% (all 15 phases complete)
+
+## 2026-03-24 Session
+
+### Completed
+- Merged `agent5/batch-20260323-1804` (launch readiness + club onboarding verification) into master
+- Merged `worktree-agent-aa5b3727` (8 perf/security fixes) into master with conflict resolution
+- Removed 18.3MB unused videos (football.mp4, pickleball.mp4, tennis.mp4)
+- Created club onboarding welcome email template with getting-started checklist
+- Enhanced admin dashboard: signup trends chart, weekly summary, growth %, activity feed, dark mode
+- Expanded merch store: 10 new products (hoodies, water bottles, posters, extra tees/hats) — 24 total
+- Added 3 SEO blog posts: strategy tips, club management guide, tournament organization — 20 total
+- Enhanced club profile pages: playing schedule, social sharing, photo gallery link
+- Created reusable SocialShareButtons component (Facebook, Twitter, LinkedIn, copy, native share)
+- Created NewsletterSignup component (3 variants: card, inline, banner) with API endpoint
+- Enhanced club map: expandable surface type filter, Google Maps directions button
+- Performance optimization: AVIF/WebP images, package import optimization, immutable cache headers
+- Verified PWA config: serwist, offline fallback, push notifications, runtime caching all operational
+- Verified tournament bracket system: already complete with brackets, round robin, Swiss formats
+
+### TypeScript
+- Build passes with zero type errors (verified via `tsc --noEmit`)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 35 (Phases 1-15)
+- Total plans completed: 35 (Phases 1-15) + 15-task post-launch sprint
 - Average duration: ~2 hours per plan
-- Total execution time: ~48 hours
+- Total execution time: ~48 hours + post-launch session
 
 **By Phase:**
 
@@ -29,6 +50,7 @@ Progress: [██████████] 100% (all 15 phases complete)
 |-------|-------|-------|----------|
 | 1-6 | 12/12 | ~24h | ~2h |
 | 7-15 | 23/23 | ~24h | ~1h |
+| Post-launch | 15 tasks | 1 session | — |
 
 ## Accumulated Context
 
@@ -68,13 +90,14 @@ Progress: [██████████] 100% (all 15 phases complete)
 
 ### Blockers/Concerns
 
-- Printify API key needed for shop integration
+- Printify API key needed for live shop integration (mock catalog active with 24 products)
 - Stripe account needed for checkout
 - lawnbowl.app domain DNS configuration needed
 - lawnbowl.camp domain DNS configuration needed
+- Newsletter subscribers table needs to be created in Supabase
 
 ## Session Continuity
 
-Last session: 2026-03-11
-Stopped at: All phases verified by bussit autopilot swarm. SUMMARY.md written for all 9 phases (7-15).
+Last session: 2026-03-24
+Stopped at: All post-launch tasks complete. Push to origin pending.
 Resume file: None
