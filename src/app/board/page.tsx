@@ -412,7 +412,7 @@ export default function BoardPage() {
               >
                 Match Queue
               </h3>
-              <MatchQueue />
+              <MatchQueue venueId={venue?.id} />
             </motion.div>
 
             <motion.div
@@ -427,7 +427,7 @@ export default function BoardPage() {
               >
                 Court Status
               </h3>
-              <CourtStatusBoard />
+              <CourtStatusBoard venueId={venue?.id} />
             </motion.div>
           </div>
         </main>
