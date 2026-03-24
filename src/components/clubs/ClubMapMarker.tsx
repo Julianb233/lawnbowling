@@ -7,7 +7,7 @@ import {
   useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps";
 import Link from "next/link";
-import { MapPin, Users, Leaf, CircleDot } from "lucide-react";
+import { MapPin, Users, Leaf, CircleDot, Navigation } from "lucide-react";
 import { SURFACE_LABELS, type ClubData } from "@/lib/clubs-data";
 
 interface ClubMapMarkerProps {
@@ -85,12 +85,23 @@ export function ClubMapMarker({ club, isSelected, onSelect }: ClubMapMarkerProps
               </p>
             )}
 
-            <Link
-              href={`/clubs/${club.stateCode.toLowerCase()}/${club.id}`}
-              className="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-[#1B5E20] px-3 py-2 text-xs font-bold text-white hover:bg-[#1B5E20] transition-colors"
-            >
-              View Club →
-            </Link>
+            <div className="mt-3 flex gap-2">
+              <Link
+                href={`/clubs/${club.stateCode.toLowerCase()}/${club.id}`}
+                className="inline-flex flex-1 items-center justify-center rounded-lg bg-[#1B5E20] px-3 py-2 text-xs font-bold text-white hover:bg-[#145218] transition-colors"
+              >
+                View Club
+              </Link>
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${club.lat},${club.lng}&destination_place_id=${encodeURIComponent(club.name)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-lg border border-[#0A2E12]/10 px-2.5 py-2 text-xs font-medium text-[#3D5A3E] hover:bg-[#0A2E12]/5 transition-colors"
+                title="Get directions"
+              >
+                <Navigation className="h-3.5 w-3.5" />
+              </a>
+            </div>
           </div>
         </InfoWindow>
       )}
