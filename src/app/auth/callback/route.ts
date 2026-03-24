@@ -42,6 +42,19 @@ export async function GET(request: Request) {
           .eq("id", existingPlayer.id);
       }
 
+      // Check if user has MFA enrolled and needs verification
+      const { data: aalData } =
+        await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+      if (
+        aalData &&
+        aalData.currentLevel === "aal1" &&
+        aalData.nextLevel === "aal2"
+      ) {
+        return NextResponse.redirect(
+          `${origin}/mfa-verify?returnTo=${encodeURIComponent(next)}`
+        );
+      }
+
       return NextResponse.redirect(`${origin}${next}`);
     }
   }

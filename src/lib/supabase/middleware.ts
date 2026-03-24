@@ -39,6 +39,7 @@ export async function updateSession(request: NextRequest) {
     "/friends", "/chat", "/activity", "/queue",
     "/schedule", "/teams", "/stats", "/match-history",
     "/profile", "/clubs/dashboard", "/clubs/manage",
+    "/mfa-verify",
   ];
 
   // Root path is public (landing page)
