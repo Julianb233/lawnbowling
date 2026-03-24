@@ -13,6 +13,7 @@ import {
 import { LearnNav } from "@/components/learn/LearnNav";
 import { LearnFooter } from "@/components/learn/LearnFooter";
 import { getAllBlogPosts, getAllCategories } from "@/lib/blog-posts";
+import { NewsletterSignup } from "@/components/shared/NewsletterSignup";
 
 export const metadata: Metadata = {
   title: "Lawn Bowling Blog | Guides, Rules & Tips",
@@ -179,6 +180,11 @@ export default function BlogIndexPage() {
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="mx-auto max-w-6xl px-6 pb-12">
+        <NewsletterSignup variant="banner" />
       </section>
 
       {/* CTA */}
