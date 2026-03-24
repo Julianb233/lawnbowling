@@ -944,4 +944,360 @@ If your club is ready to save time, improve fairness, and give every member bett
 
 The future of club bowls is not about choosing between tradition and technology. It is about using technology to protect and strengthen the traditions that matter most.`,
   },
+
+  // ─────────────────────────────────────────────────
+  // Post 5: Lawn Bowling Strategy for Beginners
+  // Target keyword: "lawn bowling strategy" / "lawn bowls tips"
+  // ─────────────────────────────────────────────────
+  {
+    title: "Lawn Bowling Strategy: 10 Tips That Will Improve Your Game",
+    slug: "lawn-bowling-strategy-tips",
+    excerpt:
+      "Ready to move beyond rolling and hoping? These 10 lawn bowling strategy tips cover weight control, reading the green, positional play, and the mental game. Suitable for beginners who know the basics and want to start winning more ends.",
+    author: "The LawnBowl Team",
+    date: "2026-03-18",
+    category: "Strategy",
+    tags: ["strategy", "tips", "beginners", "technique", "competition"],
+    readTime: 12,
+    metaTitle: "10 Lawn Bowling Strategy Tips to Improve Your Game (2026)",
+    metaDescription:
+      "Improve your lawn bowling with these 10 proven strategy tips covering weight control, reading the green, positional play, and the mental game. From beginner to club champion.",
+    content: `
+## Beyond Rolling and Hoping
+
+Every new lawn bowler reaches a point where raw enthusiasm is no longer enough. You can deliver the bowl smoothly, you understand bias, and you know the rules. But you are still losing to club veterans who seem to place their bowls exactly where they want them, every time.
+
+The difference is strategy. Lawn bowling is as much a thinking game as it is a physical one. Here are ten tips that will help you bridge the gap between casual bowler and competitive player.
+
+## 1. Master Your Weight Before Worrying About Line
+
+The most common mistake intermediate bowlers make is obsessing over their line (the curve of the bowl) while neglecting weight (the speed). A bowl on the wrong line but correct weight is recoverable. A bowl with correct line but too much weight sails past the head and is useless.
+
+**Practice drill:** Set a jack at various lengths and try to stop your bowl within one mat-length of the jack, ignoring line entirely. Once you can control weight consistently, adding line becomes much easier.
+
+## 2. Read the Green Before the First End
+
+Arrive early and walk the green. Look for:
+
+- **Slope:** Stand at one end and look across the surface. Even slight slopes affect every delivery
+- **Speed:** Is the grass freshly cut (fast) or longer (slow)?
+- **Dry patches:** These will be faster than damp areas
+- **Shade patterns:** Shaded strips stay damp and play slower
+
+Top players adjust their approach for every rink they play on. What worked on rink 3 last week may not work on rink 7 today.
+
+## 3. Play the Percentages
+
+When you have shot (closest to the jack), your job is to consolidate, not attack. Add more bowls close to the jack. Build a fortress. Force your opponent to play risky shots.
+
+When you are down, you need to change the head. Consider:
+
+- **Drawing to a different position** rather than trying to beat a perfectly placed bowl
+- **Playing a firm shot** to move the jack to your back bowls
+- **Blocking the draw** to deny your opponent their preferred line
+
+The key principle: when winning the end, play safe. When losing, take calculated risks.
+
+## 4. Use the Full Width of the Rink
+
+Beginners tend to bowl on the same side every time — usually the forehand. Strong players use both hands freely and switch sides based on the situation.
+
+Your forehand and backhand deliveries will curve differently because of how your body aligns. Practice both until you can choose the best approach for each delivery rather than defaulting to comfort.
+
+## 5. Think Two Bowls Ahead
+
+Before each delivery, ask yourself: "If this bowl lands where I want it, what will my opponent do next? And what will I do after that?"
+
+This chess-like thinking separates good bowlers from great ones. Sometimes the best shot is not the one that scores immediately, but the one that denies your opponent options on their next bowl.
+
+## 6. Learn to Play the Jack
+
+Many beginners forget that moving the jack is a legal and powerful tactic. If your opponent has built a strong head, a controlled firm shot that shifts the jack to a new position can turn the entire end in your favour.
+
+Practice the "drive" and "firm shot" as specific skills, not just as frustrated last resorts.
+
+## 7. Watch the Skip, Not the Jack
+
+Your skip sees the head from the other end and has a much better perspective than you do. Trust their signals. If they are calling for a specific weight or line, follow it — even if it looks wrong from your end.
+
+Good skips communicate clearly: hand signals for which side, verbal calls for weight. If your skip is quiet, ask them what they want before you step onto the mat.
+
+## 8. Manage Your Energy
+
+Lawn bowls matches can last two to three hours. Fatigue causes your delivery to become inconsistent — shorter back-swing, less follow-through, lazier footwork.
+
+Stay hydrated, stretch between ends, and maintain your pre-delivery routine even when tired. The bowler who delivers their last bowl as smoothly as their first has a huge advantage.
+
+## 9. Develop a Pre-Delivery Routine
+
+Every consistent bowler has a routine: step onto the mat, align feet, sight the target, take a breath, deliver. The same sequence every time.
+
+This routine does two things: it builds muscle memory for consistent delivery, and it calms your nerves during pressure situations. When you are playing the final end of a close match, your routine is your anchor.
+
+## 10. Review Your Performance After Every Session
+
+Keep a simple log: What worked? What did you struggle with? Were you short or long? Did you adjust to the green speed?
+
+Patterns will emerge. You might discover that you consistently come up short in afternoon sessions (fatigue), or that you struggle on fast greens (need to adjust your grip). Targeted practice based on real data improves performance far faster than random practice.
+
+## Putting It All Together
+
+Strategy in lawn bowls is not about memorising a playbook. It is about developing the awareness to read each situation — the head, the green, the match score, your opponent's tendencies — and making intelligent decisions.
+
+Start with one tip per session. Master weight control first, then add green-reading, then positional play. Within a few months, you will find yourself thinking about the game differently and winning more ends as a result.
+
+The beautiful thing about lawn bowls strategy is that there is always more to learn. That is what keeps the sport fascinating for decades.`,
+  },
+
+  // ─────────────────────────────────────────────────
+  // Post 6: How to Manage a Lawn Bowling Club
+  // Target keyword: "lawn bowling club management"
+  // ─────────────────────────────────────────────────
+  {
+    title: "Club Management 101: Running a Successful Lawn Bowling Club",
+    slug: "lawn-bowling-club-management",
+    excerpt:
+      "A practical guide for club committees on member retention, scheduling, finances, attracting younger players, and using technology to reduce volunteer burnout. Covers everything from pennant season planning to social media.",
+    author: "The LawnBowl Team",
+    date: "2026-03-20",
+    category: "Club Management",
+    tags: ["club-management", "committees", "membership", "administration"],
+    readTime: 14,
+    metaTitle: "How to Run a Successful Lawn Bowling Club: Complete Guide (2026)",
+    metaDescription:
+      "Practical guide for lawn bowling club committees covering member retention, scheduling, finances, social media, and technology. Reduce volunteer burnout and grow your club.",
+    content: `
+## The Challenge of Running a Modern Bowls Club
+
+Running a lawn bowling club in 2026 is more complex than it was twenty years ago. Membership demographics are shifting, maintenance costs are rising, and the competition for people's leisure time is fiercer than ever.
+
+But clubs that adapt are thriving. Across Australia, New Zealand, the UK, and the US, the clubs that are growing share common traits: they embrace technology, they welcome new demographics, and they run tight operations without burning out their volunteers.
+
+This guide is a practical toolkit for club committees who want their club to prosper.
+
+## Membership: Retention Is Cheaper Than Recruitment
+
+Most clubs focus heavily on recruiting new members. That matters, but retaining existing members is three to five times more cost-effective. Before launching a recruitment drive, ask: why do members leave?
+
+The top reasons members leave a bowls club:
+
+1. **They feel excluded from social groups** — cliques form naturally and new members feel on the outside
+2. **The competition schedule does not suit their availability** — retirees play mornings, working members need evenings and weekends
+3. **They are never asked to participate** — members who are not personally invited to events stop showing up
+4. **Administration is frustrating** — paper sign-up sheets that are always full, unclear communication about schedule changes
+
+**Actions:**
+- Assign every new member a "buddy" for their first three months
+- Run at least one session per week at a time that suits working-age members
+- Send personalised invitations to events, not just mass announcements
+- Move sign-ups and scheduling online so everyone has equal access
+
+## Scheduling: The Core of Club Operations
+
+The draw is the heartbeat of a bowls club. How you organise who plays whom, on which rink, in which format determines whether members have a good experience.
+
+**Key principles:**
+- **Variety:** Rotate between triples, pairs, fours, and social roll-ups throughout the week
+- **Fairness:** Randomised draws ensure the same players are not always paired together
+- **Flexibility:** Allow late arrivals and early departures without disrupting the entire draw
+- **Communication:** Post the draw digitally at least 24 hours before the session
+
+Using a [digital draw system like LawnBowl](/features) eliminates the manual effort of creating draws, handles substitutions automatically, and keeps a record of every game for statistical analysis.
+
+## Finances: Building a Sustainable Model
+
+Most bowls clubs operate on thin margins. Revenue comes from membership fees, green fees, bar and catering, sponsorship, and venue hire. Costs include green maintenance, insurance, utilities, and equipment.
+
+**Tips for financial health:**
+- **Diversify revenue:** Do not depend on membership fees alone. Offer the clubhouse for functions, run corporate bowls events, create a small shop
+- **Review fees annually:** A $10 increase per member per year, communicated transparently, is usually accepted without complaint
+- **Apply for grants:** Local councils, state sporting bodies, and national organisations all have funding programs for community sport. Most clubs leave money on the table by not applying
+- **Track everything:** Use accounting software. A spreadsheet maintained by one volunteer is a single point of failure
+
+## Attracting Younger Members
+
+The median age at many bowls clubs is over 65. That is not a problem — the sport is wonderful for older adults. But it becomes a problem when membership declines faster than it can be replaced.
+
+What works for attracting younger players:
+
+- **Barefoot bowls and social events** — low commitment, high fun, and a natural pipeline to membership
+- **Corporate and group bookings** — companies love bowls for team building
+- **Evening twilight sessions** — with music, food, and a social atmosphere
+- **Social media presence** — a well-run Instagram account showing people having fun is the best recruitment tool
+- **Family days** — welcome children and make the club feel like a community hub, not an exclusive retreat
+
+The critical insight: younger members usually come for the social experience first and discover the sport second. Design your introductory events accordingly.
+
+## Technology: Reducing Volunteer Burnout
+
+Club committees are overwhelmingly staffed by volunteers. The number-one risk to any bowls club is volunteer burnout — when the same five people do all the work, eventually they resign, and operations collapse.
+
+Technology does not replace volunteers. It multiplies their effectiveness.
+
+**High-impact technology investments:**
+- **Online membership and payment** — eliminates chasing people for fees
+- **Digital draws and scheduling** — saves hours of manual work per week
+- **Automated communication** — email and push notifications for game reminders, schedule changes, and social events
+- **Score tracking** — players enter their own scores, which automatically update leaderboards and statistics
+- **QR code check-in** — members scan a code when they arrive, providing accurate attendance data without manual sign-in sheets
+
+[LawnBowl](/pricing) was built specifically for clubs that want all of these capabilities in a single, easy-to-use platform.
+
+## Communication: Keep Members Informed
+
+Poor communication is the silent killer of bowls clubs. Members who do not know what is happening stop coming.
+
+**Best practices:**
+- Send a weekly email with the coming week's schedule and any news
+- Post real-time updates to a club noticeboard (digital or physical)
+- Use push notifications for last-minute changes (rain cancellations, late starts)
+- Maintain a simple, up-to-date website with session times, contact details, and a photo gallery
+- Appoint a communications officer on the committee
+
+## Green Maintenance: Your Most Valuable Asset
+
+The quality of the green determines whether members enjoy playing. A fast, true surface attracts competitive players. A slow, bumpy surface drives them away.
+
+If your club does not have a professional greenkeeper:
+- Join the greenkeeper network in your state or national body for advice
+- Invest in core aeration, top-dressing, and correct mowing schedules
+- Keep a maintenance log so knowledge is not lost when volunteers change
+
+## The Path Forward
+
+The clubs that will thrive over the next decade are the ones that treat their club like a small business while maintaining the warmth and community that make bowls special.
+
+Start with one improvement this month. Maybe it is moving your draw online. Maybe it is hosting a barefoot bowls night. Maybe it is updating your Facebook page.
+
+Small, consistent improvements compound into a vibrant, growing club. Your members — current and future — will thank you.`,
+  },
+
+  // ─────────────────────────────────────────────────
+  // Post 7: Tournament Organization Guide
+  // Target keyword: "lawn bowls tournament format"
+  // ─────────────────────────────────────────────────
+  {
+    title: "How to Organize a Lawn Bowling Tournament: Formats, Scheduling, and Tips",
+    slug: "organize-lawn-bowling-tournament",
+    excerpt:
+      "Everything you need to plan and run a lawn bowling tournament, from choosing the right format (round robin, single elimination, Swiss) to scheduling, seeding, and managing results on the day.",
+    author: "The LawnBowl Team",
+    date: "2026-03-22",
+    category: "Club Management",
+    tags: ["tournament", "organization", "formats", "club-management", "competition"],
+    readTime: 11,
+    metaTitle: "How to Organize a Lawn Bowling Tournament: Complete Format Guide (2026)",
+    metaDescription:
+      "Plan and run a successful lawn bowling tournament with this guide to formats (round robin, elimination, Swiss), scheduling, seeding, and day-of logistics.",
+    content: `
+## Why Tournaments Matter
+
+Tournaments are the highlights of a bowls club's calendar. They bring members together, attract visitors, generate revenue, and give competitive players a goal to work toward. A well-run tournament strengthens the club. A poorly-run one frustrates everyone involved.
+
+This guide covers everything you need to plan, schedule, and execute a lawn bowling tournament.
+
+## Choosing the Right Format
+
+The format you choose depends on the number of entrants, available rinks, time constraints, and the nature of the event.
+
+### Round Robin
+
+Every team plays every other team. The team with the best record wins.
+
+**Best for:** 4-8 teams, social tournaments, club championships where fairness is paramount.
+
+**Pros:** Everyone plays the same number of games. No one is eliminated early. The best team always wins.
+
+**Cons:** Requires the most time and rinks. A round robin with 8 teams needs 28 games.
+
+**Scheduling tip:** Use a round robin generator (or the [LawnBowl tournament system](/tournament)) to create the schedule. Playing 3-4 rounds per session over multiple days works well for club events.
+
+### Single Elimination (Knockout)
+
+Lose once and you are out. Winners advance until one team remains.
+
+**Best for:** Large fields (16-64 teams), one-day events, high drama.
+
+**Pros:** Quick to complete. Every game is high-stakes. Easy to visualise with a bracket.
+
+**Cons:** A team that has a bad first game goes home immediately. The second-best team might lose in round one to the eventual winner.
+
+**Fairness tip:** Seed the draw so the top-ranked teams are placed on opposite sides of the bracket, ensuring they cannot meet before the final.
+
+### Swiss System
+
+Players are paired with opponents who have similar records. After a set number of rounds, the player with the best overall record wins. No one is eliminated.
+
+**Best for:** Medium-large fields (12-32 teams), club events where you want everyone to play multiple games.
+
+**Pros:** More fair than elimination. Fewer games than a full round robin. Late rounds feature closely matched teams.
+
+**Cons:** Slightly more complex to administer. Some players find it confusing.
+
+### Double Elimination
+
+Lose twice and you are out. After a first loss, teams drop to a losers' bracket. Win through the losers' bracket and you face the winners' bracket champion in the final.
+
+**Best for:** 8-16 teams, competitive events where a single bad game should not end your tournament.
+
+**Pros:** More forgiving than single elimination. Creates exciting comeback narratives.
+
+**Cons:** Takes roughly twice as long as single elimination. Bracket structure is confusing for new bowlers.
+
+## Planning Timeline
+
+**8 weeks before:**
+- Choose the format and entry fee
+- Announce the tournament with date, format, and registration deadline
+- Open registration (use an online form to make it easy)
+
+**4 weeks before:**
+- Close entries and confirm the field size
+- Create the draw or seedings
+- Arrange catering, bar staff, and any prizes
+
+**1 week before:**
+- Send participants a schedule with reporting times and rink assignments
+- Brief the greenkeeper on required preparation
+- Confirm umpire availability
+
+**Day of:**
+- Set up scoreboards and results display
+- Brief participants on format, timing, and rules for the day
+- Start on time and keep to the schedule
+
+## Day-of Management
+
+The tournament director's job on the day is to keep things moving. Common issues and how to handle them:
+
+- **Late arrivals:** Start games on time with substitutes. The late team forfeits the first end.
+- **Disputes:** Have an umpire on standby. Their decision is final.
+- **Rain delays:** Have a contingency plan. Communicate clearly whether games are delayed, shortened, or cancelled.
+- **Score recording:** Designate a scorer per rink or use [digital scoring with LawnBowl](/features) so results are available instantly.
+
+## Prizes and Recognition
+
+You do not need expensive prizes to make a tournament memorable. Common approaches:
+
+- Trophies or shields for the winner and runner-up (especially for annual club championships)
+- Gift vouchers from local sponsors
+- "Player of the tournament" award voted on by participants
+- Fun awards: "Best dressed," "Best comeback," "Longest drive"
+
+The social element after the tournament — sharing results, telling stories about key moments — is as important as the competition itself.
+
+## Going Digital
+
+If you have been managing tournaments with paper draw sheets, whiteboard results, and manual calculations, the switch to digital tournament management will save you hours and eliminate errors.
+
+With [LawnBowl's tournament system](/tournament):
+- Draws are generated automatically based on your chosen format
+- Scores are entered in real-time by players on their phones
+- Leaderboards update live on a TV screen at the club
+- Results are saved permanently for historical records and player statistics
+
+## Summary
+
+A great tournament needs three things: the right format for the field size, clear communication before and during the event, and efficient administration so the focus stays on the bowling. Get these right, and your tournament will be a highlight of the club calendar.`,
+  },
 ];
