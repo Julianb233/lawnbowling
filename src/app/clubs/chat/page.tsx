@@ -25,7 +25,7 @@ export default async function ClubChatPage() {
     .limit(1)
     .maybeSingle();
 
-  if (!membership) {
+  if (!membership || membership.role === "visitor") {
     redirect("/clubs");
   }
 
