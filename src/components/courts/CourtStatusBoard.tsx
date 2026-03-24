@@ -36,15 +36,23 @@ export function CourtStatusBoard({ venueId }: { venueId?: string }) {
   const fetchData = async () => {
     const supabase = createClient();
 
+    let courtsQuery = supabase.from("courts").select("*").order("name");
+    let matchesQuery = supabase
+      .from("matches")
+      .select(
+        "*, match_players(player_id, team, players(display_name, avatar_url))",
+      )
+      .in("status", ["queued", "playing"])
+      .order("created_at", { ascending: true });
+
+    if (venueId) {
+      courtsQuery = courtsQuery.eq("venue_id", venueId);
+      matchesQuery = matchesQuery.eq("venue_id", venueId);
+    }
+
     const [courtsRes, matchesRes] = await Promise.all([
-      supabase.from("courts").select("*").order("name"),
-      supabase
-        .from("matches")
-        .select(
-          "*, match_players(player_id, team, players(display_name, avatar_url))",
-        )
-        .in("status", ["queued", "playing"])
-        .order("created_at", { ascending: true }),
+      courtsQuery,
+      matchesQuery,
     ]);
 
     if (courtsRes.data) setCourts(courtsRes.data);
@@ -79,7 +87,7 @@ export function CourtStatusBoard({ venueId }: { venueId?: string }) {
     return () => {
       supabase.removeChannel(courtsChannel);
     };
-  }, []);
+  }, [venueId]);
 
   const handleComplete = async (matchId: string) => {
     const res = await fetch("/api/matches/complete", {

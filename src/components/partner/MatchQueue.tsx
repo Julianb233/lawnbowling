@@ -59,23 +59,29 @@ function PlayerPill({ player }: { player: MatchQueuePlayer["player"] }) {
   );
 }
 
-export function MatchQueue() {
+export function MatchQueue({ venueId }: { venueId?: string }) {
   const [matches, setMatches] = useState<QueuedMatch[]>([]);
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
 
   const fetchMatches = useCallback(async () => {
-    const { data, error } = await supabase
+    let query = supabase
       .from("matches")
       .select("*, match_players(player_id, team, player:players(id, display_name, name, avatar_url, skill_level)), courts(name)")
       .in("status", ["queued", "playing"])
       .order("created_at", { ascending: true });
 
+    if (venueId) {
+      query = query.eq("venue_id", venueId);
+    }
+
+    const { data, error } = await query;
+
     if (!error && data) {
       setMatches(data as unknown as QueuedMatch[]);
     }
     setLoading(false);
-  }, [supabase]);
+  }, [supabase, venueId]);
 
   useEffect(() => {
     fetchMatches();
