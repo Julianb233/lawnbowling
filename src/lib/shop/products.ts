@@ -149,12 +149,48 @@ function accessoryVariants(type: "sticker" | "tote" | "towel" | "pin"): ProductV
 // ---------------------------------------------------------------------------
 
 const BASE_TEE = 18;
+const BASE_HOODIE = 32;
 const BASE_HAT = 14;
 const BASE_MUG = 10;
 const BASE_STICKER = 3;
 const BASE_TOTE = 12;
 const BASE_TOWEL = 9;
 const BASE_PIN = 5;
+const BASE_WATER_BOTTLE = 15;
+const BASE_POSTER = 12;
+
+function hoodieVariants(): ProductVariant[] {
+  const variants: ProductVariant[] = [];
+  for (const color of [COLORS.black, COLORS.green, COLORS.navy, COLORS.grey] as const) {
+    for (const size of SIZES) {
+      variants.push({
+        id: `hoodie-${color.label.toLowerCase()}-${size.toLowerCase()}`,
+        label: `${size} / ${color.label}`,
+        size,
+        color: color.label,
+        colorHex: color.hex,
+        inStock: true,
+      });
+    }
+  }
+  return variants;
+}
+
+function posterVariants(): ProductVariant[] {
+  return [
+    { id: "poster-12x18", label: '12" x 18"', size: '12x18"', inStock: true },
+    { id: "poster-18x24", label: '18" x 24"', size: '18x24"', inStock: true },
+    { id: "poster-24x36", label: '24" x 36"', size: '24x36"', inStock: true },
+  ];
+}
+
+function bottleVariants(): ProductVariant[] {
+  return [
+    { id: "bottle-white", label: "White", color: "White", colorHex: COLORS.white.hex, inStock: true },
+    { id: "bottle-black", label: "Black", color: "Black", colorHex: COLORS.black.hex, inStock: true },
+    { id: "bottle-green", label: "Green", color: "Green", colorHex: COLORS.green.hex, inStock: true },
+  ];
+}
 
 export const PRODUCTS: Product[] = [
   // ── T-Shirts ──────────────────────────────────────────────────────────
@@ -339,6 +375,135 @@ export const PRODUCTS: Product[] = [
     image: "/images/shop/acc-enamel-pin.svg",
     variants: accessoryVariants("pin"),
     tags: ["gift-idea"],
+  },
+
+  // ── Hoodies ─────────────────────────────────────────────────────────
+  {
+    id: "hoodie-jack-hunter",
+    slug: "jack-hunter-hoodie",
+    name: "Jack Hunter Hoodie",
+    description:
+      "Stay warm between ends with this heavyweight pullover hoodie. Features our signature lawn bowl graphic on the chest. Fleece-lined for chilly green mornings.",
+    category: "t-shirts",
+    baseCost: BASE_HOODIE,
+    price: markup(BASE_HOODIE),
+    image: "/images/shop/tee-jack-high.svg",
+    variants: hoodieVariants(),
+    featured: true,
+    tags: ["new"],
+  },
+  {
+    id: "hoodie-roll-up",
+    slug: "roll-up-hoodie",
+    name: "Roll Up Hoodie",
+    description:
+      "\"Roll Up\" — the call to bowl. Minimalist typographic design on a cozy heavyweight hoodie. Perfect for post-game socialising at the clubhouse.",
+    category: "t-shirts",
+    baseCost: BASE_HOODIE,
+    price: markup(BASE_HOODIE),
+    image: "/images/shop/tee-draw-shot.svg",
+    variants: hoodieVariants(),
+  },
+
+  // ── More T-Shirts ───────────────────────────────────────────────────
+  {
+    id: "tee-head-green",
+    slug: "head-of-the-green-tee",
+    name: "Head of the Green Tee",
+    description:
+      "Show off your skip credentials. Clean design with a bird's-eye view of a perfect head. Conversation starter at any club.",
+    category: "t-shirts",
+    baseCost: BASE_TEE,
+    price: markup(BASE_TEE),
+    image: "/images/shop/tee-toucher.svg",
+    variants: teeVariants(),
+    tags: ["new"],
+  },
+  {
+    id: "tee-rink-rat",
+    slug: "rink-rat-tee",
+    name: "Rink Rat Tee",
+    description:
+      "For the bowler who practically lives at the club. Vintage-style graphic with \"Rink Rat\" badge. You know who you are.",
+    category: "t-shirts",
+    baseCost: BASE_TEE,
+    price: markup(BASE_TEE),
+    image: "/images/shop/tee-bias-life.svg",
+    variants: teeVariants(),
+  },
+
+  // ── More Mugs ───────────────────────────────────────────────────────
+  {
+    id: "mug-live-on-green",
+    slug: "live-on-the-green-mug",
+    name: "Live on the Green Mug",
+    description:
+      "For those who would move a bed onto the bowling green if they could. Beautiful watercolour-style green illustration on both sides.",
+    category: "mugs",
+    baseCost: BASE_MUG,
+    price: markup(BASE_MUG),
+    image: "/images/shop/mug-morning-end.svg",
+    variants: mugVariants(),
+    tags: ["new"],
+  },
+
+  // ── Water Bottles ───────────────────────────────────────────────────
+  {
+    id: "acc-water-bottle",
+    slug: "bowlers-water-bottle",
+    name: "Bowler's Water Bottle",
+    description:
+      "Double-wall insulated stainless steel bottle keeps drinks cold for 24 hours or hot for 12. Laser-engraved lawn bowl logo. 500ml.",
+    category: "accessories",
+    baseCost: BASE_WATER_BOTTLE,
+    price: markup(BASE_WATER_BOTTLE),
+    image: "/images/shop/acc-towel.svg",
+    variants: bottleVariants(),
+    featured: true,
+    tags: ["new", "gift-idea"],
+  },
+
+  // ── Posters ─────────────────────────────────────────────────────────
+  {
+    id: "acc-green-poster",
+    slug: "bowling-green-poster",
+    name: "Bowling Green Art Print",
+    description:
+      "Illustrated overhead view of a classic bowling green at golden hour. Museum-quality giclée print on archival matte paper.",
+    category: "accessories",
+    baseCost: BASE_POSTER,
+    price: markup(BASE_POSTER),
+    image: "/images/shop/mug-morning-end.svg",
+    variants: posterVariants(),
+    tags: ["new", "gift-idea"],
+  },
+  {
+    id: "acc-vintage-poster",
+    slug: "vintage-bowls-poster",
+    name: "Vintage Bowls Club Poster",
+    description:
+      "Retro-style travel poster featuring a 1950s lawn bowling scene. \"Join Your Local Bowls Club\" tagline. A must for the clubhouse wall.",
+    category: "accessories",
+    baseCost: BASE_POSTER,
+    price: markup(BASE_POSTER),
+    image: "/images/shop/mug-keep-calm.svg",
+    variants: posterVariants(),
+    tags: ["gift-idea"],
+  },
+
+  // ── More Hats ───────────────────────────────────────────────────────
+  {
+    id: "hat-lawn-legend",
+    slug: "lawn-legend-cap",
+    name: "Lawn Legend Cap",
+    description:
+      "\"Lawn Legend\" embroidered in gold thread on a structured 5-panel cap. Because if you have earned it, wear it.",
+    category: "hats",
+    baseCost: BASE_HAT + 2,
+    price: markup(BASE_HAT + 2),
+    image: "/images/shop/hat-greenkeeper.svg",
+    variants: hatVariants(),
+    tags: ["new"],
   },
 ];
 
