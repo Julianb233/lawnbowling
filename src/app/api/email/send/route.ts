@@ -9,6 +9,7 @@ import { weeklyDigestEmail } from "@/lib/email/templates/weekly-digest";
 import { tournamentNotificationEmail } from "@/lib/email/templates/tournament-notification";
 import { orderConfirmationEmail } from "@/lib/email/templates/order-confirmation";
 import { clubInviteEmail } from "@/lib/email/templates/club-invite";
+import { clubWelcomeEmail } from "@/lib/email/templates/club-welcome";
 import { validateBody, isValidationError } from "@/lib/schemas/validate";
 import { emailSendSchema } from "@/lib/schemas";
 
@@ -41,6 +42,9 @@ const TEMPLATES: Record<string, (data: TemplateData) => { subject: string; html:
   ),
   "club-invite": (d) => clubInviteEmail(
     d.playerName as string, d.clubName as string, d.inviterName as string, d.clubSlug as string
+  ),
+  "club-welcome": (d) => clubWelcomeEmail(
+    d.clubName as string, d.contactName as string
   ),
 };
 
