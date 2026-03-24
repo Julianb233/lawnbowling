@@ -15,7 +15,7 @@ interface ClubMapFiltersProps {
   clubCount: number;
 }
 
-const SURFACE_OPTIONS: SurfaceType[] = ["natural", "synthetic", "cotula", "hybrid"];
+const SURFACE_OPTIONS: SurfaceType[] = ["natural_grass", "synthetic", "hybrid"];
 
 export function ClubMapFilters({
   activeRegion,
