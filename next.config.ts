@@ -1,7 +1,7 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
-const PRODUCTION_DOMAIN = "lawnbowl.app";
+const PRODUCTION_DOMAIN = "lawnbowling.app";
 
 const nextConfig: NextConfig = {
   compress: true,

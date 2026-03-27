@@ -33,10 +33,10 @@
       "has": [
         {
           "type": "host",
-          "value": "lawnbowling.app"
+          "value": "www.lawnbowling.app"
         }
       ],
-      "destination": "https://www.lawnbowl.app/:path",
+      "destination": "https://lawnbowling.app/:path",
       "permanent": true
     },
     {
@@ -44,10 +44,43 @@
       "has": [
         {
           "type": "host",
-          "value": "www.lawnbowling.app"
+          "value": "lawnbowlingapp.com"
         }
       ],
-      "destination": "https://www.lawnbowl.app/:path",
+      "destination": "https://lawnbowling.app/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lawnbowlingapp.com"
+        }
+      ],
+      "destination": "https://lawnbowling.app/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "lawnbowl.app"
+        }
+      ],
+      "destination": "https://lawnbowling.app/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lawnbowl.app"
+        }
+      ],
+      "destination": "https://lawnbowling.app/:path",
       "permanent": true
     },
     {
@@ -58,7 +91,7 @@
           "value": "lawnbowl.camp"
         }
       ],
-      "destination": "https://www.lawnbowl.app/:path",
+      "destination": "https://lawnbowling.app/:path",
       "permanent": true
     },
     {
@@ -69,7 +102,7 @@
           "value": "www.lawnbowl.camp"
         }
       ],
-      "destination": "https://www.lawnbowl.app/:path",
+      "destination": "https://lawnbowling.app/:path",
       "permanent": true
     }
   ],
