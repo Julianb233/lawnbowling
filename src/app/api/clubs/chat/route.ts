@@ -2,8 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getPlayerByUserId } from "@/lib/db/players";
 import { getClubMessages, sendClubMessage } from "@/lib/db/club-messages";
+import { requireClubRole } from "@/lib/club-auth";
 
 export const dynamic = "force-dynamic";
+
+/** Roles that can access club chat (excludes visitors) */
+const CHAT_ROLES = ["owner", "admin", "manager", "member"] as const;
 
 /** GET /api/clubs/chat?clubId=xxx&before=timestamp */
 export async function GET(req: NextRequest) {
@@ -18,6 +22,15 @@ export async function GET(req: NextRequest) {
   const clubId = req.nextUrl.searchParams.get("clubId");
   if (!clubId) {
     return NextResponse.json({ error: "clubId required" }, { status: 400 });
+  }
+
+  // Verify membership with member+ role (visitors cannot access chat)
+  const authResult = await requireClubRole(clubId, [...CHAT_ROLES]);
+  if (!authResult.authorized) {
+    return NextResponse.json(
+      { error: authResult.error },
+      { status: authResult.status }
+    );
   }
 
   const before = req.nextUrl.searchParams.get("before") ?? undefined;
@@ -54,24 +67,18 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Verify membership with member+ role (visitors cannot send chat messages)
+  const authResult = await requireClubRole(clubId, [...CHAT_ROLES]);
+  if (!authResult.authorized) {
+    return NextResponse.json(
+      { error: authResult.error },
+      { status: authResult.status }
+    );
+  }
+
   const player = await getPlayerByUserId(user.id);
   if (!player) {
     return NextResponse.json({ error: "Player not found" }, { status: 404 });
-  }
-
-  // Verify membership
-  const { data: membership } = await supabase
-    .from("club_memberships")
-    .select("id")
-    .eq("club_id", clubId)
-    .eq("player_id", player.id)
-    .maybeSingle();
-
-  if (!membership) {
-    return NextResponse.json(
-      { error: "Not a member of this club" },
-      { status: 403 }
-    );
   }
 
   try {
