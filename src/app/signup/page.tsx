@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Mail, User, AlertTriangle, CheckCircle, Loader2 } from "lucide-react";
+import { Mail, User, Lock, AlertTriangle, CheckCircle, Loader2, Eye, EyeOff } from "lucide-react";
 import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 function friendlySignupError(raw: string): string {
@@ -47,22 +47,15 @@ export default function SignupPage() {
 function SignupForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
-  const [otp, setOtp] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
   const returnTo = searchParams.get("returnTo") || "/";
-
-  function resetOtp() {
-    setOtpSent(false);
-    setOtp("");
-    setSuccess(null);
-    setError(null);
-  }
 
   async function handleEmailSignup(e: React.FormEvent) {
     e.preventDefault();
@@ -70,16 +63,24 @@ function SignupForm() {
       setError("Please enter your name.");
       return;
     }
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
     setLoading(true);
     setError(null);
-    setSuccess(null);
 
     try {
-      const { data, error: signUpError } = await supabase.auth.signInWithOtp({
+      const { data, error: signUpError } = await supabase.auth.signUp({
         email,
+        password,
         options: {
-          emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback`,
           data: { name },
+          emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback`,
         },
       });
 
@@ -89,36 +90,8 @@ function SignupForm() {
         return;
       }
 
-      setOtpSent(true);
-      setSuccess("Check your email for a sign-in link or code.");
-      setLoading(false);
-    } catch (err) {
-      setError(
-        friendlySignupError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
-      );
-      setLoading(false);
-    }
-  }
-
-  async function handleEmailOtpVerify(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      const { data, error: verifyError } = await supabase.auth.verifyOtp({
-        email,
-        token: otp,
-        type: "email",
-      });
-
-      if (verifyError) {
-        setError(friendlySignupError(verifyError.message));
-        setLoading(false);
-        return;
-      }
-
       if (data.user) {
+        // Create player profile
         await supabase.from("players").insert({
           user_id: data.user.id,
           display_name: name,
@@ -128,25 +101,10 @@ function SignupForm() {
       router.push("/onboarding/player");
       router.refresh();
     } catch (err) {
-      setError(friendlySignupError(err instanceof Error ? err.message : "Something went wrong."));
+      setError(
+        friendlySignupError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
+      );
       setLoading(false);
-    }
-  }
-
-  async function handleSocialLogin(provider: "google" | "apple") {
-    setError(null);
-    try {
-      const { error: socialError } = await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback`,
-        },
-      });
-      if (socialError) {
-        setError(friendlySignupError(socialError.message));
-      }
-    } catch (err) {
-      setError(friendlySignupError(err instanceof Error ? err.message : "Something went wrong."));
     }
   }
 
@@ -180,114 +138,131 @@ function SignupForm() {
               </p>
             </div>
 
-            {/* Name field (always visible) */}
-            <div className="mb-5">
-              <label
-                htmlFor="name"
-                className="mb-2 block text-base font-medium"
-                style={{ color: "#0A2E12" }}
-              >
-                Your Name
-              </label>
-              <div className="relative">
-                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
-                <input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+            {/* Signup form with email + password */}
+            <form onSubmit={handleEmailSignup} className="space-y-5">
+              {/* Name field */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 block text-base font-medium"
                   style={{ color: "#0A2E12" }}
-                  placeholder="Your name"
-                />
-              </div>
-            </div>
-
-            {/* Email signup */}
-            <form onSubmit={otpSent ? handleEmailOtpVerify : handleEmailSignup} className="space-y-5">
-                {!otpSent ? (
-                  <div>
-                    <label
-                      htmlFor="signup-email"
-                      className="mb-2 block text-base font-medium"
-                      style={{ color: "#0A2E12" }}
-                    >
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
-                      <input
-                        id="signup-email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                        style={{ color: "#0A2E12" }}
-                        placeholder="you@example.com"
-                      />
-                    </div>
-                    <p className="mt-2 text-sm text-[#3D5A3E]">
-                      We&apos;ll send a sign-in link. No password needed.
-                    </p>
-                  </div>
-                ) : (
-                  <div>
-                    <label
-                      htmlFor="signup-email-otp"
-                      className="mb-2 block text-base font-medium"
-                      style={{ color: "#0A2E12" }}
-                    >
-                      Enter Code (or check email for link)
-                    </label>
-                    <input
-                      id="signup-email-otp"
-                      type="text"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      autoComplete="one-time-code"
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
-                      required
-                      maxLength={6}
-                      className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
-                      style={{ color: "#0A2E12" }}
-                      placeholder="000000"
-                    />
-                    <button
-                      type="button"
-                      onClick={resetOtp}
-                      className="mt-2 text-sm font-medium text-[#1B5E20] hover:underline"
-                    >
-                      Use a different email
-                    </button>
-                  </div>
-                )}
-
-                {error && (
-                  <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-4 text-base text-red-700 shadow-sm" role="alert">
-                    <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
-                    <span>{error}</span>
-                  </div>
-                )}
-
-                {success && (
-                  <div className="flex items-start gap-3 rounded-xl border border-blue-200 bg-blue-50 px-4 py-4 text-base text-blue-700 shadow-sm" role="status">
-                    <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-blue-500" />
-                    <span>{success}</span>
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={loading || (!!success && !otpSent)}
-                  className="w-full rounded-xl py-4 text-lg font-semibold text-white shadow-md transition hover:brightness-110 disabled:opacity-50 active:scale-[0.98]"
-                  style={{ backgroundColor: "#1B5E20" }}
                 >
-                  {loading ? "Please wait..." : otpSent ? "Verify Code" : "Send Sign-In Link"}
-                </button>
-              </form>
+                  Your Name
+                </label>
+                <div className="relative">
+                  <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
+                  <input
+                    id="name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    style={{ color: "#0A2E12" }}
+                    placeholder="Your name"
+                  />
+                </div>
+              </div>
+
+              {/* Email field */}
+              <div>
+                <label
+                  htmlFor="signup-email"
+                  className="mb-2 block text-base font-medium"
+                  style={{ color: "#0A2E12" }}
+                >
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
+                  <input
+                    id="signup-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    style={{ color: "#0A2E12" }}
+                    placeholder="you@example.com"
+                  />
+                </div>
+              </div>
+
+              {/* Password field */}
+              <div>
+                <label
+                  htmlFor="signup-password"
+                  className="mb-2 block text-base font-medium"
+                  style={{ color: "#0A2E12" }}
+                >
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
+                  <input
+                    id="signup-password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                    className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-12 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    style={{ color: "#0A2E12" }}
+                    placeholder="At least 6 characters"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 transition"
+                    style={{ color: "#3D5A3E" }}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Confirm Password field */}
+              <div>
+                <label
+                  htmlFor="signup-confirm-password"
+                  className="mb-2 block text-base font-medium"
+                  style={{ color: "#0A2E12" }}
+                >
+                  Confirm Password
+                </label>
+                <div className="relative">
+                  <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "#3D5A3E" }} />
+                  <input
+                    id="signup-confirm-password"
+                    type={showPassword ? "text" : "password"}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    minLength={6}
+                    className="block h-14 w-full rounded-xl border border-[#0A2E12]/10 bg-white py-4 pl-11 pr-4 text-lg shadow-sm transition focus:border-[#1B5E20] focus:outline-none focus:ring-2 focus:ring-[#1B5E20]/20"
+                    style={{ color: "#0A2E12" }}
+                    placeholder="Repeat your password"
+                  />
+                </div>
+              </div>
+
+              {error && (
+                <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-4 text-base text-red-700 shadow-sm" role="alert">
+                  <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
+                  <span>{error}</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full rounded-xl py-4 text-lg font-semibold text-white shadow-md transition hover:brightness-110 disabled:opacity-50 active:scale-[0.98]"
+                style={{ backgroundColor: "#1B5E20" }}
+              >
+                {loading ? "Creating account..." : "Create Account"}
+              </button>
+            </form>
 
             {/* Divider */}
             <div className="my-6 flex items-center gap-4">
@@ -296,13 +271,14 @@ function SignupForm() {
               <div className="flex-1 border-t border-[#0A2E12]/10" />
             </div>
 
-            {/* Social login buttons */}
+            {/* Social login buttons — disabled until OAuth is configured */}
             <div className="flex gap-3">
               <button
                 type="button"
-                onClick={() => handleSocialLogin("google")}
-                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-[#0A2E12]/10 bg-white text-base font-medium shadow-sm transition hover:bg-gray-50 active:scale-[0.98]"
-                style={{ color: "#0A2E12" }}
+                disabled
+                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-[#0A2E12]/5 bg-gray-50 text-base font-medium shadow-sm cursor-not-allowed"
+                style={{ color: "#0A2E12", opacity: 0.4 }}
+                title="Google sign-in coming soon"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
@@ -310,18 +286,19 @@ function SignupForm() {
                   <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
                   <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                 </svg>
-                Google
+                <span>Google <span className="text-xs">(soon)</span></span>
               </button>
               <button
                 type="button"
-                onClick={() => handleSocialLogin("apple")}
-                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-[#0A2E12]/10 bg-white text-base font-medium shadow-sm transition hover:bg-gray-50 active:scale-[0.98]"
-                style={{ color: "#0A2E12" }}
+                disabled
+                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-[#0A2E12]/5 bg-gray-50 text-base font-medium shadow-sm cursor-not-allowed"
+                style={{ color: "#0A2E12", opacity: 0.4 }}
+                title="Apple sign-in coming soon"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
                 </svg>
-                Apple
+                <span>Apple <span className="text-xs">(soon)</span></span>
               </button>
             </div>
 
