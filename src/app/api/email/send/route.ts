@@ -44,7 +44,7 @@ const TEMPLATES: Record<string, (data: TemplateData) => { subject: string; html:
     d.customerName as string, d.orderId as string, d.orderTotal as string, d.itemsSummary as string
   ),
   "club-invite": (d) => clubInviteEmail(
-    d.playerName as string, d.clubName as string, d.inviterName as string, d.clubSlug as string
+    d.playerName as string, d.clubName as string, d.inviterName as string, d.inviteUrl as string
   ),
   "club-welcome": (d) => clubWelcomeEmail(
     d.clubName as string, d.contactName as string

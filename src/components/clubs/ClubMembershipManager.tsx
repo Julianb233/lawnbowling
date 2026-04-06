@@ -46,6 +46,7 @@ export function ClubMembershipManager({ clubId, currentUserRole }: ClubMembershi
   const [copied, setCopied] = useState(false);
   const [showInvite, setShowInvite] = useState(false);
   const [inviteRole, setInviteRole] = useState<ClubRole>("member");
+  const [inviteEmail, setInviteEmail] = useState("");
   const [generatingInvite, setGeneratingInvite] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -74,7 +75,7 @@ export function ClubMembershipManager({ clubId, currentUserRole }: ClubMembershi
     const res = await fetch("/api/clubs/memberships/invite", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ club_id: clubId, role: inviteRole }),
+      body: JSON.stringify({ club_id: clubId, role: inviteRole, ...(inviteEmail.trim() && { email: inviteEmail.trim() }) }),
     });
     if (res.ok) {
       const data = await res.json();
@@ -172,6 +173,19 @@ export function ClubMembershipManager({ clubId, currentUserRole }: ClubMembershi
                 </select>
               </div>
 
+              <div>
+                <label className="mb-1 block text-xs font-medium text-[#3D5A3E]">
+                  Email (optional — sends invite automatically)
+                </label>
+                <input
+                  type="email"
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e.target.value)}
+                  placeholder="player@example.com"
+                  className="w-full rounded-lg border border-[#0A2E12]/10 bg-white px-3 py-2 text-sm text-[#0A2E12] placeholder:text-[#3D5A3E]/40 min-h-[44px]"
+                />
+              </div>
+
               <button
                 onClick={handleGenerateInvite}
                 disabled={generatingInvite}
@@ -179,6 +193,8 @@ export function ClubMembershipManager({ clubId, currentUserRole }: ClubMembershi
               >
                 {generatingInvite ? (
                   <Loader2 className="mx-auto h-4 w-4 animate-spin" />
+                ) : inviteEmail.trim() ? (
+                  "Send Invite Email"
                 ) : (
                   "Generate Invite Link"
                 )}
