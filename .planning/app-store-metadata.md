@@ -83,3 +83,35 @@ https://www.lawnbowling.app
 
 ## Review Notes for Apple
 This is a Progressive Web App (PWA) wrapped with Capacitor for native distribution. The app provides genuine value beyond what Safari offers: push notifications for draw announcements, offline scoring capability, and optimized iPad kiosk mode for clubhouse check-in. The primary use case is lawn bowling club management — tournament organization, player check-in, and live scoring.
+
+## Pre-Submission Checklist
+
+### Apple App Store
+- [ ] Apple Developer account enrolled ($99/year)
+- [ ] Update `TEAM_ID` in `ios/ExportOptions.plist` (replace TEAM_ID_HERE)
+- [ ] Update `TEAM_ID` in `public/.well-known/apple-app-site-association`
+- [ ] Generate 1024x1024 app icon (no alpha, no transparency, no rounded corners)
+- [ ] Take screenshots: 6.7" iPhone, 6.5" iPhone, 12.9" iPad
+- [ ] Configure signing certs and provisioning profiles in Xcode
+- [ ] Run `npm run cap:submit` from macOS with Xcode
+- [ ] Fill in App Store Connect metadata (copy from above)
+- [ ] Submit for TestFlight review first
+- [ ] Enable Phone auth in Supabase Dashboard (Settings > Auth > Phone)
+
+### Google Play Store
+- [ ] Google Play Console account ($25 one-time)
+- [ ] Generate signing key: `keytool -genkey -v -keystore lawnbowl.keystore -alias lawnbowl -keyalg RSA -keysize 2048 -validity 10000`
+- [ ] Update `sha256_cert_fingerprints` in `public/.well-known/assetlinks.json`
+- [ ] Create TWA wrapper using Bubblewrap or PWABuilder
+- [ ] Generate 512x512 icon and 1024x500 feature graphic
+- [ ] Take phone screenshots
+- [ ] Submit for internal testing track first
+
+### Auth Configuration for Native Apps
+- [ ] Enable Supabase Phone Auth provider (Twilio or MessageBird)
+- [ ] Configure deep links in Supabase: Auth > URL Configuration > Redirect URLs
+  - Add: `com.lawnbowl.app://`
+  - Add: `https://www.lawnbowling.app/reset-password`
+  - Add: `https://www.lawnbowling.app/auth/callback`
+- [ ] Test password reset flow end-to-end (forgot → email → reset-password page → new password)
+- [ ] Test phone OTP sign-in flow end-to-end
