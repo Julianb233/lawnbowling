@@ -71,7 +71,9 @@ function getAllowedOrigins(request: NextRequest): Set<string> {
     if (proto === "http") origins.add(`https://${host}`);
   }
 
-  // Explicit production domains (both lawnbowl.app and lawnbowling.app are valid)
+  // Explicit production domains
+  origins.add("https://lawnbowlingapp.com");
+  origins.add("https://www.lawnbowlingapp.com");
   origins.add("https://lawnbowl.app");
   origins.add("https://www.lawnbowl.app");
   origins.add("https://lawnbowling.app");

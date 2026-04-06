@@ -18,7 +18,8 @@ const config: CapacitorConfig = {
     allowsLinkPreview: true,
     // Preferred status bar style
     preferredContentMode: "mobile",
-    scheme: "LawnBowl",
+    // Custom URL scheme for deep linking (lawnbowl://)
+    scheme: "lawnbowl",
   },
   plugins: {
     SplashScreen: {

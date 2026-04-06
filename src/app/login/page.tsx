@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Mail, AlertTriangle, Loader2 } from "lucide-react";
+import { Mail, Lock, AlertTriangle, Loader2, Eye, EyeOff, Phone } from "lucide-react";
 import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 
 /**
@@ -16,7 +16,7 @@ import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
 function friendlyError(raw: string): string {
   const lower = raw.toLowerCase();
   if (lower.includes("invalid login credentials") || lower.includes("invalid_credentials")) {
-    return "Invalid credentials. Please check and try again.";
+    return "Invalid email or password. Please check and try again.";
   }
   if (lower.includes("email not confirmed")) {
     return "Your email is not confirmed yet. Please check your inbox for a confirmation link.";
@@ -25,7 +25,7 @@ function friendlyError(raw: string): string {
     return "Too many login attempts. Please wait a moment and try again.";
   }
   if (lower.includes("user not found") || lower.includes("no user found")) {
-    return "No account found. Please sign up first.";
+    return "No account found with that email. Please sign up first.";
   }
   if (lower.includes("network") || lower.includes("fetch")) {
     return "Unable to connect. Please check your internet connection and try again.";
@@ -51,11 +51,14 @@ export default function LoginPage() {
 }
 
 function LoginForm() {
+  const [mode, setMode] = useState<"email" | "phone">("email");
   const [email, setEmail] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -76,77 +79,83 @@ function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setInfo(null);
 
-    if (!otpSent) {
-      // Send magic link / OTP to email
-      try {
-        const { error: otpError } = await supabase.auth.signInWithOtp({
-          email,
-          options: {
-            emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback?next=${encodeURIComponent(returnTo)}`,
-          },
-        });
-
-        if (otpError) {
-          setError(friendlyError(otpError.message));
-          setLoading(false);
-          return;
-        }
-
-        setOtpSent(true);
-        setInfo("Check your email for a sign-in link or code.");
-        setLoading(false);
-      } catch (err) {
-        setError(friendlyError(err instanceof Error ? err.message : "Something went wrong."));
-        setLoading(false);
-      }
-    } else {
-      // Verify email OTP
-      try {
-        const { error: verifyError } = await supabase.auth.verifyOtp({
-          email,
-          token: otp,
-          type: "email",
-        });
-
-        if (verifyError) {
-          setError(friendlyError(verifyError.message));
-          setLoading(false);
-          return;
-        }
-
-        router.push(returnTo);
-        router.refresh();
-      } catch (err) {
-        setError(friendlyError(err instanceof Error ? err.message : "Something went wrong."));
-        setLoading(false);
-      }
-    }
-  }
-
-  async function handleSocialLogin(provider: "google" | "apple") {
-    setError(null);
     try {
-      const { error: socialError } = await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback?next=${encodeURIComponent(returnTo)}`,
-        },
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
-      if (socialError) {
-        setError(friendlyError(socialError.message));
+
+      if (signInError) {
+        setError(friendlyError(signInError.message));
+        setLoading(false);
+        return;
       }
+
+      router.push(returnTo);
+      router.refresh();
     } catch (err) {
       setError(friendlyError(err instanceof Error ? err.message : "Something went wrong."));
+      setLoading(false);
     }
   }
 
-  function resetOtp() {
-    setOtpSent(false);
-    setOtp("");
-    setInfo(null);
+  async function handleSendOtp(e: React.FormEvent) {
+    e.preventDefault();
+    if (!phone.trim()) {
+      setError("Please enter your phone number.");
+      return;
+    }
+    setLoading(true);
     setError(null);
+
+    try {
+      const { error: otpError } = await supabase.auth.signInWithOtp({
+        phone: phone.startsWith("+") ? phone : `+${phone}`,
+      });
+
+      if (otpError) {
+        setError(friendlyError(otpError.message));
+        setLoading(false);
+        return;
+      }
+
+      setOtpSent(true);
+      setLoading(false);
+    } catch (err) {
+      setError(friendlyError(err instanceof Error ? err.message : "Something went wrong."));
+      setLoading(false);
+    }
+  }
+
+  async function handleVerifyOtp(e: React.FormEvent) {
+    e.preventDefault();
+    if (!otp.trim()) {
+      setError("Please enter the verification code.");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+
+    try {
+      const { error: verifyError } = await supabase.auth.verifyOtp({
+        phone: phone.startsWith("+") ? phone : `+${phone}`,
+        token: otp,
+        type: "sms",
+      });
+
+      if (verifyError) {
+        setError(friendlyError(verifyError.message));
+        setLoading(false);
+        return;
+      }
+
+      router.push(returnTo);
+      router.refresh();
+    } catch (err) {
+      setError(friendlyError(err instanceof Error ? err.message : "Something went wrong."));
+      setLoading(false);
+    }
   }
 
   const formRef = useRef<HTMLDivElement>(null);
@@ -233,69 +242,158 @@ function LoginForm() {
               </p>
             </div>
 
-            {/* Email sign-in form (magic link, no password) */}
-            <form onSubmit={handleEmailSignIn} className="space-y-5">
-                {!otpSent ? (
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="mb-2 block text-base font-medium text-white/90"
-                    >
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/50" />
-                      <input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-4 text-lg text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
-                        placeholder="you@example.com"
-                      />
-                    </div>
-                    <p className="mt-2 text-sm text-white/50">
-                      We&apos;ll send a sign-in link to your email. No password needed.
-                    </p>
+            {/* Auth mode tabs */}
+            <div className="mb-5 flex rounded-xl border border-white/15 bg-white/5 p-1">
+              <button
+                type="button"
+                onClick={() => { setMode("email"); setError(null); }}
+                className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition ${
+                  mode === "email"
+                    ? "bg-white/15 text-white shadow-sm"
+                    : "text-white/50 hover:text-white/70"
+                }`}
+              >
+                <Mail className="h-4 w-4" />
+                Email
+              </button>
+              <button
+                type="button"
+                onClick={() => { setMode("phone"); setError(null); }}
+                className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition ${
+                  mode === "phone"
+                    ? "bg-white/15 text-white shadow-sm"
+                    : "text-white/50 hover:text-white/70"
+                }`}
+              >
+                <Phone className="h-4 w-4" />
+                Phone
+              </button>
+            </div>
+
+            {mode === "email" ? (
+              /* Email + Password sign-in form */
+              <form onSubmit={handleEmailSignIn} className="space-y-5">
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="mb-2 block text-base font-medium text-white/90"
+                  >
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/50" />
+                    <input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-4 text-lg text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
+                      placeholder="you@example.com"
+                    />
                   </div>
-                ) : (
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="mb-2 block text-base font-medium text-white/90"
+                  >
+                    Password
+                  </label>
+                  <div className="relative">
+                    <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/50" />
+                    <input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      minLength={6}
+                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-12 text-lg text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
+                      placeholder="Your password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/80 transition"
+                      tabIndex={-1}
+                    >
+                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                    </button>
+                  </div>
+                </div>
+
+                {error && (
+                  <div
+                    className="flex items-start gap-3 rounded-xl border border-red-400/30 bg-red-500/15 px-4 py-4 text-base text-red-200 shadow-sm backdrop-blur-sm"
+                    role="alert"
+                  >
+                    <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-300" />
+                    <span>{error}</span>
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="login-cta-btn w-full rounded-xl py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:brightness-110 disabled:opacity-50 active:scale-[0.97]"
+                >
+                  {loading ? "Signing in..." : "Sign In"}
+                </button>
+              </form>
+            ) : (
+              /* Phone OTP sign-in form */
+              <form onSubmit={otpSent ? handleVerifyOtp : handleSendOtp} className="space-y-5">
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="mb-2 block text-base font-medium text-white/90"
+                  >
+                    Phone Number
+                  </label>
+                  <div className="relative">
+                    <Phone className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/50" />
+                    <input
+                      id="phone"
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                      disabled={otpSent}
+                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 pl-11 pr-4 text-lg text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30 disabled:opacity-60"
+                      placeholder="+1 555 123 4567"
+                    />
+                  </div>
+                </div>
+
+                {otpSent && (
                   <div>
                     <label
-                      htmlFor="email-otp"
+                      htmlFor="otp"
                       className="mb-2 block text-base font-medium text-white/90"
                     >
-                      Enter Code (or check email for link)
+                      Verification Code
                     </label>
                     <input
-                      id="email-otp"
+                      id="otp"
                       type="text"
                       inputMode="numeric"
-                      pattern="[0-9]*"
                       autoComplete="one-time-code"
                       value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
+                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
                       required
                       maxLength={6}
-                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 px-4 text-center text-2xl font-bold tracking-[0.3em] text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
+                      className="block h-14 w-full rounded-xl border border-white/20 bg-white/10 py-4 px-4 text-center text-2xl tracking-[0.3em] text-white placeholder:text-white/60 shadow-sm backdrop-blur-sm transition focus:border-[#A8D5BA] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA]/30"
                       placeholder="000000"
                     />
                     <button
                       type="button"
-                      onClick={resetOtp}
-                      className="mt-2 text-sm font-medium text-[#A8D5BA] hover:text-white hover:underline transition"
+                      onClick={() => { setOtpSent(false); setOtp(""); setError(null); }}
+                      className="mt-2 text-sm font-medium text-white/50 hover:text-white/80 transition"
                     >
-                      Use a different email
+                      Change phone number
                     </button>
-                  </div>
-                )}
-
-                {info && (
-                  <div
-                    className="flex items-start gap-3 rounded-xl border border-blue-400/30 bg-blue-500/15 px-4 py-4 text-base text-blue-200 shadow-sm backdrop-blur-sm"
-                    role="status"
-                  >
-                    <span>{info}</span>
                   </div>
                 )}
 
@@ -314,9 +412,13 @@ function LoginForm() {
                   disabled={loading}
                   className="login-cta-btn w-full rounded-xl py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:brightness-110 disabled:opacity-50 active:scale-[0.97]"
                 >
-                  {loading ? "Please wait..." : otpSent ? "Verify Code" : "Send Sign-In Link"}
+                  {loading
+                    ? otpSent ? "Verifying..." : "Sending code..."
+                    : otpSent ? "Verify & Sign In" : "Send Verification Code"
+                  }
                 </button>
               </form>
+            )}
 
             {/* Divider */}
             <div className="my-6 flex items-center gap-4">
@@ -325,30 +427,32 @@ function LoginForm() {
               <div className="flex-1 border-t border-white/15" />
             </div>
 
-            {/* Social login buttons */}
+            {/* Social login buttons — disabled until OAuth is configured */}
             <div className="flex gap-3">
               <button
                 type="button"
-                onClick={() => handleSocialLogin("google")}
-                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 text-base font-medium text-white shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-white/20 active:scale-[0.97]"
+                disabled
+                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 text-base font-medium text-white/40 shadow-sm backdrop-blur-sm cursor-not-allowed"
+                title="Google sign-in coming soon"
               >
-                <svg className="h-5 w-5" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 opacity-40" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
                   <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
                   <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                 </svg>
-                Google
+                <span>Google <span className="text-xs opacity-60">(soon)</span></span>
               </button>
               <button
                 type="button"
-                onClick={() => handleSocialLogin("apple")}
-                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 text-base font-medium text-white shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-white/20 active:scale-[0.97]"
+                disabled
+                className="flex h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 text-base font-medium text-white/40 shadow-sm backdrop-blur-sm cursor-not-allowed"
+                title="Apple sign-in coming soon"
               >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="h-5 w-5 opacity-40" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
                 </svg>
-                Apple
+                <span>Apple <span className="text-xs opacity-60">(soon)</span></span>
               </button>
             </div>
 

@@ -53,5 +53,16 @@
 	<string>LawnBowl uses your location to find bowling clubs near you.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>LawnBowl uses your camera to scan QR codes for venue check-in.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.lawnbowl.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>lawnbowl</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
