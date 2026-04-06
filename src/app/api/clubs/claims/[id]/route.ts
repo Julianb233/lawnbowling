@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { sendEmail } from "@/lib/email/send";
+import { clubClaimApprovedEmail, clubClaimRejectedEmail } from "@/lib/email/templates/club-claim-decision";
 
 /**
  * PATCH /api/clubs/claims/[id]
@@ -91,5 +93,43 @@ export async function PATCH(
     }
   }
 
+  // Notify the claimant of the decision (fire-and-forget)
+  notifyClaimant(supabase, claim, action, rejection_reason ?? null).catch(console.error);
+
   return NextResponse.json({ success: true, status: newStatus });
+}
+
+async function notifyClaimant(
+  supabase: Awaited<ReturnType<typeof import("@/lib/supabase/server").createClient>>,
+  claim: { player_id: string; club_id: string },
+  action: "approve" | "reject",
+  rejectionReason: string | null,
+) {
+  const { data: player } = await supabase
+    .from("players")
+    .select("user_id, display_name")
+    .eq("id", claim.player_id)
+    .single();
+  if (!player) return;
+
+  const { data: authUser } = await supabase.auth.admin.getUserById(player.user_id);
+  const email = authUser.user?.email;
+  if (!email) return;
+
+  const { data: club } = await supabase
+    .from("clubs")
+    .select("name, slug")
+    .eq("id", claim.club_id)
+    .single();
+  if (!club) return;
+
+  const playerName = player.display_name ?? email.split("@")[0];
+
+  if (action === "approve") {
+    const { subject, html } = clubClaimApprovedEmail(playerName, club.name, club.slug);
+    await sendEmail({ to: email, subject, html });
+  } else {
+    const { subject, html } = clubClaimRejectedEmail(playerName, club.name, rejectionReason);
+    await sendEmail({ to: email, subject, html });
+  }
 }

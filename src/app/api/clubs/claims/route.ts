@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { apiError } from "@/lib/api-error-handler";
+import { sendEmail } from "@/lib/email/send";
+import { clubClaimSubmittedEmail } from "@/lib/email/templates/club-claim-submitted";
 
 /**
  * GET /api/clubs/claims
@@ -116,6 +118,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Fetch club details and claimant display_name for the notification
+  const { data: clubDetails } = await supabase
+    .from("clubs")
+    .select("name, city")
+    .eq("id", club_id)
+    .single();
+
+  const { data: playerDetails } = await supabase
+    .from("players")
+    .select("display_name")
+    .eq("id", player.id)
+    .single();
+
   const { data, error } = await supabase
     .from("club_claim_requests")
     .insert({
@@ -131,5 +146,52 @@ export async function POST(req: NextRequest) {
     return apiError(error, "POST /api/clubs/claims", 400);
   }
 
+  // Notify all system admins about the new claim (fire-and-forget)
+  notifyAdminsOfClaim(supabase, {
+    claimerName: playerDetails?.display_name ?? user.email ?? "A user",
+    clubName: clubDetails?.name ?? "Unknown club",
+    clubCity: clubDetails?.city ?? null,
+    roleAtClub: role_at_club ?? null,
+    message: message ?? null,
+    claimId: data.id,
+  }).catch(console.error);
+
   return NextResponse.json({ claim: data }, { status: 201 });
+}
+
+async function notifyAdminsOfClaim(
+  supabase: Awaited<ReturnType<typeof import("@/lib/supabase/server").createClient>>,
+  opts: {
+    claimerName: string;
+    clubName: string;
+    clubCity: string | null;
+    roleAtClub: string | null;
+    message: string | null;
+    claimId: string;
+  }
+) {
+  const { data: adminPlayers } = await supabase
+    .from("players")
+    .select("user_id")
+    .eq("role", "admin");
+
+  if (!adminPlayers?.length) return;
+
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://lawnbowl.app";
+  const adminUrl = `${appUrl}/admin/claims/${opts.claimId}`;
+  const { subject, html } = clubClaimSubmittedEmail(
+    opts.claimerName,
+    opts.clubName,
+    opts.clubCity ?? "",
+    opts.roleAtClub,
+    opts.message,
+    adminUrl,
+  );
+
+  for (const admin of adminPlayers) {
+    const { data: authUser } = await supabase.auth.admin.getUserById(admin.user_id);
+    if (authUser.user?.email) {
+      await sendEmail({ to: authUser.user.email, subject, html });
+    }
+  }
 }
