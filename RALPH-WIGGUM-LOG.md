@@ -1,5 +1,160 @@
 # Ralph Wiggum Testing Log
 
+---
+
+## Run: 2026-04-06 — Gameplay Simulation Chaos Tests
+
+### Summary
+| Metric | Count |
+|--------|-------|
+| Total Cases | 18 |
+| Passed | 18 |
+| Failed | 0 |
+| Untested | 0 |
+| Regressions | 0 |
+
+### Test File
+`src/__tests__/gameplay-chaos.test.ts`
+
+---
+
+### RW-GP-01: Zero Players Check In
+- **Category:** Boundary
+- **Persona:** "The Empty Club" — no one shows up on a rainy Wednesday
+- **Flow:** Call `generateBowlsDraw([], "fours")`
+- **Expected:** Empty result (0 rinks, 0 unassigned), no crash
+- **Result:** PASSED — engine handles gracefully
+
+### RW-GP-02: Single Player in Fours
+- **Category:** Boundary
+- **Persona:** "The Lonely Bowler" — only one person checked in for a team sport
+- **Flow:** 1 player checks in, draw attempts fours format
+- **Expected:** 0 rinks, 1 unassigned player
+- **Result:** PASSED — player correctly marked as unassigned
+
+### RW-GP-03: All Players Want Skip Position
+- **Category:** Edge Case
+- **Persona:** "The Captain Convention" — 16 players all believe they should be skip
+- **Flow:** 16 players check in, all requesting "skip"
+- **Expected:** Draw still works, flexible pool reassigns positions
+- **Result:** PASSED — all 16 assigned across 2 rinks, no duplicates
+
+### RW-GP-04: Mismatched Score Arrays
+- **Category:** Error Handling
+- **Persona:** "The Typo Scorer" — enters 3 ends for team A but only 2 for team B
+- **Flow:** `calculateBowlsResult([3,2,1], [4,5])` — different array lengths
+- **Expected:** Throws descriptive error
+- **Result:** PASSED — "Score arrays must have equal length"
+
+### RW-GP-05: Empty Score Arrays
+- **Category:** Boundary
+- **Persona:** "The Cancelled Match" — match created but never played
+- **Flow:** Both score arrays empty `([], [])`
+- **Expected:** Zeroed totals, null winner, margin 0
+- **Result:** PASSED
+
+### RW-GP-06: Extreme ELO Gap (100 vs 3000)
+- **Category:** Chaos
+- **Persona:** "David vs Goliath" — absolute beginner beats a grandmaster
+- **Flow:** Underdog (100 ELO) beats favorite (3000 ELO) with 30-shot blowout
+- **Expected:** Both new ratings are finite numbers, underdog gains, favorite drops
+- **Result:** PASSED — no infinity/NaN, ratings adjust correctly
+
+### RW-GP-07: Draw with Equal Ratings
+- **Category:** Math Verification
+- **Persona:** "The Perfect Tie" — equal players, equal result
+- **Flow:** Two 1200-rated players draw with 0 shot differential
+- **Expected:** ELO change is negligible (< 1 point)
+- **Result:** PASSED — delta is essentially zero
+
+### RW-GP-08: Invalid Check-In Data
+- **Category:** Input Validation
+- **Persona:** "The Confused Tourist" — submits garbage check-in data
+- **Flow:** Missing player_id, missing tournament_id, invalid position "goalkeeper"
+- **Expected:** Each returns specific error message; valid request returns null
+- **Result:** PASSED — all validation messages correct
+
+### RW-GP-09: Invalid Check-In Source
+- **Category:** Input Validation
+- **Persona:** "The Hacker Kid" — tries checking in from "telegram"
+- **Flow:** Test all valid sources (kiosk, manual, app) and invalid ones
+- **Expected:** Only recognized sources accepted, case-sensitive
+- **Result:** PASSED — "KIOSK" (uppercase) correctly rejected
+
+### RW-GP-10: Gavel Draw with Wrong Format
+- **Category:** Error Handling
+- **Persona:** "The Format Fumbler" — selects Gavel draw but plays triples
+- **Flow:** `generateGavelDraw(checkins, "triples")`
+- **Expected:** Throws "Gavel Draw is only available for fours format"
+- **Result:** PASSED
+
+### RW-GP-11: Mead Draw with Singles
+- **Category:** Error Handling
+- **Persona:** "The Solo Mead Fan" — tries Mead rotation for singles
+- **Flow:** `generateMeadDraw(checkins, "singles")`
+- **Expected:** Throws "Mead Draw is not available for singles format"
+- **Result:** PASSED
+
+### RW-GP-12: Non-Finalized Scores Skipped
+- **Category:** Data Integrity
+- **Persona:** "The Premature Optimizer" — ratings calculated before match ends
+- **Flow:** Score with `is_finalized: false` passed to `calculateRatingUpdates`
+- **Expected:** Returns 0 updates
+- **Result:** PASSED — engine correctly skips draft scores
+
+### RW-GP-13: Season of All Draws
+- **Category:** Edge Case
+- **Persona:** "The Tied Tournament" — every match in a 5-round season is a draw
+- **Flow:** 5 identical draws between two players
+- **Expected:** Both players have 0 wins, 0 losses, 5 draws, 0 shot difference
+- **Result:** PASSED — standings perfectly symmetrical
+
+### RW-GP-14: Non-Finalized Results Excluded from Standings
+- **Category:** Data Integrity
+- **Persona:** "The Provisional Result" — result entered but not confirmed
+- **Flow:** Single non-finalized result passed to `buildStandings`
+- **Expected:** Returns empty standings
+- **Result:** PASSED
+
+### RW-GP-15: Single Elimination with 1 Player
+- **Category:** Boundary
+- **Persona:** "The Default Champion" — tournament with only one entrant
+- **Flow:** `generateSingleEliminationBracket(["p-solo"])`
+- **Expected:** 0 matches generated (no opponents)
+- **Result:** PASSED
+
+### RW-GP-16: Bye Handling in Odd-Player Draw
+- **Category:** Edge Case
+- **Persona:** "The Third Wheel" — 3 players in a singles draw
+- **Flow:** `generateSeededDraw(["p1","p2","p3"])` — one player gets a bye
+- **Expected:** 2 pairings (1 real, 1 bye), `handleBye` returns advancing player
+- **Result:** PASSED
+
+### RW-GP-17: Draw Compatibility Validation
+- **Category:** Validation
+- **Persona:** "The Incompatible Count" — wrong number of players for draw style
+- **Flow:** Test random/seeded (always compatible), mead/singles (incompatible), gavel/triples (incompatible)
+- **Expected:** Correct compatibility flags returned
+- **Result:** PASSED
+
+### RW-GP-18: Multiple Active Tournaments
+- **Category:** Edge Case
+- **Persona:** "The Double-Booked Club" — two tournaments running simultaneously
+- **Flow:** `autoSelectTournament([t1, t2])` and with empty array
+- **Expected:** Returns null (requires manual selection)
+- **Result:** PASSED
+
+---
+
+### Observations
+- The scoring engine handles empty/edge-case inputs gracefully without crashes
+- ELO calculations remain numerically stable even at extreme rating gaps (100 vs 3000)
+- Draw engines enforce format constraints with clear error messages
+- Validation functions properly reject all invalid input patterns
+- Non-finalized data is consistently excluded from both ratings and standings
+- No bugs were discovered — the gameplay engines are robust
+
+
 ## Run: 2026-03-12 — Team Assignment Engine & Player UX
 
 ### Summary
