@@ -172,7 +172,28 @@ serve(async (req: Request) => {
       playersUpdated++;
     }
 
-    // ── 6. Free the court ────────────────────────────────────────────
+    // ── 6. Archive match_players and restore player availability ────
+    const playerIdsToFree = matchPlayers.map((p) => p.player_id);
+
+    const { error: deletePlayersError } = await supabase
+      .from("match_players")
+      .delete()
+      .eq("match_id", match_id);
+
+    if (deletePlayersError) {
+      console.error("Failed to delete match_players:", deletePlayersError.message);
+    }
+
+    const { error: availError } = await supabase
+      .from("players")
+      .update({ is_available: true })
+      .in("id", playerIdsToFree);
+
+    if (availError) {
+      console.error("Failed to restore player availability:", availError.message);
+    }
+
+    // ── 7. Free the court ──────────────────────────────────────────
     if (match.court_id) {
       await supabase
         .from("courts")
@@ -216,7 +237,7 @@ serve(async (req: Request) => {
       }
     }
 
-    // ── 7. Create activity feed entry ────────────────────────────────
+    // ── 8. Create activity feed entry ────────────────────────────────
     const playerNames: string[] = [];
     for (const mp of matchPlayers) {
       const { data: player } = await supabase

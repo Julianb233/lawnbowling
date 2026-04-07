@@ -177,6 +177,25 @@ export async function completeMatch(matchId: string) {
     }
   }
 
+  // Archive match_players: delete records and restore player availability
+  if (matchPlayers) {
+    const playerIds = matchPlayers.map((mp) => mp.player_id);
+
+    const { error: deleteError } = await supabase
+      .from("match_players")
+      .delete()
+      .eq("match_id", matchId);
+
+    if (deleteError) throw deleteError;
+
+    const { error: availError } = await supabase
+      .from("players")
+      .update({ is_available: true })
+      .in("id", playerIds);
+
+    if (availError) throw availError;
+  }
+
   // Free up the court
   if (match.court_id) {
     const { error: courtError } = await supabase

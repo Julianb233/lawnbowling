@@ -27,10 +27,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Fetch match players BEFORE completing (completeMatch deletes match_players)
+    const { data: prePlayers } = await supabase
+      .from("match_players")
+      .select("player_id")
+      .eq("match_id", matchId);
+
     const match = await completeMatch(matchId);
 
     // Notify all match participants (fire-and-forget)
-    notifyMatchParticipants(supabase, matchId, match).catch(console.error);
+    notifyMatchParticipants(supabase, prePlayers ?? [], match).catch(console.error);
 
     return NextResponse.json({ match });
   } catch (error) {
@@ -41,10 +47,10 @@ export async function POST(request: NextRequest) {
 
 async function notifyMatchParticipants(
   supabase: Awaited<ReturnType<typeof import("@/lib/supabase/server").createClient>>,
-  matchId: string,
+  matchPlayers: { player_id: string }[],
   match: { sport?: string | null; ended_at?: string | null; court_id?: string | null } | null,
 ) {
-  if (!match) return;
+  if (!match || !matchPlayers?.length) return;
 
   let venueName: string | null = null;
   if (match.court_id) {
@@ -56,13 +62,6 @@ async function notifyMatchParticipants(
     const venue = (court as { venue?: { name?: string } } | null)?.venue;
     venueName = venue?.name ?? null;
   }
-
-  const { data: matchPlayers } = await supabase
-    .from("match_players")
-    .select("player_id")
-    .eq("match_id", matchId);
-
-  if (!matchPlayers?.length) return;
 
   const sport = match.sport ?? "lawn bowls";
   const completedAt = match.ended_at ?? new Date().toISOString();
