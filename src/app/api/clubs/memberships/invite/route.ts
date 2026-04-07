@@ -3,11 +3,14 @@ import { createClient } from "@/lib/supabase/server";
 import { requireClubRole } from "@/lib/club-auth";
 import type { ClubRole } from "@/lib/types";
 import { apiError } from "@/lib/api-error-handler";
+import { sendEmail } from "@/lib/email/send";
+import { clubInviteEmail } from "@/lib/email/templates/club-invite";
 
 /**
  * POST /api/clubs/memberships/invite
  * Generate an invite link for a club. Requires owner/admin/manager role.
- * Body: { club_id, role? }
+ * Body: { club_id, role?, email? }
+ * When email is provided, sends an invitation email to the invitee.
  */
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
@@ -19,7 +22,7 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const { club_id, role } = body as { club_id: string; role?: ClubRole };
+  const { club_id, role, email } = body as { club_id: string; role?: ClubRole; email?: string };
 
   if (!club_id) {
     return NextResponse.json({ error: "club_id is required" }, { status: 400 });
@@ -44,7 +47,7 @@ export async function POST(req: NextRequest) {
 
   const { data: currentPlayer } = await supabase
     .from("players")
-    .select("id")
+    .select("id, display_name")
     .eq("user_id", user.id)
     .single();
 
@@ -63,6 +66,30 @@ export async function POST(req: NextRequest) {
 
   if (error) {
     return apiError(error, "POST /api/clubs/memberships/invite", 400);
+  }
+
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://lawnbowl.app";
+  const inviteUrl = `${appUrl}/clubs/join/${inviteCode}`;
+
+  // Send invitation email if email address provided (fire-and-forget)
+  if (email) {
+    const { data: club } = await supabase
+      .from("clubs")
+      .select("name, slug")
+      .eq("id", club_id)
+      .single();
+
+    const inviterName = currentPlayer?.display_name ?? user.email ?? "A club member";
+    const clubName = club?.name ?? "a lawn bowling club";
+
+    const { subject, html } = clubInviteEmail(
+      email.split("@")[0],
+      clubName,
+      inviterName,
+      inviteUrl,
+    );
+
+    sendEmail({ to: email, subject, html }).catch(console.error);
   }
 
   return NextResponse.json({

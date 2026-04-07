@@ -1,11 +1,18 @@
-export function clubInviteEmail(
+export function matchResultEmail(
   playerName: string,
-  clubName: string,
-  inviterName: string,
-  inviteUrl: string,
+  sport: string,
+  venueName: string | null,
+  completedAt: string,
 ) {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://lawnbowl.app";
+  const date = new Date(completedAt).toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   return {
-    subject: `You are invited to join ${clubName}!`,
+    subject: `Your ${sport} match at ${venueName ?? "the club"} is complete`,
     html: `
 <!DOCTYPE html>
 <html>
@@ -16,17 +23,18 @@ export function clubInviteEmail(
       <h1 style="color:#22c55e;font-size:28px;margin:0">Lawnbowling</h1>
     </div>
     <div style="background:#18181b;border-radius:16px;padding:32px;border:1px solid #27272a">
-      <h2 style="color:#fafafa;font-size:22px;margin:0 0 16px">Club Invitation</h2>
+      <h2 style="color:#fafafa;font-size:22px;margin:0 0 16px">Match Complete</h2>
       <p style="color:#a1a1aa;font-size:16px;line-height:1.6;margin:0 0 20px">
-        Hey ${playerName}, <strong style="color:#fafafa">${inviterName}</strong> has invited you to join
-        <strong style="color:#22c55e">${clubName}</strong>.
+        Hey ${playerName}, your <strong style="color:#22c55e">${sport}</strong> match
+        ${venueName ? `at <strong style="color:#fafafa">${venueName}</strong>` : ""} on
+        <strong style="color:#fafafa">${date}</strong> has been marked complete.
       </p>
       <p style="color:#a1a1aa;font-size:14px;line-height:1.6;margin:0 0 24px">
-        Join the club to access member-only games, tournaments, and connect with fellow players in your area.
+        Your stats and match history have been updated. Check your profile to see your latest performance.
       </p>
-      <a href="${inviteUrl}"
+      <a href="${appUrl}/match-history"
          style="display:inline-block;background:#22c55e;color:#fff;text-decoration:none;padding:14px 28px;border-radius:10px;font-weight:600;font-size:16px">
-        Accept Invitation
+        View Match History
       </a>
     </div>
     <p style="color:#52525b;font-size:12px;text-align:center;margin-top:24px">
