@@ -25,7 +25,7 @@ export async function sendEmail({ to, subject, html }: SendEmailOptions) {
     return { success: false, error: "No API key configured" };
   }
 
-  const { error } = await resend.emails.send({
+  const { data, error } = await resend.emails.send({
     from: process.env.EMAIL_FROM || "Lawnbowling <noreply@lawnbowl.app>",
     to,
     subject,
@@ -37,5 +37,5 @@ export async function sendEmail({ to, subject, html }: SendEmailOptions) {
     return { success: false, error: error.message };
   }
 
-  return { success: true };
+  return { success: true, messageId: data?.id };
 }
