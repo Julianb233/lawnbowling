@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getAllSlugs } from "@/lib/shop/products";
+import { getProductCatalog } from "@/lib/shop/sync";
 import { ProductDetail } from "./ProductDetail";
 
 // ---------------------------------------------------------------------------
@@ -21,7 +22,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const catalog = await getProductCatalog();
+  const product = catalog.find((p) => p.slug === slug) ?? getProductBySlug(slug);
   if (!product) return { title: "Product Not Found" };
 
   return {
@@ -44,7 +46,8 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const catalog = await getProductCatalog();
+  const product = catalog.find((p) => p.slug === slug) ?? getProductBySlug(slug);
   if (!product) notFound();
 
   return <ProductDetail product={product} />;

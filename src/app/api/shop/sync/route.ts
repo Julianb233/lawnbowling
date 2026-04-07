@@ -17,7 +17,7 @@ export async function POST() {
       {
         success: false,
         error:
-          "Printify is not configured. Set PRINTIFY_API_TOKEN and PRINTIFY_SHOP_ID environment variables.",
+          "Printify is not configured. Set PRINTIFY_API_TOKEN (or PRINTIFY_API_KEY) and PRINTIFY_SHOP_ID environment variables.",
       },
       { status: 503 }
     );
