@@ -12,6 +12,7 @@ import {
   Settings,
   CreditCard,
   Calendar,
+  CalendarDays,
   ChevronRight,
   CheckCircle,
   AlertTriangle,
@@ -450,6 +451,13 @@ function ClubDashboardContent() {
               title="Club Chat"
               description="Group messages with your club"
               color="bg-teal-50 text-teal-600"
+            />
+            <QuickLink
+              href="/events"
+              icon={<CalendarDays className="h-5 w-5" />}
+              title="Event Calendar"
+              description="View and manage club events"
+              color="bg-emerald-50 text-emerald-600"
             />
             <QuickLink
               href="/schedule"
