@@ -9,7 +9,7 @@
 // Config
 // ---------------------------------------------------------------------------
 
-const PRINTIFY_API_KEY = process.env.PRINTIFY_API_KEY;
+const PRINTIFY_API_KEY = process.env.PRINTIFY_API_TOKEN ?? process.env.PRINTIFY_API_KEY;
 const PRINTIFY_SHOP_ID = process.env.PRINTIFY_SHOP_ID;
 const PRINTIFY_BASE = "https://api.printify.com/v1";
 

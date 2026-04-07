@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PRODUCTS, CATEGORIES, type ProductCategory } from "@/lib/shop/products";
+import { CATEGORIES, type ProductCategory, type Product } from "@/lib/shop/products";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { Shirt, Coffee, ShoppingBag, Star } from "lucide-react";
 
@@ -12,15 +12,15 @@ const iconMap: Record<string, React.ReactNode> = {
   ShoppingBag: <ShoppingBag className="size-4" />,
 };
 
-export function ShopCatalog() {
+export function ShopCatalog({ products }: { products: Product[] }) {
   const [activeCategory, setActiveCategory] = useState<
     ProductCategory | "all"
   >("all");
 
   const filtered =
     activeCategory === "all"
-      ? PRODUCTS
-      : PRODUCTS.filter((p) => p.category === activeCategory);
+      ? products
+      : products.filter((p) => p.category === activeCategory);
 
   return (
     <>
