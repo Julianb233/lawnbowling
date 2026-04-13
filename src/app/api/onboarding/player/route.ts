@@ -24,6 +24,16 @@ export async function POST(request: Request) {
     bowling_formats?: string[];
   };
 
+  // Normalize preferred_position to what the current DB check constraint accepts.
+  // Prod DB allows: lead, second, third, skip. UI offers: lead, second, vice, skip, any.
+  // "vice" and "third" are the same position — map accordingly.
+  const normalizedPosition = (() => {
+    const raw = body.preferred_position;
+    if (!raw || raw === "any") return null;
+    if (raw === "vice") return "third";
+    return raw;
+  })();
+
   const admin = createServiceClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -38,7 +48,7 @@ export async function POST(request: Request) {
       avatar_url: body.avatar_url ?? null,
       experience_level: body.experience_level,
       years_playing: body.years_playing ?? null,
-      preferred_position: body.preferred_position,
+      preferred_position: normalizedPosition,
       home_club_name: body.home_club_name ?? null,
       bowling_formats: body.bowling_formats ?? [],
       onboarding_completed: true,
