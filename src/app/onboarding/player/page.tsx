@@ -310,7 +310,22 @@ export default function PlayerOnboardingPage() {
           </p>
 
           <button
-            onClick={() => {
+            onClick={async () => {
+              try {
+                const res = await fetch("/api/auth/whoami", {
+                  credentials: "include",
+                  cache: "no-store",
+                });
+                const body = await res.text();
+                alert(
+                  "[v3] Pre-navigate whoami\nstatus: " +
+                    res.status +
+                    "\n" +
+                    body.slice(0, 180)
+                );
+              } catch (e) {
+                alert("[v3] whoami error: " + (e as Error).message);
+              }
               window.location.assign("/board");
             }}
             className="inline-flex items-center gap-2 rounded-2xl px-10 py-4 text-lg font-semibold text-white transition-colors"
