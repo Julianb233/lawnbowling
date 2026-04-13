@@ -45,6 +45,7 @@ export function CapacitorAuthHandler() {
         const next = url.searchParams.get("next") || "/board";
 
         if (!code) {
+          alert("[CapacitorAuth] No code in deep link: " + event.url);
           router.replace("/login?error=auth");
           return;
         }
@@ -53,6 +54,11 @@ export function CapacitorAuthHandler() {
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
         if (error || !data.user) {
+          alert(
+            "[CapacitorAuth] exchange failed:\n" +
+              (error ? `${error.name}: ${error.message}` : "no user returned") +
+              "\ncode=" + code.slice(0, 20) + "..."
+          );
           router.replace("/login?error=auth");
           return;
         }
