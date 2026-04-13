@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Mail, AlertTriangle, Loader2 } from "lucide-react";
 import bowlsIconImg from "@/../public/images/logo/bowls-icon.png";
+import { needsSystemBrowserOAuth, openOAuthInSystemBrowser } from "@/lib/capacitor/auth";
 
 /**
  * Map Supabase error messages to user-friendly text.
@@ -128,6 +129,12 @@ function LoginForm() {
   async function handleSocialLogin(provider: "google" | "apple") {
     setError(null);
     try {
+      if (needsSystemBrowserOAuth()) {
+        const errMsg = await openOAuthInSystemBrowser(supabase, provider, returnTo);
+        if (errMsg) setError(friendlyError(errMsg));
+        return;
+      }
+
       const { error: socialError } = await supabase.auth.signInWithOAuth({
         provider,
         options: {

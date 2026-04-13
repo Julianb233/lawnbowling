@@ -24,11 +24,11 @@ export async function GET(request: Request) {
         .single();
 
       if (!existingPlayer) {
-        await supabase.from("players").insert({
+        await supabase.from("players").upsert({
           user_id: data.user.id,
           display_name: data.user.user_metadata?.name || email?.split("@")[0] || "Player",
           role,
-        });
+        }, { onConflict: "user_id" });
         // New player — send them to onboarding
         return NextResponse.redirect(`${origin}/onboarding/player`);
       } else if (!existingPlayer.onboarding_completed) {
