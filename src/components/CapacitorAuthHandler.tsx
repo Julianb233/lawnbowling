@@ -65,19 +65,32 @@ export function CapacitorAuthHandler() {
 
         // Debug: verify cookies persist to server-side
         try {
-          const res = await fetch("/api/auth/whoami", {
+          const whoami = await fetch("/api/auth/whoami", {
             credentials: "include",
             cache: "no-store",
           });
-          const body = await res.text();
+          const whoamiBody = await whoami.text();
+
+          const boardRes = await fetch("/board", {
+            credentials: "include",
+            cache: "no-store",
+            redirect: "manual",
+          });
+
+          const onboRes = await fetch("/onboarding/player", {
+            credentials: "include",
+            cache: "no-store",
+            redirect: "manual",
+          });
+
           alert(
-            "[CapacitorAuth] /api/auth/whoami\nstatus: " +
-              res.status +
-              "\nbody: " +
-              body.slice(0, 200)
+            "whoami: " + whoami.status +
+            "\n" + whoamiBody.slice(0, 120) +
+            "\n\n/board: " + boardRes.status + " (type=" + boardRes.type + ")" +
+            "\n/onboarding/player: " + onboRes.status + " (type=" + onboRes.type + ")"
           );
         } catch (e) {
-          alert("[CapacitorAuth] whoami fetch error: " + (e as Error).message);
+          alert("[CapacitorAuth] debug fetch error: " + (e as Error).message);
         }
 
         const { data: existing } = await supabase
