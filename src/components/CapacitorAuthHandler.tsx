@@ -63,6 +63,18 @@ export function CapacitorAuthHandler() {
           return;
         }
 
+        // Debug: check if cookies actually got written
+        const cookieNames = document.cookie
+          .split(";")
+          .map((c) => c.trim().split("=")[0])
+          .filter((n) => n.startsWith("sb-"));
+        alert(
+          "[CapacitorAuth] exchange OK. user=" +
+            data.user.email +
+            "\nsb cookies: " +
+            (cookieNames.length > 0 ? cookieNames.join(", ") : "NONE")
+        );
+
         const { data: existing } = await supabase
           .from("players")
           .select("id, onboarding_completed")
