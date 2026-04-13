@@ -252,11 +252,10 @@ export default function PlayerOnboardingPage() {
 
     setSaving(false);
 
+    const body = await res.text();
+    alert("[onboarding] save result\nstatus: " + res.status + "\nbody: " + body.slice(0, 300));
+
     if (!res.ok) {
-      const body = await res.text();
-      alert(
-        "[onboarding] save failed\nstatus: " + res.status + "\n" + body.slice(0, 200),
-      );
       return;
     }
 

@@ -57,11 +57,18 @@ export function CapacitorAuthHandler() {
           return;
         }
 
-        const { data: existing } = await supabase
+        const { data: existing, error: existingErr } = await supabase
           .from("players")
           .select("id, onboarding_completed")
           .eq("user_id", data.user.id)
-          .single();
+          .maybeSingle();
+
+        alert(
+          "[CapacitorAuth] player lookup\n" +
+            "user_id: " + data.user.id.slice(0, 12) + "...\n" +
+            "existing: " + JSON.stringify(existing) + "\n" +
+            "error: " + (existingErr ? existingErr.message : "none")
+        );
 
         if (!existing) {
           await supabase.from("players").upsert({
