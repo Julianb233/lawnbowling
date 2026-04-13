@@ -233,7 +233,7 @@ export default function PlayerOnboardingPage() {
       ? clubResults.find((c) => c.id === selectedClub)?.name ?? null
       : null;
 
-    await supabase
+    const { error: updateErr } = await supabase
       .from("players")
       .update({
         display_name: displayName,
@@ -249,6 +249,19 @@ export default function PlayerOnboardingPage() {
       .eq("id", playerId);
 
     setSaving(false);
+
+    if (updateErr) {
+      alert(
+        "[onboarding] update failed:\n" +
+          updateErr.code +
+          ": " +
+          updateErr.message +
+          (updateErr.details ? "\ndetails: " + updateErr.details : "") +
+          (updateErr.hint ? "\nhint: " + updateErr.hint : "")
+      );
+      return;
+    }
+
     setCompleted(true);
   }
 
