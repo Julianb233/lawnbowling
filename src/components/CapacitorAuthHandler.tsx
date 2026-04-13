@@ -63,17 +63,22 @@ export function CapacitorAuthHandler() {
           return;
         }
 
-        // Debug: check if cookies actually got written
-        const cookieNames = document.cookie
-          .split(";")
-          .map((c) => c.trim().split("=")[0])
-          .filter((n) => n.startsWith("sb-"));
-        alert(
-          "[CapacitorAuth] exchange OK. user=" +
-            data.user.email +
-            "\nsb cookies: " +
-            (cookieNames.length > 0 ? cookieNames.join(", ") : "NONE")
-        );
+        // Debug: verify cookies persist to server-side
+        try {
+          const res = await fetch("/api/auth/whoami", {
+            credentials: "include",
+            cache: "no-store",
+          });
+          const body = await res.text();
+          alert(
+            "[CapacitorAuth] /api/auth/whoami\nstatus: " +
+              res.status +
+              "\nbody: " +
+              body.slice(0, 200)
+          );
+        } catch (e) {
+          alert("[CapacitorAuth] whoami fetch error: " + (e as Error).message);
+        }
 
         const { data: existing } = await supabase
           .from("players")
