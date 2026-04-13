@@ -233,9 +233,12 @@ export default function PlayerOnboardingPage() {
       ? clubResults.find((c) => c.id === selectedClub)?.name ?? null
       : null;
 
-    const { error: updateErr } = await supabase
-      .from("players")
-      .update({
+    const res = await fetch("/api/onboarding/player", {
+      method: "POST",
+      credentials: "include",
+      cache: "no-store",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
         display_name: displayName,
         bio: bio || null,
         avatar_url: finalAvatarUrl,
@@ -244,20 +247,15 @@ export default function PlayerOnboardingPage() {
         preferred_position: preferredPosition,
         home_club_name: clubName,
         bowling_formats: bowlingFormats,
-        onboarding_completed: true,
-      })
-      .eq("id", playerId);
+      }),
+    });
 
     setSaving(false);
 
-    if (updateErr) {
+    if (!res.ok) {
+      const body = await res.text();
       alert(
-        "[onboarding] update failed:\n" +
-          updateErr.code +
-          ": " +
-          updateErr.message +
-          (updateErr.details ? "\ndetails: " + updateErr.details : "") +
-          (updateErr.hint ? "\nhint: " + updateErr.hint : "")
+        "[onboarding] save failed\nstatus: " + res.status + "\n" + body.slice(0, 200),
       );
       return;
     }
