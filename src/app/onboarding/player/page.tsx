@@ -311,8 +311,7 @@ export default function PlayerOnboardingPage() {
 
           <button
             onClick={() => {
-              router.push("/");
-              router.refresh();
+              window.location.assign("/board");
             }}
             className="inline-flex items-center gap-2 rounded-2xl px-10 py-4 text-lg font-semibold text-white transition-colors"
             style={{ background: "#1B5E20", minHeight: 56 }}
@@ -849,8 +848,7 @@ export default function PlayerOnboardingPage() {
                     .update({ onboarding_completed: true })
                     .eq("id", playerId)
                     .then(() => {
-                      router.push("/");
-                      router.refresh();
+                      window.location.assign("/board");
                     });
                 }
               }}

@@ -45,7 +45,6 @@ export function CapacitorAuthHandler() {
         const next = url.searchParams.get("next") || "/board";
 
         if (!code) {
-          alert("[CapacitorAuth] No code in deep link: " + event.url);
           router.replace("/login?error=auth");
           return;
         }
@@ -54,43 +53,8 @@ export function CapacitorAuthHandler() {
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
         if (error || !data.user) {
-          alert(
-            "[CapacitorAuth] exchange failed:\n" +
-              (error ? `${error.name}: ${error.message}` : "no user returned") +
-              "\ncode=" + code.slice(0, 20) + "..."
-          );
           router.replace("/login?error=auth");
           return;
-        }
-
-        // Debug: verify cookies persist to server-side
-        try {
-          const whoami = await fetch("/api/auth/whoami", {
-            credentials: "include",
-            cache: "no-store",
-          });
-          const whoamiBody = await whoami.text();
-
-          const boardRes = await fetch("/board", {
-            credentials: "include",
-            cache: "no-store",
-            redirect: "manual",
-          });
-
-          const onboRes = await fetch("/onboarding/player", {
-            credentials: "include",
-            cache: "no-store",
-            redirect: "manual",
-          });
-
-          alert(
-            "whoami: " + whoami.status +
-            "\n" + whoamiBody.slice(0, 120) +
-            "\n\n/board: " + boardRes.status + " (type=" + boardRes.type + ")" +
-            "\n/onboarding/player: " + onboRes.status + " (type=" + onboRes.type + ")"
-          );
-        } catch (e) {
-          alert("[CapacitorAuth] debug fetch error: " + (e as Error).message);
         }
 
         const { data: existing } = await supabase
@@ -108,16 +72,16 @@ export function CapacitorAuthHandler() {
               "Player",
             role: "player",
           }, { onConflict: "user_id" });
-          router.replace("/onboarding/player");
+          window.location.assign("/onboarding/player");
           return;
         }
 
         if (!existing.onboarding_completed) {
-          router.replace("/onboarding/player");
+          window.location.assign("/onboarding/player");
           return;
         }
 
-        router.replace(next);
+        window.location.assign(next);
       });
 
       if (removed) handle.remove();
