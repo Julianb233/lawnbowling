@@ -20,27 +20,39 @@ export function CapacitorAuthHandler() {
 
     const supabase = createClient();
 
-    // On mount: try to restore a session from localStorage if the
-    // cookie jar is empty (classic WKWebView cookie-drop scenario).
+    let authSub: { subscription: { unsubscribe: () => void } } | null = null;
+
+    // On mount: try to restore a session from Capacitor Preferences (native
+    // UserDefaults) so it survives app kill + WKWebView data loss.
     (async () => {
       try {
+        const { Preferences } = await import("@capacitor/preferences");
+
+        // Subscribe to Supabase auth state changes so we mirror the session
+        // into Preferences on every sign-in / refresh / sign-out.
+        const sub = supabase.auth.onAuthStateChange(async (_event, session) => {
+          try {
+            if (session?.access_token && session?.refresh_token) {
+              await Preferences.set({
+                key: SESSION_STORAGE_KEY,
+                value: JSON.stringify({
+                  access_token: session.access_token,
+                  refresh_token: session.refresh_token,
+                }),
+              });
+            } else {
+              await Preferences.remove({ key: SESSION_STORAGE_KEY });
+            }
+          } catch {
+            /* no-op */
+          }
+        });
+        authSub = sub.data;
+
         const { data: current } = await supabase.auth.getSession();
-
-        const stored = localStorage.getItem(SESSION_STORAGE_KEY);
-        const cookieNames = document.cookie
-          .split(";")
-          .map((c) => c.trim().split("=")[0])
-          .filter((n) => n.startsWith("sb-"));
-
-        // Diagnostic — remove once auth is solid
-        alert(
-          "[mount] path=" + window.location.pathname +
-            "\nsession user: " + (current.session?.user?.email ?? "NONE") +
-            "\nlocalStorage: " + (stored ? "present" : "EMPTY") +
-            "\nsb cookies: " + (cookieNames.join(", ") || "none")
-        );
-
         if (current.session) return;
+
+        const { value: stored } = await Preferences.get({ key: SESSION_STORAGE_KEY });
         if (!stored) return;
 
         const parsed = JSON.parse(stored) as {
@@ -54,40 +66,16 @@ export function CapacitorAuthHandler() {
           refresh_token: parsed.refresh_token,
         });
 
-        alert(
-          "[restore] user: " + (restored?.user?.email ?? "NONE") +
-            "\nerror: " + (error?.message ?? "none")
-        );
-
         if (error) {
-          localStorage.removeItem(SESSION_STORAGE_KEY);
+          await Preferences.remove({ key: SESSION_STORAGE_KEY });
         } else if (restored?.user) {
-          // Session restored — reload current page so middleware sees the cookies
+          // Session restored — reload so the server sees the new cookies
           window.location.reload();
-        }
-      } catch (e) {
-        alert("[mount] exception: " + (e as Error).message);
-      }
-    })();
-
-    // Keep localStorage mirror in sync with every auth state change.
-    const { data: authSub } = supabase.auth.onAuthStateChange((_event, session) => {
-      try {
-        if (session?.access_token && session?.refresh_token) {
-          localStorage.setItem(
-            SESSION_STORAGE_KEY,
-            JSON.stringify({
-              access_token: session.access_token,
-              refresh_token: session.refresh_token,
-            }),
-          );
-        } else {
-          localStorage.removeItem(SESSION_STORAGE_KEY);
         }
       } catch {
         /* no-op */
       }
-    });
+    })();
 
     let removed = false;
 
