@@ -185,8 +185,11 @@ export function CapacitorAuthHandler() {
           return;
         }
 
-        debugLog("navigate " + next);
-        window.location.assign(next);
+        // User is already onboarded — ignore an "onboarding" next hint (that
+        // comes from the signup page hardcoding it) and go to the board.
+        const finalNext = next.startsWith("/onboarding") ? "/board" : next;
+        debugLog("navigate " + finalNext);
+        window.location.assign(finalNext);
       });
 
       if (removed) handle.remove();
