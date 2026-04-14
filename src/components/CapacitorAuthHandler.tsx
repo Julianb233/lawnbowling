@@ -18,6 +18,26 @@ export function CapacitorAuthHandler() {
   useEffect(() => {
     if (!needsSystemBrowserOAuth()) return;
 
+    // Diagnostic: on first mount in the Capacitor app, report whether a session already exists
+    (async () => {
+      try {
+        const supabase = createClient();
+        const { data: sess } = await supabase.auth.getSession();
+        const cookieNames = document.cookie
+          .split(";")
+          .map((c) => c.trim().split("=")[0])
+          .filter((n) => n.startsWith("sb-"));
+        alert(
+          "[mount] path=" + window.location.pathname +
+            "\nsession user: " + (sess.session?.user?.email ?? "NONE") +
+            "\nexpires_at: " + (sess.session?.expires_at ?? "-") +
+            "\nsb cookies: " + (cookieNames.join(", ") || "none")
+        );
+      } catch (e) {
+        alert("[mount] error: " + (e as Error).message);
+      }
+    })();
+
     let removed = false;
 
     async function setup() {
