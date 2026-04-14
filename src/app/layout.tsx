@@ -8,6 +8,7 @@ import { PushNotificationPrompt } from "@/components/push/PushNotificationPrompt
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { DesktopThemeToggle } from "@/components/DesktopThemeToggle";
 import { CapacitorAuthHandler } from "@/components/CapacitorAuthHandler";
+import { DebugLogOverlay } from "@/components/DebugLogOverlay";
 import "./globals.css";
 
 // Inline script to set dark class before first paint (REQ-DM-07)
@@ -106,6 +107,7 @@ export default function RootLayout({
           <div className="orb orb-purple" style={{ width: 200, height: 200, bottom: '40%', left: '60%' }} />
           {children}
           <CapacitorAuthHandler />
+          <DebugLogOverlay />
           <InstallPrompt />
           <IOSInstallGuide />
           <PushNotificationPrompt />

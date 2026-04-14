@@ -5,6 +5,20 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { needsSystemBrowserOAuth } from "@/lib/capacitor/auth";
 
+function debugLog(msg: string) {
+  try {
+    const key = "lb-debug-log";
+    const prev = localStorage.getItem(key) || "";
+    const entry = new Date().toISOString().slice(11, 19) + " " + msg;
+    const next = (prev + "\n" + entry).split("\n").slice(-20).join("\n");
+    localStorage.setItem(key, next);
+    // eslint-disable-next-line no-console
+    console.log("[lb-debug]", entry);
+  } catch {
+    /* no-op */
+  }
+}
+
 const SESSION_STORAGE_KEY = "lb-capacitor-session";
 
 /**
@@ -17,6 +31,8 @@ export function CapacitorAuthHandler() {
 
   useEffect(() => {
     if (!needsSystemBrowserOAuth()) return;
+
+    debugLog("mount path=" + window.location.pathname);
 
     const supabase = createClient();
 
@@ -84,10 +100,13 @@ export function CapacitorAuthHandler() {
       const { Browser } = await import("@capacitor/browser");
 
       const handle = await App.addListener("appUrlOpen", async (event) => {
+        debugLog("appUrlOpen url=" + event.url);
+
         let url: URL;
         try {
           url = new URL(event.url);
         } catch {
+          debugLog("appUrlOpen URL parse fail");
           return;
         }
 
@@ -104,16 +123,20 @@ export function CapacitorAuthHandler() {
         const next = url.searchParams.get("next") || "/board";
 
         if (!code) {
+          debugLog("no code in callback");
           router.replace("/login?error=auth");
           return;
         }
 
+        debugLog("exchange start code=" + code.slice(0, 8));
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
         if (error || !data.user || !data.session) {
+          debugLog("exchange FAIL: " + (error?.message || "no user"));
           router.replace("/login?error=auth");
           return;
         }
+        debugLog("exchange OK user=" + data.user.email);
 
         // Write the session to native Preferences IMMEDIATELY, before any
         // navigation. Don't rely on onAuthStateChange — timing is unreliable
@@ -137,6 +160,8 @@ export function CapacitorAuthHandler() {
           .eq("user_id", data.user.id)
           .maybeSingle();
 
+        debugLog("player existing=" + JSON.stringify(existing));
+
         if (!existing) {
           await supabase.from("players").upsert(
             {
@@ -149,15 +174,18 @@ export function CapacitorAuthHandler() {
             },
             { onConflict: "user_id" },
           );
+          debugLog("navigate /onboarding/player (new)");
           window.location.assign("/onboarding/player");
           return;
         }
 
         if (!existing.onboarding_completed) {
+          debugLog("navigate /onboarding/player (incomplete)");
           window.location.assign("/onboarding/player");
           return;
         }
 
+        debugLog("navigate " + next);
         window.location.assign(next);
       });
 
