@@ -233,12 +233,9 @@ export default function PlayerOnboardingPage() {
       ? clubResults.find((c) => c.id === selectedClub)?.name ?? null
       : null;
 
-    const res = await fetch("/api/onboarding/player", {
-      method: "POST",
-      credentials: "include",
-      cache: "no-store",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    const { data: updated, error: updateErr } = await supabase
+      .from("players")
+      .update({
         display_name: displayName,
         bio: bio || null,
         avatar_url: finalAvatarUrl,
@@ -247,15 +244,20 @@ export default function PlayerOnboardingPage() {
         preferred_position: preferredPosition,
         home_club_name: clubName,
         bowling_formats: bowlingFormats,
-      }),
-    });
+        onboarding_completed: true,
+      })
+      .eq("id", playerId)
+      .select("id, onboarding_completed")
+      .single();
 
     setSaving(false);
 
-    const body = await res.text();
-    alert("[onboarding] save result\nstatus: " + res.status + "\nbody: " + body.slice(0, 300));
-
-    if (!res.ok) {
+    if (updateErr || !updated?.onboarding_completed) {
+      alert(
+        "[onboarding] save failed\n" +
+          (updateErr ? updateErr.code + ": " + updateErr.message : "no row updated") +
+          "\nreturned: " + JSON.stringify(updated)
+      );
       return;
     }
 
