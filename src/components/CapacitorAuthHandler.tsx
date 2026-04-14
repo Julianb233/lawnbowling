@@ -110,9 +110,25 @@ export function CapacitorAuthHandler() {
 
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
-        if (error || !data.user) {
+        if (error || !data.user || !data.session) {
           router.replace("/login?error=auth");
           return;
+        }
+
+        // Write the session to native Preferences IMMEDIATELY, before any
+        // navigation. Don't rely on onAuthStateChange — timing is unreliable
+        // across the SFSafariViewController → deep link hand-off.
+        try {
+          const { Preferences: Prefs } = await import("@capacitor/preferences");
+          await Prefs.set({
+            key: SESSION_STORAGE_KEY,
+            value: JSON.stringify({
+              access_token: data.session.access_token,
+              refresh_token: data.session.refresh_token,
+            }),
+          });
+        } catch {
+          /* no-op */
         }
 
         const { data: existing } = await supabase
