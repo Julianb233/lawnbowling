@@ -25,9 +25,22 @@ export function CapacitorAuthHandler() {
     (async () => {
       try {
         const { data: current } = await supabase.auth.getSession();
-        if (current.session) return; // already have a session, nothing to restore
 
         const stored = localStorage.getItem(SESSION_STORAGE_KEY);
+        const cookieNames = document.cookie
+          .split(";")
+          .map((c) => c.trim().split("=")[0])
+          .filter((n) => n.startsWith("sb-"));
+
+        // Diagnostic — remove once auth is solid
+        alert(
+          "[mount] path=" + window.location.pathname +
+            "\nsession user: " + (current.session?.user?.email ?? "NONE") +
+            "\nlocalStorage: " + (stored ? "present" : "EMPTY") +
+            "\nsb cookies: " + (cookieNames.join(", ") || "none")
+        );
+
+        if (current.session) return;
         if (!stored) return;
 
         const parsed = JSON.parse(stored) as {
@@ -36,16 +49,24 @@ export function CapacitorAuthHandler() {
         };
         if (!parsed?.access_token || !parsed?.refresh_token) return;
 
-        const { error } = await supabase.auth.setSession({
+        const { data: restored, error } = await supabase.auth.setSession({
           access_token: parsed.access_token,
           refresh_token: parsed.refresh_token,
         });
+
+        alert(
+          "[restore] user: " + (restored?.user?.email ?? "NONE") +
+            "\nerror: " + (error?.message ?? "none")
+        );
+
         if (error) {
-          // refresh token likely expired; clear it so we don't keep trying
           localStorage.removeItem(SESSION_STORAGE_KEY);
+        } else if (restored?.user) {
+          // Session restored — reload current page so middleware sees the cookies
+          window.location.reload();
         }
-      } catch {
-        /* no-op */
+      } catch (e) {
+        alert("[mount] exception: " + (e as Error).message);
       }
     })();
 
