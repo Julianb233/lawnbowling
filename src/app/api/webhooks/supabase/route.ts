@@ -220,9 +220,10 @@ async function handleMatchCompleted(
   record: Record<string, unknown>,
   oldRecord: Record<string, unknown> | null
 ) {
-  // Only handle transitions to 'completed'
-  if (record.status !== "completed") return;
-  if (oldRecord && oldRecord.status === "completed") return;
+  // Only handle transitions to terminal statuses
+  const terminalStatuses = ["completed", "cancelled", "abandoned", "disputed"];
+  if (!terminalStatuses.includes(record.status as string)) return;
+  if (oldRecord && terminalStatuses.includes(oldRecord.status as string)) return;
 
   const matchId = record.id as string;
 

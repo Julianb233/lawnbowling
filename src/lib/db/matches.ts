@@ -102,7 +102,7 @@ export async function updateMatchStatus(id: string, status: MatchStatus, courtId
   if (status === "playing") {
     updates.started_at = new Date().toISOString();
     if (courtId) updates.court_id = courtId;
-  } else if (status === "completed") {
+  } else if (status === "completed" || status === "cancelled" || status === "abandoned") {
     updates.ended_at = new Date().toISOString();
   }
 
