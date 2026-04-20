@@ -44,6 +44,7 @@ import { VisitClubButton } from "@/components/clubs/VisitClubButton";
 import { VisitorCount } from "@/components/clubs/VisitorCount";
 import ClubEventCalendar from "@/components/clubs/ClubEventCalendar";
 import { ClubLogo, getClubCoverImage } from "@/components/clubs/ClubLogo";
+import { ShareButton } from "@/components/clubs/ShareButton";
 
 interface ClubPageProps {
   params: Promise<{ state: string; slug: string }>;
