@@ -117,7 +117,20 @@ function LoginForm() {
           return;
         }
 
-        router.push(returnTo);
+        // Check if user has MFA enrolled and needs verification
+        const { data: aalData } =
+          await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+        if (
+          aalData &&
+          aalData.currentLevel === "aal1" &&
+          aalData.nextLevel === "aal2"
+        ) {
+          router.push(
+            `/mfa-verify?returnTo=${encodeURIComponent(returnTo)}`
+          );
+        } else {
+          router.push(returnTo);
+        }
         router.refresh();
       } catch (err) {
         setError(friendlyError(err instanceof Error ? err.message : "Something went wrong."));

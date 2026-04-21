@@ -181,6 +181,18 @@ export async function POST(req: NextRequest) {
           }
         } catch (ratingErr) {
           console.error("Auto rating recalculation failed:", ratingErr);
+
+          // Log to rating_calculation_errors table so admins have visibility
+          const errObj = ratingErr instanceof Error ? ratingErr : new Error(String(ratingErr));
+          await supabase.from("rating_calculation_errors").insert({
+            tournament_id,
+            error_message: errObj.message,
+            error_stack: errObj.stack ?? null,
+            round: info.current_round,
+            player_count: null,
+          }).then(({ error: logErr }) => {
+            if (logErr) console.error("Failed to log rating error:", logErr);
+          });
         }
 
         newStatus = "results";

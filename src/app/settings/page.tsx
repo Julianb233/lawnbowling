@@ -6,6 +6,7 @@ import { ArrowLeft, LogOut, Save, Loader2 } from "lucide-react";
 import type { SkillLevel } from "@/lib/db/players";
 import type { NotificationPreferences } from "@/lib/types";
 import { NotificationSettings } from "@/components/settings/NotificationSettings";
+import { MfaEnrollment } from "@/components/settings/MfaEnrollment";
 import { MyVisitRequests } from "@/components/clubs/MyVisitRequests";
 import { BottomNav } from "@/components/board/BottomNav";
 
@@ -36,6 +37,7 @@ const DEFAULT_PREFS: NotificationPreferences = {
 interface PlayerData {
   display_name: string;
   skill_level: SkillLevel;
+  role?: string;
 }
 
 export default function SettingsPage() {
@@ -51,6 +53,7 @@ export default function SettingsPage() {
   const [skillLevel, setSkillLevel] = useState<SkillLevel>("beginner");
   const [notifPrefs, setNotifPrefs] =
     useState<NotificationPreferences>(DEFAULT_PREFS);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     async function loadData() {
@@ -69,6 +72,7 @@ export default function SettingsPage() {
         const player: PlayerData = await profileRes.json();
         setDisplayName(player.display_name);
         setSkillLevel(player.skill_level);
+        setIsAdmin(player.role === "admin");
 
         if (prefsRes.ok) {
           const prefs = await prefsRes.json();
@@ -245,6 +249,19 @@ export default function SettingsPage() {
             </h2>
             <MyVisitRequests />
           </div>
+
+          {/* Security Card (Admin only) */}
+          {isAdmin && (
+            <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-sm">
+              <h2
+                className="mb-4 text-lg font-bold"
+                style={{ fontFamily: "var(--font-display)", color: "#0A2E12" }}
+              >
+                Security
+              </h2>
+              <MfaEnrollment />
+            </div>
+          )}
 
           {/* Notification Preferences Card */}
           <div className="rounded-2xl border border-[#0A2E12]/10 bg-white p-6 shadow-sm">

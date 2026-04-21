@@ -17,6 +17,17 @@ export async function requireAdmin() {
 
   if (!player || player.role !== "admin") redirect("/");
 
+  // Check if admin has MFA enrolled — require AAL2 if so
+  const { data: aalData } =
+    await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+  if (
+    aalData &&
+    aalData.currentLevel === "aal1" &&
+    aalData.nextLevel === "aal2"
+  ) {
+    redirect("/mfa-verify?returnTo=/admin");
+  }
+
   return user;
 }
 
